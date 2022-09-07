@@ -1,0 +1,12 @@
+Подключите AddXXXService к классу AddXXXUIAction.
+Сделайте так, что бы AddXXXUIAction напрямую вызывал
+AddXXXService и не использовал lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database.
+
+У нас будет следующая связка:
+
+AddXXXUIAction -> AddXXXService -> lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database.
+
+AddXXXUIAction запрашивает все необходимые данные
+для создания объекта у пользователя и передаёт их
+в AddXXXService, AddXXXService создаёт экземпляр объекта
+и передаёт его базе данных для сохранения.

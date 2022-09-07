@@ -1,0 +1,2 @@
+Создайте интерфейс lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database и объявите методы для
+добавления объектов, удаления объектов, и получения списка объектов.

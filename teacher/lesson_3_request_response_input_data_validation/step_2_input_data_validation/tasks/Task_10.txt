@@ -1,0 +1,3 @@
+Вынести логику валидации входных данных из класса AddBookService
+в отдельный класс AddBookServiceValidator с методом:
+    public List<CoreError> validate(AddBookRequest request)

@@ -1,0 +1,8 @@
+В запросе SearchBooksRequest замените поля:
+
+  	private String orderBy;
+  	private String orderDirection;
+
+в которых указываются параметры сортировки на:
+
+    private Ordering ordering;

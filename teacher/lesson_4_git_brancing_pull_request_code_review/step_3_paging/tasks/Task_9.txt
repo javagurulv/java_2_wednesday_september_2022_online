@@ -1,0 +1,3 @@
+В классе SearchBooksUIAction реализуйте заполнение:
+
+    private Paging paging;

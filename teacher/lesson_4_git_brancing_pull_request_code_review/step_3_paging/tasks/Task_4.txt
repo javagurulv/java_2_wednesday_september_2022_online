@@ -1,0 +1,5 @@
+Напишите юнит тесты для логики валидации параметров
+класса SearchBooksRequest:
+    private Integer pageNumber;
+    private Integer pageSize;
+В тестах предусмотрите все возможные сценарии.

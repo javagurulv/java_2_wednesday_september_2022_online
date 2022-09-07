@@ -1,0 +1,9 @@
+Lesson 3 plan:
+
+1. Problem solving algorithm
+(Google -> Team -> Telegram Group -> Teacher)
+2. Gradle clean + build through IDEA configuration
+3. Event based applications
+4. Request/response model
+5. Input data validation
+6. Error response model

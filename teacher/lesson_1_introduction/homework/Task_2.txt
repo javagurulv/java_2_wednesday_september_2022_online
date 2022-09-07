@@ -1,0 +1,7 @@
+Убедитесь, что на вашем компьютере установлена последняя версия
+среды разработки (IntelliJ Idea Community Edition).
+
+Если это не так, то установите последнюю версию среды разработки
+(IntelliJ Idea Community Edition) на свой компьютер:
+
+https://www.jetbrains.com/idea/

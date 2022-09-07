@@ -1,0 +1,12 @@
+Lesson 2 plan:
+
+1. Single Responsibility principle (SRP) introduction
+2. SRP application - variables
+3. SRP application - methods
+4. SRP application - classes/interfaces
+5. SRP application - packages
+6. SRP application - application layers (UI/BL/DAL)
+    - User Interface
+    - Business Logic
+    - Data Access Layer
+

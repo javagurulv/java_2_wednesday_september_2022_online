@@ -1,0 +1,11 @@
+Lesson 1 plan:
+
+1. Introduction
+2. Course intro
+3. Projects
+4. Teams
+5. Git repo
+6. Gradle commands
+7. Agile processes
+8. Trello
+9. Homework (simple console app)

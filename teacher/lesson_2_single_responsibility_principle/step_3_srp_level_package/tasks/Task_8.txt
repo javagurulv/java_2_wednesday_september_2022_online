@@ -1,0 +1,11 @@
+Подключите UIAction классы к главному приложению.
+Для этого на данный момент можно создать статические поля:
+
+	private static lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database lv.javaguru.java2.realestate.core.database = new InMemoryDatabaseImpl();
+	private static UIAction addUIAction = new AddXXXUIAction(lv.javaguru.java2.realestate.core.database);
+	private static UIAction removeUIAction = new RemoveXXXUIAction(lv.javaguru.java2.realestate.core.database);
+	private static UIAction getAllUIAction = new GetAllXXXUIAction(lv.javaguru.java2.realestate.core.database);
+	private static UIAction exitUIAction = new ExitUIAction();
+
+и воспользуйтесь этими классами в коде приложения.
+Код перенесённый в UIAction классы нужно удалить из главного приложения.

@@ -1,0 +1,9 @@
+Переведите RemoveXXXUIAction и RemoveXXXService на использование
+RemoveXXXRequest и RemoveXXXResponse объектов.
+
+RemoveXXXUIAction должен создавать RemoveXXXRequest, заполнять его
+полученными от пользователя данными и передать в
+RemoveXXXService.execute() метод.
+
+RemoveXXXService.execute() обратно должен возвращать RemoveXXXResponse
+внутри которого должен быть заполнен признак был ли удалён объект или нет.

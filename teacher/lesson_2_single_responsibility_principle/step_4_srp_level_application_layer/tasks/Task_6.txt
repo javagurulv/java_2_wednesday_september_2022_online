@@ -1,0 +1,13 @@
+Подключите RemoveXXXService к классу RemoveXXXUIAction.
+Сделайте так, что бы RemoveXXXUIAction напрямую вызывал
+RemoveXXXService и не использовал lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database.
+
+У нас будет следующая связка:
+
+RemoveXXXUIAction -> RemoveXXXService -> lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database.
+
+RemoveXXXUIAction запрашивает все необходимые данные
+для удаления объекта у пользователя и передаёт их
+в RemoveXXXService, RemoveXXXService обращается в базу
+данных за поиском объекта который надо удалить и если объект
+будет найден даёт команду базе данных удалить этот объект.

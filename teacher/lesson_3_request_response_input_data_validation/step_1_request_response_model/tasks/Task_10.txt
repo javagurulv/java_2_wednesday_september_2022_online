@@ -1,0 +1,8 @@
+Переведите GetAllXXXUIAction и GetAllXXXService на использование
+GetAllXXXRequest и GetAllXXXResponse объектов.
+
+GetAllXXXUIAction должен создавать GetAllXXXRequest и передать в
+GetAllXXXService.execute() метод.
+
+GetAllXXXService.execute() обратно должен возвращать GetAllXXXResponse
+внутри которого должен быть список объектов.

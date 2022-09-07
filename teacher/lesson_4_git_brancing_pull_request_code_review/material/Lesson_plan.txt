@@ -1,0 +1,15 @@
+Lesson 4 plan:
+
+1. Team disputes, how to solve it,
+   ideal solution not exist,
+   team work always is a compromise,
+   sacrifice yourself for the team.
+
+2. Stand up meeting (agile practice).
+
+3. Git branches.
+
+4. Work with pull requests
+5. Code with me plugin presentation (from students)
+6. Team leadership
+7. User stories (agile practice)

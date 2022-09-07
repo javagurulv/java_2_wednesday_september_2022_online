@@ -1,0 +1,6 @@
+Создайте и реализуйте в базе данных метод:
+
+    List<Book> findByTitleAndAuthor(String title, String author);
+
+Метод должен быть объявлен в интерфейсе базы данных
+и реализлван в in memory реализации.

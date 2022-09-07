@@ -1,0 +1,16 @@
+User Story - это один из отличных agile инструментов, который
+применяется для фиксации требований заказчика к программному обеспечению.
+Познакомьтесь с user story:
+
+https://www.atlassian.com/agile/project-management/user-stories
+
+https://www.mountaingoatsoftware.com/agile/user-stories
+
+https://www.agilemodeling.com/artifacts/userStory.htm
+
+https://www.creitive.com/global/blog/user-stories-in-agile-project-management
+
+Попробуйте применить user stories в вашем проекте!
+Задокументируйте начальные требования к программному
+обеспечению, которое вы планируете разрабатывать, в
+виде user stories.
