@@ -10,8 +10,8 @@ subprojects {
 	apply plugin: 'idea'
 
 	version = '0.0.1-SNAPSHOT'
-	sourceCompatibility = 1.14
-	targetCompatibility = 1.14
+	sourceCompatibility = '17'
+	targetCompatibility = '17'
 
 	repositories {
 		mavenCentral()
