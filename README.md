@@ -1,1 +1,1 @@
-![build](https://github.com/javagurulv/courses_and_materials/JG/java_2_ru/actions/workflows/build.yaml/badge.svg)
+![build](https://github.com/javagurulv/java_2_wednesday_september_2022_online/actions/workflows/build.yaml/badge.svg)
