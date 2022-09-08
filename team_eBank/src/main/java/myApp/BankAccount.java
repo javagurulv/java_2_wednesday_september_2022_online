@@ -2,16 +2,17 @@ package myApp;
 
 import java.util.Objects;
 
-class BankAccount {
+public class BankAccount {
 
     private String name;
-    private double balance;
-    private int codeID;
+    private String surname;
+    private int balance;
+    private Long id;
 
-    public BankAccount(String name, double balance , int codeID) {
+    public BankAccount(String name, String surname, int balance) {
         this.name = name;
+        this.surname = surname;
         this.balance = balance;
-        this.codeID = codeID;
     }
 
     public String getName() {
@@ -22,36 +23,50 @@ class BankAccount {
         this.name = name;
     }
 
-    public double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 
-    public int getCodeID() {
-        return codeID;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodeID(int codeID) {
-        this.codeID = codeID;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BankAccount account = (BankAccount) o;
-        return Double.compare(account.balance, balance) == 0 && Objects.equals(name, account.name) && Objects.equals(codeID, account.codeID);
+        BankAccount that = (BankAccount) o;
+        return Double.compare(that.balance, balance) == 0 && Objects.equals(name, that.name) && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, balance, id);
     }
 
     @Override
     public String toString() {
-        return "BankAccount{" +
-                "name='" + name + '\'' +
-                ", balance=" + balance +
-                ", codeID=" + codeID +
-                '}';
+        return "BankAccount: " +
+                "name = '" + name + '\'' +
+                ", surname = '" + surname + '\'' +
+                ", balance = " + balance +
+                ", id = " + id +
+                ' ';
     }
 }
