@@ -1,4 +1,4 @@
-package myApp.database;
+package myApp.core.database;
 
 import myApp.BankAccount;
 
@@ -8,9 +8,9 @@ public interface DataBase {
 
     void addBankAccount(BankAccount bankAccount);
 
-    void deleteBankAccount(Long id);
+    boolean deleteBankAccount(Long id);
 
     List<BankAccount> getAllBankAccounts();
 
-    void  bankTransfer(Long userID, int value, Long anotherAccountID);
+    boolean bankTransfer(Long userID, int value, Long anotherAccountID);
 }

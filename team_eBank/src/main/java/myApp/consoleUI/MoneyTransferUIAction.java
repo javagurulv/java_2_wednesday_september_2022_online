@@ -1,15 +1,17 @@
 package myApp.consoleUI;
 
-import myApp.database.DataBase;
-import myApp.services.MoneyTransferService;
+import myApp.core.database.DataBase;
+import myApp.core.requests.MoneyTransferRequest;
+import myApp.core.responses.MoneyTransferResponse;
+import myApp.core.services.MoneyTransferService;
 
 import java.util.Scanner;
 
 public class MoneyTransferUIAction implements UIAction {
 
     private MoneyTransferService service;
-    public MoneyTransferUIAction(DataBase dataBase) {
-        service = new MoneyTransferService(dataBase);
+    public MoneyTransferUIAction(MoneyTransferService service) {
+        this.service = service;
     }
 
     @Override
@@ -21,8 +23,16 @@ public class MoneyTransferUIAction implements UIAction {
         int amount = scanner.nextInt();
         System.out.println("Enter the account id to whom you want to make a transfer: ");
         Long anotherAccountID = scanner.nextLong();
-        service.execute(accountID, amount, anotherAccountID);
-        System.out.println("Transaction has been made");
+        MoneyTransferRequest request = new MoneyTransferRequest(accountID, amount, anotherAccountID);
+        MoneyTransferResponse response = service.execute(request);
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError -> System.out.println("Error: "
+                    + coreError.getField() + " " + coreError.getMessage()));
+        } else if (response.isTransactionSucceed()) {
+            System.out.println("Transaction completed successfully");
+        } else {
+            System.out.println("Transaction not perfect");
+        }
     }
 
 }

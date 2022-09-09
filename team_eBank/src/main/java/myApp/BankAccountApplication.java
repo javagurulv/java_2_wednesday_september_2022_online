@@ -1,22 +1,31 @@
 package myApp;
 
 import myApp.consoleUI.*;
-import myApp.database.DataBase;
-import myApp.database.InMemoryDatabaseImpl;
+import myApp.core.database.DataBase;
+import myApp.core.database.InMemoryDatabaseImpl;
+import myApp.core.services.*;
 
 import java.util.Scanner;
 
 class BankAccountApplication {
 
     private static DataBase dataBase = new InMemoryDatabaseImpl();
-    private static UIAction addUIAction = new AddBankAccountUIAction(dataBase);
-    private static UIAction removeUIAction = new RemoveBankAccountUIAction(dataBase);
+    private static AddBankAccountValidator validator = new AddBankAccountValidator();
+    private static AddBankAccountService service = new AddBankAccountService(dataBase, validator);
+    private static UIAction addUIAction = new AddBankAccountUIAction(service);
+    private static RemoveBankAccountValidator removeBankAccountValidator = new RemoveBankAccountValidator();
+    private static RemoveBankAccountService removeBankAccountService = new RemoveBankAccountService(dataBase
+            , removeBankAccountValidator);
+    private static UIAction removeUIAction = new RemoveBankAccountUIAction(removeBankAccountService);
     private static UIAction getAllAccountsUIAction = new GetAllAccountsUIAction(dataBase);
-    private static UIAction moneyTransfer = new MoneyTransferUIAction(dataBase);
+    private static MoneyTransferValidator moneyTransferValidator = new MoneyTransferValidator();
+    private static MoneyTransferService moneyTransferService = new MoneyTransferService(dataBase
+            , moneyTransferValidator);
+    private static UIAction moneyTransfer = new MoneyTransferUIAction(moneyTransferService);
     private static UIAction exit = new ExitUIAction();
 
     public static void main(String[] args) {
-        while(true) {
+        while (true) {
             printInformation();
             int result = userChoice();
             userSelectionResult(result);
@@ -32,6 +41,7 @@ class BankAccountApplication {
         System.out.println("4 - Transfer money");
         System.out.println("5 - Exit");
     }
+
     private static void userSelectionResult(int userChoice) {
         switch (userChoice) {
             case 1 -> getAllAccountsUIAction.execute();
