@@ -41,23 +41,12 @@
 /teacher/lesson_16_liquibase/build/
 
 
-/team_retarded/build/
-/team_static_startup/build/
-/team_no_name_no_problem/build/
-/team_beauty_will_save_the_world/build/
-/team_VK/build/
-/team_vv/build/
-/team_dog/build/
-/team_triple_force/build/
-/team_lg/build/
-/team_healthy_tooth/build/
-/team_eStore/build/
-/team_abc/build/
-/team_ticket_service/build/
-/team_rj/build/
-/team_temptation/build/
-/team_VSB/build/
-/team_marx/build/
+/team_eBank/build/
+/team_eBank/out/
+/team_clean_sour_cream/build/
+/team_clean_sour_cream/out/
+/team_xxx/build/
+/team_xxx/out/
 
 
 /teacher/lesson_1_introduction/out/
@@ -76,22 +65,3 @@
 /teacher/lesson_14_restfull_api/out/
 /teacher/lesson_15_jpa_repositories/out/
 /teacher/lesson_16_liquibase/out/
-
-
-/team_retarded/out/
-/team_static_startup/out/
-/team_no_name_no_problem/out/
-/team_beauty_will_save_the_world/out/
-/team_VK/out/
-/team_vv/out/
-/team_dog/out/
-/team_triple_force/out/
-/team_lg/out/
-/team_healthy_tooth/out/
-/team_eStore/out/
-/team_abc/out/
-/team_ticket_service/out/
-/team_rj/out/
-/team_temptation/out/
-/team_VSB/out/
-/team_marx/out/
