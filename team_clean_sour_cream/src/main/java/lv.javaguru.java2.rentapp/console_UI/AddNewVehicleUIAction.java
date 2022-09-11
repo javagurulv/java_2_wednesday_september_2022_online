@@ -8,16 +8,21 @@ import java.util.Scanner;
 public class AddNewVehicleUIAction implements UIAction {
 
     private Database database;
-    private int chosenVehicleType;
-    public AddNewVehicleUIAction(Database vehiclesDB, int chosenVehicleType) {
-        this.chosenVehicleType = chosenVehicleType;
+    public AddNewVehicleUIAction(Database vehiclesDB) {
         this.database = vehiclesDB;
     }
 
     @Override
     public void execute() {
-
         Scanner scanner = new Scanner(System.in);
+        System.out.println("""
+                Choose vehicle type to add
+                1. Passenger Car
+                2. Mini Bus
+                3. Motorcycle
+                4. Car Trailer""");
+        int userChoice = Integer.parseInt(scanner.nextLine());
+
         System.out.println("Enter brand: ");
         String brand = scanner.nextLine();
         System.out.println("Enter model: ");
@@ -35,7 +40,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter transmission type: (Manual, Automatic, None) ");
         String transmissionType = scanner.nextLine();
 
-        if (chosenVehicleType == 1) {
+        if (userChoice == 1) {
             System.out.println("Enter passenger amount: ");
             int passengerAmount = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter baggage amount: ");
@@ -50,7 +55,7 @@ public class AddNewVehicleUIAction implements UIAction {
             database.addNewVehicle(passengerCar);
             System.out.println("Your vehicle was added to list.");
 
-        } else if (chosenVehicleType == 2) {
+        } else if (userChoice == 2) {
             System.out.println("Enter passenger amount: ");
             int passengerAmount = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter baggage amount: ");
@@ -65,14 +70,14 @@ public class AddNewVehicleUIAction implements UIAction {
             database.addNewVehicle(miniBus);
             System.out.println("Your vehicle was added to list.");
 
-        } else if (chosenVehicleType == 3) {
+        } else if (userChoice == 3) {
             System.out.println("Enter passenger amount: ");
             int passengerAmount = Integer.parseInt(scanner.nextLine());
             Vehicle motorcycle = new Motorcycle(brand, model, false, year, color, price, engineType, plateNumber, transmissionType, passengerAmount);
             database.addNewVehicle(motorcycle);
             System.out.println("Your vehicle was added to list.");
 
-        } else if (chosenVehicleType == 4) {
+        } else if (userChoice == 4) {
             System.out.println("Enter deck width in cm: ");
             int deckWidthInCm = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter deck length in cm: ");
