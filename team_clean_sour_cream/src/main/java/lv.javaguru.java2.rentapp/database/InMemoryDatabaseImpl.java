@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lv.javaguru.java2.rentapp.Vehicle;
+import lv.javaguru.java2.rentapp.database.Database;
 
 import java.util.ArrayList;
 import java.util.List;

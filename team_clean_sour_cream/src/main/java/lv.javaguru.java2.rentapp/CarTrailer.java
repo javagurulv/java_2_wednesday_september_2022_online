@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-class CarTrailer extends Vehicle {
+public class CarTrailer extends Vehicle {
 
     private int deckWidthInCm;
     private int deckLengthInCm;
