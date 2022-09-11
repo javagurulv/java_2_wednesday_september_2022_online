@@ -4,22 +4,23 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lv.javaguru.java2.rentapp.Vehicle;
-import lv.javaguru.java2.rentapp.database.Database;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 public class InMemoryDatabaseImpl implements Database {
 
-    List<Vehicle> vehiclesDB = new ArrayList<>();
-    private Long id = 1L;
+    private Long nextId = 1L;
+    private List<Vehicle> vehiclesDB = new ArrayList<>();
+
     @Override
     public void addNewVehicle(Vehicle vehicle) {
-        vehicle.setId(id);
+        vehicle.setId(nextId);
         vehiclesDB.add(vehicle);
-        id++;
+        nextId++;
     }
 
     @Override
@@ -31,5 +32,4 @@ public class InMemoryDatabaseImpl implements Database {
     public List<Vehicle> getAllVehicles() {
         return vehiclesDB;
     }
-
 }

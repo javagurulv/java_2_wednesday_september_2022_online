@@ -8,19 +8,23 @@ import java.util.Scanner;
 public class AddNewVehicleUIAction implements UIAction {
 
     private Database database;
+
     public AddNewVehicleUIAction(Database vehiclesDB) {
         this.database = vehiclesDB;
     }
 
     @Override
     public void execute() {
+
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("""
                 Choose vehicle type to add
                 1. Passenger Car
                 2. Mini Bus
                 3. Motorcycle
                 4. Car Trailer""");
+
         int userChoice = Integer.parseInt(scanner.nextLine());
 
         System.out.println("Enter brand: ");
@@ -53,6 +57,7 @@ public class AddNewVehicleUIAction implements UIAction {
             Vehicle passengerCar = new PassengerCar(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
                     passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
             database.addNewVehicle(passengerCar);
+
             System.out.println("Your vehicle was added to list.");
 
         } else if (userChoice == 2) {
@@ -68,6 +73,7 @@ public class AddNewVehicleUIAction implements UIAction {
             Vehicle miniBus = new MiniBus(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
                     passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
             database.addNewVehicle(miniBus);
+
             System.out.println("Your vehicle was added to list.");
 
         } else if (userChoice == 3) {
@@ -75,6 +81,7 @@ public class AddNewVehicleUIAction implements UIAction {
             int passengerAmount = Integer.parseInt(scanner.nextLine());
             Vehicle motorcycle = new Motorcycle(brand, model, false, year, color, price, engineType, plateNumber, transmissionType, passengerAmount);
             database.addNewVehicle(motorcycle);
+
             System.out.println("Your vehicle was added to list.");
 
         } else if (userChoice == 4) {
@@ -91,6 +98,7 @@ public class AddNewVehicleUIAction implements UIAction {
             Vehicle carTrailer = new CarTrailer(brand, model, false, year, color, price, engineType, plateNumber, transmissionType,
                     deckWidthInCm, deckLengthInCm, deckHeightInCm, emptyWeightInKg, maxLoadWeightInKg);
             database.addNewVehicle(carTrailer);
+
             System.out.println("Your vehicle was added to list.");
         }
     }

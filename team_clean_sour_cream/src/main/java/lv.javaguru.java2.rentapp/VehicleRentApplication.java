@@ -8,7 +8,8 @@ import lv.javaguru.java2.rentapp.database.InMemoryDatabaseImpl;
 import java.util.Scanner;
 
 
-public class VehicleRentApplication {
+class VehicleRentApplication {
+
     private static Database vehicleDB = new InMemoryDatabaseImpl();
     private static UIAction addNewVehicleUIAction = new AddNewVehicleUIAction(vehicleDB);
 
@@ -20,6 +21,22 @@ public class VehicleRentApplication {
         }
     }
 
+    private static void printMainMenu() {
+        System.out.println();
+        System.out.println("Program menu:");
+        System.out.println("1. Add vehicle to list");
+        System.out.println("2. Delete vehicle from list by plate number");
+        System.out.println("3. Show all vehicles in the list");
+        System.out.println("4. Exit");
+        System.out.println();
+    }
+
+    private static int getUserChoice() {
+        System.out.println("Enter menu item number to execute:");
+        Scanner scanner = new Scanner(System.in);
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     private static void executeUserChoice(Database vehicleDB, int userChoice) {
         switch (userChoice) {
             case 1 -> addNewVehicleUIAction.execute();
@@ -27,12 +44,7 @@ public class VehicleRentApplication {
             case 3 -> showAllVehicles(vehicleDB);
             case 4 -> exitProgram();
         }
-        System.out.println("");
-    }
-
-    private static void exitProgram() {
-        System.out.println("Goodbye!");
-        System.exit(0);
+        System.out.println();
     }
 
     private static void showAllVehicles(Database database) {
@@ -55,20 +67,9 @@ public class VehicleRentApplication {
         System.out.println("Your vehicle was removed from list.");
     }
 
-
-    private static int getUserChoice() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter menu item number to execute:");
-        return Integer.parseInt(scanner.nextLine());
-    }
-
-    private static void printMainMenu() {
-        System.out.println("Program menu:");
-        System.out.println("1. Add vehicle to list");
-        System.out.println("2. Delete vehicle from list by plate number");
-        System.out.println("3. Show all vehicles in the list");
-        System.out.println("4. Exit");
-        System.out.println("");
+    private static void exitProgram() {
+        System.out.println("Goodbye!");
+        System.exit(0);
     }
 }
 
