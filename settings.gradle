@@ -13,7 +13,6 @@ include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_2_ordering'
 include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_3_paging'
 
 
-include 'team_xxx'
 include 'team_eBank'
 include 'team_clean_sour_cream'
 include 'team_internet_meme'
