@@ -1,5 +1,9 @@
 My Application - fitness app for fitness club
 
+Main idea: the fitness club want to grow up and ask to create app where client can go inside the gym with app and go outside. Offer a trainer,
+see the all schedule of trains, make own plan of training. Using app reserve the time of training,
+if he didn't check-in in time,automatically system cancel the reservation.
+
 Application requirements:
 1. New client should register in system with unique phone number and email.
 2. In application you can create your own lesson plan and create a list of activities with reminders.
@@ -11,4 +15,4 @@ Application requirements:
 8. All information about client plus information about being in the gym(profile)
 9. Many roles(administrator, couch, user,???premiumUser???
 10. Information about club, trainers
-11. IMPORTANT every client had his own club card with parameters
+11. Check in/ check out with app
