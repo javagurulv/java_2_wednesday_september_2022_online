@@ -3,9 +3,14 @@ package lv.javaguru.java2.atmapp.menuTemporary;
 import java.util.Scanner;
 
 class UI_Menu {
-    static AccountsTemp account = new AccountsTemp(); //it was my temporary class to test menu
 
-    public static void main(String[] args) {
+    private AccountsTemp account;
+
+	public UI_Menu() {
+		this.account = new AccountsTemp(); //it was my temporary class to test menu
+	}
+
+	public static void main(String[] args) {
         UI_Menu anotherTry = new UI_Menu();
         if (anotherTry.customerAuthorisation()) {
             operationMenu();
