@@ -1,16 +1,15 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.*;
-import lv.javaguru.java2.rentapp.database.Database;
-
+import lv.javaguru.java2.rentapp.services.AddNewVehicleService;
 import java.util.Scanner;
 
 public class AddNewVehicleUIAction implements UIAction {
 
-    private Database database;
+    private AddNewVehicleService addNewVehicleService;
 
-    public AddNewVehicleUIAction(Database vehiclesDB) {
-        this.database = vehiclesDB;
+    public AddNewVehicleUIAction(AddNewVehicleService addNewVehicleService) {
+        this.addNewVehicleService = addNewVehicleService;
     }
 
     @Override
@@ -56,7 +55,7 @@ public class AddNewVehicleUIAction implements UIAction {
 
             Vehicle passengerCar = new PassengerCar(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
                     passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
-            database.addNewVehicle(passengerCar);
+            addNewVehicleService.execute(passengerCar);
 
             System.out.println("Your vehicle was added to list.");
 
@@ -72,15 +71,16 @@ public class AddNewVehicleUIAction implements UIAction {
 
             Vehicle miniBus = new MiniBus(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
                     passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
-            database.addNewVehicle(miniBus);
+            addNewVehicleService.execute(miniBus);
 
             System.out.println("Your vehicle was added to list.");
 
         } else if (userChoice == 3) {
             System.out.println("Enter passenger amount: ");
             int passengerAmount = Integer.parseInt(scanner.nextLine());
+
             Vehicle motorcycle = new Motorcycle(brand, model, false, year, color, price, engineType, plateNumber, transmissionType, passengerAmount);
-            database.addNewVehicle(motorcycle);
+            addNewVehicleService.execute(motorcycle);
 
             System.out.println("Your vehicle was added to list.");
 
@@ -89,15 +89,16 @@ public class AddNewVehicleUIAction implements UIAction {
             int deckWidthInCm = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter deck length in cm: ");
             int deckLengthInCm = Integer.parseInt(scanner.nextLine());
-            System.out.println("Enter deck height in cm: ");
+            System.out.println("Enter deck  height in cm: ");
             int deckHeightInCm = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter trailer empty weight in kg: ");
             int emptyWeightInKg = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter trailer max load weight in kg: ");
             int maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
+
             Vehicle carTrailer = new CarTrailer(brand, model, false, year, color, price, engineType, plateNumber, transmissionType,
                     deckWidthInCm, deckLengthInCm, deckHeightInCm, emptyWeightInKg, maxLoadWeightInKg);
-            database.addNewVehicle(carTrailer);
+            addNewVehicleService.execute(carTrailer);
 
             System.out.println("Your vehicle was added to list.");
         }

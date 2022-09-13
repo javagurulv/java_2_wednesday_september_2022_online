@@ -1,23 +1,32 @@
 package lv.javaguru.java2.rentapp;
 
-import lv.javaguru.java2.rentapp.console_UI.AddNewVehicleUIAction;
-import lv.javaguru.java2.rentapp.console_UI.UIAction;
+import lv.javaguru.java2.rentapp.console_UI.*;
 import lv.javaguru.java2.rentapp.database.Database;
 import lv.javaguru.java2.rentapp.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.services.AddNewVehicleService;
+import lv.javaguru.java2.rentapp.services.DeleteVehicleByPlateNumberService;
+import lv.javaguru.java2.rentapp.services.ExitProgramService;
+import lv.javaguru.java2.rentapp.services.ShowAllVehiclesService;
 
 import java.util.Scanner;
-
 
 class VehicleRentApplication {
 
     private static Database vehicleDB = new InMemoryDatabaseImpl();
-    private static UIAction addNewVehicleUIAction = new AddNewVehicleUIAction(vehicleDB);
+    private static AddNewVehicleService addNewVehicleService = new AddNewVehicleService(vehicleDB);
+    private static DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(vehicleDB);
+    private static ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(vehicleDB);
+    private static ExitProgramService exitProgramService = new ExitProgramService();
+    private static UIAction addNewVehicleUIAction = new AddNewVehicleUIAction(addNewVehicleService);
+    private static UIAction deleteVehicleByPlateNumberUIAction = new DeleteVehicleByPlateNumberUIAction(deleteVehicleByPlateNumberService);
+    private static UIAction showAllVehicleUIAction = new ShowAllVehiclesUIAction(showAllVehiclesService);
+    private static UIAction exitProgramUIAction = new ExitProgramUIAction(exitProgramService);
 
     public static void main(String[] args) {
         while (true) {
             printMainMenu();
             int userChoice = getUserChoice();
-            executeUserChoice(vehicleDB, userChoice);
+            executeUserChoice(userChoice);
         }
     }
 
@@ -37,39 +46,14 @@ class VehicleRentApplication {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    private static void executeUserChoice(Database vehicleDB, int userChoice) {
+    private static void executeUserChoice(int userChoice) {
         switch (userChoice) {
             case 1 -> addNewVehicleUIAction.execute();
-            case 2 -> deleteVehicleByPlateNumber(vehicleDB);
-            case 3 -> showAllVehicles(vehicleDB);
-            case 4 -> exitProgram();
+            case 2 -> deleteVehicleByPlateNumberUIAction.execute();
+            case 3 -> showAllVehicleUIAction.execute();
+            case 4 -> exitProgramUIAction.execute();
         }
         System.out.println();
-    }
-
-    private static void showAllVehicles(Database database) {
-        System.out.println("All vehicle list: ");
-        database.getAllVehicles().forEach(System.out::println);
-        System.out.println("end of list.");
-    }
-
-    private static void deleteVehicleByPlateNumber(Database database) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Available are:");
-
-        database.getAllVehicles().stream()
-                .map(Vehicle::getPlateNumber)
-                .forEach(System.out::println);
-
-        System.out.println("Enter vehicle plate number to delete.");
-        String plateNumberToDelete = scanner.nextLine();
-        database.deleteVehicleByPlateNumber(plateNumberToDelete);
-        System.out.println("Your vehicle was removed from list.");
-    }
-
-    private static void exitProgram() {
-        System.out.println("Goodbye!");
-        System.exit(0);
     }
 }
 
