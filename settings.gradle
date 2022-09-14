@@ -20,3 +20,6 @@ include 'team_eBooking'
 include 'team_fitness_club'
 include 'team_atm_system'
 include 'team_repo_men_inc'
+include 'team_tasks_scheduler'
+
+
