@@ -40,6 +40,7 @@ class BankAccountApplication {
         System.out.println("3 - Remove account");
         System.out.println("4 - Transfer money");
         System.out.println("5 - Exit");
+
     }
 
     private static void userSelectionResult(int userChoice) {
