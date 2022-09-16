@@ -4,6 +4,7 @@ import lv.javaguru.java2.cookingApp.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class InMemoryDatabaseImpl implements Database {
@@ -18,8 +19,16 @@ public class InMemoryDatabaseImpl implements Database {
     }
 
     @Override
-    public void deleteById(Long id) {
-        recipes.removeIf(recipe -> id.equals(recipe.getId()));
+    public boolean deleteById(Long id) {
+        boolean isRecipeDeleted = false;
+        Optional<Recipe> recipeToDeleteOpt = recipes.stream()
+                .filter(recipe -> recipe.getId().equals(id))
+                .findFirst();
+        if (recipeToDeleteOpt.isPresent()) {
+            Recipe recipeToDelete = recipeToDeleteOpt.get();
+            isRecipeDeleted = recipes.remove(recipeToDelete);
+        }
+        return isRecipeDeleted;
     }
 
     @Override

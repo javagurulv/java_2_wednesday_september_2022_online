@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface Database {
     void save(Recipe recipe);
-    void deleteById(Long id);
+    boolean deleteById(Long id);
     Recipe getById(Long id);
     List<Recipe> getAllRecipes();
 }
