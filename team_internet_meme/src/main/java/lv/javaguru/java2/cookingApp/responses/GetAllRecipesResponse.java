@@ -1,7 +1,7 @@
 package lv.javaguru.java2.cookingApp.responses;
 
 import lombok.Getter;
-import lv.javaguru.java2.cookingApp.Recipe;
+import lv.javaguru.java2.cookingApp.domain.Recipe;
 
 import java.util.List;
 

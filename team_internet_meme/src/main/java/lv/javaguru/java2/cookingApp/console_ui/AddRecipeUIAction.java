@@ -1,10 +1,9 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
-import lv.javaguru.java2.cookingApp.CookingStep;
-import lv.javaguru.java2.cookingApp.Ingredient;
+import lv.javaguru.java2.cookingApp.domain.CookingStep;
+import lv.javaguru.java2.cookingApp.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.responses.AddRecipeResponse;
-import lv.javaguru.java2.cookingApp.responses.CoreError;
 import lv.javaguru.java2.cookingApp.services.AddRecipeService;
 
 import java.util.ArrayList;

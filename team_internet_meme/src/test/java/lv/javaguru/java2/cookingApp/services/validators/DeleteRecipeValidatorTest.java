@@ -1,14 +1,10 @@
 package lv.javaguru.java2.cookingApp.services.validators;
 
-import lv.javaguru.java2.cookingApp.CookingStep;
-import lv.javaguru.java2.cookingApp.Ingredient;
-import lv.javaguru.java2.cookingApp.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.requests.DeleteRecipeRequest;
 import lv.javaguru.java2.cookingApp.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

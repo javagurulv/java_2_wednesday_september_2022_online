@@ -1,6 +1,6 @@
 package lv.javaguru.java2.cookingApp.database;
 
-import lv.javaguru.java2.cookingApp.Recipe;
+import lv.javaguru.java2.cookingApp.domain.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

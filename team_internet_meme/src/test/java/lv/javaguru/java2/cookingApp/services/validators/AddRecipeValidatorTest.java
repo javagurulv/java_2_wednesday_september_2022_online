@@ -1,7 +1,7 @@
 package lv.javaguru.java2.cookingApp.services.validators;
 
-import lv.javaguru.java2.cookingApp.CookingStep;
-import lv.javaguru.java2.cookingApp.Ingredient;
+import lv.javaguru.java2.cookingApp.domain.CookingStep;
+import lv.javaguru.java2.cookingApp.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;

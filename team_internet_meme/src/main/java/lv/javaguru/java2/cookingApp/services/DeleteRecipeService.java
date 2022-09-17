@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DeleteRecipeService {
     private Database database;
-    private DeleteRecipeValidator validator;
+    private DeleteRecipeValidator validator = new DeleteRecipeValidator();
 
     public DeleteRecipeService(Database database) {
         this.database = database;

@@ -1,8 +1,8 @@
 package lv.javaguru.java2.cookingApp.requests;
 
 import lombok.Getter;
-import lv.javaguru.java2.cookingApp.CookingStep;
-import lv.javaguru.java2.cookingApp.Ingredient;
+import lv.javaguru.java2.cookingApp.domain.CookingStep;
+import lv.javaguru.java2.cookingApp.domain.Ingredient;
 
 import java.util.List;
 

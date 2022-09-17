@@ -1,6 +1,5 @@
-package lv.javaguru.java2.cookingApp;
+package lv.javaguru.java2.cookingApp.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

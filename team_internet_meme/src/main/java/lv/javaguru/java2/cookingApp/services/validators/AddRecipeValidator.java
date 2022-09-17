@@ -1,7 +1,6 @@
 package lv.javaguru.java2.cookingApp.services.validators;
 
 
-import lv.javaguru.java2.cookingApp.Ingredient;
 import lv.javaguru.java2.cookingApp.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.responses.CoreError;
 

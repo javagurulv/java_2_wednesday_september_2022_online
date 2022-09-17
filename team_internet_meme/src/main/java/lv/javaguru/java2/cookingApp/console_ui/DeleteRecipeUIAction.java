@@ -23,6 +23,8 @@ public class DeleteRecipeUIAction implements UIAction {
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error " + coreError.getField() + " "
                     + coreError.getMessage()));
+        } else if (!response.isRecipeDeleted()) {
+            System.out.println("Recipe has not been found");
         } else {
             System.out.println("Recipe has been deleted");
         }
