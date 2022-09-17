@@ -1,8 +1,11 @@
-package lv.javaguru.java2.rentapp;
+package lv.javaguru.java2.rentapp.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lv.javaguru.java2.rentapp.enums.Colour;
+import lv.javaguru.java2.rentapp.enums.EngineType;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 @Getter
 @Setter

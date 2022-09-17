@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
-import lv.javaguru.java2.rentapp.*;
+import lv.javaguru.java2.rentapp.domain.*;
 import lv.javaguru.java2.rentapp.services.AddNewVehicleService;
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp;
+package lv.javaguru.java2.rentapp.enums;
 
 public enum TransmissionType {
 
