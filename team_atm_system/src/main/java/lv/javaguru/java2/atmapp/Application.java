@@ -17,6 +17,7 @@ class Application {
             System.out.println("1) Deposit");
             System.out.println("2) Withdraw");
             System.out.println("3) Balance");
+            //Todo 5) Payment another account
             System.out.println("4) Exit  ");
             int user = scanner.nextInt();
             if (user >= 5) {
