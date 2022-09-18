@@ -3,17 +3,18 @@ package lv.javaguru.java2.atmapp.menuTemporary;
 import java.util.ArrayList;
 import java.util.List;
 
-class AccountsTemp {
+public class AccountsTemp {
 
+    //    private static ArrayList<String> accounts = new ArrayList<>();
     private List<String> accounts = new ArrayList<>();
 
     public AccountsTemp() {
-		accounts.add("Fenriz");
-		accounts.add("Nocturno");
-		accounts.add("Abbath");
-	}
+        accounts.add("ivan");
+        accounts.add("Abbath");
+        accounts.add("Cvlto");
+    }
 
-    boolean isExist(String name) {
+    public boolean isExist(String name) {
         return accounts.contains(name);
     }
 
