@@ -11,7 +11,6 @@ public class AddNewVehicleUIAction implements UIAction {
 
     public AddNewVehicleUIAction(AddVehicleServiceMap serviceMap) {
         this.serviceMap = serviceMap;
-
     }
 
     @Override

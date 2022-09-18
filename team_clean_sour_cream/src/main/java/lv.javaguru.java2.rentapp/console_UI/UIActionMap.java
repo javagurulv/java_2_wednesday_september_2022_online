@@ -23,7 +23,7 @@ public class UIActionMap {
 
     public UIActionMap() {
         uiActionMap = new HashMap<>();
-        uiActionMap.put(1, new AddNewVehicleUIAction(addNewVehicleService));
+        uiActionMap.put(1, new AddNewVehicleUIAction(addVehicleServiceMap));
         uiActionMap.put(2, new DeleteVehicleByPlateNumberUIAction(deleteVehicleByPlateNumberService));
         uiActionMap.put(3, new ShowAllVehiclesUIAction(showAllVehiclesService));
         uiActionMap.put(4, new ExitProgramUIAction(exitProgramService));
