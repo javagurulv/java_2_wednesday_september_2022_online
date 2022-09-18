@@ -14,7 +14,13 @@ public class AddPassengerCarService extends AddNewVehicleService{
 
     @Override
     public AddVehicleResponse execute(AddVehicleRequest request) {
-        Vehicle passengerCar = new PassengerCar(request.getBrand(), request.getModel(), )
-        return null;
+        Vehicle passengerCar = new PassengerCar(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+                request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
+                request.getPlateNumber(), request.getTransmissionType(), request.getPassengerAmount(), request.getBaggageAmount(),
+                request.getDoorsAmount(), request.isAirConditioningAvailable());
+        database.addNewVehicle(passengerCar);
+        return new AddVehicleResponse(passengerCar);
     }
+
 }
+
