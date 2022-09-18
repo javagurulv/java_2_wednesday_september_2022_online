@@ -12,15 +12,7 @@ import java.util.Scanner;
 
 class VehicleRentApplication {
 
-    private static Database vehicleDB = new InMemoryDatabaseImpl();
-    private static AddNewVehicleService addNewVehicleService = new AddNewVehicleService(vehicleDB);
-    private static DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(vehicleDB);
-    private static ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(vehicleDB);
-    private static ExitProgramService exitProgramService = new ExitProgramService();
-    private static UIAction addNewVehicleUIAction = new AddNewVehicleUIAction(addNewVehicleService);
-    private static UIAction deleteVehicleByPlateNumberUIAction = new DeleteVehicleByPlateNumberUIAction(deleteVehicleByPlateNumberService);
-    private static UIAction showAllVehicleUIAction = new ShowAllVehiclesUIAction(showAllVehiclesService);
-    private static UIAction exitProgramUIAction = new ExitProgramUIAction(exitProgramService);
+    private static UIActionMap uiActionMap = new UIActionMap();
 
     public static void main(String[] args) {
         while (true) {
@@ -47,12 +39,7 @@ class VehicleRentApplication {
     }
 
     private static void executeUserChoice(int userChoice) {
-        switch (userChoice) {
-            case 1 -> addNewVehicleUIAction.execute();
-            case 2 -> deleteVehicleByPlateNumberUIAction.execute();
-            case 3 -> showAllVehicleUIAction.execute();
-            case 4 -> exitProgramUIAction.execute();
-        }
+        uiActionMap.getAction(userChoice).execute();
         System.out.println();
     }
 }
