@@ -1,7 +1,7 @@
-package lv.javaguru.java2.rentapp.services;
+package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.domain.Vehicle;
-import lv.javaguru.java2.rentapp.database.Database;
+import lv.javaguru.java2.rentapp.core.database.Database;
 
 public class AddNewVehicleService {
 

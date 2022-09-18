@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.services;
+package lv.javaguru.java2.rentapp.core.services;
 
 public class ExitProgramService {
 

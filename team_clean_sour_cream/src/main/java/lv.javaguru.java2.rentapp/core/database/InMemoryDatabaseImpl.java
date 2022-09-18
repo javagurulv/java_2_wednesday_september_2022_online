@@ -1,12 +1,14 @@
-package lv.javaguru.java2.rentapp.database;
+package lv.javaguru.java2.rentapp.core.database;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -24,8 +26,16 @@ public class InMemoryDatabaseImpl implements Database {
     }
 
     @Override
-    public void deleteVehicleByPlateNumber(String plateNumber) {
-        vehiclesDB.removeIf(vehicle -> vehicle.getPlateNumber().equals(plateNumber));
+    public boolean deleteVehicleByPlateNumber(String plateNumber) {
+        boolean isVehicleDeleted = false;
+        Optional<Vehicle> vehicleToDeleteOpt = vehiclesDB.stream()
+                .filter(vehicle -> vehicle.getPlateNumber().equals(plateNumber))
+                .findFirst();
+        if (vehicleToDeleteOpt.isPresent()) {
+            Vehicle vehicleToDelete = vehicleToDeleteOpt.get();
+            isVehicleDeleted = vehiclesDB.remove(vehicleToDelete);
+        }
+        return isVehicleDeleted;
     }
 
     @Override

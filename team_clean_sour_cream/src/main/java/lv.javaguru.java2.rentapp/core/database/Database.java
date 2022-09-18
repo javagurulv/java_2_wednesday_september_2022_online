@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.database;
+package lv.javaguru.java2.rentapp.core.database;
 
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
@@ -8,7 +8,7 @@ public interface Database {
 
     void addNewVehicle(Vehicle vehicle);
 
-    void deleteVehicleByPlateNumber(String plateNumber);
+    boolean deleteVehicleByPlateNumber(String plateNumber);
 
     List<Vehicle> getAllVehicles();
 

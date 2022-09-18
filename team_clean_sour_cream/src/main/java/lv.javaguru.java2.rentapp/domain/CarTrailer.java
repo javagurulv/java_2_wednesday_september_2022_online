@@ -3,6 +3,9 @@ package lv.javaguru.java2.rentapp.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lv.javaguru.java2.rentapp.enums.Colour;
+import lv.javaguru.java2.rentapp.enums.EngineType;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 @Getter
 @Setter
@@ -15,7 +18,9 @@ public class CarTrailer extends Vehicle {
     private int emptyWeightInKg;
     private int maxLoadWeightInKg;
 
-    public CarTrailer(String brand, String model, boolean isAvailable, int yearOfProduction, String colour, double rentPricePerDay, String engineType, String plateNumber, String transmissionType, int deckWidthInCm, int deckLengthInCm, int deckHeightInCm, int emptyWeightInKg, int maxLoadWeightInKg) {
+    public CarTrailer(String brand, String model, boolean isAvailable, int yearOfProduction, Colour colour,
+                      double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
+                      int deckWidthInCm, int deckLengthInCm, int deckHeightInCm, int emptyWeightInKg, int maxLoadWeightInKg) {
         super(brand, model, isAvailable, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
         this.deckWidthInCm = deckWidthInCm;
         this.deckLengthInCm = deckLengthInCm;

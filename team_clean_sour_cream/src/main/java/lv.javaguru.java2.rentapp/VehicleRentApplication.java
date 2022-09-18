@@ -1,12 +1,6 @@
 package lv.javaguru.java2.rentapp;
 
 import lv.javaguru.java2.rentapp.console_UI.*;
-import lv.javaguru.java2.rentapp.database.Database;
-import lv.javaguru.java2.rentapp.database.InMemoryDatabaseImpl;
-import lv.javaguru.java2.rentapp.services.AddNewVehicleService;
-import lv.javaguru.java2.rentapp.services.DeleteVehicleByPlateNumberService;
-import lv.javaguru.java2.rentapp.services.ExitProgramService;
-import lv.javaguru.java2.rentapp.services.ShowAllVehiclesService;
 
 import java.util.Scanner;
 

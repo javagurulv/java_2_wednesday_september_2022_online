@@ -3,6 +3,9 @@ package lv.javaguru.java2.rentapp.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lv.javaguru.java2.rentapp.enums.Colour;
+import lv.javaguru.java2.rentapp.enums.EngineType;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 @Getter
 @Setter
@@ -14,7 +17,9 @@ public class PassengerCar extends Vehicle {
     private int doorsAmount;
     private boolean isAirConditioningAvailable;
 
-    public PassengerCar(String brand, String model, boolean isAvailableForRent, int yearOfProduction, String colour, double rentPricePerDay, String engineType, String plateNumber, String transmissionType, int passengerAmount, int baggageAmount, int doorsAmount, boolean isAirConditioningAvailable) {
+    public PassengerCar(String brand, String model, boolean isAvailableForRent, int yearOfProduction, Colour colour,
+                        double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
+                        int passengerAmount, int baggageAmount, int doorsAmount, boolean isAirConditioningAvailable) {
         super(brand, model, isAvailableForRent, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
         this.passengerAmount = passengerAmount;
         this.baggageAmount = baggageAmount;

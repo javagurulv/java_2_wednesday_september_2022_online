@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.domain.*;
-import lv.javaguru.java2.rentapp.services.AddNewVehicleService;
+import lv.javaguru.java2.rentapp.core.services.AddNewVehicleService;
 import java.util.Scanner;
 
 public class AddNewVehicleUIAction implements UIAction {

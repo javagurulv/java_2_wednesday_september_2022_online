@@ -23,17 +23,17 @@ public abstract class Vehicle {
     private String plateNumber;
     private TransmissionType transmissionType;
 
-    public Vehicle(String brand, String model, boolean isAvailableForRent, int yearOfProduction, String colour,
-                   double rentPricePerDay, String engineType, String plateNumber, String transmissionType) {
+    public Vehicle(String brand, String model, boolean isAvailableForRent, int yearOfProduction, Colour colour,
+                   double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType) {
         this.brand = brand;
         this.model = model;
         this.isAvailableForRent = isAvailableForRent;
         this.yearOfProduction = yearOfProduction;
-        this.colour = Colour.valueOf(colour.toUpperCase().replaceAll("[^a-zA-Z]", ""));
+        this.colour = colour;
         this.rentPricePerDay = rentPricePerDay;
-        this.engineType = EngineType.valueOf(engineType.toUpperCase().replaceAll("[^a-zA-Z]", ""));
+        this.engineType = engineType;
         this.plateNumber = plateNumber;
-        this.transmissionType = TransmissionType.valueOf(transmissionType.toUpperCase().replaceAll("[^a-zA-Z]", ""));
+        this.transmissionType = transmissionType;
     }
 
     @Override
