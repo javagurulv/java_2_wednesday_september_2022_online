@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
-import lv.javaguru.java2.rentapp.Vehicle;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.services.DeleteVehicleByPlateNumberService;
 import java.util.Scanner;
 

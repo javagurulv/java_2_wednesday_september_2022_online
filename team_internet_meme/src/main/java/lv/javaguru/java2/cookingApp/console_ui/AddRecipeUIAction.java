@@ -1,7 +1,9 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
-import lv.javaguru.java2.cookingApp.CookingStep;
-import lv.javaguru.java2.cookingApp.Ingredient;
+import lv.javaguru.java2.cookingApp.domain.CookingStep;
+import lv.javaguru.java2.cookingApp.domain.Ingredient;
+import lv.javaguru.java2.cookingApp.requests.AddRecipeRequest;
+import lv.javaguru.java2.cookingApp.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.services.AddRecipeService;
 
 import java.util.ArrayList;
@@ -17,16 +19,22 @@ public class AddRecipeUIAction implements UIAction{
 
     @Override
     public void execute() {
+        AddRecipeRequest addRecipeRequest = createRequest();
+        AddRecipeResponse response = addRecipeService.execute(addRecipeRequest);
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError -> System.out.println("Error: " + coreError.getField() + " "
+                    + coreError.getMessage()));
+        } else {
+            System.out.println("New recipe id is: " + response.getNewRecipe().getId());
+            System.out.println("Recipe was added to database.");
+        }
+    }
+
+
+    private AddRecipeRequest createRequest() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the name of the dish");
         String dishName = scanner.nextLine();
-        List<Ingredient> ingredients = createIngredientsList();
-        List<CookingStep> cookingSteps = createCookingSteps();
-        addRecipeService.execute(dishName, ingredients, cookingSteps);
-    }
-
-    private List<Ingredient> createIngredientsList() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number of ingredients: ");
         int numberOfIngredients = Integer.parseInt(scanner.nextLine());
         List<Ingredient> ingredients = new ArrayList<>();
@@ -41,11 +49,6 @@ public class AddRecipeUIAction implements UIAction{
             Ingredient ingredient = new Ingredient(ingredientName, measurement, amount);
             ingredients.add(ingredient);
         }
-        return ingredients;
-    }
-
-    private List<CookingStep> createCookingSteps() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter number of steps");
         int numberOfSteps = Integer.parseInt(scanner.nextLine());
         List<CookingStep> cookingSteps = new ArrayList<>();
@@ -55,6 +58,7 @@ public class AddRecipeUIAction implements UIAction{
             CookingStep cookingStep = new CookingStep(i, stepInstructions);
             cookingSteps.add(cookingStep);
         }
-        return cookingSteps;
+
+        return new AddRecipeRequest(dishName, ingredients, cookingSteps);
     }
 }
