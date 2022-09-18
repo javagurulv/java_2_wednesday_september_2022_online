@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,11 +8,11 @@ public class Task {
     private Long id;
     private String description;
     private int regularity;
-    private Date dueDate;
-    private Date endDate;
+    private LocalDateTime  dueDate;
+    private LocalDateTime  endDate;
     private Long userId;
 
-    public Task(String description, int regularity, Date dueDate, Date endDate, Long userId) {
+    public Task(String description, int regularity, LocalDateTime  dueDate, LocalDateTime  endDate, Long userId) {
         this.description = description;
         this.regularity = regularity;
         this.dueDate = dueDate;
@@ -44,19 +44,19 @@ public class Task {
         this.regularity = regularity;
     }
 
-    public Date getDueDate() {
+    public LocalDateTime getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDateTime  dueDate) {
         this.dueDate = dueDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime  getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime  endDate) {
         this.endDate = endDate;
     }
 
@@ -73,7 +73,9 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return regularity == task.regularity && Objects.equals(id, task.id) && Objects.equals(description, task.description) && Objects.equals(dueDate, task.dueDate) && Objects.equals(endDate, task.endDate) && Objects.equals(userId, task.userId);
+        return regularity == task.regularity && Objects.equals(id, task.id) &&
+                Objects.equals(description, task.description) && Objects.equals(dueDate, task.dueDate) &&
+                Objects.equals(endDate, task.endDate) && Objects.equals(userId, task.userId);
     }
 
     @Override
