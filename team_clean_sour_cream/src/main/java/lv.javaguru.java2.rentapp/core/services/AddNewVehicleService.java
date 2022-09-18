@@ -1,9 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services;
 
+import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.core.database.Database;
 
-public class AddNewVehicleService {
+public abstract class AddNewVehicleService {
 
     Database database;
 
@@ -11,7 +13,5 @@ public class AddNewVehicleService {
         this.database = database;
     }
 
-    public void execute(Vehicle vehicle) {
-        database.addNewVehicle(vehicle);
-    }
+    abstract public AddVehicleResponse execute(AddVehicleRequest request);
 }
