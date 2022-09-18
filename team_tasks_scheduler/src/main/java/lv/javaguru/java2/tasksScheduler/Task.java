@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Task {
 
+    static long taskCount = 0;
     private Long id;
     private String description;
     private int regularity;
@@ -18,6 +19,9 @@ public class Task {
         this.dueDate = dueDate;
         this.endDate = endDate;
         this.userId = userId;
+
+        taskCount++;
+        this.id = taskCount;
     }
 
     public Long getId() {

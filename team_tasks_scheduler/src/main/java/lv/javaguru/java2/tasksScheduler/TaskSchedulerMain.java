@@ -41,7 +41,6 @@ public class TaskSchedulerMain {
         int idx = 0, result = 0;
         for (User usr : users) {
             if (usr.getUsername().equals(name)) {
-                System.out.println("Username found");
                 result = 1;
                 break;
             }
@@ -49,6 +48,22 @@ public class TaskSchedulerMain {
         }
         if (result == 1) {
             users.remove(idx);
+        }
+
+        return result;
+    }
+
+    static int removeTaskById(ArrayList<Task> tasks, long id) {
+        int idx = 0, result = 0;
+        for (Task tsk : tasks) {
+            if (tsk.getId() == id) {
+                result = 1;
+                break;
+            }
+            idx++;
+        }
+        if (result == 1) {
+            tasks.remove(idx);
         }
 
         return result;
@@ -75,8 +90,14 @@ public class TaskSchedulerMain {
         ArrayList<User> users = new ArrayList<User>();
 
         //add user for testing
-        User user = new User("jb", "qwerty", "aaa@inbox.com", "12345678");
-        users.add(user);
+        User userTmp = new User("jb", "qwerty", "aaa@inbox.com", "12345678");
+        users.add(userTmp);
+        //add task for testing
+        Task taskTmp = new Task("testing", 1,
+                LocalDateTime.of(2022, 10, 15, 16, 40),
+                LocalDateTime.of(2022, 10, 16, 15, 30),
+                0L);
+        tasks.add(taskTmp);
 
         while (true) {
             printStartMenu();
@@ -123,6 +144,14 @@ public class TaskSchedulerMain {
                             break;
                         }
                         case 3: {
+                            System.out.println("Enter task ID");
+                            long taskId = Long.parseLong(scanner.nextLine());
+                            if (removeTaskById(tasks, taskId) == 1) {
+                                System.out.println("Task removed");
+                            }
+                            else {
+                                System.out.println("Task not found");
+                            }
                             break;
                         }
                         default: {

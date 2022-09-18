@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class User {
 
+    static long userCount = 0;
     private Long id;
     private String username;
     private String password;
@@ -15,6 +16,9 @@ public class User {
         this.password = password;
         this.email = email;
         this.mobilePhone = mobilePhone;
+
+        userCount++;
+        this.id = userCount;
     }
 
     public Long getId() {
