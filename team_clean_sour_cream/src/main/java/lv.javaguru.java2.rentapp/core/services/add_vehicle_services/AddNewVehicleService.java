@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services;
+package lv.javaguru.java2.rentapp.core.services.add_vehicle_services;
 
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;

@@ -2,7 +2,7 @@ package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
-import lv.javaguru.java2.rentapp.core.services.AddNewVehicleService;
+import lv.javaguru.java2.rentapp.core.services.add_vehicle_services.AddNewVehicleService;
 import lv.javaguru.java2.rentapp.core.services.DeleteVehicleByPlateNumberService;
 import lv.javaguru.java2.rentapp.core.services.ExitProgramService;
 import lv.javaguru.java2.rentapp.core.services.ShowAllVehiclesService;
