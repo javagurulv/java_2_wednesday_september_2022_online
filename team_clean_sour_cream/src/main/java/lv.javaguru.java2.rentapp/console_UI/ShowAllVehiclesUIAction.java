@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
-import lv.javaguru.java2.rentapp.services.ShowAllVehiclesService;
+import lv.javaguru.java2.rentapp.core.services.ShowAllVehiclesService;
 
 public class ShowAllVehiclesUIAction implements UIAction {
 
@@ -13,7 +13,7 @@ public class ShowAllVehiclesUIAction implements UIAction {
     @Override
     public void execute() {
         System.out.println("All vehicles list: ");
-        showAllVehiclesService.execute().forEach(System.out::println);
+        showAllVehiclesService.execute().getVehicles().forEach(System.out::println);
         System.out.println("end of list.");
     }
 }
