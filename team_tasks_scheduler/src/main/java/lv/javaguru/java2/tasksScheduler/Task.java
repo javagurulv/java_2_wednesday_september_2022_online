@@ -5,7 +5,6 @@ import java.util.Objects;
 
 public class Task {
 
-    static long taskCount = 0;
     private Long id;
     private String description;
     private int regularity;
@@ -19,9 +18,6 @@ public class Task {
         this.dueDate = dueDate;
         this.endDate = endDate;
         this.userId = userId;
-
-        taskCount++;
-        this.id = taskCount;
     }
 
     public Long getId() {
@@ -77,9 +73,12 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return regularity == task.regularity && Objects.equals(id, task.id) &&
-                Objects.equals(description, task.description) && Objects.equals(dueDate, task.dueDate) &&
-                Objects.equals(endDate, task.endDate) && Objects.equals(userId, task.userId);
+        return regularity == task.regularity &&
+                Objects.equals(id, task.id) &&
+                Objects.equals(description, task.description) &&
+                Objects.equals(dueDate, task.dueDate) &&
+                Objects.equals(endDate, task.endDate) &&
+                Objects.equals(userId, task.userId);
     }
 
     @Override

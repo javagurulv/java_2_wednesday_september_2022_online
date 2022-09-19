@@ -12,9 +12,13 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     @Override
     public void save(User user) {
+        if (user == null)
+            return;
         user.setId(nextId);
         nextId++;
         users.add(user);
+        if (nextId == Long.MAX_VALUE)
+            nextId = 1L;
     }
 
     @Override
@@ -27,6 +31,10 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     @Override
     public void update(User user) {
+        if (user == null)
+            return;
+        if (getUserById(user.getId()) == null)
+            return;
         deleteById(user.getId());
         users.add(user);
     }

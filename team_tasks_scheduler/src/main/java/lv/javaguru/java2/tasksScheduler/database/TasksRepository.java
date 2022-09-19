@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.database;
 
 import lv.javaguru.java2.tasksScheduler.Task;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TasksRepository {
@@ -13,13 +13,15 @@ public interface TasksRepository {
 
     void deleteByUserId(Long userId);
 
+    void deleteOutOfDateByUserId(Long userId);
+
     void update(Task task);
 
     boolean exists(Task task);
 
-    List<Task> getAllTasksById(Long id);
+    Task getTaskById(Long id);
 
-    List<Task> getAllTasksByUserId(Long userId);
+    List<Task> getAllOutstandingTasksByUserId(Long userId);
 
-    List<Task> getAllTasksByUserIdAndDate(Long userId, Date date);
+    List<Task> getAllOutstandingTasksByUserIdForToday(Long userId);
 }

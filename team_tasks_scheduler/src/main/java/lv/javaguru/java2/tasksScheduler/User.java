@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class User {
 
-    static long userCount = 0;
     private Long id;
     private String username;
     private String password;
@@ -16,9 +15,6 @@ public class User {
         this.password = password;
         this.email = email;
         this.mobilePhone = mobilePhone;
-
-        userCount++;
-        this.id = userCount;
     }
 
     public Long getId() {
@@ -66,7 +62,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && Objects.equals(mobilePhone, user.mobilePhone);
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(mobilePhone, user.mobilePhone);
     }
 
     @Override

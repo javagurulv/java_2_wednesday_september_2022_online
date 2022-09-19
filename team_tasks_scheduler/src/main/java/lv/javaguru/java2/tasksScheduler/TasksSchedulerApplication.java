@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 
-public class TaskSchedulerMain {
+public class TasksSchedulerApplication {
     static void printStartMenu() {
         System.out.println("1. Login");
         System.out.println("2. User management");
