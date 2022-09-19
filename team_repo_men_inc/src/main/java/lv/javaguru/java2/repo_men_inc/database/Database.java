@@ -1,4 +1,6 @@
-package lv.javaguru.java2.repo_men_inc;
+package lv.javaguru.java2.repo_men_inc.database;
+
+import lv.javaguru.java2.repo_men_inc.Debtor;
 
 import java.util.List;
 

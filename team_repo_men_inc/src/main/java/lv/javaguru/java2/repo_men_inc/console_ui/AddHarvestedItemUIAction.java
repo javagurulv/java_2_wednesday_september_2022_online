@@ -1,15 +1,15 @@
 package lv.javaguru.java2.repo_men_inc.console_ui;
 
-import lv.javaguru.java2.repo_men_inc.Database;
+import lv.javaguru.java2.repo_men_inc.services.AddHarvestedItemService;
 
 import java.util.Scanner;
 
-public class AddHarvestedItem implements UIAction{
-    Database database;
+public class AddHarvestedItemUIAction implements UIAction{
+    AddHarvestedItemService addHarvestedItemService;
     Scanner scanner;
 
-    public AddHarvestedItem(Database database, Scanner scanner) {
-        this.database = database;
+    public AddHarvestedItemUIAction(AddHarvestedItemService addHarvestedItemService, Scanner scanner) {
+        this.addHarvestedItemService = addHarvestedItemService;
         this.scanner = scanner;
     }
 
@@ -19,7 +19,7 @@ public class AddHarvestedItem implements UIAction{
         Long debtorsId = Long.parseLong(scanner.nextLine());
         System.out.println("Enter harvested item");
         String harvestedItem = scanner.nextLine();
-        database.getById(debtorsId).addIem(harvestedItem);
+        addHarvestedItemService.execute(debtorsId, harvestedItem);
         System.out.println("Harvested Item added to debtors list.");
     }
 }

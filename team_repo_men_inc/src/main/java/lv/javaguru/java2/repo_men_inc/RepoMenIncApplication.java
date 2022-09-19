@@ -1,6 +1,12 @@
 package lv.javaguru.java2.repo_men_inc;
 
 import lv.javaguru.java2.repo_men_inc.console_ui.*;
+import lv.javaguru.java2.repo_men_inc.database.Database;
+import lv.javaguru.java2.repo_men_inc.database.DatabaseImpl;
+import lv.javaguru.java2.repo_men_inc.services.AddDebtorService;
+import lv.javaguru.java2.repo_men_inc.services.AddHarvestedItemService;
+import lv.javaguru.java2.repo_men_inc.services.PrintDebtorListService;
+import lv.javaguru.java2.repo_men_inc.services.RemoveDebtorService;
 
 import java.util.Scanner;
 
@@ -8,10 +14,19 @@ public class RepoMenIncApplication {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static final Database databaseImpl = new DatabaseImpl();
-    private static final AddDebtorUIAction addNewDebtor = new AddDebtorUIAction(databaseImpl, scanner);
-    private static final RemoveDebtorUIAction removeDebtor = new RemoveDebtorUIAction(databaseImpl, scanner);
-    private static final PrintDebtorList printDebtorList = new PrintDebtorList(databaseImpl);
-    private static final AddHarvestedItem addHarvestedItem = new AddHarvestedItem(databaseImpl, scanner);
+
+    private static final AddDebtorService addDebtorService = new AddDebtorService(databaseImpl);
+    private static final AddDebtorUIAction addNewDebtor = new AddDebtorUIAction(addDebtorService, scanner);
+
+    private static final RemoveDebtorService removeDebtorService = new RemoveDebtorService(databaseImpl);
+    private static final RemoveDebtorUIAction removeDebtor = new RemoveDebtorUIAction(removeDebtorService, scanner);
+
+    private static final PrintDebtorListService printDebtorListService = new PrintDebtorListService(databaseImpl);
+    private static final PrintDebtorListUIAction printDebtorList = new PrintDebtorListUIAction(printDebtorListService);
+
+    private static final AddHarvestedItemService addHarvestedItemService = new AddHarvestedItemService(databaseImpl);
+    private static final AddHarvestedItemUIAction addHarvestedItem = new AddHarvestedItemUIAction(addHarvestedItemService, scanner);
+
     private static final ExitUIAction exitUIAction = new ExitUIAction();
 
     public static void main(String[] args) {

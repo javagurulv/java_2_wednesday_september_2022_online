@@ -1,16 +1,14 @@
 package lv.javaguru.java2.repo_men_inc.console_ui;
 
-import lv.javaguru.java2.repo_men_inc.Database;
-import lv.javaguru.java2.repo_men_inc.Debtor;
+import lv.javaguru.java2.repo_men_inc.services.AddDebtorService;
 
 import java.util.Scanner;
 
 public class AddDebtorUIAction implements UIAction{
-    Database database;
+    AddDebtorService addDebtorService;
     Scanner scanner;
-
-    public AddDebtorUIAction(Database database, Scanner scanner) {
-        this.database = database;
+    public AddDebtorUIAction(AddDebtorService addDebtorService, Scanner scanner) {
+        this.addDebtorService = addDebtorService;
         this.scanner = scanner;
     }
 
@@ -18,8 +16,7 @@ public class AddDebtorUIAction implements UIAction{
     public void execute() {
         System.out.println("Enter debtors name: ");
         String debtorsName = scanner.nextLine();
-        Debtor debtor = new Debtor(debtorsName);
-        database.save(debtor);
+        addDebtorService.execute(debtorsName);
         System.out.println("New Debtor was added to list.");
     }
 }
