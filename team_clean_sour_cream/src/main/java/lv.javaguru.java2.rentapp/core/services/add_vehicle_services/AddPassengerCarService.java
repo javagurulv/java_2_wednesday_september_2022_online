@@ -20,6 +20,7 @@ public class AddPassengerCarService extends AddNewVehicleService{
                 request.getDoorsAmount(), request.isAirConditioningAvailable());
         database.addNewVehicle(passengerCar);
         return new AddVehicleResponse(passengerCar);
+
     }
 
 }

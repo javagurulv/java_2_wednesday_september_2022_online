@@ -11,7 +11,7 @@ public class AddVehicleRequest {
     private String brand;
     private String model;
     private boolean isAvailableForRent;
-    private int yearOfProduction;
+    private String yearOfProduction;
     private Colour colour;
     private double rentPricePerDay;
     private EngineType engineType;
@@ -30,7 +30,7 @@ public class AddVehicleRequest {
     private int maxLoadWeightInKg;
 
     //Конструктор для легковой и минибуса
-    public AddVehicleRequest(String brand, String model, boolean isAvailableForRent, int yearOfProduction, String colour,
+    public AddVehicleRequest(String brand, String model, boolean isAvailableForRent, String yearOfProduction, String colour,
                              double rentPricePerDay, String engineType, String plateNumber,
                              String transmissionType, int passengerAmount, int baggageAmount, int doorsAmount,
                              boolean isAirConditioningAvailable) {
@@ -50,7 +50,7 @@ public class AddVehicleRequest {
     }
 
     //Конструктор для мото
-    public AddVehicleRequest(String brand, String model, boolean isAvailableForRent, int yearOfProduction, String colour,
+    public AddVehicleRequest(String brand, String model, boolean isAvailableForRent, String yearOfProduction, String colour,
                              double rentPricePerDay, String engineType, String plateNumber,
                              String transmissionType, int passengerAmount) {
         this.brand = brand;
@@ -66,7 +66,7 @@ public class AddVehicleRequest {
     }
 
     //Конструктор для прицепа
-    public AddVehicleRequest(String brand, String model, boolean isAvailableForRent, int yearOfProduction, String colour,
+    public AddVehicleRequest(String brand, String model, boolean isAvailableForRent, String yearOfProduction, String colour,
                              double rentPricePerDay, String engineType, String plateNumber, String transmissionType,
                              int deckWidthInCm, int deckLengthInCm, int deckHeightInCm, int emptyWeightInKg, int maxLoadWeightInKg) {
         this.brand = brand;

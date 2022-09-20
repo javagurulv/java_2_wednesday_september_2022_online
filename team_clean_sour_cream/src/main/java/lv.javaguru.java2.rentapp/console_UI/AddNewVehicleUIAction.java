@@ -54,7 +54,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        String year = scanner.nextLine();
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
         String color = scanner.nextLine();
         System.out.println("Enter rent price per day: ");
@@ -84,7 +84,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        String year = scanner.nextLine();
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
         String color = scanner.nextLine();
         System.out.println("Enter rent price per day: ");
@@ -114,7 +114,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        String year = scanner.nextLine();
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
         String color = scanner.nextLine();
         System.out.println("Enter rent price per day: ");
@@ -138,7 +138,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        String year = scanner.nextLine();
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
         String color = scanner.nextLine();
         System.out.println("Enter rent price per day: ");
