@@ -27,9 +27,8 @@ public class AddPassengerCarValidator {
                 : Optional.empty();
     }
     private Optional<CoreError> validateYearOfProduction (AddVehicleRequest request) {
-        String yearOfProduction = request.getYearOfProduction();
-        int yearOfProductionInt = NumberUtils.toInt(yearOfProduction , 0);
-        return (yearOfProductionInt == 0)
+        Integer yearOfProduction = request.getYearOfProduction();
+        return (yearOfProduction == null)
                 ? Optional.of(new CoreError("YearOfProduction", "cannot be empty"))
                 : Optional.empty();
     }
