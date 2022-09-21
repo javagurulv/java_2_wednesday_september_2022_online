@@ -12,11 +12,11 @@ public class AddCarTrailerService extends AddNewVehicleService{
         super(database);
     }
 
-    //wqe
     @Override
     public AddVehicleResponse execute(AddVehicleRequest request) {
+        int yearOfProduction = Integer.parseInt(request.getYearOfProduction());
         Vehicle carTrailer = new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
-                request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
+                yearOfProduction, request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
                 request.getPlateNumber(), request.getTransmissionType(), request.getDeckWidthInCm(),
                 request.getDeckLengthInCm(), request.getDeckHeightInCm(), request.getEmptyWeightInKg(), request.getMaxLoadWeightInKg());
         database.addNewVehicle(carTrailer);

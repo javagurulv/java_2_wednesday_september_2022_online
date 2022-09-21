@@ -15,8 +15,9 @@ public class AddMotorcycleService extends AddNewVehicleService{
 
     @Override
     public AddVehicleResponse execute(AddVehicleRequest request) {
+        int yearOfProduction = Integer.parseInt(request.getYearOfProduction());
         Vehicle motorcycle = new Motorcycle(request.getBrand(), request.getModel(), request.isAvailableForRent(),
-                request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
+                yearOfProduction, request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
                 request.getPlateNumber(), request.getTransmissionType(), request.getPassengerAmount());
         database.addNewVehicle(motorcycle);
         return new AddVehicleResponse(motorcycle);
