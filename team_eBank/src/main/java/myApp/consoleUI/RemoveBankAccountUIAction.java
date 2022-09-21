@@ -18,9 +18,9 @@ public class RemoveBankAccountUIAction implements UIAction {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter account id: ");
-        Long id = Long.parseLong(scanner.nextLine());
-        RemoveBankAccountRequest request = new RemoveBankAccountRequest(id);
+        System.out.println("Enter personal code: ");
+        String personalCode = scanner.nextLine();
+        RemoveBankAccountRequest request = new RemoveBankAccountRequest(personalCode);
         RemoveBankAccountResponse response = service.execute(request);
         System.out.println("Bank account has been deleted");
         if (response.hasErrors()) {

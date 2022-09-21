@@ -4,12 +4,12 @@ public class AddBankAccountRequest {
 
     private String name;
     private String surname;
-    private int balance;
+    private String personalCode;
 
-    public AddBankAccountRequest(String name, String surname, int balance) {
+    public AddBankAccountRequest(String name, String surname, String personalCode) {
         this.name = name;
         this.surname = surname;
-        this.balance = balance;
+        this.personalCode = personalCode;
     }
 
     public String getName() {
@@ -20,7 +20,7 @@ public class AddBankAccountRequest {
         return surname;
     }
 
-    public int getBalance() {
-        return balance;
+    public String getPersonalCode() {
+        return personalCode;
     }
 }

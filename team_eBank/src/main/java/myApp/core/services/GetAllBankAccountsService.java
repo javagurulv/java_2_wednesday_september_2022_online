@@ -2,10 +2,10 @@ package myApp.core.services;
 
 import myApp.BankAccount;
 import myApp.core.database.DataBase;
-import myApp.core.requests.GetAllBankAccountsRequest;
+import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
 
-import java.util.List;
+import java.util.Map;
 
 public class GetAllBankAccountsService {
 
@@ -15,8 +15,8 @@ public class GetAllBankAccountsService {
         this.dataBase = dataBase;
     }
 
-    public GetAllBankAccountsResponse execute(GetAllBankAccountsRequest request) {
-        List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();
+    public GetAllBankAccountsResponse execute(SeeYourAccountRequest request) {
+        Map<String, BankAccount> bankAccounts = dataBase.getAllBankAccountsMap();
         return new GetAllBankAccountsResponse(bankAccounts);
     }
 }
