@@ -1,16 +1,20 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
-import lv.javaguru.java2.rentapp.core.services.add_vehicle_services.AddVehicleServiceMap;
+import lv.javaguru.java2.rentapp.core.services.AddVehicleService;
+import lv.javaguru.java2.rentapp.enums.Colour;
+import lv.javaguru.java2.rentapp.enums.EngineType;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.Scanner;
 
 public class AddNewVehicleUIAction implements UIAction {
 
-    private AddVehicleServiceMap serviceMap;
+    private AddVehicleService addVehicleService;
 
-    public AddNewVehicleUIAction(AddVehicleServiceMap serviceMap) {
-        this.serviceMap = serviceMap;
+    public AddNewVehicleUIAction(AddVehicleService serviceMap) {
+        this.addVehicleService = serviceMap;
     }
 
     @Override
@@ -30,19 +34,19 @@ public class AddNewVehicleUIAction implements UIAction {
         switch (userChoice) {
             case 1 -> {
                 AddVehicleRequest request = createPassengerCarRequest();
-                serviceMap.getService(userChoice).execute(request);
+                addVehicleService.execute(request);
             }
             case 2 -> {
                 AddVehicleRequest request = createMiniBusRequest();
-                serviceMap.getService(userChoice).execute(request);
+                addVehicleService.execute(request);
             }
             case 3 -> {
                 AddVehicleRequest request = createMotorcycleRequest();
-                serviceMap.getService(userChoice).execute(request);
+                addVehicleService.execute(request);
             }
             case 4 -> {
                 AddVehicleRequest request = createCarTrailerRequest();
-                serviceMap.getService(userChoice).execute(request);
+                addVehicleService.execute(request);
             }
         }
     }
@@ -54,28 +58,39 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        String color = scanner.nextLine();
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
         System.out.println("Enter rent price per day: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
-        String engineType = scanner.nextLine();
+        EngineType engineType = EngineType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter plate number: ");
         String plateNumber = scanner.nextLine();
         System.out.println("Enter transmission type: (Manual, Automatic, None) ");
-        String transmissionType = scanner.nextLine();
+        TransmissionType transmissionType = TransmissionType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter passenger amount: ");
-        int passengerAmount = Integer.parseInt(scanner.nextLine());
+        Integer passengerAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter baggage amount: ");
-        int baggageAmount = Integer.parseInt(scanner.nextLine());
+        Integer baggageAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter doors amount: ");
-        int doorsAmount = Integer.parseInt(scanner.nextLine());
+        Integer doorsAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter is air conditioning available: (true or false) ");
         boolean isAirConditioningAvailable = Boolean.parseBoolean(scanner.nextLine());
-        return new AddVehicleRequest(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
-                passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
 
+        return AddVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR)
+                .brand(brand).model(model)
+                .isAvailableForRent(true)
+                .yearOfProduction(year)
+                .colour(color)
+                .rentPricePerDay(price)
+                .engineType(engineType)
+                .plateNumber(plateNumber)
+                .transmissionType(transmissionType)
+                .passengerAmount(passengerAmount)
+                .baggageAmount(baggageAmount)
+                .doorsAmount(doorsAmount)
+                .isAirConditioningAvailable(isAirConditioningAvailable).build();
     }
 
     private AddVehicleRequest createMiniBusRequest() {
@@ -85,27 +100,39 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        String color = scanner.nextLine();
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
         System.out.println("Enter rent price per day: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
-        String engineType = scanner.nextLine();
+        EngineType engineType = EngineType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter plate number: ");
         String plateNumber = scanner.nextLine();
         System.out.println("Enter transmission type: (Manual, Automatic, None) ");
-        String transmissionType = scanner.nextLine();
+        TransmissionType transmissionType = TransmissionType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter passenger amount: ");
-        int passengerAmount = Integer.parseInt(scanner.nextLine());
+        Integer passengerAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter baggage amount: ");
-        int baggageAmount = Integer.parseInt(scanner.nextLine());
+        Integer baggageAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter doors amount: ");
-        int doorsAmount = Integer.parseInt(scanner.nextLine());
+        Integer doorsAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter is air conditioning available: (true or false) ");
         boolean isAirConditioningAvailable = Boolean.parseBoolean(scanner.nextLine());
-        return new AddVehicleRequest(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
-                passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
+
+        return AddVehicleRequest.builder().vehicleType(VehicleType.MINIBUS)
+                .brand(brand).model(model)
+                .isAvailableForRent(true)
+                .yearOfProduction(year)
+                .colour(color)
+                .rentPricePerDay(price)
+                .engineType(engineType)
+                .plateNumber(plateNumber)
+                .transmissionType(transmissionType)
+                .passengerAmount(passengerAmount)
+                .baggageAmount(baggageAmount)
+                .doorsAmount(doorsAmount)
+                .isAirConditioningAvailable(isAirConditioningAvailable).build();
     }
 
     private AddVehicleRequest createMotorcycleRequest() {
@@ -115,21 +142,29 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        String color = scanner.nextLine();
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
         System.out.println("Enter rent price per day: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
-        String engineType = scanner.nextLine();
+        EngineType engineType = EngineType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter plate number: ");
         String plateNumber = scanner.nextLine();
         System.out.println("Enter transmission type: (Manual, Automatic, None) ");
-        String transmissionType = scanner.nextLine();
+        TransmissionType transmissionType = TransmissionType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter passenger amount: ");
-        int passengerAmount = Integer.parseInt(scanner.nextLine());
-        return new AddVehicleRequest(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
-                passengerAmount);
+        Integer passengerAmount = Integer.parseInt(scanner.nextLine());
+        return AddVehicleRequest.builder().vehicleType(VehicleType.MOTORCYCLE)
+                .brand(brand).model(model)
+                .isAvailableForRent(true)
+                .yearOfProduction(year)
+                .colour(color)
+                .rentPricePerDay(price)
+                .engineType(engineType)
+                .plateNumber(plateNumber)
+                .transmissionType(transmissionType)
+                .passengerAmount(passengerAmount).build();
     }
 
     private AddVehicleRequest createCarTrailerRequest() {
@@ -139,29 +174,41 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter model: ");
         String model = scanner.nextLine();
         System.out.println("Enter year of production: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        String color = scanner.nextLine();
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
         System.out.println("Enter rent price per day: ");
-        double price = Double.parseDouble(scanner.nextLine());
+        Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
-        String engineType = scanner.nextLine();
+        EngineType engineType = EngineType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter plate number: ");
         String plateNumber = scanner.nextLine();
         System.out.println("Enter transmission type: (Manual, Automatic, None) ");
-        String transmissionType = scanner.nextLine();
+        TransmissionType transmissionType = TransmissionType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter deck width in cm: ");
-        int deckWidthInCm = Integer.parseInt(scanner.nextLine());
+        Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter deck length in cm: ");
-        int deckLengthInCm = Integer.parseInt(scanner.nextLine());
+        Integer deckLengthInCm = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter deck  height in cm: ");
-        int deckHeightInCm = Integer.parseInt(scanner.nextLine());
+        Integer deckHeightInCm = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter trailer empty weight in kg: ");
-        int emptyWeightInKg = Integer.parseInt(scanner.nextLine());
+        Integer emptyWeightInKg = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter trailer max load weight in kg: ");
-        int maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
-        return new AddVehicleRequest(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
-                deckWidthInCm, deckLengthInCm, deckHeightInCm, emptyWeightInKg, maxLoadWeightInKg);
+        Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
+        return AddVehicleRequest.builder().vehicleType(VehicleType.CAR_TRAILER)
+                .brand(brand).model(model)
+                .isAvailableForRent(true)
+                .yearOfProduction(year)
+                .colour(color)
+                .rentPricePerDay(price)
+                .engineType(engineType)
+                .plateNumber(plateNumber)
+                .transmissionType(transmissionType)
+                .deckWidthInCm(deckWidthInCm)
+                .deckLengthInCm(deckLengthInCm)
+                .deckHeightInCm(deckHeightInCm)
+                .emptyWeightInKg(emptyWeightInKg)
+                .maxLoadWeightInKg(maxLoadWeightInKg).build();
     }
 
 
