@@ -12,6 +12,7 @@ public class AddCarTrailerService extends AddNewVehicleService{
         super(database);
     }
 
+    //wqe
     @Override
     public AddVehicleResponse execute(AddVehicleRequest request) {
         Vehicle carTrailer = new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
