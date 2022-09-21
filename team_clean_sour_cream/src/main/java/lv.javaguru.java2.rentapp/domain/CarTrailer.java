@@ -12,15 +12,15 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 @EqualsAndHashCode(callSuper = true)
 public class CarTrailer extends Vehicle {
 
-    private int deckWidthInCm;
-    private int deckLengthInCm;
-    private int deckHeightInCm;
-    private int emptyWeightInKg;
-    private int maxLoadWeightInKg;
+    private Integer deckWidthInCm;
+    private Integer deckLengthInCm;
+    private Integer deckHeightInCm;
+    private Integer emptyWeightInKg;
+    private Integer maxLoadWeightInKg;
 
-    public CarTrailer(String brand, String model, boolean isAvailable, int yearOfProduction, Colour colour,
-                      double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
-                      int deckWidthInCm, int deckLengthInCm, int deckHeightInCm, int emptyWeightInKg, int maxLoadWeightInKg) {
+    public CarTrailer(String brand, String model, boolean isAvailable, Integer yearOfProduction, Colour colour,
+                      Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
+                      Integer deckWidthInCm, Integer deckLengthInCm, Integer deckHeightInCm, Integer emptyWeightInKg, Integer maxLoadWeightInKg) {
         super(brand, model, isAvailable, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
         this.deckWidthInCm = deckWidthInCm;
         this.deckLengthInCm = deckLengthInCm;
