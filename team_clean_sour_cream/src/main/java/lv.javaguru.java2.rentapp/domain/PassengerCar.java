@@ -12,14 +12,14 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 @EqualsAndHashCode(callSuper = true)
 public class PassengerCar extends Vehicle {
 
-    private int passengerAmount;
-    private int baggageAmount;
-    private int doorsAmount;
+    private Integer passengerAmount;
+    private Integer baggageAmount;
+    private Integer doorsAmount;
     private boolean isAirConditioningAvailable;
 
-    public PassengerCar(String brand, String model, boolean isAvailableForRent, int yearOfProduction, Colour colour,
-                        double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
-                        int passengerAmount, int baggageAmount, int doorsAmount, boolean isAirConditioningAvailable) {
+    public PassengerCar(String brand, String model, boolean isAvailableForRent, Integer yearOfProduction, Colour colour,
+                        Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
+                        Integer passengerAmount, Integer baggageAmount, Integer doorsAmount, boolean isAirConditioningAvailable) {
         super(brand, model, isAvailableForRent, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
         this.passengerAmount = passengerAmount;
         this.baggageAmount = baggageAmount;

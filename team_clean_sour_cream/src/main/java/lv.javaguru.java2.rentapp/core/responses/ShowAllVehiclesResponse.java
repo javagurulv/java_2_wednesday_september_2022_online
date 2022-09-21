@@ -6,7 +6,7 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 import java.util.List;
 
 @Getter
-public class ShowAllVehiclesResponse {
+public class ShowAllVehiclesResponse extends CoreResponse{
 
     private List<Vehicle> vehicles;
 
