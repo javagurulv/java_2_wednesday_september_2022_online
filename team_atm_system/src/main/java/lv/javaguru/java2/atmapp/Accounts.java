@@ -6,13 +6,13 @@ class Accounts {
 
     private final String name;
 
-    private final int bornYear;
+    private final int uuid;
 
     private int balance;
 
-    public Accounts(String name, int bornYear, int balance) {
+    public Accounts(String name, int uuid, int balance) {
         this.name = name;
-        this.bornYear = bornYear;
+        this.uuid = uuid;
         this.balance = balance;
     }
 
@@ -20,8 +20,8 @@ class Accounts {
         return name;
     }
 
-    public int getBornYear() {
-        return bornYear;
+    public int getUuid() {
+        return uuid;
     }
 
     public int getBalance() {
@@ -37,19 +37,19 @@ class Accounts {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Accounts accounts = (Accounts) o;
-        return bornYear == accounts.bornYear && balance == accounts.balance && Objects.equals(name, accounts.name);
+        return uuid == accounts.uuid && balance == accounts.balance && Objects.equals(name, accounts.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, bornYear, balance);
+        return Objects.hash(name, uuid, balance);
     }
 
     @Override
     public String toString() {
         return "Accounts{" +
                 "name='" + name + '\'' +
-                ", bornYear=" + bornYear +
+                ", bornYear=" + uuid +
                 ", balance=" + balance + "$" +
                 '}';
     }

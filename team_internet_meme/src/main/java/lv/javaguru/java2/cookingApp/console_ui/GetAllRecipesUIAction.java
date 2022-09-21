@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
+import lv.javaguru.java2.cookingApp.requests.GetAllRecipesRequest;
 import lv.javaguru.java2.cookingApp.services.GetAllRecipesService;
 
 public class GetAllRecipesUIAction implements UIAction {
@@ -12,7 +13,7 @@ public class GetAllRecipesUIAction implements UIAction {
     @Override
     public void execute() {
         System.out.println("The list of all saved dishes: ");
-        getAllRecipesService.execute().
+        getAllRecipesService.execute(new GetAllRecipesRequest()).getRecipes().
                 stream().
                 forEach(System.out::println);
     }

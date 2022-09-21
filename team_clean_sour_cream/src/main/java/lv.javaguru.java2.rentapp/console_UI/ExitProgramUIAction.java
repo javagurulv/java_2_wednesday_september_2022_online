@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
-import lv.javaguru.java2.rentapp.services.ExitProgramService;
+import lv.javaguru.java2.rentapp.core.services.ExitProgramService;
 
 public class ExitProgramUIAction implements UIAction {
 
