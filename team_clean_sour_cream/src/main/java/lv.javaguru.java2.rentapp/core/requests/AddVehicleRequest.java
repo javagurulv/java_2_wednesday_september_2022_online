@@ -1,11 +1,13 @@
 package lv.javaguru.java2.rentapp.core.requests;
 
+import lombok.Builder;
 import lombok.Getter;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 @Getter
+@Builder
 public class AddVehicleRequest {
 
     private String brand;

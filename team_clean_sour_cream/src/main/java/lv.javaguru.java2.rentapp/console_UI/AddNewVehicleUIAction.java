@@ -75,6 +75,7 @@ public class AddNewVehicleUIAction implements UIAction {
         boolean isAirConditioningAvailable = Boolean.parseBoolean(scanner.nextLine());
         return new AddVehicleRequest(brand, model, true, year, color, price, engineType, plateNumber, transmissionType,
                 passengerAmount, baggageAmount, doorsAmount, isAirConditioningAvailable);
+
     }
 
     private AddVehicleRequest createMiniBusRequest() {

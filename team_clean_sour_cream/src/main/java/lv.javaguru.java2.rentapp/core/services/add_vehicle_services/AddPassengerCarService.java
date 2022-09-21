@@ -6,6 +6,7 @@ import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.domain.PassengerCar;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
+
 public class AddPassengerCarService extends AddNewVehicleService{
 
     public AddPassengerCarService(Database database) {
