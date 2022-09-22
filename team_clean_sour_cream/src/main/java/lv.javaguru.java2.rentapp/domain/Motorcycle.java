@@ -12,10 +12,10 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 @EqualsAndHashCode(callSuper = true)
 public class Motorcycle extends Vehicle {
 
-    private int passengerAmount;
+    private Integer passengerAmount;
 
-    public Motorcycle(String brand, String model, boolean isAvailableForRent, int yearOfProduction, Colour colour,
-                      double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType, int passengerAmount) {
+    public Motorcycle(String brand, String model, boolean isAvailableForRent, Integer yearOfProduction, Colour colour,
+                      Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType, Integer passengerAmount) {
         super(brand, model, isAvailableForRent, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
         this.passengerAmount = passengerAmount;
     }

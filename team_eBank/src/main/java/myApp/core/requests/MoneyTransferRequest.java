@@ -2,25 +2,37 @@ package myApp.core.requests;
 
 public class MoneyTransferRequest {
 
-    private Long userID;
+    private String personalCode;
     private int value;
-    private Long anotherAccountID;
+    private String anotherPersonalCode;
 
-    public MoneyTransferRequest(Long userID, int value, Long anotherAccountID) {
-        this.userID = userID;
+    public MoneyTransferRequest(String personalCode, String anotherPersonalCode, int value) {
+        this.personalCode = personalCode;
         this.value = value;
-        this.anotherAccountID = anotherAccountID;
+        this.anotherPersonalCode = anotherPersonalCode;
     }
 
-    public Long getUserID() {
-        return userID;
+    public String getPersonalCode() {
+        return personalCode;
+    }
+
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
     }
 
     public int getValue() {
         return value;
     }
 
-    public Long getAnotherAccountID() {
-        return anotherAccountID;
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getAnotherPersonalCode() {
+        return anotherPersonalCode;
+    }
+
+    public void setAnotherPersonalCode(String anotherPersonalCode) {
+        this.anotherPersonalCode = anotherPersonalCode;
     }
 }

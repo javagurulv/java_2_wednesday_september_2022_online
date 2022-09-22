@@ -21,15 +21,15 @@ public class AddBankAccountUIAction implements UIAction {
         String name = scanner.nextLine();
         System.out.println("Enter surname: ");
         String surname = scanner.nextLine();
-        System.out.println("Enter balance: ");
-        int balance = scanner.nextInt();
-        AddBankAccountRequest request = new AddBankAccountRequest(name, surname, balance);
+        System.out.println("Enter personal code: ");
+        String personalCode = scanner.nextLine();
+        AddBankAccountRequest request = new AddBankAccountRequest(name, surname, personalCode);
         AddBankAccountResponse response = service.execute(request);
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error: "
                     + coreError.getField() + " " + coreError.getMessage()));
         } else {
-            System.out.println("Account has been added");
+            System.out.println("Bank account has been added");
         }
     }
 }

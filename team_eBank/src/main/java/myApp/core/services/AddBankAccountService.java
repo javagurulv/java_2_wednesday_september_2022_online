@@ -1,10 +1,12 @@
 package myApp.core.services;
 
 import myApp.BankAccount;
+import myApp.Roles;
 import myApp.core.database.DataBase;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.responses.CoreError;
+import myApp.core.services.validators.AddBankAccountValidator;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class AddBankAccountService {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
             BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname()
-                    , request.getBalance());
+                    ,Roles.Regular_user, request.getPersonalCode());
             dataBase.addBankAccount(bankAccount);
             return new AddBankAccountResponse(bankAccount);
         } else {
