@@ -7,8 +7,8 @@ import lv.javaguru.java2.repo_men_inc.services.RemoveDebtorService;
 import java.util.Scanner;
 
 public class RemoveDebtorUIAction implements UIAction{
-    RemoveDebtorService removeDebtorService;
-    Scanner scanner;
+    private RemoveDebtorService removeDebtorService;
+    private Scanner scanner;
 
     public RemoveDebtorUIAction(RemoveDebtorService removeDebtorService, Scanner scanner) {
         this.removeDebtorService = removeDebtorService;
@@ -16,14 +16,25 @@ public class RemoveDebtorUIAction implements UIAction{
     }
     @Override
     public void execute() {
-        System.out.println("Enter debtors Id: ");
-        Long debtorsId = Long.parseLong(scanner.nextLine());
-        RemoveDebtorRequest removeDebtorRequest = new RemoveDebtorRequest(debtorsId);
-        RemoveDebtorResponse removeDebtorResponse = removeDebtorService.execute(removeDebtorRequest);
-        if (removeDebtorResponse.isDebtorRemoved()) {
-            System.out.println("Debtor was removed from the list.");
-        } else {
-            System.out.println("Failed to remove debtor from the list.");
+        try {
+            System.out.println("Enter debtors Id: ");
+            Long debtorsId = Long.parseLong(scanner.nextLine());
+            RemoveDebtorRequest removeDebtorRequest = new RemoveDebtorRequest(debtorsId);
+            RemoveDebtorResponse removeDebtorResponse = removeDebtorService.execute(removeDebtorRequest);
+
+            if (removeDebtorResponse.hasErrors()) {
+                System.out.println("===================== errors =====================");
+                removeDebtorResponse.getErrors().forEach(coreError -> System.out.println(coreError.getField() + ": " + coreError.getMessage()));
+                System.out.println("==================================================");
+            } else {
+                if (removeDebtorResponse.isDebtorRemoved()) {
+                    System.out.println("Debtor was removed from the list.");
+                } else {
+                    System.out.println("Failed to remove debtor from the list.");
+                }
+            }
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println("INVALID INPUT!");
         }
     }
 }

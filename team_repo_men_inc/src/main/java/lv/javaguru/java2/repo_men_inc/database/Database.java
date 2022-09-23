@@ -8,5 +8,6 @@ public interface Database {
     boolean save(Debtor debtor);
     boolean deleteById(Long id);
     Debtor getById(Long id);
+    Debtor getByName(String name);
     List<Debtor> getAllDebtors();
 }

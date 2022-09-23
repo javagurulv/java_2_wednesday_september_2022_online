@@ -37,6 +37,11 @@ public class DatabaseImpl implements Database{
     }
 
     @Override
+    public Debtor getByName(String name) {
+        return debtors.stream().filter(debtor -> debtor.getName().equals(name)).findAny().orElse(null);
+    }
+
+    @Override
     public List<Debtor> getAllDebtors() {
         return debtors;
     }
