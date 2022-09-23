@@ -1,7 +1,5 @@
 package lv.javaguru.java2.rentapp.core.requests;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lv.javaguru.java2.rentapp.enums.Colour;

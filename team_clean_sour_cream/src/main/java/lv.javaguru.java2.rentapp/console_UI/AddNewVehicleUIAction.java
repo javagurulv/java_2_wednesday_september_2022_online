@@ -60,7 +60,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter year of production: ");
         Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter rent price per day: ");
         Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
@@ -78,8 +78,10 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter is air conditioning available: (true or false) ");
         boolean isAirConditioningAvailable = Boolean.parseBoolean(scanner.nextLine());
 
-        return AddVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR)
-                .brand(brand).model(model)
+        return AddVehicleRequest.builder()
+                .vehicleType(VehicleType.PASSENGER_CAR)
+                .brand(brand)
+                .model(model)
                 .isAvailableForRent(true)
                 .yearOfProduction(year)
                 .colour(color)
@@ -90,7 +92,8 @@ public class AddNewVehicleUIAction implements UIAction {
                 .passengerAmount(passengerAmount)
                 .baggageAmount(baggageAmount)
                 .doorsAmount(doorsAmount)
-                .isAirConditioningAvailable(isAirConditioningAvailable).build();
+                .isAirConditioningAvailable(isAirConditioningAvailable)
+                .build();
     }
 
     private AddVehicleRequest createMiniBusRequest() {
@@ -102,7 +105,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter year of production: ");
         Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter rent price per day: ");
         Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
@@ -120,8 +123,10 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter is air conditioning available: (true or false) ");
         boolean isAirConditioningAvailable = Boolean.parseBoolean(scanner.nextLine());
 
-        return AddVehicleRequest.builder().vehicleType(VehicleType.MINIBUS)
-                .brand(brand).model(model)
+        return AddVehicleRequest.builder()
+                .vehicleType(VehicleType.MINIBUS)
+                .brand(brand)
+                .model(model)
                 .isAvailableForRent(true)
                 .yearOfProduction(year)
                 .colour(color)
@@ -132,7 +137,8 @@ public class AddNewVehicleUIAction implements UIAction {
                 .passengerAmount(passengerAmount)
                 .baggageAmount(baggageAmount)
                 .doorsAmount(doorsAmount)
-                .isAirConditioningAvailable(isAirConditioningAvailable).build();
+                .isAirConditioningAvailable(isAirConditioningAvailable)
+                .build();
     }
 
     private AddVehicleRequest createMotorcycleRequest() {
@@ -144,7 +150,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter year of production: ");
         Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter rent price per day: ");
         Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
@@ -155,8 +161,10 @@ public class AddNewVehicleUIAction implements UIAction {
         TransmissionType transmissionType = TransmissionType.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter passenger amount: ");
         Integer passengerAmount = Integer.parseInt(scanner.nextLine());
-        return AddVehicleRequest.builder().vehicleType(VehicleType.MOTORCYCLE)
-                .brand(brand).model(model)
+        return AddVehicleRequest.builder()
+                .vehicleType(VehicleType.MOTORCYCLE)
+                .brand(brand)
+                .model(model)
                 .isAvailableForRent(true)
                 .yearOfProduction(year)
                 .colour(color)
@@ -164,7 +172,8 @@ public class AddNewVehicleUIAction implements UIAction {
                 .engineType(engineType)
                 .plateNumber(plateNumber)
                 .transmissionType(transmissionType)
-                .passengerAmount(passengerAmount).build();
+                .passengerAmount(passengerAmount)
+                .build();
     }
 
     private AddVehicleRequest createCarTrailerRequest() {
@@ -176,7 +185,7 @@ public class AddNewVehicleUIAction implements UIAction {
         System.out.println("Enter year of production: ");
         Integer year = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter color: (Black, White, Orange, Yellow, Red, Blue, Green)");
-        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));;
+        Colour color = Colour.valueOf(scanner.nextLine().toUpperCase().replaceAll("[^a-zA-Z]", ""));
         System.out.println("Enter rent price per day: ");
         Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
@@ -195,7 +204,8 @@ public class AddNewVehicleUIAction implements UIAction {
         Integer emptyWeightInKg = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter trailer max load weight in kg: ");
         Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
-        return AddVehicleRequest.builder().vehicleType(VehicleType.CAR_TRAILER)
+        return AddVehicleRequest.builder()
+                .vehicleType(VehicleType.CAR_TRAILER)
                 .brand(brand).model(model)
                 .isAvailableForRent(true)
                 .yearOfProduction(year)
@@ -208,8 +218,7 @@ public class AddNewVehicleUIAction implements UIAction {
                 .deckLengthInCm(deckLengthInCm)
                 .deckHeightInCm(deckHeightInCm)
                 .emptyWeightInKg(emptyWeightInKg)
-                .maxLoadWeightInKg(maxLoadWeightInKg).build();
+                .maxLoadWeightInKg(maxLoadWeightInKg)
+                .build();
     }
-
-
 }

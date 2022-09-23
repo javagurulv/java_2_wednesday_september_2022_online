@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class UIActionMap {
 
-    private Database database = new InMemoryDatabaseImpl();
     private Map<Integer, UIAction> uiActionMap;
+    private Database database = new InMemoryDatabaseImpl();
     private AddVehicleService addVehicleServiceMap = new AddVehicleService(database);
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database);
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
@@ -22,7 +22,7 @@ public class UIActionMap {
 
 
     public UIActionMap() {
-        uiActionMap = new HashMap<>();
+        this.uiActionMap = new HashMap<>();
         uiActionMap.put(1, new AddNewVehicleUIAction(addVehicleServiceMap));
         uiActionMap.put(2, new DeleteVehicleByPlateNumberUIAction(deleteVehicleByPlateNumberService));
         uiActionMap.put(3, new ShowAllVehiclesUIAction(showAllVehiclesService));

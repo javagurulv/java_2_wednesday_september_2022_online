@@ -11,27 +11,25 @@ import java.util.Map;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
-import lv.javaguru.java2.rentapp.domain.*;
+import lv.javaguru.java2.rentapp.core.services.vehicle_creators.*;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 public class AddVehicleService {
 
-    private Database database;
-	private Map<VehicleType, VehicleTypeCreator> creatorMap;
+    private Map<VehicleType, VehicleTypeCreator> vehicleTypeCreatorMap;
 
-	public AddVehicleService(Database database) {
-		this.database = database;
-		this.creatorMap = new HashMap<>();
-		creatorMap.put(PASSENGER_CAR, new PassengerCarCreator(database));
-		creatorMap.put(MINIBUS, new MiniBusCreator(database));
-		creatorMap.put(MOTORCYCLE, new MotorcycleCreator(database));
-		creatorMap.put(CAR_TRAILER, new CarTrailerCreator(database));
-	}
+    public AddVehicleService(Database database) {
+        this.vehicleTypeCreatorMap = new HashMap<>();
+        vehicleTypeCreatorMap.put(PASSENGER_CAR, new PassengerCarCreator(database));
+        vehicleTypeCreatorMap.put(MINIBUS, new MiniBusCreator(database));
+        vehicleTypeCreatorMap.put(MOTORCYCLE, new MotorcycleCreator(database));
+        vehicleTypeCreatorMap.put(CAR_TRAILER, new CarTrailerCreator(database));
+    }
 
-	public AddVehicleResponse execute(AddVehicleRequest request) {
+    public AddVehicleResponse execute(AddVehicleRequest request) {
         VehicleType vehicleType = request.getVehicleType();
-		VehicleTypeCreator creator = creatorMap.get(vehicleType);
-		return creator.create(request);
+        VehicleTypeCreator creator = vehicleTypeCreatorMap.get(vehicleType);
+        return creator.create(request);
     }
 
 }

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services;
+package lv.javaguru.java2.rentapp.core.services.vehicle_creators;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
@@ -6,7 +6,7 @@ import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.domain.Motorcycle;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
-class MotorcycleCreator implements VehicleTypeCreator {
+public class MotorcycleCreator implements VehicleTypeCreator {
 
 	private Database database;
 
