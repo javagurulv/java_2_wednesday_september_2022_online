@@ -1,5 +1,7 @@
 package lv.javaguru.java2.repo_men_inc.console_ui;
 
+import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
+import lv.javaguru.java2.repo_men_inc.core.responses.RemoveDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.services.RemoveDebtorService;
 
 import java.util.Scanner;
@@ -16,7 +18,12 @@ public class RemoveDebtorUIAction implements UIAction{
     public void execute() {
         System.out.println("Enter debtors Id: ");
         Long debtorsId = Long.parseLong(scanner.nextLine());
-        removeDebtorService.execute(debtorsId);
-        System.out.println("Debtor was removed from list.");
+        RemoveDebtorRequest removeDebtorRequest = new RemoveDebtorRequest(debtorsId);
+        RemoveDebtorResponse removeDebtorResponse = removeDebtorService.execute(removeDebtorRequest);
+        if (removeDebtorResponse.isDebtorRemoved()) {
+            System.out.println("Debtor was removed from the list.");
+        } else {
+            System.out.println("Failed to remove debtor from the list.");
+        }
     }
 }

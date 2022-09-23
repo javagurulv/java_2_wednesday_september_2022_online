@@ -1,6 +1,8 @@
 package lv.javaguru.java2.repo_men_inc.services;
 
 import lv.javaguru.java2.repo_men_inc.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
+import lv.javaguru.java2.repo_men_inc.core.responses.AddDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.database.Database;
 
 public class AddDebtorService {
@@ -10,8 +12,9 @@ public class AddDebtorService {
         this.database = database;
     }
 
-    public void execute(String debtorsName) {
-        Debtor debtor = new Debtor(debtorsName);
-        database.save(debtor);
+    public AddDebtorResponse execute(AddDebtorRequest addDebtorRequest) {
+        Debtor debtor = new Debtor(addDebtorRequest.getName());
+        boolean isDebtorSavedToDatabase = database.save(debtor);
+        return new AddDebtorResponse(isDebtorSavedToDatabase);
     }
 }

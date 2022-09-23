@@ -1,5 +1,7 @@
 package lv.javaguru.java2.repo_men_inc.services;
 
+import lv.javaguru.java2.repo_men_inc.core.requests.AddHarvestedItemRequest;
+import lv.javaguru.java2.repo_men_inc.core.responses.AddHarvestedItemResponse;
 import lv.javaguru.java2.repo_men_inc.database.Database;
 
 public class AddHarvestedItemService {
@@ -9,7 +11,9 @@ public class AddHarvestedItemService {
         this.database = database;
     }
 
-    public void execute(Long debtorsId, String harvestedItem) {
-        database.getById(debtorsId).addIem(harvestedItem);
+    public AddHarvestedItemResponse execute(AddHarvestedItemRequest addHarvestedItemRequest) {
+        boolean isHarvestedItemAdded = database.getById(addHarvestedItemRequest.getDebtorsId())
+                .addIem(addHarvestedItemRequest.getHarvestedItem());
+        return new AddHarvestedItemResponse(isHarvestedItemAdded);
     }
 }

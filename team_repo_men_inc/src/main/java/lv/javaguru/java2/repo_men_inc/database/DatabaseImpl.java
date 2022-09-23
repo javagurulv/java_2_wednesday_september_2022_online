@@ -4,6 +4,7 @@ import lv.javaguru.java2.repo_men_inc.Debtor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DatabaseImpl implements Database{
 
@@ -11,18 +12,23 @@ public class DatabaseImpl implements Database{
     private final List<Debtor> debtors = new ArrayList<>();
 
     @Override
-    public void save(Debtor debtor) {
+    public boolean save(Debtor debtor) {
         debtor.setId(id);
-        debtors.add(debtor);
         id++;
+        return debtors.add(debtor);
     }
 
     @Override
-    public void delete(Long id) {
-        debtors.stream()
+    public boolean deleteById(Long id) {
+        boolean isDebtorDeleted = false;
+        Optional<Debtor> debtorToBeDeletedOpt = debtors.stream()
                 .filter(debtor -> debtor.getId().equals(id))
-                .findFirst()
-                .ifPresent(debtors::remove);
+                .findFirst();
+        if (debtorToBeDeletedOpt.isPresent()) {
+            Debtor debtorToBeDeleted = debtorToBeDeletedOpt.get();
+            isDebtorDeleted = debtors.remove(debtorToBeDeleted);
+        }
+        return isDebtorDeleted;
     }
 
     @Override

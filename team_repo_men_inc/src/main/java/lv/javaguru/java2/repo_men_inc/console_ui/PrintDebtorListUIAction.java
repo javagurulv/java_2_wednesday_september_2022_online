@@ -1,5 +1,7 @@
 package lv.javaguru.java2.repo_men_inc.console_ui;
 
+import lv.javaguru.java2.repo_men_inc.core.requests.PrintDebtorsListRequest;
+import lv.javaguru.java2.repo_men_inc.core.responses.PrintDebtorsListResponse;
 import lv.javaguru.java2.repo_men_inc.services.PrintDebtorListService;
 
 public class PrintDebtorListUIAction implements UIAction{
@@ -12,7 +14,9 @@ public class PrintDebtorListUIAction implements UIAction{
     @Override
     public void execute() {
         System.out.println("Debtors list: ");
-        printDebtorListService.execute();
+        PrintDebtorsListRequest printDebtorsListRequest = new PrintDebtorsListRequest();
+        PrintDebtorsListResponse printDebtorsListResponse = printDebtorListService.execute(printDebtorsListRequest);
+        printDebtorsListResponse.getDebtors().forEach(System.out::println);
         System.out.println("Debtor list end.");
     }
 }
