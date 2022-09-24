@@ -1,10 +1,10 @@
 package myApp.core.requests;
 
-public class AddAccountRequest {
+public class CloseAccountRequest {
 
     private String personalCode;
 
-    public AddAccountRequest(String personalCode) {
+    public CloseAccountRequest(String personalCode) {
         this.personalCode = personalCode;
     }
 

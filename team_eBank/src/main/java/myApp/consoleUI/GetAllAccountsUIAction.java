@@ -1,6 +1,6 @@
 package myApp.consoleUI;
 
-import myApp.core.requests.SeeYourAccountRequest;
+import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
 import myApp.core.services.GetAllBankAccountsService;
 import myApp.core.database.DataBase;
@@ -8,7 +8,7 @@ import myApp.core.database.DataBase;
 public class GetAllAccountsUIAction implements UIAction {
 
     private GetAllBankAccountsService service;
-    private SeeYourAccountRequest request;
+    private GetAllBankAccountsRequest request;
 
     public GetAllAccountsUIAction(DataBase dataBase) {
         service = new GetAllBankAccountsService(dataBase);
