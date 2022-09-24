@@ -1,18 +1,23 @@
 package myApp;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class BankAccount {
 
     private String name;
     private String surname;
-    private int balance;
     private Long id;
+    private String personalCode;
+    private Roles role;
+    private Account accounts;
 
-    public BankAccount(String name, String surname, int balance) {
+    public BankAccount(String name, String surname, Roles role, String personalCode) {
+        this.personalCode = personalCode;
         this.name = name;
         this.surname = surname;
-        this.balance = balance;
+        this.role = role;
     }
 
     public String getName() {
@@ -22,15 +27,6 @@ public class BankAccount {
     public void setName(String name) {
         this.name = name;
     }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
     public Long getId() {
         return id;
     }
@@ -47,26 +43,60 @@ public class BankAccount {
         this.surname = surname;
     }
 
+    public Roles getRoles() {
+        return role;
+    }
+
+    public void setRoles(Roles roles) {
+        this.role = roles;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public Account getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Account accounts) {
+        this.accounts = accounts;
+    }
+
+    public String getPersonalCode() {
+        return personalCode;
+    }
+
+    public void setPersonalCode(String personalCode) {
+        this.personalCode = personalCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankAccount that = (BankAccount) o;
-        return Double.compare(that.balance, balance) == 0 && Objects.equals(name, that.name) && Objects.equals(id, that.id);
+        return Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(id, that.id) && Objects.equals(personalCode, that.personalCode) && role == that.role && Objects.equals(accounts, that.accounts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, balance, id);
+        return Objects.hash(name, surname, id, personalCode, role, accounts);
     }
 
     @Override
     public String toString() {
-        return "BankAccount: " +
-                "name = '" + name + '\'' +
-                ", surname = '" + surname + '\'' +
-                ", balance = " + balance +
-                ", id = " + id +
-                ' ';
+        return "BankAccount{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", id=" + id +
+                ", personalCode='" + personalCode + '\'' +
+                ", role=" + role +
+                ", accounts=" + accounts +
+                '}';
     }
 }

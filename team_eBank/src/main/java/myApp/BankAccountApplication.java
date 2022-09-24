@@ -1,56 +1,77 @@
 package myApp;
-
 import myApp.consoleUI.*;
-import myApp.core.database.DataBase;
-import myApp.core.database.InMemoryDatabaseImpl;
-import myApp.core.services.*;
 
 import java.util.Scanner;
 
+
 class BankAccountApplication {
 
-    private static DataBase dataBase = new InMemoryDatabaseImpl();
-    private static AddBankAccountValidator validator = new AddBankAccountValidator();
-    private static AddBankAccountService service = new AddBankAccountService(dataBase, validator);
-    private static UIAction addUIAction = new AddBankAccountUIAction(service);
-    private static RemoveBankAccountValidator removeBankAccountValidator = new RemoveBankAccountValidator();
-    private static RemoveBankAccountService removeBankAccountService = new RemoveBankAccountService(dataBase
-            , removeBankAccountValidator);
-    private static UIAction removeUIAction = new RemoveBankAccountUIAction(removeBankAccountService);
-    private static UIAction getAllAccountsUIAction = new GetAllAccountsUIAction(dataBase);
-    private static MoneyTransferValidator moneyTransferValidator = new MoneyTransferValidator();
-    private static MoneyTransferService moneyTransferService = new MoneyTransferService(dataBase
-            , moneyTransferValidator);
-    private static UIAction moneyTransfer = new MoneyTransferUIAction(moneyTransferService);
-    private static UIAction exit = new ExitUIAction();
+    private static UIActionMap uiActionMap = new UIActionMap();
 
     public static void main(String[] args) {
+          String personalCode = logIn();
         while (true) {
-            printInformation();
-            int result = userChoice();
-            userSelectionResult(result);
+            if (personalCode != null) {
+                if (isUserAdmin(personalCode)) {
+                    ifAdminLogin();
+                } else {
+                    ifUserLogin();
+                }
+            }
         }
     }
 
-    private static void printInformation() {
+    private static void ifAdminLogin() {
+        printInformationForAdmin();
+        int result = userChoice();
+        adminUserSelectionResult(result);
+    }
+
+    private static void ifUserLogin() {
+        printInformationForRegularUser();
+        int result = userChoice();
+        regularUserSelectionResult(result);
+    }
+
+    //Comment for me :Write methods of this print
+    private static void printInformationForRegularUser() {
         System.out.println();
         System.out.println("Menu: ");
-        System.out.println("1 - Get all accounts");
-        System.out.println("2 - Add account");
-        System.out.println("3 - Remove account");
-        System.out.println("4 - Transfer money");
+        System.out.println("1 - Transfer money");
+        System.out.println("2 - Open an account");
+        System.out.println("3 - Close an account");
+        System.out.println("4 - See your accounts");
         System.out.println("5 - Exit");
-
     }
 
-    private static void userSelectionResult(int userChoice) {
-        switch (userChoice) {
-            case 1 -> getAllAccountsUIAction.execute();
-            case 2 -> addUIAction.execute();
-            case 3 -> removeUIAction.execute();
-            case 4 -> moneyTransfer.execute();
-            case 5 -> exit.execute();
-        }
+    private static void printInformationForAdmin() {
+        System.out.println();
+        System.out.println("Admin menu: ");
+        System.out.println("1 - Get all bank accounts");
+        System.out.println("2 - Add bank account");
+        System.out.println("3 - Remove bank account");
+        System.out.println("5 - Exit");
+    }
+
+    private static String logIn() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your personal code: ");
+        String personalCode = scanner.nextLine();
+        return uiActionMap.logIn(personalCode);
+    }
+
+    private static boolean isUserAdmin(String personalCode) {
+        return uiActionMap.isUserAdmin(personalCode);
+    }
+
+    private static void regularUserSelectionResult(int userChoice) {
+        UIAction result = uiActionMap.userSelectionForRegularUser(userChoice);
+        result.execute();
+    }
+
+    private static void adminUserSelectionResult(int userChoice) {
+        UIAction result = uiActionMap.userSelectionForAdmin(userChoice);
+        result.execute();
     }
 
     private static int userChoice() {

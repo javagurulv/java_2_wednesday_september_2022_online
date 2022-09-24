@@ -36,8 +36,8 @@ public class Debtor {
         this.list = list;
     }
 
-    public void addIem (String item) {
-        this.list.add(item);
+    public boolean addIem (String item) {
+        return this.list.add(item);
     }
 
     @Override

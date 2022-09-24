@@ -16,7 +16,7 @@ public class GetAllAccountsUIAction implements UIAction {
 
     @Override
     public void execute() {
-        System.out.println("Bank accounts: ");
+        System.out.println("Bank account: ");
         GetAllBankAccountsResponse result = service.execute(request);
         System.out.println(result.getBankAccounts());
     }

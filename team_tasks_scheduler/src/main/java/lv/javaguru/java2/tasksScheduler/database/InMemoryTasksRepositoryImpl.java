@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
-import lv.javaguru.java2.tasksScheduler.Task;
+import lv.javaguru.java2.tasksScheduler.domain.Task;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

@@ -1,52 +1,86 @@
 package myApp.core.database;
 
+import myApp.Account;
 import myApp.BankAccount;
+import myApp.Roles;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryDatabaseImpl implements DataBase {
+    private final Map<String, BankAccount> bankAccountMap = new HashMap<>();
 
-    private List<BankAccount> bankAccounts = new ArrayList<>();
+    public InMemoryDatabaseImpl() {
+
+        BankAccount bankAccount2 = new BankAccount("Vlad", "Kulikov", Roles.Regular_user, "111-317");
+        BankAccount bankAccount3 = new BankAccount("Alex", "Ivanov", Roles.Regular_user, "111-111");
+        bankAccount3.setAccounts(new Account(2L, 1000));
+        BankAccount adminAccount = new BankAccount("Admin", "Admin", Roles.Admin, "Admin");
+        bankAccountMap.put(adminAccount.getPersonalCode(), adminAccount);
+        addBankAccount(bankAccount2);
+        addBankAccount(bankAccount3);
+
+    }
+
     private Long id = 1L;
+    private Long idForAccount = 1L;
 
     @Override
     public void addBankAccount(BankAccount bankAccount) {
         bankAccount.setId(id);
         id++;
-        bankAccounts.add(bankAccount);
+        bankAccountMap.put(bankAccount.getPersonalCode(), bankAccount);
     }
 
     @Override
-    public boolean deleteBankAccount(Long id) {
-        bankAccounts.removeIf(bankAccount -> isEqualsAccountsIDs(bankAccount, id));
-        long result = bankAccounts.stream()
-                .filter(bankAccount -> isEqualsAccountsIDs(bankAccount, id))
-                .count();
-        return result == 0;
-    }
-
-
-    @Override
-    public List<BankAccount> getAllBankAccounts() {
-        return bankAccounts;
+    public boolean deleteBankAccount(String personalCode) {
+        bankAccountMap.remove(personalCode);
+        return !bankAccountMap.containsKey(personalCode);
     }
 
     @Override
-    public boolean bankTransfer(Long userID, int value, Long anotherAccountID) {
-        if (userID != 0 && anotherAccountID != 0 && value > 0) {
-            bankAccounts.stream()
-                    .filter(account -> isEqualsAccountsIDs(account, userID))
-                    .forEach(account -> account.setBalance(account.getBalance() - value));
-            bankAccounts.stream()
-                    .filter(account -> isEqualsAccountsIDs(account, anotherAccountID))
-                    .forEach(account -> account.setBalance(account.getBalance() + value));
+    public Map<String , BankAccount> getAllBankAccountsMap() {
+        return bankAccountMap;
+    }
+
+    @Override
+    public BankAccount seeYourAccount(String personalCode) {
+        return bankAccountMap.get(personalCode);
+    }
+
+    //Rewrite method
+    @Override
+    public boolean bankTransfer(String personalCode, String anotherPersonalCode, int value) {
+        Account account = bankAccountMap.get(personalCode).getAccounts();
+        bankAccountMap.get(personalCode).getAccounts().setBalance(account.getBalance() - value);
+
+        Account accountAnother = bankAccountMap.get(anotherPersonalCode).getAccounts();
+        bankAccountMap.get(anotherPersonalCode).getAccounts().setBalance(accountAnother.getBalance() + value);
+        return true;
+    }
+
+    @Override
+    public String logIn(String personalCode) {
+        return personalCode;
+    }
+
+
+
+    @Override
+    public BankAccount openAccount(String personalCode) {
+        if (bankAccountMap.get(personalCode).getAccounts() == null) {
+            bankAccountMap.get(personalCode).setAccounts(new Account(idForAccount, 1000));
         }
-        return bankAccounts.stream()
-                .anyMatch(bankAccount -> bankAccount.getBalance() != bankAccount.getBalance() + value);
+        return bankAccountMap.get(personalCode);
     }
 
-    private boolean isEqualsAccountsIDs(BankAccount account, Long userID) {
-        return account.getId().equals(userID) && userID != 0;
+    @Override
+    public boolean closeAccount(String personalCode) {
+        if (bankAccountMap.get(personalCode).getAccounts() != null &&
+                bankAccountMap.get(personalCode).getAccounts().getBalance() == 0) {
+            bankAccountMap.get(personalCode).setAccounts(null);
+            return true;
+        }
+        return false;
     }
+
 }
