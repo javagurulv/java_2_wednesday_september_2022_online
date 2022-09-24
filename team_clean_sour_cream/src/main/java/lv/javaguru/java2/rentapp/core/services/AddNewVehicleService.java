@@ -3,7 +3,7 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddNewVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddNewVehicleResponse;
-import lv.javaguru.java2.rentapp.core.services.vehicle_creators.*;
+import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.*;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 public class AddNewVehicleService {
