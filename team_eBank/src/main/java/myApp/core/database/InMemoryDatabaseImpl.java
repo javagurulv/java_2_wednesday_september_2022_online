@@ -58,14 +58,29 @@ public class InMemoryDatabaseImpl implements DataBase {
         return true;
     }
 
+    @Override
+    public String logIn(String personalCode) {
+        return personalCode;
+    }
+
 
 
     @Override
-    public BankAccount addAccount(String personalCode) {
+    public BankAccount openAccount(String personalCode) {
         if (bankAccountMap.get(personalCode).getAccounts() == null) {
             bankAccountMap.get(personalCode).setAccounts(new Account(idForAccount, 1000));
         }
         return bankAccountMap.get(personalCode);
+    }
+
+    @Override
+    public boolean closeAccount(String personalCode) {
+        if (bankAccountMap.get(personalCode).getAccounts() != null &&
+                bankAccountMap.get(personalCode).getAccounts().getBalance() == 0) {
+            bankAccountMap.get(personalCode).setAccounts(null);
+            return true;
+        }
+        return false;
     }
 
 }

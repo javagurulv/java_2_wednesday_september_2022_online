@@ -10,9 +10,10 @@ public class GetAllUsersUIAction implements UIAction {
     }
 
     @Override
-    public void execute() {
+    public boolean execute() {
         System.out.println("--- Users list start --- ");
         getAllUsersService.execute().forEach(System.out::println);
         System.out.println("---  Users list end  --- ");
+        return true;
     }
 }

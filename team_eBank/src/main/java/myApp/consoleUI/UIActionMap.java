@@ -1,7 +1,6 @@
 package myApp.consoleUI;
 
 import myApp.BankAccount;
-import myApp.User;
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.services.*;
@@ -15,6 +14,8 @@ import java.util.Map;
 public class UIActionMap {
 
     private static DataBase dataBase = new InMemoryDatabaseImpl();
+    private static UserAreAdminService userAreAdminService = new UserAreAdminService(dataBase);
+    private static UserService userService = new UserService(dataBase);
     private static AddBankAccountValidator validator = new AddBankAccountValidator();
     private static AddBankAccountService service = new AddBankAccountService(dataBase, validator);
 
@@ -27,9 +28,9 @@ public class UIActionMap {
     private static MoneyTransferValidator moneyTransferValidator = new MoneyTransferValidator();
     private static MoneyTransferService moneyTransferService = new MoneyTransferService(dataBase
             , moneyTransferValidator);
-    private static UIAction moneyTransfer = new MoneyTransferUIAction(moneyTransferService);
-    private static AddAccountService accountService = new AddAccountService(dataBase);
-    private static UIAction openAccount = new AddAccountUIAction(accountService);
+    private static UIAction moneyTransfer = new MoneyTransferUIAction(moneyTransferService, userService);
+    private static OpenAccountService accountService = new OpenAccountService(dataBase);
+    private static UIAction openAccount = new OpenAccountUIAction(accountService, userService);
     private static UIAction exit = new ExitUIAction();
     private Map<Integer, UIAction> uiActionMap = new HashMap<>();
     public UIAction userSelectionForRegularUser(int userChoice) {
@@ -47,6 +48,14 @@ public class UIActionMap {
         uiActionMap.put(4,moneyTransfer);
         uiActionMap.put(5,exit);
         return uiActionMap.get(userChoice);
+    }
+
+    public boolean isUserAdmin(String personalCode) {
+        return userAreAdminService.isUserAreAdmin(personalCode);
+    }
+
+    public String logIn(String personalCode) {
+        return userService.getBankAccountCode(personalCode);
     }
 
     public Map<String , BankAccount> getBankAccountsMap() {

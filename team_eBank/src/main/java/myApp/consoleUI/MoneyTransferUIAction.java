@@ -3,26 +3,28 @@ package myApp.consoleUI;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
+import myApp.core.services.UserService;
 
 import java.util.Scanner;
 
 public class MoneyTransferUIAction implements UIAction {
 
     private MoneyTransferService service;
-    public MoneyTransferUIAction(MoneyTransferService service) {
+    private UserService userService;
+    public MoneyTransferUIAction(MoneyTransferService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your personal code: ");
-        String personalCode = scanner.nextLine();
+        String yourPersonalCode = userService.getPersonalCode();
         System.out.println("Enter another personal code");
         String anotherPersonalCode = scanner.nextLine() ;
         System.out.println("Enter value: ");
         int value = scanner.nextInt();
-        MoneyTransferRequest request = new MoneyTransferRequest(personalCode, anotherPersonalCode, value);
+        MoneyTransferRequest request = new MoneyTransferRequest(yourPersonalCode, anotherPersonalCode, value);
         MoneyTransferResponse response = service.execute(request);
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error: "

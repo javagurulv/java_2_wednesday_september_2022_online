@@ -1,33 +1,27 @@
 package lv.javaguru.java2.tasksScheduler;
 
-import lv.javaguru.java2.tasksScheduler.console_ui.ExitUIAction;
-import lv.javaguru.java2.tasksScheduler.console_ui.GetAllUsersUIAction;
-import lv.javaguru.java2.tasksScheduler.console_ui.UIAction;
-import lv.javaguru.java2.tasksScheduler.console_ui.UserRegistrationUIAction;
-import lv.javaguru.java2.tasksScheduler.database.InMemoryUsersRepositoryImpl;
-import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.services.GetAllUsersService;
-import lv.javaguru.java2.tasksScheduler.services.UserRegistrationService;
+import lv.javaguru.java2.tasksScheduler.console_ui.*;
+import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
-
 
 
 public class TasksSchedulerApplication {
 
-    private static UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
+//    private static UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
+//
+//    private static GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
+//    private static UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository);
 
-    private static GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
-    private static UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository);
 
-    private static UIAction getAllUsersUIAction = new GetAllUsersUIAction(getAllUsersService);
-    private static UIAction userRegistrationUIAction = new UserRegistrationUIAction(userRegistrationService);
-    private static UIAction exitUIAction = new ExitUIAction();
+    private static UIActionMap uiActionMap = new UIActionMap();
+//    private static UIAction getAllUsersUIAction = new GetAllUsersUIAction(getAllUsersService);
+//    private static UIAction userRegistrationUIAction = new UserRegistrationUIAction(userRegistrationService);
+//    private static UIAction exitUIAction = new ExitUIAction();
 
-    private enum MenuType {START, USER};
+//    private enum MenuType {START, USER}
+
+    ;
 
     private static MenuType menuType = MenuType.START;
 
@@ -293,83 +287,42 @@ public class TasksSchedulerApplication {
             System.out.println("Enter menu item number to execute:");
             Scanner scanner = new Scanner(System.in);
             return Integer.parseInt(scanner.nextLine());
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             return 0;
         }
     }
+
     private static void executeSelectedMenuItem(MenuType type, int choice) {
-        switch (type) {
-            case START:
-                executeSelectedStartMenuItem(choice);
-                break;
-            case USER:
-                executeSelectedUserMenuItem(choice);
-                break;
-            default:
-                break;
+
+        UIAction selectedAction = uiActionMap.getAction(getAlignedMenuChoice(type, choice));
+        if (selectedAction == null) {
+            System.out.println("Invalid menu option selected. Please try again.");
+            return;
         }
+        if (selectedAction.execute())
+            toggleMenuType(getAlignedMenuChoice(type, choice));
     }
 
-    private static void executeSelectedStartMenuItem(int selectedMenu) {
-        switch (selectedMenu) {
-            case 1: {
-                getAllUsersUIAction.execute();
-                break;
-            }
-            case 2: {
-                //TODO: check credentials
-                //TODO: store user id on successful login
+    private static int getAlignedMenuChoice(MenuType menuType, int choice) {
+        if (choice == 0)
+            return 0;
+        if (menuType == MenuType.USER)
+            return (choice + 4);
+        return choice;
+    }
+
+    private static void toggleMenuType(int selectedMenuOption) {
+        switch (selectedMenuOption) {
+            case 0:
+                return;
+            case 2:
                 menuType = MenuType.USER;
-                break;
-            }
-            case 3: {
-                userRegistrationUIAction.execute();
-                break;
-            }
-            case 4: {
-                exitUIAction.execute();
-                break;
-            }
-            default:
-                System.out.println("Invalid menu option selected. Please try again.");
-        }
-    }
-
-    private static void executeSelectedUserMenuItem(int selectedMenu) {
-        switch (selectedMenu) {
-//            case 1: {
-//                addBookUIAction.execute();
-//                break;
-//            }
-//            case 2: {
-//                removeBookUIAction.execute();
-//                break;
-//            }
-//            case 3: {
-//                exitUIAction.execute();
-//                break;
-//            }
-//            case 4: {
-//                addBookUIAction.execute();
-//                break;
-//            }
-//            case 5: {
-//                removeBookUIAction.execute();
-//                break;
-//            }
-//            case 6: {
-//                exitUIAction.execute();
-                //TODO: delete all tasks for deleted user
-//                break;
-//            }
-            case 7: {
-                //TODO: forget user id
+                return;
+            case 11:
                 menuType = MenuType.START;
-                break;
-            }
+                return;
             default:
-                System.out.println("Invalid menu option selected. Please try again.");
+                break;
         }
     }
 }

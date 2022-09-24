@@ -1,9 +1,11 @@
 package lv.javaguru.java2.repo_men_inc.console_ui;
 
+import lv.javaguru.java2.repo_men_inc.core.requests.PrintDebtorsListRequest;
+import lv.javaguru.java2.repo_men_inc.core.responses.PrintDebtorsListResponse;
 import lv.javaguru.java2.repo_men_inc.services.PrintDebtorListService;
 
 public class PrintDebtorListUIAction implements UIAction{
-    PrintDebtorListService printDebtorListService;
+    private PrintDebtorListService printDebtorListService;
 
     public PrintDebtorListUIAction(PrintDebtorListService printDebtorListService) {
         this.printDebtorListService = printDebtorListService;
@@ -11,8 +13,14 @@ public class PrintDebtorListUIAction implements UIAction{
 
     @Override
     public void execute() {
-        System.out.println("Debtors list: ");
-        printDebtorListService.execute();
-        System.out.println("Debtor list end.");
+        PrintDebtorsListRequest printDebtorsListRequest = new PrintDebtorsListRequest();
+        PrintDebtorsListResponse printDebtorsListResponse = printDebtorListService.execute(printDebtorsListRequest);
+        if (printDebtorsListResponse.getDebtors().isEmpty()) {
+            System.out.println("Debtor List is empty!");
+        } else {
+            System.out.println("Debtors list: ");
+            printDebtorsListResponse.getDebtors().forEach(System.out::println);
+            System.out.println("Debtor list end.");
+        }
     }
 }

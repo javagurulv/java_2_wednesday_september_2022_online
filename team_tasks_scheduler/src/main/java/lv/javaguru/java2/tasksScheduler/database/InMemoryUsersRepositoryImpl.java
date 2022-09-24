@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
-import lv.javaguru.java2.tasksScheduler.User;
+import lv.javaguru.java2.tasksScheduler.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +40,16 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public boolean exists(String username) {
+    public boolean existsByName(String username) {
         return users.stream()
                 .anyMatch(user -> user.getUsername().equalsIgnoreCase(username));
+    }
+
+    @Override
+    public boolean existsByNameAndPassword(String username, String password) {
+        return users.stream()
+                .anyMatch(user -> user.getUsername().equalsIgnoreCase(username) &&
+                        user.getPassword().equals(password));
     }
 
     @Override

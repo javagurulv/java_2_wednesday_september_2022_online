@@ -1,7 +1,6 @@
 package myApp;
-
-import myApp.core.authorization.AuthorizationAction;
 import myApp.consoleUI.*;
+
 import java.util.Scanner;
 
 
@@ -10,10 +9,10 @@ class BankAccountApplication {
     private static UIActionMap uiActionMap = new UIActionMap();
 
     public static void main(String[] args) {
-        BankAccount bankAccount = userInputPersonalCode();
+          String personalCode = logIn();
         while (true) {
-            if (bankAccount != null) {
-                if (isUserAdmin(bankAccount.getPersonalCode())) {
+            if (personalCode != null) {
+                if (isUserAdmin(personalCode)) {
                     ifAdminLogin();
                 } else {
                     ifUserLogin();
@@ -39,18 +38,10 @@ class BankAccountApplication {
         System.out.println();
         System.out.println("Menu: ");
         System.out.println("1 - Transfer money");
-        System.out.println("2 - See your accounts");
+        System.out.println("2 - Open an account");
         System.out.println("3 - Close an account");
-        System.out.println("4 - Open an account");
+        System.out.println("4 - See your accounts");
         System.out.println("5 - Exit");
-    }
-
-    private static BankAccount userInputPersonalCode() {
-        System.out.println();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter Personal code: ");
-        String personalCode = scanner.nextLine();
-        return uiActionMap.getBankAccountsMap().get(personalCode);
     }
 
     private static void printInformationForAdmin() {
@@ -62,9 +53,15 @@ class BankAccountApplication {
         System.out.println("5 - Exit");
     }
 
+    private static String logIn() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your personal code: ");
+        String personalCode = scanner.nextLine();
+        return uiActionMap.logIn(personalCode);
+    }
+
     private static boolean isUserAdmin(String personalCode) {
-        AuthorizationAction action = new AuthorizationAction(uiActionMap);
-        return action.isUserAreAdmin(personalCode);
+        return uiActionMap.isUserAdmin(personalCode);
     }
 
     private static void regularUserSelectionResult(int userChoice) {
