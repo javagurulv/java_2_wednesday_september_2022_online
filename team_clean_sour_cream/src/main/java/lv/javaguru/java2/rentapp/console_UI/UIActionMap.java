@@ -6,6 +6,7 @@ import lv.javaguru.java2.rentapp.core.services.AddNewVehicleService;
 import lv.javaguru.java2.rentapp.core.services.DeleteVehicleByPlateNumberService;
 import lv.javaguru.java2.rentapp.core.services.ExitProgramService;
 import lv.javaguru.java2.rentapp.core.services.ShowAllVehiclesService;
+import lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddNewVehicleValidator;
 
 
 import java.util.HashMap;
@@ -15,7 +16,8 @@ public class UIActionMap {
 
     private Map<Integer, UIAction> uiActionMap;
     private Database database = new InMemoryDatabaseImpl();
-    private AddNewVehicleService addNewVehicleService = new AddNewVehicleService(database);
+    private AddNewVehicleValidator addNewVehicleValidator;
+    private AddNewVehicleService addNewVehicleService = new AddNewVehicleService(database, addNewVehicleValidator);
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database);
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
     private ExitProgramService exitProgramService = new ExitProgramService();
