@@ -1,6 +1,7 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.requests.AddNewVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.AddNewVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.AddNewVehicleService;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
@@ -24,23 +25,15 @@ public class AddNewVehicleUIAction implements UIAction {
 
         int userChoice = getUserChoice();
 
-        switch (userChoice) {
-            case 1 -> {
-                AddNewVehicleRequest request = createPassengerCarRequest();
-                addNewVehicleService.execute(request);
-            }
-            case 2 -> {
-                AddNewVehicleRequest request = createMiniBusRequest();
-                addNewVehicleService.execute(request);
-            }
-            case 3 -> {
-                AddNewVehicleRequest request = createMotorcycleRequest();
-                addNewVehicleService.execute(request);
-            }
-            case 4 -> {
-                AddNewVehicleRequest request = createCarTrailerRequest();
-                addNewVehicleService.execute(request);
-            }
+        AddNewVehicleResponse addNewVehicleResponse = executeUserChoice(userChoice);
+
+        if (addNewVehicleResponse.hasErrors()) {
+            addNewVehicleResponse.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+        } else {
+            System.out.println("New vehicle id was: " + addNewVehicleResponse.getNewVehicle().getId());
+            System.out.println("Your vehicle was added to list.");
         }
     }
 
@@ -56,6 +49,29 @@ public class AddNewVehicleUIAction implements UIAction {
     private int getUserChoice() {
         Scanner scanner = new Scanner(System.in);
         return Integer.parseInt(scanner.nextLine());
+    }
+
+    private AddNewVehicleResponse executeUserChoice(int userChoice) {
+        AddNewVehicleResponse addNewVehicleResponse = null;
+        switch (userChoice) {
+            case 1 -> {
+                AddNewVehicleRequest request = createPassengerCarRequest();
+                addNewVehicleResponse = addNewVehicleService.execute(request);
+            }
+            case 2 -> {
+                AddNewVehicleRequest request = createMiniBusRequest();
+                addNewVehicleResponse = addNewVehicleService.execute(request);
+            }
+            case 3 -> {
+                AddNewVehicleRequest request = createMotorcycleRequest();
+                addNewVehicleResponse = addNewVehicleService.execute(request);
+            }
+            case 4 -> {
+                AddNewVehicleRequest request = createCarTrailerRequest();
+                addNewVehicleResponse = addNewVehicleService.execute(request);
+            }
+        }
+        return addNewVehicleResponse;
     }
 
     private AddNewVehicleRequest createPassengerCarRequest() {

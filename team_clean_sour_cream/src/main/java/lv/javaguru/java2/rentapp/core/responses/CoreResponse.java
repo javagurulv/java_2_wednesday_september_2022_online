@@ -8,12 +8,11 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-
 abstract class  CoreResponse {
 
     private List<CoreError> errors;
 
-    public boolean hasError() {
+    public boolean hasErrors() {
         return errors != null && !errors.isEmpty();
     }
 

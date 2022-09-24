@@ -8,20 +8,20 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 public class MiniBusCreator implements VehicleTypeCreator {
 
-	private Database database;
+    private Database database;
 
-	public MiniBusCreator(Database database) {
-		this.database = database;
-	}
+    public MiniBusCreator(Database database) {
+        this.database = database;
+    }
 
-	@Override
-	public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
-		Vehicle miniBus = new MiniBus(request.getBrand(), request.getModel(), request.isAvailableForRent(),
-									  request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
-									  request.getPlateNumber(), request.getTransmissionType(), request.getPassengerAmount(), request.getBaggageAmount(),
-									  request.getDoorsAmount(), request.isAirConditioningAvailable());
-		database.addNewVehicle(miniBus);
-		return new AddNewVehicleResponse(miniBus);
-	}
+    @Override
+    public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
+        Vehicle miniBus = new MiniBus(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+                request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
+                request.getPlateNumber(), request.getTransmissionType(), request.getPassengerAmount(), request.getBaggageAmount(),
+                request.getDoorsAmount(), request.isAirConditioningAvailable());
+        database.addNewVehicle(miniBus);
+        return new AddNewVehicleResponse(miniBus);
+    }
 
 }
