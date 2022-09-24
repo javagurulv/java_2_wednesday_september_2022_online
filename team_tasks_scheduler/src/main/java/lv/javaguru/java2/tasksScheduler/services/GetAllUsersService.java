@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.services;
 
-import lv.javaguru.java2.tasksScheduler.User;
+import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 
 import java.util.List;

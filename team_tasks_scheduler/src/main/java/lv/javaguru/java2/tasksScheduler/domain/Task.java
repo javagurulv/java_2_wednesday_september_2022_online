@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler;
+package lv.javaguru.java2.tasksScheduler.domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
