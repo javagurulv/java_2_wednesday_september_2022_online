@@ -1,12 +1,12 @@
 package lv.javaguru.java2.repo_men_inc;
 
 import lv.javaguru.java2.repo_men_inc.console_ui.*;
+import lv.javaguru.java2.repo_men_inc.core.validators.AddDebtorValidator;
+import lv.javaguru.java2.repo_men_inc.core.validators.AddHarvestedItemValidator;
+import lv.javaguru.java2.repo_men_inc.core.validators.RemoveDebtorValidator;
 import lv.javaguru.java2.repo_men_inc.database.Database;
 import lv.javaguru.java2.repo_men_inc.database.DatabaseImpl;
-import lv.javaguru.java2.repo_men_inc.services.AddDebtorService;
-import lv.javaguru.java2.repo_men_inc.services.AddHarvestedItemService;
-import lv.javaguru.java2.repo_men_inc.services.PrintDebtorListService;
-import lv.javaguru.java2.repo_men_inc.services.RemoveDebtorService;
+import lv.javaguru.java2.repo_men_inc.services.*;
 
 import java.util.Scanner;
 
@@ -15,16 +15,19 @@ public class RepoMenIncApplication {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Database databaseImpl = new DatabaseImpl();
 
-    private static final AddDebtorService addDebtorService = new AddDebtorService(databaseImpl);
+    private static final AddDebtorValidator addDebtorValidator = new AddDebtorValidator(databaseImpl);
+    private static final AddDebtorService addDebtorService = new AddDebtorService(databaseImpl, addDebtorValidator);
     private static final AddDebtorUIAction addNewDebtor = new AddDebtorUIAction(addDebtorService, scanner);
 
-    private static final RemoveDebtorService removeDebtorService = new RemoveDebtorService(databaseImpl);
+    private static final RemoveDebtorValidator removeDebtorValidator = new RemoveDebtorValidator(databaseImpl);
+    private static final RemoveDebtorService removeDebtorService = new RemoveDebtorService(databaseImpl, removeDebtorValidator);
     private static final RemoveDebtorUIAction removeDebtor = new RemoveDebtorUIAction(removeDebtorService, scanner);
 
     private static final PrintDebtorListService printDebtorListService = new PrintDebtorListService(databaseImpl);
     private static final PrintDebtorListUIAction printDebtorList = new PrintDebtorListUIAction(printDebtorListService);
 
-    private static final AddHarvestedItemService addHarvestedItemService = new AddHarvestedItemService(databaseImpl);
+    private static final AddHarvestedItemValidator addHarvestedItemValidator = new AddHarvestedItemValidator(databaseImpl);
+    private static final AddHarvestedItemService addHarvestedItemService = new AddHarvestedItemService(databaseImpl, addHarvestedItemValidator);
     private static final AddHarvestedItemUIAction addHarvestedItem = new AddHarvestedItemUIAction(addHarvestedItemService, scanner);
 
     private static final ExitUIAction exitUIAction = new ExitUIAction();
@@ -32,9 +35,13 @@ public class RepoMenIncApplication {
     public static void main(String[] args) {
 
         while (true) {
-            printMenu();
-            int userChoice = getUserChoice();
-            executeUsersChoice(userChoice);
+            try {
+                printMenu();
+                int userChoice = getUserChoice();
+                executeUsersChoice(userChoice);
+            } catch (NumberFormatException numberFormatException) {
+                System.out.println("INVALID INPUT!");
+            }
         }
     }
 
