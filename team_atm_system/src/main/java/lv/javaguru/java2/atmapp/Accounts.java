@@ -2,17 +2,16 @@ package lv.javaguru.java2.atmapp;
 
 import java.util.Objects;
 
-class Accounts {
-
+public class Accounts {
     private final String name;
 
-    private final int uuid;
+    private final int userID;
 
     private int balance;
 
-    public Accounts(String name, int uuid, int balance) {
+    public Accounts(String name, int userID, int balance) {
         this.name = name;
-        this.uuid = uuid;
+        this.userID = userID;
         this.balance = balance;
     }
 
@@ -20,15 +19,19 @@ class Accounts {
         return name;
     }
 
-    public int getUuid() {
-        return uuid;
+//    public int getUserID(int userID) {
+//        return userID;
+//    }
+
+    public int getUserID() {
+        return userID;
     }
 
     public int getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(int balance)  {
         this.balance = balance;
     }
 
@@ -37,19 +40,21 @@ class Accounts {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Accounts accounts = (Accounts) o;
-        return uuid == accounts.uuid && balance == accounts.balance && Objects.equals(name, accounts.name);
+        return Objects.equals(name, accounts.name) &&
+                Objects.equals(userID, accounts.userID);
+        //userID == accounts.userID && balance == accounts.balance && Objects.equals(name, accounts.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, uuid, balance);
+        return Objects.hash(name, userID, balance);
     }
 
     @Override
     public String toString() {
         return "Accounts{" +
                 "name='" + name + '\'' +
-                ", bornYear=" + uuid +
+                ", bornYear=" + userID +
                 ", balance=" + balance + "$" +
                 '}';
     }
