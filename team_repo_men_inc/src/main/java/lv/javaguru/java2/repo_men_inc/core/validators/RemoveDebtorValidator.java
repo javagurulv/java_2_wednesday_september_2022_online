@@ -24,7 +24,7 @@ public class RemoveDebtorValidator {
     }
 
     private Optional<CoreError> validateId(RemoveDebtorRequest removeDebtorRequest) {
-        return (removeDebtorRequest == null || removeDebtorRequest.getDebtorsId().describeConstable().isEmpty())
+        return (removeDebtorRequest.getDebtorsId() == null || removeDebtorRequest.getDebtorsId().describeConstable().isEmpty())
                 ? Optional.of(new CoreError("ID", "Cannot be empty!"))
                 : Optional.empty();
     }
