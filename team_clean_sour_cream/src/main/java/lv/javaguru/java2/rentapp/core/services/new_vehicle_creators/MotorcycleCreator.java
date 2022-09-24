@@ -8,19 +8,19 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 public class MotorcycleCreator implements VehicleTypeCreator {
 
-	private Database database;
+    private Database database;
 
-	public MotorcycleCreator(Database database) {
-		this.database = database;
-	}
+    public MotorcycleCreator(Database database) {
+        this.database = database;
+    }
 
-	@Override
-	public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
-		Vehicle motorcycle = new Motorcycle(request.getBrand(), request.getModel(), request.isAvailableForRent(),
-											request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
-											request.getPlateNumber(), request.getTransmissionType(), request.getPassengerAmount());
-		database.addNewVehicle(motorcycle);
-		return new AddNewVehicleResponse(motorcycle);
-	}
+    @Override
+    public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
+        Vehicle motorcycle = new Motorcycle(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+                request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
+                request.getPlateNumber(), request.getTransmissionType(), request.getPassengerAmount());
+        database.addNewVehicle(motorcycle);
+        return new AddNewVehicleResponse(motorcycle);
+    }
 
 }

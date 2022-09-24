@@ -8,20 +8,20 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 public class CarTrailerCreator implements VehicleTypeCreator {
 
-	private Database database;
+    private Database database;
 
-	public CarTrailerCreator(Database database) {
-		this.database = database;
-	}
+    public CarTrailerCreator(Database database) {
+        this.database = database;
+    }
 
-	@Override
-	public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
-		Vehicle carTrailer = new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
-											request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
-											request.getPlateNumber(), request.getTransmissionType(), request.getDeckWidthInCm(),
-											request.getDeckLengthInCm(), request.getDeckHeightInCm(), request.getEmptyWeightInKg(), request.getMaxLoadWeightInKg());
-		database.addNewVehicle(carTrailer);
-		return new AddNewVehicleResponse(carTrailer);
-	}
+    @Override
+    public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
+        Vehicle carTrailer = new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+                request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
+                request.getPlateNumber(), request.getTransmissionType(), request.getDeckWidthInCm(),
+                request.getDeckLengthInCm(), request.getDeckHeightInCm(), request.getEmptyWeightInKg(), request.getMaxLoadWeightInKg());
+        database.addNewVehicle(carTrailer);
+        return new AddNewVehicleResponse(carTrailer);
+    }
 
 }
