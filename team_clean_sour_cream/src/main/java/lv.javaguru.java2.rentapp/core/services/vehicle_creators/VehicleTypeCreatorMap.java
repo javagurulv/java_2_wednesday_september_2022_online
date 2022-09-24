@@ -21,5 +21,7 @@ public class VehicleTypeCreatorMap {
         vehicleTypeCreatorMap.put(CAR_TRAILER, new CarTrailerCreator(database));
     }
 
-
+    public VehicleTypeCreator getVehicleTypeCreatorByCarType(VehicleType vehicleType) {
+        return vehicleTypeCreatorMap.get(vehicleType);
+    }
 }

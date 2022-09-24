@@ -1,8 +1,8 @@
 package lv.javaguru.java2.rentapp.core.services.vehicle_creators;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
-import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
+import lv.javaguru.java2.rentapp.core.requests.AddNewVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.AddNewVehicleResponse;
 import lv.javaguru.java2.rentapp.domain.CarTrailer;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
@@ -15,13 +15,13 @@ public class CarTrailerCreator implements VehicleTypeCreator {
 	}
 
 	@Override
-	public AddVehicleResponse create(AddVehicleRequest request) {
+	public AddNewVehicleResponse createVehicle(AddNewVehicleRequest request) {
 		Vehicle carTrailer = new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
 											request.getYearOfProduction(), request.getColour(), request.getRentPricePerDay(), request.getEngineType(),
 											request.getPlateNumber(), request.getTransmissionType(), request.getDeckWidthInCm(),
 											request.getDeckLengthInCm(), request.getDeckHeightInCm(), request.getEmptyWeightInKg(), request.getMaxLoadWeightInKg());
 		database.addNewVehicle(carTrailer);
-		return new AddVehicleResponse(carTrailer);
+		return new AddNewVehicleResponse(carTrailer);
 	}
 
 }
