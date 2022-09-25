@@ -10,6 +10,7 @@ public class GetAllUsersService {
     private UsersRepository usersRepository;
 
     public GetAllUsersService(UsersRepository usersRepository) {
+
         this.usersRepository = usersRepository;
     }
 

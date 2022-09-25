@@ -1,4 +1,4 @@
-package lv.javaguru.java2.library.core.requests;
+package lv.javaguru.java2.library.core.responses.requests;
 
 public class AddBookRequest {
 
