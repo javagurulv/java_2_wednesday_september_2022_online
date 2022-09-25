@@ -1,7 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.database.InMemoryTasksRepositoryImpl;
 import lv.javaguru.java2.tasksScheduler.database.InMemoryUsersRepositoryImpl;
+import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
+import lv.javaguru.java2.tasksScheduler.services.AddTaskService;
 import lv.javaguru.java2.tasksScheduler.services.GetAllUsersService;
 import lv.javaguru.java2.tasksScheduler.services.LoginService;
 import lv.javaguru.java2.tasksScheduler.services.UserRegistrationService;
@@ -12,11 +15,13 @@ import java.util.Map;
 public class UIActionMap {
 
     private UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
+    private TasksRepository tasksRepository = new InMemoryTasksRepositoryImpl();
 
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
     private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository);
     private LoginService loginService = new LoginService(usersRepository);
 
+    private AddTaskService addTaskService = new AddTaskService(tasksRepository);
     private Map<Integer, UIAction> actionMap;
 
     public UIActionMap() {
