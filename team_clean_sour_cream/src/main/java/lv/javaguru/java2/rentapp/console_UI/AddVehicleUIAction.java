@@ -3,9 +3,6 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.AddVehicleService;
-import lv.javaguru.java2.rentapp.enums.Colour;
-import lv.javaguru.java2.rentapp.enums.EngineType;
-import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.Scanner;

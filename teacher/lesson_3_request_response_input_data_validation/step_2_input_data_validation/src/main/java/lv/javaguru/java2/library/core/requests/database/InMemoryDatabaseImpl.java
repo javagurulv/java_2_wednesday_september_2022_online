@@ -1,4 +1,4 @@
-package lv.javaguru.java2.library.core.database;
+package lv.javaguru.java2.library.core.requests.database;
 
 import java.util.ArrayList;
 import java.util.List;

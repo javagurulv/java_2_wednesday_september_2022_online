@@ -24,7 +24,13 @@ public class DeleteVehicleByPlateNumberUIAction implements UIAction {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest(plateNumberToDelete);
         DeleteVehicleByPlateNumberResponse response = deleteVehicleByPlateNumberService.execute(request);
 
-        checkIsVehicleDeleted(response);
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+        } else {
+            checkIsVehicleDeleted(response);
+        }
     }
 
     private String getFromUserNumberOfPlateToDelete() {

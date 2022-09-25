@@ -9,6 +9,6 @@ public class DeleteVehicleByPlateNumberRequest {
 
     public DeleteVehicleByPlateNumberRequest(String plateNumber) {
         this.plateNumber = plateNumber;
-    }
 
+    }
 }
