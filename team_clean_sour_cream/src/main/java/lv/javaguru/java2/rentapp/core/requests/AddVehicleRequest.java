@@ -2,14 +2,12 @@ package lv.javaguru.java2.rentapp.core.requests;
 
 import lombok.Builder;
 import lombok.Getter;
-import lv.javaguru.java2.rentapp.enums.Colour;
-import lv.javaguru.java2.rentapp.enums.EngineType;
-import lv.javaguru.java2.rentapp.enums.TransmissionType;
+
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 @Getter
 @Builder
-public class AddNewVehicleRequest {
+public class AddVehicleRequest {
 
     private VehicleType vehicleType;
 
@@ -17,16 +15,16 @@ public class AddNewVehicleRequest {
     private String model;
     private boolean isAvailableForRent;
     private Integer yearOfProduction;
-    private Colour colour;
+    private String colour;
     private Double rentPricePerDay;
-    private EngineType engineType;
+    private String engineType;
     private String plateNumber;
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
     private Integer passengerAmount;
     private Integer baggageAmount;
     private Integer doorsAmount;
-    private boolean isAirConditioningAvailable;
+    private String isAirConditioningAvailable;
 
     private Integer deckWidthInCm;
     private Integer deckLengthInCm;

@@ -9,11 +9,11 @@ import java.util.Map;
 import static lv.javaguru.java2.rentapp.enums.VehicleType.*;
 import static lv.javaguru.java2.rentapp.enums.VehicleType.CAR_TRAILER;
 
-public class VehicleTypeCreatorMap {
+public class VehicleCreatorMap {
 
-    private Map<VehicleType, VehicleTypeCreator> vehicleTypeCreatorMap;
+    private Map<VehicleType, VehicleCreator> vehicleTypeCreatorMap;
 
-    public VehicleTypeCreatorMap(Database database) {
+    public VehicleCreatorMap(Database database) {
         this.vehicleTypeCreatorMap = new HashMap<>();
         vehicleTypeCreatorMap.put(PASSENGER_CAR, new PassengerCarCreator(database));
         vehicleTypeCreatorMap.put(MINIBUS, new MiniBusCreator(database));
@@ -21,7 +21,7 @@ public class VehicleTypeCreatorMap {
         vehicleTypeCreatorMap.put(CAR_TRAILER, new CarTrailerCreator(database));
     }
 
-    public VehicleTypeCreator getVehicleTypeCreatorByCarType(VehicleType vehicleType) {
+    public VehicleCreator getVehicleTypeCreatorByCarType(VehicleType vehicleType) {
         return vehicleTypeCreatorMap.get(vehicleType);
     }
 }
