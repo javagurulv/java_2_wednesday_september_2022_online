@@ -21,10 +21,13 @@ public class UserRegistrationUIAction implements UIAction {
         String password = scanner.nextLine();
         System.out.println("Enter email: ");
         String email = scanner.nextLine();
-        System.out.println("Enter mobilePhone: ");
+        System.out.println("Enter mobile phone: ");
         String mobilePhone = scanner.nextLine();
-        userRegistrationService.execute(username, password, email, mobilePhone);
-        System.out.println("Registration successfully completed.");
-        return true;
+        boolean result = userRegistrationService.execute(username, password, email, mobilePhone);
+        if (result)
+            System.out.println("Registration successfully completed.");
+        else
+            System.out.println("Registration failed");
+        return result;
     }
 }

@@ -1,8 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.services.AddTaskService;
-import lv.javaguru.java2.tasksScheduler.services.CurrentUserService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,34 +8,53 @@ import java.util.Scanner;
 
 public class AddTaskUIAction implements UIAction {
 
+    Scanner scanner = new Scanner(System.in);
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     private AddTaskService addTaskService;
-    private CurrentUserService currentUserService;
 
-
-    public AddTaskUIAction(AddTaskService addTaskService, CurrentUserService currentUserService) {
+    public AddTaskUIAction(AddTaskService addTaskService) {
         this.addTaskService = addTaskService;
-        this.currentUserService = currentUserService;
     }
-
 
     @Override
     public boolean execute() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter task description: ");
         String description = scanner.nextLine();
-        System.out.println("Enter task regularity: ");
-        int regularity = Integer.parseInt(scanner.nextLine());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        System.out.println("Enter task due date (yyyy-MM-dd HH:mm): ");
-        String dueDateStr = scanner.nextLine();
-        LocalDateTime  dueDate = LocalDateTime.parse(dueDateStr, formatter); //transform string to date/time
-        System.out.println("Enter task end date (yyyy-MM-dd HH:mm): ");
-        String endDateStr = scanner.nextLine();
-        LocalDateTime  endDate = LocalDateTime.parse(endDateStr, formatter); //transform string to date/time
-        User user  = currentUserService.execute();
-        Long userId = user.getId();
-        addTaskService.execute(description, regularity, dueDate, endDate, userId);
-
-        return true;
+        System.out.println("Enter after what days count to repeat the task or 0 if this is once only task: ");
+        int regularity;
+        try {
+            regularity = Integer.parseInt(scanner.nextLine());
+        } catch (RuntimeException e) {
+            System.out.println("Invalid number entered. Operation failed.");
+            return false;
+        }
+        System.out.println("Enter task Due Date in format 'yyyy-MM-dd HH:mm':");
+        LocalDateTime dueDate;
+        try {
+            dueDate = LocalDateTime.parse(scanner.nextLine(), formatter);
+        } catch (RuntimeException e) {
+            System.out.println("Invalid Due Date entered. Operation failed.");
+            return false;
+        }
+        LocalDateTime endDate;
+        if (regularity > 0) {
+            System.out.println("Enter task End Date in format 'yyyy-MM-dd HH:mm':");
+            try {
+                endDate = LocalDateTime.parse(scanner.nextLine(), formatter);
+            } catch (RuntimeException e) {
+                System.out.println("Invalid End Date entered. Operation failed.");
+                return false;
+            }
+        } else {
+            endDate = dueDate;
+        }
+        boolean result = addTaskService.execute(description, regularity, dueDate, endDate);
+        if (result)
+            System.out.println("Task successfully added.");
+        else
+            System.out.println("Task adding failed.");
+        return result;
     }
 }

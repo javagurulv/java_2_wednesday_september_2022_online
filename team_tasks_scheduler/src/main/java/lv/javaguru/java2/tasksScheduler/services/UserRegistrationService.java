@@ -12,8 +12,8 @@ public class UserRegistrationService {
         this.usersRepository = usersRepository;
     }
 
-    public void execute(String username, String password, String email, String mobilePhone) {
+    public boolean execute(String username, String password, String email, String mobilePhone) {
         User user = new User(username, Encryption.stringHashing(password), email, mobilePhone);
-        usersRepository.save(user);
+        return usersRepository.save(user);
     }
 }
