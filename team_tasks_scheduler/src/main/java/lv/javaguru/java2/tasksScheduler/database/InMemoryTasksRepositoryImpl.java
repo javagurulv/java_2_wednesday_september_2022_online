@@ -1,10 +1,11 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
-import lv.javaguru.java2.tasksScheduler.Task;
+import lv.javaguru.java2.tasksScheduler.domain.Task;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,14 +17,15 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     private List<Task> tasks = new ArrayList<>();
 
     @Override
-    public void save(Task task) {
+    public boolean save(Task task) {
         if (task == null)
-            return;
+            return false;
         task.setId(nextId);
         nextId++;
         tasks.add(task);
         if (nextId == Long.MAX_VALUE)
             nextId = 1L;
+        return true;
     }
 
     @Override
@@ -43,13 +45,14 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public void update(Task task) {
+    public boolean update(Task task) {
         if (task == null)
-            return;
+            return false;
         if (getTaskById(task.getId()) == null)
-            return;
+            return false;
         deleteById(task.getId());
         tasks.add(task);
+        return true;
     }
 
     @Override
@@ -74,6 +77,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
         return tasks.stream()
                 .filter(task -> task.getUserId().equals(userId) &&
                         task.getEndDate().isAfter(LocalDateTime.now()))
+                .sorted(Comparator.comparing(Task::getId))
                 .collect(toList());
     }
 
@@ -83,6 +87,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
                 .filter(task -> task.getUserId().equals(userId) &&
                         task.getEndDate().isAfter(LocalDateTime.now()) &&
                         task.getDueDate().isBefore(LocalDateTime.now().plusDays(1).with(LocalTime.MIN)))
+                .sorted(Comparator.comparing(Task::getId))
                 .collect(toList());
     }
 

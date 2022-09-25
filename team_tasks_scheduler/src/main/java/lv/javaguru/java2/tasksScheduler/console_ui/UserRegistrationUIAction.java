@@ -13,7 +13,7 @@ public class UserRegistrationUIAction implements UIAction {
     }
 
     @Override
-    public void execute() {
+    public boolean execute() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter username: ");
         String username = scanner.nextLine();
@@ -21,9 +21,13 @@ public class UserRegistrationUIAction implements UIAction {
         String password = scanner.nextLine();
         System.out.println("Enter email: ");
         String email = scanner.nextLine();
-        System.out.println("Enter mobilePhone: ");
+        System.out.println("Enter mobile phone: ");
         String mobilePhone = scanner.nextLine();
-        userRegistrationService.execute(username, password, email, mobilePhone);
-        System.out.println("Registration successfully completed.");
+        boolean result = userRegistrationService.execute(username, password, email, mobilePhone);
+        if (result)
+            System.out.println("Registration successfully completed.");
+        else
+            System.out.println("Registration failed");
+        return result;
     }
 }

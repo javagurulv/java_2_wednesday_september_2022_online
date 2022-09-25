@@ -12,10 +12,13 @@ import lv.javaguru.java2.library.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.library.services.AddBookService;
 import lv.javaguru.java2.library.services.GetAllBooksService;
 import lv.javaguru.java2.library.services.RemoveBookService;
+import lv.javaguru.java2.library.services.UserService;
 
 public class BookListApplication {
 
 	private static Database database = new InMemoryDatabaseImpl();
+	private static UserService userService = new UserService();
+
 	private static AddBookService addBookService = new AddBookService(database);
 	private static RemoveBookService removeBookService = new RemoveBookService(database);
 	private static GetAllBooksService getAllBooksService = new GetAllBooksService(database);

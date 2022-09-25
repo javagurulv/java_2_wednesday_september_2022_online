@@ -1,13 +1,12 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
-import lv.javaguru.java2.tasksScheduler.Task;
+import lv.javaguru.java2.tasksScheduler.domain.Task;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TasksRepository {
 
-    void save(Task task);
+    boolean save(Task task);
 
     void deleteById(Long id);
 
@@ -15,7 +14,7 @@ public interface TasksRepository {
 
     void deleteOutOfDateByUserId(Long userId);
 
-    void update(Task task);
+    boolean update(Task task);
 
     boolean exists(Task task);
 

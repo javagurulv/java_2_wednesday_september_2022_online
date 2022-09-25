@@ -2,13 +2,13 @@ package myApp.core.requests;
 
 public class RemoveBankAccountRequest {
 
-    private Long id;
+    private String personalCode;
 
-    public RemoveBankAccountRequest(Long id) {
-        this.id = id;
+    public RemoveBankAccountRequest(String personalCode) {
+        this.personalCode = personalCode;
     }
 
-    public Long getId() {
-        return id;
+    public String getPersonalCode() {
+        return personalCode;
     }
 }
