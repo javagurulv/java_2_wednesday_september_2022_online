@@ -1,4 +1,5 @@
 dependencies {
+	implementation 'org.junit.jupiter:junit-jupiter:5.9.0'
 	testImplementation('junit:junit:4.13.2')
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
@@ -6,4 +7,9 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok:1.18.24'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+}
+
+test {
+	useJUnitPlatform()
 }
