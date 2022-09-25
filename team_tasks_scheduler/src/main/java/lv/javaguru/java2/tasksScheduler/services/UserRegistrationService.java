@@ -22,6 +22,11 @@ public class UserRegistrationService {
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
+            for (CoreError err : errors) {
+                System.out.println(err.getField());
+                System.out.println(err.getMessage());
+                System.out.println("------------------------");
+            }
             return new UserRegistrationResponse(errors);
         }
 

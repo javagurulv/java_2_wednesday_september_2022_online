@@ -32,6 +32,7 @@ public class UserRegistrationUIAction implements UIAction {
 
         if (response.hasErrors()) {
             System.out.println("Registration failed");
+            //response.
             result = false;
         }
         else {
