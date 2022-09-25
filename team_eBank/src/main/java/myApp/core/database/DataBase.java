@@ -1,6 +1,7 @@
 package myApp.core.database;
 
-import myApp.BankAccount;
+import myApp.core.domain.Account;
+import myApp.core.domain.BankAccount;
 
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public interface DataBase {
 
     boolean bankTransfer(String personalCode, String anotherPersonalCode, int value);
 
-    BankAccount openAccount(String personalCode);
+    boolean openAccount(String personalCode);
     boolean closeAccount(String personalCode);
    BankAccount seeYourAccount(String personalCode);
    String  logIn(String personalCode);

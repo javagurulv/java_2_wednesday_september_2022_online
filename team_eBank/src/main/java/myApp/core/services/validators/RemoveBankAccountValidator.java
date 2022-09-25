@@ -16,10 +16,10 @@ public class RemoveBankAccountValidator {
     }
 
     private Optional<CoreError> validateID(RemoveBankAccountRequest request) {
-        String numbers = String.valueOf(request.getPersonalCode());
-        return !numbers.matches("^[a-zA-Z]+$")
-                ? Optional.of(new CoreError("ID",
-                "id can contain only numbers and and cannot be empty"))
-                : Optional.empty();
+        if (request.getPersonalCode() != null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(new CoreError("Field: Id", "id must not be empty"));
+        }
     }
 }

@@ -1,8 +1,6 @@
-package myApp;
+package myApp.core.domain;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class BankAccount {
 
@@ -11,7 +9,7 @@ public class BankAccount {
     private Long id;
     private String personalCode;
     private Roles role;
-    private Account accounts;
+    private Account account;
 
     public BankAccount(String name, String surname, Roles role, String personalCode) {
         this.personalCode = personalCode;
@@ -60,11 +58,11 @@ public class BankAccount {
     }
 
     public Account getAccounts() {
-        return accounts;
+        return account;
     }
 
-    public void setAccounts(Account accounts) {
-        this.accounts = accounts;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public String getPersonalCode() {
@@ -80,12 +78,12 @@ public class BankAccount {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankAccount that = (BankAccount) o;
-        return Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(id, that.id) && Objects.equals(personalCode, that.personalCode) && role == that.role && Objects.equals(accounts, that.accounts);
+        return Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(id, that.id) && Objects.equals(personalCode, that.personalCode) && role == that.role && Objects.equals(account, that.account);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, id, personalCode, role, accounts);
+        return Objects.hash(name, surname, id, personalCode, role, account);
     }
 
     @Override
@@ -96,7 +94,7 @@ public class BankAccount {
                 ", id=" + id +
                 ", personalCode='" + personalCode + '\'' +
                 ", role=" + role +
-                ", accounts=" + accounts +
+                ", account=" + account +
                 '}';
     }
 }

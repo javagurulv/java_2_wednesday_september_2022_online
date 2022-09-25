@@ -1,7 +1,7 @@
 package myApp.core.services;
 
-import myApp.BankAccount;
-import myApp.Roles;
+import myApp.core.domain.BankAccount;
+import myApp.core.domain.Roles;
 import myApp.core.database.DataBase;
 
 import java.util.Map;
