@@ -1,6 +1,6 @@
 package myApp.core.responses;
 
-import myApp.BankAccount;
+import myApp.core.domain.BankAccount;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.CloseAccountRequest;
+
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.services.CloseAccountService;
 import myApp.core.services.UserService;
@@ -19,7 +20,10 @@ public class CloseAccountUIAction implements UIAction {
     public void execute() {
         String personalCode = userService.getPersonalCode();
         CloseAccountRequest request = new CloseAccountRequest(personalCode);
-
+        CloseAccountResponse response = service.execute(request);
+        if (response.isDeleted()) {
+            System.out.println("Account has been closed");
+        }
 
     }
 }

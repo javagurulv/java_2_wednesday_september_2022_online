@@ -15,6 +15,7 @@ public class UserService {
         setPersonalCode(personalCode);
         return dataBase.logIn(personalCode);
     }
+
     public void logOut() {
         this.personalCode = null;
     }
@@ -23,7 +24,8 @@ public class UserService {
         return this.personalCode;
     }
 
-    public void setPersonalCode(String personalCode) {
+   private void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
     }
+
 }

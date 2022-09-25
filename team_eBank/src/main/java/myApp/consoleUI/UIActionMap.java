@@ -1,11 +1,10 @@
 package myApp.consoleUI;
-
-import myApp.BankAccount;
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.services.*;
 import myApp.core.services.validators.AddBankAccountValidator;
 import myApp.core.services.validators.MoneyTransferValidator;
+import myApp.core.services.validators.OpenAccountValidator;
 import myApp.core.services.validators.RemoveBankAccountValidator;
 
 import java.util.HashMap;
@@ -29,15 +28,22 @@ public class UIActionMap {
     private static MoneyTransferService moneyTransferService = new MoneyTransferService(dataBase
             , moneyTransferValidator);
     private static UIAction moneyTransfer = new MoneyTransferUIAction(moneyTransferService, userService);
-    private static OpenAccountService accountService = new OpenAccountService(dataBase);
+    private static OpenAccountValidator openAccountValidator = new OpenAccountValidator();
+    private static OpenAccountService accountService = new OpenAccountService(dataBase, openAccountValidator);
     private static UIAction openAccount = new OpenAccountUIAction(accountService, userService);
+    private static CloseAccountService closeAccountService = new CloseAccountService(dataBase);
+    private static CloseAccountUIAction closeAccountUIAction = new CloseAccountUIAction(closeAccountService, userService);
+    private static SeeYourAccountService seeYourAccountService = new SeeYourAccountService(dataBase);
+    private static SeeYourAccountUIAction seeYourAccountUIAction = new SeeYourAccountUIAction(seeYourAccountService,userService);
     private static UIAction exit = new ExitUIAction();
     private Map<Integer, UIAction> uiActionMap = new HashMap<>();
     public UIAction userSelectionForRegularUser(int userChoice) {
         uiActionMap.put(1, moneyTransfer);
         uiActionMap.put(2, openAccount);
-        uiActionMap.put(3,getAllAccountsUIAction);
-        uiActionMap.put(4, exit);
+        uiActionMap.put(3, closeAccountUIAction);
+        uiActionMap.put(4, seeYourAccountUIAction);
+        uiActionMap.put(5, getAllAccountsUIAction);
+        uiActionMap.put(6, exit);
         return uiActionMap.get(userChoice);
     }
 
@@ -56,9 +62,5 @@ public class UIActionMap {
 
     public String logIn(String personalCode) {
         return userService.getBankAccountCode(personalCode);
-    }
-
-    public Map<String , BankAccount> getBankAccountsMap() {
-        return dataBase.getAllBankAccountsMap();
     }
 }

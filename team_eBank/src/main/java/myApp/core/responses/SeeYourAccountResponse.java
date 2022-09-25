@@ -1,12 +1,12 @@
 package myApp.core.responses;
 
-import myApp.BankAccount;
+import myApp.core.domain.BankAccount;
 
-public class AddAccountResponse {
+public class SeeYourAccountResponse {
 
     private BankAccount bankAccount;
 
-    public AddAccountResponse(BankAccount bankAccount) {
+    public SeeYourAccountResponse(BankAccount bankAccount) {
         this.bankAccount = bankAccount;
     }
 

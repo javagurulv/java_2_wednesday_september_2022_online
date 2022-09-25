@@ -5,10 +5,11 @@ import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 
 public class CloseAccountService {
-    // Connect UserService
+
     private DataBase dataBase;
 
-    public CloseAccountService(DataBase dataBase, UserService userService) {
+
+    public CloseAccountService(DataBase dataBase) {
         this.dataBase = dataBase;
     }
 
@@ -16,4 +17,5 @@ public class CloseAccountService {
         boolean result = dataBase.closeAccount(request.getPersonalCode());
         return new CloseAccountResponse(result);
     }
+
 }
