@@ -6,7 +6,7 @@ import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import java.util.ArrayList;
 import java.util.List;
 
-//not implemented yet....in progress
+//not implemented yet....in progres
 public class DeleteVehicleByPlateNumberValidator {
 
     public List<CoreError> validate(DeleteVehicleByPlateNumberRequest request) {
