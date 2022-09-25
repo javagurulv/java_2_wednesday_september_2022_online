@@ -1,14 +1,14 @@
 package eBooking.console_ui;
 
-import eBooking.Database;
+import eBooking.database.Database;
 
-public class PrintClientUIAction {
+public class PrintClientUIAction implements UIAction {
 private Database database;
 
     public PrintClientUIAction(Database database) {
         this.database = database;
     }
-    public void executePrintClients() {
+    public void execute() {
         System.out.println("Client list");
         if (database.getAllClients().isEmpty()) {
             System.out.println("Client list is empty");

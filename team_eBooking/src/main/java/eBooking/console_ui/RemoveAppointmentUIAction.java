@@ -1,17 +1,17 @@
 package eBooking.console_ui;
 
-import eBooking.Database;
+import eBooking.database.Database;
 
 import java.util.Scanner;
 
-public class RemoveAppointmentUIAction {
+public class RemoveAppointmentUIAction implements UIAction {
     private Database database;
 
     public RemoveAppointmentUIAction(Database database) {
         this.database = database;
     }
 
-    public void executeRemoveAppointment() {
+    public void execute() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Remove appointment by id");
         Long appointmentId = Long.parseLong(scanner.nextLine());

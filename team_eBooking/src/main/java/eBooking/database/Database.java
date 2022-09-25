@@ -1,4 +1,7 @@
-package eBooking;
+package eBooking.database;
+
+import eBooking.Appointment;
+import eBooking.Client;
 
 import java.util.List;
 

@@ -1,14 +1,19 @@
 package eBooking;
 
 import eBooking.console_ui.*;
+import eBooking.database.Database;
+import eBooking.database.InMemoryDatabase;
+import eBooking.service.AddClientService;
+
+import java.util.Scanner;
 
 public class AppointmentApplication {
     public static void main(String[] args) {
 
         Database database = new InMemoryDatabase();
-        MenuNumberUIAction menuNumberUIAction=new MenuNumberUIAction();
         PrintApplicationMenuUIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
-        AddClientUIAction addClientUIAction = new AddClientUIAction(database);
+        AddClientService addClientService = new AddClientService(database);
+        AddClientUIAction addClientUIAction = new AddClientUIAction(addClientService);
         RemoveClientUIAction removeClientUIAction = new RemoveClientUIAction(database);
         PrintClientUIAction printClientUIAction = new PrintClientUIAction(database);
         AddAppointmentUIAction addAppointmentUIAction = new AddAppointmentUIAction(database);
@@ -16,37 +21,43 @@ public class AppointmentApplication {
         PrintAppointmentUIAction printAppointmentUIAction = new PrintAppointmentUIAction(database);
         ExitApplicationUIAction exitApplicationUIAction = new ExitApplicationUIAction();
 
+
         while (true) {
-            printApplicationMenuUIAction.executePrintApplicationMenu();
-            switch (menuNumberUIAction.executeMenuNumberChoice()) {
+            printApplicationMenuUIAction.execute();
+            switch (chooseMenuNumber()) {
                 case 1: {
-                    addClientUIAction.executeAddClient();
+                    addClientUIAction.execute();
                     break;
                 }
                 case 2: {
-                    removeClientUIAction.executeClientRemove();
+                    removeClientUIAction.execute();
                     break;
                 }
                 case 3: {
-                    printClientUIAction.executePrintClients();
+                    printClientUIAction.execute();
                     break;
                 }
                 case 4: {
-                    addAppointmentUIAction.executeAddAppointment();
+                    addAppointmentUIAction.execute();
                     break;
                 }
                 case 5: {
-                    removeAppointmentUIAction.executeRemoveAppointment();
+                    removeAppointmentUIAction.execute();
                     break;
                 }
                 case 6: {
-                    printAppointmentUIAction.executePrintAppointments();
+                    printAppointmentUIAction.execute();
                     break;
                 }
                 case 7: {
-                    exitApplicationUIAction.executeExitAnApplication();
+                    exitApplicationUIAction.execute();
                 }
             }
         }
+    }
+    public static int chooseMenuNumber() {
+        System.out.println("Choose menu number to execute");
+        Scanner scanner = new Scanner(System.in);
+        return Integer.parseInt(scanner.nextLine());
     }
 }

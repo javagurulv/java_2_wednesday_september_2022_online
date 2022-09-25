@@ -1,18 +1,18 @@
 package eBooking.console_ui;
 
 import eBooking.Appointment;
-import eBooking.Database;
+import eBooking.database.Database;
 
 import java.util.Scanner;
 
-public class AddAppointmentUIAction {
+public class AddAppointmentUIAction implements UIAction {
     private Database database;
 
     public AddAppointmentUIAction(Database database) {
         this.database = database;
     }
 
-    public void executeAddAppointment() {
+    public void execute() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose master name");
         String masterName = scanner.nextLine();

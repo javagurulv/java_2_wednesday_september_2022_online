@@ -1,7 +1,7 @@
 package eBooking.console_ui;
 
 public class PrintApplicationMenuUIAction {
-    public void executePrintApplicationMenu() {
+    public void execute() {
         System.out.println("Appointment Application");
         System.out.println("");
         System.out.println("1. Add a client");
