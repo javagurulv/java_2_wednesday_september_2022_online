@@ -21,7 +21,7 @@ public class LoginUIAction implements UIAction {
         String username = scanner.nextLine();
         System.out.println("Enter password: ");
         String password = scanner.nextLine();
-        if (loginService.execute(username, Encryption.stringHashing(password))) {
+        if (loginService.execute(username, password)) {
             System.out.println("Welcome to the system, " + username);
             return true;
         } else {

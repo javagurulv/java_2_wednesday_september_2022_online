@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface UsersRepository {
 
-    void save(User user);
+    boolean save(User user);
 
     void deleteById(Long id);
 
-    void update(User user);
+    boolean update(User user);
 
     boolean existsByName(String username);
 
-    boolean existsByNameAndPassword(String username, String password);
-
     User getUserById(Long id);
+
+    User getUserByNameAndPassword(String username, String password);
 
     List<User> getAllUsers();
 }
