@@ -1,4 +1,4 @@
-package lv.javaguru.java2.repo_men_inc;
+package lv.javaguru.java2.repo_men_inc.domain;
 
 import java.util.HashSet;
 import java.util.Objects;

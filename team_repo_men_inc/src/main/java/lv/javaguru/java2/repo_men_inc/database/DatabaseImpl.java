@@ -1,6 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.database;
 
-import lv.javaguru.java2.repo_men_inc.Debtor;
+import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 
 import java.util.ArrayList;
 import java.util.List;

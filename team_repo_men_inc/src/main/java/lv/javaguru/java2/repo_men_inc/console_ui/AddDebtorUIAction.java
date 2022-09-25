@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 public class AddDebtorUIAction implements UIAction{
     private AddDebtorService addDebtorService;
-    private Scanner scanner;
-    public AddDebtorUIAction(AddDebtorService addDebtorService, Scanner scanner) {
+
+    public AddDebtorUIAction(AddDebtorService addDebtorService) {
         this.addDebtorService = addDebtorService;
-        this.scanner = scanner;
     }
 
     @Override
     public void execute() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter debtors name: ");
         String debtorsName = scanner.nextLine();
         AddDebtorRequest addDebtorRequest = new AddDebtorRequest(debtorsName);

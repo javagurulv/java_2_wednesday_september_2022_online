@@ -1,6 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
-import lv.javaguru.java2.repo_men_inc.Debtor;
+import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.database.Database;
