@@ -1,6 +1,6 @@
 package eBooking.console_ui;
 
-public class PrintApplicationMenuUIAction {
+public class PrintApplicationMenuUIAction implements UIAction {
     public void execute() {
         System.out.println("Appointment Application");
         System.out.println("");

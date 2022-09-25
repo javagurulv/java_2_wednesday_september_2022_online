@@ -8,19 +8,19 @@ import eBooking.service.AddClientService;
 import java.util.Scanner;
 
 public class AppointmentApplication {
+    private static Database database = new InMemoryDatabase();
+    private static AddClientService addClientService = new AddClientService(database);
+
+    private static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
+    private static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
+    public static UIAction removeClientUIAction = new RemoveClientUIAction(database);
+    public static UIAction printClientUIAction = new PrintClientUIAction(database);
+    public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(database);
+    public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(database);
+    public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(database);
+    public static UIAction exitApplicationUIAction = new ExitApplicationUIAction();
+
     public static void main(String[] args) {
-
-        Database database = new InMemoryDatabase();
-        PrintApplicationMenuUIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
-        AddClientService addClientService = new AddClientService(database);
-        AddClientUIAction addClientUIAction = new AddClientUIAction(addClientService);
-        RemoveClientUIAction removeClientUIAction = new RemoveClientUIAction(database);
-        PrintClientUIAction printClientUIAction = new PrintClientUIAction(database);
-        AddAppointmentUIAction addAppointmentUIAction = new AddAppointmentUIAction(database);
-        RemoveAppointmentUIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(database);
-        PrintAppointmentUIAction printAppointmentUIAction = new PrintAppointmentUIAction(database);
-        ExitApplicationUIAction exitApplicationUIAction = new ExitApplicationUIAction();
-
 
         while (true) {
             printApplicationMenuUIAction.execute();
