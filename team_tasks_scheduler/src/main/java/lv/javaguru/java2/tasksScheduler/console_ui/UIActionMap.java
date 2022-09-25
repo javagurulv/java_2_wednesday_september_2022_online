@@ -13,12 +13,12 @@ public class UIActionMap {
 
     private UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
     private TasksRepository tasksRepository = new InMemoryTasksRepositoryImpl();
-
+    private UserInfoValidator userInfoValidator = new UserInfoValidator();
     private SessionService sessionService = new SessionService();
 
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
     private GetAllUsersNamesService getAllUsersNamesService = new GetAllUsersNamesService(usersRepository);
-    private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository);
+    private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository, userInfoValidator);
     private LoginService loginService = new LoginService(usersRepository, tasksRepository, sessionService);
     private GetOutstandingTasksService getOutstandingTasksService = new GetOutstandingTasksService(tasksRepository, sessionService);
     private GetTasksForTodayService getTasksForTodayService = new GetTasksForTodayService(tasksRepository, sessionService);
