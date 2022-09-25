@@ -8,15 +8,14 @@ import java.util.Scanner;
 
 public class RemoveDebtorUIAction implements UIAction{
     private RemoveDebtorService removeDebtorService;
-    private Scanner scanner;
 
-    public RemoveDebtorUIAction(RemoveDebtorService removeDebtorService, Scanner scanner) {
+    public RemoveDebtorUIAction(RemoveDebtorService removeDebtorService) {
         this.removeDebtorService = removeDebtorService;
-        this.scanner = scanner;
     }
     @Override
     public void execute() {
         try {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Enter debtors Id: ");
             Long debtorsId = Long.parseLong(scanner.nextLine());
             RemoveDebtorRequest removeDebtorRequest = new RemoveDebtorRequest(debtorsId);
