@@ -1,5 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
+import lv.javaguru.java2.rentapp.domain.MiniBus;
+import lv.javaguru.java2.rentapp.domain.PassengerCar;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 public class DoorsAmountCriteria implements SearchCriteria{
@@ -13,6 +15,12 @@ public class DoorsAmountCriteria implements SearchCriteria{
 
     @Override
     public boolean test(Vehicle vehicle) {
-        return vehicle.getDoorsAmount.equals(doorsAmount);
+        if (vehicle instanceof PassengerCar){
+                return ((PassengerCar) vehicle).getDoorsAmount().equals(doorsAmount);
+        } else if(vehicle instanceof MiniBus) {
+            return ((MiniBus) vehicle).getDoorsAmount().equals(doorsAmount);
+        } else {
+            return false;
+        }
     }
 }
