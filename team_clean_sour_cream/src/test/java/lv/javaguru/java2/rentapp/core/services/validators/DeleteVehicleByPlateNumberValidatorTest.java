@@ -5,11 +5,11 @@ import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteVehicleByPlateNumberValidatorTest {
 
@@ -45,14 +45,14 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertEquals("can`t be empty or blank", errorOptional.get().getMessage());
     }
 
-//    @Test
-//    void testValidateVehicleByPlateNumberShouldReturnErrorThanNumberIsNull() {
-//        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest(null);
-//        Optional<CoreError> errorOptional = deleteVehicleByPlateNumberValidator.validateVehicleByPlateNumber(request);
-//        assertTrue(errorOptional.isPresent());
-//        assertEquals("Plate number", errorOptional.get().getField());
-//        assertEquals("can`t be empty or blank", errorOptional.get().getMessage());
-//    }
+    @Test
+    void testValidateVehicleByPlateNumberShouldReturnErrorThanNumberIsNull() {
+        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest(null);
+        Optional<CoreError> errorOptional = deleteVehicleByPlateNumberValidator.validateVehicleByPlateNumber(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Plate number", errorOptional.get().getField());
+        assertEquals("can`t be empty or blank", errorOptional.get().getMessage());
+    }
 
     @Test
     void testValidateVehicleByPlateNumberShouldReturnNoError() {
