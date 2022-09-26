@@ -327,6 +327,4 @@ class AddPassengerCarValidatorTest {
         assertEquals(errorOptional.get().getField(), "IsAirConditionerAvailable");
         assertEquals(errorOptional.get().getMessage(), "must be either true or false");
     }
-
-
 }
