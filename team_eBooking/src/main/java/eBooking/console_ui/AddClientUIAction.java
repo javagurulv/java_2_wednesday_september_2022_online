@@ -17,7 +17,7 @@ public class AddClientUIAction implements UIAction{
         String clientEmail = scanner.nextLine();
         System.out.println("Enter phone number");
         String clientPhoneNumber = scanner.nextLine();
-        addClientService.addClient(clientEmail,clientPhoneNumber);
+        addClientService.execute(clientEmail,clientPhoneNumber);
         System.out.println("Client added to the list");
     }
 }

@@ -4,6 +4,7 @@ import eBooking.console_ui.*;
 import eBooking.database.Database;
 import eBooking.database.InMemoryDatabase;
 import eBooking.service.AddClientService;
+import eBooking.service.GetAllClientService;
 import eBooking.service.RemoveClientService;
 
 import java.util.Scanner;
@@ -12,11 +13,12 @@ public class AppointmentApplication {
     private static Database database = new InMemoryDatabase();
     private static AddClientService addClientService = new AddClientService(database);
     private static RemoveClientService removeClientService=new RemoveClientService(database);
+    private static GetAllClientService getAllClientService = new GetAllClientService(database);
 
     private static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
     private static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
     public static UIAction removeClientUIAction = new RemoveClientUIAction(removeClientService);
-    public static UIAction printClientUIAction = new PrintClientUIAction(database);
+    public static UIAction printClientUIAction = new PrintClientUIAction(getAllClientService);
     public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(database);
     public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(database);
     public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(database);

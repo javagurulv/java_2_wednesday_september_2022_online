@@ -10,7 +10,7 @@ public class AddClientService {
         this.database = database;
     }
 
-    public void addClient(String clientEmail, String clientPhoneNumber) {
+    public void execute(String clientEmail, String clientPhoneNumber) {
         database.saveClient(new Client(clientEmail, clientPhoneNumber));
     }
 }
