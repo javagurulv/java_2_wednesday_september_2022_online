@@ -20,6 +20,7 @@ public class DeleteVehicleByPlateNumberService {
     }
 
     public DeleteVehicleByPlateNumberResponse execute(DeleteVehicleByPlateNumberRequest request) {
+
         boolean isVehicleDeleted = database.deleteVehicleByPlateNumber(request.getPlateNumber());
         List<CoreError> errors = deleteVehicleByPlateNumberValidator.validate(request);
         if (!errors.isEmpty()) {
