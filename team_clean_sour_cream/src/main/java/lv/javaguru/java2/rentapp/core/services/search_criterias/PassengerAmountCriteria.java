@@ -5,14 +5,13 @@ import lv.javaguru.java2.rentapp.domain.Motorcycle;
 import lv.javaguru.java2.rentapp.domain.PassengerCar;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
-public class PassengerAmountCriteria implements SearchCriteria{
+public class PassengerAmountCriteria implements SearchCriteria {
 
     private Integer passengerAmount;
 
     public PassengerAmountCriteria(Integer passengerAmount) {
         this.passengerAmount = passengerAmount;
     }
-
 
     @Override
     public boolean test(Vehicle vehicle) {

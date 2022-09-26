@@ -3,7 +3,7 @@ package lv.javaguru.java2.rentapp.core.services.search_criterias;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 
-public class VehicleTypeCriteria implements SearchCriteria{
+public class VehicleTypeCriteria implements SearchCriteria {
 
     private String vehicleType;
 
@@ -13,7 +13,8 @@ public class VehicleTypeCriteria implements SearchCriteria{
 
     @Override
     public boolean test(Vehicle vehicle) {
-        return vehicle.getClass().getCanonicalName().equalsIgnoreCase(vehicleType);
-    }
 
+        return vehicle.getClass().getCanonicalName().equalsIgnoreCase(vehicleType);
+
+    }
 }
