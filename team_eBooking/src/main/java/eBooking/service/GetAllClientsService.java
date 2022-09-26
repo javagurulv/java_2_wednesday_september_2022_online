@@ -2,11 +2,11 @@ package eBooking.service;
 
 import eBooking.database.Database;
 
-public class GetAllClientService {
+public class GetAllClientsService {
 
     private Database database;
 
-    public GetAllClientService(Database database) {
+    public GetAllClientsService(Database database) {
         this.database = database;
     }
 

@@ -2,14 +2,15 @@ package eBooking.console_ui;
 
 import eBooking.Appointment;
 import eBooking.database.Database;
+import eBooking.service.AddAppointmentService;
 
 import java.util.Scanner;
 
 public class AddAppointmentUIAction implements UIAction {
-    private Database database;
+   private AddAppointmentService addAppointmentService;
 
-    public AddAppointmentUIAction(Database database) {
-        this.database = database;
+    public AddAppointmentUIAction(AddAppointmentService addAppointmentService) {
+        this.addAppointmentService = addAppointmentService;
     }
 
     public void execute() {
@@ -19,7 +20,7 @@ public class AddAppointmentUIAction implements UIAction {
         System.out.println("Choose type of service");
         String typeOfService = scanner.nextLine();
         System.out.println("Choose available date");
-        database.saveAppointment(new Appointment(masterName, typeOfService));
+        addAppointmentService.execute(masterName, typeOfService);
         System.out.println("Appointment added to the list");
     }
 }

@@ -1,16 +1,16 @@
 package eBooking.console_ui;
 
-import eBooking.service.GetAllClientService;
+import eBooking.service.GetAllClientsService;
 
 public class PrintClientUIAction implements UIAction {
-private GetAllClientService getAllClientService;
+private GetAllClientsService getAllClientsService;
 
-    public PrintClientUIAction(GetAllClientService getAllClientService) {
-        this.getAllClientService = getAllClientService;
+    public PrintClientUIAction(GetAllClientsService getAllClientsService) {
+        this.getAllClientsService = getAllClientsService;
     }
 
     public void execute() {
         System.out.println("Client list");
-        getAllClientService.execute();
+        getAllClientsService.execute();
     }
 }

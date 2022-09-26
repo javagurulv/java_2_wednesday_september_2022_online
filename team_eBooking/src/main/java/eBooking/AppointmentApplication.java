@@ -3,9 +3,7 @@ package eBooking;
 import eBooking.console_ui.*;
 import eBooking.database.Database;
 import eBooking.database.InMemoryDatabase;
-import eBooking.service.AddClientService;
-import eBooking.service.GetAllClientService;
-import eBooking.service.RemoveClientService;
+import eBooking.service.*;
 
 import java.util.Scanner;
 
@@ -13,14 +11,16 @@ public class AppointmentApplication {
     private static Database database = new InMemoryDatabase();
     private static AddClientService addClientService = new AddClientService(database);
     private static RemoveClientService removeClientService=new RemoveClientService(database);
-    private static GetAllClientService getAllClientService = new GetAllClientService(database);
+    private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
+    private static AddAppointmentService addAppointmentService = new AddAppointmentService(database);
+    private static RemoveAppointmentService removeAppointmentService = new RemoveAppointmentService(database);
 
     private static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
     private static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
     public static UIAction removeClientUIAction = new RemoveClientUIAction(removeClientService);
-    public static UIAction printClientUIAction = new PrintClientUIAction(getAllClientService);
-    public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(database);
-    public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(database);
+    public static UIAction printClientUIAction = new PrintClientUIAction(getAllClientsService);
+    public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(addAppointmentService);
+    public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(removeAppointmentService);
     public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(database);
     public static UIAction exitApplicationUIAction = new ExitApplicationUIAction();
 
