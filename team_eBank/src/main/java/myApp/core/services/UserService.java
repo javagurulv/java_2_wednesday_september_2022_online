@@ -17,7 +17,9 @@ public class UserService {
     }
 
     public void logOut() {
-        this.personalCode = null;
+        if (this.personalCode != null) {
+            this.personalCode = null;
+        }
     }
 
     public String getPersonalCode() {
