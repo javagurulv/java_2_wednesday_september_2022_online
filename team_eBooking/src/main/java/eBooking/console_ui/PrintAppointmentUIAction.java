@@ -1,19 +1,17 @@
 package eBooking.console_ui;
 
 import eBooking.database.Database;
+import eBooking.service.GetAllAppointmentsService;
 
 public class PrintAppointmentUIAction implements UIAction {
-    private Database database;
+    private GetAllAppointmentsService getAllAppointmentsService;
 
-    public PrintAppointmentUIAction(Database database) {
-        this.database = database;
+    public PrintAppointmentUIAction(GetAllAppointmentsService getAllAppointmentsService) {
+        this.getAllAppointmentsService = getAllAppointmentsService;
     }
+
     public void execute() {
         System.out.println("Check all appointments");
-        if (database.getAllAppointments().isEmpty()) {
-            System.out.println("List is empty");
-        } else {
-            database.getAllClients().forEach(System.out::println);
-        }
+        getAllAppointmentsService.execute();
     }
 }

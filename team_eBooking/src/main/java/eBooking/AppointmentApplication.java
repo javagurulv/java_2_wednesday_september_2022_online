@@ -14,6 +14,7 @@ public class AppointmentApplication {
     private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
     private static AddAppointmentService addAppointmentService = new AddAppointmentService(database);
     private static RemoveAppointmentService removeAppointmentService = new RemoveAppointmentService(database);
+    private static GetAllAppointmentsService getAllAppointmentsService = new GetAllAppointmentsService(database);
 
     private static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
     private static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
@@ -21,7 +22,7 @@ public class AppointmentApplication {
     public static UIAction printClientUIAction = new PrintClientUIAction(getAllClientsService);
     public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(addAppointmentService);
     public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(removeAppointmentService);
-    public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(database);
+    public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(getAllAppointmentsService);
     public static UIAction exitApplicationUIAction = new ExitApplicationUIAction();
 
     public static void main(String[] args) {
