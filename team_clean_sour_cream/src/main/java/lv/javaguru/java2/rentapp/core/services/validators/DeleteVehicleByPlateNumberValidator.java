@@ -3,7 +3,6 @@ package lv.javaguru.java2.rentapp.core.services.validators;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
