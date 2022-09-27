@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
+import static lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddMiniBusValidator.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddMiniBusValidatorTest {
@@ -28,90 +29,138 @@ class AddMiniBusValidatorTest {
 
     @Test
     void testValidatePassengerAmountShouldReturnNoErrors() {
-        Integer passengerAmount = 5;
+        Integer passengerAmount = MAX_PASSENGER_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void testValidatePassengerAmountShouldReturnErrorV1() {
+    void testValidatePassengerAmountIsZeroShouldReturnError() {
         Integer passengerAmount = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Passenger amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty, negative or 0");
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
     }
 
     @Test
-    void testValidatePassengerAmountShouldReturnErrorV2() {
-        Integer passengerAmount = 1000;
+    void testValidatePassengerAmountNegativeShouldReturnError() {
+        Integer passengerAmount = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Passenger amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + AddMiniBusValidator.MAX_PASSENGER_AMOUNT);
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountIsNullShouldReturnError() {
+        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(null).build();
+        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountMoreThanMaxAllowedShouldReturnError() {
+        Integer passengerAmount = MAX_PASSENGER_AMOUNT + 1;
+        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
+        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be more than " + MAX_PASSENGER_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateBaggageAmountShouldReturnNoErrors() {
-        Integer baggageAmount = 5;
+        Integer baggageAmount = MAX_BAGGAGE_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void testValidateBaggageAmountShouldReturnErrorV1() {
-        Integer baggageAmount = -10;
+    void testValidateBaggageAmountNegativeShouldReturnError() {
+        Integer baggageAmount = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Baggage amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty or negative");
+        assertEquals("Baggage amount", errorOptional.get().getField());
+        assertEquals("cannot be empty or negative", errorOptional.get().getMessage());
     }
 
     @Test
-    void testValidateBaggageAmountShouldReturnErrorV2() {
-        Integer baggageAmount = 1000;
+    void testValidateBaggageAmountIsNullShouldReturnError() {
+        AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(null).build();
+        Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Baggage amount", errorOptional.get().getField());
+        assertEquals("cannot be empty or negative", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateBaggageAmountMoreThanMaxAllowedShouldReturnError() {
+        Integer baggageAmount = MAX_BAGGAGE_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Baggage amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + AddMiniBusValidator.MAX_BAGGAGE_AMOUNT);
+        assertEquals("Baggage amount", errorOptional.get().getField());
+        assertEquals("cannot be more than " + MAX_BAGGAGE_AMOUNT, errorOptional.get().getMessage());
     }
 
-    @Test
-    void testValidateDoorsAmountShouldReturnErrorV2() {
-        Integer doorsAmount = 11;
-        AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
-        Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
-        assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Doors amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + AddMiniBusValidator.MAX_DOORS_AMOUNT);
-    }
 
     @Test
     void testValidateDoorsAmountShouldReturnNoErrors() {
-        Integer doorsAmount = 4;
+        Integer doorsAmount = MAX_DOORS_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
         Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void testValidateDoorsAmountShouldReturnErrorV1() {
+    void testValidateDoorsAmountMoreThanMaxAllowedShouldReturnError() {
+        Integer doorsAmount = MAX_DOORS_AMOUNT + 1;
+        AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
+        Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Doors amount", errorOptional.get().getField());
+        assertEquals("cannot be more than " + MAX_DOORS_AMOUNT, errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsZeroShouldReturnError() {
         Integer doorsAmount = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
         Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Doors amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty, negative or 0");
+        assertEquals("Doors amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
     }
 
     @Test
-    void testValidateIsAirConditioningAvailableShouldReturnNoErrors() {
+    void testValidateDoorsAmountNegativeShouldReturnError() {
+        Integer doorsAmount = -1;
+        AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
+        Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Doors amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsNullShouldReturnError() {
+        AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(null).build();
+        Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Doors amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateIsAirConditioningAvailableTrueShouldReturnNoErrorsV1() {
         String isAirConditioningAvailable = "true";
         AddVehicleRequest request = AddVehicleRequest.builder().isAirConditioningAvailable(isAirConditioningAvailable).build();
         Optional<CoreError> errorOptional = validator.validateIsAirConditionerAvailable(request);
@@ -119,22 +168,49 @@ class AddMiniBusValidatorTest {
     }
 
     @Test
-    void testValidateIsAirConditioningAvailableShouldReturnErrorV1() {
+    void testValidateIsAirConditioningAvailableFalseShouldReturnNoErrorsV1() {
+        String isAirConditioningAvailable = "false";
+        AddVehicleRequest request = AddVehicleRequest.builder().isAirConditioningAvailable(isAirConditioningAvailable).build();
+        Optional<CoreError> errorOptional = validator.validateIsAirConditionerAvailable(request);
+        assertTrue(errorOptional.isEmpty());
+    }
+
+    @Test
+    void testValidateIsAirConditioningAvailableIsEmptyShouldReturnErrorV1() {
         String isAirConditioningAvailable = "";
         AddVehicleRequest request = AddVehicleRequest.builder().isAirConditioningAvailable(isAirConditioningAvailable).build();
         Optional<CoreError> errorOptional = validator.validateIsAirConditionerAvailable(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "IsAirConditionerAvailable");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty");
+        assertEquals("IsAirConditionerAvailable", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
-    void testValidateIsAirConditioningAvailableShouldReturnErrorV2() {
+    void testValidateIsAirConditioningAvailableIsEmptyShouldReturnErrorV2() {
+        String isAirConditioningAvailable = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().isAirConditioningAvailable(isAirConditioningAvailable).build();
+        Optional<CoreError> errorOptional = validator.validateIsAirConditionerAvailable(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("IsAirConditionerAvailable", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateIsAirConditioningAvailableIsNullShouldReturnError() {
+        AddVehicleRequest request = AddVehicleRequest.builder().isAirConditioningAvailable(null).build();
+        Optional<CoreError> errorOptional = validator.validateIsAirConditionerAvailable(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("IsAirConditionerAvailable", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateIsAirConditioningAvailableWrongInputShouldReturnError() {
         String isAirConditioningAvailable = "wrong input";
         AddVehicleRequest request = AddVehicleRequest.builder().isAirConditioningAvailable(isAirConditioningAvailable).build();
         Optional<CoreError> errorOptional = validator.validateIsAirConditionerAvailable(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "IsAirConditionerAvailable");
-        assertEquals(errorOptional.get().getMessage(), "must be either true or false");
+        assertEquals("IsAirConditionerAvailable", errorOptional.get().getField());
+        assertEquals("must be either true or false", errorOptional.get().getMessage());
     }
 }
