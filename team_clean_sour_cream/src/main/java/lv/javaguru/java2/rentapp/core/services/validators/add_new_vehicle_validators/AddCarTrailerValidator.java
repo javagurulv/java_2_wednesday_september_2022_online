@@ -87,5 +87,4 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
             return Optional.empty();
         }
     }
-
 }

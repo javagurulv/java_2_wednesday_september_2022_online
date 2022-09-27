@@ -32,7 +32,7 @@ public enum Colour {
         return nameColour;
     }
 
-    public List<String> getColourEnumsAllVariants() {
+    public static List<String> getAllEnumValues() {
         return EnumSet.allOf(Colour.class).stream()
                 .map(Colour::getNameColour)
                 .collect(Collectors.toList());

@@ -2,16 +2,21 @@ package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_valid
 
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
-import lv.javaguru.java2.rentapp.enums.VehicleType;
+import lv.javaguru.java2.rentapp.enums.Colour;
+import lv.javaguru.java2.rentapp.enums.EngineType;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddPassengerCarValidator.MAX_BAGGAGE_AMOUNT;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddPassengerCarValidator.MAX_PASSENGER_AMOUNT;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddVehicleValidator.CURRENT_YEAR_BACKWARD_REDUCER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AddPassengerCarValidatorTest {
 
@@ -26,27 +31,35 @@ class AddPassengerCarValidatorTest {
     void testValidateReturnsListOfAllErrors() {
         AddVehicleRequest request = AddVehicleRequest.builder().build();
         List<CoreError> errors = validator.validate(request);
-        assertEquals(errors.size(), 12);
+        assertEquals(12, errors.size());
     }
 
     @Test
     void testValidateBrandShouldReturnNoErrors() {
         String brand = "brand";
         AddVehicleRequest request = AddVehicleRequest.builder().brand(brand).build();
-        List<CoreError> errors = new ArrayList<>();
-        validator.validateBrand(request).ifPresent(errors::add);
-        assertTrue(errors.isEmpty());
+        Optional<CoreError> errorOptional = validator.validateBrand(request);
+        assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void testValidateBrandShouldReturnError() {
+    void testValidateBrandShouldReturnErrorV1() {
         String brand = "";
         AddVehicleRequest request = AddVehicleRequest.builder().brand(brand).build();
-        List<CoreError> errors = new ArrayList<>();
-        validator.validateBrand(request).ifPresent(errors::add);
-        assertEquals(errors.size(), 1);
-        assertEquals(errors.get(0).getField(), "Brand");
-        assertEquals(errors.get(0).getMessage(), "cannot be empty");
+        Optional<CoreError> errorOptional = validator.validateBrand(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Brand", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateBrandShouldReturnErrorV2() {
+        String brand = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().brand(brand).build();
+        Optional<CoreError> errorOptional = validator.validateBrand(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Brand", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
@@ -58,32 +71,62 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidateModelShouldReturnError() {
+    void testValidateModelShouldReturnErrorV1() {
         String model = "";
         AddVehicleRequest request = AddVehicleRequest.builder().model(model).build();
         Optional<CoreError> errorOptional = validator.validateModel(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Model");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty");
+        assertEquals("Model", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateModelShouldReturnErrorV2() {
+        String model = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().model(model).build();
+        Optional<CoreError> errorOptional = validator.validateModel(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Model", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateYearOfProductionShouldReturnNoErrors() {
-        Integer year = 2000;
+        Integer year = LocalDate.now().getYear() - 1;
         AddVehicleRequest request = AddVehicleRequest.builder().yearOfProduction(year).build();
         Optional<CoreError> errorOptional = validator.validateYearOfProduction(request);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void testValidateNegativeYearOfProductionShouldReturnError() {
-        Integer year = -2000;
-        int minYear = LocalDate.now().getYear() - 100;
+    void testValidateYearOfProductionLessThanMinAllowedYearShouldReturnError() {
+        int minYear = LocalDate.now().getYear() - CURRENT_YEAR_BACKWARD_REDUCER;
+        Integer year = minYear - 1;
         AddVehicleRequest request = AddVehicleRequest.builder().yearOfProduction(year).build();
         Optional<CoreError> errorOptional = validator.validateYearOfProduction(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "YearOfProduction");
-        assertEquals(errorOptional.get().getMessage(), "cannot be lower than " + minYear);
+        assertEquals("YearOfProduction", errorOptional.get().getField());
+        assertEquals("cannot be lower than " + minYear, errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateNegativeYearOfProductionShouldReturnError() {
+        Integer year = -(LocalDate.now().getYear());
+        AddVehicleRequest request = AddVehicleRequest.builder().yearOfProduction(year).build();
+        Optional<CoreError> errorOptional = validator.validateYearOfProduction(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("YearOfProduction", errorOptional.get().getField());
+        assertEquals("cannot be negative or zero", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateYearOfProductionIsZeroShouldReturnError() {
+        Integer year = 0;
+        AddVehicleRequest request = AddVehicleRequest.builder().yearOfProduction(year).build();
+        Optional<CoreError> errorOptional = validator.validateYearOfProduction(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("YearOfProduction", errorOptional.get().getField());
+        assertEquals("cannot be negative or zero", errorOptional.get().getMessage());
     }
 
     @Test
@@ -98,7 +141,7 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateColourShouldReturnNoErrors() {
-        String colour = "red";
+        String colour = "-bLAck!*";
         AddVehicleRequest request = AddVehicleRequest.builder().colour(colour).build();
         Optional<CoreError> errorOptional = validator.validateColour(request);
         assertTrue(errorOptional.isEmpty());
@@ -110,18 +153,28 @@ class AddPassengerCarValidatorTest {
         AddVehicleRequest request = AddVehicleRequest.builder().colour(colour).build();
         Optional<CoreError> errorOptional = validator.validateColour(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Colour");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty");
+        assertEquals("Colour", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateColourShouldReturnErrorV2() {
+        String colour = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().colour(colour).build();
+        Optional<CoreError> errorOptional = validator.validateColour(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Colour", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateColourShouldReturnErrorV3() {
         String colour = "wrong";
         AddVehicleRequest request = AddVehicleRequest.builder().colour(colour).build();
         Optional<CoreError> errorOptional = validator.validateColour(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Colour");
-        assertEquals(errorOptional.get().getMessage(), "must be one of the provided options (Red, black, blue, green, orange, white or yellow");
+        assertEquals("Colour", errorOptional.get().getField());
+        assertEquals("must be one of the provided options (" + Colour.getAllEnumValues() + ")", errorOptional.get().getMessage());
     }
 
     @Test
@@ -133,18 +186,28 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidateRentPriceShouldReturnError() {
+    void testValidateRentPriceNegativeShouldReturnError() {
         Double price = -100.0;
         AddVehicleRequest request = AddVehicleRequest.builder().rentPricePerDay(price).build();
         Optional<CoreError> errorOptional = validator.validateRentPrice(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Rent Price");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty, negative or 0");
+        assertEquals("Rent Price", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateRentPriceIsZeroShouldReturnError() {
+        Double price = 0.0;
+        AddVehicleRequest request = AddVehicleRequest.builder().rentPricePerDay(price).build();
+        Optional<CoreError> errorOptional = validator.validateRentPrice(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Rent Price", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateEngineTypeShouldReturnNoErrors() {
-        String engineType = "gas";
+        String engineType = "ga/s ";
         AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
         Optional<CoreError> errorOptional = validator.validateEngineType(request);
         assertTrue(errorOptional.isEmpty());
@@ -156,18 +219,28 @@ class AddPassengerCarValidatorTest {
         AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
         Optional<CoreError> errorOptional = validator.validateEngineType(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Engine Type");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty");
+        assertEquals("Engine Type", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateEngineTypeShouldReturnErrorV2() {
+        String engineType = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
+        Optional<CoreError> errorOptional = validator.validateEngineType(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Engine Type", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateEngineTypeShouldReturnErrorV3() {
         String engineType = "wrong";
         AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
         Optional<CoreError> errorOptional = validator.validateEngineType(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Engine Type");
-        assertEquals(errorOptional.get().getMessage(), "must be one of the provided options (Diesel, Electric, Gas, Petrol, Hybrid, None");
+        assertEquals("Engine Type", errorOptional.get().getField());
+        assertEquals("must be one of the provided options (" + EngineType.getAllEnumValues() + ")", errorOptional.get().getMessage());
     }
 
     @Test
@@ -179,18 +252,29 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidatePlateNumberShouldReturnError() {
+    void testValidatePlateNumberShouldReturnErrorV1() {
         String plateNumber = "";
         AddVehicleRequest request = AddVehicleRequest.builder().plateNumber(plateNumber).build();
         Optional<CoreError> errorOptional = validator.validatePlateNumber(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Plate Number");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty");
+        assertEquals("Plate Number", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+
+    @Test
+    void testValidatePlateNumberShouldReturnErrorV2() {
+        String plateNumber = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().plateNumber(plateNumber).build();
+        Optional<CoreError> errorOptional = validator.validatePlateNumber(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Plate Number", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateTransmissionTypeShouldReturnNoErrors() {
-        String transmissionType = "manual";
+        String transmissionType = " ma*nua/l";
         AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
         Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
         assertTrue(errorOptional.isEmpty());
@@ -202,51 +286,71 @@ class AddPassengerCarValidatorTest {
         AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
         Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Transmission Type");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty");
+        assertEquals("Transmission Type", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateTransmissionTypeShouldReturnErrorV2() {
+        String transmissionType = " ";
+        AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
+        Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Transmission Type", errorOptional.get().getField());
+        assertEquals("cannot be empty", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidateTransmissionTypeShouldReturnErrorV3() {
         String transmissionType = "wrong";
         AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
         Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Transmission Type");
-        assertEquals(errorOptional.get().getMessage(), "must be one of the provided options (Automatic, Manual or None");
+        assertEquals("Transmission Type", errorOptional.get().getField());
+        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValues() + ")", errorOptional.get().getMessage());
     }
 
     @Test
     void testValidatePassengerAmountShouldReturnNoErrors() {
-        Integer passengerAmount = 5;
+        Integer passengerAmount = MAX_PASSENGER_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
-    void testValidatePassengerAmountShouldReturnErrorV1() {
+    void testValidatePassengerAmountIsZeroShouldReturnError() {
         Integer passengerAmount = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Passenger amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be empty, negative or 0");
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
     }
 
     @Test
-    void testValidatePassengerAmountShouldReturnErrorV2() {
-        Integer passengerAmount = 1000;
+    void testValidatePassengerAmountNegativeShouldReturnError() {
+        Integer passengerAmount = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Passenger amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + AddPassengerCarValidator.MAX_PASSENGER_AMOUNT);
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountMoreThanMaxAllowedShouldReturnError() {
+        Integer passengerAmount = MAX_PASSENGER_AMOUNT + 1;
+        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
+        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
+        assertTrue(errorOptional.isPresent());
+        assertEquals("Passenger amount", errorOptional.get().getField());
+        assertEquals("cannot be more than " + MAX_PASSENGER_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateBaggageAmountShouldReturnNoErrors() {
-        Integer baggageAmount = 5;
+        Integer baggageAmount = MAX_BAGGAGE_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -269,7 +373,7 @@ class AddPassengerCarValidatorTest {
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals(errorOptional.get().getField(), "Baggage amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + AddPassengerCarValidator.MAX_BAGGAGE_AMOUNT);
+        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + MAX_BAGGAGE_AMOUNT);
     }
 
     @Test
