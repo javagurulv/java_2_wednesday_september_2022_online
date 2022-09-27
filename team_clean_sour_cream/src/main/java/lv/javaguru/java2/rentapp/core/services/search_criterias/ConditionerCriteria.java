@@ -6,7 +6,6 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 public class ConditionerCriteria implements SearchCriteria {
 
-
     @Override
     public boolean test(Vehicle vehicle) {
         if (vehicle instanceof PassengerCar) {

@@ -65,7 +65,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
 
     protected Optional<CoreError> validateIsAirConditionerAvailable(AddVehicleRequest request) {
         String isAirConditioningAvailable = request.getIsAirConditioningAvailable();
-        if (isAirConditioningAvailable == null || isAirConditioningAvailable.isEmpty()) {
+        if (isAirConditioningAvailable == null || isAirConditioningAvailable.isBlank()) {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "cannot be empty"));
         } else if (isAirConditioningAvailable.equalsIgnoreCase("true")
                 || isAirConditioningAvailable.equalsIgnoreCase("false")) {
@@ -74,6 +74,4 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "must be either true or false"));
         }
     }
-
-
 }

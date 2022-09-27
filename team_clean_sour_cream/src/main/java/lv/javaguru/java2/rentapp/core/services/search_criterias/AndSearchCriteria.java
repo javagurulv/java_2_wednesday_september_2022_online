@@ -2,7 +2,7 @@ package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
-public class AndSearchCriteria implements SearchCriteria{
+public class AndSearchCriteria implements SearchCriteria {
 
     private SearchCriteria leftCondition;
     private SearchCriteria rightCondition;
@@ -14,6 +14,8 @@ public class AndSearchCriteria implements SearchCriteria{
 
     @Override
     public boolean test(Vehicle vehicle) {
+
         return leftCondition.test(vehicle) && rightCondition.test(vehicle);
+
     }
 }

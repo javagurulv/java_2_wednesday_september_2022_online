@@ -35,5 +35,4 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
             return Optional.empty();
         }
     }
-
 }

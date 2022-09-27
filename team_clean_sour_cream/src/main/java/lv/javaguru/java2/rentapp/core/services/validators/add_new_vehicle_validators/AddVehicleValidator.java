@@ -12,28 +12,32 @@ import java.util.Optional;
 
 public abstract class AddVehicleValidator {
 
+    public static final int CURRENT_YEAR_BACKWARD_REDUCER = 100;
+
     public abstract List<CoreError> validate(AddVehicleRequest request);
 
     protected Optional<CoreError> validateBrand(AddVehicleRequest request) {
         String brand = request.getBrand();
-        return (brand == null || brand.isEmpty())
+        return (brand == null || brand.isBlank())
                 ? Optional.of(new CoreError("Brand", "cannot be empty"))
                 : Optional.empty();
     }
 
     protected Optional<CoreError> validateModel(AddVehicleRequest request) {
         String model = request.getModel();
-        return (model == null || model.isEmpty())
+        return (model == null || model.isBlank())
                 ? Optional.of(new CoreError("Model", "cannot be empty"))
                 : Optional.empty();
     }
 
     protected Optional<CoreError> validateYearOfProduction(AddVehicleRequest request) {
         Integer yearOfProduction = request.getYearOfProduction();
-        int minYear = LocalDate.now().getYear() - 100;
+        int minYear = LocalDate.now().getYear() - CURRENT_YEAR_BACKWARD_REDUCER;
         int currentYear = LocalDate.now().getYear();
         if (yearOfProduction == null) {
             return Optional.of(new CoreError("YearOfProduction", "cannot be empty"));
+        } else if (yearOfProduction <= 0) {
+            return Optional.of(new CoreError("YearOfProduction", "cannot be negative or zero"));
         } else if (yearOfProduction < minYear) {
             return Optional.of(new CoreError("YearOfProduction", "cannot be lower than " + minYear));
         } else if (yearOfProduction > currentYear) {
@@ -44,19 +48,14 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateColour(AddVehicleRequest request) {
+        List<String> enumColourValues = Colour.getAllEnumValues();
         String colour = request.getColour();
-        if (colour == null || colour.isEmpty()) {
+        if (colour == null || colour.isBlank()) {
             return Optional.of(new CoreError("Colour", "cannot be empty"));
-        } else if (colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.RED.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.BLACK.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.BLUE.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.GREEN.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.ORANGE.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.WHITE.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.YELLOW.name())) {
+        } else if (areEnumValuesValid(enumColourValues, colour)) {
             return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Colour", "must be one of the provided options (Red, black, blue, green, orange, white or yellow"));
+            return Optional.of(new CoreError("Colour", "must be one of the provided options (" + enumColourValues + ")"));
         }
     }
 
@@ -70,39 +69,38 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateEngineType(AddVehicleRequest request) {
+        List<String> enumEngineTypeValues = EngineType.getAllEnumValues();
         String engineType = request.getEngineType();
-        if (engineType == null || engineType.isEmpty()) {
+        if (engineType == null || engineType.isBlank()) {
             return Optional.of(new CoreError("Engine Type", "cannot be empty"));
-        } else if (engineType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(EngineType.DIESEL.name())
-                || engineType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(EngineType.ELECTRIC.name())
-                || engineType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(EngineType.GAS.name())
-                || engineType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(EngineType.HYBRID.name())
-                || engineType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(EngineType.PETROL.name())
-                || engineType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(EngineType.NONE.name())) {
+        } else if (areEnumValuesValid(enumEngineTypeValues, engineType)) {
             return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Engine Type", "must be one of the provided options (Diesel, Electric, Gas, Petrol, Hybrid, None"));
+            return Optional.of(new CoreError("Engine Type", "must be one of the provided options (" + enumEngineTypeValues + ")"));
         }
     }
 
     protected Optional<CoreError> validatePlateNumber(AddVehicleRequest request) {
         String plateNumber = request.getPlateNumber();
-        return (plateNumber == null || plateNumber.isEmpty())
+        return (plateNumber == null || plateNumber.isBlank())
                 ? Optional.of(new CoreError("Plate Number", "cannot be empty"))
                 : Optional.empty();
     }
 
     protected Optional<CoreError> validateTransmissionType(AddVehicleRequest request) {
+        List<String> enumTransmissionTypeValues = TransmissionType.getAllEnumValues();
         String transmissionType = request.getTransmissionType();
-        if (transmissionType == null || transmissionType.isEmpty()) {
+        if (transmissionType == null || transmissionType.isBlank()) {
             return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
-        } else if (transmissionType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(TransmissionType.AUTOMATIC.name())
-                || transmissionType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(TransmissionType.MANUAL.name())
-                || transmissionType.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(TransmissionType.NONE.name())) {
+        } else if (areEnumValuesValid(enumTransmissionTypeValues, transmissionType)) {
             return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Transmission Type", "must be one of the provided options (Automatic, Manual or None"));
-
+            return Optional.of(new CoreError("Transmission Type", "must be one of the provided options (" + enumTransmissionTypeValues + ")"));
         }
+    }
+
+    protected boolean areEnumValuesValid(List<String> enumColourValues, String colour) {
+        return enumColourValues.stream()
+                .anyMatch(enumColourValue -> enumColourValue.equalsIgnoreCase(colour.replaceAll("[^a-zA-Z]", "")));
     }
 }
