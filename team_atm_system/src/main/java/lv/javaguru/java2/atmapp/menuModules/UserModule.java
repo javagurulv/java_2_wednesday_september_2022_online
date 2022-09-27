@@ -1,7 +1,7 @@
 package lv.javaguru.java2.atmapp.menuModules;
 
-import lv.javaguru.java2.atmapp.balanceOperations.*;
-import lv.javaguru.java2.atmapp.balanceOperationsUI.*;
+import lv.javaguru.java2.atmapp.balanceServices.*;
+import lv.javaguru.java2.atmapp.balanceServicesUI.*;
 import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
 import lv.javaguru.java2.atmapp.database.Database;
 

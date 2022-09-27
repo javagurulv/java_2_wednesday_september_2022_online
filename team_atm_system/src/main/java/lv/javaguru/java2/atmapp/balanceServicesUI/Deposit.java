@@ -1,6 +1,6 @@
-package lv.javaguru.java2.atmapp.balanceOperationsUI;
+package lv.javaguru.java2.atmapp.balanceServicesUI;
 
-import lv.javaguru.java2.atmapp.balanceOperations.IncreaseBalance;
+import lv.javaguru.java2.atmapp.balanceServices.IncreaseBalance;
 
 import java.util.Scanner;
 

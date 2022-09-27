@@ -1,4 +1,4 @@
-package lv.javaguru.java2.atmapp.balanceOperations;
+package lv.javaguru.java2.atmapp.balanceServices;
 
 import lv.javaguru.java2.atmapp.database.Database;
 

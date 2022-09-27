@@ -1,6 +1,6 @@
-package lv.javaguru.java2.atmapp.adminOperationsUI;
+package lv.javaguru.java2.atmapp.adminServicesUI;
 
-import lv.javaguru.java2.atmapp.adminOperations.DeleteAccountService;
+import lv.javaguru.java2.atmapp.adminServices.DeleteAccountService;
 
 import java.util.Scanner;
 

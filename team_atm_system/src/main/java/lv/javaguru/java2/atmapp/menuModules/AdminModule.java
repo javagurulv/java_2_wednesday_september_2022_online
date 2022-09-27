@@ -1,7 +1,7 @@
 package lv.javaguru.java2.atmapp.menuModules;
 
-import lv.javaguru.java2.atmapp.adminOperations.*;
-import lv.javaguru.java2.atmapp.adminOperationsUI.*;
+import lv.javaguru.java2.atmapp.adminServices.*;
+import lv.javaguru.java2.atmapp.adminServicesUI.*;
 import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
 import lv.javaguru.java2.atmapp.database.Database;
 

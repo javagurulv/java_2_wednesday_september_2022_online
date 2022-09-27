@@ -1,4 +1,4 @@
-package lv.javaguru.java2.atmapp.adminOperationsUI;
+package lv.javaguru.java2.atmapp.adminServicesUI;
 
 public interface AdminUIactions {
 

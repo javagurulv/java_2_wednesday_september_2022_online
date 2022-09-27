@@ -1,6 +1,6 @@
-package lv.javaguru.java2.atmapp.adminOperationsUI;
+package lv.javaguru.java2.atmapp.adminServicesUI;
 
-import lv.javaguru.java2.atmapp.adminOperations.FindUserByIDServiсe;
+import lv.javaguru.java2.atmapp.adminServices.FindUserByIDServiсe;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.atmapp.adminOperations;
+package lv.javaguru.java2.atmapp.adminServices;
 
 import lv.javaguru.java2.atmapp.database.Database;
 

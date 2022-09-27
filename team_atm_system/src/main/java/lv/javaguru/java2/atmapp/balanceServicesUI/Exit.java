@@ -1,4 +1,4 @@
-package lv.javaguru.java2.atmapp.balanceOperationsUI;
+package lv.javaguru.java2.atmapp.balanceServicesUI;
 
 public class Exit implements UI_Menu {
     @Override
