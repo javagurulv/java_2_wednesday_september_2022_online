@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.responses;
 
 import java.util.List;
 
-public class CoreResponse {
+ public abstract class CoreResponse {
     private List<CoreError> errors;
 
     public CoreResponse() { }

@@ -12,20 +12,15 @@ import java.util.List;
 public class UserRegistrationService {
 
     private UsersRepository usersRepository;
-    private UserInfoValidator validator;
+    private UserRegistrationValidator validator;
 
-    public UserRegistrationService(UsersRepository usersRepository, UserInfoValidator validator) {
+    public UserRegistrationService(UsersRepository usersRepository, UserRegistrationValidator validator) {
         this.usersRepository = usersRepository;
         this.validator = validator;
     }
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
         List<CoreError> errors = validator.validate(request);
-        if(!errors.isEmpty()) {
-            for (CoreError err : errors) {
-                System.out.println(err.getField() +err.getMessage());
-            }
-        }
         if (!errors.isEmpty()) {
             return new UserRegistrationResponse(errors);
         }

@@ -1,6 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.User;
+import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
+import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.AmendCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.services.GetCurrentUserService;
 
@@ -31,14 +33,19 @@ public class AmendCurrentUserUIAction implements UIAction {
             System.out.println();
         }
         String[] input = collectDataFromScreen(currentUser);
-        boolean result = amendCurrentUserService.execute(input[0], input[1], input[2], input[3]);
-        if (result) {
-            System.out.println("User information has been amended.");
-        }
-        else {
+
+        AmendCurrentUserRequest request = new AmendCurrentUserRequest(input[0], input[1], input[2], input[3]);
+        AmendCurrentUserResponse response = amendCurrentUserService.execute(request);
+        if (response.hasErrors()) {
             System.out.println("User information has not been amended.");
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+            return false;
+        } else {
+            System.out.println("User information has been amended." + response.getUser().getId());
+            return true;
         }
-        return result;
     }
 
     private String[] collectDataFromScreen(User currentUser) {
@@ -50,6 +57,7 @@ public class AmendCurrentUserUIAction implements UIAction {
         for (int i = 0; i < fields.length; i++) {
             System.out.println("Do you wish to amend " + fields[i] + " (Y/N)?");
             input = scanner.nextLine();
+            input = input.toUpperCase();
             if (input.equals("Y")) {
                 System.out.println("Enter " + fields[i] + ": ");
                 input = scanner.nextLine();
