@@ -14,6 +14,7 @@ public class UIActionMap {
     private UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
     private TasksRepository tasksRepository = new InMemoryTasksRepositoryImpl();
     private UserInfoValidator userInfoValidator = new UserInfoValidator();
+    private TaskInfoValidator taskInfoValidator = new TaskInfoValidator();
     private SessionService sessionService = new SessionService();
 
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
@@ -22,7 +23,7 @@ public class UIActionMap {
     private LoginService loginService = new LoginService(usersRepository, tasksRepository, sessionService);
     private GetOutstandingTasksService getOutstandingTasksService = new GetOutstandingTasksService(tasksRepository, sessionService);
     private GetTasksForTodayService getTasksForTodayService = new GetTasksForTodayService(tasksRepository, sessionService);
-    private AddTaskService addTaskService = new AddTaskService(tasksRepository, sessionService);
+    private AddTaskService addTaskService = new AddTaskService(tasksRepository, sessionService, taskInfoValidator);
     private AmendTaskService amendTaskService = new AmendTaskService(tasksRepository);
     private DeleteTaskService deleteTaskService = new DeleteTaskService(tasksRepository);
     private DeleteCurrentUserService deleteCurrentUserService = new DeleteCurrentUserService(usersRepository, tasksRepository, sessionService);

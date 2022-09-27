@@ -16,7 +16,7 @@ public class UserRegistrationUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-        boolean result = false;
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter username: ");
         String username = scanner.nextLine();
@@ -32,14 +32,14 @@ public class UserRegistrationUIAction implements UIAction {
 
         if (response.hasErrors()) {
             System.out.println("Registration failed");
-            //response.
-            result = false;
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+            return false;
         }
         else {
-            System.out.println("Registration successfully completed.");
-            result = true;
+            System.out.println("Registration successfully completed. User ID:" + response.getUser().getId());
+            return true;
         }
-
-        return result;
     }
 }

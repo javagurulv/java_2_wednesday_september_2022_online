@@ -1,9 +1,9 @@
 package lv.javaguru.java2.atmapp;
 
-import lv.javaguru.java2.atmapp.Database.AccountDatabaseImpl;
-import lv.javaguru.java2.atmapp.Database.Database;
-import lv.javaguru.java2.atmapp.MenuModules.AdminModule;
-import lv.javaguru.java2.atmapp.MenuModules.UserModule;
+import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
+import lv.javaguru.java2.atmapp.database.Database;
+import lv.javaguru.java2.atmapp.menuModules.AdminModule;
+import lv.javaguru.java2.atmapp.menuModules.UserModule;
 
 import java.util.Scanner;
 
@@ -17,14 +17,14 @@ public class ATM_app {
 
     public static void main(String[] args) {
 
-        while (true){
-        printOperationChoice();
-        int menuItem = getUserSelection();
-        executeStartingChoice(menuItem);
-    }
+        while (true) {
+            printOperationChoice();
+            int menuItem = getUserSelection();
+            executeStartingChoice(menuItem);
+        }
     }
 
-    private static void printOperationChoice(){
+    private static void printOperationChoice() {
         System.out.println();
         System.out.println("Please choose type of operation:");
         System.out.println("1. Admin operations");
@@ -32,16 +32,16 @@ public class ATM_app {
         System.out.println("3. Exit");
     }
 
-    private static void executeStartingChoice(int menuItem){
-        switch (menuItem){
-            case 1:{
+    private static void executeStartingChoice(int menuItem) {
+        switch (menuItem) {
+            case 1: {
                 adminModule.executeAdminModule();
                 break;
             }
-            case 2:{
+            case 2: {
                 userModule.executeUserModule();
             }
-            case 3:{
+            case 3: {
                 System.out.println("Good bye!");
                 System.exit(0);
             }
