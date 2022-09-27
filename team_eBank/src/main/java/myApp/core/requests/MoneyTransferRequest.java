@@ -16,23 +16,13 @@ public class MoneyTransferRequest {
         return personalCode;
     }
 
-    public void setPersonalCode(String personalCode) {
-        this.personalCode = personalCode;
-    }
-
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
 
     public String getAnotherPersonalCode() {
         return anotherPersonalCode;
     }
 
-    public void setAnotherPersonalCode(String anotherPersonalCode) {
-        this.anotherPersonalCode = anotherPersonalCode;
-    }
 }

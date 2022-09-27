@@ -1,8 +1,8 @@
 package myApp.core.database;
 
-import myApp.Account;
-import myApp.BankAccount;
-import myApp.Roles;
+import myApp.core.domain.Account;
+import myApp.core.domain.BankAccount;
+import myApp.core.domain.Roles;
 
 import java.util.*;
 
@@ -10,15 +10,10 @@ public class InMemoryDatabaseImpl implements DataBase {
     private final Map<String, BankAccount> bankAccountMap = new HashMap<>();
 
     public InMemoryDatabaseImpl() {
-
-        BankAccount bankAccount2 = new BankAccount("Vlad", "Kulikov", Roles.Regular_user, "111-317");
-        BankAccount bankAccount3 = new BankAccount("Alex", "Ivanov", Roles.Regular_user, "111-111");
-        bankAccount3.setAccounts(new Account(2L, 1000));
+        BankAccount bankAccount = new BankAccount("Vlad", "Kulikov", Roles.Regular_user, "111-317");
         BankAccount adminAccount = new BankAccount("Admin", "Admin", Roles.Admin, "Admin");
         bankAccountMap.put(adminAccount.getPersonalCode(), adminAccount);
-        addBankAccount(bankAccount2);
-        addBankAccount(bankAccount3);
-
+        addBankAccount(bankAccount);
     }
 
     private Long id = 1L;
@@ -38,7 +33,7 @@ public class InMemoryDatabaseImpl implements DataBase {
     }
 
     @Override
-    public Map<String , BankAccount> getAllBankAccountsMap() {
+    public Map<String, BankAccount> getAllBankAccountsMap() {
         return bankAccountMap;
     }
 
@@ -47,15 +42,17 @@ public class InMemoryDatabaseImpl implements DataBase {
         return bankAccountMap.get(personalCode);
     }
 
-    //Rewrite method
     @Override
     public boolean bankTransfer(String personalCode, String anotherPersonalCode, int value) {
         Account account = bankAccountMap.get(personalCode).getAccounts();
+        int checkBalance = account.getBalance();
         bankAccountMap.get(personalCode).getAccounts().setBalance(account.getBalance() - value);
 
         Account accountAnother = bankAccountMap.get(anotherPersonalCode).getAccounts();
         bankAccountMap.get(anotherPersonalCode).getAccounts().setBalance(accountAnother.getBalance() + value);
-        return true;
+
+        return bankAccountMap.get(personalCode).getAccounts().getBalance() != checkBalance;
+
     }
 
     @Override
@@ -64,20 +61,22 @@ public class InMemoryDatabaseImpl implements DataBase {
     }
 
 
-
     @Override
-    public BankAccount openAccount(String personalCode) {
-        if (bankAccountMap.get(personalCode).getAccounts() == null) {
-            bankAccountMap.get(personalCode).setAccounts(new Account(idForAccount, 1000));
+    public boolean openAccount(String personalCode) {
+        if (bankAccountMap.containsKey(personalCode)) {
+            if (bankAccountMap.get(personalCode).getAccounts() == null) {
+                bankAccountMap.get(personalCode).setAccount(new Account(idForAccount, 500));
+                return true;
+            }
         }
-        return bankAccountMap.get(personalCode);
+        return false;
     }
 
     @Override
     public boolean closeAccount(String personalCode) {
         if (bankAccountMap.get(personalCode).getAccounts() != null &&
                 bankAccountMap.get(personalCode).getAccounts().getBalance() == 0) {
-            bankAccountMap.get(personalCode).setAccounts(null);
+            bankAccountMap.get(personalCode).setAccount(null);
             return true;
         }
         return false;

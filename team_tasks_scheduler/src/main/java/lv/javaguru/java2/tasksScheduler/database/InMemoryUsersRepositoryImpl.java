@@ -11,14 +11,15 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     private List<User> users = new ArrayList<>();
 
     @Override
-    public void save(User user) {
+    public boolean save(User user) {
         if (user == null)
-            return;
+            return false;
         user.setId(nextId);
         nextId++;
         users.add(user);
         if (nextId == Long.MAX_VALUE)
             nextId = 1L;
+        return true;
     }
 
     @Override
@@ -30,13 +31,14 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void update(User user) {
+    public boolean update(User user) {
         if (user == null)
-            return;
+            return false;
         if (getUserById(user.getId()) == null)
-            return;
+            return false;
         deleteById(user.getId());
         users.add(user);
+        return true;
     }
 
     @Override
@@ -46,16 +48,18 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public boolean existsByNameAndPassword(String username, String password) {
-        return users.stream()
-                .anyMatch(user -> user.getUsername().equalsIgnoreCase(username) &&
-                        user.getPassword().equals(password));
-    }
-
-    @Override
     public User getUserById(Long id) {
         return users.stream()
                 .filter(user -> user.getId().equals(id))
+                .findAny()
+                .orElse(null);
+    }
+
+    @Override
+    public User getUserByNameAndPassword(String username, String password) {
+        return users.stream()
+                .filter(user -> user.getUsername().equalsIgnoreCase(username) &&
+                        user.getPassword().equals(password))
                 .findAny()
                 .orElse(null);
     }

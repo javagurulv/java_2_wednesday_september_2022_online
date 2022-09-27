@@ -8,16 +8,15 @@ import java.util.Scanner;
 
 public class AddHarvestedItemUIAction implements UIAction{
     private AddHarvestedItemService addHarvestedItemService;
-    private Scanner scanner;
 
-    public AddHarvestedItemUIAction(AddHarvestedItemService addHarvestedItemService, Scanner scanner) {
+    public AddHarvestedItemUIAction(AddHarvestedItemService addHarvestedItemService) {
         this.addHarvestedItemService = addHarvestedItemService;
-        this.scanner = scanner;
     }
 
     @Override
     public void execute() {
         try {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Enter debtors Id: ");
             Long debtorsId = Long.parseLong(scanner.nextLine());
             System.out.println("Enter harvested item");

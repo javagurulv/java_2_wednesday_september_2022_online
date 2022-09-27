@@ -1,7 +1,7 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.OpenAccountRequest;
-import myApp.core.responses.AddAccountResponse;
+import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.OpenAccountService;
 import myApp.core.services.UserService;
 
@@ -19,7 +19,7 @@ public class OpenAccountUIAction implements UIAction {
     public void execute() {
         String name = userService.getPersonalCode();
         OpenAccountRequest request = new OpenAccountRequest(name);
-        AddAccountResponse response = service.execute(request);
+        OpenAccountResponse response = service.execute(request);
         System.out.println("Account has added");
     }
 }

@@ -15,15 +15,19 @@ public class UserService {
         setPersonalCode(personalCode);
         return dataBase.logIn(personalCode);
     }
+
     public void logOut() {
-        this.personalCode = null;
+        if (this.personalCode != null) {
+            this.personalCode = null;
+        }
     }
 
     public String getPersonalCode() {
         return this.personalCode;
     }
 
-    public void setPersonalCode(String personalCode) {
+   private void setPersonalCode(String personalCode) {
         this.personalCode = personalCode;
     }
+
 }
