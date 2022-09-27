@@ -1,4 +1,4 @@
-package eBooking.console_ui;
+package lv.javaguru.java2.eBooking.console_ui;
 
 public class ExitApplicationUIAction implements UIAction {
 

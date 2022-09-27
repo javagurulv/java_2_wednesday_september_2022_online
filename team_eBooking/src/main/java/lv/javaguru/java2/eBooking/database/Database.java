@@ -1,7 +1,7 @@
-package eBooking.database;
+package lv.javaguru.java2.eBooking.database;
 
-import eBooking.Appointment;
-import eBooking.Client;
+import lv.javaguru.java2.eBooking.Appointment;
+import lv.javaguru.java2.eBooking.Client;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
-package eBooking.console_ui;
+package lv.javaguru.java2.eBooking.console_ui;
 
-import eBooking.database.Database;
-import eBooking.service.GetAllAppointmentsService;
+import lv.javaguru.java2.eBooking.service.GetAllAppointmentsService;
 
 public class PrintAppointmentUIAction implements UIAction {
     private GetAllAppointmentsService getAllAppointmentsService;

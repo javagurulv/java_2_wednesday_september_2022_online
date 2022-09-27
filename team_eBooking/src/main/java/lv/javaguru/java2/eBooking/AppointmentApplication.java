@@ -1,9 +1,11 @@
-package eBooking;
+package lv.javaguru.java2.eBooking;
 
 import eBooking.console_ui.*;
-import eBooking.database.Database;
-import eBooking.database.InMemoryDatabase;
+import lv.javaguru.java2.eBooking.console_ui.*;
+import lv.javaguru.java2.eBooking.database.Database;
+import lv.javaguru.java2.eBooking.database.InMemoryDatabase;
 import eBooking.service.*;
+import lv.javaguru.java2.eBooking.service.*;
 
 import java.util.Scanner;
 

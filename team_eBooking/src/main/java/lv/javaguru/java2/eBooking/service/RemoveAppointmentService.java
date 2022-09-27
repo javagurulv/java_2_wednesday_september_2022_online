@@ -1,6 +1,6 @@
-package eBooking.service;
+package lv.javaguru.java2.eBooking.service;
 
-import eBooking.database.Database;
+import lv.javaguru.java2.eBooking.database.Database;
 
 public class RemoveAppointmentService {
     private Database database;

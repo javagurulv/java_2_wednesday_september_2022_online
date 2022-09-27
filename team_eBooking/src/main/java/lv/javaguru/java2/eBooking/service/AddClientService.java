@@ -1,7 +1,7 @@
-package eBooking.service;
+package lv.javaguru.java2.eBooking.service;
 
-import eBooking.Client;
-import eBooking.database.Database;
+import lv.javaguru.java2.eBooking.Client;
+import lv.javaguru.java2.eBooking.database.Database;
 
 public class AddClientService {
     private Database database;
