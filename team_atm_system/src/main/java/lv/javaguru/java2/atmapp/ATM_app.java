@@ -17,14 +17,14 @@ public class ATM_app {
 
     public static void main(String[] args) {
 
-        while (true){
-        printOperationChoice();
-        int menuItem = getUserSelection();
-        executeStartingChoice(menuItem);
-    }
+        while (true) {
+            printOperationChoice();
+            int menuItem = getUserSelection();
+            executeStartingChoice(menuItem);
+        }
     }
 
-    private static void printOperationChoice(){
+    private static void printOperationChoice() {
         System.out.println();
         System.out.println("Please choose type of operation:");
         System.out.println("1. Admin operations");
@@ -32,16 +32,16 @@ public class ATM_app {
         System.out.println("3. Exit");
     }
 
-    private static void executeStartingChoice(int menuItem){
-        switch (menuItem){
-            case 1:{
+    private static void executeStartingChoice(int menuItem) {
+        switch (menuItem) {
+            case 1: {
                 adminModule.executeAdminModule();
                 break;
             }
-            case 2:{
+            case 2: {
                 userModule.executeUserModule();
             }
-            case 3:{
+            case 3: {
                 System.out.println("Good bye!");
                 System.exit(0);
             }

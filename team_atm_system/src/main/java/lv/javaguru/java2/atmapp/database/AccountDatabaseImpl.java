@@ -4,6 +4,7 @@ import lv.javaguru.java2.atmapp.Accounts;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class AccountDatabaseImpl implements Database {
 
@@ -23,11 +24,23 @@ public class AccountDatabaseImpl implements Database {
     }
 
     @Override
-    public void deleteAccount(int userID) {
-        accounts.stream()
+    public boolean deleteAccount(Long userID) {
+      /*  accounts.stream()
                 .filter(account -> account.getUserID() == userID)
                 .findFirst()
                 .ifPresent(account -> accounts.remove(account));
+        return false;
+       */
+
+        boolean isAccountDeleted = false;
+        Optional<Accounts> accountToDeleteOpt = accounts.stream()
+                .filter(accounts1 -> accounts1.getName().equals(userID))
+                .findFirst();
+        if (accountToDeleteOpt.isPresent()) {
+            Accounts accountToDelete = accountToDeleteOpt.get();
+            isAccountDeleted = accounts.remove(accountToDelete);
+        }
+        return false;
     }
 
     @Override
@@ -69,8 +82,8 @@ public class AccountDatabaseImpl implements Database {
 
     @Override
     public void findUserByID(int userID) {
-        for (Accounts account : accounts){
-            if (account.getUserID() == userID){
+        for (Accounts account : accounts) {
+            if (account.getUserID() == userID) {
                 System.out.println("User found:" + account);
             }
         }

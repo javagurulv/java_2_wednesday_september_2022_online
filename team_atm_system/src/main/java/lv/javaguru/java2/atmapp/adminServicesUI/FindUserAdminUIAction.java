@@ -6,18 +6,18 @@ import java.util.Scanner;
 
 public class FindUserAdminUIAction implements AdminUIactions {
 
-    private FindUserByIDServiсe findUserByIDServise;
+    private FindUserByIDServiсe findUserByIDService;
 
-    public FindUserAdminUIAction(FindUserByIDServiсe findUserByIDServise) {
-        this.findUserByIDServise = findUserByIDServise;
+    public FindUserAdminUIAction(FindUserByIDServiсe findUserByIDService) {
+        this.findUserByIDService = findUserByIDService;
     }
 
 
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enetr user ID");
+        System.out.println("Please enter user ID");
         int userID = scanner.nextInt();
-        findUserByIDServise.execute(userID);
+        findUserByIDService.execute(userID);
     }
 }

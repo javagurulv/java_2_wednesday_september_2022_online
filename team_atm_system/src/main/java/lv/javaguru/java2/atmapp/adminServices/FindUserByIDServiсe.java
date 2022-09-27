@@ -10,8 +10,8 @@ public class FindUserByIDServiсe {
         this.database = database;
     }
 
-public void execute (int userID){
-database.findUserByID(userID);
-}
+    public void execute(int userID) {
+        database.findUserByID(userID);
+    }
 
 }

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.atmapp.responses;
+package lv.javaguru.java2.atmapp.responses.adminResponses;
 
 import lv.javaguru.java2.atmapp.Accounts;
 
