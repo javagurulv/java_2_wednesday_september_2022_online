@@ -1,14 +1,13 @@
 package lv.javaguru.java2.atmapp.requests.adminRequests;
 
 public class DeleteAccountRequest {
-    private Long accountToDelete;
+    private int accountToDelete;
 
-    public DeleteAccountRequest(long userID) {
+    public DeleteAccountRequest(int accountToDelete) {
         this.accountToDelete = accountToDelete;
     }
 
-
-    public Long getAccountToDelete() {
+    public int getAccountToDelete() {
         return accountToDelete;
     }
 }

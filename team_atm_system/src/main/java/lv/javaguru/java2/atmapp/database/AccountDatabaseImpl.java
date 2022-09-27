@@ -23,8 +23,10 @@ public class AccountDatabaseImpl implements Database {
         accounts.add(account);
     }
 
+
     @Override
-    public boolean deleteAccount(Long userID) {
+    public boolean deleteAccount(int userID) {
+
       /*  accounts.stream()
                 .filter(account -> account.getUserID() == userID)
                 .findFirst()
@@ -34,13 +36,13 @@ public class AccountDatabaseImpl implements Database {
 
         boolean isAccountDeleted = false;
         Optional<Accounts> accountToDeleteOpt = accounts.stream()
-                .filter(accounts1 -> accounts1.getName().equals(userID))
+                .filter(accounts -> accounts.getUserID() == userID)
                 .findFirst();
         if (accountToDeleteOpt.isPresent()) {
             Accounts accountToDelete = accountToDeleteOpt.get();
             isAccountDeleted = accounts.remove(accountToDelete);
         }
-        return false;
+        return isAccountDeleted;
     }
 
     @Override

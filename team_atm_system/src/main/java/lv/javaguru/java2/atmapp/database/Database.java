@@ -8,7 +8,7 @@ public interface Database {
 
     void addAccount(Accounts accounts);
 
-    boolean deleteAccount(Long userID);
+    boolean deleteAccount(int userID);
 
     List<Accounts> getAllAccounts();
 

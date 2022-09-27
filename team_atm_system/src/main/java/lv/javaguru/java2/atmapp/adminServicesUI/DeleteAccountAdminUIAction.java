@@ -19,10 +19,9 @@ public class DeleteAccountAdminUIAction implements AdminUIactions {
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter user ID to delete account: ");
-        long userID = scanner.nextLong();
+        int userID = scanner.nextInt();
         DeleteAccountRequest request = new DeleteAccountRequest(userID);
         DeleteAccountResponse response = deleteAccountService.execute(request);
-        //TODO        Something went wrong here !!!
 
         if (response.isAccountToDelete()) {
             System.out.println("Account was successfully deleted.");

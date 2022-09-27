@@ -12,14 +12,14 @@ public class DeleteAccountService {
         this.database = database;
     }
 
- /*   public void execute(int userID) {
-        database.deleteAccount(userID);
-    }
+//    public void execute(int userID) {
+//        database.deleteAccount(userID);
+//    }
 
-  */
 
     public DeleteAccountResponse execute(DeleteAccountRequest request) {
         boolean isAccountDeleted = database.deleteAccount(request.getAccountToDelete());
         return new DeleteAccountResponse(isAccountDeleted);
     }
+
 }
