@@ -12,25 +12,27 @@ import java.util.Optional;
 
 public abstract class AddVehicleValidator {
 
+    public static final int CURRENT_YEAR_BACKWARD_REDUCER = 100;
+
     public abstract List<CoreError> validate(AddVehicleRequest request);
 
     protected Optional<CoreError> validateBrand(AddVehicleRequest request) {
         String brand = request.getBrand();
-        return (brand == null || brand.isEmpty())
+        return (brand == null || brand.isBlank())
                 ? Optional.of(new CoreError("Brand", "cannot be empty"))
                 : Optional.empty();
     }
 
     protected Optional<CoreError> validateModel(AddVehicleRequest request) {
         String model = request.getModel();
-        return (model == null || model.isEmpty())
+        return (model == null || model.isBlank())
                 ? Optional.of(new CoreError("Model", "cannot be empty"))
                 : Optional.empty();
     }
 
     protected Optional<CoreError> validateYearOfProduction(AddVehicleRequest request) {
         Integer yearOfProduction = request.getYearOfProduction();
-        int minYear = LocalDate.now().getYear() - 100;
+        int minYear = LocalDate.now().getYear() - CURRENT_YEAR_BACKWARD_REDUCER;
         int currentYear = LocalDate.now().getYear();
         if (yearOfProduction == null) {
             return Optional.of(new CoreError("YearOfProduction", "cannot be empty"));
@@ -44,16 +46,11 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateColour(AddVehicleRequest request) {
+        Colour enumColour = null;
         String colour = request.getColour();
-        if (colour == null || colour.isEmpty()) {
+        if (colour == null || colour.isBlank()) {
             return Optional.of(new CoreError("Colour", "cannot be empty"));
-        } else if (colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.RED.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.BLACK.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.BLUE.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.GREEN.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.ORANGE.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.WHITE.name())
-                || colour.toUpperCase().replaceAll("[^a-zA-Z]", "").equals(Colour.YELLOW.name())) {
+        } else if (enumColour.getColourEnumsAllVariants().stream().anyMatch(x -> x.equals(colour))) {
             return Optional.empty();
         } else {
             return Optional.of(new CoreError("Colour", "must be one of the provided options (Red, black, blue, green, orange, white or yellow"));
@@ -104,5 +101,9 @@ public abstract class AddVehicleValidator {
             return Optional.of(new CoreError("Transmission Type", "must be one of the provided options (Automatic, Manual or None"));
 
         }
+    }
+
+    protected List<String> allEnumValues (){
+        return
     }
 }
