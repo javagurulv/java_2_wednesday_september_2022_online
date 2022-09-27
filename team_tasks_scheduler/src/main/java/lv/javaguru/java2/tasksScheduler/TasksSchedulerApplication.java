@@ -79,8 +79,9 @@ public class TasksSchedulerApplication {
             System.out.println("Invalid menu option selected. Please try again.");
             return;
         }
-        if (selectedAction.execute())
+        if (selectedAction.execute()) {
             toggleMenuType(getAlignedMenuChoice(type, choice));
+        }
     }
 
     private static int getAlignedMenuChoice(MenuType menuType, int choice) {

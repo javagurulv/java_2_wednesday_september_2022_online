@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
+import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
 import lv.javaguru.java2.tasksScheduler.services.AddTaskService;
 
 import java.time.LocalDateTime;
@@ -50,11 +52,17 @@ public class AddTaskUIAction implements UIAction {
         } else {
             endDate = dueDate;
         }
-        boolean result = addTaskService.execute(description, regularity, dueDate, endDate);
-        if (result)
-            System.out.println("Task successfully added.");
-        else
-            System.out.println("Task adding failed.");
-        return result;
+        AddTaskRequest request = new AddTaskRequest(description, regularity, dueDate, endDate);
+        AddTaskResponse response = addTaskService.execute(request);
+
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+            return false;
+        } else {
+            System.out.println("Task successfully added." + response.getTask().getId());
+            return true;
+        }
     }
 }
