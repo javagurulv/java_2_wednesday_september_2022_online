@@ -38,7 +38,7 @@ public class UIActionMap {
         this.actionMap = new HashMap<>();
 //        actionMap.put(1, new GetAllUsersUIAction(getAllUsersService));
         actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
-        actionMap.put(2, new LoginUIAction(loginService));
+        actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));
         actionMap.put(4, new ExitUIAction());
         actionMap.put(5, new GetOutstandingTasksUIAction(getOutstandingTasksService));
