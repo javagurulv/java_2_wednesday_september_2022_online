@@ -1,9 +1,9 @@
 package lv.javaguru.java2.atmapp;
 
-import lv.javaguru.java2.atmapp.Database.AccountDatabaseImpl;
-import lv.javaguru.java2.atmapp.Database.Database;
-import lv.javaguru.java2.atmapp.MenuModules.AdminModule;
-import lv.javaguru.java2.atmapp.MenuModules.UserModule;
+import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
+import lv.javaguru.java2.atmapp.database.Database;
+import lv.javaguru.java2.atmapp.menuModules.AdminModule;
+import lv.javaguru.java2.atmapp.menuModules.UserModule;
 
 import java.util.Scanner;
 
