@@ -23,6 +23,8 @@ public class CloseAccountUIAction implements UIAction {
         CloseAccountResponse response = service.execute(request);
         if (response.isDeleted()) {
             System.out.println("Account has been closed");
+        } else {
+            System.out.println("Error");
         }
 
     }

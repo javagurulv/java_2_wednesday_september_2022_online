@@ -18,6 +18,5 @@ public interface DataBase {
     boolean openAccount(String personalCode);
     boolean closeAccount(String personalCode);
    BankAccount seeYourAccount(String personalCode);
-   String  logIn(String personalCode);
 
 }
