@@ -15,10 +15,10 @@ public class VehicleCreatorMap {
 
     public VehicleCreatorMap(Database database) {
         this.vehicleTypeCreatorMap = new HashMap<>();
-        vehicleTypeCreatorMap.put(PASSENGER_CAR, new PassengerCarCreator(database));
-        vehicleTypeCreatorMap.put(MINIBUS, new MiniBusCreator(database));
-        vehicleTypeCreatorMap.put(MOTORCYCLE, new MotorcycleCreator(database));
-        vehicleTypeCreatorMap.put(CAR_TRAILER, new CarTrailerCreator(database));
+        vehicleTypeCreatorMap.put(PASSENGER_CAR, new PassengerCarCreator());
+        vehicleTypeCreatorMap.put(MINIBUS, new MiniBusCreator());
+        vehicleTypeCreatorMap.put(MOTORCYCLE, new MotorcycleCreator());
+        vehicleTypeCreatorMap.put(CAR_TRAILER, new CarTrailerCreator());
     }
 
     public VehicleCreator getVehicleTypeCreatorByCarType(VehicleType vehicleType) {
