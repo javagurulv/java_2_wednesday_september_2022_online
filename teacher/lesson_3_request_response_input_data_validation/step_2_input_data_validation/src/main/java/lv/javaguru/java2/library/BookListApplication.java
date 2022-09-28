@@ -16,6 +16,9 @@ import lv.javaguru.java2.library.core.services.RemoveBookService;
 
 public class BookListApplication {
 
+	// TEST COMMIT
+
+
 	private static Database database = new InMemoryDatabaseImpl();
 	private static AddBookValidator addBookValidator = new AddBookValidator();
 	private static AddBookService addBookService = new AddBookService(database, addBookValidator);
