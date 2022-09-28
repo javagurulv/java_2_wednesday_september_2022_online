@@ -10,9 +10,18 @@ class VehicleRentApplication {
 
     public static void main(String[] args) {
         while (true) {
-            printMainMenu();
-            int userChoice = getUserChoice();
-            executeUserChoice(userChoice);
+            try {
+                printMainMenu();
+                int userChoice = getUserChoice();
+                if (userChoice > 4 || userChoice < 1) {
+                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 4)");
+                } else {
+                    executeUserChoice(userChoice);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("You must enter an integer!");
+            }
+
         }
     }
 
@@ -29,7 +38,7 @@ class VehicleRentApplication {
     private static int getUserChoice() {
         System.out.println("Enter menu item number to execute:");
         Scanner scanner = new Scanner(System.in);
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
     }
 
     private static void executeUserChoice(int userChoice) {

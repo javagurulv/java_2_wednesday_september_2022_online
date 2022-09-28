@@ -22,15 +22,19 @@ public class AddVehicleUIAction implements UIAction {
         try {
             int userChoice = getUserChoice();
 
-            AddVehicleResponse addVehicleResponse = executeUserChoice(userChoice);
-
-            if (addVehicleResponse.hasErrors()) {
-                addVehicleResponse.getErrors().forEach(coreError ->
-                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
-                );
+            if (userChoice > 4 || userChoice < 1) {
+                System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 4)");
             } else {
-                System.out.println("New vehicle id was: " + addVehicleResponse.getNewVehicle().getId());
-                System.out.println("Your vehicle was added to list.");
+                AddVehicleResponse addVehicleResponse = executeUserChoice(userChoice);
+
+                if (addVehicleResponse.hasErrors()) {
+                    addVehicleResponse.getErrors().forEach(coreError ->
+                            System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+                    );
+                } else {
+                    System.out.println("New vehicle id was: " + addVehicleResponse.getNewVehicle().getId());
+                    System.out.println("Your vehicle was added to list.");
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println("Error: You must enter a number!");
@@ -49,7 +53,7 @@ public class AddVehicleUIAction implements UIAction {
 
     private int getUserChoice() {
         Scanner scanner = new Scanner(System.in);
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
     }
 
     private AddVehicleResponse executeUserChoice(int userChoice) {
