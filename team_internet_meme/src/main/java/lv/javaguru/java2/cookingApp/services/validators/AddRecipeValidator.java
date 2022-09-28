@@ -21,28 +21,28 @@ public class AddRecipeValidator {
 
     private Optional<CoreError> validateDishName(AddRecipeRequest request) {
         String dishName = request.getDishName();
-        return (dishName == null || dishName.isEmpty())
+        return (dishName == null || dishName.isBlank())
                 ? Optional.of(new CoreError("Dish name", "Cannot be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateIngredientName(AddRecipeRequest request) {
         return request.getIngredients().stream()
-                .anyMatch(ingredient -> ingredient.getName() == null || ingredient.getName().isEmpty())
+                .anyMatch(ingredient -> ingredient.getName() == null || ingredient.getName().isBlank())
                 ? Optional.of(new CoreError("Ingredient name", "Cannot be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateCookingStep(AddRecipeRequest request) {
         return request.getCookingSteps().stream()
-                .anyMatch(cookingStep -> cookingStep.getStepDescription() == null || cookingStep.getStepDescription().isEmpty())
+                .anyMatch(cookingStep -> cookingStep.getStepDescription() == null || cookingStep.getStepDescription().isBlank())
                 ? Optional.of(new CoreError("Cooking Step", "Cannot be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateIngredientAmount(AddRecipeRequest request) {
         return request.getIngredients().stream()
-                .anyMatch(ingredient -> ingredient.getAmount() == 0)
+                .anyMatch(ingredient -> ingredient.getAmount() == null || ingredient.getAmount() == 0)
                 ? Optional.of(new CoreError("Ingredient amount", "Cannot be 0!"))
                 : Optional.empty();
     }

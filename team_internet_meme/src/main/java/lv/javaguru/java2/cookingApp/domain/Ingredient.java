@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Ingredient {
     private String name;
     private String measurement;
-    private double amount;
+    private Double amount;
 
     @Override
     public String toString() {

@@ -24,7 +24,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnDishNameError() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("Name", "Measurement", 1));
+        ingredients.add(new Ingredient("Name", "Measurement", 1.0));
         cookingSteps.add(new CookingStep(1, "Description"));
         AddRecipeRequest request = new AddRecipeRequest("", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -37,7 +37,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnNoErrors() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("Name", "Measurement", 1));
+        ingredients.add(new Ingredient("Name", "Measurement", 1.0));
         cookingSteps.add(new CookingStep(1, "Description"));
         AddRecipeRequest request = new AddRecipeRequest("Dish name", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -48,7 +48,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnIngredientNameError() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("", "Measurement", 1));
+        ingredients.add(new Ingredient("", "Measurement", 1.00));
         cookingSteps.add(new CookingStep(1, "Description"));
         AddRecipeRequest request = new AddRecipeRequest("Dish name", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -61,7 +61,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnIngredientAmountError() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("Name", "Measurement", 0));
+        ingredients.add(new Ingredient("Name", "Measurement", 0.0));
         cookingSteps.add(new CookingStep(1, "Description"));
         AddRecipeRequest request = new AddRecipeRequest("Dish name", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -74,7 +74,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnCookingStepError() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("Name", "Measurement", 1));
+        ingredients.add(new Ingredient("Name", "Measurement", 1.0));
         cookingSteps.add(new CookingStep(1, ""));
         AddRecipeRequest request = new AddRecipeRequest("Dish name", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -87,7 +87,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnDishNameAndIngredientNameErrors() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("", "Measurement", 1));
+        ingredients.add(new Ingredient("", "Measurement", 1.0));
         cookingSteps.add(new CookingStep(1, "Description"));
         AddRecipeRequest request = new AddRecipeRequest("", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -102,7 +102,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnDishNameAndIngredientAmountErrors() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("Name", "Measurement", 0));
+        ingredients.add(new Ingredient("Name", "Measurement", 0.0));
         cookingSteps.add(new CookingStep(1, "Description"));
         AddRecipeRequest request = new AddRecipeRequest("", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
@@ -117,7 +117,7 @@ class AddRecipeValidatorTest {
     void testShouldReturnDishNameAndCookingStepErrors() {
         List<Ingredient> ingredients = new ArrayList<>();
         List<CookingStep> cookingSteps = new ArrayList<>();
-        ingredients.add(new Ingredient("Name", "Measurement", 1));
+        ingredients.add(new Ingredient("Name", "Measurement", 1.0));
         cookingSteps.add(new CookingStep(1, ""));
         AddRecipeRequest request = new AddRecipeRequest("", ingredients, cookingSteps);
         List<CoreError> errors = validator.validate(request);
