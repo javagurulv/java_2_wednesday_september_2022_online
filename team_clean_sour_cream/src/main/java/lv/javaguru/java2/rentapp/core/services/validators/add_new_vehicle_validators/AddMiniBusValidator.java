@@ -1,7 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
 
+import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MiniBusCreator;
+import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,12 @@ public class AddMiniBusValidator extends AddVehicleValidator {
     protected static final int MAX_DOORS_AMOUNT = 10;
     protected static final int MAX_PASSENGER_AMOUNT = 100;
     protected static final int MAX_BAGGAGE_AMOUNT = 100;
+
+    public Database database;
+
+    public AddMiniBusValidator(Database database) {
+        this.database = database;
+    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
@@ -65,7 +75,7 @@ public class AddMiniBusValidator extends AddVehicleValidator {
 
     protected Optional<CoreError> validateIsAirConditionerAvailable(AddVehicleRequest request) {
         String isAirConditioningAvailable = request.getIsAirConditioningAvailable();
-        if (isAirConditioningAvailable == null || isAirConditioningAvailable.isEmpty()) {
+        if (isAirConditioningAvailable == null || isAirConditioningAvailable.isBlank()) {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "cannot be empty"));
         } else if (isAirConditioningAvailable.equalsIgnoreCase("true")
                 || isAirConditioningAvailable.equalsIgnoreCase("false")) {
@@ -75,5 +85,10 @@ public class AddMiniBusValidator extends AddVehicleValidator {
         }
     }
 
-
+    protected Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
+        Vehicle miniBus = new MiniBusCreator().createVehicle(request);
+        return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(miniBus))
+                ? Optional.of(new CoreError("Vehicle", "is already in the database"))
+                : Optional.empty();
+    }
 }

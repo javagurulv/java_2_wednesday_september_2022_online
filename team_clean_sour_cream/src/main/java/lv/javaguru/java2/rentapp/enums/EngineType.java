@@ -1,5 +1,9 @@
 package lv.javaguru.java2.rentapp.enums;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum EngineType {
 
     PETROL("Petrol"),
@@ -22,5 +26,11 @@ public enum EngineType {
 
     public String getNameEngineType() {
         return nameEngineType;
+    }
+
+    public static List<String> getAllEnumValues() {
+        return EnumSet.allOf(EngineType.class).stream()
+                .map(EngineType::getNameEngineType)
+                .collect(Collectors.toList());
     }
 }

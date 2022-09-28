@@ -15,13 +15,15 @@ public class Accounts {
         this.balance = balance;
     }
 
+    public Accounts(String name, int userID) {
+        this.name = name;
+        this.userID = userID;
+    }
+
     public String getName() {
         return name;
     }
 
-//    public int getUserID(int userID) {
-//        return userID;
-//    }
 
     public int getUserID() {
         return userID;
@@ -54,7 +56,7 @@ public class Accounts {
     public String toString() {
         return "Accounts{" +
                 "name='" + name + '\'' +
-                ", bornYear=" + userID +
+                ", userID=" + userID +
                 ", balance=" + balance + "$" +
                 '}';
     }
