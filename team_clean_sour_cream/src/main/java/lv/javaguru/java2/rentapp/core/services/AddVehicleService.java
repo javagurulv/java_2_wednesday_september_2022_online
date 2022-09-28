@@ -7,6 +7,7 @@ import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.*;
 import lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddVehicleValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddVehicleValidatorMap;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.List;
@@ -15,10 +16,12 @@ public class AddVehicleService {
 
     private VehicleCreatorMap vehicleCreatorMap;
     private AddVehicleValidatorMap vehicleValidatorMap;
+    private Database database;
 
     public AddVehicleService(Database database) {
+        this.database = database;
         this.vehicleCreatorMap = new VehicleCreatorMap(database);
-        this.vehicleValidatorMap = new AddVehicleValidatorMap();
+        this.vehicleValidatorMap = new AddVehicleValidatorMap(database);
     }
 
     public AddVehicleResponse execute(AddVehicleRequest request) {
@@ -30,8 +33,8 @@ public class AddVehicleService {
             return new AddVehicleResponse(errors);
         }
 
-
         VehicleCreator vehicleTypeCreator = vehicleCreatorMap.getVehicleTypeCreatorByCarType(vehicleType);
-        return vehicleTypeCreator.createVehicle(request);
+        Vehicle vehicle = vehicleTypeCreator.createVehicle(request);
+        return new AddVehicleResponse(database.addNewVehicle(vehicle));
     }
 }

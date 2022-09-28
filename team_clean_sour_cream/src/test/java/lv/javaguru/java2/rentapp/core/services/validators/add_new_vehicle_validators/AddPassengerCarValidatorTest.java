@@ -1,7 +1,12 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
 
+import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
@@ -20,10 +25,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AddPassengerCarValidatorTest {
 
     AddPassengerCarValidator validator;
+    Database database;
 
     @BeforeEach
     void setUp() {
-        validator = new AddPassengerCarValidator();
+        database = new InMemoryDatabaseImpl();
+        validator = new AddPassengerCarValidator(database);
     }
 
     @Test
@@ -31,6 +38,19 @@ class AddPassengerCarValidatorTest {
         AddVehicleRequest request = AddVehicleRequest.builder().build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(12, errors.size());
+    }
+
+    @Test
+    void testValidateVehicleIsNotDuplicateShouldReturnNoErrors() {
+        AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+        new PassengerCarCreator(database).createVehicle(request1);
+        AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
+                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+        Optional<CoreError> error = validator.validateVehicleIsNotDuplicate(request2);
+        assertTrue(error.isEmpty());
     }
 
     @Test

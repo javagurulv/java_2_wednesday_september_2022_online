@@ -11,14 +11,8 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 public class MotorcycleCreator implements VehicleCreator {
 
-    private Database database;
-
-    public MotorcycleCreator(Database database) {
-        this.database = database;
-    }
-
     @Override
-    public AddVehicleResponse createVehicle(AddVehicleRequest request) {
+    public Vehicle createVehicle(AddVehicleRequest request) {
         Vehicle motorcycle = new Motorcycle(request.getBrand(), request.getModel(), request.isAvailableForRent(),
                 request.getYearOfProduction(),
                 Colour.valueOf(request.getColour().toUpperCase().replaceAll("[^a-zA-Z]", "")),
@@ -27,8 +21,7 @@ public class MotorcycleCreator implements VehicleCreator {
                 request.getPlateNumber(),
                 TransmissionType.valueOf(request.getTransmissionType().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getPassengerAmount());
-        database.addNewVehicle(motorcycle);
-        return new AddVehicleResponse(motorcycle);
+        return motorcycle;
     }
 
 }
