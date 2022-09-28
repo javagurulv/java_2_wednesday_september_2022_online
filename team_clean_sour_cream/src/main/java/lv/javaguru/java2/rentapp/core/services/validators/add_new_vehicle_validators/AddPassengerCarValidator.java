@@ -85,8 +85,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
-        AddVehicleResponse response = new PassengerCarCreator(database).createVehicle(request);
-        Vehicle passengerCar = response.getNewVehicle();
+        Vehicle passengerCar = new PassengerCarCreator().createVehicle(request);
         return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(passengerCar))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))
                 : Optional.empty();

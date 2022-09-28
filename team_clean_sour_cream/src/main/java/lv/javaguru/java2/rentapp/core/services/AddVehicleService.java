@@ -35,6 +35,7 @@ public class AddVehicleService {
 
         VehicleCreator vehicleTypeCreator = vehicleCreatorMap.getVehicleTypeCreatorByCarType(vehicleType);
         Vehicle vehicle = vehicleTypeCreator.createVehicle(request);
-        return new AddVehicleResponse(database.addNewVehicle(vehicle));
+        database.addNewVehicle(vehicle);
+        return new AddVehicleResponse(vehicle);
     }
 }

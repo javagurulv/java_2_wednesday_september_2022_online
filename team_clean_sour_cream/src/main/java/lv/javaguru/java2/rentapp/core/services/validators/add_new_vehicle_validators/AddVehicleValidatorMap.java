@@ -15,9 +15,9 @@ public class AddVehicleValidatorMap {
     public AddVehicleValidatorMap(Database database) {
         this.addVehicleValidatorMap = new HashMap<>();
         addVehicleValidatorMap.put(PASSENGER_CAR, new AddPassengerCarValidator(database));
-        addVehicleValidatorMap.put(MINIBUS, new AddMiniBusValidator());
-        addVehicleValidatorMap.put(MOTORCYCLE, new AddMotorcycleValidator());
-        addVehicleValidatorMap.put(CAR_TRAILER, new AddCarTrailerValidator());
+        addVehicleValidatorMap.put(MINIBUS, new AddMiniBusValidator(database));
+        addVehicleValidatorMap.put(MOTORCYCLE, new AddMotorcycleValidator(database));
+        addVehicleValidatorMap.put(CAR_TRAILER, new AddCarTrailerValidator(database));
     }
 
     public AddVehicleValidator getVehicleValidatorByCarType(VehicleType vehicleType) {

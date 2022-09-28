@@ -7,9 +7,10 @@ import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
+import java.util.Objects;
+
 @Getter
 @Setter
-@EqualsAndHashCode
 public abstract class Vehicle {
 
     private Long id;
@@ -48,5 +49,18 @@ public abstract class Vehicle {
                 ", engineType='" + engineType.getNameEngineType() + '\'' +
                 ", plateNumber='" + plateNumber + '\'' +
                 ", transmissionType='" + transmissionType.getNameTransmissionType() + '\'';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(yearOfProduction, vehicle.yearOfProduction) && colour == vehicle.colour && Objects.equals(rentPricePerDay, vehicle.rentPricePerDay) && engineType == vehicle.engineType && Objects.equals(plateNumber, vehicle.plateNumber) && transmissionType == vehicle.transmissionType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(brand, model, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
     }
 }

@@ -1,5 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
 
+import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,10 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AddCarTrailerValidatorTest {
 
     AddCarTrailerValidator validator;
+    private Database database;
 
     @BeforeEach
     void setUp() {
-        validator = new AddCarTrailerValidator();
+        database = new InMemoryDatabaseImpl();
+        validator = new AddCarTrailerValidator(database);
     }
 
 
