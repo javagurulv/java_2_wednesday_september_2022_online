@@ -13,7 +13,7 @@ public class CookingApplication {
             try {
                 printProgramMenu();
                 int userChoice = getMenuNumberFromUser();
-                if (userChoice < 1 || userChoice > 5) {
+                if (userChoice < 1 || userChoice > 6) {
                     System.out.println("You must enter an integer that corresponds with one of the menu options");
                 } else {
                     executeSelectedMenuItem(userChoice);
@@ -31,7 +31,8 @@ public class CookingApplication {
         System.out.println("2. Delete recipe from list");
         System.out.println("3. Show all recipes in the list");
         System.out.println("4. Print recipe to console");
-        System.out.println("5. Exit");
+        System.out.println("5. Search recipes by ingredients");
+        System.out.println("6. Exit");
         System.out.println();
     }
 
