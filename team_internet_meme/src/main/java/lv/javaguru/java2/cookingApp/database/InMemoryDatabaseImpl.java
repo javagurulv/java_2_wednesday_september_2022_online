@@ -1,6 +1,7 @@
 package lv.javaguru.java2.cookingApp.database;
 
 import lv.javaguru.java2.cookingApp.domain.Recipe;
+import lv.javaguru.java2.cookingApp.services.search_criteria.SearchCriteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,4 +41,12 @@ public class InMemoryDatabaseImpl implements Database {
     public List<Recipe> getAllRecipes() {
         return recipes;
     }
+
+    @Override
+    public List<Recipe> find(SearchCriteria searchCriteria) {
+        List<Recipe> recipes = new ArrayList<>();
+        return recipes.stream().filter(searchCriteria).collect(Collectors.toList());
+    }
+
+
 }

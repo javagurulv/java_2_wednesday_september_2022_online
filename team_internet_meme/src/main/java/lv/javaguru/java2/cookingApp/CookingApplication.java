@@ -10,9 +10,17 @@ public class CookingApplication {
     public static void main(String[] args) {
 
         while (true) {
-            printProgramMenu();
-            int userChoice = getMenuNumberFromUser();
-            executeSelectedMenuItem(userChoice);
+            try {
+                printProgramMenu();
+                int userChoice = getMenuNumberFromUser();
+                if (userChoice < 1 || userChoice > 5) {
+                    System.out.println("You must enter an integer that corresponds with one of the menu options");
+                } else {
+                    executeSelectedMenuItem(userChoice);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("You must enter an integer!");
+            }
         }
     }
 
@@ -30,7 +38,7 @@ public class CookingApplication {
     private static int getMenuNumberFromUser() {
         System.out.println("Enter menu item number to execute:");
         Scanner scanner = new Scanner(System.in);
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
     }
 
     private static void executeSelectedMenuItem(int userChoice) {
