@@ -20,27 +20,27 @@ class InMemoryDatabaseImplTest {
 
     @Test
     void addBankAccount() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", Roles.Regular_user
+        BankAccount bankAccount = new BankAccount("Example", "Example","password", Roles.Regular_user
                 , "111-000");
         dataBase.addBankAccount(bankAccount);
-        assertTrue(dataBase.getAllBankAccountsMap().containsKey("111-000"));
+        assertTrue(dataBase.getAllBankAccounts().contains(bankAccount));
 
     }
 
     @Test
     void deleteBankAccount() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", Roles.Regular_user
+        BankAccount bankAccount = new BankAccount("Example", "Example","password", Roles.Regular_user
                 , "111-000");
-        dataBase.addBankAccount(bankAccount);
-        assertTrue(dataBase.getAllBankAccountsMap().containsKey("111-000"));
+        dataBase.deleteBankAccount("111-000");
+        assertFalse(dataBase.getAllBankAccounts().contains(bankAccount));
     }
 
     @Test
     void bankTransfer() {
-        BankAccount bankAccount = new BankAccount("Example1", "Example1", Roles.Regular_user
+        BankAccount bankAccount = new BankAccount("Example1", "Example1","password", Roles.Regular_user
                 , "111-000");
         bankAccount.setAccount(new Account(1L, 1000));
-        BankAccount bankAccountTwo = new BankAccount("Example2", "Example2", Roles.Regular_user
+        BankAccount bankAccountTwo = new BankAccount("Example2", "Example2","password", Roles.Regular_user
                 , "122-000");
         dataBase.addBankAccount(bankAccount);
         dataBase.addBankAccount(bankAccountTwo);
@@ -50,16 +50,15 @@ class InMemoryDatabaseImplTest {
 
     @Test
     void openAccount() {
-        BankAccount bankAccount = new BankAccount("Example1", "Example1", Roles.Regular_user
+        BankAccount bankAccount = new BankAccount("Example1", "Example1","password", Roles.Regular_user
                 , "111-000");
         dataBase.addBankAccount(bankAccount);
         assertTrue(dataBase.openAccount("111-000"));
-        assertFalse(dataBase.openAccount("111-000"));
     }
 
     @Test
     void closeAccount() {
-        BankAccount bankAccount = new BankAccount("Example1", "Example1", Roles.Regular_user
+        BankAccount bankAccount = new BankAccount("Example1", "Example1","password", Roles.Regular_user
                 , "111-000");
         dataBase.addBankAccount(bankAccount);
         bankAccount.setAccount(new Account(1L, 0));
@@ -69,12 +68,12 @@ class InMemoryDatabaseImplTest {
 
     @Test
     void getAllBankAccountsMap() {
-        assertNotNull(dataBase.getAllBankAccountsMap());
+        assertNotNull(dataBase.getAllBankAccounts());
     }
 
     @Test
     void seeYourAccount() {
-        BankAccount bankAccount = new BankAccount("Example1", "Example1", Roles.Regular_user
+        BankAccount bankAccount = new BankAccount("Example1", "Example1","password", Roles.Regular_user
                 , "111-000");
         dataBase.addBankAccount(bankAccount);
         assertNotNull(dataBase.seeYourAccount("111-000"));

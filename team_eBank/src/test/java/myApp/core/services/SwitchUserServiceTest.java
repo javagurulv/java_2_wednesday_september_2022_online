@@ -4,9 +4,6 @@ import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SwitchUserServiceTest {
@@ -24,8 +21,8 @@ class SwitchUserServiceTest {
 
     @Test
     void testSwitchUser() {
-        String personalCode = service.logIn("111-317");
-        String actualResult = switchUserService.execute("01");
+        String personalCode = service.logIn("111-317", "password");
+        String actualResult = switchUserService.execute("01", "password");
         assertNotEquals(personalCode, actualResult);
     }
 }

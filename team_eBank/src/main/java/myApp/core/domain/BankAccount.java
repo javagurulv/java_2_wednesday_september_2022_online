@@ -8,13 +8,15 @@ public class BankAccount {
     private String surname;
     private Long id;
     private String personalCode;
+    private String password;
     private Roles role;
     private Account account;
 
-    public BankAccount(String name, String surname, Roles role, String personalCode) {
+    public BankAccount(String name, String surname, String password,Roles role, String personalCode) {
         this.personalCode = personalCode;
         this.name = name;
         this.surname = surname;
+        this.password = password;
         this.role = role;
     }
 
@@ -73,17 +75,29 @@ public class BankAccount {
         this.personalCode = personalCode;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BankAccount that = (BankAccount) o;
-        return Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(id, that.id) && Objects.equals(personalCode, that.personalCode) && role == that.role && Objects.equals(account, that.account);
+        return Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(id, that.id) && Objects.equals(personalCode, that.personalCode) && Objects.equals(password, that.password) && role == that.role && Objects.equals(account, that.account);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, id, personalCode, role, account);
+        return Objects.hash(name, surname, id, personalCode, password, role, account);
     }
 
     @Override
@@ -93,6 +107,7 @@ public class BankAccount {
                 ", surname='" + surname + '\'' +
                 ", id=" + id +
                 ", personalCode='" + personalCode + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", account=" + account +
                 '}';

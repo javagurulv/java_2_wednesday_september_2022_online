@@ -23,7 +23,9 @@ public class AddBankAccountUIAction implements UIAction {
         String surname = scanner.nextLine();
         System.out.println("Enter personal code: ");
         String personalCode = scanner.nextLine();
-        AddBankAccountRequest request = new AddBankAccountRequest(name, surname, personalCode);
+        System.out.println("Enter password: ");
+        String password = scanner.nextLine();
+        AddBankAccountRequest request = new AddBankAccountRequest(name, surname,password, personalCode);
         AddBankAccountResponse response = service.execute(request);
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error: "

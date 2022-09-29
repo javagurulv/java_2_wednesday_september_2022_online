@@ -28,7 +28,8 @@ class AddBankAccountServiceTest {
 
     @Test
     void testExecuteWithoutErrors() {
-        AddBankAccountRequest request = new AddBankAccountRequest("Example", "Example",
+        AddBankAccountRequest request = new AddBankAccountRequest("Example", "Example"
+                ,"password",
                 "000-001");
         List<CoreError> errors = validator.validate(request);
         AddBankAccountResponse response = service.execute(request);
@@ -39,7 +40,7 @@ class AddBankAccountServiceTest {
     @Test
     void testExecuteWithErrors() {
         AddBankAccountRequest request = new AddBankAccountRequest(" ", " ",
-                "000-001");
+                "000-001", "password");
         List<CoreError> errors = validator.validate(request);
         AddBankAccountResponse response = service.execute(request);
         assertNull(response.getBankAccount());

@@ -27,7 +27,7 @@ class CloseAccountServiceTest {
         dataBase = new InMemoryDatabaseImpl();
         validator = new CloseAccountValidator();
         service = new CloseAccountService(dataBase, validator);
-        BankAccount bankAccount = new BankAccount("Example1", "Example2",
+        BankAccount bankAccount = new BankAccount("Example1", "Example2","password",
                 Roles.Regular_user, "000-001");
         dataBase.addBankAccount(bankAccount);
         bankAccount.setAccount(new Account(2L, 0));

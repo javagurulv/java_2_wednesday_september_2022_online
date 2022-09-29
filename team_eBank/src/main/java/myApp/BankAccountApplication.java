@@ -1,5 +1,7 @@
 package myApp;
+
 import myApp.consoleUI.*;
+
 import java.util.Scanner;
 
 
@@ -8,9 +10,13 @@ class BankAccountApplication {
     private static UIActionMap uiActionMap = new UIActionMap();
 
     public static void main(String[] args) {
-        String personalCode = logIn();
+        run();
+    }
+
+    private static void run() {
+        logIn();
         while (true) {
-            personalCode = uiActionMap.getPersonalCode();
+            String personalCode = uiActionMap.getPersonalCode();
             if (isUserAdmin(personalCode)) {
                 ifAdminLogin(personalCode);
             } else {
@@ -52,11 +58,8 @@ class BankAccountApplication {
         System.out.println("5 - Exit");
     }
 
-    private static String logIn() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your personal code: ");
-        String personalCode = scanner.nextLine();
-        return uiActionMap.logIn(personalCode);
+    private static void logIn() {
+        uiActionMap.logIn();
     }
 
     private static boolean isUserAdmin(String personalCode) {

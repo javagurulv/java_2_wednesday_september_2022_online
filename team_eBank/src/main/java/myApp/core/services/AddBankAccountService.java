@@ -23,7 +23,7 @@ public class AddBankAccountService {
     public AddBankAccountResponse execute(AddBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-            BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname()
+            BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(), request.getPassword()
                     ,Roles.Regular_user, request.getPersonalCode());
             dataBase.addBankAccount(bankAccount);
             return new AddBankAccountResponse(bankAccount);

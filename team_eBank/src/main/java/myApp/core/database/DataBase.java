@@ -1,9 +1,9 @@
 package myApp.core.database;
 
-import myApp.core.domain.Account;
 import myApp.core.domain.BankAccount;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 public interface DataBase {
 
@@ -11,12 +11,12 @@ public interface DataBase {
 
     boolean deleteBankAccount(String personalCode);
 
-    Map<String , BankAccount> getAllBankAccountsMap();
+    List<BankAccount> getAllBankAccounts();
 
     boolean bankTransfer(String personalCode, String anotherPersonalCode, int value);
 
     boolean openAccount(String personalCode);
     boolean closeAccount(String personalCode);
-   BankAccount seeYourAccount(String personalCode);
+   Optional<BankAccount> seeYourAccount(String personalCode);
 
 }

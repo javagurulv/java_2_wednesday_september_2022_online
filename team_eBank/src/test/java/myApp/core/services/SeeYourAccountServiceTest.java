@@ -19,7 +19,7 @@ class SeeYourAccountServiceTest {
     @BeforeEach
     void setUp() {
         dataBase = new InMemoryDatabaseImpl();
-        dataBase.addBankAccount(new BankAccount("Example", "Example"
+        dataBase.addBankAccount(new BankAccount("Example", "Example","password"
                 , Roles.Regular_user, "000-001"));
         service = new SeeYourAccountService(dataBase);
     }

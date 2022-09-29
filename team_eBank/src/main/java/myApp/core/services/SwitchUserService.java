@@ -9,9 +9,9 @@ public class SwitchUserService {
         this.service = service;
     }
 
-    public String execute(String personalCode) {
+    public String execute(String personalCode, String password) {
         service.logOut();
-        return service.logIn(personalCode);
+        return service.logIn(personalCode, password);
     }
 
 }

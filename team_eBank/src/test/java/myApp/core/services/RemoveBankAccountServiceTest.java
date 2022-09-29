@@ -7,7 +7,6 @@ import myApp.core.domain.Roles;
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.RemoveBankAccountResponse;
-import myApp.core.services.validators.AddBankAccountValidator;
 import myApp.core.services.validators.RemoveBankAccountValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ class RemoveBankAccountServiceTest {
         dataBase = new InMemoryDatabaseImpl();
         validator = new RemoveBankAccountValidator();
         service = new RemoveBankAccountService(dataBase,validator);
-        dataBase.addBankAccount(new BankAccount("Example", "Example", Roles.Regular_user,
+        dataBase.addBankAccount(new BankAccount("Example", "Example","password", Roles.Regular_user,
                 "000-001"));
     }
 

@@ -4,7 +4,6 @@ import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.services.*;
 import myApp.core.services.validators.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +35,8 @@ public class UIActionMap {
     private static SeeYourAccountUIAction seeYourAccountUIAction = new SeeYourAccountUIAction(seeYourAccountService, userService);
     private static SwitchUserService switchUserService = new SwitchUserService(userService);
     private static SwitchUserUIAction switchUserUIAction = new SwitchUserUIAction(switchUserService);
+    private static LogInService logInService = new LogInService(dataBase, userService);
+    private static LogInUIAction logInUIAction = new LogInUIAction(logInService);
     private static UIAction exit = new ExitUIAction();
     private Map<Integer, UIAction> uiActionMap = new HashMap<>();
 
@@ -67,7 +68,7 @@ public class UIActionMap {
         return userService.getPersonalCode();
     }
 
-    public String logIn(String personalCode) {
-        return userService.logIn(personalCode);
+    public void logIn() {
+        logInUIAction.execute();
     }
 }
