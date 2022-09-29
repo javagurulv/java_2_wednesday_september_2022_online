@@ -5,16 +5,16 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 public class TransmissionTypeCriteria implements SearchCriteria {
 
-    private TransmissionType transmissionType;
+    private String transmissionType;
 
-    public TransmissionTypeCriteria(TransmissionType transmissionType) {
+    public TransmissionTypeCriteria(String transmissionType) {
         this.transmissionType = transmissionType;
     }
 
     @Override
     public boolean test(Vehicle vehicle) {
 
-        return vehicle.getTransmissionType().equals(transmissionType);
+        return vehicle.getTransmissionType().getNameTransmissionType().equals(transmissionType);
 
     }
 }

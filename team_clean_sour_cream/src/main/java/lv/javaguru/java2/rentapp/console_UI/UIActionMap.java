@@ -13,7 +13,6 @@ public class UIActionMap {
 
     private Map<Integer, UIAction> uiActionMap;
     private Database database = new InMemoryDatabaseImpl();
-    private AddVehicleValidator addNewVehicleValidator;
     private AddVehicleService addNewVehicleService = new AddVehicleService(database);
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database);
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
