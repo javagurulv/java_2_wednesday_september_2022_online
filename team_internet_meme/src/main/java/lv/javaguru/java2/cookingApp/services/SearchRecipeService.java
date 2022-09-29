@@ -8,7 +8,7 @@ import lv.javaguru.java2.cookingApp.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.services.search_criteria.AndSearchCriteria;
 import lv.javaguru.java2.cookingApp.services.search_criteria.IngredientNameCriteria;
 import lv.javaguru.java2.cookingApp.services.search_criteria.SearchCriteria;
-import lv.javaguru.java2.cookingApp.services.validators.SearchRecipeValidator;
+import lv.javaguru.java2.cookingApp.services.validators.SearchRecipeRequestValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class SearchRecipeService {
 
     public SearchRecipeResponse execute(SearchRecipeRequest request) {
 
-        List<CoreError> coreErrors = new SearchRecipeValidator().validate(request);
+        List<CoreError> coreErrors = new SearchRecipeRequestValidator().validate(request);
         if (!coreErrors.isEmpty()) {
             return new SearchRecipeResponse(coreErrors, null);
         }

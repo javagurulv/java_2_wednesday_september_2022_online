@@ -6,7 +6,7 @@ import lv.javaguru.java2.cookingApp.responses.CoreError;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteRecipeValidator {
+public class DeleteRecipeRequestValidator {
 
     public List<CoreError> validate(DeleteRecipeRequest request) {
         List<CoreError> errors = new ArrayList<>();

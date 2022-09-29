@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeleteRecipeValidatorTest {
 
-    DeleteRecipeValidator validator;
+    DeleteRecipeRequestValidator validator;
 
     @BeforeEach
     void setUp() {
-        validator = new DeleteRecipeValidator();
+        validator = new DeleteRecipeRequestValidator();
     }
 
     @Test

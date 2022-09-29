@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddRecipeValidatorTest {
 
-    AddRecipeValidator validator;
+    AddRecipeRequestValidator validator;
     @BeforeEach
     void setUp() {
-        validator = new AddRecipeValidator();
+        validator = new AddRecipeRequestValidator();
     }
 
     @Test

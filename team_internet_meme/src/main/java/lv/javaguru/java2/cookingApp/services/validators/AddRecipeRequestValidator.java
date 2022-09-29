@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AddRecipeValidator {
+public class AddRecipeRequestValidator {
 
     public List<CoreError> validate(AddRecipeRequest request) {
         List<CoreError> errors = new ArrayList<>();

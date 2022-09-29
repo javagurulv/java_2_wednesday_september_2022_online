@@ -11,13 +11,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SearchRecipeValidatorTest {
+class SearchRecipeRequestValidatorTest {
 
-    SearchRecipeValidator validator;
+    SearchRecipeRequestValidator validator;
 
     @BeforeEach
     void setUp() {
-        validator = new SearchRecipeValidator();
+        validator = new SearchRecipeRequestValidator();
     }
 
     @Test

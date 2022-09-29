@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class SearchRecipeValidator {
+public class SearchRecipeRequestValidator {
 
     public List<CoreError> validate(SearchRecipeRequest request) {
         List<CoreError> coreErrors = new ArrayList<>();
