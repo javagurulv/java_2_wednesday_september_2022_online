@@ -12,6 +12,7 @@ public class SearchVehicleService {
         this.database = database;
     }
 
+    // vot
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
         return null;
     }

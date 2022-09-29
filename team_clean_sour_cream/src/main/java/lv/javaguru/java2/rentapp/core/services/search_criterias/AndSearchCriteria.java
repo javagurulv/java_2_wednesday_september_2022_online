@@ -15,7 +15,7 @@ public class AndSearchCriteria implements SearchCriteria {
     @Override
     public boolean test(Vehicle vehicle) {
 
-        return leftCondition.test(vehicle) && rightCondition.test(vehicle);
+        return rightCondition == null ? leftCondition.test(vehicle) : leftCondition.test(vehicle) && rightCondition.test(vehicle);
 
     }
 }

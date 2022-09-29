@@ -22,7 +22,8 @@ class VehicleRentApplication {
         System.out.println("1. Add vehicle to list");
         System.out.println("2. Delete vehicle from list by plate number");
         System.out.println("3. Show all vehicles in the list");
-        System.out.println("4. Exit");
+        System.out.println("4. Search vehicles in the list");
+        System.out.println("5. Exit");
         System.out.println();
     }
 
