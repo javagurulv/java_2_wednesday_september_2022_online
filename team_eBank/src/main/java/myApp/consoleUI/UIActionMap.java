@@ -34,7 +34,8 @@ public class UIActionMap {
     private static CloseAccountUIAction closeAccountUIAction = new CloseAccountUIAction(closeAccountService, userService);
     private static SeeYourAccountService seeYourAccountService = new SeeYourAccountService(dataBase);
     private static SeeYourAccountUIAction seeYourAccountUIAction = new SeeYourAccountUIAction(seeYourAccountService, userService);
-    private static UIAction user = new UserServiceUIAction(userService);
+    private static SwitchUserService switchUserService = new SwitchUserService(userService);
+    private static SwitchUserUIAction switchUserUIAction = new SwitchUserUIAction(switchUserService);
     private static UIAction exit = new ExitUIAction();
     private Map<Integer, UIAction> uiActionMap = new HashMap<>();
 
@@ -43,7 +44,7 @@ public class UIActionMap {
         uiActionMap.put(2, openAccount);
         uiActionMap.put(3, closeAccountUIAction);
         uiActionMap.put(4, seeYourAccountUIAction);
-        uiActionMap.put(5, user);//need to finalize
+        uiActionMap.put(5, switchUserUIAction);
         uiActionMap.put(6, exit);
         uiActionMap.put(7, getAllAccountsUIAction);
         return uiActionMap.get(userChoice);
@@ -53,7 +54,7 @@ public class UIActionMap {
         uiActionMap.put(1, getAllAccountsUIAction);
         uiActionMap.put(2, addBankAccountUIAction);
         uiActionMap.put(3, removeBankAccountUIAction);
-        uiActionMap.put(4, user);
+        uiActionMap.put(4, switchUserUIAction);
         uiActionMap.put(5, exit);
         return uiActionMap.get(userChoice);
     }
@@ -62,7 +63,11 @@ public class UIActionMap {
         return userAreAdminService.isUserAreAdmin(personalCode);
     }
 
+    public String getPersonalCode() {
+        return userService.getPersonalCode();
+    }
+
     public String logIn(String personalCode) {
-        return userService.getBankAccountCode(personalCode);
+        return userService.logIn(personalCode);
     }
 }

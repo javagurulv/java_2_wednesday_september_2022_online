@@ -23,7 +23,7 @@ class UserServiceTest {
 
     @Test
     void testGetBankAccountCode() {
-       String result = service.getBankAccountCode("000-001");
+       String result = service.logIn("000-001");
        assertEquals("000-001", result);
        assertEquals(service.getPersonalCode(), result);
     }

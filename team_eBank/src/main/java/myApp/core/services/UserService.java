@@ -11,9 +11,9 @@ public class UserService {
         this.dataBase = dataBase;
     }
 
-    public String getBankAccountCode(String personalCode) {
+    public String logIn(String personalCode) {
         setPersonalCode(personalCode);
-        return dataBase.logIn(personalCode);
+        return personalCode;
     }
 
     public void logOut() {

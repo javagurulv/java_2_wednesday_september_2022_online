@@ -1,6 +1,5 @@
 package myApp;
 import myApp.consoleUI.*;
-
 import java.util.Scanner;
 
 
@@ -9,29 +8,27 @@ class BankAccountApplication {
     private static UIActionMap uiActionMap = new UIActionMap();
 
     public static void main(String[] args) {
-          String personalCode = logIn();
+        String personalCode = logIn();
         while (true) {
-            if (personalCode != null) {
-                if (isUserAdmin(personalCode)) {
-                    ifAdminLogin();
-                } else {
-                    ifUserLogin();
-                    switchUser(userChoice(), 5);//need to finalize
-                }
+            personalCode = uiActionMap.getPersonalCode();
+            if (isUserAdmin(personalCode)) {
+                ifAdminLogin(personalCode);
+            } else {
+                ifUserLogin(personalCode);
             }
         }
     }
 
-    private static void ifAdminLogin() {
+    private static void ifAdminLogin(String personalCode) {
         printInformationForAdmin();
         int result = userChoice();
-        adminUserSelectionResult(result);
+        userSelectionResult(result, personalCode);
     }
 
-    private static void ifUserLogin() {
+    private static void ifUserLogin(String personalCode) {
         printInformationForRegularUser();
         int result = userChoice();
-        regularUserSelectionResult(result);
+        userSelectionResult(result, personalCode);
     }
 
     private static void printInformationForRegularUser() {
@@ -66,28 +63,14 @@ class BankAccountApplication {
         return uiActionMap.isUserAdmin(personalCode);
     }
 
-    private static void regularUserSelectionResult(int userChoice) {
-        switchUser(userChoice, 5);
-        UIAction result = uiActionMap.userSelectionForRegularUser(userChoice);
-        result.execute();
-    }
-
-    //need to finalize
-    private static void switchUser(int userChoice, int number) {
-        if (userChoice == number) {
-            String personalCode = logIn();
-            if (isUserAdmin(personalCode)) {
-                ifAdminLogin();
-            } else {
-                ifUserLogin();
-            }
+    private static void userSelectionResult(int userChoice, String personalCode) {
+        if (isUserAdmin(personalCode)) {
+            UIAction result = uiActionMap.userSelectionForAdmin(userChoice);
+            result.execute();
+        } else {
+            UIAction result = uiActionMap.userSelectionForRegularUser(userChoice);
+            result.execute();
         }
-    }
-
-    private static void adminUserSelectionResult(int userChoice) {
-        switchUser(userChoice, 4);
-        UIAction result = uiActionMap.userSelectionForAdmin(userChoice);
-        result.execute();
     }
 
     private static int userChoice() {

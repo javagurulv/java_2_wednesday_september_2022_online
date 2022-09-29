@@ -11,7 +11,7 @@ public class InMemoryDatabaseImpl implements DataBase {
 
     public InMemoryDatabaseImpl() {
         BankAccount bankAccount = new BankAccount("Vlad", "Kulikov", Roles.Regular_user, "111-317");
-        BankAccount adminAccount = new BankAccount("Admin", "Admin", Roles.Admin, "Admin");
+        BankAccount adminAccount = new BankAccount("Admin", "Admin", Roles.Admin, "01");
         bankAccountMap.put(adminAccount.getPersonalCode(), adminAccount);
         addBankAccount(bankAccount);
     }
@@ -54,12 +54,6 @@ public class InMemoryDatabaseImpl implements DataBase {
         return bankAccountMap.get(personalCode).getAccounts().getBalance() != checkBalance;
 
     }
-
-    @Override
-    public String logIn(String personalCode) {
-        return personalCode;
-    }
-
 
     @Override
     public boolean openAccount(String personalCode) {

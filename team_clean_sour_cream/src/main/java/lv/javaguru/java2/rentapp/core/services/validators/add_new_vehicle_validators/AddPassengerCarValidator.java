@@ -1,7 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
 
+import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,11 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
     protected static final int MAX_PASSENGER_AMOUNT = 100;
     protected static final int MAX_BAGGAGE_AMOUNT = 100;
     protected static final int MAX_DOORS_AMOUNT = 10;
+    private Database database;
+
+    public AddPassengerCarValidator(Database database) {
+        this.database = database;
+    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
@@ -73,5 +82,12 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         } else {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "must be either true or false"));
         }
+    }
+
+    protected Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
+        Vehicle passengerCar = new PassengerCarCreator().createVehicle(request);
+        return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(passengerCar))
+                ? Optional.of(new CoreError("Vehicle", "is already in the database"))
+                : Optional.empty();
     }
 }
