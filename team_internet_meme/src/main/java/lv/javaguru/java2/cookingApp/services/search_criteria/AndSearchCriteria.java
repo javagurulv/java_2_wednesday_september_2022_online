@@ -3,12 +3,12 @@ package lv.javaguru.java2.cookingApp.services.search_criteria;
 import lv.javaguru.java2.cookingApp.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.domain.Recipe;
 
-public class AndCriteria implements SearchCriteria {
+public class AndSearchCriteria implements SearchCriteria {
 
     private SearchCriteria leftCriteria;
     private SearchCriteria rightCriteria;
 
-    public AndCriteria(SearchCriteria leftCriteria, SearchCriteria rightCriteria) {
+    public AndSearchCriteria(SearchCriteria leftCriteria, SearchCriteria rightCriteria) {
         this.leftCriteria = leftCriteria;
         this.rightCriteria = rightCriteria;
     }

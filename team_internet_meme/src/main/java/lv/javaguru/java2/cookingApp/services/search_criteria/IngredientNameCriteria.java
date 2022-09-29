@@ -1,6 +1,5 @@
 package lv.javaguru.java2.cookingApp.services.search_criteria;
 
-import lv.javaguru.java2.cookingApp.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.domain.Recipe;
 
 public class IngredientNameCriteria implements SearchCriteria {
@@ -14,7 +13,7 @@ public class IngredientNameCriteria implements SearchCriteria {
     @Override
     public boolean test(Recipe recipe) {
 
-        return recipe.getIngredients().stream().map(Ingredient::getName)
-                .anyMatch(s -> s.equalsIgnoreCase(ingredientName));
+        return recipe.getIngredients().stream().anyMatch(ingredient -> ingredient.getName().equals(ingredientName));
+
     }
 }

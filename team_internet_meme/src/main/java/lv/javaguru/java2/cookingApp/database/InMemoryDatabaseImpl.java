@@ -10,42 +10,41 @@ import java.util.stream.Collectors;
 
 public class InMemoryDatabaseImpl implements Database {
     private Long nextId = 1L;
-    private final List<Recipe> recipes = new ArrayList<>();
+    private final List<Recipe> recipesDB = new ArrayList<>();
 
     @Override
     public void save(Recipe recipe) {
         recipe.setId(nextId);
         nextId++;
-        recipes.add(recipe);
+        recipesDB.add(recipe);
     }
 
     @Override
     public boolean deleteById(Long id) {
         boolean isRecipeDeleted = false;
-        Optional<Recipe> recipeToDeleteOpt = recipes.stream()
+        Optional<Recipe> recipeToDeleteOpt = recipesDB.stream()
                 .filter(recipe -> recipe.getId().equals(id))
                 .findFirst();
         if (recipeToDeleteOpt.isPresent()) {
             Recipe recipeToDelete = recipeToDeleteOpt.get();
-            isRecipeDeleted = recipes.remove(recipeToDelete);
+            isRecipeDeleted = recipesDB.remove(recipeToDelete);
         }
         return isRecipeDeleted;
     }
 
     @Override
     public Recipe getById(Long id) {
-        return recipes.stream().filter(recipe -> recipe.getId().equals(id)).collect(Collectors.toList()).get(0);
+        return recipesDB.stream().filter(recipe -> recipe.getId().equals(id)).collect(Collectors.toList()).get(0);
     }
 
     @Override
     public List<Recipe> getAllRecipes() {
-        return recipes;
+        return recipesDB;
     }
 
     @Override
     public List<Recipe> find(SearchCriteria searchCriteria) {
-        List<Recipe> recipes = new ArrayList<>();
-        return recipes.stream().filter(searchCriteria).collect(Collectors.toList());
+        return recipesDB.stream().filter(searchCriteria).collect(Collectors.toList());
     }
 
 

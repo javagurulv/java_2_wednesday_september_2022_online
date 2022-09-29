@@ -1,6 +1,7 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
 import lv.javaguru.java2.cookingApp.requests.SearchRecipeRequest;
+import lv.javaguru.java2.cookingApp.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.services.SearchRecipeService;
 
 import java.util.ArrayList;
@@ -17,6 +18,19 @@ public class SearchRecipeUIAction implements UIAction {
 
     @Override
     public void execute() {
+        SearchRecipeRequest request = getSearchRecipeRequest();
+        SearchRecipeResponse response = searchRecipeService.execute(request);
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError -> System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
+        } else if (!response.getRecipes().isEmpty()) {
+            System.out.println("The list of matching recipes: ");
+            response.getRecipes().forEach(System.out::println);
+        } else {
+            System.out.println("No matching recipes found");
+        }
+    }
+
+    private SearchRecipeRequest getSearchRecipeRequest() {
         Scanner scanner = new Scanner(System.in);
         List<String> ingredientNames = new ArrayList<>();
         System.out.println("You can search recipes by their ingredients.");
@@ -28,7 +42,7 @@ public class SearchRecipeUIAction implements UIAction {
             System.out.println("Add another ingredient to the search?");
             System.out.println("1. Yes");
             System.out.println("2. No");
-            Integer userChoice = Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
+            int userChoice = Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
             if (userChoice == 1) {
                 continue;
             } else if (userChoice == 2) {
@@ -37,7 +51,6 @@ public class SearchRecipeUIAction implements UIAction {
                 System.out.println("You have to choose 1 or 2");
             }
         }
-        SearchRecipeRequest request = new SearchRecipeRequest(ingredientNames);
-        searchRecipeService.execute(request);
+        return new SearchRecipeRequest(ingredientNames);
     }
 }

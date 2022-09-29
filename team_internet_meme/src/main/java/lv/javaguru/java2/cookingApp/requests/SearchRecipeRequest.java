@@ -7,9 +7,9 @@ import java.util.List;
 @Getter
 public class SearchRecipeRequest {
 
-    private List<String> ingredientName;
+    private List<String> ingredientNameList;
 
     public SearchRecipeRequest(List<String> ingredientName) {
-        this.ingredientName = ingredientName;
+        this.ingredientNameList = ingredientName;
     }
 }
