@@ -1,0 +1,25 @@
+Для того, чтобы в юнит тестах управлять значениями в полях:
+
+	@Value("${search.ordering.enabled}")
+	private boolean orderingEnabled;
+
+	@Value("${search.paging.enabled}")
+	private boolean pagingEnabled;
+
+можно использовать следующий код:
+
+import org.springframework.test.util.ReflectionTestUtils;
+
+	@Before
+	public void setup() {
+		ReflectionTestUtils.setField(service, "orderingEnabled", true);
+		ReflectionTestUtils.setField(service, "pagingEnabled", true);
+	}
+
+при помощи класса ReflectionTestUtils.setField(...)
+можно в приватное свойство объекта присвоить значение
+и в дальнейшем при выполнении теста опираться на него.
+Такое присвоение можно делать не только в @Before
+методе, но и в коде самих тест кейсов если вы захотите
+семитировать в тесте и проверить как работает ваш
+код при включённой и выключенной функциональности.

@@ -1,0 +1,27 @@
+В класс ApplicationContext добавьте метод:
+
+	public void addBean(Class beanClass, Object beanInstance) {
+		beans.put(beanClass, beanInstance);
+		Class[] instanceInterfaces = beanClass.getInterfaces();
+		for (int i = 0; i < instanceInterfaces.length; i++) {
+			Class instanceInterface = instanceInterfaces[i];
+			Object instance = getBean(instanceInterface);
+			if (instance == null) {
+				beans.put(instanceInterface, beanInstance);
+			}
+		}
+	}
+
+Цель этого метода заключается в добавлении новых объектов в
+аппликационный контекст. Этот метод необходим так как создание
+аппликационного контекста будет происходить пошагово, на каждом
+шаге добавляя в него очередной компонент.
+
+Часть кода связанная с интерфейсами необходима для того, чтобы
+зарегистрировать новый компонент в аппликационном контексте
+для всех его интерфейсов. Это даст возможность в будещем найти
+этот компонент в аппликационном контексте указав один из его
+интерфейсов, а не сам класс. Это нужно для разрешения зависимостей
+вроде этой:
+
+  private Database database = new InMemoryDatabase();

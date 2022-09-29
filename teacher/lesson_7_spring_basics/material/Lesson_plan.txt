@@ -1,0 +1,6 @@
+Lesson 7 plan:
+
+1. @Configuration
+2. Component Scan
+3. @Component
+4. @Autowired

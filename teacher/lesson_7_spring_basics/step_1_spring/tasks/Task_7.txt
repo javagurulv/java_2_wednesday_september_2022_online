@@ -1,0 +1,19 @@
+Подключить к проекту библиотеку spring-test.
+
+Maven dependency:
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <version>5.2.6.RELEASE</version>
+</dependency>
+
+Gradle dependency:
+
+// https://mvnrepository.com/artifact/org.springframework/spring-test
+testCompile('org.springframework:spring-test:5.2.6.RELEASE')
+
+
+Данная библиотека будет использоваться только для тестов, поэтому при
+подключении библтотеки используйте область видимости testCompile.

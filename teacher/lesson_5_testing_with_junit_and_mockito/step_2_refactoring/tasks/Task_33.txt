@@ -1,0 +1,5 @@
+Теперь нужно вызвать функционал класса PagingValidator
+из класса SearchBooksRequestValidator.
+Встройте вызов PagingValidator из класса
+SearchBooksRequestValidator и уберите из него код проверки полей
+объекта Paging.

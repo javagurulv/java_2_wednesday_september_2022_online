@@ -1,0 +1,15 @@
+Подключить к проекту библиотеку spring-context.
+
+Maven dependency:
+
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-context</artifactId>
+    <version>5.2.6.RELEASE</version>
+</dependency>
+
+Gradle dependency:
+
+// https://mvnrepository.com/artifact/org.springframework/spring-context
+compile('org.springframework:spring-context:5.2.6.RELEASE')

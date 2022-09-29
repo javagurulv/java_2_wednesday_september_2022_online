@@ -1,0 +1,38 @@
+Создайте в тестовом коде пакет integrationtests на уровне acceptancetests.
+
+При работе со Spring Framework будет очень полезен интеграционный тест
+в котором будет подниматься аппликационный контекст. При помощи такого теста
+можно быстро поймать и исправить любые ошибки конфигурации.
+
+В пакете integrationtests создайте класс SpringContextTest
+
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import lv.javaguru.java2.library.BookListConfiguration;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {BookListConfiguration.class})
+public class SpringContextTest {
+
+	@Autowired private ApplicationContext appContext;
+
+	@Test
+	public void start() {
+		assertNotNull(appContext);
+	}
+
+}
+
+@RunWith(SpringJUnit4ClassRunner.class) - аннотация для запуска тестов под управлением
+специального Spring JUnit Runner класса, который обеспечивает поднятие Spring контекста
+при старте тестов.
+
+@ContextConfiguration(classes = {BookListConfiguration.class}) - эта аннотация
+позволяет указать главный класс с конфигурацией приложения.

@@ -1,0 +1,18 @@
+В классе BookListApplication воспользуйтесь функционалом
+класса ProgramMenu следующим образом:
+
+public class BookListApplication {
+
+    private static ApplicationContext applicationContext =
+       new AnnotationConfigApplicationContext(BookListConfiguration.class);
+
+	public static void main(String[] args) {
+		ProgramMenu programMenu = applicationContext.getBean(ProgramMenu.class);
+		while (true) {
+			programMenu.print();
+			int menuNumber = programMenu.getMenuNumberFromUser();
+			programMenu.executeSelectedMenuItem(menuNumber);
+		}
+	}
+
+}

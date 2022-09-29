@@ -1,0 +1,51 @@
+Для того, чтобы получить доступ к прочитанным Spring
+свойствам конфирации нужно воспользоваться
+аннотацией @Value следующим образом:
+
+import org.springframework.beans.factory.annotation.Value;
+
+	@Value("${search.ordering.enabled}")
+	private boolean orderingEnabled;
+
+	@Value("${search.paging.enabled}")
+	private boolean pagingEnabled;
+
+
+В любом классе помеченном аннотацией @Component
+или @Configuration вы можете объявить свойство
+на уровне класса и установить аннотацию @Value
+на нём. Как параметр при объявлении аннотации
+указывается название свойства из файла конфигурации
+application.properties. Spring прочитает и присвоит
+в указанное свойство значение взятое из конфигурационного
+файла в момент старта приложения. Вдальнейшем вы
+в коде самого класса сможете использовать это значение.
+
+Пример можно найти в классе SearchBooksService:
+
+@Component
+public class SearchBooksService {
+
+	@Value("${search.ordering.enabled}")
+	private boolean orderingEnabled;
+
+	@Value("${search.paging.enabled}")
+	private boolean pagingEnabled;
+
+
+
+	private List<Book> order(List<Book> books, Ordering ordering) {
+		if (orderingEnabled && ordering != null) {
+            // do ordering
+		} else {
+			return books;
+		}
+	}
+
+	private List<Book> paging(List<Book> books, Paging paging) {
+		if (pagingEnabled && paging != null) {
+			// do paging
+		} else {
+			return books;
+		}
+	}

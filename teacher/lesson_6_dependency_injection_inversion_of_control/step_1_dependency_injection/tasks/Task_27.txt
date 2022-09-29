@@ -1,0 +1,5 @@
+Прочитать статью Martin Fowler:
+
+Inversion of Control Containers and the Dependency Injection pattern
+
+https://martinfowler.com/articles/injection.html

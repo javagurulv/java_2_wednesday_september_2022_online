@@ -1,0 +1,40 @@
+Взгляните на этот код:
+
+	private static void executeSelectedMenuItem(int selectedMenu) {
+		switch (selectedMenu) {
+			case 1: {
+				AddBookUIAction uiAction = applicationContext.getBean(AddBookUIAction.class);
+				uiAction.execute();
+				break;
+			}
+			case 2: {
+				RemoveBookUIAction uiAction = applicationContext.getBean(RemoveBookUIAction.class);
+				uiAction.execute();
+				break;
+			}
+			case 3: {
+				GetAllBooksUIAction uiAction = applicationContext.getBean(GetAllBooksUIAction.class);
+				uiAction.execute();
+				break;
+			}
+			case 4: {
+				SearchBooksUIAction uiAction = applicationContext.getBean(SearchBooksUIAction.class);
+				uiAction.execute();
+				break;
+			}
+			case 5: {
+				ExitUIAction uiAction = applicationContext.getBean(ExitUIAction.class);
+				uiAction.execute();
+				break;
+			}
+		}
+	}
+
+Это код в котором приложение по номеру пункта меню выбирает
+нужный UIAction и выполняет его. Каждый из case блоков содержит
+почти одинаковый код. Проблема этого switch блока в том, что
+он совершенно не готов к тому, что в программе будут появляться
+новые UIAction классы и предлагаемая приложением функциональность
+будет расширяться. С каждым новым UIAction классом данный switch
+блок будет только расти и в скором времени будет занимать не одну
+десятку строк кода.

@@ -1,0 +1,13 @@
+Давайте приступим к реализации задуманных нами улучшений.
+
+Создайте класс SearchBooksRequestFieldValidator и вынесете в него
+валидацию полей title, author.
+
+public class SearchBooksRequestFieldValidator {
+
+	public List<CoreError> validate(SearchBooksRequest request) {
+		// перенесите сюда код валидации полей title, author
+		// из класса SearchBooksRequestValidator
+	}
+
+}

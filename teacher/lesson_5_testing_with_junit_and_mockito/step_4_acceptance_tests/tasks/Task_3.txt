@@ -1,0 +1,27 @@
+Что бы сделать наши тесты более простыми можно игнорировать
+слой ui и сделать так, чтобы acceptance тесты посылали
+запросы напрямую бизнес логике приложения.
+
+Типичный acceptance тест может выглядеть следующим образом:
+
+private ApplicationContext appContext = new ApplicationContext();
+
+@Test
+public void shouldReturnCorrectBookList() {
+    AddBookRequest addBookRequest1 = new AddBookRequest("TitleA", "AuthorA");
+    getAddBookService().execute(addBookRequest1);
+
+    AddBookRequest addBookRequest2 = new AddBookRequest("TitleA", "AuthorA");
+    getAddBookService().execute(addBookRequest2);
+
+    GetAllBooksResponse response = getAllBooksService().execute(new GetAllBooksRequest());
+    assertEquals(response.getBooks().size(), 2);
+}
+
+private AddBookService getAddBookService() {
+    return appContext.getBean(AddBookService.class);
+}
+
+private GetAllBooksService getAllBooksService() {
+    return appContext.getBean(GetAllBooksService.class);
+}
