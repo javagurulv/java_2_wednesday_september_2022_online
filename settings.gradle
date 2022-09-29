@@ -12,6 +12,16 @@ include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_1_search'
 include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_2_ordering'
 include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_3_paging'
 
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_1_mockito'
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_2_refactoring'
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_3_application_context'
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_4_acceptance_tests'
+
+include 'teacher:lesson_6_dependency_injection_inversion_of_control:step_1_dependency_injection'
+
+include 'teacher:lesson_7_spring_basics:step_1_spring'
+include 'teacher:lesson_7_spring_basics:step_2_strategy'
+
 
 include 'team_eBank'
 include 'team_clean_sour_cream'

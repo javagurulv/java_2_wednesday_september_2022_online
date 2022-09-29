@@ -1,0 +1,22 @@
+В классе BookListApplication заменить код поднятия графа объектов с:
+
+import lv.javaguru.java2.library.dependency_injection.ApplicationContext;
+import lv.javaguru.java2.library.dependency_injection.DIApplicationContextBuilder;
+
+
+	private static ApplicationContext applicationContext =
+			new DIApplicationContextBuilder().build("lv.javaguru.java2.library");
+
+
+на:
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+
+	private static ApplicationContext applicationContext =
+			new AnnotationConfigApplicationContext(BookListConfiguration.class);
+
+Одним из способов поднятия аппликационного контекста в Spring является класс
+AnnotationConfigApplicationContext, которому в качестве параметра конструктора
+подаётся класс с конфигурацией.

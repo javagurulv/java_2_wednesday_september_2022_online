@@ -1,0 +1,21 @@
+Поднимите Spring в acceptance тестах.
+
+замените код:
+
+	private ApplicationContext appContext =
+			new DIApplicationContextBuilder().build("lv.javaguru.java2.library");
+
+
+на код:
+
+	private ApplicationContext appContext;
+
+	@Before
+	public void setup() {
+		appContext = new AnnotationConfigApplicationContext(BookListConfiguration.class);
+	}
+
+Поднимать контекст приложения перед каждым тестом нужно для того, чтобы тесты друг на
+друга не влияли. На данный момент у нас используется inMemory база данных, если ее
+не очищать после каждого теста то данные сохранённые в базу данных в одном тесте
+будут влиять на выполнение другого теста.

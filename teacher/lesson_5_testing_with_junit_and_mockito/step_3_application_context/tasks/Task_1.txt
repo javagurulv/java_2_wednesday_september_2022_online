@@ -1,0 +1,26 @@
+Старт приложения это важный и ответственный процесс.
+В это время происходит создание и инициализация многих
+классов, таких как база данных, классы бизнес логики (сервисы),
+а так же классы отвечающие за взатмодействие с пользователем (UI).
+
+На данный момент логика инициализации всех этих классов
+выглядит примерно так:
+
+	private static Database database = new InMemoryDatabaseImpl();
+	private static AddBookValidator addBookValidator = new AddBookValidator();
+	private static AddBookService addBookService = new AddBookService(database, addBookValidator);
+	private static RemoveBookService removeBookService = new RemoveBookService(database);
+	private static GetAllBooksService getAllBooksService = new GetAllBooksService(database);
+	private static UIAction addBookUIAction = new AddBookUIAction(addBookService);
+	private static UIAction removeBookUIAction = new RemoveBookUIAction(removeBookService);
+	private static UIAction getAllBooksUIAction = new GetAllBooksUIAction(getAllBooksService);
+	private static UIAction exitUIAction = new ExitUIAction();
+
+и находится в главном классе приложения.
+
+Следуя принципу SRP мы должны логику инициализации приложения
+отделить от самого кода приложения и реализовать отдельно. Это
+нужно сделать, так как при увеличении функциональности приложения
+логика инициализации приложения тоже будет увеличиваться. Нам
+придётся создавать все больше классов и настраивать зависимости
+между ними.

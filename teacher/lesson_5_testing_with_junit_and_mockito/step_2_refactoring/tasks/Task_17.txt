@@ -1,0 +1,6 @@
+После добавления в класс SearchBooksRequestValidator конструктора
+с параметром SearchBooksRequestFieldValidator наш продакшен код
+перестал компилироваться.
+
+Добавьте создание SearchBooksRequestFieldValidator
+в класс BookListApplication.

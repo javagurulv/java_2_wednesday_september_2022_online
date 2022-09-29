@@ -1,0 +1,4 @@
+После добавления в класс SearchBooksRequestValidator конструктора
+с параметром OrderingValidator наш продакшен код перестал компилироваться.
+
+Добавьте создание OrderingValidator в класс BookListApplication.

@@ -1,0 +1,13 @@
+После добавления в класс SearchBooksRequestValidator конструктора
+с параметром SearchBooksRequestFieldValidator наш тестовый код
+перестал компилироваться.
+
+Добавьте создание SearchBooksRequestFieldValidator
+в класс SearchBooksRequestValidatorTest.
+
+Для имитации поведения SearchBooksRequestFieldValidator класса
+в SearchBooksRequestValidatorTest используйте моки.
+
+Исправьте тесты в классе SearchBooksRequestValidatorTest так, чтобы
+они проверяли не поля (title, author), а то что вызывается
+функционал класса SearchBooksRequestFieldValidator.

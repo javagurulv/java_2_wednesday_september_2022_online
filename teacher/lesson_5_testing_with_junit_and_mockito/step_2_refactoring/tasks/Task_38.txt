@@ -1,0 +1,41 @@
+И на последок можно выполнить небольшое улучшение кода в классе
+SearchBooksRequestValidator призванное сделать код легче читаемым.
+
+Вынести в отдельные методы валидацию объектов Ordering и Paging.
+
+public class SearchBooksRequestValidator {
+
+	private SearchBooksRequestFieldValidator fieldValidator;
+	private OrderingValidator orderingValidator;
+	private PagingValidator pagingValidator;
+
+	public SearchBooksRequestValidator(SearchBooksRequestFieldValidator fieldValidator,
+									   OrderingValidator orderingValidator,
+									   PagingValidator pagingValidator) {
+		this.fieldValidator = fieldValidator;
+		this.orderingValidator = orderingValidator;
+		this.pagingValidator = pagingValidator;
+	}
+
+	public List<CoreError> validate(SearchBooksRequest request) {
+		List<CoreError> errors = fieldValidator.validate(request);
+		validateOrderingIfPresent(request, errors);
+		validatePagingIfPresent(request, errors);
+		return errors;
+	}
+
+	private void validatePagingIfPresent(SearchBooksRequest request, List<CoreError> errors) {
+		if (request.getPaging() != null) {
+			Paging paging = request.getPaging();
+			errors.addAll(pagingValidator.validate(paging));
+		}
+	}
+
+	private void validateOrderingIfPresent(SearchBooksRequest request, List<CoreError> errors) {
+		if (request.getOrdering() != null) {
+			Ordering ordering = request.getOrdering();
+			errors.addAll(orderingValidator.validate(ordering));
+		}
+	}
+
+}

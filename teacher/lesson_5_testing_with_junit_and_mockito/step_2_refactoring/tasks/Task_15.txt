@@ -1,0 +1,5 @@
+Теперь нужно вызвать функционал класса SearchBooksRequestFieldValidator
+из класса SearchBooksRequestValidator.
+Встройте вызов SearchBooksRequestFieldValidator из класса
+SearchBooksRequestValidator и уберите из него код проверки полей
+title и author.

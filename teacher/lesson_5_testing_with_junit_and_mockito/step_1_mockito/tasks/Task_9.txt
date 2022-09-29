@@ -1,0 +1,4 @@
+При написании юнит тестов используйте:
+    @RunWith(MockitoJUnitRunner.class)
+    @Mock
+    @InjectMock

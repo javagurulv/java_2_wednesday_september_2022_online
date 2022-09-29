@@ -1,0 +1,10 @@
+В acceptance тестах создайте аппликационный контекст
+следующим образом:
+
+
+public class AcceptanceTest1 {
+
+	private ApplicationContext appContext =
+			new DIApplicationContextBuilder().build("lv.javaguru.java2.library");
+
+Если ваше приложение находится в другом пакете, то укажите именно его.

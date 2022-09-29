@@ -1,0 +1,57 @@
+После добавления зависимости от OrderingValidator
+класс SearchBooksRequestValidator будет выглядеть вот так:
+
+public class SearchBooksRequestValidator {
+
+	private SearchBooksRequestFieldValidator fieldValidator;
+	private OrderingValidator orderingValidator;
+
+	public SearchBooksRequestValidator(SearchBooksRequestFieldValidator fieldValidator,
+									   OrderingValidator orderingValidator) {
+		this.fieldValidator = fieldValidator;
+		this.orderingValidator = orderingValidator;
+	}
+
+	public List<CoreError> validate(SearchBooksRequest request) {
+		List<CoreError> errors = fieldValidator.validate(request);
+		if (request.getOrdering() != null) {
+			Ordering ordering = request.getOrdering();
+			errors.addAll(orderingValidator.validate(ordering));
+		}
+		if (request.getPaging() != null) {
+			validatePageNumber(request.getPaging()).ifPresent(errors::add);
+			validatePageSize(request.getPaging()).ifPresent(errors::add);
+			validateMandatoryPageNumber(request.getPaging()).ifPresent(errors::add);
+			validateMandatoryPageSize(request.getPaging()).ifPresent(errors::add);
+		}
+
+		return errors;
+	}
+
+	private Optional<CoreError> validatePageNumber(Paging paging) {
+		return (paging.getPageNumber() != null
+				&& paging.getPageNumber() <= 0)
+				? Optional.of(new CoreError("pageNumber", "Must be greater then 0!"))
+				: Optional.empty();
+	}
+
+	private Optional<CoreError> validatePageSize(Paging paging) {
+		return (paging.getPageSize() != null
+				&& paging.getPageSize() <= 0)
+				? Optional.of(new CoreError("pageSize", "Must be greater then 0!"))
+				: Optional.empty();
+	}
+
+	private Optional<CoreError> validateMandatoryPageNumber(Paging paging) {
+		return (paging.getPageNumber() == null && paging.getPageSize() != null)
+				? Optional.of(new CoreError("pageNumber", "Must not be empty!"))
+				: Optional.empty();
+	}
+
+	private Optional<CoreError> validateMandatoryPageSize(Paging paging) {
+		return (paging.getPageSize() == null && paging.getPageNumber() != null)
+				? Optional.of(new CoreError("pageSize", "Must not be empty!"))
+				: Optional.empty();
+	}
+
+}

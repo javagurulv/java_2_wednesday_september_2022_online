@@ -1,0 +1,1 @@
+Перенесите класс ApplicationContext в пакет dependency_injection.

@@ -1,0 +1,5 @@
+Теперь нужно вызвать функционал класса OrderingValidator
+из класса SearchBooksRequestValidator.
+Встройте вызов OrderingValidator из класса
+SearchBooksRequestValidator и уберите из него код проверки полей
+объекта Ordering.
