@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.services.validators.UserAmendValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
 import java.util.ArrayList;

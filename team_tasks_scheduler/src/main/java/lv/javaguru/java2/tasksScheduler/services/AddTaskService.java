@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.services.validators.TaskInfoValidator;
 
 import java.util.List;
 

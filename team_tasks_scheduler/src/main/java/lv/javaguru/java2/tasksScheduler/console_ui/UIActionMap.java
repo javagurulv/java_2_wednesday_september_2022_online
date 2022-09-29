@@ -5,6 +5,9 @@ import lv.javaguru.java2.tasksScheduler.database.InMemoryUsersRepositoryImpl;
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.services.*;
+import lv.javaguru.java2.tasksScheduler.services.validators.TaskInfoValidator;
+import lv.javaguru.java2.tasksScheduler.services.validators.UserAmendValidator;
+import lv.javaguru.java2.tasksScheduler.services.validators.UserRegistrationValidator;
 
 import java.util.HashMap;
 import java.util.Map;

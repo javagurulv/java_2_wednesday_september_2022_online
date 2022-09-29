@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
+import lv.javaguru.java2.tasksScheduler.services.validators.UserRegistrationValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
 import java.util.List;

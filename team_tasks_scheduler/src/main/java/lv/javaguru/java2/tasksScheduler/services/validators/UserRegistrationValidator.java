@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
