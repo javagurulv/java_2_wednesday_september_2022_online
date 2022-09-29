@@ -11,7 +11,7 @@ public class SearchVehicleRequest {
     private Integer doorsAmount;
     private Integer baggageAmount;
     private Integer passengerAmount;
-    private boolean hasConditioner;
+    private String hasConditioner;
     private String transmissionType;
 
 }
