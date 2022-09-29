@@ -1,6 +1,5 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import com.sun.source.tree.IfTree;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
@@ -17,7 +16,6 @@ public class SearchVehicleService {
         this.database = database;
     }
 
-    // vot1
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
         SearchCriteria andCriteria = getSearchCriteria(request);
         List<Vehicle> response = database.search(andCriteria);
