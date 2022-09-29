@@ -15,7 +15,6 @@ import lv.javaguru.java2.library.core.responses.GetAllBooksResponse;
 import lv.javaguru.java2.library.core.services.AddBookService;
 import lv.javaguru.java2.library.core.services.GetAllBooksService;
 
-@Ignore
 public class AcceptanceTest1 {
 
 	private ApplicationContext appContext;

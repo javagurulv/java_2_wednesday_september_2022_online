@@ -17,7 +17,6 @@ import lv.javaguru.java2.library.core.responses.SearchBooksResponse;
 import lv.javaguru.java2.library.core.services.AddBookService;
 import lv.javaguru.java2.library.core.services.SearchBooksService;
 
-@Ignore
 public class AcceptanceTest2 {
 
 	private ApplicationContext appContext;
