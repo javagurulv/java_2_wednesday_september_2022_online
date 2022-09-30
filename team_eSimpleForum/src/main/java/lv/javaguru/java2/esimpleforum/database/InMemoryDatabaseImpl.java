@@ -1,8 +1,10 @@
-package lv.javaguru.java2.eSimpleForum.database;
+package lv.javaguru.java2.esimpleforum.database;
 
-import lv.javaguru.java2.eSimpleForum.Post;
+import lv.javaguru.java2.esimpleforum.domain.Post;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryDatabaseImpl implements Database{
 
@@ -18,11 +20,17 @@ public class InMemoryDatabaseImpl implements Database{
     }
 
     @Override
-    public void deleteById(Long id) {
-        posts.stream()
+    public boolean deleteById(Long id) {
+
+        boolean PostDeleted = false;
+        Optional<Post> postToDeleteOpt = posts.stream()
                 .filter(post -> post.getPostId().equals(id))
-                .findFirst()
-                .ifPresent(post -> posts.remove(post));
+                .findFirst();
+        if (postToDeleteOpt.isPresent()) {
+            Post bookToRemove = postToDeleteOpt.get();
+            PostDeleted = posts.remove(bookToRemove);
+        }
+        return PostDeleted;
     }
 
     @Override

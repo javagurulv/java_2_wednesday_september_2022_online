@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eSimpleForum;
+package lv.javaguru.java2.esimpleforum.domain;
 
 public enum Privilege {
     USER,

@@ -1,6 +1,6 @@
-package lv.javaguru.java2.eSimpleForum.console_ui;
+package lv.javaguru.java2.esimpleforum.console_ui;
 
-import lv.javaguru.java2.eSimpleForum.service.PostManagerService;
+import lv.javaguru.java2.esimpleforum.service.PostManagerService;
 
 public class ExitUIAction implements UIAction{
 
