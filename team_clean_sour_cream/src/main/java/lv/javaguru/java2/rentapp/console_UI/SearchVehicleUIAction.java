@@ -46,7 +46,7 @@ public class SearchVehicleUIAction implements UIAction {
                 while (addAnotherCriteria) {
                     System.out.println("""
                             Add another criteria for search?
-                            1. Yes");
+                            1. Yes
                             2. No""");
                     int userChoice = Integer.parseInt(scanner.nextLine());
                     if (userChoice == 1) {
@@ -120,6 +120,7 @@ public class SearchVehicleUIAction implements UIAction {
     }
 
     private void printVehicleTypesMenu() {
+        System.out.println();
         System.out.println("""
                 Chose vehicle type:
                 1. Passenger Car
