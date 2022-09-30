@@ -13,7 +13,7 @@ class VehicleRentApplication {
             try {
                 printMainMenu();
                 int userChoice = getUserChoice();
-                if (userChoice > 4 || userChoice < 1) {
+                if (userChoice > 5 || userChoice < 1) {
                     System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 4)");
                 } else {
                     executeUserChoice(userChoice);
