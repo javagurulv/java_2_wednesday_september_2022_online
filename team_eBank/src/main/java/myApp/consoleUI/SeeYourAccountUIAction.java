@@ -20,6 +20,14 @@ public class SeeYourAccountUIAction implements UIAction {
         String personalCode = userService.getPersonalCode();
         SeeYourAccountRequest request = new SeeYourAccountRequest(personalCode);
         SeeYourAccountResponse response = service.execute(request);
-        System.out.println(response.getBankAccount().get());
+        if (response.getBankAccount().get().getAccount() != null) {
+            System.out.println("Account: " + response.getBankAccount().get().getName() + " "
+                    + response.getBankAccount().get().getSurname());
+            System.out.println("Balance: " + response.getBankAccount().get().getAccount().getBalance());
+        } else {
+            System.out.println("Account: " + response.getBankAccount().get().getName() + " "
+                    + response.getBankAccount().get().getSurname());
+            System.out.println("Balance: don't have any account");
+        }
     }
 }

@@ -20,6 +20,6 @@ public class UserAreAdminService {
         Optional<BankAccount> bankAccount = bankAccounts.stream()
                 .filter(bankAccount1 -> bankAccount1.getPersonalCode().equals(personalCode))
                 .findFirst();
-        return bankAccount.get().getRoles().equals(Roles.Admin);
+        return bankAccount.get().getRole().equals(Roles.Admin);
     }
 }

@@ -54,8 +54,9 @@ class BankAccountApplication {
         System.out.println("1 - Get all bank accounts");
         System.out.println("2 - Add bank account");
         System.out.println("3 - Remove bank account");
-        System.out.println("4 - Switch user");
-        System.out.println("5 - Exit");
+        System.out.println("4 - Search bank account");
+        System.out.println("5 - Switch user");
+        System.out.println("6 - Exit");
     }
 
     private static void logIn() {
