@@ -2,7 +2,6 @@ package myApp.core.services;
 
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
-import myApp.core.domain.Account;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
 import myApp.core.requests.MoneyTransferRequest;
@@ -27,9 +26,9 @@ class MoneyTransferServiceTest {
         dataBase = new InMemoryDatabaseImpl();
         validator = new MoneyTransferValidator();
         service = new MoneyTransferService(dataBase, validator);
-        BankAccount bankAccountOne = new BankAccount("Example1", "Example2",
+        BankAccount bankAccountOne = new BankAccount("Example1", "Example2","password",
                 Roles.Regular_user, "000-001");
-        BankAccount bankAccountTwo = new BankAccount("Example2", "Example3",
+        BankAccount bankAccountTwo = new BankAccount("Example2", "Example3","password",
                 Roles.Regular_user, "000-002");
         dataBase.addBankAccount(bankAccountOne);
         dataBase.addBankAccount(bankAccountTwo);

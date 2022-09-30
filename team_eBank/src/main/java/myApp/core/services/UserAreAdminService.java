@@ -4,7 +4,8 @@ import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
 import myApp.core.database.DataBase;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
 public class UserAreAdminService {
 
@@ -15,8 +16,10 @@ public class UserAreAdminService {
     }
 
     public boolean isUserAreAdmin(String personalCode) {
-        Map<String, BankAccount> bankAccounts = dataBase.getAllBankAccountsMap();
-        BankAccount bankAccount = bankAccounts.get(personalCode);
-        return bankAccount.getRoles().equals(Roles.Admin);
+        List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();
+        Optional<BankAccount> bankAccount = bankAccounts.stream()
+                .filter(bankAccount1 -> bankAccount1.getPersonalCode().equals(personalCode))
+                .findFirst();
+        return bankAccount.get().getRole().equals(Roles.Admin);
     }
 }

@@ -18,9 +18,9 @@ class UserAreAdminServiceTest {
     void setUp() {
         dataBase = new InMemoryDatabaseImpl();
         service = new UserAreAdminService(dataBase);
-        dataBase.addBankAccount(new BankAccount("Example", "Example"
+        dataBase.addBankAccount(new BankAccount("Example", "Example","password"
                 , Roles.Regular_user, "000-001"));
-        dataBase.addBankAccount(new BankAccount("Example1", "Example2"
+        dataBase.addBankAccount(new BankAccount("Example1", "Example2","password"
                 , Roles.Admin, "000-002"));
     }
 

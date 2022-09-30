@@ -19,6 +19,8 @@ public class SwitchUserUIAction implements UIAction {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your personal code: ");
         String personalCode = scanner.nextLine();
-        service.execute(personalCode);
+        System.out.println("Enter your password: ");
+        String password = scanner.nextLine();
+        service.execute(personalCode, password);
     }
 }

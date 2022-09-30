@@ -5,14 +5,16 @@ import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class InMemoryDatabaseImpl implements DataBase {
-    private final Map<String, BankAccount> bankAccountMap = new HashMap<>();
+    private final List<BankAccount> bankAccounts = new ArrayList<>() ;
+
 
     public InMemoryDatabaseImpl() {
-        BankAccount bankAccount = new BankAccount("Vlad", "Kulikov", Roles.Regular_user, "111-317");
-        BankAccount adminAccount = new BankAccount("Admin", "Admin", Roles.Admin, "01");
-        bankAccountMap.put(adminAccount.getPersonalCode(), adminAccount);
+        BankAccount bankAccount = new BankAccount("Vlad", "Kulikov","password", Roles.Regular_user, "111-317");
+        BankAccount adminAccount = new BankAccount("Admin", "Admin","Admin", Roles.Admin, "01");
+        bankAccounts.add(adminAccount);
         addBankAccount(bankAccount);
     }
 
@@ -23,57 +25,111 @@ public class InMemoryDatabaseImpl implements DataBase {
     public void addBankAccount(BankAccount bankAccount) {
         bankAccount.setId(id);
         id++;
-        bankAccountMap.put(bankAccount.getPersonalCode(), bankAccount);
+        bankAccounts.add(bankAccount);
     }
 
     @Override
     public boolean deleteBankAccount(String personalCode) {
-        bankAccountMap.remove(personalCode);
-        return !bankAccountMap.containsKey(personalCode);
+        return bankAccounts.removeIf(bankAccount -> bankAccount.getPersonalCode().equals(personalCode));
+
     }
 
     @Override
-    public Map<String, BankAccount> getAllBankAccountsMap() {
-        return bankAccountMap;
+    public List<BankAccount> getAllBankAccounts() {
+        return bankAccounts;
     }
 
     @Override
-    public BankAccount seeYourAccount(String personalCode) {
-        return bankAccountMap.get(personalCode);
+    public Optional<BankAccount> seeYourAccount(String personalCode) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .findFirst();
     }
 
     @Override
     public boolean bankTransfer(String personalCode, String anotherPersonalCode, int value) {
-        Account account = bankAccountMap.get(personalCode).getAccounts();
-        int checkBalance = account.getBalance();
-        bankAccountMap.get(personalCode).getAccounts().setBalance(account.getBalance() - value);
-
-        Account accountAnother = bankAccountMap.get(anotherPersonalCode).getAccounts();
-        bankAccountMap.get(anotherPersonalCode).getAccounts().setBalance(accountAnother.getBalance() + value);
-
-        return bankAccountMap.get(personalCode).getAccounts().getBalance() != checkBalance;
-
+        int checkBalance = bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .findFirst().get().getAccount().getBalance();
+        bankAccounts.stream().filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .forEach(bankAccount -> bankAccount.getAccount()
+                        .setBalance(bankAccount.getAccount().getBalance() - value));
+        bankAccounts.stream().filter(bankAccount -> bankAccount.getPersonalCode().equals(anotherPersonalCode))
+                .forEach(bankAccount -> bankAccount.getAccount()
+                        .setBalance(bankAccount.getAccount().getBalance() + value));
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .anyMatch(bankAccount -> bankAccount.getAccount().getBalance() != checkBalance);
     }
 
     @Override
     public boolean openAccount(String personalCode) {
-        if (bankAccountMap.containsKey(personalCode)) {
-            if (bankAccountMap.get(personalCode).getAccounts() == null) {
-                bankAccountMap.get(personalCode).setAccount(new Account(idForAccount, 500));
-                return true;
-            }
-        }
-        return false;
+        bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .filter(bankAccount -> bankAccount.getAccount() == null)
+                .forEach(bankAccount -> bankAccount.setAccount(new Account(idForAccount, 500)));
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .anyMatch(bankAccount -> bankAccount.getAccount() != null);
     }
 
     @Override
     public boolean closeAccount(String personalCode) {
-        if (bankAccountMap.get(personalCode).getAccounts() != null &&
-                bankAccountMap.get(personalCode).getAccounts().getBalance() == 0) {
-            bankAccountMap.get(personalCode).setAccount(null);
-            return true;
-        }
-        return false;
+        bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .filter(bankAccount -> bankAccount.getAccount() != null)
+                .filter(bankAccount -> bankAccount.getAccount().getBalance() == 0)
+                .forEach(bankAccount -> bankAccount.setAccount(null));
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .anyMatch(bankAccount -> bankAccount.getAccount() == null);
+    }
+    @Override
+    public List<BankAccount> findByName(String name) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getName().equals(name))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BankAccount> findBySurname(String surname) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getSurname().equals(surname))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BankAccount> findByPersonalCode(String personalCode) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BankAccount> findByNameAndSurname(String name, String surname) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getName().equals(name))
+                .filter(bankAccount -> bankAccount.getSurname().equals(surname))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BankAccount> findByNameAndPersonalCode(String name, String personalCode ) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getName().equals(name))
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .collect(Collectors.toList());
     }
 
+    @Override
+    public List<BankAccount> findBySurnameAndPersonalCode(String surname, String personalCode ) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getSurname().equals(surname))
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<BankAccount> findByNameAndSurnameAndPersonalCode(String name,String surname, String personalCode ) {
+        return bankAccounts.stream()
+                .filter(bankAccount -> bankAccount.getName().equals(name))
+                .filter(bankAccount -> bankAccount.getSurname().equals(surname))
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
+                .collect(Collectors.toList());
+    }
 }

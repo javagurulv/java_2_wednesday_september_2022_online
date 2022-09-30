@@ -4,7 +4,6 @@ import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.services.*;
 import myApp.core.services.validators.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +33,15 @@ public class UIActionMap {
     private static CloseAccountUIAction closeAccountUIAction = new CloseAccountUIAction(closeAccountService, userService);
     private static SeeYourAccountService seeYourAccountService = new SeeYourAccountService(dataBase);
     private static SeeYourAccountUIAction seeYourAccountUIAction = new SeeYourAccountUIAction(seeYourAccountService, userService);
-    private static SwitchUserService switchUserService = new SwitchUserService(userService);
+    private static LogInValidator logInValidator = new LogInValidator();
+    private static LogInService logInService = new LogInService(dataBase, userService, logInValidator);
+    private static LogInUIAction logInUIAction = new LogInUIAction(logInService);
+    private static SwitchUserService switchUserService = new SwitchUserService(userService, logInService);
     private static SwitchUserUIAction switchUserUIAction = new SwitchUserUIAction(switchUserService);
+    private static SearchBankAccountValidator searchBankAccountValidator = new SearchBankAccountValidator();
+    private static SearchBankAccountService searchBankAccountService = new SearchBankAccountService(dataBase,
+            searchBankAccountValidator);
+    private static SearchBankAccountUIAction searchBankAccountUIAction = new SearchBankAccountUIAction(searchBankAccountService);
     private static UIAction exit = new ExitUIAction();
     private Map<Integer, UIAction> uiActionMap = new HashMap<>();
 
@@ -54,8 +60,9 @@ public class UIActionMap {
         uiActionMap.put(1, getAllAccountsUIAction);
         uiActionMap.put(2, addBankAccountUIAction);
         uiActionMap.put(3, removeBankAccountUIAction);
-        uiActionMap.put(4, switchUserUIAction);
-        uiActionMap.put(5, exit);
+        uiActionMap.put(4, searchBankAccountUIAction);
+        uiActionMap.put(5, switchUserUIAction);
+        uiActionMap.put(6, exit);
         return uiActionMap.get(userChoice);
     }
 
@@ -67,7 +74,7 @@ public class UIActionMap {
         return userService.getPersonalCode();
     }
 
-    public String logIn(String personalCode) {
-        return userService.logIn(personalCode);
+    public void logIn() {
+        logInUIAction.execute();
     }
 }

@@ -2,15 +2,17 @@ package myApp.core.responses;
 
 import myApp.core.domain.BankAccount;
 
+import java.util.Optional;
+
 public class SeeYourAccountResponse {
 
-    private BankAccount bankAccount;
+    private Optional<BankAccount> bankAccount;
 
-    public SeeYourAccountResponse(BankAccount bankAccount) {
+    public SeeYourAccountResponse(Optional<BankAccount> bankAccount) {
         this.bankAccount = bankAccount;
     }
 
-    public BankAccount getBankAccount() {
+    public Optional<BankAccount> getBankAccount() {
         return bankAccount;
     }
 }

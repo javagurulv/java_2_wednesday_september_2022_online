@@ -2,11 +2,9 @@ package myApp.core.services;
 
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
+import myApp.core.services.validators.LogInValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SwitchUserServiceTest {
@@ -19,13 +17,13 @@ class SwitchUserServiceTest {
     void setUp() {
         dataBase = new InMemoryDatabaseImpl();
         service = new UserService(dataBase);
-        switchUserService = new SwitchUserService(service);
+        switchUserService = new SwitchUserService(service, new LogInService(dataBase,service, new LogInValidator()));
     }
 
     @Test
     void testSwitchUser() {
-        String personalCode = service.logIn("111-317");
-        String actualResult = switchUserService.execute("01");
+        String personalCode = service.logIn("111-317", "password");
+        String actualResult = switchUserService.execute("01", "password");
         assertNotEquals(personalCode, actualResult);
     }
 }

@@ -7,7 +7,6 @@ import myApp.core.domain.Roles;
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.OpenAccountResponse;
-import myApp.core.services.validators.MoneyTransferValidator;
 import myApp.core.services.validators.OpenAccountValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,9 +26,9 @@ class OpenAccountServiceTest {
         dataBase = new InMemoryDatabaseImpl();
         validator = new OpenAccountValidator();
         service = new OpenAccountService(dataBase, validator);
-        BankAccount bankAccountOne = new BankAccount("Example1", "Example2",
+        BankAccount bankAccountOne = new BankAccount("Example1", "Example2","password",
                 Roles.Regular_user, "000-001");
-        BankAccount bankAccountTwo = new BankAccount("Example2", "Example3",
+        BankAccount bankAccountTwo = new BankAccount("Example2", "Example3","password",
                 Roles.Regular_user, "000-002");
         dataBase.addBankAccount(bankAccountOne);
         dataBase.addBankAccount(bankAccountTwo);

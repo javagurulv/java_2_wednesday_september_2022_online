@@ -1,5 +1,7 @@
 package myApp;
+
 import myApp.consoleUI.*;
+
 import java.util.Scanner;
 
 
@@ -8,9 +10,13 @@ class BankAccountApplication {
     private static UIActionMap uiActionMap = new UIActionMap();
 
     public static void main(String[] args) {
-        String personalCode = logIn();
+        run();
+    }
+
+    private static void run() {
+        logIn();
         while (true) {
-            personalCode = uiActionMap.getPersonalCode();
+            String personalCode = uiActionMap.getPersonalCode();
             if (isUserAdmin(personalCode)) {
                 ifAdminLogin(personalCode);
             } else {
@@ -48,15 +54,13 @@ class BankAccountApplication {
         System.out.println("1 - Get all bank accounts");
         System.out.println("2 - Add bank account");
         System.out.println("3 - Remove bank account");
-        System.out.println("4 - Switch user");
-        System.out.println("5 - Exit");
+        System.out.println("4 - Search bank account");
+        System.out.println("5 - Switch user");
+        System.out.println("6 - Exit");
     }
 
-    private static String logIn() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your personal code: ");
-        String personalCode = scanner.nextLine();
-        return uiActionMap.logIn(personalCode);
+    private static void logIn() {
+        uiActionMap.logIn();
     }
 
     private static boolean isUserAdmin(String personalCode) {
