@@ -32,17 +32,9 @@ public class SearchVehicleUIAction implements UIAction {
                 SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType("PassengerCar");
 
                 boolean addAnotherCriteria = true;
+
                 List<String> criteria = searchCriteriaAvailableFields();
-//                String passengerAmount = "Passenger amount";
-//                String doorsAmount = "Doors amount";
-//                String baggageAmount = "Baggage amount";
-//                String transmission = "Transmission type";
-//                String conditioner = "Conditioner";
-//                criteria.add(passengerAmount);
-//                criteria.add(doorsAmount);
-//                criteria.add(baggageAmount);
-//                criteria.add(transmission);
-//                criteria.add(conditioner);
+
                 while (addAnotherCriteria) {
                     System.out.println("""
                             Add another criteria for search?
