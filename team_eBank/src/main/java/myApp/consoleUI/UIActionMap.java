@@ -33,10 +33,11 @@ public class UIActionMap {
     private static CloseAccountUIAction closeAccountUIAction = new CloseAccountUIAction(closeAccountService, userService);
     private static SeeYourAccountService seeYourAccountService = new SeeYourAccountService(dataBase);
     private static SeeYourAccountUIAction seeYourAccountUIAction = new SeeYourAccountUIAction(seeYourAccountService, userService);
-    private static SwitchUserService switchUserService = new SwitchUserService(userService);
-    private static SwitchUserUIAction switchUserUIAction = new SwitchUserUIAction(switchUserService);
-    private static LogInService logInService = new LogInService(dataBase, userService);
+    private static LogInValidator logInValidator = new LogInValidator();
+    private static LogInService logInService = new LogInService(dataBase, userService, logInValidator);
     private static LogInUIAction logInUIAction = new LogInUIAction(logInService);
+    private static SwitchUserService switchUserService = new SwitchUserService(userService, logInService);
+    private static SwitchUserUIAction switchUserUIAction = new SwitchUserUIAction(switchUserService);
     private static SearchBankAccountValidator searchBankAccountValidator = new SearchBankAccountValidator();
     private static SearchBankAccountService searchBankAccountService = new SearchBankAccountService(dataBase,
             searchBankAccountValidator);
