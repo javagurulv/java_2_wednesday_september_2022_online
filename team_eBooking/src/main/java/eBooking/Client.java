@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking;
+package eBooking;
 
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
-package lv.javaguru.java2.eBooking.console_ui;
+package eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.service.GetAllClientsService;
+import eBooking.service.GetAllClientsService;
 
 public class PrintClientUIAction implements UIAction {
 private GetAllClientsService getAllClientsService;

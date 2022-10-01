@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.console_ui;
+package eBooking.console_ui;
 
 public class PrintApplicationMenuUIAction implements UIAction {
     public void execute() {

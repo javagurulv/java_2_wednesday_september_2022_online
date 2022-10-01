@@ -1,6 +1,6 @@
-package lv.javaguru.java2.eBooking.service;
+package eBooking.service;
 
-import lv.javaguru.java2.eBooking.database.Database;
+import eBooking.database.Database;
 
 public class RemoveClientService {
     private Database database;

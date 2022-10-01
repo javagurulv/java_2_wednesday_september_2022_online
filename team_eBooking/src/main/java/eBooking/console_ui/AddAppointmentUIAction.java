@@ -1,6 +1,6 @@
-package lv.javaguru.java2.eBooking.console_ui;
+package eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.service.AddAppointmentService;
+import eBooking.service.AddAppointmentService;
 
 import java.util.Scanner;
 
