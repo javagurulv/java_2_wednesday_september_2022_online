@@ -102,7 +102,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private void askMaxLoadWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter deck width in cm: ");
+        System.out.println("Enter max load in kg: ");
         Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.maxLoadWeightInKg(maxLoadWeightInKg);
         criteria.remove("Max load weight in kg");
