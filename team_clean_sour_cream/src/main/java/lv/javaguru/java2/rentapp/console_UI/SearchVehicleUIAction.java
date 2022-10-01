@@ -1,6 +1,5 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
-import lv.javaguru.java2.rentapp.core.requests.Request;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.request_creators.*;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
