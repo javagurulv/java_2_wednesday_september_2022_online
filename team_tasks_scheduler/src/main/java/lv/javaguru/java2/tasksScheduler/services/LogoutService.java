@@ -1,5 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services;
 
+import lv.javaguru.java2.tasksScheduler.requests.LogoutRequest;
+import lv.javaguru.java2.tasksScheduler.responses.LogoutResponse;
+
 public class LogoutService {
 
     private SessionService sessionService;
@@ -8,7 +11,8 @@ public class LogoutService {
         this.sessionService = sessionService;
     }
 
-    public void execute() {
+    public LogoutResponse execute(LogoutRequest request) {
         sessionService.logOut();
+        return new LogoutResponse();
     }
 }

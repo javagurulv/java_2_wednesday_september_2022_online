@@ -34,6 +34,7 @@ public class UIActionMap {
     private AmendCurrentUserService amendCurrentUserService = new AmendCurrentUserService(usersRepository, sessionService, userAmendInfoValidator);
     private GetCurrentUserService getCurrentUserService = new GetCurrentUserService(usersRepository, sessionService);
     private LogoutService logoutService = new LogoutService(sessionService);
+    private ExitService exitService = new ExitService();
 
     private Map<Integer, UIAction> actionMap;
 
@@ -43,7 +44,7 @@ public class UIActionMap {
         actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
         actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));
-        actionMap.put(4, new ExitUIAction());
+        actionMap.put(4, new ExitUIAction(exitService));
         actionMap.put(5, new GetOutstandingTasksUIAction(getOutstandingTasksService));
         actionMap.put(6, new GetTasksForTodayUIAction(getTasksForTodayService));
         actionMap.put(7, new AddTaskUIAction(addTaskService));

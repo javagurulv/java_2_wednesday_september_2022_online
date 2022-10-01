@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNameRequest;
+import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNameResponse;
 import lv.javaguru.java2.tasksScheduler.services.GetAllUsersNamesService;
 
 public class GetAllUsersNamesUIAction implements UIAction {
@@ -12,9 +14,21 @@ public class GetAllUsersNamesUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-        System.out.println("--- Users list start --- ");
-        getAllUsersNamesService.execute().forEach(System.out::println);
-        System.out.println("---  Users list end  --- ");
-        return true;
+
+        GetAllUsersNameRequest request = new GetAllUsersNameRequest();
+        GetAllUsersNameResponse response = getAllUsersNamesService.execute(request);
+        if (response.hasErrors()) {
+            System.out.println("Registration failed");
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+            return false;
+        }
+        else {
+            System.out.println("--- Users list start --- ");
+            response.getUsers().forEach(System.out::println);
+            System.out.println("---  Users list end  --- ");
+            return true;
+        }
     }
 }
