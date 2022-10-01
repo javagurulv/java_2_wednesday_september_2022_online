@@ -4,6 +4,7 @@ import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.request_creators.*;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.SearchVehicleService;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.*;
 
@@ -34,8 +35,9 @@ public class SearchVehicleUIAction implements UIAction {
 
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
-                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
-            );
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
+        } else if (response.getVehicleList().isEmpty()) {
+            System.out.println("No vehicles found that matches your criteria");
         } else {
             System.out.println("Vehicles found by your criteria: ");
             response.getVehicleList().forEach(System.out::println);
