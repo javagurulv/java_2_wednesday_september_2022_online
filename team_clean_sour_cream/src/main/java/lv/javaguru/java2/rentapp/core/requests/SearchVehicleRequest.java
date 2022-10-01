@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class SearchVehicleRequest extends Request {
+public class SearchVehicleRequest {
 
     private String vehicleType;
     private Integer doorsAmount;

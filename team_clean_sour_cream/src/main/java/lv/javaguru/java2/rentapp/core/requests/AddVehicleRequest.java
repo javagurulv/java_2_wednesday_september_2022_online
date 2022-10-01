@@ -7,7 +7,7 @@ import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 @Getter
 @Builder
-public class AddVehicleRequest extends Request{
+public class AddVehicleRequest {
 
     private VehicleType vehicleType;
 
