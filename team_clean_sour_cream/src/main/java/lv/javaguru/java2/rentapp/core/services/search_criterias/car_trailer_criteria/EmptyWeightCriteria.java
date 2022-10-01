@@ -8,8 +8,8 @@ public class EmptyWeightCriteria implements SearchCriteria {
 
     private Integer emptyWeightInKg;
 
-    public EmptyWeightCriteria(Integer deckLengthInCm) {
-        this.emptyWeightInKg = deckLengthInCm;
+    public EmptyWeightCriteria(Integer emptyWeightInKg) {
+        this.emptyWeightInKg = emptyWeightInKg;
     }
 
     @Override

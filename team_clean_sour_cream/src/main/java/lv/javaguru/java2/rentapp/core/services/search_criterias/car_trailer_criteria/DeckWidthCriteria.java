@@ -8,8 +8,8 @@ public class DeckWidthCriteria implements SearchCriteria {
 
     private Integer deckWidthInCm;
 
-    public DeckWidthCriteria(Integer deckLengthInCm) {
-        this.deckWidthInCm = deckLengthInCm;
+    public DeckWidthCriteria(Integer deckWidthInCm) {
+        this.deckWidthInCm = deckWidthInCm;
     }
 
     @Override

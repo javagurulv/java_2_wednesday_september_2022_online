@@ -8,8 +8,8 @@ public class MaxLoadWeightCriteria implements SearchCriteria {
 
     private Integer maxLoadWeightInKg;
 
-    public MaxLoadWeightCriteria(Integer deckLengthInCm) {
-        this.maxLoadWeightInKg = deckLengthInCm;
+    public MaxLoadWeightCriteria(Integer maxLoadWeight) {
+        this.maxLoadWeightInKg = maxLoadWeight;
     }
 
     @Override
