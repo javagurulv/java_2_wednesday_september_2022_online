@@ -2,6 +2,8 @@ package eBooking.service;
 
 import eBooking.Client;
 import eBooking.database.Database;
+import eBooking.request.AddClientRequest;
+import eBooking.response.AddClientResponse;
 
 public class AddClientService {
     private Database database;
@@ -10,7 +12,9 @@ public class AddClientService {
         this.database = database;
     }
 
-    public void execute(String clientEmail, String clientPhoneNumber) {
-        database.saveClient(new Client(clientEmail, clientPhoneNumber));
+    public AddClientResponse execute(AddClientRequest addClientRequest) {
+        Client client = new Client(addClientRequest.getClientEmail(), addClientRequest.getClientPhoneNumber());
+        database.saveClient(client);
+        return new AddClientResponse(client);
     }
 }

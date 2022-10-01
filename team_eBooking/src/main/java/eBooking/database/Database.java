@@ -9,13 +9,13 @@ public interface Database {
 
     void saveClient(Client client);
 
-    void deleteClientById(Long id);
+    boolean deleteClientById(Long id);
 
     List<Client> getAllClients();
 
     void saveAppointment(Appointment appointment);
 
-    void deleteAppointmentById(Long id);
+    boolean deleteAppointmentById(Long id);
 
     List<Appointment> getAllAppointments();
 

@@ -1,6 +1,11 @@
 package eBooking.service;
 
+import eBooking.Client;
 import eBooking.database.Database;
+import eBooking.request.GetAllClientsRequest;
+import eBooking.response.GetAllClientsResponse;
+
+import java.util.List;
 
 public class GetAllClientsService {
 
@@ -10,11 +15,8 @@ public class GetAllClientsService {
         this.database = database;
     }
 
-    public void execute() {
-        if (database.getAllClients().isEmpty()) {
-            System.out.println("Client list is empty");
-        } else {
-            database.getAllClients().forEach(System.out::println);
-        }
+    public GetAllClientsResponse execute(GetAllClientsRequest getAllClientsRequest) {
+        List<Client> clientList = database.getAllClients();
+        return new GetAllClientsResponse(clientList);
     }
 }

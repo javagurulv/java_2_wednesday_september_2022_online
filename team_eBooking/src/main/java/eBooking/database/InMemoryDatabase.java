@@ -5,6 +5,7 @@ import eBooking.Client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryDatabase implements Database {
     private Long nextId = 1L;
@@ -19,11 +20,18 @@ public class InMemoryDatabase implements Database {
     }
 
     @Override
-    public void deleteClientById(Long id) {
-        clients.stream()
+    public boolean deleteClientById(Long id) {
+
+        boolean isClientRemoved = false;
+        Optional<Client> clientToBeRemoved = clients.stream()
                 .filter(client -> client.getId().equals(id))
-                .findFirst()
-                .ifPresent(client -> clients.remove(client));
+                .findFirst();
+        if (clientToBeRemoved.isPresent()) {
+            Client clientToRemove = clientToBeRemoved.get();
+            isClientRemoved = clients.remove(clientToRemove);
+        }
+        return isClientRemoved;
+
     }
 
     @Override
@@ -39,12 +47,18 @@ public class InMemoryDatabase implements Database {
     }
 
     @Override
-    public void deleteAppointmentById(Long id) {
-    appointments.stream()
-            .filter(appointment -> appointment.getId().equals(id))
-            .findFirst()
-            .ifPresent(appointment -> appointments.remove(appointment));
+    public boolean deleteAppointmentById(Long id) {
+        boolean isAppointmentDeleted = false;
+        Optional <Appointment> appointmentToBeRemoved =  appointments.stream()
+                .filter(appointment -> appointment.getId().equals(id))
+                .findFirst();
+                if(appointmentToBeRemoved.isPresent()){
+                    Appointment appointmentToRemove = appointmentToBeRemoved.get();
+                    isAppointmentDeleted=appointments.remove(appointmentToRemove);
+                }
+                return isAppointmentDeleted;
     }
+
 
     @Override
     public List<Appointment> getAllAppointments() {
