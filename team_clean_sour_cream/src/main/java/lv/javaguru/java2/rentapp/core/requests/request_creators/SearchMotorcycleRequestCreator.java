@@ -31,11 +31,9 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
 
                 int criteriaChoice = Integer.parseInt(scanner.nextLine());
 
-                //оставил свитч на случай если список будет пополняться другими критерими для мотоцикла
                 switch (criteria.get(criteriaChoice - 1)) {
-                    case "Passenger amount" -> {
-                        askPassengerAmount(searchVehicleRequestBuilder, criteria);
-                    }
+                    case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
+                    case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
                 }
             }
             if (userChoice == 2) {
@@ -53,6 +51,14 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
         Integer numberOfPassengers = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.passengerAmount(numberOfPassengers);
         criteria.remove("Passenger amount");
+    }
+
+    private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter transmission type (manual, automatic, none): ");
+        String transmissionType = scanner.nextLine();
+        searchVehicleRequestBuilder.transmissionType(transmissionType);
+        criteria.remove("Transmission type");
     }
 
     private List<String> motorcycleSearchCriteriaFields() {
