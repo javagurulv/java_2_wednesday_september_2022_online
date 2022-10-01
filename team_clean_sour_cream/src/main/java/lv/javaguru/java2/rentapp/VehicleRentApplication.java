@@ -14,7 +14,7 @@ class VehicleRentApplication {
                 printMainMenu();
                 int userChoice = getUserChoice();
                 if (userChoice > 5 || userChoice < 1) {
-                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 4)");
+                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 5)");
                 } else {
                     executeUserChoice(userChoice);
                 }

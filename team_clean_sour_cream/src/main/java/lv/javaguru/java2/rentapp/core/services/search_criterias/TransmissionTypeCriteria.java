@@ -14,7 +14,7 @@ public class TransmissionTypeCriteria implements SearchCriteria {
     @Override
     public boolean test(Vehicle vehicle) {
 
-        return vehicle.getTransmissionType().getNameTransmissionType().equals(transmissionType);
+        return vehicle.getTransmissionType().getNameTransmissionType().equalsIgnoreCase(transmissionType);
 
     }
 }
