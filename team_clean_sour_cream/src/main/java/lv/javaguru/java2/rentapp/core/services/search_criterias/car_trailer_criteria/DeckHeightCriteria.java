@@ -8,8 +8,8 @@ public class DeckHeightCriteria implements SearchCriteria {
 
     private Integer deckHeightInCm;
 
-    public DeckHeightCriteria(Integer deckLengthInCm) {
-        this.deckHeightInCm = deckLengthInCm;
+    public DeckHeightCriteria(Integer deckHeightInCm) {
+        this.deckHeightInCm = deckHeightInCm;
     }
 
     @Override
