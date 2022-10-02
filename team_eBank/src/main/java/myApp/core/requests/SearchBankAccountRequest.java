@@ -5,11 +5,19 @@ public class SearchBankAccountRequest {
     private String name;
     private String surname;
     private String personalCode;
+    private Ordering order;
 
     public SearchBankAccountRequest(String name, String surname, String personalCode) {
         this.name = name;
         this.surname = surname;
         this.personalCode = personalCode;
+    }
+
+    public SearchBankAccountRequest(String name, String surname, String personalCode, Ordering order) {
+        this.name = name;
+        this.surname = surname;
+        this.personalCode = personalCode;
+        this.order = order;
     }
 
     public boolean nameNullCheck() {
@@ -32,5 +40,9 @@ public class SearchBankAccountRequest {
 
     public String getPersonalCode() {
         return personalCode;
+    }
+
+    public Ordering getOrder() {
+        return order;
     }
 }
