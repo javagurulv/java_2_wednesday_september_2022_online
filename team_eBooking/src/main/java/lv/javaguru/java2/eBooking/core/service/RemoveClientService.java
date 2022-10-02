@@ -12,7 +12,7 @@ public class RemoveClientService {
     }
 
     public RemoveClientResponse execute(RemoveClientRequest removeClientRequest) {
-        boolean isClient = database.deleteClientById(removeClientRequest.getRemoveClientId());
-        return new RemoveClientResponse(isClient);
+        boolean isClientRemoved = database.deleteClientById(removeClientRequest.getRemoveClientId());
+        return new RemoveClientResponse(isClientRemoved);
     }
 }

@@ -2,6 +2,8 @@ package lv.javaguru.java2.eBooking.core.service;
 
 import lv.javaguru.java2.eBooking.Appointment;
 import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.request.AddAppointmentRequest;
+import lv.javaguru.java2.eBooking.core.response.AddAppointmentResponse;
 
 public class AddAppointmentService {
 
@@ -10,7 +12,11 @@ public class AddAppointmentService {
     public AddAppointmentService(Database database) {
         this.database = database;
     }
-    public void execute(String masterName,String typeOfService){
-        database.saveAppointment(new Appointment(masterName, typeOfService));
+
+    public AddAppointmentResponse execute(AddAppointmentRequest addAppointmentRequest){
+        Appointment newAppointment = new Appointment(addAppointmentRequest.getMasterName(),
+                                                     addAppointmentRequest.getTypeOfService());
+        database.saveAppointment(newAppointment);
+        return new AddAppointmentResponse(newAppointment);
     }
 }

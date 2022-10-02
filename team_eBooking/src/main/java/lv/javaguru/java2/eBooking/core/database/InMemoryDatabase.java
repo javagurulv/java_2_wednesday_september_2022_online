@@ -15,7 +15,7 @@ public class InMemoryDatabase implements Database {
     @Override
     public void saveClient(Client client) {
         client.setId(nextId);
-        ++nextId;
+        nextId++;
         clients.add(client);
     }
 
@@ -42,7 +42,7 @@ public class InMemoryDatabase implements Database {
     @Override
     public void saveAppointment(Appointment appointment) {
         appointment.setId(nextId);
-        ++nextId;
+        nextId++;
         appointments.add(appointment);
     }
 

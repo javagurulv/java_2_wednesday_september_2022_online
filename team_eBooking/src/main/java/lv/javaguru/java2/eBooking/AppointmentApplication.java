@@ -1,18 +1,10 @@
 package lv.javaguru.java2.eBooking;
 
-import eBooking.console_ui.*;
-import lv.console_ui.*;
-import lv.eBooking.console_ui.*;
-import lv.javaguru.eBooking.console_ui.*;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
-import lv.eBooking.service.*;
-import lv.javaguru.eBooking.service.*;
 import lv.javaguru.java2.eBooking.console_ui.*;
-import eBooking.service.*;
 import lv.javaguru.java2.eBooking.core.service.*;
-import lv.javaguru.java2.eBooking.service.*;
-import lv.service.*;
+
 
 import java.util.Scanner;
 
@@ -25,8 +17,8 @@ public class AppointmentApplication {
     private static RemoveAppointmentService removeAppointmentService = new RemoveAppointmentService(database);
     private static GetAllAppointmentsService getAllAppointmentsService = new GetAllAppointmentsService(database);
 
-    private static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
-    private static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
+    public static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
+    public static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
     public static UIAction removeClientUIAction = new RemoveClientUIAction(removeClientService);
     public static UIAction printClientUIAction = new PrintClientUIAction(getAllClientsService);
     public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(addAppointmentService);

@@ -15,7 +15,7 @@ public class GetAllClientsService {
         this.database = database;
     }
 
-    public GetAllClientsResponse execute(GetAllClientsRequest getAllClientsRequest) {
+    public GetAllClientsResponse execute(GetAllClientsRequest request) {
         List<Client> clientList = database.getAllClients();
         return new GetAllClientsResponse(clientList);
     }
