@@ -1,6 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
+import lv.javaguru.java2.tasksScheduler.requests.DeleteTaskRequest;
+import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
+import lv.javaguru.java2.tasksScheduler.responses.DeleteTaskResponse;
+import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.DeleteTaskService;
 import lv.javaguru.java2.tasksScheduler.services.GetOutstandingTasksService;
 
@@ -21,7 +25,10 @@ public class DeleteTaskUIAction implements UIAction{
 
     @Override
     public boolean execute() {
-        List<Task> tasks =  getOutstandingTasksService.execute();
+        GetOutstandingTasksRequests requestTasks = new GetOutstandingTasksRequests();
+        GetOutstandingTasksResponse responseTasks = getOutstandingTasksService.execute(requestTasks);
+
+        List<Task> tasks = responseTasks.getTasks();
         int recordsTotal = ShowOutstandingTasks(tasks);
         if (recordsTotal == 0)
             return false;
@@ -38,7 +45,10 @@ public class DeleteTaskUIAction implements UIAction{
             return false;
         }
         taskNumber--;
-        deleteTaskService.execute(tasks.get(taskNumber).getId());
+
+        DeleteTaskRequest request = new DeleteTaskRequest(tasks.get(taskNumber).getId());
+        DeleteTaskResponse response = deleteTaskService.execute(request);
+
         System.out.println("Task successfully deleted.");
         return true;
     }

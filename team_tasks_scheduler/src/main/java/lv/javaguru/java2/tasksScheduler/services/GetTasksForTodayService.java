@@ -2,6 +2,8 @@ package lv.javaguru.java2.tasksScheduler.services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
+import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
+import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
 
 import java.util.List;
 
@@ -15,7 +17,9 @@ public class GetTasksForTodayService {
         this.sessionService = sessionService;
     }
 
-    public List<Task> execute() {
-        return tasksRepository.getAllOutstandingTasksByUserIdForToday(sessionService.getCurrentUserId());
+    public GetTaskForTodayResponse execute(GetTasksForTodayRequests request) {
+        List<Task> tasks =  tasksRepository.getAllOutstandingTasksByUserIdForToday(sessionService.getCurrentUserId());
+
+        return new GetTaskForTodayResponse(tasks, 0);
     }
 }

@@ -14,9 +14,9 @@ public class GetAllUsersNamesUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-
         GetAllUsersNameRequest request = new GetAllUsersNameRequest();
         GetAllUsersNameResponse response = getAllUsersNamesService.execute(request);
+
         if (response.hasErrors()) {
             System.out.println("Registration failed");
             response.getErrors().forEach(coreError ->

@@ -16,6 +16,7 @@ public class ExitUIAction implements UIAction {
     public boolean execute() {
         ExitRequest request = new ExitRequest();
         ExitResponse response = exitService.execute(request);
+
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())

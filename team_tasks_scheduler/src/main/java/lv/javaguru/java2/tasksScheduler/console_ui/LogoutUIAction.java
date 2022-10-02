@@ -16,6 +16,7 @@ public class LogoutUIAction implements UIAction {
     public boolean execute() {
         LogoutRequest request = new LogoutRequest();
         LogoutResponse response = logoutService.execute(request);
+
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())

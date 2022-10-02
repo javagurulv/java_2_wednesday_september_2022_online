@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.database.InMemoryUsersRepositoryImpl;
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.services.*;
+import lv.javaguru.java2.tasksScheduler.services.validators.TaskAmendValidator;
 import lv.javaguru.java2.tasksScheduler.services.validators.TaskInfoValidator;
 import lv.javaguru.java2.tasksScheduler.services.validators.UserAmendValidator;
 import lv.javaguru.java2.tasksScheduler.services.validators.UserRegistrationValidator;
@@ -19,6 +20,7 @@ public class UIActionMap {
     private UserRegistrationValidator userInfoValidator = new UserRegistrationValidator();
     private TaskInfoValidator taskInfoValidator = new TaskInfoValidator();
     private UserAmendValidator userAmendInfoValidator = new UserAmendValidator();
+    private TaskAmendValidator taskAmendValidator = new TaskAmendValidator();
     private SessionService sessionService = new SessionService();
 
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
@@ -28,7 +30,7 @@ public class UIActionMap {
     private GetOutstandingTasksService getOutstandingTasksService = new GetOutstandingTasksService(tasksRepository, sessionService);
     private GetTasksForTodayService getTasksForTodayService = new GetTasksForTodayService(tasksRepository, sessionService);
     private AddTaskService addTaskService = new AddTaskService(tasksRepository, sessionService, taskInfoValidator);
-    private AmendTaskService amendTaskService = new AmendTaskService(tasksRepository);
+    private AmendTaskService amendTaskService = new AmendTaskService(tasksRepository, taskAmendValidator);
     private DeleteTaskService deleteTaskService = new DeleteTaskService(tasksRepository);
     private DeleteCurrentUserService deleteCurrentUserService = new DeleteCurrentUserService(usersRepository, tasksRepository, sessionService);
     private AmendCurrentUserService amendCurrentUserService = new AmendCurrentUserService(usersRepository, sessionService, userAmendInfoValidator);

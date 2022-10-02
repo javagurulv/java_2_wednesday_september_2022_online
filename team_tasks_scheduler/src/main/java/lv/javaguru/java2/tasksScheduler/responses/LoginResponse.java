@@ -1,6 +1,18 @@
 package lv.javaguru.java2.tasksScheduler.responses;
 
-public class LoginResponse {
-    public LoginResponse() {
+import lv.javaguru.java2.tasksScheduler.domain.User;
+
+import java.util.List;
+
+public class LoginResponse extends CoreResponse {
+    User user;
+    public LoginResponse(User user) {
+        this.user = user;
+    }
+    public LoginResponse(List<CoreError> errors) {
+        super(errors);
+    }
+    public User getUser() {
+        return user;
     }
 }
