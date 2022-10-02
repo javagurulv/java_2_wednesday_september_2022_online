@@ -4,6 +4,7 @@ import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
+import myApp.core.requests.Ordering;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.SearchBankAccountResponse;
@@ -24,15 +25,16 @@ class SearchBankAccountServiceTest {
     @BeforeEach
     void setUp() {
         dataBase = new InMemoryDatabaseImpl();
+        dataBase.addBankAccount( new BankAccount("Example", "Example", "password",
+                Roles.Regular_user, "000-111"));
+        dataBase.addBankAccount(new BankAccount("Example", "Example2", "password",
+                Roles.Regular_user, "000-112"));
         validator = new SearchBankAccountValidator();
         service = new SearchBankAccountService(dataBase, validator);
     }
 
     @Test
     void testFindByName() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
         SearchBankAccountRequest request = new SearchBankAccountRequest("Example", " ", " ");
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
@@ -42,9 +44,6 @@ class SearchBankAccountServiceTest {
 
     @Test
     void testFindBySurname() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
         SearchBankAccountRequest request = new SearchBankAccountRequest(" ", "Example", " ");
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
@@ -53,9 +52,6 @@ class SearchBankAccountServiceTest {
     }
     @Test
     void testFindByPersonalCode() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
         SearchBankAccountRequest request = new SearchBankAccountRequest(" ", "", "000-111");
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
@@ -64,9 +60,6 @@ class SearchBankAccountServiceTest {
     }
     @Test
     void testFindByNameAndSurname() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
         SearchBankAccountRequest request = new SearchBankAccountRequest("Example", "Example", " ");
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
@@ -75,9 +68,6 @@ class SearchBankAccountServiceTest {
     }
     @Test
     void testFindByNameAndPersonalCode() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
         SearchBankAccountRequest request = new SearchBankAccountRequest("Example", " ", "000-111");
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
@@ -86,10 +76,7 @@ class SearchBankAccountServiceTest {
     }
     @Test
     void testFindBySurnameAndPersonalCode() {
-        BankAccount bankAccount = new BankAccount("Example", "Example2", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
-        SearchBankAccountRequest request = new SearchBankAccountRequest("", "Example2", "000-111");
+        SearchBankAccountRequest request = new SearchBankAccountRequest("", "Example2", "000-112");
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
         assertFalse(response.getBankAccounts().isEmpty());
@@ -97,10 +84,37 @@ class SearchBankAccountServiceTest {
     }
     @Test
     void testFindByNameAndSurnameAndPersonalCode() {
-        BankAccount bankAccount = new BankAccount("Example", "Example", "password",
-                Roles.Regular_user, "000-111");
-        dataBase.addBankAccount(bankAccount);
         SearchBankAccountRequest request = new SearchBankAccountRequest("Example", "Example", "000-111");
+        List<CoreError> errors = validator.validate(request);
+        SearchBankAccountResponse response = service.execute(request);
+        assertFalse(response.getBankAccounts().isEmpty());
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testFindByNameAndOrderByNameWithoutErrors() {
+        SearchBankAccountRequest request = new SearchBankAccountRequest("Example", " ", " ",
+                new Ordering("name", "ASCENDING"));
+        List<CoreError> errors = validator.validate(request);
+        SearchBankAccountResponse response = service.execute(request);
+        assertFalse(response.getBankAccounts().isEmpty());
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testFindByNameAndOrderBySurnameWithoutErrors() {
+        SearchBankAccountRequest request = new SearchBankAccountRequest("Example", " ", " ",
+                new Ordering("surname", "DESCENDING"));
+        List<CoreError> errors = validator.validate(request);
+        SearchBankAccountResponse response = service.execute(request);
+        assertFalse(response.getBankAccounts().isEmpty());
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testFindByNameAndOrderByPersonalCodeWithoutErrors() {
+        SearchBankAccountRequest request = new SearchBankAccountRequest("Example", " ", " ",
+                new Ordering("personal code", "DESCENDING"));
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
         assertFalse(response.getBankAccounts().isEmpty());
