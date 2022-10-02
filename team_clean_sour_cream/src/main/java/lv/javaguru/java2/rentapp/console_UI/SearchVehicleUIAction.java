@@ -1,12 +1,13 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
-import lv.javaguru.java2.rentapp.core.requests.request_creators.*;
+import lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators.*;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.SearchVehicleService;
-import lv.javaguru.java2.rentapp.domain.Vehicle;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class SearchVehicleUIAction implements UIAction {
 
@@ -22,6 +23,7 @@ public class SearchVehicleUIAction implements UIAction {
     }
 
     public void execute() {
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Start searching by vehicle type first");
@@ -42,9 +44,7 @@ public class SearchVehicleUIAction implements UIAction {
             System.out.println("Vehicles found by your criteria: ");
             response.getVehicleList().forEach(System.out::println);
         }
-
     }
-
 
     private void printVehicleTypesMenu() {
         System.out.println();
@@ -56,6 +56,4 @@ public class SearchVehicleUIAction implements UIAction {
                 4. Car Trailer""");
         System.out.println();
     }
-
-
 }
