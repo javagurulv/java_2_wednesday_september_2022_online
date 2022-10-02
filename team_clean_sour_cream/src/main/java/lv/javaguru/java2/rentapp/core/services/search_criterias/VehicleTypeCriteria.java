@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
-import lv.javaguru.java2.rentapp.domain.Vehicle;
+import lv.javaguru.java2.rentapp.domain.*;
 
 
 public class VehicleTypeCriteria implements SearchCriteria {
@@ -13,8 +13,18 @@ public class VehicleTypeCriteria implements SearchCriteria {
 
     @Override
     public boolean test(Vehicle vehicle) {
-
-        return vehicle.getClass().getCanonicalName().equalsIgnoreCase(vehicleType);
-
+        if (vehicleType.equalsIgnoreCase("PassengerCar")) {
+            return vehicle instanceof PassengerCar;
+        }
+        if (vehicleType.equalsIgnoreCase("MiniBus")) {
+            return vehicle instanceof MiniBus;
+        }
+        if (vehicleType.equalsIgnoreCase("Motorcycle")) {
+            return vehicle instanceof Motorcycle;
+        }
+        if (vehicleType.equalsIgnoreCase("CarTrailer")) {
+            return vehicle instanceof CarTrailer;
+        }
+        return false;
     }
 }
