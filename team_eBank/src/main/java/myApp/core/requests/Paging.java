@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class OpenAccountRequest {
+public class Paging {
 
-    private String personalCode;
+    private Integer pageNumber;
+    private Integer pageSize;
 }

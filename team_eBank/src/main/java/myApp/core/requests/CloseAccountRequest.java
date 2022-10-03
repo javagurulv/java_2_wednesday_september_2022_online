@@ -1,14 +1,11 @@
 package myApp.core.requests;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public class CloseAccountRequest {
 
     private String personalCode;
-
-    public CloseAccountRequest(String personalCode) {
-        this.personalCode = personalCode;
-    }
-
-    public String getPersonalCode() {
-        return personalCode;
-    }
 }

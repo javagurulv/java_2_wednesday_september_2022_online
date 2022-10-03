@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
+import lv.javaguru.java2.tasksScheduler.enums.SearchDateType;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -100,5 +101,72 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
             return true;
         }
         return false;
+    }
+
+    public List<Task> searchTaskByDescription(String description) {
+        List<Task> taskList = new ArrayList<>();
+        String dscrptn;
+        for (Task tsk : tasks) {
+            dscrptn = tsk.getDescription();
+            dscrptn = dscrptn.toLowerCase();
+            if (dscrptn.contains(description.toLowerCase()) == true) {
+                //search string found in description
+                taskList.add(tsk);
+            }
+        }
+        return taskList;
+    }
+
+    @Override
+    public List<Task> searchTaskByDate(LocalDateTime date) {
+        List<Task> tasksList = new ArrayList<>();
+
+        for (Task tsk : tasks) {
+            if (tsk.getDueDate().isEqual(date) ||
+                    tsk.getEndDate().isEqual(date)) {
+                tasksList.add(tsk);
+            }
+        }
+        return tasksList;
+    }
+    @Override
+    public List<Task> searchTaskByDateRange(LocalDateTime start, LocalDateTime end, SearchDateType type) {
+        List<Task> tasksList = new ArrayList<>();
+
+        switch (type) {
+            case DUE_DATE -> {
+                for (Task tsk : tasks) {
+                    LocalDateTime dueDate = tsk.getDueDate();
+                    //check if due date is in provided range, inclusively
+                    if (dueDate.isEqual(start)) {
+                        tasksList.add(tsk);
+                    }
+                    if (dueDate.isEqual(end)) {
+                        tasksList.add(tsk);
+                    }
+                    if (dueDate.isBefore(end) && dueDate.isAfter(start)) {
+                        tasksList.add(tsk);
+                    }
+                }
+                break;
+            }
+            case END_DATE -> {
+                for (Task tsk : tasks) {
+                    LocalDateTime endDate = tsk.getEndDate();
+                    //check if end date is in provided range, inclusively
+                    if (endDate.isEqual(start)) {
+                        tasksList.add(tsk);
+                    }
+                    if (endDate.isEqual(end)) {
+                        tasksList.add(tsk);
+                    }
+                    if (endDate.isBefore(end) && endDate.isAfter(start)) {
+                        tasksList.add(tsk);
+                    }
+                }
+                break;
+            }
+        }
+        return tasksList;
     }
 }

@@ -1,8 +1,7 @@
 package myApp.core.services.validators;
-
+import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +17,13 @@ public class SearchBankAccountValidator {
             validateOrderBy(request).ifPresent(errors::add);
             validateOrderDirection(request).ifPresent(errors::add);
         }
+        if (request.getPaging() != null) {
+            validatePageNumber(request.getPaging()).ifPresent(errors::add);
+            validatePageSize(request.getPaging()).ifPresent(errors::add);
+            validateObligatorilyPageNumber(request.getPaging()).ifPresent(errors::add);
+            validateObligatorilyPageSize(request.getPaging()).ifPresent(errors::add);
+        }
+
         return errors;
     }
 
@@ -59,5 +65,56 @@ public class SearchBankAccountValidator {
                 ? Optional.empty()
                 : Optional.of(new CoreError("Order direction", "Order direction cannot be empty and" +
                 "can only contain a 'ASCENDING' or 'DESCENDING'"));
+    }
+/*
+    private Optional<CoreError> validatePageNumber(SearchBankAccountRequest request) {
+        return request.getPaging().getPageNumber() != null && request.getPaging().getPageNumber() <= 0
+                ? Optional.empty()
+                : Optional.of(new CoreError("Page number", "Page number must be bigger than 0"));
+    }
+
+    private Optional<CoreError> validatePageSize(SearchBankAccountRequest request) {
+        return request.getPaging().getPageSize() != null && request.getPaging().getPageSize() <= 0
+                ? Optional.empty()
+                : Optional.of(new CoreError("Page size", "Page number must be bigger than 0"));
+    }
+
+    private Optional<CoreError> validateObligatorilyPageNumber(SearchBankAccountRequest request) {
+        return request.getPaging().getPageNumber() == null && request.getPaging().getPageSize() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Page number", "Page number must be bigger than 0"));
+    }
+
+    private Optional<CoreError> validateObligatorilyPageSize(SearchBankAccountRequest request) {
+        return request.getPaging().getPageNumber() != null && request.getPaging().getPageSize() == null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Page size", "Page number must be bigger than 0"));
+    }
+ */
+
+    private Optional<CoreError> validatePageNumber(Paging paging) {
+        return (paging.getPageNumber() != null
+                && paging.getPageNumber() <= 0)
+                ? Optional.of(new CoreError("pageNumber", "Must be greater then 0!"))
+                : Optional.empty();
+    }
+
+    private Optional<CoreError> validatePageSize(Paging paging) {
+        return (paging.getPageSize() != null
+                && paging.getPageSize() <= 0)
+                ? Optional.of(new CoreError("pageSize", "Must be greater then 0!"))
+                : Optional.empty();
+    }
+
+    private Optional<CoreError> validateObligatorilyPageNumber(Paging paging) {
+        return (paging.getPageNumber() == null && paging.getPageSize() != null)
+                ? Optional.of(new CoreError("pageNumber", "Must not be empty!"))
+                : Optional.empty();
+    }
+
+    private Optional<CoreError> validateObligatorilyPageSize(Paging paging) {
+        return (paging.getPageSize() == null && paging.getPageNumber() != null)
+                ? Optional.of(new CoreError("pageSize", "Must not be empty!"))
+                : Optional.empty();
     }
 }
