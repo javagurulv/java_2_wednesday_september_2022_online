@@ -3,11 +3,11 @@ package myApp.core.services;
 import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.Ordering;
+import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.validators.SearchBankAccountValidator;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -18,6 +18,7 @@ public class SearchBankAccountService {
     private DataBase dataBase;
     private SearchBankAccountValidator validator;
 
+
     public SearchBankAccountService(DataBase dataBase, SearchBankAccountValidator validator) {
         this.dataBase = dataBase;
         this.validator = validator;
@@ -26,15 +27,16 @@ public class SearchBankAccountService {
     public SearchBankAccountResponse execute(SearchBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
-            return new SearchBankAccountResponse(errors,null);
+            return new SearchBankAccountResponse(errors, null);
         } else {
             List<BankAccount> bankAccounts = search(request);
             bankAccounts = ordering(bankAccounts, request.getOrder());
+            bankAccounts = paging(bankAccounts, request.getPaging());
             return new SearchBankAccountResponse(null, bankAccounts);
         }
     }
 
-    private  List<BankAccount> search(SearchBankAccountRequest request) {
+    private List<BankAccount> search(SearchBankAccountRequest request) {
         List<BankAccount> bankAccounts = new ArrayList<>();
         if (request.nameNullCheck() && !request.surnameNullCheck() && !request.personalCodeNullCheck()) {
             bankAccounts = dataBase.findByName(request.getName());
@@ -80,5 +82,16 @@ public class SearchBankAccountService {
             }
         }
         return bankAccounts;
+    }
+
+    private List<BankAccount> paging(List<BankAccount> bankAccounts, Paging paging) {
+        if (paging == null) {
+            return bankAccounts;
+        } else {
+            return bankAccounts.stream()
+                    .skip((long) (paging.getPageNumber() - 1) * paging.getPageSize())
+                    .limit(paging.getPageSize())
+                    .collect(Collectors.toList());
+        }
     }
 }

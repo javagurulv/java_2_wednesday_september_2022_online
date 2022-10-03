@@ -12,10 +12,32 @@ public class InMemoryDatabaseImpl implements DataBase {
 
 
     public InMemoryDatabaseImpl() {
-        BankAccount bankAccount = new BankAccount("Vlad", "Kulikov","password", Roles.Regular_user, "111-317");
-        BankAccount adminAccount = new BankAccount("Admin", "Admin","Admin", Roles.Admin, "01");
+        BankAccount bankAccount = new BankAccount("Vlad", "Salpo","password", Roles.Regular_user, "111-317");
+        /*
+        BankAccount bankAccount2 = new BankAccount("Vlad", "Nikiton","password", Roles.Regular_user, "111-318");
+        BankAccount bankAccount3 = new BankAccount("Vlad", "Jorny","password", Roles.Regular_user, "111-319");
+        BankAccount bankAccount4 = new BankAccount("Vlad", "Morgan","password", Roles.Regular_user, "111-320");
+        BankAccount bankAccount5 = new BankAccount("Vlad", "Lopi","password", Roles.Regular_user, "111-310");
+        BankAccount bankAccount6 = new BankAccount("Vlad", "Julik","password", Roles.Regular_user, "111-311");
+        BankAccount bankAccount7 = new BankAccount("Vlad", "Krol","password", Roles.Regular_user, "111-314");
+        BankAccount bankAccount8 = new BankAccount("Vlad", "Foldan","password", Roles.Regular_user, "111-306");
+        BankAccount bankAccount9 = new BankAccount("Vlad", "Repton","password", Roles.Regular_user, "111-305");
+        BankAccount bankAccount10 = new BankAccount("Vlad", "Valod","password", Roles.Regular_user, "111-302");
+         */
+        BankAccount adminAccount = new BankAccount("Admin", "Cikmal","Admin", Roles.Admin, "01");
         bankAccounts.add(adminAccount);
         addBankAccount(bankAccount);
+        /*
+        addBankAccount(bankAccount2);
+        addBankAccount(bankAccount3);
+        addBankAccount(bankAccount4);
+        addBankAccount(bankAccount5);
+        addBankAccount(bankAccount6);
+        addBankAccount(bankAccount7);
+        addBankAccount(bankAccount8);
+        addBankAccount(bankAccount9);
+        addBankAccount(bankAccount10);
+         */
     }
 
     private Long id = 1L;
