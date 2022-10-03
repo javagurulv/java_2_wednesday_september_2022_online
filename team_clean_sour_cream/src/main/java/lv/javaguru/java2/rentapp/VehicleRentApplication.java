@@ -21,7 +21,6 @@ class VehicleRentApplication {
             } catch (NumberFormatException e) {
                 System.out.println("You must enter an integer!");
             }
-
         }
     }
 
