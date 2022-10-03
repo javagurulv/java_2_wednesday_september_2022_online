@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
@@ -40,6 +40,30 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         validateEmptyWeightInKg(request).ifPresent(errors::add);
         validateMaxLoadWeightInKg(request).ifPresent(errors::add);
         return errors;
+    }
+
+    @Override
+    protected Optional<CoreError> validateEngineType(AddVehicleRequest request) {
+        String engineType = request.getEngineType();
+        if (engineType == null || engineType.isBlank()) {
+            return Optional.of(new CoreError("Engine Type", "cannot be empty"));
+        } else if ("None".equalsIgnoreCase(engineType.replaceAll("[^a-zA-Z]", ""))) {
+            return Optional.empty();
+        } else {
+            return Optional.of(new CoreError("Engine Type", "for Car Trailer must be \"None\""));
+        }
+    }
+
+    @Override
+    protected Optional<CoreError> validateTransmissionType(AddVehicleRequest request) {
+        String transmissionType = request.getTransmissionType();
+        if (transmissionType == null || transmissionType.isBlank()) {
+            return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
+        } else if ("None".equalsIgnoreCase(transmissionType.replaceAll("[^a-zA-Z]", ""))) {
+            return Optional.empty();
+        } else {
+            return Optional.of(new CoreError("Transmission Type", "for Car Trailer must be \"None\""));
+        }
     }
 
     protected Optional<CoreError> validateDeckWidthInCm(AddVehicleRequest request) {

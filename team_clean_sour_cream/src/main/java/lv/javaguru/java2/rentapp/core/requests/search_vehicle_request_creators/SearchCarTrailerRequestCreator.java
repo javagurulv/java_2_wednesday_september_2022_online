@@ -39,7 +39,6 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
                 int criteriaChoice = Integer.parseInt(scanner.nextLine());
 
                 switch (criteria.get(criteriaChoice - 1)) {
-                    case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
                     case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
                     case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
                     case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
@@ -52,13 +51,6 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
             }
         }
         return searchVehicleRequestBuilder.build();
-    }
-
-    private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter transmission type (manual, automatic, none): ");
-        String transmissionType = scanner.nextLine();
-        searchVehicleRequestBuilder.transmissionType(transmissionType);
-        criteria.remove("Transmission type");
     }
 
     private void askDeckWidthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {

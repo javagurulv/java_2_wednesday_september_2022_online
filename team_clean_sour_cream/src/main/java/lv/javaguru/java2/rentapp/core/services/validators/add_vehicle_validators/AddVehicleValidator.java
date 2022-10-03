@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
@@ -99,8 +99,8 @@ public abstract class AddVehicleValidator {
         }
     }
 
-    protected boolean areEnumValuesValid(List<String> enumColourValues, String colour) {
-        return enumColourValues.stream()
-                .anyMatch(enumColourValue -> enumColourValue.equalsIgnoreCase(colour.replaceAll("[^a-zA-Z]", "")));
+    protected boolean areEnumValuesValid(List<String> enumValues, String value) {
+        return enumValues.stream()
+                .anyMatch(enumValue -> enumValue.equalsIgnoreCase(value.replaceAll("[^a-zA-Z]", "")));
     }
 }

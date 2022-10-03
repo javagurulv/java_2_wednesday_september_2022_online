@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.enums.VehicleType;

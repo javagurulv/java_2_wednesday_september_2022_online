@@ -224,11 +224,11 @@ public class AddVehicleUIAction implements UIAction {
         String color = scanner.nextLine();
         System.out.println("Enter rent price per day: ");
         Double price = Double.parseDouble(scanner.nextLine());
-        System.out.println("Enter engine type: (Petrol, Diesel, Gas, Electric, Hybrid, None) ");
+        System.out.println("Enter engine type: (only \"None\" available) ");
         String engineType = scanner.nextLine();
         System.out.println("Enter plate number: ");
         String plateNumber = scanner.nextLine();
-        System.out.println("Enter transmission type: (Manual, Automatic, None) ");
+        System.out.println("Enter transmission type: (only \"None\" available) ");
         String transmissionType = scanner.nextLine();
 
         System.out.println("Enter deck width in cm: ");

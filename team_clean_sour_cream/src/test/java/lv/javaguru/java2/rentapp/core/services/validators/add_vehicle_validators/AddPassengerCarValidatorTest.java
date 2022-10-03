@@ -1,9 +1,8 @@
-package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
-import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -17,8 +16,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddPassengerCarValidator.*;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddVehicleValidator.CURRENT_YEAR_BACKWARD_REDUCER;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.*;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.CURRENT_YEAR_BACKWARD_REDUCER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
