@@ -1,6 +1,5 @@
 package lv.javaguru.java2.rentapp.core.services.new_vehicle_creators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ public class VehicleCreatorMap {
 
     private Map<VehicleType, VehicleCreator> vehicleTypeCreatorMap;
 
-    public VehicleCreatorMap(Database database) {
+    public VehicleCreatorMap() {
         this.vehicleTypeCreatorMap = new HashMap<>();
         vehicleTypeCreatorMap.put(PASSENGER_CAR, new PassengerCarCreator());
         vehicleTypeCreatorMap.put(MINIBUS, new MiniBusCreator());

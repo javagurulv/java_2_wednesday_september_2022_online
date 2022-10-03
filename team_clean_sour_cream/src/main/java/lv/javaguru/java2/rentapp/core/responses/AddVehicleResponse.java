@@ -17,5 +17,4 @@ public class AddVehicleResponse extends CoreResponse {
     public AddVehicleResponse(Vehicle newVehicle) {
         this.newVehicle = newVehicle;
     }
-
 }

@@ -4,7 +4,6 @@ import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MiniBusCreator;
-import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;

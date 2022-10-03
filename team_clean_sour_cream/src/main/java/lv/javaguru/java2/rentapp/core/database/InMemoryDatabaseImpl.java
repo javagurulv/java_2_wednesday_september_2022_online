@@ -6,7 +6,6 @@ import lombok.Setter;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,6 +48,4 @@ public class InMemoryDatabaseImpl implements Database {
     public List<Vehicle> search(SearchCriteria searchCriteria) {
         return vehiclesDB.stream().filter(searchCriteria).collect(Collectors.toList());
     }
-
-
 }

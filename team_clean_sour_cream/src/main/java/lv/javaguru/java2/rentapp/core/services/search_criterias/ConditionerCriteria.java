@@ -14,7 +14,6 @@ public class ConditionerCriteria implements SearchCriteria {
         this.hasConditioner = hasConditioner;
     }
 
-
     @Override
     public boolean test(Vehicle vehicle) {
         if (hasConditioner.equals("true")) {

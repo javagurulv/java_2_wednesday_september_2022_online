@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.requests.request_creators;
+package lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators;
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 
@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreator {
+
+    Scanner scanner = new Scanner(System.in);
+
     @Override
     public SearchVehicleRequest createRequest() {
 
-        Scanner scanner = new Scanner(System.in);
         SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType("CarTrailer");
 
         boolean addAnotherCriteria = true;
@@ -18,11 +20,16 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
         List<String> criteria = carTrailerSearchCriteriaFields();
 
         while (addAnotherCriteria) {
+
+            System.out.println();
             System.out.println("""
                     Add another criteria for search?
                     1. Yes
                     2. No""");
+            System.out.println();
+
             int userChoice = Integer.parseInt(scanner.nextLine());
+
             if (userChoice == 1) {
 
                 for (int i = 0; i < criteria.size(); i++) {
@@ -32,36 +39,22 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
                 int criteriaChoice = Integer.parseInt(scanner.nextLine());
 
                 switch (criteria.get(criteriaChoice - 1)) {
-                    case "Transmission type" -> {
-                        askTransmissionType(searchVehicleRequestBuilder, criteria);
-                    }
-                    case "Deck width in cm" -> {
-                        askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
-                    }
-                    case "Deck length in cm" -> {
-                        askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
-                    }
-                    case "Deck height in cm" -> {
-                        askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
-                    }
-                    case "Empty weight in kg" -> {
-                        askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
-                    }
-                    case "Max load weight in kg" -> {
-                        askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
-                    }
+                    case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
+                    case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
+                    case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
+                    case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
+                    case "Empty weight in kg" -> askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
+                    case "Max load weight in kg" -> askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
                 }
             }
             if (userChoice == 2) {
                 addAnotherCriteria = false;
             }
         }
-        SearchVehicleRequest request = searchVehicleRequestBuilder.build();
-        return request;
+        return searchVehicleRequestBuilder.build();
     }
 
     private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter transmission type (manual, automatic, none): ");
         String transmissionType = scanner.nextLine();
         searchVehicleRequestBuilder.transmissionType(transmissionType);
@@ -69,7 +62,6 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askDeckWidthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter deck width in cm: ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckWidthInCm(deckWidthInCm);
@@ -77,7 +69,6 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askDeckLengthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter deck length in cm: ");
         Integer deckLengthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckLengthInCm(deckLengthInCm);
@@ -85,15 +76,13 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askDeckHeightInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter deck height in cm: ");
         Integer deckHeightInCm = Integer.parseInt(scanner.nextLine());
-        searchVehicleRequestBuilder.deckWidthInCm(deckHeightInCm);
+        searchVehicleRequestBuilder.deckHeightInCm(deckHeightInCm);
         criteria.remove("Deck height in cm");
     }
 
     private void askEmptyWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter empty weight in kg: ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.emptyWeightInKg(deckWidthInCm);
@@ -101,7 +90,6 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askMaxLoadWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter max load in kg: ");
         Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.maxLoadWeightInKg(maxLoadWeightInKg);
