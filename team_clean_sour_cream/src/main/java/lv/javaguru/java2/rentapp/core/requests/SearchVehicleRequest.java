@@ -13,5 +13,10 @@ public class SearchVehicleRequest {
     private Integer passengerAmount;
     private String hasConditioner;
     private String transmissionType;
+    private Integer deckWidthInCm;
+    private Integer deckLengthInCm;
+    private Integer deckHeightInCm;
+    private Integer emptyWeightInKg;
+    private Integer maxLoadWeightInKg;
 
 }
