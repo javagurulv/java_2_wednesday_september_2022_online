@@ -27,20 +27,23 @@ public class SearchVehicleUIAction implements UIAction {
         System.out.println("Start searching by vehicle type first");
 
         printVehicleTypesMenu();
+        try {
+            int vehicleTypeChoice = Integer.parseInt(scanner.nextLine());
 
-        int vehicleTypeChoice = Integer.parseInt(scanner.nextLine());
+            SearchVehicleRequest request = requestCreatorMap.get(vehicleTypeChoice).createRequest();
+            SearchVehicleResponse response = searchVehicleService.execute(request);
 
-        SearchVehicleRequest request = requestCreatorMap.get(vehicleTypeChoice).createRequest();
-        SearchVehicleResponse response = searchVehicleService.execute(request);
-
-        if (response.hasErrors()) {
-            response.getErrors().forEach(coreError ->
-                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
-        } else if (response.getVehicleList().isEmpty()) {
-            System.out.println("No vehicles found that matches your criteria");
-        } else {
-            System.out.println("Vehicles found by your criteria: ");
-            response.getVehicleList().forEach(System.out::println);
+            if (response.hasErrors()) {
+                response.getErrors().forEach(coreError ->
+                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
+            } else if (response.getVehicleList().isEmpty()) {
+                System.out.println("No vehicles found that matches your criteria");
+            } else {
+                System.out.println("Vehicles found by your criteria: ");
+                response.getVehicleList().forEach(System.out::println);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: You must enter a number!");
         }
     }
 

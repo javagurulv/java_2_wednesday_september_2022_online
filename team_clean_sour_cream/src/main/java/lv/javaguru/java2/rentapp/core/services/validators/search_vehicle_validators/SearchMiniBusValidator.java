@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.*;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddMiniBusValidator.*;
 
-public class SearchPassengerCarValidator extends SearchVehicleValidator {
+public class SearchMiniBusValidator extends SearchVehicleValidator {
 
     @Override
     public List<CoreError> validate(SearchVehicleRequest request) {

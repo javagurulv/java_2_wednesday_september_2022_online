@@ -1,6 +1,7 @@
 package lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators;
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     public SearchVehicleRequest createRequest() {
 
 
-        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType("MiniBus");
+        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS);
 
         boolean addAnotherCriteria = true;
 

@@ -12,9 +12,9 @@ import java.util.Optional;
 
 public class AddPassengerCarValidator extends AddVehicleValidator {
 
-    protected static final int MAX_PASSENGER_AMOUNT = 100;
-    protected static final int MAX_BAGGAGE_AMOUNT = 100;
-    protected static final int MAX_DOORS_AMOUNT = 10;
+    public static final int MAX_PASSENGER_AMOUNT = 100;
+    public static final int MAX_BAGGAGE_AMOUNT = 100;
+    public static final int MAX_DOORS_AMOUNT = 10;
     private Database database;
 
     public AddPassengerCarValidator(Database database) {

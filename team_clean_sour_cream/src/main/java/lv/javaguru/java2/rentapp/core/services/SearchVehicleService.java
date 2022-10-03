@@ -2,10 +2,14 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidatorMap;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.List;
 
@@ -13,21 +17,32 @@ public class SearchVehicleService {
 
     private Database database;
 
+    private SearchVehicleValidatorMap searchVehicleValidatorMap;
+
     public SearchVehicleService(Database database) {
         this.database = database;
+        this.searchVehicleValidatorMap = new SearchVehicleValidatorMap();
     }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
+        VehicleType vehicleType = request.getVehicleType();
+        SearchVehicleValidator searchVehicleValidator = searchVehicleValidatorMap.getVehicleValidatorByCarType(vehicleType);
+
+        List<CoreError> errors = searchVehicleValidator.validate(request);
+
+        if (!errors.isEmpty()) {
+            return new SearchVehicleResponse(null, errors);
+        }
 
         SearchCriteria andCriteria = getSearchCriteria(request);
-        List<Vehicle> response = database.search(andCriteria);
-        return new SearchVehicleResponse(response, null);
+        List<Vehicle> vehicleSearchResult = database.search(andCriteria);
+        return new SearchVehicleResponse(vehicleSearchResult, null);
 
     }
 
     private SearchCriteria getSearchCriteria(SearchVehicleRequest request) {
 
-        SearchCriteria andCriteria = new AndSearchCriteria(new VehicleTypeCriteria(request.getVehicleType()), null);
+        SearchCriteria andCriteria = new AndSearchCriteria(new VehicleTypeCriteria(request.getVehicleType().getNameVehicleType()), null);
 
         if (request.getBaggageAmount() != null) {
             andCriteria = new AndSearchCriteria(andCriteria, new BaggageAmountCriteria(request.getBaggageAmount()));

@@ -6,8 +6,6 @@ import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.CarTrailerCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
-import lv.javaguru.java2.rentapp.enums.EngineType;
-import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

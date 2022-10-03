@@ -1,6 +1,7 @@
 package lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators;
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
     @Override
     public SearchVehicleRequest createRequest() {
 
-        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType("CarTrailer");
+        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.CAR_TRAILER);
 
         boolean addAnotherCriteria = true;
 

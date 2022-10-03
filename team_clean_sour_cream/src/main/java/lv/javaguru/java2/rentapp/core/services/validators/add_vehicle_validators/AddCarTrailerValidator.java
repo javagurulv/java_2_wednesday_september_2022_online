@@ -12,11 +12,11 @@ import java.util.Optional;
 
 public class AddCarTrailerValidator extends AddVehicleValidator {
 
-    protected static final int MAX_DECK_WIDTH_IN_CM = 500;
-    protected static final int MAX_DECK_LENGTH_IN_CM = 1000;
-    protected static final int MAX_DECK_HEIGHT_IN_CM = 500;
-    protected static final int MAX_EMPTY_WEIGHT_IN_KG = 5000;
-    protected static final int MAX_LOAD_WEIGHT_IN_KG = 10000;
+    public static final int MAX_DECK_WIDTH_IN_CM = 500;
+    public static final int MAX_DECK_LENGTH_IN_CM = 1000;
+    public static final int MAX_DECK_HEIGHT_IN_CM = 500;
+    public static final int MAX_EMPTY_WEIGHT_IN_KG = 5000;
+    public static final int MAX_LOAD_WEIGHT_IN_KG = 10000;
 
     private Database database;
 
