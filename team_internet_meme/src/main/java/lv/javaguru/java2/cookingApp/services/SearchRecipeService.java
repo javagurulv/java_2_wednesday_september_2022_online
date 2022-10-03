@@ -36,7 +36,7 @@ public class SearchRecipeService {
     }
 
 
-    private SearchCriteria createSearchCriteria(SearchRecipeRequest request) {
+    protected SearchCriteria createSearchCriteria(SearchRecipeRequest request) {
         List<String> ingredients = request.getIngredientNameList();
         int numberOfIngredients = ingredients.size();
         List<SearchCriteria> searchCriteria = new ArrayList<>();
