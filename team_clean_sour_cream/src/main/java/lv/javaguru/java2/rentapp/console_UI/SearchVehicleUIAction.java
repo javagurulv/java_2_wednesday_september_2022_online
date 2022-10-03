@@ -51,8 +51,8 @@ public class SearchVehicleUIAction implements UIAction {
         System.out.println("""
                 Chose vehicle type:
                 1. Passenger Car
-                2. Mini Bus"
-                3. Motorcycle"
+                2. Mini Bus
+                3. Motorcycle
                 4. Car Trailer""");
         System.out.println();
     }
