@@ -12,10 +12,11 @@ import java.util.List;
 
 public class PrintRecipeToConsoleService {
     private Database database;
-    private PrintRecipeToConsoleValidator validator = new PrintRecipeToConsoleValidator();
+    private PrintRecipeToConsoleValidator validator;
 
-    public PrintRecipeToConsoleService(Database database) {
+    public PrintRecipeToConsoleService(Database database, PrintRecipeToConsoleValidator validator) {
         this.database = database;
+        this.validator = validator;
     }
 
     public PrintRecipeToConsoleResponse execute(PrintRecipeToConsoleRequest request) {

@@ -16,14 +16,16 @@ import java.util.List;
 public class SearchRecipeService {
 
     private Database database;
+    private SearchRecipeRequestValidator validator;
 
-    public SearchRecipeService(Database database) {
+    public SearchRecipeService(Database database, SearchRecipeRequestValidator validator) {
         this.database = database;
+        this.validator = validator;
     }
 
     public SearchRecipeResponse execute(SearchRecipeRequest request) {
 
-        List<CoreError> coreErrors = new SearchRecipeRequestValidator().validate(request);
+        List<CoreError> coreErrors = validator.validate(request);
         if (!coreErrors.isEmpty()) {
             return new SearchRecipeResponse(coreErrors, null);
         }

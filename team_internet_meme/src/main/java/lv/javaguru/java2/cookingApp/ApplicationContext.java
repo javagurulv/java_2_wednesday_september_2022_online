@@ -4,6 +4,10 @@ import lv.javaguru.java2.cookingApp.console_ui.*;
 import lv.javaguru.java2.cookingApp.database.Database;
 import lv.javaguru.java2.cookingApp.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.cookingApp.services.*;
+import lv.javaguru.java2.cookingApp.services.validators.AddRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.services.validators.DeleteRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.services.validators.PrintRecipeToConsoleValidator;
+import lv.javaguru.java2.cookingApp.services.validators.SearchRecipeRequestValidator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +18,14 @@ public class ApplicationContext {
 
     public ApplicationContext() {
         beans.put(Database.class, new InMemoryDatabaseImpl());
-        beans.put(AddRecipeService.class, new AddRecipeService(getBean(Database.class)));
-        beans.put(DeleteRecipeService.class, new DeleteRecipeService(getBean(Database.class)));
+        beans.put(AddRecipeRequestValidator.class, new AddRecipeRequestValidator());
+        beans.put(DeleteRecipeRequestValidator.class, new DeleteRecipeRequestValidator());
+        beans.put(SearchRecipeRequestValidator.class, new SearchRecipeRequestValidator());
+        beans.put(AddRecipeService.class, new AddRecipeService(getBean(Database.class), getBean(AddRecipeRequestValidator.class)));
+        beans.put(DeleteRecipeService.class, new DeleteRecipeService(getBean(Database.class), getBean(DeleteRecipeRequestValidator.class)));
         beans.put(GetAllRecipesService.class, new GetAllRecipesService(getBean(Database.class)));
-        beans.put(PrintRecipeToConsoleService.class, new PrintRecipeToConsoleService(getBean(Database.class)));
-        beans.put(SearchRecipeService.class, new SearchRecipeService(getBean(Database.class)));
+        beans.put(PrintRecipeToConsoleService.class, new PrintRecipeToConsoleService(getBean(Database.class), getBean(PrintRecipeToConsoleValidator.class)));
+        beans.put(SearchRecipeService.class, new SearchRecipeService(getBean(Database.class), getBean(SearchRecipeRequestValidator.class)));
 
         beans.put(AddRecipeUIAction.class, new AddRecipeUIAction(getBean(AddRecipeService.class)));
         beans.put(DeleteRecipeUIAction.class, new DeleteRecipeUIAction(getBean(DeleteRecipeService.class)));

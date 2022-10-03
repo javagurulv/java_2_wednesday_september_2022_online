@@ -12,10 +12,11 @@ import java.util.List;
 
 public class AddRecipeService {
     private Database database;
-    private AddRecipeRequestValidator validator = new AddRecipeRequestValidator();
+    private AddRecipeRequestValidator validator;
 
-    public AddRecipeService(Database database) {
+    public AddRecipeService(Database database, AddRecipeRequestValidator validator) {
         this.database = database;
+        this.validator = validator;
     }
 
     public AddRecipeResponse execute(AddRecipeRequest request) {

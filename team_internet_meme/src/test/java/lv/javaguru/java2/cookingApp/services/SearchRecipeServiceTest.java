@@ -7,6 +7,7 @@ import lv.javaguru.java2.cookingApp.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.domain.Recipe;
 import lv.javaguru.java2.cookingApp.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.responses.SearchRecipeResponse;
+import lv.javaguru.java2.cookingApp.services.validators.SearchRecipeRequestValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +20,12 @@ class SearchRecipeServiceTest {
 
     Database database;
     SearchRecipeService searchRecipeService;
+    SearchRecipeRequestValidator validator;
 
     @BeforeEach
     void setUp() {
         database = new InMemoryDatabaseImpl();
+        validator = new SearchRecipeRequestValidator();
         Ingredient eggs = new Ingredient("eggs", "", 2.0);
         Ingredient bacon = new Ingredient("bacon", "", 1.0);
         Ingredient sausage = new Ingredient("sausage", "", 1.0);
@@ -55,7 +58,7 @@ class SearchRecipeServiceTest {
         database.save(eggsBaconAndSausage);
         database.save(eggsBaconAndBeans);
         database.save(eggsBaconBeansAndSausage);
-        searchRecipeService = new SearchRecipeService(database);
+        searchRecipeService = new SearchRecipeService(database, validator);
     }
 
     @Test

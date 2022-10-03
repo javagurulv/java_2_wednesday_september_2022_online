@@ -4,6 +4,7 @@ import lv.javaguru.java2.cookingApp.database.Database;
 import lv.javaguru.java2.cookingApp.domain.Recipe;
 import lv.javaguru.java2.cookingApp.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.responses.AddRecipeResponse;
+import lv.javaguru.java2.cookingApp.responses.CoreError;
 import lv.javaguru.java2.cookingApp.services.validators.AddRecipeRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +33,8 @@ class AddRecipeServiceTest {
     @Test
     void testShouldReturnResponseWithErrorWhenRequestIsNotValid() {
         AddRecipeRequest request = Mockito.mock(AddRecipeRequest.class);
+        CoreError error = new CoreError("Test", "test");
+        Mockito.when(validator.validate(request)).thenReturn(List.of(error));
         AddRecipeResponse response = service.execute(request);
         assertTrue(response.hasErrors());
     }
