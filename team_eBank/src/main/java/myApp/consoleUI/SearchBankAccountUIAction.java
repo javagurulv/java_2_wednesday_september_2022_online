@@ -1,5 +1,7 @@
 package myApp.consoleUI;
+import myApp.core.domain.BankAccount;
 import myApp.core.requests.Ordering;
+import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.SearchBankAccountService;
@@ -23,14 +25,22 @@ public class SearchBankAccountUIAction implements UIAction {
         String surname = scanner.nextLine();
         System.out.println("Enter personal code: ");
         String personalCode = scanner.nextLine();
+
         System.out.println("Order by 1)name | 2)surname | 3)personal code");
         System.out.println("Enter number: ");
         String orderBy = userAnswerOrderBy(scanner.nextLine());
+
         System.out.println("Enter order direction 1)ASCENDING | 2)DESCENDING: ");
         System.out.println("Enter number: ");
         String orderDirection = userAnswerOrderDirection(scanner.nextLine());
         Ordering order = new Ordering(orderBy, orderDirection);
-        SearchBankAccountRequest request = new SearchBankAccountRequest(name, surname, personalCode, order);
+
+        System.out.println("Enter page number: ");
+        int pageNumber = scanner.nextInt();
+        System.out.println("Enter page size: ");
+        int pageSize = scanner.nextInt();
+        Paging paging = new Paging(pageNumber, pageSize);
+        SearchBankAccountRequest request = new SearchBankAccountRequest(name, surname, personalCode, order, paging);
         SearchBankAccountResponse response = service.execute(request);
 
         if (response.hasErrors()) {

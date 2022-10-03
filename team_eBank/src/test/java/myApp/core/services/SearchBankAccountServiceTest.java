@@ -5,6 +5,7 @@ import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
 import myApp.core.requests.Ordering;
+import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.SearchBankAccountResponse;
@@ -29,6 +30,14 @@ class SearchBankAccountServiceTest {
                 Roles.Regular_user, "000-111"));
         dataBase.addBankAccount(new BankAccount("Example", "Example2", "password",
                 Roles.Regular_user, "000-112"));
+        dataBase.addBankAccount( new BankAccount("Example", "Example", "password",
+                Roles.Regular_user, "000-113"));
+        dataBase.addBankAccount( new BankAccount("Example", "Example", "password",
+                Roles.Regular_user, "000-114"));
+        dataBase.addBankAccount( new BankAccount("Example", "Example", "password",
+                Roles.Regular_user, "000-115"));
+        dataBase.addBankAccount( new BankAccount("Example", "Example", "password",
+                Roles.Regular_user, "000-116"));
         validator = new SearchBankAccountValidator();
         service = new SearchBankAccountService(dataBase, validator);
     }
@@ -118,6 +127,16 @@ class SearchBankAccountServiceTest {
         List<CoreError> errors = validator.validate(request);
         SearchBankAccountResponse response = service.execute(request);
         assertFalse(response.getBankAccounts().isEmpty());
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testShouldReturnTwoBankAccountPaging() {
+        SearchBankAccountRequest request = new SearchBankAccountRequest("Example", " ", " ",
+                new Ordering("personal code", "ASCENDING"), new Paging(2, 4));
+        List<CoreError> errors = validator.validate(request);
+        SearchBankAccountResponse response = service.execute(request);
+        assertEquals(2, response.getBankAccounts().size());
         assertTrue(errors.isEmpty());
     }
 
