@@ -9,5 +9,7 @@ public interface Database {
     boolean deleteById(Long id);
     Debtor getById(Long id);
     Debtor getByName(String name);
+    Debtor getByNameAndListItem(String name, String listItem);
+    List<Debtor> getByListItem(String listItem);
     List<Debtor> getAllDebtors();
 }

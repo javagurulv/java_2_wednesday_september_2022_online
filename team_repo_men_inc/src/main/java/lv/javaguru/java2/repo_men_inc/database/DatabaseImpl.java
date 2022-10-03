@@ -5,6 +5,7 @@ import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DatabaseImpl implements Database{
 
@@ -33,12 +34,31 @@ public class DatabaseImpl implements Database{
 
     @Override
     public Debtor getById(Long id) {
-        return debtors.stream().filter(debtor -> debtor.getId().equals(id)).findAny().orElse(null);
+        return debtors.stream()
+                .filter(debtor -> debtor.getId().equals(id))
+                .findAny().orElse(null);
     }
 
     @Override
     public Debtor getByName(String name) {
-        return debtors.stream().filter(debtor -> debtor.getName().equals(name)).findAny().orElse(null);
+        return debtors.stream()
+                .filter(debtor -> debtor.getName().equals(name))
+                .findAny().orElse(null);
+    }
+
+    @Override
+    public Debtor getByNameAndListItem(String name, String listItem) {
+        return debtors.stream()
+                .filter(debtor -> debtor.getName().equals(name))
+                .filter(debtor -> debtor.getList().contains(listItem))
+                .findAny().orElse(null);
+    }
+
+    @Override
+    public List<Debtor> getByListItem(String listItem) {
+        return debtors.stream()
+                .filter(debtor -> debtor.getList().contains(listItem))
+                .collect(Collectors.toList());
     }
 
     @Override
