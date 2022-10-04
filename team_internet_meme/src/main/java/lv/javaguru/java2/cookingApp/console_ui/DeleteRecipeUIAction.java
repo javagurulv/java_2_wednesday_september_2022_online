@@ -1,8 +1,8 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
-import lv.javaguru.java2.cookingApp.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.responses.DeleteRecipeResponse;
-import lv.javaguru.java2.cookingApp.services.DeleteRecipeService;
+import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.services.DeleteRecipeService;
 
 import java.util.Scanner;
 

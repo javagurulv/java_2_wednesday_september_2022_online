@@ -1,13 +1,13 @@
 package lv.javaguru.java2.cookingApp;
 
 import lv.javaguru.java2.cookingApp.console_ui.*;
-import lv.javaguru.java2.cookingApp.database.Database;
-import lv.javaguru.java2.cookingApp.database.InMemoryDatabaseImpl;
-import lv.javaguru.java2.cookingApp.services.*;
-import lv.javaguru.java2.cookingApp.services.validators.AddRecipeRequestValidator;
-import lv.javaguru.java2.cookingApp.services.validators.DeleteRecipeRequestValidator;
-import lv.javaguru.java2.cookingApp.services.validators.PrintRecipeToConsoleValidator;
-import lv.javaguru.java2.cookingApp.services.validators.SearchRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.cookingApp.core.services.*;
+import lv.javaguru.java2.cookingApp.core.services.validators.AddRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.core.services.validators.DeleteRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.core.services.validators.PrintRecipeToConsoleValidator;
+import lv.javaguru.java2.cookingApp.core.services.validators.SearchRecipeRequestValidator;
 
 import java.util.HashMap;
 import java.util.Map;

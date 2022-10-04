@@ -1,8 +1,8 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
-import lv.javaguru.java2.cookingApp.requests.SearchRecipeRequest;
-import lv.javaguru.java2.cookingApp.responses.SearchRecipeResponse;
-import lv.javaguru.java2.cookingApp.services.SearchRecipeService;
+import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
 
 import java.util.ArrayList;
 import java.util.List;
