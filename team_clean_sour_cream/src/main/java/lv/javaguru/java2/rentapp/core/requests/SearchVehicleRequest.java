@@ -2,9 +2,11 @@ package lv.javaguru.java2.rentapp.core.requests;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 @Getter
+@Setter
 @Builder
 public class SearchVehicleRequest {
 
