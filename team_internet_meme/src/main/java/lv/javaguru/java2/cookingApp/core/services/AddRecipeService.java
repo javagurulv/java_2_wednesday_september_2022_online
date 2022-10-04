@@ -1,7 +1,8 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.domain.Recipe;
+
 import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
@@ -14,7 +15,8 @@ import java.util.List;
 @DIComponent
 public class AddRecipeService {
 
-    @DIDependency private Database database;
+    @DIDependency
+    private Database database;
     @DIDependency private AddRecipeRequestValidator validator;
 
     public AddRecipeResponse execute(AddRecipeRequest request) {

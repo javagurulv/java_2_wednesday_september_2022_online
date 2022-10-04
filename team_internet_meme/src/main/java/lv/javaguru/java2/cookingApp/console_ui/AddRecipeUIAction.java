@@ -15,7 +15,8 @@ import java.util.Scanner;
 @DIComponent
 public class AddRecipeUIAction implements UIAction{
 
-    @DIDependency private AddRecipeService addRecipeService;
+    @DIDependency
+    private AddRecipeService addRecipeService;
 
     @Override
     public void execute() {

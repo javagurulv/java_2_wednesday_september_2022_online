@@ -11,7 +11,8 @@ import java.util.Scanner;
 @DIComponent
 public class DeleteRecipeUIAction implements UIAction {
 
-   @DIDependency private DeleteRecipeService deleteRecipeService;
+   @DIDependency
+   private DeleteRecipeService deleteRecipeService;
 
     @Override
     public void execute() {

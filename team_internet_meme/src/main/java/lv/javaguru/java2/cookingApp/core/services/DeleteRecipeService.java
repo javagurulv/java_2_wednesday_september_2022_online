@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
+
 import lv.javaguru.java2.cookingApp.core.database.Database;
 import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
@@ -12,8 +13,10 @@ import java.util.List;
 
 @DIComponent
 public class DeleteRecipeService {
-    @DIDependency private Database database;
-    @DIDependency private DeleteRecipeRequestValidator validator;
+    @DIDependency
+    private Database database;
+    @DIDependency
+    private DeleteRecipeRequestValidator validator;
 
 
     public DeleteRecipeResponse execute(DeleteRecipeRequest request) {

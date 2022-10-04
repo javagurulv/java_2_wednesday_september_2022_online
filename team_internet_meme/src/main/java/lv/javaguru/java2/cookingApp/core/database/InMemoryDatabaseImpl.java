@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.core.database;
 
+
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
 import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;

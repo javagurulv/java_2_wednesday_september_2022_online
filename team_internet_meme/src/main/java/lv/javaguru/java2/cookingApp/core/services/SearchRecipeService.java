@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
+
 import lv.javaguru.java2.cookingApp.core.database.Database;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
@@ -18,7 +19,8 @@ import java.util.List;
 @DIComponent
 public class SearchRecipeService {
 
-    @DIDependency private Database database;
+    @DIDependency
+    private Database database;
     @DIDependency private SearchRecipeRequestValidator validator;
 
     public SearchRecipeResponse execute(SearchRecipeRequest request) {

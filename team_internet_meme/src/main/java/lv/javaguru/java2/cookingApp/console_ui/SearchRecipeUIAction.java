@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
+
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
@@ -13,7 +14,8 @@ import java.util.Scanner;
 @DIComponent
 public class SearchRecipeUIAction implements UIAction {
 
-    @DIDependency private SearchRecipeService searchRecipeService;
+    @DIDependency
+    private SearchRecipeService searchRecipeService;
 
     @Override
     public void execute() {

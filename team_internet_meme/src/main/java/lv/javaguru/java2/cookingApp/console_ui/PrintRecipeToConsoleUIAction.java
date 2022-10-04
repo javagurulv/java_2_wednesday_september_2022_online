@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
+
 import lv.javaguru.java2.cookingApp.core.requests.PrintRecipeToConsoleRequest;
 import lv.javaguru.java2.cookingApp.core.responses.PrintRecipeToConsoleResponse;
 import lv.javaguru.java2.cookingApp.core.services.PrintRecipeToConsoleService;
@@ -11,7 +12,8 @@ import java.util.Scanner;
 @DIComponent
 public class PrintRecipeToConsoleUIAction implements UIAction{
 
-    @DIDependency private PrintRecipeToConsoleService printRecipeToConsoleService;
+    @DIDependency
+    private PrintRecipeToConsoleService printRecipeToConsoleService;
 
     @Override
     public void execute() {
