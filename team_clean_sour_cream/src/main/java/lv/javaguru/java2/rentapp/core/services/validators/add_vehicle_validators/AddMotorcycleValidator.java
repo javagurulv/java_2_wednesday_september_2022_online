@@ -12,7 +12,8 @@ import java.util.Optional;
 
 public class AddMotorcycleValidator extends AddVehicleValidator {
 
-    public static final int MAX_PASSENGER_AMOUNT = 4;
+    public static final int MOTO_MAX_PASSENGER_AMOUNT = 4;
+    public static final int MOTO_MIN_PASSENGER_AMOUNT = 1;
     private Database database;
 
     public AddMotorcycleValidator(Database database) {
@@ -37,8 +38,8 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
         Integer passengerAmount = request.getPassengerAmount();
         if (passengerAmount == null || passengerAmount <= 0) {
             return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
-        } else if (passengerAmount > MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MAX_PASSENGER_AMOUNT));
+        } else if (passengerAmount > MOTO_MAX_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MOTO_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }

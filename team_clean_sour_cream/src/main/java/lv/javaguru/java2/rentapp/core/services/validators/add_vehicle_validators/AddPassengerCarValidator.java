@@ -12,9 +12,11 @@ import java.util.Optional;
 
 public class AddPassengerCarValidator extends AddVehicleValidator {
 
-    public static final int MAX_PASSENGER_AMOUNT = 100;
-    public static final int MAX_BAGGAGE_AMOUNT = 100;
-    public static final int MAX_DOORS_AMOUNT = 10;
+    public static final int CAR_MAX_PASSENGER_AMOUNT = 7;
+    public static final int CAR_MIN_PASSENGER_AMOUNT = 1;
+    public static final int CAR_MAX_BAGGAGE_AMOUNT = 10;
+    public static final int CAR_MAX_DOORS_AMOUNT = 5;
+    public static final int CAR_MIN_DOORS_AMOUNT = 2;
     private Database database;
 
     public AddPassengerCarValidator(Database database) {
@@ -40,10 +42,10 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
 
     protected Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
-        if (passengerAmount == null || passengerAmount <= 0) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
-        } else if (passengerAmount > MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MAX_PASSENGER_AMOUNT));
+        if (passengerAmount == null || passengerAmount < CAR_MIN_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or less than " + CAR_MIN_PASSENGER_AMOUNT));
+        } else if (passengerAmount > CAR_MAX_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + CAR_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -53,8 +55,8 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         Integer baggageAmount = request.getBaggageAmount();
         if (baggageAmount == null || baggageAmount < 0) {
             return Optional.of(new CoreError("Baggage amount", "cannot be empty or negative"));
-        } else if (baggageAmount > MAX_BAGGAGE_AMOUNT) {
-            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + MAX_BAGGAGE_AMOUNT));
+        } else if (baggageAmount > CAR_MAX_BAGGAGE_AMOUNT) {
+            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + CAR_MAX_BAGGAGE_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -64,8 +66,8 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         Integer doorsAmount = request.getDoorsAmount();
         if (doorsAmount == null || doorsAmount <= 0) {
             return Optional.of(new CoreError("Doors amount", "cannot be empty, negative or 0"));
-        } else if (doorsAmount > MAX_DOORS_AMOUNT) {
-            return Optional.of(new CoreError("Doors amount", "cannot be more than " + MAX_DOORS_AMOUNT));
+        } else if (doorsAmount > CAR_MAX_DOORS_AMOUNT) {
+            return Optional.of(new CoreError("Doors amount", "cannot be more than " + CAR_MAX_DOORS_AMOUNT));
         } else {
             return Optional.empty();
         }

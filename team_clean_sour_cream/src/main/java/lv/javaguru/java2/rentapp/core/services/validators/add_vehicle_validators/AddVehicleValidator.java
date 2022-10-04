@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public abstract class AddVehicleValidator {
 
-    public static final int CURRENT_YEAR_BACKWARD_REDUCER = 100;
+    public static final int MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER = 100;
 
     public abstract List<CoreError> validate(AddVehicleRequest request);
 
@@ -32,7 +32,7 @@ public abstract class AddVehicleValidator {
 
     protected Optional<CoreError> validateYearOfProduction(AddVehicleRequest request) {
         Integer yearOfProduction = request.getYearOfProduction();
-        int minYear = LocalDate.now().getYear() - CURRENT_YEAR_BACKWARD_REDUCER;
+        int minYear = LocalDate.now().getYear() - MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
         int currentYear = LocalDate.now().getYear();
         if (yearOfProduction == null) {
             return Optional.of(new CoreError("YearOfProduction", "cannot be empty"));

@@ -65,7 +65,7 @@ class AddMiniBusValidatorTest {
 
     @Test
     void testValidatePassengerAmountShouldReturnNoErrors() {
-        Integer passengerAmount = MAX_PASSENGER_AMOUNT;
+        Integer passengerAmount = BUS_MAX_PASSENGER_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -102,17 +102,17 @@ class AddMiniBusValidatorTest {
 
     @Test
     void testValidatePassengerAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer passengerAmount = MAX_PASSENGER_AMOUNT + 1;
+        Integer passengerAmount = BUS_MAX_PASSENGER_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Passenger amount", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_PASSENGER_AMOUNT, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + BUS_MAX_PASSENGER_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateBaggageAmountShouldReturnNoErrors() {
-        Integer baggageAmount = MAX_BAGGAGE_AMOUNT;
+        Integer baggageAmount = BUS_MAX_BAGGAGE_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -139,18 +139,18 @@ class AddMiniBusValidatorTest {
 
     @Test
     void testValidateBaggageAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer baggageAmount = MAX_BAGGAGE_AMOUNT + 1;
+        Integer baggageAmount = BUS_MAX_BAGGAGE_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Baggage amount", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_BAGGAGE_AMOUNT, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + BUS_MAX_BAGGAGE_AMOUNT, errorOptional.get().getMessage());
     }
 
 
     @Test
     void testValidateDoorsAmountShouldReturnNoErrors() {
-        Integer doorsAmount = MAX_DOORS_AMOUNT;
+        Integer doorsAmount = BUS_MAX_DOORS_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
         Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -158,12 +158,12 @@ class AddMiniBusValidatorTest {
 
     @Test
     void testValidateDoorsAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer doorsAmount = MAX_DOORS_AMOUNT + 1;
+        Integer doorsAmount = BUS_MAX_DOORS_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
         Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Doors amount", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_DOORS_AMOUNT, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + BUS_MAX_DOORS_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test

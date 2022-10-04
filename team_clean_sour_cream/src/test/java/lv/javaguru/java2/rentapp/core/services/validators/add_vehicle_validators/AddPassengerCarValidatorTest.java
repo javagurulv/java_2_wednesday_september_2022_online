@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.*;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.CURRENT_YEAR_BACKWARD_REDUCER;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -153,7 +153,7 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateYearOfProductionLessThanMinAllowedYearShouldReturnError() {
-        int minYear = LocalDate.now().getYear() - CURRENT_YEAR_BACKWARD_REDUCER;
+        int minYear = LocalDate.now().getYear() - MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
         Integer year = minYear - 1;
         AddVehicleRequest request = AddVehicleRequest.builder().yearOfProduction(year).build();
         Optional<CoreError> errorOptional = validator.validateYearOfProduction(request);
@@ -418,7 +418,7 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidatePassengerAmountShouldReturnNoErrors() {
-        Integer passengerAmount = MAX_PASSENGER_AMOUNT;
+        Integer passengerAmount = CAR_MAX_PASSENGER_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -455,17 +455,17 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidatePassengerAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer passengerAmount = MAX_PASSENGER_AMOUNT + 1;
+        Integer passengerAmount = CAR_MAX_PASSENGER_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Passenger amount", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_PASSENGER_AMOUNT, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CAR_MAX_PASSENGER_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateBaggageAmountShouldReturnNoErrors() {
-        Integer baggageAmount = MAX_BAGGAGE_AMOUNT;
+        Integer baggageAmount = CAR_MAX_BAGGAGE_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -493,17 +493,17 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateBaggageAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer baggageAmount = MAX_BAGGAGE_AMOUNT + 1;
+        Integer baggageAmount = CAR_MAX_BAGGAGE_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().baggageAmount(baggageAmount).build();
         Optional<CoreError> errorOptional = validator.validateBaggageAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Baggage amount", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_BAGGAGE_AMOUNT, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CAR_MAX_BAGGAGE_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateDoorsAmountShouldReturnNoErrors() {
-        Integer doorsAmount = MAX_DOORS_AMOUNT;
+        Integer doorsAmount = CAR_MAX_DOORS_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
         Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -541,12 +541,12 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateDoorsAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer doorsAmount = MAX_DOORS_AMOUNT + 1;
+        Integer doorsAmount = CAR_MAX_DOORS_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().doorsAmount(doorsAmount).build();
         Optional<CoreError> errorOptional = validator.validateDoorsAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Doors amount", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_DOORS_AMOUNT, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CAR_MAX_DOORS_AMOUNT, errorOptional.get().getMessage());
     }
 
     @Test

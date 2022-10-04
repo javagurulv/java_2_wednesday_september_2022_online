@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddMotorcycleValidator.MAX_PASSENGER_AMOUNT;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddMotorcycleValidator.MOTO_MAX_PASSENGER_AMOUNT;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddMotorcycleValidatorTest {
@@ -65,7 +65,7 @@ class AddMotorcycleValidatorTest {
 
     @Test
     void testValidatePassengerAmountShouldReturnNoErrors() {
-        Integer passengerAmount = MAX_PASSENGER_AMOUNT;
+        Integer passengerAmount = MOTO_MAX_PASSENGER_AMOUNT;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isEmpty());
@@ -102,11 +102,11 @@ class AddMotorcycleValidatorTest {
 
     @Test
     void testValidatePassengerAmountMoreThanMaxAllowedShouldReturnError() {
-        Integer passengerAmount = MAX_PASSENGER_AMOUNT + 1;
+        Integer passengerAmount = MOTO_MAX_PASSENGER_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
         Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
         assertTrue(errorOptional.isPresent());
         assertEquals(errorOptional.get().getField(), "Passenger amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + MAX_PASSENGER_AMOUNT);
+        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + MOTO_MAX_PASSENGER_AMOUNT);
     }
 }
