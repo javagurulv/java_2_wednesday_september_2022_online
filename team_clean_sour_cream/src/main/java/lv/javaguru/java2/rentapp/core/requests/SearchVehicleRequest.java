@@ -19,4 +19,6 @@ public class SearchVehicleRequest {
     private Integer emptyWeightInKg;
     private Integer maxLoadWeightInKg;
 
+    private Ordering ordering;
+
 }

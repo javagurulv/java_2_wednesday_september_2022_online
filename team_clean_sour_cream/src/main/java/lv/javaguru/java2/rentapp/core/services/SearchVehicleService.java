@@ -1,13 +1,16 @@
 package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchVehicleService {
 
@@ -20,9 +23,24 @@ public class SearchVehicleService {
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
 
         SearchCriteria andCriteria = getSearchCriteria(request);
-        List<Vehicle> response = database.search(andCriteria);
-        return new SearchVehicleResponse(response, null);
+        List<Vehicle> vehicles = database.search(andCriteria);
 
+        vehicles = order(vehicles, request.getOrdering());
+        return new SearchVehicleResponse(vehicles, null);
+    }
+
+    private List<Vehicle> order(List<Vehicle> vehicles, Ordering ordering) {
+        if (ordering != null) {
+            Comparator<Vehicle> comparator = ordering.getOrderBy().equalsIgnoreCase("price")
+                    ? Comparator.comparing(Vehicle::getRentPricePerDay)
+                    : Comparator.comparing(Vehicle::getYearOfProduction);
+            if (ordering.getOrderDirection().equalsIgnoreCase("DESCENDING")) {
+                comparator = comparator.reversed();
+            }
+            return vehicles.stream().sorted(comparator).collect(Collectors.toList());
+        } else {
+            return vehicles;
+        }
     }
 
     private SearchCriteria getSearchCriteria(SearchVehicleRequest request) {
