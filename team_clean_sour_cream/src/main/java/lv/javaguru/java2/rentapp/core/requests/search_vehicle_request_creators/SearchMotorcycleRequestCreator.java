@@ -21,31 +21,36 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
         List<String> criteria = motorcycleSearchCriteriaFields();
 
         while (addAnotherCriteria) {
+            try {
+                System.out.println();
+                System.out.println("""
+                        Add another criteria for search?
+                        1. Yes
+                        2. No""");
+                System.out.println();
 
-            System.out.println();
-            System.out.println("""
-                    Add another criteria for search?
-                    1. Yes
-                    2. No""");
-            System.out.println();
+                int userChoice = Integer.parseInt(scanner.nextLine());
 
-            int userChoice = Integer.parseInt(scanner.nextLine());
+                if (userChoice == 1) {
 
-            if (userChoice == 1) {
+                    for (int i = 0; i < criteria.size(); i++) {
+                        System.out.println(i + 1 + " " + criteria.get(i));
+                    }
 
-                for (int i = 0; i < criteria.size(); i++) {
-                    System.out.println(i + 1 + " " + criteria.get(i));
+                    int criteriaChoice = Integer.parseInt(scanner.nextLine());
+
+                    switch (criteria.get(criteriaChoice - 1)) {
+                        case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
+                        case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
+                    }
                 }
-
-                int criteriaChoice = Integer.parseInt(scanner.nextLine());
-
-                switch (criteria.get(criteriaChoice - 1)) {
-                    case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
-                    case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
+                if (userChoice == 2) {
+                    addAnotherCriteria = false;
+                } else {
+                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 2)");
                 }
-            }
-            if (userChoice == 2) {
-                addAnotherCriteria = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: You must enter a number!");
             }
         }
         return searchVehicleRequestBuilder.build();

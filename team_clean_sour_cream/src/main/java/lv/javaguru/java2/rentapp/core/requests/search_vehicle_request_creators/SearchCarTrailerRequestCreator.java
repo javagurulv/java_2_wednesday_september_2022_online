@@ -21,68 +21,78 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
         List<String> criteria = carTrailerSearchCriteriaFields();
 
         while (addAnotherCriteria) {
+            try {
+                System.out.println();
+                System.out.println("""
+                        Add another criteria for search?
+                        1. Yes
+                        2. No""");
+                System.out.println();
 
-            System.out.println();
-            System.out.println("""
-                    Add another criteria for search?
-                    1. Yes
-                    2. No""");
-            System.out.println();
+                int userChoice = Integer.parseInt(scanner.nextLine());
 
-            int userChoice = Integer.parseInt(scanner.nextLine());
+                if (userChoice == 1) {
 
-            if (userChoice == 1) {
+                    for (int i = 0; i < criteria.size(); i++) {
+                        System.out.println(i + 1 + " " + criteria.get(i));
+                    }
 
-                for (int i = 0; i < criteria.size(); i++) {
-                    System.out.println(i + 1 + " " + criteria.get(i));
+                    int criteriaChoice = Integer.parseInt(scanner.nextLine());
+
+                    switch (criteria.get(criteriaChoice - 1)) {
+                        case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
+                        case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
+                        case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
+                        case "Empty weight in kg" -> askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
+                        case "Max load weight in kg" -> askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
+                    }
                 }
-
-                int criteriaChoice = Integer.parseInt(scanner.nextLine());
-
-                switch (criteria.get(criteriaChoice - 1)) {
-                    case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
-                    case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
-                    case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
-                    case "Empty weight in kg" -> askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
-                    case "Max load weight in kg" -> askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
+                if (userChoice == 2) {
+                    addAnotherCriteria = false;
+                } else {
+                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 2)");
                 }
-            }
-            if (userChoice == 2) {
-                addAnotherCriteria = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: You must enter a number!");
             }
         }
         return searchVehicleRequestBuilder.build();
     }
 
-    private void askDeckWidthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+    private void askDeckWidthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                          searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter deck width in cm: ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckWidthInCm(deckWidthInCm);
         criteria.remove("Deck width in cm");
     }
 
-    private void askDeckLengthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+    private void askDeckLengthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                           searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter deck length in cm: ");
         Integer deckLengthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckLengthInCm(deckLengthInCm);
         criteria.remove("Deck length in cm");
     }
 
-    private void askDeckHeightInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+    private void askDeckHeightInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                           searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter deck height in cm: ");
         Integer deckHeightInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckHeightInCm(deckHeightInCm);
         criteria.remove("Deck height in cm");
     }
 
-    private void askEmptyWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+    private void askEmptyWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                            searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter empty weight in kg: ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.emptyWeightInKg(deckWidthInCm);
         criteria.remove("Empty weight in kg");
     }
 
-    private void askMaxLoadWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+    private void askMaxLoadWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                              searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter max load in kg: ");
         Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.maxLoadWeightInKg(maxLoadWeightInKg);
