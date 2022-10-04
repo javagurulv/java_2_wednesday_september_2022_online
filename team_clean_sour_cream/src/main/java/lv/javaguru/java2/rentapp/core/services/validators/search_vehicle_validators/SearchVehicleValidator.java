@@ -50,6 +50,6 @@ public abstract class SearchVehicleValidator {
 
     protected boolean areEnumValuesValid(List<String> enumVehicleTypeValues, String vehicleType) {
         return enumVehicleTypeValues.stream()
-                .anyMatch(enumVehicleTypeValue -> enumVehicleTypeValue.equalsIgnoreCase(vehicleType.replaceAll("[^a-zA-Z]", "")));
+                .anyMatch(enumVehicleTypeValue -> enumVehicleTypeValue.equalsIgnoreCase(vehicleType));
     }
 }
