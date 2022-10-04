@@ -26,8 +26,12 @@ public abstract class SearchVehicleValidator {
 
     protected Optional<CoreError> validateTransmissionType(SearchVehicleRequest request) {
         List<String> enumTransmissionTypeValues = TransmissionType.getAllEnumValues();
-        String transmissionType = request.getTransmissionType();
-        if (transmissionType == null || transmissionType.isBlank()) {
+        Optional<String> transmissionTypeOpt = Optional.ofNullable(request.getTransmissionType());
+        if (transmissionTypeOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        String transmissionType = transmissionTypeOpt.get();
+        if (transmissionType.isBlank()) {
             return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
         } else if (areEnumValuesValid(enumTransmissionTypeValues, transmissionType)) {
             return Optional.empty();
