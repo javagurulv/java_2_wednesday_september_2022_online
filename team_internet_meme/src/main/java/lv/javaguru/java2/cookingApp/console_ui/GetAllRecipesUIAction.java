@@ -2,13 +2,13 @@ package lv.javaguru.java2.cookingApp.console_ui;
 
 import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
 import lv.javaguru.java2.cookingApp.core.services.GetAllRecipesService;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
+@DIComponent
 public class GetAllRecipesUIAction implements UIAction {
-    private GetAllRecipesService getAllRecipesService;
+    @DIDependency private GetAllRecipesService getAllRecipesService;
 
-    public GetAllRecipesUIAction(GetAllRecipesService getAllRecipesService) {
-        this.getAllRecipesService = getAllRecipesService;
-    }
 
     @Override
     public void execute() {

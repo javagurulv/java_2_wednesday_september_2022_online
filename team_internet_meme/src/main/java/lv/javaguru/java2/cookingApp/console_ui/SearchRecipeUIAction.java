@@ -3,18 +3,17 @@ package lv.javaguru.java2.cookingApp.console_ui;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@DIComponent
 public class SearchRecipeUIAction implements UIAction {
 
-    private SearchRecipeService searchRecipeService;
-
-    public SearchRecipeUIAction(SearchRecipeService searchRecipeService) {
-        this.searchRecipeService = searchRecipeService;
-    }
+    @DIDependency private SearchRecipeService searchRecipeService;
 
     @Override
     public void execute() {

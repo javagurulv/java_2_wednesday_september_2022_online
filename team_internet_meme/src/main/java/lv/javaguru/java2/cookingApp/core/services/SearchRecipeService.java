@@ -9,19 +9,17 @@ import lv.javaguru.java2.cookingApp.core.services.search_criteria.AndSearchCrite
 import lv.javaguru.java2.cookingApp.core.services.search_criteria.IngredientNameCriteria;
 import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
 import lv.javaguru.java2.cookingApp.core.services.validators.SearchRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@DIComponent
 public class SearchRecipeService {
 
-    private Database database;
-    private SearchRecipeRequestValidator validator;
-
-    public SearchRecipeService(Database database, SearchRecipeRequestValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+    @DIDependency private Database database;
+    @DIDependency private SearchRecipeRequestValidator validator;
 
     public SearchRecipeResponse execute(SearchRecipeRequest request) {
 

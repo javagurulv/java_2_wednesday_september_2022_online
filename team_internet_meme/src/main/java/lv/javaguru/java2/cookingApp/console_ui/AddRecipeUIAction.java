@@ -5,17 +5,17 @@ import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@DIComponent
 public class AddRecipeUIAction implements UIAction{
-    private AddRecipeService addRecipeService;
 
-    public AddRecipeUIAction(AddRecipeService addRecipeService) {
-        this.addRecipeService = addRecipeService;
-    }
+    @DIDependency private AddRecipeService addRecipeService;
 
     @Override
     public void execute() {

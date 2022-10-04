@@ -5,17 +5,16 @@ import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.validators.DeleteRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.List;
 
+@DIComponent
 public class DeleteRecipeService {
-    private Database database;
-    private DeleteRecipeRequestValidator validator;
+    @DIDependency private Database database;
+    @DIDependency private DeleteRecipeRequestValidator validator;
 
-    public DeleteRecipeService(Database database, DeleteRecipeRequestValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
 
     public DeleteRecipeResponse execute(DeleteRecipeRequest request) {
         List<CoreError> errors = validator.validate(request);

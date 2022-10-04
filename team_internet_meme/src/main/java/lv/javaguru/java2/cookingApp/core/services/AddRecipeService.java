@@ -6,18 +6,16 @@ import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.services.validators.AddRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.List;
 
-
+@DIComponent
 public class AddRecipeService {
-    private Database database;
-    private AddRecipeRequestValidator validator;
 
-    public AddRecipeService(Database database, AddRecipeRequestValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+    @DIDependency private Database database;
+    @DIDependency private AddRecipeRequestValidator validator;
 
     public AddRecipeResponse execute(AddRecipeRequest request) {
         List<CoreError> errors = validator.validate(request);

@@ -6,18 +6,17 @@ import lv.javaguru.java2.cookingApp.core.requests.PrintRecipeToConsoleRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.PrintRecipeToConsoleResponse;
 import lv.javaguru.java2.cookingApp.core.services.validators.PrintRecipeToConsoleValidator;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.List;
 
-
+@DIComponent
 public class PrintRecipeToConsoleService {
-    private Database database;
-    private PrintRecipeToConsoleValidator validator;
 
-    public PrintRecipeToConsoleService(Database database, PrintRecipeToConsoleValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+    @DIDependency private Database database;
+    @DIDependency private PrintRecipeToConsoleValidator validator;
+
 
     public PrintRecipeToConsoleResponse execute(PrintRecipeToConsoleRequest request) {
         List<CoreError> errors = validator.validate(request);
