@@ -5,6 +5,7 @@ import lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators.S
 import lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators.SearchVehicleRequestCreator;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -14,17 +15,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class SearchVehicleValidatorTest {
 
     SearchVehicleValidator searchVehicleValidator;
-    SearchVehicleRequest searchVehicleRequest;
-    SearchVehicleRequestCreator searchVehicleRequestCreator;
+
+    @BeforeEach
+    void setup() {
+        searchVehicleValidator = new SearchPassengerCarValidator();
+    }
 
 
     @Test
     void validateVehicleType() {
-        searchVehicleRequestCreator = new SearchPassengerCarRequestCreator();
-        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR);
-        searchVehicleRequest = searchVehicleRequestBuilder.build();
-        searchVehicleValidator = new SearchPassengerCarValidator();
-        Optional<CoreError> coreError = searchVehicleValidator.validateVehicleType(searchVehicleRequest);
+
+        SearchVehicleRequest request = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).build();
+        Optional<CoreError> coreError = searchVehicleValidator.validateVehicleType(request);
         assertTrue(coreError.isEmpty());
     }
 }
