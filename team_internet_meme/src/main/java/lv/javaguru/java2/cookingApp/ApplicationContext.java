@@ -33,7 +33,6 @@ public class ApplicationContext {
         beans.put(PrintRecipeToConsoleUIAction.class, new PrintRecipeToConsoleUIAction(getBean(PrintRecipeToConsoleService.class)));
         beans.put(SearchRecipeUIAction.class, new SearchRecipeUIAction(getBean(SearchRecipeService.class)));
         beans.put(ExitUIAction.class, new ExitUIAction());
-        beans.put(UIActionMap.class, new UIActionMap());
     }
 
     public <T extends Object> T getBean(Class c) {

@@ -5,8 +5,7 @@ import lv.javaguru.java2.cookingApp.console_ui.*;
 import java.util.Scanner;
 
 public class CookingApplication {
-    private static ApplicationContext applicationContext = new ApplicationContext();
-    private static UIActionMap actionMap = applicationContext.getBean(UIActionMap.class);
+    private static UIActionMap actionMap = new UIActionMap();
 
     public static void main(String[] args) {
 
