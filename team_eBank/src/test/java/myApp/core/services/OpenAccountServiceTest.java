@@ -1,5 +1,4 @@
 package myApp.core.services;
-
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.domain.BankAccount;
@@ -8,47 +7,46 @@ import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.validators.OpenAccountValidator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-class OpenAccountServiceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class OpenAccountServiceTest {
 
+    @Mock
     private DataBase dataBase;
+    @Mock
     private OpenAccountValidator validator;
+    @InjectMocks
     private OpenAccountService service;
 
-    @BeforeEach
-    void setUp() {
-        dataBase = new InMemoryDatabaseImpl();
-        validator = new OpenAccountValidator();
-        service = new OpenAccountService(dataBase, validator);
-        BankAccount bankAccountOne = new BankAccount("Example1", "Example2","password",
-                Roles.Regular_user, "000-001");
-        BankAccount bankAccountTwo = new BankAccount("Example2", "Example3","password",
-                Roles.Regular_user, "000-002");
-        dataBase.addBankAccount(bankAccountOne);
-        dataBase.addBankAccount(bankAccountTwo);
-    }
-
     @Test
-    void testExecuteWithoutErrors() {
+    public void testExecuteWithoutErrors() {
         OpenAccountRequest request = new OpenAccountRequest("000-001");
-        List<CoreError> errors = validator.validate(request);
+        when(validator.validate(request)).thenReturn(List.of());
         OpenAccountResponse response = service.execute(request);
-        assertTrue(errors.isEmpty());
-        assertTrue(response.isCompleted());
+        assertFalse(response.hasErrors());
+        verify(dataBase).openAccount("000-001");
     }
 
     @Test
-    void testExecuteWithErrors() {
+    public void testExecuteWithErrors() {
         OpenAccountRequest request = new OpenAccountRequest(null);
-        List<CoreError> errors = validator.validate(request);
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
+                "personal code must not be empty")));
         OpenAccountResponse response = service.execute(request);
-        assertFalse(errors.isEmpty());
+        assertTrue(response.hasErrors());
         assertFalse(response.isCompleted());
     }
+
 }

@@ -66,8 +66,8 @@ public class UIActionMap {
         return uiActionMap.get(userChoice);
     }
 
-    public boolean isUserAdmin(String personalCode) {
-        return userAreAdminService.isUserAreAdmin(personalCode);
+    public boolean isUserAdmin() {
+        return userAreAdminService.isUserAreAdmin(userService.getPersonalCode());
     }
 
     public String getPersonalCode() {

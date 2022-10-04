@@ -17,10 +17,17 @@ class BankAccountApplication {
         logIn();
         while (true) {
             String personalCode = uiActionMap.getPersonalCode();
-            if (isUserAdmin(personalCode)) {
-                ifAdminLogin(personalCode);
+            if (personalCode == null || personalCode.isEmpty()) {
+                System.out.println();
+                System.out.println("User not found");
+                System.out.println();
+                logIn();
             } else {
-                ifUserLogin(personalCode);
+                if (isUserAdmin()) {
+                    ifAdminLogin(personalCode);
+                } else {
+                    ifUserLogin(personalCode);
+                }
             }
         }
     }
@@ -63,12 +70,12 @@ class BankAccountApplication {
         uiActionMap.logIn();
     }
 
-    private static boolean isUserAdmin(String personalCode) {
-        return uiActionMap.isUserAdmin(personalCode);
+    private static boolean isUserAdmin() {
+        return uiActionMap.isUserAdmin();
     }
 
     private static void userSelectionResult(int userChoice, String personalCode) {
-        if (isUserAdmin(personalCode)) {
+        if (isUserAdmin()) {
             UIAction result = uiActionMap.userSelectionForAdmin(userChoice);
             result.execute();
         } else {

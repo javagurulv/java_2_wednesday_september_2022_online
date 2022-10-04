@@ -1,29 +1,43 @@
 package myApp.core.services;
 
 import myApp.core.database.DataBase;
-import myApp.core.database.InMemoryDatabaseImpl;
+import myApp.core.requests.LogInRequest;
+import myApp.core.requests.SwitchUserRequest;
+import myApp.core.responses.LogInResponse;
+import myApp.core.responses.SwitchUserResponse;
 import myApp.core.services.validators.LogInValidator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-class SwitchUserServiceTest {
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-    DataBase dataBase;
-    UserService service;
-    SwitchUserService switchUserService;
+@RunWith(MockitoJUnitRunner.class)
+public class SwitchUserServiceTest {
 
-    @BeforeEach
-    void setUp() {
-        dataBase = new InMemoryDatabaseImpl();
-        service = new UserService(dataBase);
-        switchUserService = new SwitchUserService(service, new LogInService(dataBase,service, new LogInValidator()));
-    }
+    @Mock
+    private DataBase dataBase;
+    @InjectMocks
+    private LogInService logInService;
+    @Mock
+    private LogInValidator validator;
+    @Mock
+    private UserService service;
+    @Mock
+    private SwitchUserService switchUserService;
 
     @Test
-    void testSwitchUser() {
-        String personalCode = service.logIn("111-317", "password");
-        String actualResult = switchUserService.execute("01", "password");
-        assertNotEquals(personalCode, actualResult);
+    public void testSwitchUser() {
+        LogInRequest request = new LogInRequest("000-111", "password");
+        LogInResponse response = logInService.execute(request);
+        SwitchUserRequest switchUserRequest = new SwitchUserRequest("01", "password");
+        String switchUserResponse = switchUserService.execute(switchUserRequest);
+        assertNotEquals(switchUserResponse, response.getPersonalCode());
+        assertFalse(response.hasErrors());
     }
 }
