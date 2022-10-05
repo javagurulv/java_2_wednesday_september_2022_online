@@ -21,6 +21,10 @@ public class SearchRecipeService {
 
     @DIDependency
     private Database database;
+
+	@DIDependency
+	private SearchCriteriaBuilder searchCriteriaBuilder;
+
     @DIDependency private SearchRecipeRequestValidator validator;
 
     public SearchRecipeResponse execute(SearchRecipeRequest request) {
@@ -30,29 +34,9 @@ public class SearchRecipeService {
             return new SearchRecipeResponse(coreErrors, null);
         }
 
-        SearchCriteria searchCriteria = createSearchCriteria(request);
+        SearchCriteria searchCriteria = searchCriteriaBuilder.build(request);
         List<Recipe> recipes = database.find(searchCriteria);
         return new SearchRecipeResponse(null, recipes);
     }
 
-
-    protected SearchCriteria createSearchCriteria(SearchRecipeRequest request) {
-        List<String> ingredients = request.getIngredientNameList();
-        int numberOfIngredients = ingredients.size();
-        List<SearchCriteria> searchCriteria = new ArrayList<>();
-        for (String ingredient : ingredients) {
-            searchCriteria.add(new IngredientNameCriteria(ingredient));
-        }
-        if (numberOfIngredients == 1) {
-            return searchCriteria.get(0);
-        } else {
-            AndSearchCriteria andSearchCriteria = new AndSearchCriteria(searchCriteria.get(0), searchCriteria.get(1));
-            int i = 2;
-            while (i < numberOfIngredients) {
-                andSearchCriteria = new AndSearchCriteria(andSearchCriteria, searchCriteria.get(i));
-                i++;
-            }
-            return andSearchCriteria;
-        }
-    }
 }
