@@ -17,24 +17,31 @@ class BankAccountApplication {
         logIn();
         while (true) {
             String personalCode = uiActionMap.getPersonalCode();
-            if (isUserAdmin(personalCode)) {
-                ifAdminLogin(personalCode);
+            if (personalCode == null || personalCode.isEmpty()) {
+                System.out.println();
+                System.out.println("User not found");
+                System.out.println();
+                logIn();
             } else {
-                ifUserLogin(personalCode);
+                if (isUserAdmin()) {
+                    ifAdminLogin();
+                } else {
+                    ifUserLogin();
+                }
             }
         }
     }
 
-    private static void ifAdminLogin(String personalCode) {
+    private static void ifAdminLogin() {
         printInformationForAdmin();
         int result = userChoice();
-        userSelectionResult(result, personalCode);
+        userSelectionResult(result);
     }
 
-    private static void ifUserLogin(String personalCode) {
+    private static void ifUserLogin() {
         printInformationForRegularUser();
         int result = userChoice();
-        userSelectionResult(result, personalCode);
+        userSelectionResult(result);
     }
 
     private static void printInformationForRegularUser() {
@@ -63,12 +70,12 @@ class BankAccountApplication {
         uiActionMap.logIn();
     }
 
-    private static boolean isUserAdmin(String personalCode) {
-        return uiActionMap.isUserAdmin(personalCode);
+    private static boolean isUserAdmin() {
+        return uiActionMap.isUserAdmin();
     }
 
-    private static void userSelectionResult(int userChoice, String personalCode) {
-        if (isUserAdmin(personalCode)) {
+    private static void userSelectionResult(int userChoice) {
+        if (isUserAdmin()) {
             UIAction result = uiActionMap.userSelectionForAdmin(userChoice);
             result.execute();
         } else {

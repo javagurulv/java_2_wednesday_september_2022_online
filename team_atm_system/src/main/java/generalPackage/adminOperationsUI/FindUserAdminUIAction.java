@@ -1,6 +1,6 @@
 package generalPackage.adminOperationsUI;
 
-import generalPackage.adminOperations.FindUserByIDServise;
+import generalPackage.adminOperations.FindUserByIDService;
 import generalPackage.adminRequests.FindUserByIDRequest;
 import generalPackage.adminResponses.FindByIDAccountResponse;
 
@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class FindUserAdminUIAction implements AdminUIactions {
 
-    private FindUserByIDServise findUserByIDServise;
+    private FindUserByIDService findUserByIDService;
 
-    public FindUserAdminUIAction(FindUserByIDServise findUserByIDServise) {
-        this.findUserByIDServise = findUserByIDServise;
+    public FindUserAdminUIAction(FindUserByIDService findUserByIDService) {
+        this.findUserByIDService = findUserByIDService;
     }
 
 
@@ -21,8 +21,13 @@ public class FindUserAdminUIAction implements AdminUIactions {
         System.out.println("Please enter user ID");
         int userID = scanner.nextInt();
         FindUserByIDRequest request = new FindUserByIDRequest(userID);
-        FindByIDAccountResponse response = findUserByIDServise.execute(request);
-     //   System.out.println(response.isAccountFound().getUserID());
-        System.out.println(response.isAccountFound());
+        FindByIDAccountResponse response = findUserByIDService.execute(request);
+        if (response.hasErrors()){
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Search error: " + coreError.getField() + " " + coreError.getMessage()));
+        }
+        else {
+            System.out.println(response.getAccountByID());
+        }
     }
 }

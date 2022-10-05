@@ -20,7 +20,7 @@ public class AddVehicleService {
 
     public AddVehicleService(Database database) {
         this.database = database;
-        this.vehicleCreatorMap = new VehicleCreatorMap(database);
+        this.vehicleCreatorMap = new VehicleCreatorMap();
         this.vehicleValidatorMap = new AddVehicleValidatorMap(database);
     }
 

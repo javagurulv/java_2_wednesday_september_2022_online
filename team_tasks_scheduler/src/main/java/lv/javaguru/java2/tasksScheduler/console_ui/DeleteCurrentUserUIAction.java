@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.requests.DeleteCurrentUserRequest;
+import lv.javaguru.java2.tasksScheduler.responses.DeleteCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.DeleteCurrentUserService;
 
 import java.util.Scanner;
@@ -20,12 +22,19 @@ public class DeleteCurrentUserUIAction implements UIAction {
         if (!input.equals("Y")) {
             return false;
         }
-        String deletedUserName = deleteCurrentUserService.execute();
-        if (deletedUserName == null) {
+
+        DeleteCurrentUserRequest request = new DeleteCurrentUserRequest();
+        DeleteCurrentUserResponse response = deleteCurrentUserService.execute(request);
+
+        if (response.hasErrors()) {
             System.out.println("Something went wrong. Please contact administrator.");
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
             return false;
+        } else {
+            System.out.println("User " + response.getDeletedUserName() + " has been deleted.");
+            return true;
         }
-        System.out.println("User " + deletedUserName + " has been deleted.");
-        return true;
     }
 }

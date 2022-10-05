@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class DeleteVehicleByPlateNumberResponse extends CoreResponse{
+public class DeleteVehicleByPlateNumberResponse extends CoreResponse {
 
     private boolean isVehicleDeleted;
 

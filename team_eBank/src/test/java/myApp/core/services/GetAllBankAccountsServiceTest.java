@@ -1,29 +1,31 @@
 package myApp.core.services;
-
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertNotNull;
+import static org.mockito.Mockito.verify;
 
-class GetAllBankAccountsServiceTest {
 
+@RunWith(MockitoJUnitRunner.class)
+public class GetAllBankAccountsServiceTest {
+
+    @Mock
     private DataBase dataBase;
-    private GetAllBankAccountsRequest request;
+    @InjectMocks
     private GetAllBankAccountsService service;
-    @BeforeEach
-    void setUp() {
-        dataBase = new InMemoryDatabaseImpl();
-        request = new GetAllBankAccountsRequest();
-        service = new GetAllBankAccountsService(dataBase);
-    }
 
     @Test
-    void execute() {
+   public void execute() {
+        GetAllBankAccountsRequest request = new GetAllBankAccountsRequest();
         GetAllBankAccountsResponse response = service.execute(request);
-        assertNotNull(response.getBankAccounts());
+        assertNotNull(response);
     }
 }
+

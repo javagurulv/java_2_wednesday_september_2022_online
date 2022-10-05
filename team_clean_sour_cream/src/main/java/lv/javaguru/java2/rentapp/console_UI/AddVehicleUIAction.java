@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 public class AddVehicleUIAction implements UIAction {
 
+    Scanner scanner = new Scanner(System.in);
+
     private AddVehicleService addVehicleService;
 
     public AddVehicleUIAction(AddVehicleService addNewVehicleService) {
@@ -39,25 +41,27 @@ public class AddVehicleUIAction implements UIAction {
         } catch (NumberFormatException e) {
             System.out.println("Error: You must enter a number!");
         }
-
     }
 
     private void printVehicleTypeMenu() {
+
         System.out.println("""
                 Choose vehicle type to add
                 1. Passenger Car
                 2. Mini Bus
                 3. Motorcycle
                 4. Car Trailer""");
+
     }
 
     private int getUserChoice() {
-        Scanner scanner = new Scanner(System.in);
         return Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
     }
 
     private AddVehicleResponse executeUserChoice(int userChoice) {
+
         AddVehicleResponse addVehicleResponse = null;
+
         switch (userChoice) {
             case 1 -> {
                 AddVehicleRequest request = createPassengerCarRequest();
@@ -80,7 +84,7 @@ public class AddVehicleUIAction implements UIAction {
     }
 
     private AddVehicleRequest createPassengerCarRequest() {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter brand: ");
         String brand = scanner.nextLine();
         System.out.println("Enter model: ");
@@ -126,7 +130,7 @@ public class AddVehicleUIAction implements UIAction {
     }
 
     private AddVehicleRequest createMiniBusRequest() {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter brand: ");
         String brand = scanner.nextLine();
         System.out.println("Enter model: ");
@@ -172,7 +176,7 @@ public class AddVehicleUIAction implements UIAction {
     }
 
     private AddVehicleRequest createMotorcycleRequest() {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter brand: ");
         String brand = scanner.nextLine();
         System.out.println("Enter model: ");
@@ -209,7 +213,7 @@ public class AddVehicleUIAction implements UIAction {
     }
 
     private AddVehicleRequest createCarTrailerRequest() {
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter brand: ");
         String brand = scanner.nextLine();
         System.out.println("Enter model: ");

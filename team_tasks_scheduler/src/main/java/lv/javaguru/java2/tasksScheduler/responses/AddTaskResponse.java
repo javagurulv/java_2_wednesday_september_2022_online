@@ -16,7 +16,6 @@ public class AddTaskResponse extends CoreResponse{
         this.task = task;
     }
 
-
     public Task getTask() {
         return task;
     }

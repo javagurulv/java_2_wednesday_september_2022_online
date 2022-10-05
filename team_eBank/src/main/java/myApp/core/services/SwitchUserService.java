@@ -2,6 +2,7 @@ package myApp.core.services;
 
 
 import myApp.core.requests.LogInRequest;
+import myApp.core.requests.SwitchUserRequest;
 
 public class SwitchUserService {
 
@@ -12,9 +13,10 @@ public class SwitchUserService {
         this.logInService = logInService;
     }
 
-    public String execute(String personalCode, String password) {
+    public String execute(SwitchUserRequest request) {
         service.logOut();
-        return logInService.execute(new LogInRequest(personalCode, password)).getPersonalCode();
+        return logInService.execute(new LogInRequest(request.getPersonalCode(), request.getPassword()))
+                .getPersonalCode();
     }
 
 }

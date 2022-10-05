@@ -1,6 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
+import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
+import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
+import lv.javaguru.java2.tasksScheduler.responses.AmendTaskResponse;
+import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.AmendTaskService;
 import lv.javaguru.java2.tasksScheduler.services.GetOutstandingTasksService;
 
@@ -25,7 +29,10 @@ public class AmendTaskUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-        List<Task> tasks =  getOutstandingTasksService.execute();
+        GetOutstandingTasksRequests requestTasks = new GetOutstandingTasksRequests();
+        GetOutstandingTasksResponse responseTasks = getOutstandingTasksService.execute(requestTasks);
+
+        List<Task> tasks = responseTasks.getTasks();
         int recordsTotal = ShowOutstandingTasks(tasks);
         if (recordsTotal == 0)
             return false;
@@ -55,13 +62,19 @@ public class AmendTaskUIAction implements UIAction {
             System.out.println();
         }
         Task amendedTask = collectDataFromScreen(currentTask);
-        boolean result = amendTaskService.execute(amendedTask);
-        if (result) {
+
+        AmendTaskRequest request = new AmendTaskRequest(amendedTask);
+        AmendTaskResponse response = amendTaskService.execute(request);
+
+        if (response.hasErrors()) {
+            System.out.println("Task information has not been amended.");
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+        } else {
             System.out.println("Task information has been amended.");
         }
-        else {
-            System.out.println("Task information has not been amended.");
-        }
+        
         return true;
     }
 

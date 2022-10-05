@@ -1,6 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
+import lv.javaguru.java2.tasksScheduler.requests.DeleteTaskRequest;
+import lv.javaguru.java2.tasksScheduler.responses.DeleteTaskResponse;
 
 public class DeleteTaskService {
 
@@ -10,7 +12,8 @@ public class DeleteTaskService {
         this.tasksRepository = tasksRepository;
     }
 
-    public void execute(Long taskId) {
-        tasksRepository.deleteById(taskId);
+    public DeleteTaskResponse execute(DeleteTaskRequest request) {
+        tasksRepository.deleteById(request.getTaskId());
+        return new DeleteTaskResponse();
     }
 }

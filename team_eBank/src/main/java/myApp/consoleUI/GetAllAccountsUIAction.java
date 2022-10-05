@@ -18,6 +18,6 @@ public class GetAllAccountsUIAction implements UIAction {
     public void execute() {
         System.out.println("Bank account: ");
         GetAllBankAccountsResponse result = service.execute(request);
-        System.out.println(result.getBankAccounts());
+        result.getBankAccounts().forEach(System.out::println);
     }
 }

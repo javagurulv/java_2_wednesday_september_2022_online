@@ -1,50 +1,48 @@
 package myApp.core.services;
-
 import myApp.core.database.DataBase;
-import myApp.core.database.InMemoryDatabaseImpl;
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.RemoveBankAccountResponse;
 import myApp.core.services.validators.RemoveBankAccountValidator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-class RemoveBankAccountServiceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class RemoveBankAccountServiceTest {
 
+    @Mock
     DataBase dataBase;
+    @Mock
     RemoveBankAccountValidator validator;
+    @InjectMocks
     RemoveBankAccountService service;
 
-    @BeforeEach
-    void setUp() {
-        dataBase = new InMemoryDatabaseImpl();
-        validator = new RemoveBankAccountValidator();
-        service = new RemoveBankAccountService(dataBase,validator);
-        dataBase.addBankAccount(new BankAccount("Example", "Example","password", Roles.Regular_user,
-                "000-001"));
-    }
-
     @Test
-    void testExecuteWithoutErrors() {
+    public void testExecuteWithoutErrors() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest("000-001");
-        List<CoreError> errors = validator.validate(request);
+        when(validator.validate(request)).thenReturn(List.of());
         RemoveBankAccountResponse response = service.execute(request);
-        assertTrue(response.isDeleted());
-        assertTrue(errors.isEmpty());
+        assertFalse(response.hasErrors());
+        verify(dataBase).deleteBankAccount("000-001");
     }
 
     @Test
-    void testExecuteWithErrors() {
+    public void testExecuteWithErrors() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest(null);
-        List<CoreError> errors = validator.validate(request);
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Id",
+                "id must not be empty")));
         RemoveBankAccountResponse response = service.execute(request);
-        assertFalse(response.isDeleted());
-        assertFalse(errors.isEmpty());
+        assertTrue(response.hasErrors());
     }
 }

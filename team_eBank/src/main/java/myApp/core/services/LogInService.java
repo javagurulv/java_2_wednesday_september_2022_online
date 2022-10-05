@@ -34,7 +34,7 @@ public class LogInService {
         if (result.isPresent()) {
             return new LogInResponse(userService.logIn(request.getPersonalCode(), request.getPassword()));
         }
-        return new LogInResponse("Error");
+        return new LogInResponse("");
     }
 
 }

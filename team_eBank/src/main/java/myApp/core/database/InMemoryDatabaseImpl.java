@@ -8,12 +8,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class InMemoryDatabaseImpl implements DataBase {
-    private final List<BankAccount> bankAccounts = new ArrayList<>() ;
+    private final List<BankAccount> bankAccounts = new ArrayList<>();
 
 
     public InMemoryDatabaseImpl() {
-        BankAccount bankAccount = new BankAccount("Vlad", "Kulikov","password", Roles.Regular_user, "111-317");
-        BankAccount adminAccount = new BankAccount("Admin", "Admin","Admin", Roles.Admin, "01");
+        BankAccount bankAccount = new BankAccount("Vladislav", "Kulikov", "user", Roles.Regular_user, "111-777");
+        BankAccount adminAccount = new BankAccount("Admin", "Admin", "Admin", Roles.Admin, "01");
         bankAccounts.add(adminAccount);
         addBankAccount(bankAccount);
     }
@@ -84,24 +84,28 @@ public class InMemoryDatabaseImpl implements DataBase {
                 .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
                 .anyMatch(bankAccount -> bankAccount.getAccount() == null);
     }
+
     @Override
     public List<BankAccount> findByName(String name) {
         return bankAccounts.stream()
                 .filter(bankAccount -> bankAccount.getName().equals(name))
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<BankAccount> findBySurname(String surname) {
         return bankAccounts.stream()
                 .filter(bankAccount -> bankAccount.getSurname().equals(surname))
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<BankAccount> findByPersonalCode(String personalCode) {
         return bankAccounts.stream()
                 .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<BankAccount> findByNameAndSurname(String name, String surname) {
         return bankAccounts.stream()
@@ -109,8 +113,9 @@ public class InMemoryDatabaseImpl implements DataBase {
                 .filter(bankAccount -> bankAccount.getSurname().equals(surname))
                 .collect(Collectors.toList());
     }
+
     @Override
-    public List<BankAccount> findByNameAndPersonalCode(String name, String personalCode ) {
+    public List<BankAccount> findByNameAndPersonalCode(String name, String personalCode) {
         return bankAccounts.stream()
                 .filter(bankAccount -> bankAccount.getName().equals(name))
                 .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
@@ -118,14 +123,15 @@ public class InMemoryDatabaseImpl implements DataBase {
     }
 
     @Override
-    public List<BankAccount> findBySurnameAndPersonalCode(String surname, String personalCode ) {
+    public List<BankAccount> findBySurnameAndPersonalCode(String surname, String personalCode) {
         return bankAccounts.stream()
                 .filter(bankAccount -> bankAccount.getSurname().equals(surname))
                 .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
                 .collect(Collectors.toList());
     }
+
     @Override
-    public List<BankAccount> findByNameAndSurnameAndPersonalCode(String name,String surname, String personalCode ) {
+    public List<BankAccount> findByNameAndSurnameAndPersonalCode(String name, String surname, String personalCode) {
         return bankAccounts.stream()
                 .filter(bankAccount -> bankAccount.getName().equals(name))
                 .filter(bankAccount -> bankAccount.getSurname().equals(surname))

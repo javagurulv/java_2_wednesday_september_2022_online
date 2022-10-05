@@ -36,6 +36,7 @@ public class AmendCurrentUserUIAction implements UIAction {
 
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(input[0], input[1], input[2], input[3]);
         AmendCurrentUserResponse response = amendCurrentUserService.execute(request);
+
         if (response.hasErrors()) {
             System.out.println("User information has not been amended.");
             response.getErrors().forEach(coreError ->

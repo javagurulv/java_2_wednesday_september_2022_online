@@ -1,5 +1,6 @@
 package myApp.core.services.validators;
 
+import myApp.core.requests.Paging;
 import myApp.core.responses.CoreError;
 import myApp.core.requests.AddBankAccountRequest;
 
@@ -18,14 +19,14 @@ public class AddBankAccountValidator {
     }
 
     private Optional<CoreError> validateName(AddBankAccountRequest request) {
-        return request.getSurname().matches("^[a-zA-Z]+$")
+        return request.getName().matches("^[a-zA-Z]+$") && request.getName() != null
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Name",
                 "Name can only contain letters and must not be empty"));
     }
 
     private Optional<CoreError> validateSurname(AddBankAccountRequest request) {
-        return request.getName().matches("^[a-zA-Z]+$")
+        return request.getSurname().matches("^[a-zA-Z]+$") && request.getSurname() != null
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Surname",
                 "Surname can only contain letters and must not be empty"));

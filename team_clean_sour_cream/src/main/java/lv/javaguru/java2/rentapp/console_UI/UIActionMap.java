@@ -3,8 +3,6 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.services.*;
-import lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators.AddVehicleValidator;
-
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +16,6 @@ public class UIActionMap {
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
     private ExitProgramService exitProgramService = new ExitProgramService();
     private SearchVehicleService searchVehicleService = new SearchVehicleService(database);
-
-
 
 
     public UIActionMap() {

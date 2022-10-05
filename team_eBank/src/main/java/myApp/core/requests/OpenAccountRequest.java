@@ -1,14 +1,11 @@
 package myApp.core.requests;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public class OpenAccountRequest {
 
     private String personalCode;
-
-    public OpenAccountRequest(String personalCode) {
-        this.personalCode = personalCode;
-    }
-
-    public String getPersonalCode() {
-        return personalCode;
-    }
 }

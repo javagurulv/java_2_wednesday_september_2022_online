@@ -2,6 +2,8 @@ package lv.javaguru.java2.tasksScheduler.services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.User;
+import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNameRequest;
+import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNameResponse;
 
 import java.util.List;
 
@@ -15,9 +17,9 @@ public class GetAllUsersNamesService {
         this.usersRepository = usersRepository;
     }
 
-    public List<String> execute() {
-        return usersRepository.getAllUsers().stream()
-                .map(User::getUsername)
-                .collect(toList());
+    public GetAllUsersNameResponse execute(GetAllUsersNameRequest request) {
+        List<User> users = usersRepository.getAllUsers();
+
+        return new GetAllUsersNameResponse(users, 1);
     }
 }
