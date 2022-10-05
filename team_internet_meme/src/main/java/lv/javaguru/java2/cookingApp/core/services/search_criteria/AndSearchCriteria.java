@@ -1,7 +1,9 @@
 package lv.javaguru.java2.cookingApp.core.services.search_criteria;
 
+import lombok.EqualsAndHashCode;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 
+@EqualsAndHashCode
 public class AndSearchCriteria implements SearchCriteria {
 
     private SearchCriteria leftCriteria;
