@@ -28,8 +28,8 @@ public class SearchCarTrailerValidator extends SearchVehicleValidator {
         Integer deckWidthInCm = request.getDeckWidthInCm();
         if (deckWidthInCm == null || deckWidthInCm <= 0) {
             return Optional.of(new CoreError("Deck Width in cm", "cannot be empty, negative or 0"));
-        } else if (deckWidthInCm > CarTrailer.MAX_DECK_WIDTH_IN_CM) {
-            return Optional.of(new CoreError("Deck Width in cm", "cannot be more than " + CarTrailer.MAX_DECK_WIDTH_IN_CM));
+        } else if (deckWidthInCm > CarTrailer.TRAIL_MAX_DECK_WIDTH_IN_CM) {
+            return Optional.of(new CoreError("Deck Width in cm", "cannot be more than " + CarTrailer.TRAIL_MAX_DECK_WIDTH_IN_CM));
         } else {
             return Optional.empty();
         }

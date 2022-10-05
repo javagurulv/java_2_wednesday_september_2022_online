@@ -15,6 +15,7 @@ public class MiniBus extends Vehicle {
     public static final int BUS_MAX_DOORS_AMOUNT = 6;
     public static final int BUS_MIN_DOORS_AMOUNT = 2;
     public static final int BUS_MAX_PASSENGER_AMOUNT = 20;
+    public static final int BUS_MIN_PASSENGER_AMOUNT = 1;
     public static final int BUS_MAX_BAGGAGE_AMOUNT = 30;
     private Integer passengerAmount;
     private Integer baggageAmount;

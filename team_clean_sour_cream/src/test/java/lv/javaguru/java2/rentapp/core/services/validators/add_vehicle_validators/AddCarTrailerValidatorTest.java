@@ -130,7 +130,7 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateDeckWidthInCmShouldReturnNoErrors() {
-        Integer deckWidthInCm = CarTrailer.MAX_DECK_WIDTH_IN_CM;
+        Integer deckWidthInCm = CarTrailer.TRAIL_MAX_DECK_WIDTH_IN_CM;
         AddVehicleRequest request = AddVehicleRequest.builder().deckWidthInCm(deckWidthInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckWidthInCm(request);
         assertTrue(errorOptional.isEmpty());
@@ -167,12 +167,12 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateDeckWidthInCmMoreThanMaxAllowedShouldReturnError() {
-        Integer deckWidthInCm = CarTrailer.MAX_DECK_WIDTH_IN_CM + 1;
+        Integer deckWidthInCm = CarTrailer.TRAIL_MAX_DECK_WIDTH_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().deckWidthInCm(deckWidthInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckWidthInCm(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Deck Width in cm", errorOptional.get().getField());
-        assertEquals("cannot be more than " + CarTrailer.MAX_DECK_WIDTH_IN_CM, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CarTrailer.TRAIL_MAX_DECK_WIDTH_IN_CM, errorOptional.get().getMessage());
     }
 
     @Test

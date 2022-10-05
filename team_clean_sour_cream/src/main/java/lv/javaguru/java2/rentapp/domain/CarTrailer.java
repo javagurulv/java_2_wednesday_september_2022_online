@@ -12,7 +12,7 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 @EqualsAndHashCode(callSuper = true)
 public class CarTrailer extends Vehicle {
 
-    public static final int MAX_DECK_WIDTH_IN_CM = 500;
+    public static final int TRAIL_MAX_DECK_WIDTH_IN_CM = 500;
     public static final int MIN_DECK_WIDTH_IN_CM = 100;
     public static final int MAX_DECK_LENGTH_IN_CM = 1000;
     public static final int MIN_DECK_LENGTH_IN_CM = 100;
