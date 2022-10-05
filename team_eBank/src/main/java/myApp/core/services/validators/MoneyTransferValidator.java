@@ -18,28 +18,22 @@ public class MoneyTransferValidator {
     }
 
     private Optional<CoreError> validateFirstAccountID(MoneyTransferRequest request) {
-        if (request.getPersonalCode() != null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Field: Personal code",
-                    "Your personal code must not be empty"));
-        }
+        return request.getPersonalCode() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Field: Personal code",
+                "Your personal code must not be empty"));
     }
     private Optional<CoreError> validateAnotherPersonalCode(MoneyTransferRequest request) {
-        if (request.getAnotherPersonalCode() != null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Field: Another personal code",
-                    "another personal code must not be empty"));
-        }
+        return request.getAnotherPersonalCode() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Field: Another personal code",
+                "another personal code must not be empty"));
     }
 
     private Optional<CoreError> validateAmount(MoneyTransferRequest request) {
-        if (request.getValue() > 0) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Field: Value",
-                    "value must not be empty"));
-        }
+        return request.getValue() > 0
+                ? Optional.empty()
+                : Optional.of(new CoreError("Field: Value",
+                "value must not be empty"));
     }
 }

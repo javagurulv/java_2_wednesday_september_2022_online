@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators;
 
+import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
@@ -53,9 +54,36 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
                 System.out.println("Error: You must enter a number!");
             }
         }
+
+        askOrdering(searchVehicleRequestBuilder);
+
         return searchVehicleRequestBuilder.build();
     }
 
+
+    private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
+        boolean sort = true;
+        while (sort) {
+            System.out.println("""
+                Do you wish to sort the result?
+                1. Yes
+                2. No""");
+            int userChoice = Integer.parseInt(scanner.nextLine());
+            if (userChoice == 1) {
+                System.out.println("Enter orderBy (price||year): ");
+                String orderBy = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
+                System.out.println("Enter orderDirection (ASCENDING||DESCENDING): ");
+                String orderDirection = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
+                Ordering ordering = new Ordering(orderBy, orderDirection);
+                searchVehicleRequestBuilder.ordering(ordering);
+                sort = false;
+            } else if (userChoice == 2) {
+                sort = false;
+            } else {
+                System.out.println("You must choose 1 or 2");
+            }
+        }
+    }
 
     private void askPassengerAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter number of passengers (1-5): ");

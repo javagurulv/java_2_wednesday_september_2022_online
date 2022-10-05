@@ -31,7 +31,9 @@ public class SearchBankAccountService {
         } else {
             List<BankAccount> bankAccounts = search(request);
             bankAccounts = ordering(bankAccounts, request.getOrder());
-            bankAccounts = paging(bankAccounts, request.getPaging());
+            if (request.getPaging() != null) {
+                bankAccounts = paging(bankAccounts, request.getPaging());
+            }
             return new SearchBankAccountResponse(null, bankAccounts);
         }
     }

@@ -1,54 +1,50 @@
 package myApp.core.services;
 
 import myApp.core.database.DataBase;
-import myApp.core.database.InMemoryDatabaseImpl;
-import myApp.core.domain.Account;
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.CloseAccountValidator;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-class CloseAccountServiceTest {
 
+@RunWith(MockitoJUnitRunner.class)
+public class CloseAccountServiceTest {
+
+    @Mock
     private DataBase dataBase;
-    private CloseAccountService service;
+    @Mock
     private CloseAccountValidator validator;
+    @InjectMocks
+    private CloseAccountService service;
 
-    @BeforeEach
-    void setUp() {
-        dataBase = new InMemoryDatabaseImpl();
-        validator = new CloseAccountValidator();
-        service = new CloseAccountService(dataBase, validator);
-        BankAccount bankAccount = new BankAccount("Example1", "Example2","password",
-                Roles.Regular_user, "000-001");
-        dataBase.addBankAccount(bankAccount);
-        bankAccount.setAccount(new Account(2L, 0));
-
-    }
 
     @Test
-    void testCloseAccountWithoutErrors() {
+    public void testCloseAccountWithoutErrors() {
         CloseAccountRequest request = new CloseAccountRequest("000-001");
-        List<CoreError> errors = validator.validate(request);
+        when(validator.validate(request)).thenReturn(List.of());
         CloseAccountResponse response = service.execute(request);
-        assertTrue(response.isDeleted());
-        assertTrue(errors.isEmpty());
+        assertFalse(response.hasErrors());
+        verify(dataBase).closeAccount("000-001");
     }
 
     @Test
-    void testCloseAccountWithErrors() {
+    public void testCloseAccountWithErrors() {
         CloseAccountRequest request = new CloseAccountRequest(null);
-        List<CoreError> errors = validator.validate(request);
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
+                "Personal code must not be empty")));
         CloseAccountResponse response = service.execute(request);
         assertFalse(response.isDeleted());
-        assertFalse(errors.isEmpty());
+        assertEquals("Field: Personal code", response.getErrors().get(0).getField());
     }
 }

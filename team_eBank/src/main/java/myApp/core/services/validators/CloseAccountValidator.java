@@ -16,11 +16,9 @@ public class CloseAccountValidator {
     }
 
     private Optional<CoreError> validatePersonalCode(CloseAccountRequest request) {
-        if (request.getPersonalCode() != null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Field: Personal code",
-                    "personal code must not be empty"));
-        }
+        return request.getPersonalCode() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Field: Personal code",
+                "Personal code must not be empty"));
     }
 }

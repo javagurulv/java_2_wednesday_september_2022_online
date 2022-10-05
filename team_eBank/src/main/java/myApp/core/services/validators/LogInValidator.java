@@ -19,19 +19,15 @@ public class LogInValidator {
     }
 
     private Optional<CoreError> validatePersonalCode(LogInRequest request) {
-        if (!request.getPersonalCode().isEmpty() && request.getPersonalCode() != null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Personal code", "Personal code may contains only numbers and" +
-                    "cannot be empty"));
-        }
+        return !request.getPersonalCode().isEmpty() && request.getPersonalCode() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Personal code", "Personal code may contains only numbers and" +
+                "cannot be empty"));
     }
 
     private Optional<CoreError> validatePassword(LogInRequest request) {
-        if (!request.getPersonalCode().isEmpty() && request.getPersonalCode() != null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Password", "cannot be empty"));
-        }
+        return !request.getPersonalCode().isEmpty() && request.getPersonalCode() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Password", "Password cannot be empty"));
     }
 }

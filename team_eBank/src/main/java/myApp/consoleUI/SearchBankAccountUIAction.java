@@ -1,5 +1,5 @@
 package myApp.consoleUI;
-import myApp.core.domain.BankAccount;
+
 import myApp.core.requests.Ordering;
 import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
@@ -34,7 +34,6 @@ public class SearchBankAccountUIAction implements UIAction {
         System.out.println("Enter number: ");
         String orderDirection = userAnswerOrderDirection(scanner.nextLine());
         Ordering order = new Ordering(orderBy, orderDirection);
-
         System.out.println("Enter page number: ");
         int pageNumber = scanner.nextInt();
         System.out.println("Enter page size: ");
@@ -42,13 +41,13 @@ public class SearchBankAccountUIAction implements UIAction {
         Paging paging = new Paging(pageNumber, pageSize);
         SearchBankAccountRequest request = new SearchBankAccountRequest(name, surname, personalCode, order, paging);
         SearchBankAccountResponse response = service.execute(request);
-
         if (response.hasErrors()) {
             System.out.println(response.getErrors());
         } else {
             response.getBankAccounts().forEach(System.out::println);
         }
     }
+
     private String userAnswerOrderBy(String answer) {
         String result = "";
         switch (answer) {
