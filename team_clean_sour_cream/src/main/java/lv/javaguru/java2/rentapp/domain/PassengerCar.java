@@ -12,6 +12,11 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 @EqualsAndHashCode(callSuper = true)
 public class PassengerCar extends Vehicle {
 
+    public static final int CAR_MAX_PASSENGER_AMOUNT = 7;
+    public static final int CAR_MIN_PASSENGER_AMOUNT = 1;
+    public static final int CAR_MAX_BAGGAGE_AMOUNT = 10;
+    public static final int CAR_MAX_DOORS_AMOUNT = 5;
+    public static final int CAR_MIN_DOORS_AMOUNT = 2;
     private Integer passengerAmount;
     private Integer baggageAmount;
     private Integer doorsAmount;

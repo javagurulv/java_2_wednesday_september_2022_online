@@ -5,6 +5,7 @@ import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.CarTrailerCreator;
+import lv.javaguru.java2.rentapp.domain.CarTrailer;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddCarTrailerValidator.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -130,7 +130,7 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateDeckWidthInCmShouldReturnNoErrors() {
-        Integer deckWidthInCm = MAX_DECK_WIDTH_IN_CM;
+        Integer deckWidthInCm = CarTrailer.MAX_DECK_WIDTH_IN_CM;
         AddVehicleRequest request = AddVehicleRequest.builder().deckWidthInCm(deckWidthInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckWidthInCm(request);
         assertTrue(errorOptional.isEmpty());
@@ -167,17 +167,17 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateDeckWidthInCmMoreThanMaxAllowedShouldReturnError() {
-        Integer deckWidthInCm = MAX_DECK_WIDTH_IN_CM + 1;
+        Integer deckWidthInCm = CarTrailer.MAX_DECK_WIDTH_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().deckWidthInCm(deckWidthInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckWidthInCm(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Deck Width in cm", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_DECK_WIDTH_IN_CM, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CarTrailer.MAX_DECK_WIDTH_IN_CM, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateDeckLengthInCmShouldReturnNoErrors() {
-        Integer deckLengthInCm = MAX_DECK_LENGTH_IN_CM;
+        Integer deckLengthInCm = CarTrailer.MAX_DECK_LENGTH_IN_CM;
         AddVehicleRequest request = AddVehicleRequest.builder().deckLengthInCm(deckLengthInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckLengthInCm(request);
         assertTrue(errorOptional.isEmpty());
@@ -214,17 +214,17 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateDeckLengthInCmMoreThanMaxAllowedShouldReturnError() {
-        Integer deckLengthInCm = MAX_DECK_LENGTH_IN_CM + 1;
+        Integer deckLengthInCm = CarTrailer.MAX_DECK_LENGTH_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().deckLengthInCm(deckLengthInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckLengthInCm(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Deck Length in cm", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_DECK_LENGTH_IN_CM, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CarTrailer.MAX_DECK_LENGTH_IN_CM, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateDeckHeightInCmShouldReturnNoErrors() {
-        Integer deckHeightInCm = MAX_DECK_HEIGHT_IN_CM;
+        Integer deckHeightInCm = CarTrailer.MAX_DECK_HEIGHT_IN_CM;
         AddVehicleRequest request = AddVehicleRequest.builder().deckHeightInCm(deckHeightInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckHeightInCm(request);
         assertTrue(errorOptional.isEmpty());
@@ -261,17 +261,17 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateDeckHeightInCmMoreThanMaxAllowedShouldReturnError() {
-        Integer deckHeightInCm = MAX_DECK_HEIGHT_IN_CM + 1;
+        Integer deckHeightInCm = CarTrailer.MAX_DECK_HEIGHT_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().deckHeightInCm(deckHeightInCm).build();
         Optional<CoreError> errorOptional = validator.validateDeckHeightInCm(request);
         assertTrue(errorOptional.isPresent());
         assertEquals(errorOptional.get().getField(), "Deck Height in cm");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + MAX_DECK_HEIGHT_IN_CM);
+        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + CarTrailer.MAX_DECK_HEIGHT_IN_CM);
     }
 
     @Test
     void testValidateEmptyWeightInKgShouldReturnNoErrors() {
-        Integer emptyWeightInKg = MAX_EMPTY_WEIGHT_IN_KG;
+        Integer emptyWeightInKg = CarTrailer.MAX_EMPTY_WEIGHT_IN_KG;
         AddVehicleRequest request = AddVehicleRequest.builder().emptyWeightInKg(emptyWeightInKg).build();
         Optional<CoreError> errorOptional = validator.validateEmptyWeightInKg(request);
         assertTrue(errorOptional.isEmpty());
@@ -308,17 +308,17 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateEmptyWeightInKgMoreThanMaxAllowedShouldReturnError() {
-        Integer emptyWeightInKg = MAX_EMPTY_WEIGHT_IN_KG + 1;
+        Integer emptyWeightInKg = CarTrailer.MAX_EMPTY_WEIGHT_IN_KG + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().emptyWeightInKg(emptyWeightInKg).build();
         Optional<CoreError> errorOptional = validator.validateEmptyWeightInKg(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Empty Weight in KG", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_EMPTY_WEIGHT_IN_KG, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CarTrailer.MAX_EMPTY_WEIGHT_IN_KG, errorOptional.get().getMessage());
     }
 
     @Test
     void testValidateMaxLoadWeightInKgShouldReturnNoErrors() {
-        Integer maxLoadWeightInKg = MAX_LOAD_WEIGHT_IN_KG;
+        Integer maxLoadWeightInKg = CarTrailer.MAX_LOAD_WEIGHT_IN_KG;
         AddVehicleRequest request = AddVehicleRequest.builder().maxLoadWeightInKg(maxLoadWeightInKg).build();
         Optional<CoreError> errorOptional = validator.validateMaxLoadWeightInKg(request);
         assertTrue(errorOptional.isEmpty());
@@ -355,12 +355,12 @@ class AddCarTrailerValidatorTest {
 
     @Test
     void testValidateMaxLoadWeightInKgMoreThanMaxAllowedShouldReturnError() {
-        Integer maxLoadWeightInKg = MAX_LOAD_WEIGHT_IN_KG + 1;
+        Integer maxLoadWeightInKg = CarTrailer.MAX_LOAD_WEIGHT_IN_KG + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().maxLoadWeightInKg(maxLoadWeightInKg).build();
         Optional<CoreError> errorOptional = validator.validateMaxLoadWeightInKg(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Max Load Weight in KG", errorOptional.get().getField());
-        assertEquals("cannot be more than " + MAX_LOAD_WEIGHT_IN_KG, errorOptional.get().getMessage());
+        assertEquals("cannot be more than " + CarTrailer.MAX_LOAD_WEIGHT_IN_KG, errorOptional.get().getMessage());
     }
 
     @Test

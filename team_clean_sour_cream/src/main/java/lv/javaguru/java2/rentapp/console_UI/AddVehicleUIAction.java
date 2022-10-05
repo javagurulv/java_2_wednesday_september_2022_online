@@ -3,7 +3,8 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.AddVehicleService;
-import lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddMiniBusValidator;
+import lv.javaguru.java2.rentapp.domain.MiniBus;
+import lv.javaguru.java2.rentapp.domain.PassengerCar;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
@@ -12,12 +13,11 @@ import lv.javaguru.java2.rentapp.enums.VehicleType;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.*;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.CAR_MAX_BAGGAGE_AMOUNT;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.CAR_MAX_DOORS_AMOUNT;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.CAR_MAX_PASSENGER_AMOUNT;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddPassengerCarValidator.CAR_MIN_DOORS_AMOUNT;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
+import static lv.javaguru.java2.rentapp.domain.PassengerCar.CAR_MAX_BAGGAGE_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.PassengerCar.CAR_MAX_DOORS_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.PassengerCar.CAR_MAX_PASSENGER_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.PassengerCar.CAR_MIN_DOORS_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
 public class AddVehicleUIAction implements UIAction {
 
@@ -114,7 +114,7 @@ public class AddVehicleUIAction implements UIAction {
         System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
         String transmissionType = scanner.nextLine();
 
-        System.out.println("Enter passenger amount between " + CAR_MIN_PASSENGER_AMOUNT + " - " + CAR_MAX_PASSENGER_AMOUNT + " : ");
+        System.out.println("Enter passenger amount between " + PassengerCar.CAR_MIN_PASSENGER_AMOUNT + " - " + CAR_MAX_PASSENGER_AMOUNT + " : ");
         Integer passengerAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter baggage amount between 0 - " + CAR_MAX_BAGGAGE_AMOUNT + " : ");
         Integer baggageAmount = Integer.parseInt(scanner.nextLine());
@@ -160,11 +160,11 @@ public class AddVehicleUIAction implements UIAction {
         System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
         String transmissionType = scanner.nextLine();
 
-        System.out.println("Enter passenger amount between " + CAR_MIN_DOORS_AMOUNT + " - " + AddMiniBusValidator.BUS_MAX_PASSENGER_AMOUNT + " : ");
+        System.out.println("Enter passenger amount between " + CAR_MIN_DOORS_AMOUNT + " - " + MiniBus.BUS_MAX_PASSENGER_AMOUNT + " : ");
         Integer passengerAmount = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter baggage amount between 0 - " + AddMiniBusValidator.BUS_MAX_BAGGAGE_AMOUNT + " : ");
+        System.out.println("Enter baggage amount between 0 - " + MiniBus.BUS_MAX_BAGGAGE_AMOUNT + " : ");
         Integer baggageAmount = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter doors amount between " + AddMiniBusValidator.BUS_MIN_DOORS_AMOUNT + " - " + AddMiniBusValidator.BUS_MAX_DOORS_AMOUNT + " : ");
+        System.out.println("Enter doors amount between " + MiniBus.BUS_MIN_DOORS_AMOUNT + " - " + MiniBus.BUS_MAX_DOORS_AMOUNT + " : ");
         Integer doorsAmount = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter is air conditioning available (true or false) : ");
         String isAirConditioningAvailable = scanner.nextLine();

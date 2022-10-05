@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddMotorcycleValidator.MOTO_MAX_PASSENGER_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AddMotorcycleValidatorTest {
