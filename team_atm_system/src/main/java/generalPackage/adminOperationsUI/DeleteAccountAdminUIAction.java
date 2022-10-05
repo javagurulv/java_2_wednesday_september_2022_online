@@ -25,15 +25,11 @@ public class DeleteAccountAdminUIAction implements AdminUIactions {
 
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
-                    System.out.println("Account was NOT deleted " + coreError.getField() + " " +coreError.getMessage()));
-        }
-        else if (response.isAccountDeleted()) {
+                    System.out.println("Account was NOT deleted " + coreError.getField() + " " + coreError.getMessage()));
+        } else if (response.isAccountDeleted()) {
             System.out.println("Account with ID Nr." + userID + " was successfully deleted.");
-        }
-        else {
+        } else {
             System.out.println("Account was NOT deleted ");
         }
-        //        deleteAccountService.execute(userID);
-//        System.out.println("Account was successfully deleted.");
     }
 }

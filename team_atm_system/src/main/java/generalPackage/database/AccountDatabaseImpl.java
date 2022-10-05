@@ -18,7 +18,6 @@ public class AccountDatabaseImpl implements Database {
     }
 
     @Override
-    //   public void addAccount(Accounts account) {
     public void addAccount(Accounts account) {
         accounts.add(account);
     }
@@ -52,6 +51,20 @@ public class AccountDatabaseImpl implements Database {
         }
         return false;
     }
+
+//    @Override
+//    public boolean increaseBalance(int userID, int amount) {
+//        int begin = 0;
+//        accounts.stream()
+//                .filter(account -> account.getUserID() == userID)
+//                .forEach(account -> begin == account.getBalance());
+//        if (userID != 0 && amount > 0) {
+//            accounts.stream()
+//                    .filter(account -> account.getUserID() == userID)
+//                    .forEach(account -> account.setBalance(account.getBalance() + amount));
+//        }
+//        return (accounts.get(userID).getBalance() = begin + amount);
+//    }
 
     @Override
     public void decreaseBalance(int userID, int amount) {

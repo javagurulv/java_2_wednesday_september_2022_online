@@ -26,18 +26,10 @@ public class AddAccountServiceValidator {
     }
 
     private Optional<CoreError> validateUserID(AddAccountRequest request) {
-//        return (request.getUserId() == null)
-//                ? Optional.of(new CoreError("userID", "Can not be empty"))
-//                : Optional.empty();
         return (Integer.toString(request.getUserId()) == null)
             ? Optional.of(new CoreError("User ID", "can not be empty"))
             : Optional.empty();
-//            return Optional.empty();
-//
-//        } else {
-//            return Optional.of(new CoreError("User ID", "can not be empty"));
-//
-//        }
+
     }
 
     private Optional<CoreError> validateIDLength(AddAccountRequest request) {
