@@ -3,7 +3,6 @@ package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_valid
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
-import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
