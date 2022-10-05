@@ -14,5 +14,10 @@ public class IncreaseBalance {
     public void execute(int userID, int amountToIncrease) {
         database.increaseBalance(userID, amountToIncrease);
     }
+
+//    public IncreaseBalanceResponse execute (IncreaseBalanceRequest request){
+//        boolean balanceChanged = false;
+//        return new IncreaseBalanceResponse(balanceChanged);
+//    }
 }
 

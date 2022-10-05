@@ -44,12 +44,13 @@ public class AccountDatabaseImpl implements Database {
 
     //    added:
     @Override
-    public void increaseBalance(int userID, int amount) {
+    public boolean increaseBalance(int userID, int amount) {
         if (userID != 0 && amount > 0) {
             accounts.stream()
                     .filter(account -> account.getUserID() == userID)
                     .forEach(account -> account.setBalance(account.getBalance() + amount));
         }
+        return false;
     }
 
     @Override
@@ -73,27 +74,13 @@ public class AccountDatabaseImpl implements Database {
         return accounts.contains(name);
     }
 
-//    @Override
-//    public void findUserByID(int userID) {
-//        for (Accounts account : accounts) {
-//            if (account.getUserID() == userID) {
-//                System.out.println("User found:" + account);
-//            } else {
-//                System.out.println("Account was not found");
-//            }
-//        }
-//    }
-
     @Override
     public Accounts findUserByID(int userID) {
-//        return accounts.get(userID);
-       Accounts accountToFind = null;
-
-        for (Accounts account : accounts) {
-            if (account.getUserID() == userID) {
-                accountToFind = accounts.get(userID);
-            }
-        }
+        Accounts accountToFind = accounts.stream()
+                .filter(account -> userID == account.getUserID())
+                .findAny()
+                .orElse(null);
         return accountToFind;
     }
+
 }
