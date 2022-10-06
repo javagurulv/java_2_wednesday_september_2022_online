@@ -1,5 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
+import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,24 +15,35 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DeleteVehicleByPlateNumberValidatorTest {
 
-    DeleteVehicleByPlateNumberValidator deleteVehicleByPlateNumberValidator;
+    DeleteVehicleByPlateNumberValidator validator;
+    Database database;
 
     @BeforeEach
     void setUp() {
-        deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberValidator();
+        database = new InMemoryDatabaseImpl();
+        validator = new DeleteVehicleByPlateNumberValidator(database);
     }
 
     @Test
     void testValidateListOfErrors() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("");
-        List<CoreError> errors = deleteVehicleByPlateNumberValidator.validate(request);
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(2, errors.size());
+    }
+
+    @Test
+    void testValidatePlateNumberReturnErrorIfVehicleWithThatPlateNumberIsNotInDatabase() {
+        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("Not in database");
+        List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
+        assertEquals("Plate number", errors.get(0).getField());
+        assertEquals("vehicle with this plate number is not present in database" , errors.get(0).getMessage());
     }
 
     @Test
     void testValidateVehicleByPlateNumberShouldReturnErrorThanNumberIsBlank() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest(" ");
-        Optional<CoreError> errorOptional = deleteVehicleByPlateNumberValidator.validateVehicleByPlateNumber(request);
+        Optional<CoreError> errorOptional = validator.validateVehicleByPlateNumber(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Plate number", errorOptional.get().getField());
         assertEquals("can`t be empty or blank", errorOptional.get().getMessage());
@@ -39,7 +52,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     @Test
     void testValidateVehicleByPlateNumberShouldReturnErrorThanNumberIsEmpty() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("");
-        Optional<CoreError> errorOptional = deleteVehicleByPlateNumberValidator.validateVehicleByPlateNumber(request);
+        Optional<CoreError> errorOptional = validator.validateVehicleByPlateNumber(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Plate number", errorOptional.get().getField());
         assertEquals("can`t be empty or blank", errorOptional.get().getMessage());
@@ -48,7 +61,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     @Test
     void testValidateVehicleByPlateNumberShouldReturnErrorThanNumberIsNull() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest(null);
-        Optional<CoreError> errorOptional = deleteVehicleByPlateNumberValidator.validateVehicleByPlateNumber(request);
+        Optional<CoreError> errorOptional = validator.validateVehicleByPlateNumber(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Plate number", errorOptional.get().getField());
         assertEquals("can`t be empty or blank", errorOptional.get().getMessage());
@@ -57,7 +70,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     @Test
     void testValidateVehicleByPlateNumberShouldReturnNoError() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("number");
-        Optional<CoreError> errorOptional = deleteVehicleByPlateNumberValidator.validateVehicleByPlateNumber(request);
+        Optional<CoreError> errorOptional = validator.validateVehicleByPlateNumber(request);
         assertTrue(errorOptional.isEmpty());
     }
 }

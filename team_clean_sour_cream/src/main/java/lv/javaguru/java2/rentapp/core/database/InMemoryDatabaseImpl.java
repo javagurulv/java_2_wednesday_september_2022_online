@@ -28,15 +28,7 @@ public class InMemoryDatabaseImpl implements Database {
 
     @Override
     public boolean deleteVehicleByPlateNumber(String plateNumber) {
-        boolean isVehicleDeleted = false;
-        Optional<Vehicle> vehicleToDeleteOpt = vehiclesDB.stream()
-                .filter(vehicle -> vehicle.getPlateNumber().equals(plateNumber))
-                .findFirst();
-        if (vehicleToDeleteOpt.isPresent()) {
-            Vehicle vehicleToDelete = vehicleToDeleteOpt.get();
-            isVehicleDeleted = vehiclesDB.remove(vehicleToDelete);
-        }
-        return isVehicleDeleted;
+       return vehiclesDB.removeIf(vehicle -> vehicle.getPlateNumber().equals(plateNumber));
     }
 
     @Override
