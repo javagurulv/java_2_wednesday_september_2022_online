@@ -29,7 +29,7 @@ public class DeleteVehicleByPlateNumberUIAction implements UIAction {
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
             );
         } else {
-            checkIsVehicleDeleted(response);
+            System.out.println(response);
         }
     }
 
@@ -37,13 +37,5 @@ public class DeleteVehicleByPlateNumberUIAction implements UIAction {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter vehicle plate number to delete.");
         return scanner.nextLine();
-    }
-
-    private void checkIsVehicleDeleted(DeleteVehicleByPlateNumberResponse response) {
-        if (response.isVehicleDeleted()) {
-            System.out.println("Your vehicle was removed from list.");
-        } else {
-            System.out.println("Vehicle was not found!");
-        }
     }
 }

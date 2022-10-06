@@ -32,8 +32,8 @@ public class DeleteVehicleByPlateNumberValidator {
 
     private Optional<CoreError> validateVehicleToDeleteExists(DeleteVehicleByPlateNumberRequest request) {
         if (request.getPlateNumber() != null && !request.getPlateNumber().isBlank()) {
-            Optional<Vehicle> vehicleToDeleteOpt = database.getAllVehicles().stream().
-                    filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
+            Optional<Vehicle> vehicleToDeleteOpt = database.getAllVehicles().stream()
+                    .filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
                     .findFirst();
             if (vehicleToDeleteOpt.isEmpty()) {
                 return Optional.of(new CoreError("Plate number", "vehicle with this plate number is not present in database"));
