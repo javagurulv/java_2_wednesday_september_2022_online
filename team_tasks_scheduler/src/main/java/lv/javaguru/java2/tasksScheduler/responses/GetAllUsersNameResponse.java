@@ -7,13 +7,10 @@ import java.util.List;
 
 public class GetAllUsersNameResponse extends CoreResponse {
     List<User> users;
-    public GetAllUsersNameResponse(List<User> users, int a) {
-        this.users = users;
-        //TODO get rid of a :)
-    }
 
-    public GetAllUsersNameResponse(List<CoreError> errors) {
+    public GetAllUsersNameResponse(List<User> users, List<CoreError> errors) {
         super(errors);
+        this.users = users;
     }
 
     public List<User> getUsers() {

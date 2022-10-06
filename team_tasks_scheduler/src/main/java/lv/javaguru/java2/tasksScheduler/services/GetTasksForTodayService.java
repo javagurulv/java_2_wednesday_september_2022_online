@@ -3,8 +3,10 @@ package lv.javaguru.java2.tasksScheduler.services;
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
+import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetTasksForTodayService {
@@ -18,8 +20,9 @@ public class GetTasksForTodayService {
     }
 
     public GetTaskForTodayResponse execute(GetTasksForTodayRequests request) {
+        List<CoreError> errors = new ArrayList<>();
         List<Task> tasks =  tasksRepository.getAllOutstandingTasksByUserIdForToday(sessionService.getCurrentUserId());
 
-        return new GetTaskForTodayResponse(tasks, 0);
+        return new GetTaskForTodayResponse(tasks, errors);
     }
 }

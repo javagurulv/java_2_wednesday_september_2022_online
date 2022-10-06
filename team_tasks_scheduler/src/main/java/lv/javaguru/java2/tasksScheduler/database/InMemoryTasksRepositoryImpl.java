@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.enums.SearchDateType;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -165,6 +166,21 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
                     }
                 }
                 break;
+            }
+        }
+        return tasksList;
+    }
+
+    @Override
+    public List<Task> searchTasks(String searchPhrase, Long userID) {
+        List<Task> tasksList = new ArrayList<>();
+        String taskFullStrDescription;
+        for (Task tsk : tasks) {
+            if (tsk.getUserId() == userID) {
+                taskFullStrDescription = tsk.getDescription() + tsk.getEndDate() + tsk.getDueDate();
+                if (taskFullStrDescription.contains(searchPhrase)) {
+                    tasksList.add(tsk);
+                }
             }
         }
         return tasksList;

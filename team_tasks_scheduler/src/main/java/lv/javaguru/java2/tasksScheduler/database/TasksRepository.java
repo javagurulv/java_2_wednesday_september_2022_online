@@ -29,4 +29,6 @@ public interface TasksRepository {
     List<Task> searchTaskByDescription(String description);
     List<Task> searchTaskByDate(LocalDateTime date);
     List<Task> searchTaskByDateRange(LocalDateTime start, LocalDateTime end, SearchDateType type);
+
+    List<Task> searchTasks(String searchPhrase, Long userID);
 }

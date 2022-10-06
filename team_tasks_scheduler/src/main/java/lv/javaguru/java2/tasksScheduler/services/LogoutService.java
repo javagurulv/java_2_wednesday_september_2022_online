@@ -1,7 +1,11 @@
 package lv.javaguru.java2.tasksScheduler.services;
 
 import lv.javaguru.java2.tasksScheduler.requests.LogoutRequest;
+import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.LogoutResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogoutService {
 
@@ -12,7 +16,8 @@ public class LogoutService {
     }
 
     public LogoutResponse execute(LogoutRequest request) {
+        List<CoreError> errors = new ArrayList<>();
         sessionService.logOut();
-        return new LogoutResponse();
+        return new LogoutResponse(errors);
     }
 }
