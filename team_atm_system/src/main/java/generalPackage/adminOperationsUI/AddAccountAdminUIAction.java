@@ -24,10 +24,14 @@ public class AddAccountAdminUIAction implements AdminUIactions {
         int userID = scanner.nextInt();
         AddAccountRequest request = new AddAccountRequest(userName, userID);
         AddAccountResponse response = addAccountService.execute(request);
-        System.out.println("Account was added to database");
-        System.out.println("ID: " + response.getNewAccount().getUserID());
-        System.out.println("Name: " + response.getNewAccount().getName());
-//        addAccountService.execute(userName, userID);
-//        System.out.println("Account was successfully created");
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Registration errors were detected: " + coreError.getField() + " " + coreError.getMessage()));
+        }
+        else {
+            System.out.println("Account was added to database");
+            System.out.println("ID: " + response.getNewAccount().getUserID());
+            System.out.println("Name: " + response.getNewAccount().getName());
+        }
     }
 }

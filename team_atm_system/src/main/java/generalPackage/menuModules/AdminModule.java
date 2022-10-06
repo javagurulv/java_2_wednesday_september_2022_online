@@ -1,9 +1,6 @@
 package generalPackage.menuModules;
 
-import generalPackage.adminOperations.AddAccountService;
-import generalPackage.adminOperations.DeleteAccountService;
-import generalPackage.adminOperations.FindUserByIDServise;
-import generalPackage.adminOperations.GetAllAccountsService;
+import generalPackage.adminOperations.*;
 import generalPackage.adminOperationsUI.*;
 import generalPackage.database.AccountDatabaseImpl;
 import generalPackage.database.Database;
@@ -14,19 +11,21 @@ public class AdminModule {
 
 
     private static Database database = new AccountDatabaseImpl();
-
-    private static AddAccountService addAccountService = new AddAccountService(database);
-    private static DeleteAccountService deleteAccountService = new DeleteAccountService(database);
-    private static FindUserByIDServise findUserByIDServise = new FindUserByIDServise(database);
+    private static AddAccountServiceValidator addAccountServiceValidator = new AddAccountServiceValidator();
+    private static DeleteAccountServiceValidator deleteAccountServiceValidator = new DeleteAccountServiceValidator();
+    private static FindUserByIDServiceValidator findUserByIDServiceValidator= new FindUserByIDServiceValidator();
+    private static AddAccountService addAccountService = new AddAccountService(database, addAccountServiceValidator);
+    private static DeleteAccountService deleteAccountService = new DeleteAccountService(database, deleteAccountServiceValidator);
+    private static FindUserByIDService findUserByIDService = new FindUserByIDService(database, findUserByIDServiceValidator);
     private static GetAllAccountsService getAllAccountsService = new GetAllAccountsService(database);
     private static AdminUIactions addAccountUI = new AddAccountAdminUIAction(addAccountService);
     private static AdminUIactions deleteAccountUI = new DeleteAccountAdminUIAction(deleteAccountService);
-    private static AdminUIactions findAccountUI = new FindUserAdminUIAction(findUserByIDServise);
+    private static AdminUIactions findAccountUI = new FindUserAdminUIAction(findUserByIDService);
     private static AdminUIactions getAllAccountsUI = new GetAllAccountsAdminUIAction(getAllAccountsService);
 
     private static AdminUIactions exitUIMenu = new ExitAdminUIAction();
 
-    public void executeAdminModule (){
+    public void executeAdminModule() {
         while (true) {
             printAdminMenu();
             int menuItem = getUserSelection();

@@ -18,7 +18,6 @@ public class AccountDatabaseImpl implements Database {
     }
 
     @Override
-    //   public void addAccount(Accounts account) {
     public void addAccount(Accounts account) {
         accounts.add(account);
     }
@@ -44,12 +43,26 @@ public class AccountDatabaseImpl implements Database {
 
     //    added:
     @Override
-    public void increaseBalance(int userID, int amount) {
+    public boolean increaseBalance(int userID, int amount) {
         if (userID != 0 && amount > 0) {
             accounts.stream()
                     .filter(account -> account.getUserID() == userID)
                     .forEach(account -> account.setBalance(account.getBalance() + amount));
         }
+        return false;
+    }
+
+
+    public boolean increaseBalanceV2(int userID, int amount) {
+		Accounts userAccount = accounts.stream()
+				.filter(account -> account.getUserID() == userID)
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("User with id not found " + userID));
+		int begin = userAccount.getBalance();
+        if (amount > 0) {
+			userAccount.setBalance(userAccount.getBalance() + amount);
+        }
+        return userAccount.getBalance() == (begin + amount);
     }
 
     @Override
@@ -73,27 +86,13 @@ public class AccountDatabaseImpl implements Database {
         return accounts.contains(name);
     }
 
-//    @Override
-//    public void findUserByID(int userID) {
-//        for (Accounts account : accounts) {
-//            if (account.getUserID() == userID) {
-//                System.out.println("User found:" + account);
-//            } else {
-//                System.out.println("Account was not found");
-//            }
-//        }
-//    }
-
     @Override
     public Accounts findUserByID(int userID) {
-//        return accounts.get(userID);
-       Accounts accountToFind = null;
-
-        for (Accounts account : accounts) {
-            if (account.getUserID() == userID) {
-                accountToFind = accounts.get(userID);
-            }
-        }
+        Accounts accountToFind = accounts.stream()
+                .filter(account -> userID == account.getUserID())
+                .findAny()
+                .orElse(null);
         return accountToFind;
     }
+
 }

@@ -2,7 +2,9 @@ package generalPackage.adminResponses;
 
 import generalPackage.Accounts;
 
-public class AddAccountResponse {
+import java.util.List;
+
+public class AddAccountResponse extends CoreResponse {
 
     private Accounts newAccount;
 
@@ -12,5 +14,9 @@ public class AddAccountResponse {
 
     public Accounts getNewAccount() {
         return newAccount;
+    }
+
+    public AddAccountResponse (List <CoreError> errors){
+        super(errors);
     }
 }

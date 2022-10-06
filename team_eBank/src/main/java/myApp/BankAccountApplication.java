@@ -24,24 +24,24 @@ class BankAccountApplication {
                 logIn();
             } else {
                 if (isUserAdmin()) {
-                    ifAdminLogin(personalCode);
+                    ifAdminLogin();
                 } else {
-                    ifUserLogin(personalCode);
+                    ifUserLogin();
                 }
             }
         }
     }
 
-    private static void ifAdminLogin(String personalCode) {
+    private static void ifAdminLogin() {
         printInformationForAdmin();
         int result = userChoice();
-        userSelectionResult(result, personalCode);
+        userSelectionResult(result);
     }
 
-    private static void ifUserLogin(String personalCode) {
+    private static void ifUserLogin() {
         printInformationForRegularUser();
         int result = userChoice();
-        userSelectionResult(result, personalCode);
+        userSelectionResult(result);
     }
 
     private static void printInformationForRegularUser() {
@@ -74,7 +74,7 @@ class BankAccountApplication {
         return uiActionMap.isUserAdmin();
     }
 
-    private static void userSelectionResult(int userChoice, String personalCode) {
+    private static void userSelectionResult(int userChoice) {
         if (isUserAdmin()) {
             UIAction result = uiActionMap.userSelectionForAdmin(userChoice);
             result.execute();

@@ -1,23 +1,30 @@
 package lv.javaguru.java2.library.core.services;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.refEq;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import lv.javaguru.java2.library.Book;
 import lv.javaguru.java2.library.core.database.Database;
 import lv.javaguru.java2.library.core.requests.AddBookRequest;
 import lv.javaguru.java2.library.core.responses.AddBookResponse;
 import lv.javaguru.java2.library.core.responses.CoreError;
 import lv.javaguru.java2.library.core.services.validators.AddBookRequestValidator;
+import lv.javaguru.java2.library.core.services.validators.AddBookRequestValidatorMock;
 import lv.javaguru.java2.library.matchers.BookMatcher;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,6 +33,49 @@ public class AddBookServiceTest {
 	@Mock private Database database;
 	@Mock private AddBookRequestValidator validator;
 	@InjectMocks private AddBookService service;
+
+
+	@Before
+	public void init() {
+		database = Mockito.mock(Database.class);
+		validator = Mockito.mock(AddBookRequestValidator.class);
+		service = new AddBookService(database, validator);
+	}
+
+	@Test
+	public void testMyMock() {
+		validator = Mockito.mock(AddBookRequestValidatorMock.class);
+
+		AddBookRequest request1 = new AddBookRequest("Title", "Au");
+		AddBookRequest request2 = new AddBookRequest("Title", "Au");
+		validator = Mockito.mock(AddBookRequestValidator.class);
+		//Mockito.when(validator.validate(request1)).thenReturn(List.of());
+		/*Mockito.when(validator.validate(request2)).thenReturn(List.of(
+				new CoreError("title", "errorMesage")
+		));*/
+
+		Mockito.when(validator.validate(any())).thenReturn(List.of());
+
+		List<CoreError> errors = validator.validate(request2);
+
+		database = Mockito.mock(Database.class);
+
+		Book book = new Book("as", "sfd");
+
+		database.save(book);
+
+		//Mockito.verify(database).save(book);
+		//Mockito.verify(database, times(1)).save(book);
+		//Mockito.verify(database, times(2)).save(book);
+
+		//Mockito.verify(database, times(0)).deleteById(1L);
+
+		///Mockito.verifyNoInteractions(database);
+
+		service = new AddBookService(
+				database, new AddBookRequestValidatorMock()
+		);
+	}
 
 	@Test
 	public void shouldReturnResponseWithErrorsWhenValidationFails() {
@@ -78,5 +128,6 @@ public class AddBookServiceTest {
 		assertEquals(response.getNewBook().getTitle(), validRequest.getTitle());
 		assertEquals(response.getNewBook().getAuthor(), validRequest.getAuthor());
 	}
+
 
 }
