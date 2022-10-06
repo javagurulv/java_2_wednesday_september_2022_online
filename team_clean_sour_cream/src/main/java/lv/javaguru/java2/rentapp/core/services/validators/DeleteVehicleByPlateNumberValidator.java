@@ -24,7 +24,7 @@ public class DeleteVehicleByPlateNumberValidator {
         return errors;
     }
 
-    protected Optional<CoreError> validateVehicleByPlateNumber(DeleteVehicleByPlateNumberRequest request) {
+    private Optional<CoreError> validateVehicleByPlateNumber(DeleteVehicleByPlateNumberRequest request) {
         return (request.getPlateNumber() == null || request.getPlateNumber().isBlank())
                 ? Optional.of(new CoreError("Plate number", "can`t be empty or blank"))
                 : Optional.empty();
