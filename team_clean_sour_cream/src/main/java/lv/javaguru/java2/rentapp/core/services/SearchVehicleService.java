@@ -49,7 +49,7 @@ public class SearchVehicleService {
             Comparator<Vehicle> comparator = ordering.getOrderBy().equalsIgnoreCase("price")
                     ? Comparator.comparing(Vehicle::getRentPricePerDay)
                     : Comparator.comparing(Vehicle::getYearOfProduction);
-            if (ordering.getOrderDirection().equalsIgnoreCase("DESCENDING")) {
+            if (ordering.getOrderDirection().equalsIgnoreCase("DESC")) {
                 comparator = comparator.reversed();
             }
             return vehicles.stream().sorted(comparator).collect(Collectors.toList());

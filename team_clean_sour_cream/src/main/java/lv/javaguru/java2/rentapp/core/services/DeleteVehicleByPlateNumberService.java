@@ -16,7 +16,7 @@ public class DeleteVehicleByPlateNumberService {
 
     public DeleteVehicleByPlateNumberService(Database database) {
         this.database = database;
-        this.deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberValidator();
+        this.deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberValidator(database);
     }
 
     public DeleteVehicleByPlateNumberResponse execute(DeleteVehicleByPlateNumberRequest request) {
