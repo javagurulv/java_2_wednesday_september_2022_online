@@ -47,7 +47,7 @@ class SearchRecipeServiceTest {
         assertEquals("Test", error.getMessage());
     }
 
-	/*  Please fix it
+
     @Test
     void testShouldReturnResponseWithListOfRecipes() {
         SearchRecipeRequest request = new SearchRecipeRequest(List.of("Ingredient1","Ingredient2"));
@@ -58,18 +58,16 @@ class SearchRecipeServiceTest {
 
         SearchRecipeResponse response = service.execute(request);
         assertNotNull(response.getRecipes());
-
         assertFalse(response.hasErrors());
         assertEquals(recipe1, response.getRecipes().get(0));
         assertEquals(recipe2, response.getRecipes().get(1));
-
         Mockito.verify(database).find(any());
-
-
 		Mockito.verify(database).find(searchCriteriaCaptor.capture());
-		SearchCriteria searchCriteria = searchCriteriaCaptor.getValue();
+        SearchCriteria expected = new AndSearchCriteria(new IngredientNameCriteria("Ingredient1"), new IngredientNameCriteria("Ingredient2"));
+		SearchCriteria actual = searchCriteriaCaptor.getValue();
+        assertEquals(expected, actual);
     }
-*/
+
 
 
 
