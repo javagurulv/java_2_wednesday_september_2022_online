@@ -22,7 +22,7 @@ class SearchVehicleRequestOrderingValidatorTest {
 
     @Test
     void testValidateReturnListWith1ErrorWhenOrderByIsNull() {
-        Ordering ordering = new Ordering(null, "ascending");
+        Ordering ordering = new Ordering(null, "ASC");
         List<CoreError> errors = validator.validate(ordering);
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
@@ -31,14 +31,14 @@ class SearchVehicleRequestOrderingValidatorTest {
     }
     @Test
     void testValidateMandatoryOrderByNoError() {
-        Ordering ordering = new Ordering("price", "ascending");
+        Ordering ordering = new Ordering("price", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateMandatoryOrderByReturnsErrorWhenFieldIsBlank() {
-        Ordering ordering = new Ordering("", "ascending");
+        Ordering ordering = new Ordering("", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
         assertEquals("orderBy", error.get(0).getField());
@@ -47,7 +47,7 @@ class SearchVehicleRequestOrderingValidatorTest {
 
     @Test
     void testValidateMandatoryOrderByReturnsErrorWhenFieldIsNull() {
-        Ordering ordering = new Ordering(null, "ascending");
+        Ordering ordering = new Ordering(null, "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
         assertEquals("orderBy", error.get(0).getField());
@@ -56,7 +56,7 @@ class SearchVehicleRequestOrderingValidatorTest {
 
     @Test
     void testValidateMandatoryOrderDirectionNoError() {
-        Ordering ordering = new Ordering("price", "ascending");
+        Ordering ordering = new Ordering("price", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
@@ -81,21 +81,21 @@ class SearchVehicleRequestOrderingValidatorTest {
 
     @Test
     void testValidateOrderByNoErrorWhenFieldIsPrice() {
-        Ordering ordering = new Ordering("price", "ascending");
+        Ordering ordering = new Ordering("price", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderByNoErrorWhenFieldIsYear() {
-        Ordering ordering = new Ordering("year", "ascending");
+        Ordering ordering = new Ordering("year", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderByErrorWhenFieldIsNotValid() {
-        Ordering ordering = new Ordering("not valid", "ascending");
+        Ordering ordering = new Ordering("not valid", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
         assertEquals("orderBy", error.get(0).getField());
@@ -104,14 +104,14 @@ class SearchVehicleRequestOrderingValidatorTest {
 
     @Test
     void testValidateOrderDirectionNoErrorWhenFieldIsAscending() {
-        Ordering ordering = new Ordering("price", "ascending");
+        Ordering ordering = new Ordering("price", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderDirectionNoErrorWhenFieldIsDescending() {
-        Ordering ordering = new Ordering("year", "descending");
+        Ordering ordering = new Ordering("year", "DESC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
@@ -122,7 +122,7 @@ class SearchVehicleRequestOrderingValidatorTest {
         List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
         assertEquals("orderDirection", error.get(0).getField());
-        assertEquals("Must contain 'ASCENDING' or 'DESCENDING' only!", error.get(0).getMessage());
+        assertEquals("Must contain 'ASC' (ASCENDING) or 'DESC' (DESCENDING) only!", error.get(0).getMessage());
     }
 
 }

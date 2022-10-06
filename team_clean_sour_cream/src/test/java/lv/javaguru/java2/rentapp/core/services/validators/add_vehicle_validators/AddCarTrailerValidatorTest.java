@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,94 +29,100 @@ class AddCarTrailerValidatorTest {
     }
 
     @Test
-    void testValidateEngineTypeShouldReturnNoErrors() {
-        String engineType = "no/ne ";
-        AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
-        List<CoreError> errors = validator.validate(request);
-        assertTrue(errors.isEmpty());
-    }
-
-    @Test
     void testValidateEngineTypeIsEmptyShouldReturnErrorV1() {
         String engineType = "";
-        AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Engine Type", errors.get(0).getField());
-        assertEquals("cannot be empty", errors.get(0).getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType(engineType).plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
+        Optional<CoreError> errors = validator.validateEngineType(request);
+        assertTrue(errors.isPresent());
+        assertEquals("Engine Type", errors.get().getField());
+        assertEquals("cannot be empty", errors.get().getMessage());
     }
 
     @Test
     void testValidateEngineTypeIsEmptyShouldReturnErrorV2() {
         String engineType = " ";
-        AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Engine Type", errors.get(0).getField());
-        assertEquals("cannot be empty", errors.get(0).getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType(engineType).plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
+        Optional<CoreError> error = validator.validateEngineType(request);
+        assertTrue(error.isPresent());
+        assertEquals("Engine Type", error.get().getField());
+        assertEquals("cannot be empty", error.get().getMessage());
     }
 
     @Test
     void testValidateEngineTypeIsNullShouldReturnErrorV2() {
-        AddVehicleRequest request = AddVehicleRequest.builder().engineType(null).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Engine Type", errors.get(0).getField());
-        assertEquals("cannot be empty", errors.get(0).getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType(null).plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
+        Optional<CoreError> error = validator.validateEngineType(request);
+        assertTrue(error.isPresent());
+        assertEquals("Engine Type", error.get().getField());
+        assertEquals("cannot be empty", error.get().getMessage());
     }
 
     @Test
     void testValidateEngineTypeWrongInputShouldReturnError() {
-        String engineType = "gas";
-        AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Engine Type", errors.get(0).getField());
-        assertEquals("for Car Trailer must be \"None\"", errors.get(0).getMessage());
+        String engineType = "wrong";
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType(engineType).plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
+        Optional<CoreError> errors = validator.validateEngineType(request);
+        assertTrue(errors.isPresent());
+        assertEquals("Engine Type", errors.get().getField());
+        assertEquals("for Car Trailer must be \"None\"", errors.get().getMessage());
     }
 
     @Test
     void testValidateTransmissionTypeShouldReturnNoErrors() {
         String transmissionType = " n*on/e";
-        AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
-        List<CoreError> errorOptional = validator.validate(request);
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType(transmissionType.replaceAll("[^a-zA-z]", "")).deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();        List<CoreError> errorOptional = validator.validate(request);
         assertTrue(errorOptional.isEmpty());
     }
 
     @Test
     void testValidateTransmissionTypeIsEmptyShouldReturnErrorV1() {
         String transmissionType = "";
-        AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Transmission Type", errors.get(0).getField());
-        assertEquals("cannot be empty", errors.get(0).getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType(transmissionType).deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
+        Optional<CoreError> error= validator.validateTransmissionType(request);
+        assertTrue(error.isPresent());
+        assertEquals("Transmission Type", error.get().getField());
+        assertEquals("cannot be empty", error.get().getMessage());
     }
 
     @Test
     void testValidateTransmissionTypeIsEmptyShouldReturnErrorV2() {
         String transmissionType = " ";
-        AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Transmission Type", errors.get(0).getField());
-        assertEquals("cannot be empty", errors.get(0).getMessage());
-    }
-
-    @Test
-    void testValidateTransmissionTypeIsNullShouldReturnError() {
-        AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(null).build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Transmission Type", errors.get(0).getField());
-        assertEquals("cannot be empty", errors.get(0).getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType(transmissionType).deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
+        Optional<CoreError> error = validator.validateTransmissionType(request);
+        assertTrue(error.isPresent());
+        assertEquals("Transmission Type", error.get().getField());
+        assertEquals("cannot be empty", error.get().getMessage());
     }
 
 
     @Test
     void testValidateTransmissionTypeWrongInputShouldReturnError() {
         String transmissionType = "manual";
-        AddVehicleRequest request = AddVehicleRequest.builder().transmissionType(transmissionType).build();
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType(transmissionType).deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Transmission Type", errors.get(0).getField());
@@ -125,8 +132,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateReturnsEmptyList() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
@@ -135,13 +142,13 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateVehicleIsNotDuplicateShouldReturnNoErrors() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
+                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
         Vehicle carTrailer1 = new CarTrailerCreator().createVehicle(request1);
         database.addNewVehicle(carTrailer1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
-                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
+                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
         List<CoreError> error = validator.validate(request2);
         assertTrue(error.isEmpty());
     }
@@ -149,13 +156,13 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateVehicleIsNotDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
+                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
         Vehicle carTrailer1 = new CarTrailerCreator().createVehicle(request1);
         database.addNewVehicle(carTrailer1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
+                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(10).deckLengthInCm(10).deckHeightInCm(10).emptyWeightInKg(10).maxLoadWeightInKg(10).build();
         List<CoreError> error = validator.validate(request2);
         assertEquals(1, error.size());
         assertEquals("Vehicle", error.get(0).getField());
@@ -166,8 +173,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckWidthInCmShouldReturnNoErrors() {
         Integer deckWidthInCm = TRAIL_MAX_DECK_WIDTH_IN_CM;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errorOptional = validator.validate(request);
         assertTrue(errorOptional.isEmpty());
@@ -177,8 +184,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckWidthInCmIsZeroShouldReturnError() {
         Integer deckWidthInCm = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -190,8 +197,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckWidthInCmNegativeShouldReturnError() {
         Integer deckWidthInCm = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -202,8 +209,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateDeckWidthInCmIsNullShouldReturnError() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(null).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(null).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -215,8 +222,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckWidthInCmMoreThanMaxAllowedShouldReturnError() {
         Integer deckWidthInCm = TRAIL_MAX_DECK_WIDTH_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(deckWidthInCm).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -227,8 +234,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateDeckLengthInCmShouldReturnNoErrors() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
@@ -238,8 +245,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckLengthInCmIsZeroShouldReturnError() {
         Integer deckLengthInCm = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(deckLengthInCm)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(deckLengthInCm)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -251,8 +258,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckLengthInCmNegativeShouldReturnError() {
         Integer deckLengthInCm = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(deckLengthInCm)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(deckLengthInCm)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -263,8 +270,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateDeckLengthInCmIsNullShouldReturnError() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(null)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(null)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -276,8 +283,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckLengthInCmMoreThanMaxAllowedShouldReturnError() {
         Integer deckLengthInCm = TRAIL_MAX_DECK_LENGTH_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(deckLengthInCm)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(deckLengthInCm)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -289,8 +296,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckHeightInCmShouldReturnNoErrors() {
         Integer deckHeightInCm = TRAIL_MAX_DECK_HEIGHT_IN_CM;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(deckHeightInCm).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
@@ -300,8 +307,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckHeightInCmIsZeroShouldReturnError() {
         Integer deckHeightInCm = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(deckHeightInCm).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -313,8 +320,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckHeightInCmNegativeShouldReturnError() {
         Integer deckHeightInCm = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(deckHeightInCm).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -325,8 +332,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateDeckHeightInCmIsNullShouldReturnError() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(null).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -338,8 +345,8 @@ class AddCarTrailerValidatorTest {
     void testValidateDeckHeightInCmMoreThanMaxAllowedShouldReturnError() {
         Integer deckHeightInCm = TRAIL_MAX_DECK_HEIGHT_IN_CM + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(deckHeightInCm).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -351,8 +358,8 @@ class AddCarTrailerValidatorTest {
     void testValidateEmptyWeightInKgShouldReturnNoErrors() {
         Integer emptyWeightInKg = TRAIL_MAX_EMPTY_WEIGHT_IN_KG;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(emptyWeightInKg).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
@@ -362,8 +369,8 @@ class AddCarTrailerValidatorTest {
     void testValidateEmptyWeightInKgIsZeroShouldReturnError() {
         Integer emptyWeightInKg = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(emptyWeightInKg).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -375,8 +382,8 @@ class AddCarTrailerValidatorTest {
     void testValidateEmptyWeightInKgNegativeShouldReturnError() {
         Integer emptyWeightInKg = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(emptyWeightInKg).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -387,8 +394,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateEmptyWeightInKgIsNullShouldReturnError() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(null).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -400,8 +407,8 @@ class AddCarTrailerValidatorTest {
     void testValidateEmptyWeightInKgMoreThanMaxAllowedShouldReturnError() {
         Integer emptyWeightInKg = TRAIL_MAX_EMPTY_WEIGHT_IN_KG + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(emptyWeightInKg).maxLoadWeightInKg(TRAIL_MAX_LOAD_WEIGHT_IN_KG).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -413,8 +420,8 @@ class AddCarTrailerValidatorTest {
     void testValidateMaxLoadWeightInKgShouldReturnNoErrors() {
         Integer maxLoadWeightInKg = TRAIL_MAX_LOAD_WEIGHT_IN_KG;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(maxLoadWeightInKg).build();
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
@@ -424,8 +431,8 @@ class AddCarTrailerValidatorTest {
     void testValidateMaxLoadWeightInKgIsZeroShouldReturnError() {
         Integer maxLoadWeightInKg = 0;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(maxLoadWeightInKg).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -437,8 +444,8 @@ class AddCarTrailerValidatorTest {
     void testValidateMaxLoadWeightInKgNegativeShouldReturnError() {
         Integer maxLoadWeightInKg = -1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(maxLoadWeightInKg).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -449,8 +456,8 @@ class AddCarTrailerValidatorTest {
     @Test
     void testValidateMaxLoadWeightInKgNullShouldReturnError() {
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(null).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -462,8 +469,8 @@ class AddCarTrailerValidatorTest {
     void testValidateMaxLoadWeightInKgMoreThanMaxAllowedShouldReturnError() {
         Integer maxLoadWeightInKg = TRAIL_MAX_LOAD_WEIGHT_IN_KG + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
+                .transmissionType("none").deckWidthInCm(TRAIL_MAX_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MAX_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MAX_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MAX_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(maxLoadWeightInKg).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());

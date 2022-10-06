@@ -45,10 +45,10 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         String transmissionType = request.getTransmissionType();
         if (transmissionType == null || transmissionType.isBlank()) {
             return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
-        } else if ("None".equalsIgnoreCase(transmissionType)) {
+        } else if (transmissionType.equalsIgnoreCase("none")) {
             return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Transmission Type", "must be None"));
+            return Optional.of(new CoreError("Transmission Type", "for Car Trailer must be \"None\""));
         }
     }
 
@@ -57,7 +57,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         String engineType = request.getEngineType();
         if (engineType == null || engineType.isBlank()) {
             return Optional.of(new CoreError("Engine Type", "cannot be empty"));
-        } else if ("None".equalsIgnoreCase(engineType)) {
+        } else if (engineType.equalsIgnoreCase("none")) {
             return Optional.empty();
         } else {
             return Optional.of(new CoreError("Engine Type", "for Car Trailer must be \"None\""));

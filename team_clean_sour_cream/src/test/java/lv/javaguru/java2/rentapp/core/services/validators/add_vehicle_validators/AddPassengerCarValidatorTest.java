@@ -443,7 +443,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than 1", errors.get(0).getMessage());
     }
 
     @Test
@@ -456,7 +456,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than 1", errors.get(0).getMessage());
     }
 
     @Test
@@ -468,7 +468,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than 1", errors.get(0).getMessage());
     }
 
     @Test
