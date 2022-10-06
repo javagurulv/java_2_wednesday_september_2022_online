@@ -4,7 +4,7 @@ import lv.javaguru.java2.eBooking.Appointment;
 
 import java.util.List;
 
-public class GetAllAppointmentResponse {
+public class GetAllAppointmentResponse extends CoreResponse{
 
     private List<Appointment> appointmentList;
 

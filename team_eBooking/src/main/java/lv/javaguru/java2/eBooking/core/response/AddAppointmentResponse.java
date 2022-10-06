@@ -2,7 +2,7 @@ package lv.javaguru.java2.eBooking.core.response;
 
 import lv.javaguru.java2.eBooking.Appointment;
 
-public class AddAppointmentResponse {
+public class AddAppointmentResponse extends CoreResponse{
 
     private Appointment newAppointment;
 

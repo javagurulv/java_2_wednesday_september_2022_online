@@ -4,7 +4,7 @@ import lv.javaguru.java2.eBooking.Client;
 
 import java.util.List;
 
-public class GetAllClientsResponse {
+public class GetAllClientsResponse extends CoreResponse{
 
     private List<Client> clients;
 

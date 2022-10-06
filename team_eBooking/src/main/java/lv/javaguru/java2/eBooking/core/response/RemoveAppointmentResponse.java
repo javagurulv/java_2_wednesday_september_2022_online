@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.response;
 
-public class RemoveAppointmentResponse {
+public class RemoveAppointmentResponse extends CoreResponse{
 
     private boolean isAppointmentRemoved;
 

@@ -10,7 +10,8 @@ import java.util.Scanner;
 
 public class AppointmentApplication {
     private static Database database = new InMemoryDatabase();
-    private static AddClientService addClientService = new AddClientService(database);
+    private static AddClientValidator validator= new AddClientValidator();
+    private static AddClientService addClientService = new AddClientService(database,validator);
     private static RemoveClientService removeClientService=new RemoveClientService(database);
     private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
     private static AddAppointmentService addAppointmentService = new AddAppointmentService(database);
