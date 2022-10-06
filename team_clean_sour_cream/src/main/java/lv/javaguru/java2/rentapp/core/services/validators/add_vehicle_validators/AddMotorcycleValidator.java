@@ -4,12 +4,14 @@ import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MotorcycleCreator;
-import lv.javaguru.java2.rentapp.domain.Motorcycle;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
 public class AddMotorcycleValidator extends AddVehicleValidator {
 
@@ -36,10 +38,10 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
-        if (passengerAmount == null || passengerAmount <= 0) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
-        } else if (passengerAmount > Motorcycle.MOTO_MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + Motorcycle.MOTO_MAX_PASSENGER_AMOUNT));
+        if (passengerAmount == null || passengerAmount < MOTO_MIN_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or less than " + MOTO_MIN_PASSENGER_AMOUNT));
+        } else if (passengerAmount > MOTO_MAX_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MOTO_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }

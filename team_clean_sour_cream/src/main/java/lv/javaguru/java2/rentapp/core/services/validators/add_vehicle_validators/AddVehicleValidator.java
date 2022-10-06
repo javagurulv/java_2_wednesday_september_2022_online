@@ -2,7 +2,6 @@ package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validator
 
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
-import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
@@ -10,6 +9,8 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+
+import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
 public abstract class AddVehicleValidator {
 
@@ -31,7 +32,7 @@ public abstract class AddVehicleValidator {
 
     protected Optional<CoreError> validateYearOfProduction(AddVehicleRequest request) {
         Integer yearOfProduction = request.getYearOfProduction();
-        int minYear = LocalDate.now().getYear() - Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
+        int minYear = LocalDate.now().getYear() - MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
         int currentYear = LocalDate.now().getYear();
         if (yearOfProduction == null) {
             return Optional.of(new CoreError("YearOfProduction", "cannot be empty"));

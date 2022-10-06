@@ -4,12 +4,13 @@ import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MiniBusCreator;
-import lv.javaguru.java2.rentapp.domain.MiniBus;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
 
 public class AddMiniBusValidator extends AddVehicleValidator {
 
@@ -39,10 +40,10 @@ public class AddMiniBusValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
-        if (passengerAmount == null || passengerAmount <= 0) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
-        } else if (passengerAmount > MiniBus.BUS_MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MiniBus.BUS_MAX_PASSENGER_AMOUNT));
+        if (passengerAmount == null || passengerAmount < BUS_MIN_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT));
+        } else if (passengerAmount > BUS_MAX_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + BUS_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -52,8 +53,8 @@ public class AddMiniBusValidator extends AddVehicleValidator {
         Integer baggageAmount = request.getBaggageAmount();
         if (baggageAmount == null || baggageAmount < 0) {
             return Optional.of(new CoreError("Baggage amount", "cannot be empty or negative"));
-        } else if (baggageAmount > MiniBus.BUS_MAX_BAGGAGE_AMOUNT) {
-            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + MiniBus.BUS_MAX_BAGGAGE_AMOUNT));
+        } else if (baggageAmount > BUS_MAX_BAGGAGE_AMOUNT) {
+            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + BUS_MAX_BAGGAGE_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -61,10 +62,10 @@ public class AddMiniBusValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validateDoorsAmount(AddVehicleRequest request) {
         Integer doorsAmount = request.getDoorsAmount();
-        if (doorsAmount == null || doorsAmount <= 0) {
-            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative or 0"));
-        } else if (doorsAmount > MiniBus.BUS_MAX_DOORS_AMOUNT) {
-            return Optional.of(new CoreError("Doors amount", "cannot be more than " + MiniBus.BUS_MAX_DOORS_AMOUNT));
+        if (doorsAmount == null || doorsAmount < BUS_MIN_DOORS_AMOUNT) {
+            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT));
+        } else if (doorsAmount > BUS_MAX_DOORS_AMOUNT) {
+            return Optional.of(new CoreError("Doors amount", "cannot be more than " + BUS_MAX_DOORS_AMOUNT));
         } else {
             return Optional.empty();
         }

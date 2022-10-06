@@ -29,7 +29,7 @@ public class DeleteVehicleByPlateNumberUIAction implements UIAction {
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
             );
         } else {
-            System.out.println(response);
+            System.out.println(response.getVehicleDeletedMsg());
         }
     }
 
