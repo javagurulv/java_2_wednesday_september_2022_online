@@ -31,9 +31,10 @@ public class RemoveBankAccountServiceTest {
     public void testSuccessRemoveBankAccount() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest("000-001");
         when(validator.validate(request)).thenReturn(List.of());
-        when(dataBase.closeAccount("000-001")).thenReturn(true);
+        when(dataBase.deleteBankAccount("000-001")).thenReturn(true);
         RemoveBankAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
+        assertTrue(response.isDeleted());
         verify(dataBase).deleteBankAccount("000-001");
     }
 
