@@ -35,10 +35,11 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         validateBaggageAmount(request).ifPresent(errors::add);
         validateDoorsAmount(request).ifPresent(errors::add);
         validateIsAirConditionerAvailable(request).ifPresent(errors::add);
+        validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
         return errors;
     }
 
-    protected Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
+    private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
         if (passengerAmount == null || passengerAmount <= 0) {
             return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
@@ -49,7 +50,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateBaggageAmount(AddVehicleRequest request) {
+    private Optional<CoreError> validateBaggageAmount(AddVehicleRequest request) {
         Integer baggageAmount = request.getBaggageAmount();
         if (baggageAmount == null || baggageAmount < 0) {
             return Optional.of(new CoreError("Baggage amount", "cannot be empty or negative"));
@@ -60,7 +61,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateDoorsAmount(AddVehicleRequest request) {
+    private Optional<CoreError> validateDoorsAmount(AddVehicleRequest request) {
         Integer doorsAmount = request.getDoorsAmount();
         if (doorsAmount == null || doorsAmount <= 0) {
             return Optional.of(new CoreError("Doors amount", "cannot be empty, negative or 0"));
@@ -71,7 +72,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateIsAirConditionerAvailable(AddVehicleRequest request) {
+    private Optional<CoreError> validateIsAirConditionerAvailable(AddVehicleRequest request) {
         String isAirConditioningAvailable = request.getIsAirConditioningAvailable();
         if (isAirConditioningAvailable == null || isAirConditioningAvailable.isBlank()) {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "cannot be empty"));
@@ -83,7 +84,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
+    private Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
         Vehicle passengerCar = new PassengerCarCreator().createVehicle(request);
         return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(passengerCar))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))

@@ -56,7 +56,10 @@ public abstract class Vehicle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(yearOfProduction, vehicle.yearOfProduction) && colour == vehicle.colour && Objects.equals(rentPricePerDay, vehicle.rentPricePerDay) && engineType == vehicle.engineType && Objects.equals(plateNumber, vehicle.plateNumber) && transmissionType == vehicle.transmissionType;
+        return Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model)
+                && Objects.equals(yearOfProduction, vehicle.yearOfProduction) && colour == vehicle.colour
+                && Objects.equals(rentPricePerDay, vehicle.rentPricePerDay) && engineType == vehicle.engineType
+                && Objects.equals(plateNumber, vehicle.plateNumber) && transmissionType == vehicle.transmissionType;
     }
 
     @Override

@@ -10,6 +10,7 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,23 +29,25 @@ class AddMotorcycleValidatorTest {
     }
 
     @Test
-    void testValidateReturnsListOfAllErrors() {
-        AddVehicleRequest request = AddVehicleRequest.builder().build();
+    void testValidateReturnsEmptyList() {
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(MAX_PASSENGER_AMOUNT).build();
         List<CoreError> errors = validator.validate(request);
-        assertEquals(errors.size(), 9);
+        assertEquals(errors.size(), 0);
     }
 
     @Test
     void testValidateVehicleIsNotDuplicateShouldReturnNoErrors() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).build();
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(MAX_PASSENGER_AMOUNT).build();
         Vehicle motorcycle1 = new MotorcycleCreator().createVehicle(request1);
         database.addNewVehicle(motorcycle1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(1).build();
-        Optional<CoreError> error = validator.validateVehicleIsNotDuplicate(request2);
+        List<CoreError> error = validator.validate(request2);
         assertTrue(error.isEmpty());
     }
 
@@ -58,56 +61,66 @@ class AddMotorcycleValidatorTest {
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(1).build();
-        Optional<CoreError> error = validator.validateVehicleIsNotDuplicate(request2);
-        assertTrue(error.isPresent());
-        assertEquals("Vehicle", error.get().getField());
-        assertEquals("is already in the database", error.get().getMessage());
+        List<CoreError> errors = validator.validate(request2);
+        assertEquals(1 ,errors.size());
+        assertEquals("Vehicle", errors.get(0).getField());
+        assertEquals("is already in the database", errors.get(0).getMessage());
     }
 
     @Test
     void testValidatePassengerAmountShouldReturnNoErrors() {
         Integer passengerAmount = MAX_PASSENGER_AMOUNT;
-        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
-        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
-        assertTrue(errorOptional.isEmpty());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(passengerAmount).build();
+        List<CoreError> errors = validator.validate(request);
+        assertTrue(errors.isEmpty());
     }
 
     @Test
     void testValidatePassengerAmountIsZeroShouldReturnError() {
         Integer passengerAmount = 0;
-        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
-        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
-        assertTrue(errorOptional.isPresent());
-        assertEquals("Passenger amount", errorOptional.get().getField());
-        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(passengerAmount).build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1 ,errors.size());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
     }
 
     @Test
     void testValidatePassengerAmountNegativeShouldReturnError() {
         Integer passengerAmount = -1;
-        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
-        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
-        assertTrue(errorOptional.isPresent());
-        assertEquals("Passenger amount", errorOptional.get().getField());
-        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(passengerAmount).build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1 ,errors.size());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
     }
 
     @Test
     void testValidatePassengerAmountIsNullShouldReturnError() {
-        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(null).build();
-        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
-        assertTrue(errorOptional.isPresent());
-        assertEquals("Passenger amount", errorOptional.get().getField());
-        assertEquals("cannot be empty, negative or 0", errorOptional.get().getMessage());
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(null).build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1 ,errors.size());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
     }
 
     @Test
     void testValidatePassengerAmountMoreThanMaxAllowedShouldReturnError() {
         Integer passengerAmount = MAX_PASSENGER_AMOUNT + 1;
-        AddVehicleRequest request = AddVehicleRequest.builder().passengerAmount(passengerAmount).build();
-        Optional<CoreError> errorOptional = validator.validatePassengerAmount(request);
-        assertTrue(errorOptional.isPresent());
-        assertEquals(errorOptional.get().getField(), "Passenger amount");
-        assertEquals(errorOptional.get().getMessage(), "cannot be more than " + MAX_PASSENGER_AMOUNT);
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(passengerAmount).build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1 ,errors.size());
+        assertEquals(errors.get(0).getField(), "Passenger amount");
+        assertEquals(errors.get(0).getMessage(), "cannot be more than " + MAX_PASSENGER_AMOUNT);
     }
 }

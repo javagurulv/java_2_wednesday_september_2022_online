@@ -39,10 +39,11 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         validateDeckHeightInCm(request).ifPresent(errors::add);
         validateEmptyWeightInKg(request).ifPresent(errors::add);
         validateMaxLoadWeightInKg(request).ifPresent(errors::add);
+        validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
         return errors;
     }
 
-    protected Optional<CoreError> validateDeckWidthInCm(AddVehicleRequest request) {
+    private Optional<CoreError> validateDeckWidthInCm(AddVehicleRequest request) {
         Integer deckWidthInCm = request.getDeckWidthInCm();
         if (deckWidthInCm == null || deckWidthInCm <= 0) {
             return Optional.of(new CoreError("Deck Width in cm", "cannot be empty, negative or 0"));
@@ -53,7 +54,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateDeckLengthInCm(AddVehicleRequest request) {
+    private Optional<CoreError> validateDeckLengthInCm(AddVehicleRequest request) {
         Integer deckLengthInCm = request.getDeckLengthInCm();
         if (deckLengthInCm == null || deckLengthInCm <= 0) {
             return Optional.of(new CoreError("Deck Length in cm", "cannot be empty, negative or 0"));
@@ -64,7 +65,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateDeckHeightInCm(AddVehicleRequest request) {
+    private Optional<CoreError> validateDeckHeightInCm(AddVehicleRequest request) {
         Integer deckHeightInCm = request.getDeckHeightInCm();
         if (deckHeightInCm == null || deckHeightInCm <= 0) {
             return Optional.of(new CoreError("Deck Height in cm", "cannot be empty, negative or 0"));
@@ -75,7 +76,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateEmptyWeightInKg(AddVehicleRequest request) {
+    private Optional<CoreError> validateEmptyWeightInKg(AddVehicleRequest request) {
         Integer emptyWeightInKg = request.getEmptyWeightInKg();
         if (emptyWeightInKg == null || emptyWeightInKg <= 0) {
             return Optional.of(new CoreError("Empty Weight in KG", "cannot be empty, negative or 0"));
@@ -86,7 +87,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateMaxLoadWeightInKg(AddVehicleRequest request) {
+    private Optional<CoreError> validateMaxLoadWeightInKg(AddVehicleRequest request) {
         Integer maxLoadWeightInKg = request.getMaxLoadWeightInKg();
         if (maxLoadWeightInKg == null || maxLoadWeightInKg <= 0) {
             return Optional.of(new CoreError("Max Load Weight in KG", "cannot be empty, negative or 0"));
@@ -97,7 +98,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
+    private Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
         Vehicle carTrailer = new CarTrailerCreator().createVehicle(request);
         return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(carTrailer))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))

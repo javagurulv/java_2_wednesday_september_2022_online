@@ -30,10 +30,11 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
         validatePlateNumber(request).ifPresent(errors::add);
         validateTransmissionType(request).ifPresent(errors::add);
         validatePassengerAmount(request).ifPresent(errors::add);
+        validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
         return errors;
     }
 
-    protected Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
+    private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
         if (passengerAmount == null || passengerAmount <= 0) {
             return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
@@ -44,7 +45,7 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
         }
     }
 
-    protected Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
+    private Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
         Vehicle motorcycle = new MotorcycleCreator().createVehicle(request);
         return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(motorcycle))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))
