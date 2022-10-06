@@ -52,19 +52,18 @@ public class AccountDatabaseImpl implements Database {
         return false;
     }
 
-//    @Override
-//    public boolean increaseBalance(int userID, int amount) {
-//        int begin = 0;
-//        accounts.stream()
-//                .filter(account -> account.getUserID() == userID)
-//                .forEach(account -> begin == account.getBalance());
-//        if (userID != 0 && amount > 0) {
-//            accounts.stream()
-//                    .filter(account -> account.getUserID() == userID)
-//                    .forEach(account -> account.setBalance(account.getBalance() + amount));
-//        }
-//        return (accounts.get(userID).getBalance() = begin + amount);
-//    }
+
+    public boolean increaseBalanceV2(int userID, int amount) {
+		Accounts userAccount = accounts.stream()
+				.filter(account -> account.getUserID() == userID)
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("User with id not found " + userID));
+		int begin = userAccount.getBalance();
+        if (amount > 0) {
+			userAccount.setBalance(userAccount.getBalance() + amount);
+        }
+        return userAccount.getBalance() == (begin + amount);
+    }
 
     @Override
     public void decreaseBalance(int userID, int amount) {
