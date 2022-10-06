@@ -24,11 +24,10 @@ public class AddBankAccountService {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
             BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(), request.getPassword()
-                    ,Roles.Regular_user, request.getPersonalCode());
+                    , Roles.Regular_user, request.getPersonalCode());
             dataBase.addBankAccount(bankAccount);
             return new AddBankAccountResponse(bankAccount);
-        } else {
-            return new AddBankAccountResponse(errors);
         }
+        return new AddBankAccountResponse(errors);
     }
 }

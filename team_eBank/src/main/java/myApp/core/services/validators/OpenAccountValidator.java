@@ -19,6 +19,6 @@ public class OpenAccountValidator {
         return request.getPersonalCode() != null
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Personal code",
-                "personal code must not be empty"));
+                "Personal code must not be empty"));
     }
 }

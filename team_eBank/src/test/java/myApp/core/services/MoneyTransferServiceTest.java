@@ -26,7 +26,7 @@ public class MoneyTransferServiceTest {
     private MoneyTransferService service;
 
     @Test
-    public void testExecuteWithoutErrors() {
+    public void testSuccessMoneyTransfer() {
         MoneyTransferRequest request = new MoneyTransferRequest("000-001",
                 "000-002", 100);
         when(validator.validate(request)).thenReturn(List.of());
@@ -37,14 +37,70 @@ public class MoneyTransferServiceTest {
     }
 
     @Test
-    public void testExecuteWitErrors() {
+    public void testShouldReturnPersonalCodeError() {
+        MoneyTransferRequest request = new MoneyTransferRequest("",
+                "000-111",  100);
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
+                "Your personal code must not be empty")));
+        MoneyTransferResponse response = service.execute(request);
+        assertTrue(response.hasErrors());
+        assertEquals(1, response.getErrors().size());
+        assertEquals("Field: Personal code", response.getErrors().get(0).getField());
+        assertEquals("Your personal code must not be empty",
+                response.getErrors().get(0).getMessage());
+    }
+
+    @Test
+    public void testShouldReturnAnotherPersonalCodeError() {
+        MoneyTransferRequest request = new MoneyTransferRequest("000-111",
+                "",  100);
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Another personal code",
+                "Another personal code must not be empty")));
+        MoneyTransferResponse response = service.execute(request);
+        assertTrue(response.hasErrors());
+        assertEquals(1, response.getErrors().size());
+        assertEquals("Field: Another personal code",
+                response.getErrors().get(0).getField());
+        assertEquals("Another personal code must not be empty",
+                response.getErrors().get(0).getMessage());
+    }
+
+    @Test
+    public void testShouldReturnValueError() {
+        MoneyTransferRequest request = new MoneyTransferRequest("000-111",
+                "000-112",  0);
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Value",
+                "Value must not be empty")));
+        MoneyTransferResponse response = service.execute(request);
+        assertTrue(response.hasErrors());
+        assertEquals(1, response.getErrors().size());
+        assertEquals("Field: Value",
+                response.getErrors().get(0).getField());
+        assertEquals("Value must not be empty",
+                response.getErrors().get(0).getMessage());
+    }
+
+    @Test
+    public void testShouldReturnAllErrors() {
         MoneyTransferRequest request = new MoneyTransferRequest("",
                 "",  0);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
-                "Your personal code must not be empty"), new CoreError("Field: Another personal code",
-                "another personal code must not be empty")));
+                "Your personal code must not be empty"),new CoreError("Field: Another personal code",
+                "Another personal code must not be empty"),new CoreError("Field: Value",
+                "Value must not be empty")));
         MoneyTransferResponse response = service.execute(request);
         assertTrue(response.hasErrors());
-        assertEquals(2, response.getErrors().size());
+        assertEquals(3, response.getErrors().size());
+        assertEquals("Field: Personal code", response.getErrors().get(0).getField());
+        assertEquals("Your personal code must not be empty",
+                response.getErrors().get(0).getMessage());
+        assertEquals("Field: Another personal code",
+                response.getErrors().get(1).getField());
+        assertEquals("Another personal code must not be empty",
+                response.getErrors().get(1).getMessage());
+        assertEquals("Field: Value",
+                response.getErrors().get(2).getField());
+        assertEquals("Value must not be empty",
+                response.getErrors().get(2).getMessage());
     }
 }

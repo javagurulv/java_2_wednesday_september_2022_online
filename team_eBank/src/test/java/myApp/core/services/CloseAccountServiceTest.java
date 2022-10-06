@@ -14,8 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,8 +32,10 @@ public class CloseAccountServiceTest {
     public void testCloseAccountWithoutErrors() {
         CloseAccountRequest request = new CloseAccountRequest("000-001");
         when(validator.validate(request)).thenReturn(List.of());
+        when(dataBase.closeAccount("000-001")).thenReturn(true);
         CloseAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
+        assertTrue(response.isDeleted());
         verify(dataBase).closeAccount("000-001");
     }
 
@@ -46,5 +47,7 @@ public class CloseAccountServiceTest {
         CloseAccountResponse response = service.execute(request);
         assertFalse(response.isDeleted());
         assertEquals("Field: Personal code", response.getErrors().get(0).getField());
+        assertEquals("Personal code must not be empty", response.getErrors().get(0).getMessage());
+        verify(dataBase, times(0)).closeAccount(null);
     }
 }

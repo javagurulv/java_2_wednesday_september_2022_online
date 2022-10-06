@@ -3,7 +3,6 @@ package myApp.consoleUI;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
-import myApp.core.database.DataBase;
 
 import java.util.Scanner;
 
@@ -31,7 +30,11 @@ public class AddBankAccountUIAction implements UIAction {
             response.getErrors().forEach(coreError -> System.out.println("Error: "
                     + coreError.getField() + " " + coreError.getMessage()));
         } else {
-            System.out.println("Bank account has been added");
+            if (response.getBankAccount() != null) {
+                System.out.println("Bank account has been added");
+            } else {
+                System.out.println("Bank account has not been added");
+            }
         }
     }
 }

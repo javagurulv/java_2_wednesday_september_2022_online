@@ -25,5 +25,4 @@ public interface DataBase {
     List<BankAccount> findByNameAndPersonalCode(String name, String personalCode );
     List<BankAccount> findBySurnameAndPersonalCode(String surname, String personalCode );
     List<BankAccount> findByNameAndSurnameAndPersonalCode(String name,String surname, String personalCode );
-
 }

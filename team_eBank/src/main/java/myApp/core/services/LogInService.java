@@ -27,12 +27,8 @@ public class LogInService {
         if (!errors.isEmpty()) {
             return new LogInResponse(errors);
         }
-        Optional<BankAccount> result = dataBase.getAllBankAccounts().stream()
-                .filter(bankAccount -> bankAccount.getPersonalCode().equals(request.getPersonalCode()))
-                .filter(bankAccount -> bankAccount.getPassword().equals(request.getPassword()))
-                .findFirst();
-        if (result.isPresent()) {
-            return new LogInResponse(userService.logIn(request.getPersonalCode(), request.getPassword()));
+        if (userService.logIn(request.getPersonalCode(), request.getPassword())) {
+            return new LogInResponse(request.getPersonalCode());
         }
         return new LogInResponse("");
     }
