@@ -17,6 +17,6 @@ public class GetAllBankAccountsService {
 
     public GetAllBankAccountsResponse execute(GetAllBankAccountsRequest request) {
         List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();
-        return new GetAllBankAccountsResponse(bankAccounts);
+        return new GetAllBankAccountsResponse(null,bankAccounts);
     }
 }

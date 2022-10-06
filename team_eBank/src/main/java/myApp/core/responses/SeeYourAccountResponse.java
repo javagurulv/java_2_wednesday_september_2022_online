@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Getter
-public class SeeYourAccountResponse {
+public class SeeYourAccountResponse extends CoreResponse {
 
     private Optional<BankAccount> bankAccount;
 }

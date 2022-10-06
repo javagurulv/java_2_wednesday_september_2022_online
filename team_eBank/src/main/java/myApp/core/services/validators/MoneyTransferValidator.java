@@ -27,13 +27,13 @@ public class MoneyTransferValidator {
         return request.getAnotherPersonalCode() != null
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Another personal code",
-                "another personal code must not be empty"));
+                "Another personal code must not be empty"));
     }
 
     private Optional<CoreError> validateAmount(MoneyTransferRequest request) {
         return request.getValue() > 0
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Value",
-                "value must not be empty"));
+                "Value must not be empty"));
     }
 }

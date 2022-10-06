@@ -13,8 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,20 +28,24 @@ public class RemoveBankAccountServiceTest {
     RemoveBankAccountService service;
 
     @Test
-    public void testExecuteWithoutErrors() {
+    public void testSuccessRemoveBankAccount() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest("000-001");
         when(validator.validate(request)).thenReturn(List.of());
+        when(dataBase.deleteBankAccount("000-001")).thenReturn(true);
         RemoveBankAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
+        assertTrue(response.isDeleted());
         verify(dataBase).deleteBankAccount("000-001");
     }
 
     @Test
-    public void testExecuteWithErrors() {
+    public void testShouldReturnPersonalCodeError() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest(null);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Id",
-                "id must not be empty")));
+                "Id must not be empty")));
         RemoveBankAccountResponse response = service.execute(request);
         assertTrue(response.hasErrors());
+        assertEquals("Field: Id", response.getErrors().get(0).getField());
+        assertEquals("Id must not be empty", response.getErrors().get(0).getMessage());
     }
 }

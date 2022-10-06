@@ -50,9 +50,10 @@ class BankAccountApplication {
         System.out.println("1 - Transfer money");
         System.out.println("2 - Open an account");
         System.out.println("3 - Close an account");
-        System.out.println("4 - See your accounts");
-        System.out.println("5 - Switch user");
-        System.out.println("6 - Exit");
+        System.out.println("4 - Close an account");
+        System.out.println("5 - Take a loan");
+        System.out.println("6 - Switch user");
+        System.out.println("7 - Exit");
     }
 
     private static void printInformationForAdmin() {

@@ -7,12 +7,9 @@ import java.util.List;
 public class GetTaskForTodayResponse extends CoreResponse{
     List<Task> tasks;
 
-    public GetTaskForTodayResponse(List<Task> tasks, int a) { //TODO solve for a
-        this.tasks = tasks;
-    }
-
-    public GetTaskForTodayResponse(List<CoreError> errors) {
+    public GetTaskForTodayResponse(List<Task> tasks, List<CoreError> errors) {
         super(errors);
+        this.tasks = tasks;
     }
 
     public List<Task> getTasks() {

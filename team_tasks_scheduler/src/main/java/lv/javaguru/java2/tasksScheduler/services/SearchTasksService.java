@@ -13,16 +13,20 @@ public class SearchTasksService {
 
     private TasksRepository tasksRepository;
     private SearchTasksValidator validator;
+    private SessionService sessionService;
 
-    public SearchTasksService(TasksRepository tasksRepository, SearchTasksValidator validator) {
+    public SearchTasksService(TasksRepository tasksRepository, SearchTasksValidator validator,
+                              SessionService sessionService) {
         this.tasksRepository = tasksRepository;
         this.validator = validator;
+        this.sessionService = sessionService;
     }
 
-    SearchTasksResponse execute(SearchTasksRequest request) {
+    public SearchTasksResponse execute(SearchTasksRequest request) {
         List<CoreError>errors = validator.validate(request);
 
-        List<Task> taskList = tasksRepository.searchTaskByDescription(request.getDescription());
+        List<Task> taskList = tasksRepository.searchTasks(request.getSearchPhrase(),
+                sessionService.getCurrentUserId());
 
         return new SearchTasksResponse(taskList, errors);
     }

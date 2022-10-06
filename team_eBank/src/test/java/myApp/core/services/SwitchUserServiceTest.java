@@ -6,16 +6,16 @@ import myApp.core.requests.SwitchUserRequest;
 import myApp.core.responses.LogInResponse;
 import myApp.core.responses.SwitchUserResponse;
 import myApp.core.services.validators.LogInValidator;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SwitchUserServiceTest {

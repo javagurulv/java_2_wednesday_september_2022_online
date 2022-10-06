@@ -15,7 +15,8 @@ public class InMemoryDatabaseImpl implements DataBase {
         BankAccount bankAccount = new BankAccount("Vladislav", "Kulikov", "user", Roles.Regular_user, "111-777");
         BankAccount adminAccount = new BankAccount("Admin", "Admin", "Admin", Roles.Admin, "01");
         bankAccounts.add(adminAccount);
-        addBankAccount(bankAccount);
+        bankAccounts.add(bankAccount);
+        bankAccount.setId(id);
     }
 
     private Long id = 1L;
@@ -23,9 +24,13 @@ public class InMemoryDatabaseImpl implements DataBase {
 
     @Override
     public void addBankAccount(BankAccount bankAccount) {
-        bankAccount.setId(id);
-        id++;
-        bankAccounts.add(bankAccount);
+       boolean result = bankAccounts.stream()
+                                .anyMatch(bankAccount1 -> !bankAccount1.getPersonalCode().equals(bankAccount.getPersonalCode()));
+       if (result) {
+           bankAccount.setId(id);
+           id++;
+           bankAccounts.add(bankAccount);
+       }
     }
 
     @Override

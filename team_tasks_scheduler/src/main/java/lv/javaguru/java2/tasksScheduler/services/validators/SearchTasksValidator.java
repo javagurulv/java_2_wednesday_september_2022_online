@@ -9,7 +9,6 @@ import java.util.List;
 public class SearchTasksValidator {
     public List<CoreError> validate(SearchTasksRequest request) {
         List<CoreError> errors = new ArrayList<>();
-        //errors.addAll(validateSearchFields(request));
         return errors;
     }
 
