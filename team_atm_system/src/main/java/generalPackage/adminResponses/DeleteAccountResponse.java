@@ -1,6 +1,8 @@
 package generalPackage.adminResponses;
 
-public class DeleteAccountResponse {
+import java.util.List;
+
+public class DeleteAccountResponse extends CoreResponse {
 
     private boolean accountDeleted;
 
@@ -10,5 +12,9 @@ public class DeleteAccountResponse {
 
     public boolean isAccountDeleted() {
         return accountDeleted;
+    }
+
+    public DeleteAccountResponse (List<CoreError> errors){
+        super(errors);
     }
 }

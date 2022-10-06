@@ -54,10 +54,11 @@ public class TasksSchedulerApplication {
         System.out.println("2. Show tasks for today");
         System.out.println("3. Add task");
         System.out.println("4. Amend task");
-        System.out.println("5. Delete task");
-        System.out.println("6. Amend current user information");
-        System.out.println("7. Delete current user");
-        System.out.println("8. Logout");
+        System.out.println("5. Search task");
+        System.out.println("6. Delete tasks");
+        System.out.println("7. Amend current user information");
+        System.out.println("8. Delete current user");
+        System.out.println("9. Logout");
         System.out.println("********************");
         System.out.println();
     }
@@ -99,7 +100,7 @@ public class TasksSchedulerApplication {
             case 2:
                 menuType = MenuType.USER;
                 return;
-            case 11, 12:
+            case 12, 13:
                 menuType = MenuType.START;
                 return;
             default:

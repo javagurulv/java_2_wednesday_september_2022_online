@@ -15,17 +15,6 @@ public class Accounts {
         this.balance = balance;
     }
 
-    // NOT SURE IF IT IS NECESSARY!! :
-
-//    public Accounts(String name, int userID) {
-//        this.name = name;
-//        this.userID = userID;
-//    }
-
-//    public Accounts(int userID) {
-//        this.userID = userID;
-//    }
-
 
     public String getName() {
         return name;

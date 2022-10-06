@@ -13,7 +13,7 @@ public interface Database {
     List<Accounts> getAllAccounts();
 
     //    added:
-    void increaseBalance(int userID, int amount);
+    boolean increaseBalance(int userID, int amount);
 
     void decreaseBalance(int userID, int amount);
 

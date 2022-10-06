@@ -1,17 +1,18 @@
 package lv.javaguru.java2.cookingApp.console_ui;
 
-import lv.javaguru.java2.cookingApp.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.responses.DeleteRecipeResponse;
-import lv.javaguru.java2.cookingApp.services.DeleteRecipeService;
+import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.services.DeleteRecipeService;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class DeleteRecipeUIAction implements UIAction {
-    private DeleteRecipeService deleteRecipeService;
 
-    public DeleteRecipeUIAction(DeleteRecipeService deleteRecipeService) {
-        this.deleteRecipeService = deleteRecipeService;
-    }
+   @DIDependency
+   private DeleteRecipeService deleteRecipeService;
 
     @Override
     public void execute() {
