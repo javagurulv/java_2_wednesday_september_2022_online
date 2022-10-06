@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp;
 
+import lv.javaguru.java2.cookingApp.config.CookingAppConfiguration;
 import lv.javaguru.java2.cookingApp.consoleui.ProgramMenu;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -18,7 +19,7 @@ public class CookingApplication {
     }
 
     private static ApplicationContext createApplicationContext() {
-        return new AnnotationConfigApplicationContext(CookingApplication.class);
+        return new AnnotationConfigApplicationContext(CookingAppConfiguration.class);
     }
 
 }
