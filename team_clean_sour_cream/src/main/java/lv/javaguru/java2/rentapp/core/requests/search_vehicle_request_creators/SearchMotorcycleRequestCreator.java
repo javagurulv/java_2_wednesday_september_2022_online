@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static lv.javaguru.java2.rentapp.domain.MiniBus.BUS_MAX_PASSENGER_AMOUNT;
-import static lv.javaguru.java2.rentapp.domain.MiniBus.BUS_MIN_PASSENGER_AMOUNT;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
@@ -66,32 +64,35 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
         return searchVehicleRequestBuilder.build();
     }
 
-
     private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
         boolean sort = true;
+
         while (sort) {
+            try {
+                System.out.println();
+                System.out.println("""
+                        Do you wish to sort the result?
+                        1. Yes
+                        2. No""");
+                System.out.println();
 
-            System.out.println();
-            System.out.println("""
-                Do you wish to sort the result?
-                1. Yes
-                2. No""");
-            System.out.println();
+                int userChoice = Integer.parseInt(scanner.nextLine());
 
-            int userChoice = Integer.parseInt(scanner.nextLine());
-
-            if (userChoice == 1) {
-                System.out.println("Enter orderBy (price||year): ");
-                String orderBy = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
-                System.out.println("Enter orderDirection  - \"ASC\" (ascending) || \"DESC\" (descending): ");
-                String orderDirection = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
-                Ordering ordering = new Ordering(orderBy, orderDirection);
-                searchVehicleRequestBuilder.ordering(ordering);
-                sort = false;
-            } else if (userChoice == 2) {
-                sort = false;
-            } else {
-                System.out.println("You must choose 1 or 2");
+                if (userChoice == 1) {
+                    System.out.println("Enter orderBy (price||year): ");
+                    String orderBy = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
+                    System.out.println("Enter orderDirection  - \"ASC\" (ascending) || \"DESC\" (descending): ");
+                    String orderDirection = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
+                    Ordering ordering = new Ordering(orderBy, orderDirection);
+                    searchVehicleRequestBuilder.ordering(ordering);
+                    sort = false;
+                } else if (userChoice == 2) {
+                    sort = false;
+                } else {
+                    System.out.println("You must choose 1 or 2");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: You must enter a number!");
             }
         }
     }
@@ -101,7 +102,6 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
                 List.of("Transmission type",
                         "Passenger amount"));
     }
-
 
     private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
         System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");

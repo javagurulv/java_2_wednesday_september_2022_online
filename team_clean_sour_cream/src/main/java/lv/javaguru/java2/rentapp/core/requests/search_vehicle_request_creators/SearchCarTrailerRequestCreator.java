@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
+
 public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreator {
 
     Scanner scanner = new Scanner(System.in);
@@ -51,7 +53,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
                 if (userChoice == 2) {
                     addAnotherCriteria = false;
                 } else {
-                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - 2)");
+                    System.out.println("You must enter a number from program menu (1 - 2)");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Error: You must enter a number!");
@@ -63,30 +65,39 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
         boolean sort = true;
+
         while (sort) {
-            System.out.println("""
-                Do you wish to sort the result?
-                1. Yes
-                2. No""");
-            int userChoice = Integer.parseInt(scanner.nextLine());
-            if (userChoice == 1) {
-                System.out.println("Enter orderBy (price||year): ");
-                String orderBy = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
-                System.out.println("Enter orderDirection (ASCENDING||DESCENDING): ");
-                String orderDirection = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
-                Ordering ordering = new Ordering(orderBy, orderDirection);
-                searchVehicleRequestBuilder.ordering(ordering);
-                sort = false;
-            } else if (userChoice == 2) {
-                sort = false;
-            } else {
-                System.out.println("You must choose 1 or 2");
+            try {
+                System.out.println();
+                System.out.println("""
+                        Do you wish to sort the result?
+                        1. Yes
+                        2. No""");
+                System.out.println();
+
+                int userChoice = Integer.parseInt(scanner.nextLine());
+
+                if (userChoice == 1) {
+                    System.out.println("Enter orderBy (price||year): ");
+                    String orderBy = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
+                    System.out.println("Enter orderDirection  - \"ASC\" (ascending) || \"DESC\" (descending): ");
+                    String orderDirection = scanner.nextLine().replaceAll("[^a-zA-Z]", "");
+                    Ordering ordering = new Ordering(orderBy, orderDirection);
+                    searchVehicleRequestBuilder.ordering(ordering);
+                    sort = false;
+                } else if (userChoice == 2) {
+                    sort = false;
+                } else {
+                    System.out.println("You must choose 1 or 2");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: You must enter a number!");
             }
         }
     }
 
     private void askDeckWidthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter deck width in cm: ");
+        System.out.println("Enter deck width in cm between " + TRAIL_MIN_DECK_WIDTH_IN_CM + " - " + TRAIL_MAX_DECK_WIDTH_IN_CM + " : ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckWidthInCm(deckWidthInCm);
         criteria.remove("Deck width in cm");
@@ -94,7 +105,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private void askDeckLengthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
                                            searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter deck length in cm: ");
+        System.out.println("Enter deck length in cm between " + TRAIL_MIN_DECK_LENGTH_IN_CM + " - " + TRAIL_MAX_DECK_LENGTH_IN_CM + " : ");
         Integer deckLengthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckLengthInCm(deckLengthInCm);
         criteria.remove("Deck length in cm");
@@ -102,7 +113,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private void askDeckHeightInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
                                            searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter deck height in cm: ");
+        System.out.println("Enter deck height in cm between " + TRAIL_MIN_DECK_HEIGHT_IN_CM + " - " + TRAIL_MAX_DECK_HEIGHT_IN_CM + " : ");
         Integer deckHeightInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.deckHeightInCm(deckHeightInCm);
         criteria.remove("Deck height in cm");
@@ -110,7 +121,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private void askEmptyWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder
                                             searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter empty weight in kg: ");
+        System.out.println("Enter empty weight in kg between " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG + " - " + TRAIL_MAX_EMPTY_WEIGHT_IN_KG + " : ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.emptyWeightInKg(deckWidthInCm);
         criteria.remove("Empty weight in kg");
@@ -118,7 +129,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private void askMaxLoadWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder
                                               searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter max load in kg: ");
+        System.out.println("Enter max load in kg between " + TRAIL_MIN_LOAD_WEIGHT_IN_KG + " - " + TRAIL_MAX_LOAD_WEIGHT_IN_KG + " : ");
         Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.maxLoadWeightInKg(maxLoadWeightInKg);
         criteria.remove("Max load weight in kg");

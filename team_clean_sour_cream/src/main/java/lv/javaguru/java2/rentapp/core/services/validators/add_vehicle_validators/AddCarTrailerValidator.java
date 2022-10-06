@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
+
 public class AddCarTrailerValidator extends AddVehicleValidator {
 
     private Database database;
@@ -76,8 +78,8 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         Integer deckLengthInCm = request.getDeckLengthInCm();
         if (deckLengthInCm == null || deckLengthInCm <= 0) {
             return Optional.of(new CoreError("Deck Length in cm", "cannot be empty, negative or 0"));
-        } else if (deckLengthInCm > CarTrailer.MAX_DECK_LENGTH_IN_CM) {
-            return Optional.of(new CoreError("Deck Length in cm", "cannot be more than " + CarTrailer.MAX_DECK_LENGTH_IN_CM));
+        } else if (deckLengthInCm > TRAIL_MAX_DECK_LENGTH_IN_CM) {
+            return Optional.of(new CoreError("Deck Length in cm", "cannot be more than " + TRAIL_MAX_DECK_LENGTH_IN_CM));
         } else {
             return Optional.empty();
         }
@@ -87,8 +89,8 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         Integer deckHeightInCm = request.getDeckHeightInCm();
         if (deckHeightInCm == null || deckHeightInCm <= 0) {
             return Optional.of(new CoreError("Deck Height in cm", "cannot be empty, negative or 0"));
-        } else if (deckHeightInCm > CarTrailer.MAX_DECK_HEIGHT_IN_CM) {
-            return Optional.of(new CoreError("Deck Height in cm", "cannot be more than " + CarTrailer.MAX_DECK_HEIGHT_IN_CM));
+        } else if (deckHeightInCm > TRAIL_MAX_DECK_HEIGHT_IN_CM) {
+            return Optional.of(new CoreError("Deck Height in cm", "cannot be more than " + TRAIL_MAX_DECK_HEIGHT_IN_CM));
         } else {
             return Optional.empty();
         }
@@ -98,8 +100,8 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         Integer emptyWeightInKg = request.getEmptyWeightInKg();
         if (emptyWeightInKg == null || emptyWeightInKg <= 0) {
             return Optional.of(new CoreError("Empty Weight in KG", "cannot be empty, negative or 0"));
-        } else if (emptyWeightInKg > CarTrailer.MAX_EMPTY_WEIGHT_IN_KG) {
-            return Optional.of(new CoreError("Empty Weight in KG", "cannot be more than " + CarTrailer.MAX_EMPTY_WEIGHT_IN_KG));
+        } else if (emptyWeightInKg > TRAIL_MAX_EMPTY_WEIGHT_IN_KG) {
+            return Optional.of(new CoreError("Empty Weight in KG", "cannot be more than " + TRAIL_MAX_EMPTY_WEIGHT_IN_KG));
         } else {
             return Optional.empty();
         }
@@ -109,8 +111,8 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         Integer maxLoadWeightInKg = request.getMaxLoadWeightInKg();
         if (maxLoadWeightInKg == null || maxLoadWeightInKg <= 0) {
             return Optional.of(new CoreError("Max Load Weight in KG", "cannot be empty, negative or 0"));
-        } else if (maxLoadWeightInKg > CarTrailer.MAX_LOAD_WEIGHT_IN_KG) {
-            return Optional.of(new CoreError("Max Load Weight in KG", "cannot be more than " + CarTrailer.MAX_LOAD_WEIGHT_IN_KG));
+        } else if (maxLoadWeightInKg > TRAIL_MAX_LOAD_WEIGHT_IN_KG) {
+            return Optional.of(new CoreError("Max Load Weight in KG", "cannot be more than " + TRAIL_MAX_LOAD_WEIGHT_IN_KG));
         } else {
             return Optional.empty();
         }

@@ -242,15 +242,15 @@ public class AddVehicleUIAction implements UIAction {
         System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
         String transmissionType = scanner.nextLine();
 
-        System.out.println("Enter deck width in cm between (" + MIN_DECK_WIDTH_IN_CM + " - " + TRAIL_MAX_DECK_WIDTH_IN_CM + ") : ");
+        System.out.println("Enter deck width in cm between (" + TRAIL_MIN_DECK_WIDTH_IN_CM + " - " + TRAIL_MAX_DECK_WIDTH_IN_CM + ") : ");
         Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter deck length in cm between (" + MIN_DECK_LENGTH_IN_CM + " - " + MAX_DECK_LENGTH_IN_CM + ") : ");
+        System.out.println("Enter deck length in cm between (" + TRAIL_MIN_DECK_LENGTH_IN_CM + " - " + TRAIL_MAX_DECK_LENGTH_IN_CM + ") : ");
         Integer deckLengthInCm = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter deck  height in cm between (" + MIN_DECK_HEIGHT_IN_CM + " - " + MAX_DECK_HEIGHT_IN_CM + ") : ");
+        System.out.println("Enter deck  height in cm between (" + TRAIL_MIN_DECK_HEIGHT_IN_CM + " - " + TRAIL_MAX_DECK_HEIGHT_IN_CM + ") : ");
         Integer deckHeightInCm = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter trailer empty weight in kg between (" + MIN_EMPTY_WEIGHT_IN_KG + " - " + MAX_EMPTY_WEIGHT_IN_KG + ") : ");
+        System.out.println("Enter trailer empty weight in kg between (" + TRAIL_MIN_EMPTY_WEIGHT_IN_KG + " - " + TRAIL_MAX_EMPTY_WEIGHT_IN_KG + ") : ");
         Integer emptyWeightInKg = Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter trailer max load weight in kg between (" + MIN_LOAD_WEIGHT_IN_KG + " - " + MAX_LOAD_WEIGHT_IN_KG + ") : ");
+        System.out.println("Enter trailer max load weight in kg between (" + TRAIL_MIN_LOAD_WEIGHT_IN_KG + " - " + TRAIL_MAX_LOAD_WEIGHT_IN_KG + ") : ");
         Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
 
         return AddVehicleRequest.builder()
