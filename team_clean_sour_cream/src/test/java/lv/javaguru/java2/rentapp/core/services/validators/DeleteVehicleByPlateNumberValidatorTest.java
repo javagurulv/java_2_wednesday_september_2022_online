@@ -28,7 +28,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     void testValidateListOfErrors() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("");
         List<CoreError> errors = validator.validate(request);
-        assertEquals(2, errors.size());
+        assertEquals(1, errors.size());
     }
 
     @Test

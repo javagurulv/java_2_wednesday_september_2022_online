@@ -31,14 +31,15 @@ public class DeleteVehicleByPlateNumberValidator {
     }
 
     private Optional<CoreError> validateVehicleToDeleteExists(DeleteVehicleByPlateNumberRequest request) {
-        Optional<Vehicle> vehicleToDeleteOpt = database.getAllVehicles().stream().
-                filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
-                .findFirst();
-        if (vehicleToDeleteOpt.isPresent()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Plate number", "vehicle with this plate number is not present in database"));
+        if (request.getPlateNumber() != null && !request.getPlateNumber().isBlank()) {
+            Optional<Vehicle> vehicleToDeleteOpt = database.getAllVehicles().stream().
+                    filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
+                    .findFirst();
+            if (vehicleToDeleteOpt.isEmpty()) {
+                return Optional.of(new CoreError("Plate number", "vehicle with this plate number is not present in database"));
+            }
         }
+        return Optional.empty();
     }
 }
 
