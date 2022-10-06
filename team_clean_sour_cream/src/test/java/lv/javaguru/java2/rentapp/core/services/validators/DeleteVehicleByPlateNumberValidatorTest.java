@@ -8,9 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class DeleteVehicleByPlateNumberValidatorTest {
 
@@ -36,7 +36,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Plate number", errors.get(0).getField());
-        assertEquals("vehicle with this plate number is not present in database" , errors.get(0).getMessage());
+        assertEquals("vehicle with this plate number is not present in database", errors.get(0).getMessage());
     }
 
     @Test
@@ -65,5 +65,4 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
     }
-
 }

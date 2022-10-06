@@ -1,7 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
-import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 
 import java.util.ArrayList;
@@ -17,6 +16,13 @@ public class SearchVehicleRequestOrderingValidator {
         validateOrderBy(ordering).ifPresent(errors::add);
         validateOrderDirection(ordering).ifPresent(errors::add);
         return errors;
+    }
+
+    private Optional<CoreError> validateMandatoryOrderByAndOrderDirection(Ordering ordering) {
+        return ((ordering.getOrderDirection() == null || ordering.getOrderDirection().isBlank())
+                && (ordering.getOrderBy() == null || ordering.getOrderBy().isBlank()))
+                ? Optional.of(new CoreError("\"orderBy\" and \"orderDirection\"", "Must not be empty!"))
+                : Optional.empty();
     }
 
     private Optional<CoreError> validateMandatoryOrderBy(Ordering ordering) {

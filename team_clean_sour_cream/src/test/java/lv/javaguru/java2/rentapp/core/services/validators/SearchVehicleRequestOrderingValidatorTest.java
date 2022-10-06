@@ -1,13 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
-import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
