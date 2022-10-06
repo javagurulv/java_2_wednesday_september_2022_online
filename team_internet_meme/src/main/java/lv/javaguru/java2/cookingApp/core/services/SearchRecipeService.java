@@ -6,20 +6,21 @@ import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
 import lv.javaguru.java2.cookingApp.core.services.validators.SearchRecipeRequestValidator;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class SearchRecipeService {
 
-    @DIDependency private Database database;
-	@DIDependency private SearchCriteriaBuilder searchCriteriaBuilder;
-    @DIDependency private SearchRecipeRequestValidator validator;
+    @Autowired private Database database;
+    @Autowired private SearchCriteriaBuilder searchCriteriaBuilder;
+    @Autowired private SearchRecipeRequestValidator validator;
 
     public SearchRecipeResponse execute(SearchRecipeRequest request) {
 

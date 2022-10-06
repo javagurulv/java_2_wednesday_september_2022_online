@@ -5,9 +5,9 @@ import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.AndSearchCriteria;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.IngredientNameCriteria;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.AndSearchCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.IngredientNameCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
 import lv.javaguru.java2.cookingApp.core.services.validators.SearchRecipeRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +29,7 @@ class SearchRecipeServiceTest {
 
     @Mock private Database database;
     @Mock private SearchRecipeRequestValidator validator;
+    @Mock private SearchCriteriaBuilder searchCriteriaBuilder;
 
     @InjectMocks
     private SearchRecipeService service;
@@ -63,12 +64,10 @@ class SearchRecipeServiceTest {
         assertEquals(recipe2, response.getRecipes().get(1));
         Mockito.verify(database).find(any());
 		Mockito.verify(database).find(searchCriteriaCaptor.capture());
+
         SearchCriteria expected = new AndSearchCriteria(new IngredientNameCriteria("Ingredient1"), new IngredientNameCriteria("Ingredient2"));
 		SearchCriteria actual = searchCriteriaCaptor.getValue();
         assertEquals(expected, actual);
     }
-
-
-
 
 }

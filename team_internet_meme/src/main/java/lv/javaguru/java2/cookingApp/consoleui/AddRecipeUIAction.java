@@ -1,21 +1,21 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AddRecipeUIAction implements UIAction{
 
-    @DIDependency
+    @Autowired
     private AddRecipeService addRecipeService;
 
     @Override

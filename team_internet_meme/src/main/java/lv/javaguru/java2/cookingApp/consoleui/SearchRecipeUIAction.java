@@ -1,20 +1,20 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
 
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class SearchRecipeUIAction implements UIAction {
 
-    @DIDependency
+    @Autowired
     private SearchRecipeService searchRecipeService;
 
     @Override

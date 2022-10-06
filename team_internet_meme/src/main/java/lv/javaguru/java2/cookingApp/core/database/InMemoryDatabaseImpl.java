@@ -2,15 +2,15 @@ package lv.javaguru.java2.cookingApp.core.database;
 
 
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class InMemoryDatabaseImpl implements Database {
     private Long nextId = 1L;
     private final List<Recipe> recipesDB = new ArrayList<>();

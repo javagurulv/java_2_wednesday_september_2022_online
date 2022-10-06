@@ -1,9 +1,9 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 
-@DIComponent
+@Component
 public class ExitUIAction implements UIAction{
     @Override
     public void execute() {

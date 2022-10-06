@@ -1,4 +1,4 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
 public interface UIAction {
     void execute();

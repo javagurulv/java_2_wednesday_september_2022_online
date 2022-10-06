@@ -1,6 +1,6 @@
 package lv.javaguru.java2.cookingApp;
 
-import lv.javaguru.java2.cookingApp.console_ui.UIActionMap;
+import lv.javaguru.java2.cookingApp.consoleui.UIActionMap;
 
 import java.util.Scanner;
 

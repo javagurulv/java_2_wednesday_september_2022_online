@@ -1,16 +1,17 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
 
 
-import lv.javaguru.java2.cookingApp.dependency_injection.ApplicationContext;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIApplicationContextBuilder;
+import lv.javaguru.java2.cookingApp.config.CookingAppConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UIActionMap {
     private Map<Integer, UIAction> actionMap;
-    private ApplicationContext applicationContext = new DIApplicationContextBuilder().build("lv/javaguru/java2/cookingApp");
+    private ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CookingAppConfiguration.class);
 
     public UIActionMap() {
         actionMap = new HashMap<>();
