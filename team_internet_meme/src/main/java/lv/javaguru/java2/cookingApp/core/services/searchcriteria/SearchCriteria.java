@@ -1,4 +1,4 @@
-package lv.javaguru.java2.cookingApp.core.services.search_criteria;
+package lv.javaguru.java2.cookingApp.core.services.searchcriteria;
 
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 

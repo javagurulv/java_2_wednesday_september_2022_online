@@ -7,17 +7,18 @@ import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.services.validators.AddRecipeRequestValidator;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class AddRecipeService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency private AddRecipeRequestValidator validator;
+    @Autowired private AddRecipeRequestValidator validator;
 
     public AddRecipeResponse execute(AddRecipeRequest request) {
         List<CoreError> errors = validator.validate(request);

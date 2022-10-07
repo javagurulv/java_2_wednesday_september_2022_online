@@ -6,16 +6,16 @@ import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.validators.DeleteRecipeRequestValidator;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class DeleteRecipeService {
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private DeleteRecipeRequestValidator validator;
 
 

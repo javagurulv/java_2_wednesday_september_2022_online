@@ -1,16 +1,16 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
 
 import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
 import lv.javaguru.java2.cookingApp.core.services.GetAllRecipesService;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
-@DIComponent
+@Component
 public class GetAllRecipesUIAction implements UIAction {
 
-    @DIDependency
+    @Autowired
     private GetAllRecipesService getAllRecipesService;
 
     @Override

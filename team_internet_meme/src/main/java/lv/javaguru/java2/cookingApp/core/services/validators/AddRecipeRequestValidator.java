@@ -3,13 +3,13 @@ package lv.javaguru.java2.cookingApp.core.services.validators;
 
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class AddRecipeRequestValidator {
 
     public List<CoreError> validate(AddRecipeRequest request) {

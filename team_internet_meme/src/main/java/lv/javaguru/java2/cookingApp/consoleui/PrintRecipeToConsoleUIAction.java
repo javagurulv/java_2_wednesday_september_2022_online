@@ -1,18 +1,18 @@
-package lv.javaguru.java2.cookingApp.console_ui;
+package lv.javaguru.java2.cookingApp.consoleui;
 
 
 import lv.javaguru.java2.cookingApp.core.requests.PrintRecipeToConsoleRequest;
 import lv.javaguru.java2.cookingApp.core.responses.PrintRecipeToConsoleResponse;
 import lv.javaguru.java2.cookingApp.core.services.PrintRecipeToConsoleService;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class PrintRecipeToConsoleUIAction implements UIAction{
 
-    @DIDependency
+    @Autowired
     private PrintRecipeToConsoleService printRecipeToConsoleService;
 
     @Override

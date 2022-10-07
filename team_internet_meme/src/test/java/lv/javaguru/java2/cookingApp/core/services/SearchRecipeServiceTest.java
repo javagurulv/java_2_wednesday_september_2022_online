@@ -5,9 +5,9 @@ import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.AndSearchCriteria;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.IngredientNameCriteria;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.AndSearchCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.IngredientNameCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
 import lv.javaguru.java2.cookingApp.core.services.validators.SearchRecipeRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +29,7 @@ class SearchRecipeServiceTest {
 
     @Mock private Database database;
     @Mock private SearchRecipeRequestValidator validator;
+    @Mock private SearchCriteriaBuilder searchCriteriaBuilder;
 
     @InjectMocks
     private SearchRecipeService service;
@@ -47,30 +48,25 @@ class SearchRecipeServiceTest {
         assertEquals("Test", error.getMessage());
     }
 
-	/*  Please fix it
+
     @Test
     void testShouldReturnResponseWithListOfRecipes() {
         SearchRecipeRequest request = new SearchRecipeRequest(List.of("Ingredient1","Ingredient2"));
         Recipe recipe1 = Mockito.mock(Recipe.class);
         Recipe recipe2 = Mockito.mock(Recipe.class);
+        SearchCriteria expectedSearchCriteria = new AndSearchCriteria(new IngredientNameCriteria("Ingredient1"), new IngredientNameCriteria("Ingredient2"));
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
         Mockito.when(database.find(any())).thenReturn(List.of(recipe1, recipe2));
-
+        Mockito.when(searchCriteriaBuilder.build(request)).thenReturn(expectedSearchCriteria);
         SearchRecipeResponse response = service.execute(request);
         assertNotNull(response.getRecipes());
-
         assertFalse(response.hasErrors());
         assertEquals(recipe1, response.getRecipes().get(0));
         assertEquals(recipe2, response.getRecipes().get(1));
 
-        Mockito.verify(database).find(any());
-
-
 		Mockito.verify(database).find(searchCriteriaCaptor.capture());
-		SearchCriteria searchCriteria = searchCriteriaCaptor.getValue();
+		SearchCriteria captorValue = searchCriteriaCaptor.getValue();
+        assertEquals(expectedSearchCriteria, captorValue);
     }
-*/
-
-
 
 }
