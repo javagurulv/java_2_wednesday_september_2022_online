@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetAllUsersNameResponse extends CoreResponse {
-    List<User> users;
+    List<String> userNames;
 
-    public GetAllUsersNameResponse(List<User> users, List<CoreError> errors) {
+    public GetAllUsersNameResponse(List<String> userNames, List<CoreError> errors) {
         super(errors);
-        this.users = users;
+        this.userNames = userNames;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<String> getUserNames() {
+        return userNames;
     }
 }
