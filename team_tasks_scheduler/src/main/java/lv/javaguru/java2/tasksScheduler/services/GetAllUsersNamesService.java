@@ -21,12 +21,7 @@ public class GetAllUsersNamesService {
 
     public GetAllUsersNameResponse execute(GetAllUsersNameRequest request) {
         List<CoreError> errors = new ArrayList<>();
-        List<String> userNames = new ArrayList<>();
-        List<User> users = usersRepository.getAllUsers();
-        for (User usr : users) {
-            userNames.add(usr.getUsername());
-        }
-
+        List<String> userNames = usersRepository.getAllUsers().stream().map(User::getUsername).collect(toList());
         return new GetAllUsersNameResponse(userNames, errors);
     }
 }
