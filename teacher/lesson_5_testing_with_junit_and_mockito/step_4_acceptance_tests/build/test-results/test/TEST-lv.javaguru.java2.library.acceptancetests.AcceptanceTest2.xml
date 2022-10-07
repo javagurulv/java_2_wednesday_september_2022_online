@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lv.javaguru.java2.library.acceptancetests.AcceptanceTest2" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-10-03T11:01:09" hostname="WIN-0H610JFV0TP" time="0.1">
+  <properties/>
+  <testcase name="searchBooksOrderingDescending" classname="lv.javaguru.java2.library.acceptancetests.AcceptanceTest2" time="0.036"/>
+  <testcase name="searchBooks" classname="lv.javaguru.java2.library.acceptancetests.AcceptanceTest2" time="0.042"/>
+  <testcase name="searchBooksOrderingPaging" classname="lv.javaguru.java2.library.acceptancetests.AcceptanceTest2" time="0.017"/>
+  <testcase name="searchBooksOrderingAscending" classname="lv.javaguru.java2.library.acceptancetests.AcceptanceTest2" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

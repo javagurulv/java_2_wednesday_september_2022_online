@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lv.javaguru.java2.library.core.services.validators.RemoveBookRequestValidatorTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-03T11:00:51" hostname="WIN-0H610JFV0TP" time="0.002">
+  <properties/>
+  <testcase name="shouldSuccess" classname="lv.javaguru.java2.library.core.services.validators.RemoveBookRequestValidatorTest" time="0.001"/>
+  <testcase name="shouldReturnErrorWhenTitleIsNull" classname="lv.javaguru.java2.library.core.services.validators.RemoveBookRequestValidatorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

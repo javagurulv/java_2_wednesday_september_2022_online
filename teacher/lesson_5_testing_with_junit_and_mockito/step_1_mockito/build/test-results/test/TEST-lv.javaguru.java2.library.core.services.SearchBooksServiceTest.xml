@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-10-03T11:00:50" hostname="WIN-0H610JFV0TP" time="0.261">
+  <properties/>
+  <testcase name="shouldSearchByTitleWithPagingFirstPage" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.203"/>
+  <testcase name="shouldSearchByTitleWithOrderingDescending" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.014"/>
+  <testcase name="shouldSearchByTitleWithPagingSecondPage" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.005"/>
+  <testcase name="shouldSearchByTitle" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.004"/>
+  <testcase name="shouldSearchByTitleWithOrderingAscending" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.002"/>
+  <testcase name="shouldSearchByTitleAndAuthor" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.003"/>
+  <testcase name="shouldReturnResponseWithErrorsWhenValidatorFails" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.003"/>
+  <testcase name="shouldSearchByAuthor" classname="lv.javaguru.java2.library.core.services.SearchBooksServiceTest" time="0.02"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
