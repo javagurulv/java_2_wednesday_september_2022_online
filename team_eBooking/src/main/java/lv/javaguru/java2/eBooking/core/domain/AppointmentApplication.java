@@ -3,7 +3,13 @@ package lv.javaguru.java2.eBooking.core.domain;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
 import lv.javaguru.java2.eBooking.console_ui.*;
-import lv.javaguru.java2.eBooking.core.service.*;
+import lv.javaguru.java2.eBooking.core.service.appointment_service.AddAppointmentService;
+import lv.javaguru.java2.eBooking.core.service.appointment_service.GetAllAppointmentsService;
+import lv.javaguru.java2.eBooking.core.service.appointment_service.RemoveAppointmentService;
+import lv.javaguru.java2.eBooking.core.service.client_service.AddClientService;
+import lv.javaguru.java2.eBooking.core.service.client_service.AddClientValidator;
+import lv.javaguru.java2.eBooking.core.service.client_service.GetAllClientsService;
+import lv.javaguru.java2.eBooking.core.service.client_service.RemoveClientService;
 
 
 import java.util.Scanner;

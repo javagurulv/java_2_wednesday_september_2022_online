@@ -1,7 +1,7 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
 import lv.javaguru.java2.eBooking.core.request.AddAppointmentRequest;
-import lv.javaguru.java2.eBooking.core.service.AddAppointmentService;
+import lv.javaguru.java2.eBooking.core.service.appointment_service.AddAppointmentService;
 
 import java.util.Scanner;
 

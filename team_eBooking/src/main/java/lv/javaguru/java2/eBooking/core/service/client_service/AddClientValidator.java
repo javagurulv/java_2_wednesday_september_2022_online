@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.service;
+package lv.javaguru.java2.eBooking.core.service.client_service;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.request.AddClientRequest;
@@ -19,7 +19,10 @@ public class AddClientValidator {
     }
 
     public Optional<CoreError> validateClientEMail(AddClientRequest request) {
-        ClientValidationResult result = ClientRegistrationValidator.isEmailValid()
+        ClientValidationResult result = ClientRegistrationValidator.emailFieldIsNotEmpty()
+                .and(ClientRegistrationValidator.isEmailContainingAtSign())
+                .and(ClientRegistrationValidator.isEmailContainingValidSymbols())
+                .and(ClientRegistrationValidator.isEmailLengthValid())
                 .apply(new Client(request.getClientEmail(), request.getClientPhoneNumber()));
         return (request.getClientEmail() == null
                 || request.getClientEmail().isEmpty()
@@ -29,7 +32,10 @@ public class AddClientValidator {
     }
 
     public Optional<CoreError> validateClientPhoneNumber(AddClientRequest request) {
-        ClientValidationResult result = ClientRegistrationValidator.isPhoneNumberValid()
+        ClientValidationResult result = ClientRegistrationValidator.phoneNumberFieldIsNotEmpty()
+                .and(ClientRegistrationValidator.isPhoneNumberContainingValidSymbols())
+                .and(ClientRegistrationValidator.isPhoneNumberLengthValid())
+                .and(ClientRegistrationValidator.isPhoneNumberRegionCodeValid())
                 .apply(new Client(request.getClientEmail(), request.getClientPhoneNumber()));
         return (request.getClientPhoneNumber() == null
                 || request.getClientPhoneNumber().isEmpty()
@@ -37,6 +43,4 @@ public class AddClientValidator {
                 ? Optional.of(new CoreError("telephone number", result))
                 : Optional.empty();
     }
-
-
 }

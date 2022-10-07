@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.service;
+package lv.javaguru.java2.eBooking.core.service.client_service;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.request.RemoveClientRequest;

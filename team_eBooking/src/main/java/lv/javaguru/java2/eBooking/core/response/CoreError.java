@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.response;
 
-import lv.javaguru.java2.eBooking.core.service.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.service.client_service.ClientValidationResult;
 
 public class CoreError {
     private String field;

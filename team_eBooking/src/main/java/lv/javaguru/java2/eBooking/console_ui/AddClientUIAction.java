@@ -2,8 +2,7 @@ package lv.javaguru.java2.eBooking.console_ui;
 
 import lv.javaguru.java2.eBooking.core.request.AddClientRequest;
 import lv.javaguru.java2.eBooking.core.response.AddClientResponse;
-import lv.javaguru.java2.eBooking.core.service.AddClientService;
-import lv.javaguru.java2.eBooking.core.service.ClientRegistrationValidator;
+import lv.javaguru.java2.eBooking.core.service.client_service.AddClientService;
 
 import java.util.Scanner;
 
