@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.response;
 
-import lv.javaguru.java2.eBooking.Client;
+import lv.javaguru.java2.eBooking.core.domain.Client;
 
 import java.util.List;
 

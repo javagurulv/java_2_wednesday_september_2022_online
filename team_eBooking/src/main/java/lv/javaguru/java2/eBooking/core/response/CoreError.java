@@ -1,10 +1,12 @@
 package lv.javaguru.java2.eBooking.core.response;
 
+import lv.javaguru.java2.eBooking.core.service.ClientValidationResult;
+
 public class CoreError {
     private String field;
-    private String message;
+    private ClientValidationResult message;
 
-    public CoreError(String field, String message) {
+    public CoreError(String field, ClientValidationResult message) {
         this.field = field;
         this.message = message;
     }
@@ -13,7 +15,7 @@ public class CoreError {
         return field;
     }
 
-    public String getMessage() {
+    public ClientValidationResult getMessage() {
         return message;
     }
 }

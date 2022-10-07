@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.service;
 
-import lv.javaguru.java2.eBooking.Appointment;
+import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.request.AddAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.response.AddAppointmentResponse;

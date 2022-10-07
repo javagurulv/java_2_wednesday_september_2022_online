@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.service;
 
-import lv.javaguru.java2.eBooking.Client;
+import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.request.AddClientRequest;
 import lv.javaguru.java2.eBooking.core.response.AddClientResponse;
@@ -19,7 +19,10 @@ public class AddClientService {
 
     public AddClientResponse execute(AddClientRequest request) {
         List<CoreError> errors = validator.validate(request);
-        if (!errors.isEmpty()) {
+        ClientValidationResult result = ClientRegistrationValidator.isEmailValid().
+                and(ClientRegistrationValidator.isPhoneNumberValid()).
+                apply(new Client(request.getClientEmail(), request.getClientPhoneNumber()));
+        if (!errors.isEmpty() || result!=ClientValidationResult.SUCCESS) {
             return new AddClientResponse(errors);
         }
 

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking;
+package lv.javaguru.java2.eBooking.core.domain;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking;
+package lv.javaguru.java2.eBooking.core.domain;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;

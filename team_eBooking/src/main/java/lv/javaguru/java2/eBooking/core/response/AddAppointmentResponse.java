@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.response;
 
-import lv.javaguru.java2.eBooking.Appointment;
+import lv.javaguru.java2.eBooking.core.domain.Appointment;
 
 public class AddAppointmentResponse extends CoreResponse{
 
