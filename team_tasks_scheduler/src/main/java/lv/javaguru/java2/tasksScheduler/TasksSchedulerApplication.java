@@ -5,7 +5,6 @@ import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 
 import java.util.Scanner;
 
-
 public class TasksSchedulerApplication {
 
     private static UIActionMap uiActionMap = new UIActionMap();
@@ -13,7 +12,6 @@ public class TasksSchedulerApplication {
     private static MenuType menuType = MenuType.START;
 
     public static void main(String[] args) {
-
         int menuNumber = 0;
 
         while (true) {

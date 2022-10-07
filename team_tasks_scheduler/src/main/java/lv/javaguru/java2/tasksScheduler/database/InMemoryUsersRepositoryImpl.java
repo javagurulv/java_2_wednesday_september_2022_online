@@ -43,10 +43,10 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     public boolean update(User user) {
         if (user == null)
             return false;
-        if (getUserById(user.getId()) == null)
+        User currentUser = getUserById(user.getId());
+        if (currentUser == null)
             return false;
-        deleteById(user.getId());
-        users.add(user);
+        users.set(users.indexOf(currentUser), user);
         return true;
     }
 

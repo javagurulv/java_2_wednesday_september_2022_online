@@ -16,6 +16,8 @@ public interface TasksRepository {
 
     void deleteOutOfDateByUserId(Long userId);
 
+    void deleteOutOfDate();
+
     boolean update(Task task);
 
     boolean exists(Task task);

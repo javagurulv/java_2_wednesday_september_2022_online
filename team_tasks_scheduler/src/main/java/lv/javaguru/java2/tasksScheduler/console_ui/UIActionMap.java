@@ -52,7 +52,7 @@ public class UIActionMap {
         actionMap.put(8, new AmendTaskUIAction(amendTaskService, getOutstandingTasksService));
         actionMap.put(9, new SearchTasksUIAction(searchTasksService));
         actionMap.put(10, new DeleteTaskUIAction(deleteTaskService, getOutstandingTasksService));
-        actionMap.put(12, new AmendCurrentUserUIAction(amendCurrentUserService, getCurrentUserService));
+        actionMap.put(11, new AmendCurrentUserUIAction(amendCurrentUserService, getCurrentUserService));
         actionMap.put(12, new DeleteCurrentUserUIAction(deleteCurrentUserService));
         actionMap.put(13, new LogoutUIAction(logoutService));
 
