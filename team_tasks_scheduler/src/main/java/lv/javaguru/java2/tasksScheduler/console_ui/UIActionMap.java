@@ -41,20 +41,24 @@ public class UIActionMap {
 
     public UIActionMap() {
         this.actionMap = new HashMap<>();
-//        actionMap.put(1, new GetAllUsersUIAction(getAllUsersService));
         actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
         actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));
-        actionMap.put(4, new ExitUIAction(exitService));
-        actionMap.put(5, new GetOutstandingTasksUIAction(getOutstandingTasksService));
-        actionMap.put(6, new GetTasksForTodayUIAction(getTasksForTodayService));
-        actionMap.put(7, new AddTaskUIAction(addTaskService));
-        actionMap.put(8, new AmendTaskUIAction(amendTaskService, getOutstandingTasksService));
-        actionMap.put(9, new SearchTasksUIAction(searchTasksService));
-        actionMap.put(10, new DeleteTaskUIAction(deleteTaskService, getOutstandingTasksService));
+        actionMap.put(4, null);
+        actionMap.put(5, new ExitUIAction(exitService));
+        actionMap.put(6, new GetOutstandingTasksUIAction(getOutstandingTasksService));
+        actionMap.put(7, new GetTasksForTodayUIAction(getTasksForTodayService));
+        actionMap.put(8, new AddTaskUIAction(addTaskService));
+        actionMap.put(9, new AmendTaskUIAction(amendTaskService, getOutstandingTasksService));
+        actionMap.put(10, new SearchTasksUIAction(searchTasksService));
+        actionMap.put(11, new DeleteTaskUIAction(deleteTaskService, getOutstandingTasksService));
         actionMap.put(12, new AmendCurrentUserUIAction(amendCurrentUserService, getCurrentUserService));
-        actionMap.put(12, new DeleteCurrentUserUIAction(deleteCurrentUserService));
-        actionMap.put(13, new LogoutUIAction(logoutService));
+        actionMap.put(13, new DeleteCurrentUserUIAction(deleteCurrentUserService));
+        actionMap.put(14, new LogoutUIAction(logoutService));
+        actionMap.put(15, new GetAllUsersUIAction(getAllUsersService));
+        actionMap.put(16, null);
+        actionMap.put(17, null);
+        actionMap.put(18, null);
 
     }
 
