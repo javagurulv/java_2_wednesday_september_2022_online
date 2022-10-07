@@ -11,7 +11,6 @@ public class SearchVehicleRequestOrderingValidator {
 
     public List<CoreError> validate(Ordering ordering) {
         List<CoreError> errors = new ArrayList<>();
-
         validateMandatoryOrderBy(ordering).ifPresent(errors::add);
         validateMandatoryOrderDirection(ordering).ifPresent(errors::add);
         validateOrderBy(ordering).ifPresent(errors::add);

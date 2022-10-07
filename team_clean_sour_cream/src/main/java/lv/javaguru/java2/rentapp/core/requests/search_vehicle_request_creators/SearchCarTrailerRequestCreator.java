@@ -42,15 +42,19 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
                     int criteriaChoice = Integer.parseInt(scanner.nextLine());
 
-                    switch (criteria.get(criteriaChoice - 1)) {
-                        case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
-                        case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
-                        case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
-                        case "Empty weight in kg" -> askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
-                        case "Max load weight in kg" -> askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
+                    if (criteriaChoice >= 1 && criteriaChoice <= criteria.size()) {
+
+                        switch (criteria.get(criteriaChoice - 1)) {
+                            case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
+                            case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
+                            case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
+                            case "Empty weight in kg" -> askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
+                            case "Max load weight in kg" -> askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
+                        }
+                    } else {
+                        System.out.println("You must enter a number from program menu (1 - " + criteria.size() + ")");
                     }
-                }
-                if (userChoice == 2) {
+                } else if (userChoice == 2) {
                     addAnotherCriteria = false;
                 } else {
                     System.out.println("You must enter a number from program menu (1 - 2)");
@@ -137,8 +141,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
 
     private List<String> carTrailerSearchCriteriaFields() {
         return new ArrayList<>(
-                List.of("Transmission type",
-                        "Deck width in cm",
+                List.of("Deck width in cm",
                         "Deck length in cm",
                         "Deck height in cm",
                         "Empty weight in kg",
