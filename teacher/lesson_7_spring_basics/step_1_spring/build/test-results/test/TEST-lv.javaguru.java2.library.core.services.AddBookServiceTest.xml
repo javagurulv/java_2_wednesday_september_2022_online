@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lv.javaguru.java2.library.core.services.AddBookServiceTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2022-10-03T11:01:34" hostname="WIN-0H610JFV0TP" time="4.357">
+  <properties/>
+  <testcase name="shouldReturnResponseWithErrorsReceivedFromValidator" classname="lv.javaguru.java2.library.core.services.AddBookServiceTest" time="4.191"/>
+  <testcase name="shouldNotInvokeDatabaseWhenRequestValidationFails" classname="lv.javaguru.java2.library.core.services.AddBookServiceTest" time="0.016"/>
+  <testcase name="shouldReturnResponseWithBookWhenRequestIsValid" classname="lv.javaguru.java2.library.core.services.AddBookServiceTest" time="0.004"/>
+  <testcase name="shouldAddBookToDatabaseWhenRequestIsValid" classname="lv.javaguru.java2.library.core.services.AddBookServiceTest" time="0.075"/>
+  <testcase name="shouldReturnResponseWithErrorsWhenValidationFails" classname="lv.javaguru.java2.library.core.services.AddBookServiceTest" time="0.038"/>
+  <testcase name="shouldReturnResponseWithoutErrorsWhenRequestIsValid" classname="lv.javaguru.java2.library.core.services.AddBookServiceTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

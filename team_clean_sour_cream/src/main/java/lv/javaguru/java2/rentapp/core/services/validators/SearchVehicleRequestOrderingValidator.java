@@ -15,6 +15,7 @@ public class SearchVehicleRequestOrderingValidator {
         validateMandatoryOrderDirection(ordering).ifPresent(errors::add);
         validateOrderBy(ordering).ifPresent(errors::add);
         validateOrderDirection(ordering).ifPresent(errors::add);
+        validateMandatoryOrderByAndOrderDirection(ordering).ifPresent(errors::add);
         return errors;
     }
 
@@ -40,17 +41,16 @@ public class SearchVehicleRequestOrderingValidator {
     }
 
     private Optional<CoreError> validateOrderBy(Ordering ordering) {
-        return (ordering.getOrderBy() != null
+        return ((ordering.getOrderBy() != null && !ordering.getOrderBy().isBlank())
                 && !(ordering.getOrderBy().equalsIgnoreCase("price") || ordering.getOrderBy().equalsIgnoreCase("year")))
                 ? Optional.of(new CoreError("orderBy", "Must contain 'price' or 'year' only!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateOrderDirection(Ordering ordering) {
-        return (ordering.getOrderDirection() != null
+        return ((ordering.getOrderDirection() != null && !ordering.getOrderDirection().isBlank())
                 && !(ordering.getOrderDirection().equalsIgnoreCase("ASC") || ordering.getOrderDirection().equalsIgnoreCase("DESC")))
                 ? Optional.of(new CoreError("orderDirection", "Must contain 'ASC' (ASCENDING) or 'DESC' (DESCENDING) only!"))
                 : Optional.empty();
     }
-
 }

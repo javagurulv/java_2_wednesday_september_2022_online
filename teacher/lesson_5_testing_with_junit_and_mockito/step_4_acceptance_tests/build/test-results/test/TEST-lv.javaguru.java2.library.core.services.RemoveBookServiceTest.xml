@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lv.javaguru.java2.library.core.services.RemoveBookServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-03T11:01:14" hostname="WIN-0H610JFV0TP" time="0.102">
+  <properties/>
+  <testcase name="shouldReturnErrorWhenBookIdNotProvided" classname="lv.javaguru.java2.library.core.services.RemoveBookServiceTest" time="0.087"/>
+  <testcase name="shouldDeleteBookWithIdFromDatabase" classname="lv.javaguru.java2.library.core.services.RemoveBookServiceTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
