@@ -19,19 +19,9 @@ public class AddClientService {
 
     public AddClientResponse execute(AddClientRequest request) {
         List<CoreError> errors = validator.validate(request);
-        ClientValidationResult result = ClientRegistrationValidator.emailFieldIsNotEmpty()
-                .and(ClientRegistrationValidator.isEmailContainingAtSign())
-                .and(ClientRegistrationValidator.isEmailContainingValidSymbols())
-                .and(ClientRegistrationValidator.isEmailLengthValid())
-                .and(ClientRegistrationValidator.phoneNumberFieldIsNotEmpty())
-                .and(ClientRegistrationValidator.isPhoneNumberRegionCodeValid())
-                .and(ClientRegistrationValidator.isPhoneNumberLengthValid())
-                .and(ClientRegistrationValidator.isPhoneNumberContainingValidSymbols())
-                .apply(new Client(request.getClientEmail(), request.getClientPhoneNumber()));
-        if (!errors.isEmpty() || result != ClientValidationResult.SUCCESS) {
+        if (!errors.isEmpty()) {
             return new AddClientResponse(errors);
         }
-
         Client client = new Client(request.getClientEmail(), request.getClientPhoneNumber());
         database.saveClient(client);
         return new AddClientResponse(client);
