@@ -52,7 +52,8 @@ class AddPassengerCarValidatorTest {
         database.addNewVehicle(passengerCar1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         List<CoreError> error = validator.validate(request2);
         assertTrue(error.isEmpty());
     }
@@ -61,12 +62,14 @@ class AddPassengerCarValidatorTest {
     void testValidateVehicleIsNotDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
         database.addNewVehicle(passengerCar1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         List<CoreError> errors = validator.validate(request2);
         assertEquals(1, errors.size());
         assertEquals("Vehicle", errors.get(0).getField());
@@ -443,7 +446,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than 1", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -456,7 +459,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than 1", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -468,7 +471,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than 1", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -482,6 +485,19 @@ class AddPassengerCarValidatorTest {
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
         assertEquals("cannot be more than " + CAR_MAX_PASSENGER_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountLessThanMinAllowedShouldReturnError() {
+        Integer passengerAmount = CAR_MIN_PASSENGER_AMOUNT - 1;
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(passengerAmount).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1, errors.size());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -555,7 +571,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -568,7 +584,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -581,7 +597,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -595,6 +611,19 @@ class AddPassengerCarValidatorTest {
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
         assertEquals("cannot be more than " + CAR_MAX_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountLessThanMinAllowedShouldReturnError() {
+        Integer doorsAmount = CAR_MIN_DOORS_AMOUNT - 1;
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
+                .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(doorsAmount).isAirConditioningAvailable("true").build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1, errors.size());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -642,6 +671,7 @@ class AddPassengerCarValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("IsAirConditionerAvailable", errors.get(0).getField());
+        assertEquals("cannot be empty", errors.get(0).getMessage());
     }
 
     @Test
