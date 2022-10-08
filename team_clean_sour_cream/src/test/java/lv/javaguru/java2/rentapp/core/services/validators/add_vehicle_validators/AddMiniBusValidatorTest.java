@@ -40,12 +40,14 @@ class AddMiniBusValidatorTest {
     void testValidateVehicleIsNotDuplicateShouldReturnNoErrors() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle miniBss1 = new MiniBusCreator().createVehicle(request1);
         database.addNewVehicle(miniBss1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         List<CoreError> error = validator.validate(request2);
         assertTrue(error.isEmpty());
     }
@@ -54,12 +56,14 @@ class AddMiniBusValidatorTest {
     void testValidateVehicleIsNotDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle miniBus1 = new MiniBusCreator().createVehicle(request1);
         database.addNewVehicle(miniBus1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
-                .transmissionType("manual").passengerAmount(1).baggageAmount(1).doorsAmount(1).isAirConditioningAvailable("true").build();
+                .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
+                .doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         List<CoreError> error = validator.validate(request2);
         assertEquals(1, error.size());
         assertEquals("Vehicle", error.get(0).getField());
@@ -87,7 +91,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -100,7 +104,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -112,7 +116,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -126,6 +130,19 @@ class AddMiniBusValidatorTest {
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
         assertEquals("cannot be more than " + BUS_MAX_PASSENGER_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountLessThanMinAllowedShouldReturnError() {
+        Integer passengerAmount = BUS_MIN_PASSENGER_AMOUNT - 1;
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
+                .plateNumber("number1").transmissionType("manual").passengerAmount(passengerAmount)
+                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1, errors.size());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -190,6 +207,44 @@ class AddMiniBusValidatorTest {
     }
 
     @Test
+    void testValidateDoorsAmountIsZeroShouldReturnError() {
+        Integer doorsAmount = 0;
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
+                .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
+                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(doorsAmount).isAirConditioningAvailable("true").build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1, errors.size());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountNegativeShouldReturnError() {
+        Integer doorsAmount = -1;
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
+                .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
+                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(doorsAmount).isAirConditioningAvailable("true").build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1, errors.size());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsNullShouldReturnError() {
+        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
+                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
+                .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
+                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(null).isAirConditioningAvailable("true").build();
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(1, errors.size());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
     void testValidateDoorsAmountMoreThanMaxAllowedShouldReturnError() {
         Integer doorsAmount = BUS_MAX_DOORS_AMOUNT + 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
@@ -203,8 +258,8 @@ class AddMiniBusValidatorTest {
     }
 
     @Test
-    void testValidateDoorsAmountIsZeroShouldReturnError() {
-        Integer doorsAmount = 0;
+    void testValidateDoorsAmountLessThanMinAllowedShouldReturnError() {
+        Integer doorsAmount = BUS_MIN_DOORS_AMOUNT - 1;
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
                 .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
@@ -212,32 +267,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
-    }
-
-    @Test
-    void testValidateDoorsAmountNegativeShouldReturnError() {
-        Integer doorsAmount = -1;
-        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
-                .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
-                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(doorsAmount).isAirConditioningAvailable("true").build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
-    }
-
-    @Test
-    void testValidateDoorsAmountIsNullShouldReturnError() {
-        AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
-                .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas")
-                .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
-                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(null).isAirConditioningAvailable("true").build();
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(1, errors.size());
-        assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or 0", errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -308,7 +338,7 @@ class AddMiniBusValidatorTest {
                 .plateNumber("number1").transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
                 .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable(isAirConditioningAvailable).build();
         List<CoreError> errors = validator.validate(request);
-        assertEquals(1 , errors.size());
+        assertEquals(1, errors.size());
         assertEquals("IsAirConditionerAvailable", errors.get(0).getField());
         assertEquals("must be either true or false", errors.get(0).getMessage());
     }
