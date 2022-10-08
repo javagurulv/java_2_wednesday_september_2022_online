@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
 public class SearchMotorcycleValidator extends SearchVehicleValidator {
 
@@ -23,10 +24,16 @@ public class SearchMotorcycleValidator extends SearchVehicleValidator {
         return errors;
     }
 
-    protected Optional<CoreError> validatePassengerAmount(SearchVehicleRequest request) {
-        Integer passengerAmount = request.getPassengerAmount();
-        if (passengerAmount == null || passengerAmount <= 0) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or 0"));
+    private Optional<CoreError> validatePassengerAmount(SearchVehicleRequest request) {
+
+        Optional<Integer> passengerAmountOpt = Optional.ofNullable(request.getPassengerAmount());
+        if (passengerAmountOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Integer passengerAmount = passengerAmountOpt.get();
+        if (passengerAmount <= 0 || passengerAmount < MOTO_MIN_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > MOTO_MAX_PASSENGER_AMOUNT) {
             return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MOTO_MAX_PASSENGER_AMOUNT));
         } else {
