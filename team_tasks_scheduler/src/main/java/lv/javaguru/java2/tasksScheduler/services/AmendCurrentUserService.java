@@ -38,7 +38,7 @@ public class AmendCurrentUserService {
         }
 
         User amendedUser = new User(request.getUsername(), Encryption.stringHashing(request.getPassword()),
-                request.getEmail(), request.getMobilePhone());
+                request.getEmail(), request.isSendReminders());
         amendedUser.setId(currentUser.getId());
         usersRepository.update(amendedUser);
         sessionService.setDecryptedPassword(request.getPassword());

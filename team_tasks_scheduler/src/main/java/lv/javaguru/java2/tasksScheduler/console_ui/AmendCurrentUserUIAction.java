@@ -29,12 +29,13 @@ public class AmendCurrentUserUIAction implements UIAction {
             System.out.println("Username = " + currentUser.getUsername());
             System.out.println("Password = " + currentUser.getPassword());
             System.out.println("Email = " + currentUser.getEmail());
-            System.out.println("Mobile Phone = " + currentUser.getMobilePhone());
+            System.out.println("Send reminders = " + currentUser.isSendReminders());
             System.out.println();
         }
         String[] input = collectDataFromScreen(currentUser);
 
-        AmendCurrentUserRequest request = new AmendCurrentUserRequest(input[0], input[1], input[2], input[3]);
+        AmendCurrentUserRequest request = new AmendCurrentUserRequest(input[0], input[1],
+                input[2], input[3].equals("Y"));
         AmendCurrentUserResponse response = amendCurrentUserService.execute(request);
 
         if (response.hasErrors()) {
@@ -50,7 +51,7 @@ public class AmendCurrentUserUIAction implements UIAction {
     }
 
     private String[] collectDataFromScreen(User currentUser) {
-        String[] fields = {"Username", "Password", "Email", "Mobile Phone"};
+        String[] fields = {"Username", "Password", "Email", "Send reminders indicator"};
         String[] result = new String[fields.length];
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -60,7 +61,10 @@ public class AmendCurrentUserUIAction implements UIAction {
             input = scanner.nextLine();
             input = input.toUpperCase();
             if (input.equals("Y")) {
-                System.out.println("Enter " + fields[i] + ": ");
+                if (i == 3)
+                    System.out.println("Push 'Y' if reminders by email are required: ");
+                else
+                    System.out.println("Enter " + fields[i] + ": ");
                 input = scanner.nextLine();
                 result[i] = input;
             }
@@ -72,7 +76,7 @@ public class AmendCurrentUserUIAction implements UIAction {
                     break;
                     case 2: result[i] = currentUser.getEmail();
                     break;
-                    case 3: result[i] = currentUser.getMobilePhone();
+                    case 3: result[i] = currentUser.isSendReminders() ? "Y" : "N";
                     break;
                     default:
                         break;
