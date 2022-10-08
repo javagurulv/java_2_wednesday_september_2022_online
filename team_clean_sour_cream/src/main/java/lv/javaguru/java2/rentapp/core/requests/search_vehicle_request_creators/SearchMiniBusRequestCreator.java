@@ -45,15 +45,19 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
 
                     int criteriaChoice = Integer.parseInt(scanner.nextLine());
 
-                    switch (criteria.get(criteriaChoice - 1)) {
-                        case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
-                        case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
-                        case "Doors amount" -> askDoorsAmount(searchVehicleRequestBuilder, criteria);
-                        case "Baggage amount" -> askBaggageAmount(searchVehicleRequestBuilder, criteria);
-                        case "Conditioner" -> askConditioner(searchVehicleRequestBuilder, criteria);
+                    if (criteriaChoice >= 1 && criteriaChoice <= criteria.size()) {
+
+                        switch (criteria.get(criteriaChoice - 1)) {
+                            case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
+                            case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
+                            case "Doors amount" -> askDoorsAmount(searchVehicleRequestBuilder, criteria);
+                            case "Baggage amount" -> askBaggageAmount(searchVehicleRequestBuilder, criteria);
+                            case "Conditioner" -> askConditioner(searchVehicleRequestBuilder, criteria);
+                        }
+                    } else {
+                        System.out.println("You must enter a number from program menu (1 - " + criteria.size() + ")");
                     }
-                }
-                if (userChoice == 2) {
+                } else if (userChoice == 2) {
                     addAnotherCriteria = false;
                 } else {
                     System.out.println("You must enter a number from program menu (1 - 2)");
@@ -62,7 +66,6 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
                 System.out.println("Error: You must enter a number!");
             }
         }
-
         askOrdering(searchVehicleRequestBuilder);
 
         return searchVehicleRequestBuilder.build();

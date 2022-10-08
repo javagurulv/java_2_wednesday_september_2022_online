@@ -64,6 +64,7 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
             }
         }
         askOrdering(searchVehicleRequestBuilder);
+
         return searchVehicleRequestBuilder.build();
     }
 

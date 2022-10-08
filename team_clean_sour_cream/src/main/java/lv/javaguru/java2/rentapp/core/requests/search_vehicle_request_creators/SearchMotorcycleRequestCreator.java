@@ -44,12 +44,16 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
 
                     int criteriaChoice = Integer.parseInt(scanner.nextLine());
 
-                    switch (criteria.get(criteriaChoice - 1)) {
-                        case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
-                        case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
+                    if (criteriaChoice >= 1 && criteriaChoice <= criteria.size()) {
+
+                        switch (criteria.get(criteriaChoice - 1)) {
+                            case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
+                            case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
+                        }
+                    } else {
+                        System.out.println("You must enter a number from program menu (1 - " + criteria.size() + ")");
                     }
-                }
-                if (userChoice == 2) {
+                } else if (userChoice == 2) {
                     addAnotherCriteria = false;
                 } else {
                     System.out.println("You must enter a number from program menu (1 - 2)");
@@ -58,7 +62,6 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
                 System.out.println("Error: You must enter a number!");
             }
         }
-
         askOrdering(searchVehicleRequestBuilder);
 
         return searchVehicleRequestBuilder.build();
