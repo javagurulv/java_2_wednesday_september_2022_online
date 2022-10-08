@@ -56,7 +56,7 @@ public class AmendCurrentUserUIAction implements UIAction {
         String input;
 
         for (int i = 0; i < fields.length; i++) {
-            System.out.println("Do you wish to amend " + fields[i] + " (Y/N)?");
+            System.out.println("Press 'Y' to amend " + fields[i]);
             input = scanner.nextLine();
             input = input.toUpperCase();
             if (input.equals("Y")) {

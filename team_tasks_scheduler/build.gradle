@@ -1,3 +1,10 @@
 dependencies {
 	testImplementation('junit:junit:4.13.1')
+
+	// For e-mails sending
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+
 }
+
+
+

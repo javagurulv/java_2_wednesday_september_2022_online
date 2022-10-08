@@ -108,7 +108,7 @@ public class AmendTaskUIAction implements UIAction {
         for (int i = 0; i < fields.length; i++) {
             if (result == null)
                 break;
-            System.out.println("Do you wish to amend " + fields[i] + " (Y/N)?");
+            System.out.println("Press 'Y' to amend " + fields[i]);
             input = scanner.nextLine();
             if (input.equals("Y")) {
                 System.out.println("Enter " + fields[i] + ": ");

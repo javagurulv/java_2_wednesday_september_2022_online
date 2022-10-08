@@ -47,13 +47,18 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
+    public void deleteOutOfDate() {
+        tasks.removeIf(task -> task.getEndDate().isBefore(LocalDateTime.now()));
+    }
+
+    @Override
     public boolean update(Task task) {
         if (task == null)
             return false;
-        if (getTaskById(task.getId()) == null)
+        Task currentTask = getTaskById(task.getId());
+        if (currentTask == null)
             return false;
-        deleteById(task.getId());
-        tasks.add(task);
+        tasks.set(tasks.indexOf(currentTask), task);
         return true;
     }
 

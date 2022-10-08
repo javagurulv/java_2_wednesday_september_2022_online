@@ -26,7 +26,7 @@ public class GetAllUsersNamesUIAction implements UIAction {
         }
         else {
             System.out.println("--- Users list start --- ");
-            response.getUsers().forEach(System.out::println);
+            response.getUserNames().forEach(System.out::println);
             System.out.println("---  Users list end  --- ");
             return true;
         }
