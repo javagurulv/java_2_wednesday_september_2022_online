@@ -34,7 +34,9 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
         validateBaggageAmount(request).ifPresent(errors::add);
         validateDoorsAmount(request).ifPresent(errors::add);
         validateIsAirConditionerAvailable(request).ifPresent(errors::add);
-        validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
+        if (errors.isEmpty()) {
+            validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
+        }
         return errors;
     }
 
