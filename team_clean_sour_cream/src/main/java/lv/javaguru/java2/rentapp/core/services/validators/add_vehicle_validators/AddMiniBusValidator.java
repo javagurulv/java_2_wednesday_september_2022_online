@@ -41,7 +41,7 @@ public class AddMiniBusValidator extends AddVehicleValidator {
     private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
         if (passengerAmount == null || passengerAmount < BUS_MIN_PASSENGER_AMOUNT || passengerAmount <= 0) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > BUS_MAX_PASSENGER_AMOUNT) {
             return Optional.of(new CoreError("Passenger amount", "cannot be more than " + BUS_MAX_PASSENGER_AMOUNT));
         } else {
@@ -63,7 +63,7 @@ public class AddMiniBusValidator extends AddVehicleValidator {
     private Optional<CoreError> validateDoorsAmount(AddVehicleRequest request) {
         Integer doorsAmount = request.getDoorsAmount();
         if (doorsAmount == null || doorsAmount < BUS_MIN_DOORS_AMOUNT || doorsAmount <= 0) {
-            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT));
+            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative, zero or less than " + BUS_MIN_DOORS_AMOUNT));
         } else if (doorsAmount > BUS_MAX_DOORS_AMOUNT) {
             return Optional.of(new CoreError("Doors amount", "cannot be more than " + BUS_MAX_DOORS_AMOUNT));
         } else {

@@ -41,7 +41,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
     private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
         if (passengerAmount == null || passengerAmount < CAR_MIN_PASSENGER_AMOUNT || passengerAmount <= 0) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or less than " + CAR_MIN_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > CAR_MAX_PASSENGER_AMOUNT) {
             return Optional.of(new CoreError("Passenger amount", "cannot be more than " + CAR_MAX_PASSENGER_AMOUNT));
         } else {
@@ -63,7 +63,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
     private Optional<CoreError> validateDoorsAmount(AddVehicleRequest request) {
         Integer doorsAmount = request.getDoorsAmount();
         if (doorsAmount == null || doorsAmount < CAR_MIN_DOORS_AMOUNT || doorsAmount <= 0) {
-            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative or less than " + CAR_MIN_DOORS_AMOUNT));
+            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative, zero or less than " + CAR_MIN_DOORS_AMOUNT));
         } else if (doorsAmount > CAR_MAX_DOORS_AMOUNT) {
             return Optional.of(new CoreError("Doors amount", "cannot be more than " + CAR_MAX_DOORS_AMOUNT));
         } else {

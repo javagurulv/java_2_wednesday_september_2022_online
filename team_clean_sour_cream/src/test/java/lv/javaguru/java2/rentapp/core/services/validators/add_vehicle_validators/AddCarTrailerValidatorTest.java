@@ -218,7 +218,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Width in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -231,7 +231,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Width in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -243,7 +243,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Width in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -269,7 +269,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Width in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -293,7 +293,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Length in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -306,7 +306,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Length in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -318,7 +318,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Length in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -344,7 +344,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Length in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -368,7 +368,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Height in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -381,7 +381,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Height in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -393,7 +393,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Deck Height in cm", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM, errors.get(0).getMessage());
     }
 
     @Test
@@ -419,7 +419,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals(errors.get(0).getField(), "Deck Height in cm");
-        assertEquals(errors.get(0).getMessage(), "cannot be empty, negative or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM);
+        assertEquals(errors.get(0).getMessage(), "cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM);
     }
 
     @Test
@@ -443,7 +443,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Empty Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -456,7 +456,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Empty Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -468,7 +468,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Empty Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than "+ TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -494,7 +494,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Empty Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -518,7 +518,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Max Load Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -531,7 +531,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Max Load Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -543,7 +543,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Max Load Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test
@@ -569,6 +569,6 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Max Load Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 }

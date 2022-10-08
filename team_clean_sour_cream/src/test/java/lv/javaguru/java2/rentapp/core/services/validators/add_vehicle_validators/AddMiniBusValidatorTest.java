@@ -91,7 +91,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -104,7 +104,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -116,7 +116,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -142,7 +142,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -216,7 +216,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -229,7 +229,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -241,7 +241,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -267,7 +267,7 @@ class AddMiniBusValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + BUS_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test

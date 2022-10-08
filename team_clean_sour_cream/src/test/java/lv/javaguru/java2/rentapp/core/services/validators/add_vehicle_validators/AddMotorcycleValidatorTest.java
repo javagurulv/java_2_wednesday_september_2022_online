@@ -86,7 +86,7 @@ class AddMotorcycleValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + MOTO_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -98,7 +98,7 @@ class AddMotorcycleValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + MOTO_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -109,7 +109,7 @@ class AddMotorcycleValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Passenger amount", errors.get(0).getField());
-        assertEquals("cannot be empty, negative or less than " + MOTO_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test
@@ -133,6 +133,6 @@ class AddMotorcycleValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals(errors.get(0).getField(), "Passenger amount");
-        assertEquals(errors.get(0).getMessage(), "cannot be empty, negative or less than " + MOTO_MIN_PASSENGER_AMOUNT);
+        assertEquals(errors.get(0).getMessage(), "cannot be empty, negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT);
     }
 }
