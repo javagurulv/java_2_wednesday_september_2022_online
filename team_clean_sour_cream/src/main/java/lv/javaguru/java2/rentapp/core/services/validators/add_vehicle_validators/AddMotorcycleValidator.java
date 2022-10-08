@@ -38,7 +38,7 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validatePassengerAmount(AddVehicleRequest request) {
         Integer passengerAmount = request.getPassengerAmount();
-        if (passengerAmount == null || passengerAmount < MOTO_MIN_PASSENGER_AMOUNT) {
+        if (passengerAmount == null || passengerAmount < MOTO_MIN_PASSENGER_AMOUNT || passengerAmount <= 0) {
             return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative or less than " + MOTO_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > MOTO_MAX_PASSENGER_AMOUNT) {
             return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MOTO_MAX_PASSENGER_AMOUNT));
