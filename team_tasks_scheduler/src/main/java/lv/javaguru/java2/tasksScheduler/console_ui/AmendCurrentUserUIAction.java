@@ -51,7 +51,7 @@ public class AmendCurrentUserUIAction implements UIAction {
     }
 
     private String[] collectDataFromScreen(User currentUser) {
-        String[] fields = {"Username", "Password", "Email", "Send reminders indicator"};
+        String[] fields = {"Username", "Password", "Email", "Reminders indicator"};
         String[] result = new String[fields.length];
         Scanner scanner = new Scanner(System.in);
         String input;

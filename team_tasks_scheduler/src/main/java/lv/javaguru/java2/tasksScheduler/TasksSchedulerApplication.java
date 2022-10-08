@@ -14,6 +14,12 @@ public class TasksSchedulerApplication {
     public static void main(String[] args) {
         int menuNumber = 0;
 
+        do {
+            // Loop to set up Settings on the first run
+            if (executeSelectedMenuItem(menuType, menuNumber))
+                break;
+        } while (true);
+
         while (true) {
             printMenu(menuType);
             menuNumber = getMenuNumberFromUser();
@@ -86,16 +92,18 @@ public class TasksSchedulerApplication {
         }
     }
 
-    private static void executeSelectedMenuItem(MenuType type, int choice) {
+    private static boolean executeSelectedMenuItem(MenuType type, int choice) {
 
         UIAction selectedAction = uiActionMap.getAction(getAlignedMenuChoice(type, choice));
         if (selectedAction == null) {
             System.out.println("Invalid menu option selected. Please try again.");
-            return;
+            return false;
         }
         if (selectedAction.execute()) {
             toggleMenuType(getAlignedMenuChoice(type, choice));
+            return true;
         }
+        return false;
     }
 
     private static int getAlignedMenuChoice(MenuType menuType, int choice) {
