@@ -1,8 +1,8 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.request.GetAllClientsRequest;
-import lv.javaguru.java2.eBooking.core.response.GetAllClientsResponse;
-import lv.javaguru.java2.eBooking.core.service.client_service.GetAllClientsService;
+import lv.javaguru.java2.eBooking.core.requests.client_request.GetAllClientsRequest;
+import lv.javaguru.java2.eBooking.core.responses.client_response.GetAllClientsResponse;
+import lv.javaguru.java2.eBooking.core.services.client_service.print_all.GetAllClientsService;
 
 public class PrintClientUIAction implements UIAction {
 private GetAllClientsService getAllClientsService;

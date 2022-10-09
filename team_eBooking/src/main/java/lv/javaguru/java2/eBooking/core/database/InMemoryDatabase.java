@@ -6,6 +6,7 @@ import lv.javaguru.java2.eBooking.core.domain.Client;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class InMemoryDatabase implements Database {
     private Long nextId = 1L;
@@ -63,5 +64,27 @@ public class InMemoryDatabase implements Database {
     @Override
     public List<Appointment> getAllAppointments() {
         return appointments;
+    }
+
+    @Override
+    public List<Client> findClientByEMail(String clientEmail) {
+        return clients.stream()
+                .filter(client ->client.getClientEmail().equals(clientEmail))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Client> findClientByPhoneNumber(String clientPhoneNumber) {
+        return clients.stream()
+                .filter(client -> client.getClientPhoneNumber().equals(clientPhoneNumber))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Client> findClientByEmailAndPhoneNumber(String clientEmail, String clientPhoneNumber) {
+        return clients.stream()
+                .filter(client -> client.getClientEmail().equals(clientEmail)
+                        && client.getClientPhoneNumber().equals(clientPhoneNumber))
+                .collect(Collectors.toList());
     }
 }
