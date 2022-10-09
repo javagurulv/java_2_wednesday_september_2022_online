@@ -33,4 +33,8 @@ public class SearchTasksRequest {
     public String getSearchPhrase() {
         return searchPhrase;
     }
+
+    public Ordering getOrdering() {
+        return ordering;
+    }
 }

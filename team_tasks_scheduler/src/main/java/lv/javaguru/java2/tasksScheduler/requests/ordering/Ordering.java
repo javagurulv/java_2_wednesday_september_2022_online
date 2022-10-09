@@ -8,4 +8,10 @@ public class Ordering {
         this.orderBy = orderBy;
         this.orderDirection = orderDirection;
     }
+    public String getOrderBy() {
+        return orderBy;
+    }
+    public String getOrderDirection() {
+        return orderDirection;
+    }
 }

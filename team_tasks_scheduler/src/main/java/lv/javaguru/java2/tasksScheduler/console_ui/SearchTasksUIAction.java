@@ -23,7 +23,7 @@ public class SearchTasksUIAction implements UIAction {
         String searchPhrase = scanner.nextLine();
         System.out.println("Enter order criterion (description/due date/end date):");
         String orderBy = scanner.nextLine();
-        System.out.println("Enter order direction (ascending/descending):");
+        System.out.println("Enter ordering direction (ascending/descending):");
         String orderDirection = scanner.nextLine();
         Ordering ordering = new Ordering(orderBy, orderDirection);
 

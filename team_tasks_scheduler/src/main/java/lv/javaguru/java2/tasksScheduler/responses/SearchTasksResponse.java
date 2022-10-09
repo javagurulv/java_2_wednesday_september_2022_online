@@ -1,12 +1,14 @@
 package lv.javaguru.java2.tasksScheduler.responses;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
+import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
 
 import java.util.List;
 
 public class SearchTasksResponse extends CoreResponse {
 
     List<Task> tasks;
+
     public SearchTasksResponse(List<Task> tasks, List<CoreError> errors) {
         super(errors);
         this.tasks = tasks;
