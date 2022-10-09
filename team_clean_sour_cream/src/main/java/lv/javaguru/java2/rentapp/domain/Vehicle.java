@@ -1,6 +1,5 @@
 package lv.javaguru.java2.rentapp.domain;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lv.javaguru.java2.rentapp.enums.Colour;
@@ -13,6 +12,7 @@ import java.util.Objects;
 @Setter
 public abstract class Vehicle {
 
+    public static final int MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER = 100;
     private Long id;
     private String brand;
     private String model;
@@ -56,7 +56,10 @@ public abstract class Vehicle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vehicle vehicle = (Vehicle) o;
-        return Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model) && Objects.equals(yearOfProduction, vehicle.yearOfProduction) && colour == vehicle.colour && Objects.equals(rentPricePerDay, vehicle.rentPricePerDay) && engineType == vehicle.engineType && Objects.equals(plateNumber, vehicle.plateNumber) && transmissionType == vehicle.transmissionType;
+        return Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model)
+                && Objects.equals(yearOfProduction, vehicle.yearOfProduction) && colour == vehicle.colour
+                && Objects.equals(rentPricePerDay, vehicle.rentPricePerDay) && engineType == vehicle.engineType
+                && Objects.equals(plateNumber, vehicle.plateNumber) && transmissionType == vehicle.transmissionType;
     }
 
     @Override

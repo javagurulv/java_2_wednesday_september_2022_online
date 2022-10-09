@@ -16,17 +16,17 @@ public class DeleteVehicleByPlateNumberService {
 
     public DeleteVehicleByPlateNumberService(Database database) {
         this.database = database;
-        this.deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberValidator();
+        this.deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberValidator(database);
     }
 
     public DeleteVehicleByPlateNumberResponse execute(DeleteVehicleByPlateNumberRequest request) {
 
-        boolean isVehicleDeleted = database.deleteVehicleByPlateNumber(request.getPlateNumber());
         List<CoreError> errors = deleteVehicleByPlateNumberValidator.validate(request);
         if (!errors.isEmpty()) {
             return new DeleteVehicleByPlateNumberResponse(errors);
         }
-        return new DeleteVehicleByPlateNumberResponse(isVehicleDeleted);
+        database.deleteVehicleByPlateNumber(request.getPlateNumber());
+        return new DeleteVehicleByPlateNumberResponse("Your vehicle was removed from list.");
     }
 
     public void showAllVehiclesPlateNumbers() {

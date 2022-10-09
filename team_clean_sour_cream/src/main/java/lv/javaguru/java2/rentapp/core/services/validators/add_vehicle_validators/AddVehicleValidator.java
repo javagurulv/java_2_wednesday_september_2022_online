@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.add_new_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AddVehicleValidator {
+import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
-    public static final int CURRENT_YEAR_BACKWARD_REDUCER = 100;
+public abstract class AddVehicleValidator {
 
     public abstract List<CoreError> validate(AddVehicleRequest request);
 
@@ -32,7 +32,7 @@ public abstract class AddVehicleValidator {
 
     protected Optional<CoreError> validateYearOfProduction(AddVehicleRequest request) {
         Integer yearOfProduction = request.getYearOfProduction();
-        int minYear = LocalDate.now().getYear() - CURRENT_YEAR_BACKWARD_REDUCER;
+        int minYear = LocalDate.now().getYear() - MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
         int currentYear = LocalDate.now().getYear();
         if (yearOfProduction == null) {
             return Optional.of(new CoreError("YearOfProduction", "cannot be empty"));
@@ -99,8 +99,8 @@ public abstract class AddVehicleValidator {
         }
     }
 
-    protected boolean areEnumValuesValid(List<String> enumColourValues, String colour) {
-        return enumColourValues.stream()
-                .anyMatch(enumColourValue -> enumColourValue.equalsIgnoreCase(colour.replaceAll("[^a-zA-Z]", "")));
+    protected boolean areEnumValuesValid(List<String> enumValues, String value) {
+        return enumValues.stream()
+                .anyMatch(enumValue -> enumValue.equalsIgnoreCase(value.replaceAll("[^a-zA-Z]", "")));
     }
 }

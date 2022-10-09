@@ -3,10 +3,14 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidatorMap;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,11 +20,22 @@ public class SearchVehicleService {
 
     private Database database;
 
+    private SearchVehicleValidatorMap searchVehicleValidatorMap;
+
     public SearchVehicleService(Database database) {
         this.database = database;
+        this.searchVehicleValidatorMap = new SearchVehicleValidatorMap();
     }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
+        VehicleType vehicleType = request.getVehicleType();
+        SearchVehicleValidator searchVehicleValidator = searchVehicleValidatorMap.getVehicleValidatorByCarType(vehicleType);
+
+        List<CoreError> errors = searchVehicleValidator.validate(request);
+
+        if (!errors.isEmpty()) {
+            return new SearchVehicleResponse(null, errors);
+        }
 
         SearchCriteria andCriteria = getSearchCriteria(request);
         List<Vehicle> vehicles = database.search(andCriteria);
@@ -34,7 +49,7 @@ public class SearchVehicleService {
             Comparator<Vehicle> comparator = ordering.getOrderBy().equalsIgnoreCase("price")
                     ? Comparator.comparing(Vehicle::getRentPricePerDay)
                     : Comparator.comparing(Vehicle::getYearOfProduction);
-            if (ordering.getOrderDirection().equalsIgnoreCase("DESCENDING")) {
+            if (ordering.getOrderDirection().equalsIgnoreCase("DESC")) {
                 comparator = comparator.reversed();
             }
             return vehicles.stream().sorted(comparator).collect(Collectors.toList());
@@ -45,7 +60,7 @@ public class SearchVehicleService {
 
     private SearchCriteria getSearchCriteria(SearchVehicleRequest request) {
 
-        SearchCriteria andCriteria = new AndSearchCriteria(new VehicleTypeCriteria(request.getVehicleType()), null);
+        SearchCriteria andCriteria = new AndSearchCriteria(new VehicleTypeCriteria(request.getVehicleType().getNameVehicleType()), null);
 
         if (request.getBaggageAmount() != null) {
             andCriteria = new AndSearchCriteria(andCriteria, new BaggageAmountCriteria(request.getBaggageAmount()));

@@ -30,5 +30,9 @@ public class UIActionMap {
     public UIAction getAction(int userChoice) {
         return uiActionMap.get(userChoice);
     }
+
+    public Integer getUIActionMapSize() {
+        return uiActionMap.size();
+    }
 }
 

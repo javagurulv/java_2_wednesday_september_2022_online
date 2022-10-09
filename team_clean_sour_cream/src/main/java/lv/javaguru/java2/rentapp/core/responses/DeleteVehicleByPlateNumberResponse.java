@@ -7,14 +7,14 @@ import java.util.List;
 @Getter
 public class DeleteVehicleByPlateNumberResponse extends CoreResponse {
 
-    private boolean isVehicleDeleted;
+    private String vehicleDeletedMsg;
 
     public DeleteVehicleByPlateNumberResponse(List<CoreError> errors) {
         super(errors);
     }
 
-    public DeleteVehicleByPlateNumberResponse(boolean isVehicleDeleted) {
-        this.isVehicleDeleted = isVehicleDeleted;
+    public DeleteVehicleByPlateNumberResponse(String vehicleDeletedMsg) {
+        this.vehicleDeletedMsg = vehicleDeletedMsg;
     }
 
 }
