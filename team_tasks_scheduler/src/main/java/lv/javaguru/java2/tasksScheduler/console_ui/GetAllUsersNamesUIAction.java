@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNameRequest;
 import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNameResponse;
-import lv.javaguru.java2.tasksScheduler.services.GetAllUsersNamesService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetAllUsersNamesService;
 
 public class GetAllUsersNamesUIAction implements UIAction {
 

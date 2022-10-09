@@ -2,8 +2,8 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.services.AddSettingsService;
-import lv.javaguru.java2.tasksScheduler.services.CheckSettingsExistenceService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.AddSettingsService;
+import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
 
 import java.util.Scanner;
 

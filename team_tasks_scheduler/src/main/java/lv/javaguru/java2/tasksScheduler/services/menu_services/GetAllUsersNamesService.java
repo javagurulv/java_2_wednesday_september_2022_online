@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.User;

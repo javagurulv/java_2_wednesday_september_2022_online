@@ -3,8 +3,8 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
-import lv.javaguru.java2.tasksScheduler.services.AmendCurrentUserService;
-import lv.javaguru.java2.tasksScheduler.services.GetCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetCurrentUserService;
 
 import java.util.Scanner;
 

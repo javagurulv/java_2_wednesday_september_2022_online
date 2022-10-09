@@ -5,8 +5,8 @@ import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
 import lv.javaguru.java2.tasksScheduler.responses.LoginResponse;
-import lv.javaguru.java2.tasksScheduler.services.GetTasksForTodayService;
-import lv.javaguru.java2.tasksScheduler.services.LoginService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetTasksForTodayService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.LoginService;
 
 import java.util.List;
 import java.util.Scanner;

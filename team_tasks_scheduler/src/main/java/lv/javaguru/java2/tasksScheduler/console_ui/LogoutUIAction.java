@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.LogoutRequest;
 import lv.javaguru.java2.tasksScheduler.responses.LogoutResponse;
-import lv.javaguru.java2.tasksScheduler.services.LogoutService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.LogoutService;
 
 public class LogoutUIAction implements UIAction {
 

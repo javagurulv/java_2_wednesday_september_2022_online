@@ -1,8 +1,9 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.requests.LogoutRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.LogoutResponse;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 
 import java.util.ArrayList;
 import java.util.List;
