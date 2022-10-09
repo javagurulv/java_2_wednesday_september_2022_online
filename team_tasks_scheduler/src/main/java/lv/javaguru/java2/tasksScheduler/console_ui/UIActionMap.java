@@ -1,26 +1,32 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.database.InMemoryTasksRepositoryImpl;
-import lv.javaguru.java2.tasksScheduler.database.InMemoryUsersRepositoryImpl;
-import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.services.*;
+import lv.javaguru.java2.tasksScheduler.database.*;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.*;
+import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.*;
+import lv.javaguru.java2.tasksScheduler.utils.TestData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UIActionMap {
 
+    private SettingsRepository settingsRepository = new InMemorySettingsRepository();
     private UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
     private TasksRepository tasksRepository = new InMemoryTasksRepositoryImpl();
+
+    private AddSettingsValidator addSettingsValidator = new AddSettingsValidator();
     private UserRegistrationValidator userInfoValidator = new UserRegistrationValidator();
     private TaskInfoValidator taskInfoValidator = new TaskInfoValidator();
     private UserAmendValidator userAmendInfoValidator = new UserAmendValidator();
     private TaskAmendValidator taskAmendValidator = new TaskAmendValidator();
     private SearchTasksValidator searchTasksValidator = new SearchTasksValidator();
+
     private SessionService sessionService = new SessionService();
 
+    private CheckSettingsExistenceService checkSettingsExistenceService = new CheckSettingsExistenceService(settingsRepository);
+    private AddSettingsService addSettingsService = new AddSettingsService(settingsRepository, addSettingsValidator);
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
     private GetAllUsersNamesService getAllUsersNamesService = new GetAllUsersNamesService(usersRepository);
     private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository, userInfoValidator);
@@ -39,22 +45,32 @@ public class UIActionMap {
 
     private Map<Integer, UIAction> actionMap;
 
+    //TODO remove tests user and tasks
+    TestData testData = new TestData(userRegistrationService, addTaskService,
+            loginService, logoutService);
+
+
     public UIActionMap() {
         this.actionMap = new HashMap<>();
-//        actionMap.put(1, new GetAllUsersUIAction(getAllUsersService));
+        actionMap.put(0, new AddSettingsUIAction(checkSettingsExistenceService, addSettingsService));
         actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
         actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));
-        actionMap.put(4, new ExitUIAction(exitService));
-        actionMap.put(5, new GetOutstandingTasksUIAction(getOutstandingTasksService));
-        actionMap.put(6, new GetTasksForTodayUIAction(getTasksForTodayService));
-        actionMap.put(7, new AddTaskUIAction(addTaskService));
-        actionMap.put(8, new AmendTaskUIAction(amendTaskService, getOutstandingTasksService));
-        actionMap.put(9, new SearchTasksUIAction(searchTasksService));
-        actionMap.put(10, new DeleteTaskUIAction(deleteTaskService, getOutstandingTasksService));
-        actionMap.put(11, new AmendCurrentUserUIAction(amendCurrentUserService, getCurrentUserService));
-        actionMap.put(12, new DeleteCurrentUserUIAction(deleteCurrentUserService));
-        actionMap.put(13, new LogoutUIAction(logoutService));
+        actionMap.put(4, null);
+        actionMap.put(5, new ExitUIAction(exitService));
+        actionMap.put(6, new GetOutstandingTasksUIAction(getOutstandingTasksService));
+        actionMap.put(7, new GetTasksForTodayUIAction(getTasksForTodayService));
+        actionMap.put(8, new AddTaskUIAction(addTaskService));
+        actionMap.put(9, new AmendTaskUIAction(amendTaskService, getOutstandingTasksService));
+        actionMap.put(10, new SearchTasksUIAction(searchTasksService));
+        actionMap.put(11, new DeleteTaskUIAction(deleteTaskService, getOutstandingTasksService));
+        actionMap.put(12, new AmendCurrentUserUIAction(amendCurrentUserService, getCurrentUserService));
+        actionMap.put(13, new DeleteCurrentUserUIAction(deleteCurrentUserService));
+        actionMap.put(14, new LogoutUIAction(logoutService));
+        actionMap.put(15, new GetAllUsersUIAction(getAllUsersService));
+        actionMap.put(16, null);
+        actionMap.put(17, null);
+        actionMap.put(18, null);
 
     }
 

@@ -1,13 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
-import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,108 +20,163 @@ class SearchVehicleRequestOrderingValidatorTest {
 
     @Test
     void testValidateReturnListWith1ErrorWhenOrderByIsNull() {
-        Ordering ordering = new Ordering(null, "ascending");
-        SearchVehicleRequest request = SearchVehicleRequest.builder().ordering(ordering).build();
-        List<CoreError> errors = validator.validate(request);
+        Ordering ordering = new Ordering(null, "ASC");
+        List<CoreError> errors = validator.validate(ordering);
         assertFalse(errors.isEmpty());
         assertEquals(1, errors.size());
         assertEquals("orderBy", errors.get(0).getField());
         assertEquals("Must not be empty!", errors.get(0).getMessage());
     }
+
     @Test
     void testValidateMandatoryOrderByNoError() {
-        Ordering ordering = new Ordering("price", "ascending");
-        Optional<CoreError> error = validator.validateMandatoryOrderBy(ordering);
+        Ordering ordering = new Ordering("price", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateMandatoryOrderByReturnsErrorWhenFieldIsBlank() {
-        Ordering ordering = new Ordering("", "ascending");
-        Optional<CoreError> error = validator.validateMandatoryOrderBy(ordering);
+        Ordering ordering = new Ordering(" ", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
-        assertEquals("orderBy", error.get().getField());
-        assertEquals("Must not be empty!", error.get().getMessage());
+        assertEquals("orderBy", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateMandatoryOrderByReturnsErrorWhenFieldIsEmpty() {
+        Ordering ordering = new Ordering("", "ASC");
+        List<CoreError> error = validator.validate(ordering);
+        assertFalse(error.isEmpty());
+        assertEquals("orderBy", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
     }
 
     @Test
     void testValidateMandatoryOrderByReturnsErrorWhenFieldIsNull() {
-        Ordering ordering = new Ordering(null, "ascending");
-        Optional<CoreError> error = validator.validateMandatoryOrderBy(ordering);
+        Ordering ordering = new Ordering(null, "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
-        assertEquals("orderBy", error.get().getField());
-        assertEquals("Must not be empty!", error.get().getMessage());
+        assertEquals("orderBy", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
     }
 
     @Test
     void testValidateMandatoryOrderDirectionNoError() {
-        Ordering ordering = new Ordering("price", "ascending");
-        Optional<CoreError> error = validator.validateMandatoryOrderDirection(ordering);
+        Ordering ordering = new Ordering("price", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateMandatoryOrderDirectionReturnsErrorWhenFieldIsBlank() {
-        Ordering ordering = new Ordering("price", "");
-        Optional<CoreError> error = validator.validateMandatoryOrderDirection(ordering);
+        Ordering ordering = new Ordering("price", " ");
+        List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
-        assertEquals("orderDirection", error.get().getField());
-        assertEquals("Must not be empty!", error.get().getMessage());
+        assertEquals("orderDirection", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateMandatoryOrderDirectionReturnsErrorWhenFieldIsEmpty() {
+        Ordering ordering = new Ordering("price", "");
+        List<CoreError> error = validator.validate(ordering);
+        assertFalse(error.isEmpty());
+        assertEquals("orderDirection", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
     }
 
     @Test
     void testValidateMandatoryOrderDirectionReturnsErrorWhenFieldIsNull() {
         Ordering ordering = new Ordering("price", null);
-        Optional<CoreError> error = validator.validateMandatoryOrderDirection(ordering);
+        List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
-        assertEquals("orderDirection", error.get().getField());
-        assertEquals("Must not be empty!", error.get().getMessage());
+        assertEquals("orderDirection", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
     }
 
     @Test
     void testValidateOrderByNoErrorWhenFieldIsPrice() {
-        Ordering ordering = new Ordering("price", "ascending");
-        Optional<CoreError> error = validator.validateOrderBy(ordering);
+        Ordering ordering = new Ordering("price", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderByNoErrorWhenFieldIsYear() {
-        Ordering ordering = new Ordering("year", "ascending");
-        Optional<CoreError> error = validator.validateOrderBy(ordering);
+        Ordering ordering = new Ordering("year", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderByErrorWhenFieldIsNotValid() {
-        Ordering ordering = new Ordering("not valid", "ascending");
-        Optional<CoreError> error = validator.validateOrderBy(ordering);
+        Ordering ordering = new Ordering("not valid", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
-        assertEquals("orderBy", error.get().getField());
-        assertEquals("Must contain 'price' or 'year' only!", error.get().getMessage());
+        assertEquals("orderBy", error.get(0).getField());
+        assertEquals("Must contain 'price' or 'year' only!", error.get(0).getMessage());
     }
 
     @Test
     void testValidateOrderDirectionNoErrorWhenFieldIsAscending() {
-        Ordering ordering = new Ordering("price", "ascending");
-        Optional<CoreError> error = validator.validateOrderDirection(ordering);
+        Ordering ordering = new Ordering("price", "ASC");
+        List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderDirectionNoErrorWhenFieldIsDescending() {
-        Ordering ordering = new Ordering("year", "descending");
-        Optional<CoreError> error = validator.validateOrderDirection(ordering);
+        Ordering ordering = new Ordering("year", "DESC");
+        List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
     }
 
     @Test
     void testValidateOrderDirectionErrorWhenFieldIsNotValid() {
         Ordering ordering = new Ordering("price", "not valid");
-        Optional<CoreError> error = validator.validateOrderDirection(ordering);
+        List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
-        assertEquals("orderDirection", error.get().getField());
-        assertEquals("Must contain 'ASCENDING' or 'DESCENDING' only!", error.get().getMessage());
+        assertEquals("orderDirection", error.get(0).getField());
+        assertEquals("Must contain 'ASC' (ASCENDING) or 'DESC' (DESCENDING) only!", error.get(0).getMessage());
     }
 
+    @Test
+    void testValidateOrderByAndOrderDirectionErrorWhenFieldsAreNotNull() {
+        Ordering ordering = new Ordering(null, null);
+        List<CoreError> error = validator.validate(ordering);
+        assertFalse(error.isEmpty());
+        assertEquals("\"orderBy\" and \"orderDirection\"", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateOrderByAndOrderDirectionErrorWhenFieldsAreEmpty() {
+        Ordering ordering = new Ordering("", "");
+        List<CoreError> error = validator.validate(ordering);
+        assertFalse(error.isEmpty());
+        assertEquals("\"orderBy\" and \"orderDirection\"", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateOrderByAndOrderDirectionErrorWhenFieldsAreBlank() {
+        Ordering ordering = new Ordering(" ", " ");
+        List<CoreError> error = validator.validate(ordering);
+        assertFalse(error.isEmpty());
+        assertEquals("\"orderBy\" and \"orderDirection\"", error.get(0).getField());
+        assertEquals("Must not be empty!", error.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateOrderByAndOrderDirectionErrorsWhenFieldsIsAreNotValid() {
+        Ordering ordering = new Ordering("not valid", "not valid");
+        List<CoreError> error = validator.validate(ordering);
+        assertEquals(2, error.size());
+        assertEquals("orderBy", error.get(0).getField());
+        assertEquals("Must contain 'price' or 'year' only!", error.get(0).getMessage());
+        assertEquals("orderDirection", error.get(1).getField());
+        assertEquals("Must contain 'ASC' (ASCENDING) or 'DESC' (DESCENDING) only!", error.get(1).getMessage());
+    }
 }

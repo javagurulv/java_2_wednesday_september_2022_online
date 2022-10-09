@@ -5,8 +5,8 @@ import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
 import lv.javaguru.java2.tasksScheduler.responses.AmendTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
-import lv.javaguru.java2.tasksScheduler.services.AmendTaskService;
-import lv.javaguru.java2.tasksScheduler.services.GetOutstandingTasksService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendTaskService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

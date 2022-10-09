@@ -14,6 +14,13 @@ public class TasksSchedulerApplication {
     public static void main(String[] args) {
         int menuNumber = 0;
 
+        do {
+            // Loop to set up Settings on the first run
+            if (executeSelectedMenuItem(menuType, menuNumber))
+                break;
+        } while (true);
+
+
         while (true) {
             printMenu(menuType);
             menuNumber = getMenuNumberFromUser();
@@ -23,6 +30,9 @@ public class TasksSchedulerApplication {
 
     private static void printMenu(MenuType type) {
         switch (type) {
+            case ADMIN:
+                printAdminMenu();
+                break;
             case START:
                 printStartMenu();
                 break;
@@ -37,10 +47,11 @@ public class TasksSchedulerApplication {
     private static void printStartMenu() {
         System.out.println();
         System.out.println("********************");
-        System.out.println("1. Show all users registered in the system");
-        System.out.println("2. Login");
+        System.out.println("1. Show all usernames registered in the system");
+        System.out.println("2. User Login");
         System.out.println("3. User registration");
-        System.out.println("4. Exit");
+        System.out.println("4. System settings");
+        System.out.println("5. Exit");
         System.out.println("********************");
         System.out.println();
     }
@@ -61,6 +72,17 @@ public class TasksSchedulerApplication {
         System.out.println();
     }
 
+    private static void printAdminMenu() {
+        System.out.println();
+        System.out.println("********************");
+        System.out.println("1. Show all users information");
+        System.out.println("2. Change administrator password");
+        System.out.println("3. Amend settings");
+        System.out.println("4. Exit menu");
+        System.out.println("********************");
+        System.out.println();
+    }
+
     private static int getMenuNumberFromUser() {
         try {
             System.out.println("Enter menu item number to execute:");
@@ -71,36 +93,41 @@ public class TasksSchedulerApplication {
         }
     }
 
-    private static void executeSelectedMenuItem(MenuType type, int choice) {
+    private static boolean executeSelectedMenuItem(MenuType type, int choice) {
 
         UIAction selectedAction = uiActionMap.getAction(getAlignedMenuChoice(type, choice));
         if (selectedAction == null) {
             System.out.println("Invalid menu option selected. Please try again.");
-            return;
+            return false;
         }
         if (selectedAction.execute()) {
             toggleMenuType(getAlignedMenuChoice(type, choice));
+            return true;
         }
+        return false;
     }
 
     private static int getAlignedMenuChoice(MenuType menuType, int choice) {
         if (choice == 0)
             return 0;
         if (menuType == MenuType.USER)
-            return (choice + 4);
+            return (choice + 5);
+        if (menuType == MenuType.ADMIN)
+            return (choice + 14);
         return choice;
     }
 
     private static void toggleMenuType(int selectedMenuOption) {
         switch (selectedMenuOption) {
-            case 0:
-                return;
             case 2:
                 menuType = MenuType.USER;
-                return;
-            case 12, 13:
+                break;
+            case 4:
+                menuType = MenuType.ADMIN;
+                break;
+            case 13, 14, 18:
                 menuType = MenuType.START;
-                return;
+                break;
             default:
                 break;
         }

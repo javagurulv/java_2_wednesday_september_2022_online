@@ -5,15 +5,14 @@ public class AmendCurrentUserRequest {
     private String username;
     private String password;
     private String email;
-    private String mobilePhone;
+    private boolean sendReminders;
 
-    public AmendCurrentUserRequest(String username, String password, String email, String mobilePhone) {
+    public AmendCurrentUserRequest(String username, String password, String email, boolean sendReminders) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.mobilePhone = mobilePhone;
+        this.sendReminders = sendReminders;
     }
-
 
     public String getUsername() {
         return username;
@@ -27,7 +26,7 @@ public class AmendCurrentUserRequest {
         return email;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public boolean isSendReminders() {
+        return sendReminders;
     }
 }

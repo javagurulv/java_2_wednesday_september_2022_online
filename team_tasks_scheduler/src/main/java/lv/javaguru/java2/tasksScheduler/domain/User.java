@@ -8,13 +8,13 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String mobilePhone;
+    private boolean sendReminders;
 
-    public User(String username, String password, String email, String mobilePhone) {
+    public User(String username, String password, String email, boolean sendReminders) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.mobilePhone = mobilePhone;
+        this.sendReminders = sendReminders;
     }
 
     public Long getId() {
@@ -49,12 +49,12 @@ public class User {
         this.email = email;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public boolean isSendReminders() {
+        return sendReminders;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
+    public void setSendReminders(boolean sendReminders) {
+        this.sendReminders = sendReminders;
     }
 
     @Override
@@ -62,16 +62,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(mobilePhone, user.mobilePhone);
+        return sendReminders == user.sendReminders && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, email, mobilePhone);
+        return Objects.hash(id, username, password, email, sendReminders);
     }
 
     @Override
@@ -81,7 +77,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
+                ", sendReminders=" + sendReminders +
                 '}';
     }
 }

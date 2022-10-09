@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.DeleteCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.DeleteCurrentUserResponse;
-import lv.javaguru.java2.tasksScheduler.services.DeleteCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.DeleteCurrentUserService;
 
 import java.util.Scanner;
 

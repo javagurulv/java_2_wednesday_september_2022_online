@@ -6,8 +6,10 @@ import java.util.List;
 
 public class LoginResponse extends CoreResponse {
     User user;
-    public LoginResponse(User user, List<CoreError> errors) {
+    public LoginResponse(List<CoreError> errors) {
         super(errors);
+    }
+    public LoginResponse(User user) {
         this.user = user;
     }
     public User getUser() {

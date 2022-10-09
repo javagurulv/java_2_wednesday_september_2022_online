@@ -3,7 +3,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
-import lv.javaguru.java2.tasksScheduler.services.GetOutstandingTasksService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
 
 import java.util.List;
 

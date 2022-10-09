@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
-import lv.javaguru.java2.tasksScheduler.services.AddTaskService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.AddTaskService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

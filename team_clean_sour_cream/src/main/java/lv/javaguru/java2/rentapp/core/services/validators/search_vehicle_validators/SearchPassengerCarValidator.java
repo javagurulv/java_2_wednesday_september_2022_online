@@ -1,0 +1,79 @@
+package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators;
+
+import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.CoreError;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
+
+public class SearchPassengerCarValidator extends SearchVehicleValidator {
+
+    @Override
+    public List<CoreError> validate(SearchVehicleRequest request) {
+        List<CoreError> errors = new ArrayList<>();
+
+        validateVehicleType(request).ifPresent(errors::add);
+        validateTransmissionType(request).ifPresent(errors::add);
+        validateIsAirConditionerAvailable(request).ifPresent(errors::add);
+
+        validatePassengerAmount(request).ifPresent(errors::add);
+        validateDoorsAmount(request).ifPresent(errors::add);
+        validateBaggageAmount(request).ifPresent(errors::add);
+
+        return errors;
+    }
+
+    private Optional<CoreError> validatePassengerAmount(SearchVehicleRequest request) {
+
+        Optional<Integer> passengerAmountOpt = Optional.ofNullable(request.getPassengerAmount());
+        if (passengerAmountOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Integer passengerAmount = passengerAmountOpt.get();
+        if (passengerAmount <= 0 || passengerAmount < CAR_MIN_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT));
+        } else if (passengerAmount > CAR_MAX_PASSENGER_AMOUNT) {
+            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + CAR_MAX_PASSENGER_AMOUNT));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<CoreError> validateDoorsAmount(SearchVehicleRequest request) {
+
+        Optional<Integer> doorsAmountOpt = Optional.ofNullable(request.getDoorsAmount());
+        if (doorsAmountOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Integer doorsAmount = doorsAmountOpt.get();
+        if (doorsAmount <= 0 || doorsAmount < CAR_MIN_DOORS_AMOUNT) {
+            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative, zero or less than "+ CAR_MIN_DOORS_AMOUNT));
+        } else if (doorsAmount > CAR_MAX_DOORS_AMOUNT) {
+            return Optional.of(new CoreError("Doors amount", "cannot be more than " + CAR_MAX_DOORS_AMOUNT));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<CoreError> validateBaggageAmount(SearchVehicleRequest request) {
+
+        Optional<Integer> baggageAmountOpt = Optional.ofNullable(request.getBaggageAmount());
+        if (baggageAmountOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Integer baggageAmount = baggageAmountOpt.get();
+        if (baggageAmount < 0) {
+            return Optional.of(new CoreError("Baggage amount", "cannot be empty or negative"));
+        } else if (baggageAmount > CAR_MAX_BAGGAGE_AMOUNT) {
+            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + CAR_MAX_BAGGAGE_AMOUNT));
+        } else {
+            return Optional.empty();
+        }
+    }
+}
