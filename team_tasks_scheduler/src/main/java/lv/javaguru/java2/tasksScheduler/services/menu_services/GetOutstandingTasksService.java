@@ -21,9 +21,8 @@ public class GetOutstandingTasksService {
     }
 
     public GetOutstandingTasksResponse execute(GetOutstandingTasksRequests request) {
-        List<CoreError> errors = new ArrayList<>();
         List<Task> tasks =  tasksRepository.getAllOutstandingTasksByUserId(sessionService.getCurrentUserId());
 
-        return new GetOutstandingTasksResponse(tasks, errors);
+        return new GetOutstandingTasksResponse(tasks, null);
     }
 }

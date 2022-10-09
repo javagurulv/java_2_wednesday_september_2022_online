@@ -4,14 +4,16 @@ import lv.javaguru.java2.tasksScheduler.domain.User;
 
 import java.util.List;
 
-public class LoginResponse extends CoreResponse {
+public class GetCurrentUserResponse extends CoreResponse{
     User user;
-    public LoginResponse(List<CoreError> errors) {
+
+    public GetCurrentUserResponse(List<CoreError> errors) {
         super(errors);
     }
-    public LoginResponse(User user) {
+    public GetCurrentUserResponse(User user) {
         this.user = user;
     }
+
     public User getUser() {
         return user;
     }

@@ -27,17 +27,18 @@ public class LoginService {
     }
 
     public LoginResponse execute(LoginRequest request) {
-        List<CoreError> errors = new ArrayList<>();
+
         User user = usersRepository.getUserByNameAndPassword(request.getUserName(),
                                              Encryption.stringHashing(request.getPassword()));
         if (user == null) {
+            List<CoreError> errors = new ArrayList<>(2);
             errors.add(new CoreError("Username", "May be incorrect"));
             errors.add(new CoreError("Password", "May be incorrect"));
-            return new LoginResponse(user, errors);
+            return new LoginResponse(errors);
         } else {
             sessionService.login(user.getId(), request.getPassword());
             tasksRepository.deleteOutOfDateByUserId(sessionService.getCurrentUserId());
-            return new LoginResponse(user, errors);
+            return new LoginResponse(user);
         }
     }
 }

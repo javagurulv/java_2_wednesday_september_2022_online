@@ -20,6 +20,7 @@ public class TasksSchedulerApplication {
                 break;
         } while (true);
 
+
         while (true) {
             printMenu(menuType);
             menuNumber = getMenuNumberFromUser();

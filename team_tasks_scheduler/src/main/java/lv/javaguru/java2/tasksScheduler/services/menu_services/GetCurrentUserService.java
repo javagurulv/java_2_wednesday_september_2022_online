@@ -2,6 +2,8 @@ package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.User;
+import lv.javaguru.java2.tasksScheduler.requests.GetCurrentUserRequest;
+import lv.javaguru.java2.tasksScheduler.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 
 public class GetCurrentUserService {
@@ -14,9 +16,11 @@ public class GetCurrentUserService {
         this.sessionService = sessionService;
     }
 
-    public User execute() {
+    public GetCurrentUserResponse execute(GetCurrentUserRequest request) {
+
         User result = usersRepository.getUserById(sessionService.getCurrentUserId());
         result.setPassword(sessionService.getDecryptedPassword());
-        return result;
+
+        return new GetCurrentUserResponse(result);
     }
 }

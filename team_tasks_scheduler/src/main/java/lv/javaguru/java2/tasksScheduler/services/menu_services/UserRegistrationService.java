@@ -21,22 +21,21 @@ public class UserRegistrationService {
     }
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
-        User user = null;
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
-            return new UserRegistrationResponse(user, errors);
+            return new UserRegistrationResponse(errors);
         }
 
-        user = new User(request.getUsername(),
+        User user = new User(request.getUsername(),
                         Encryption.stringHashing(request.getPassword()),
                         request.getEmail(),
                         request.isSendReminders());
 
         if (!usersRepository.save(user)) {
             errors.add(new CoreError("General","Error"));
-            return new UserRegistrationResponse(user, errors);
+            return new UserRegistrationResponse(errors);
         }
 
-        return new UserRegistrationResponse(user, errors);
+        return new UserRegistrationResponse(user);
     }
 }

@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.TaskInfoValidator;
 
@@ -31,8 +32,11 @@ public class AddTaskService {
 
         Task task = new Task(request.getDescription(), request.getRegularity(), request.getDueDate(),
                                 request.getEndDate(), sessionService.getCurrentUserId());
-        tasksRepository.save(task);
-        //TODO check return code
+        if(!tasksRepository.save(task)) {
+            errors.add(new CoreError("General","Error"));
+            return new AddTaskResponse(errors);
+        }
+        
         return new AddTaskResponse(task);
     }
 }
