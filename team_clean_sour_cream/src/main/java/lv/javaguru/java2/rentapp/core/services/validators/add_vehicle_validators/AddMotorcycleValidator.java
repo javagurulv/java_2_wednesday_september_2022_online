@@ -32,7 +32,9 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
         validatePlateNumber(request).ifPresent(errors::add);
         validateTransmissionType(request).ifPresent(errors::add);
         validatePassengerAmount(request).ifPresent(errors::add);
-        validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
+        if (errors.isEmpty()) {
+            validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
+        }
         return errors;
     }
 

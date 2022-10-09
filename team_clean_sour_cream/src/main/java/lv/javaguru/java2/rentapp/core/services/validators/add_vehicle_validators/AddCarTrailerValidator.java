@@ -37,7 +37,9 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
         validateDeckHeightInCm(request).ifPresent(errors::add);
         validateEmptyWeightInKg(request).ifPresent(errors::add);
         validateMaxLoadWeightInKg(request).ifPresent(errors::add);
-        validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
+        if (errors.isEmpty()) {
+            validateVehicleIsNotDuplicate(request).ifPresent(errors::add);
+        }
         return errors;
     }
 
