@@ -11,14 +11,6 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     private Long nextId = 1L;
     private List<User> users = new ArrayList<>();
 
-    {
-        //TODO remove me
-        save(new User("1111", Encryption.stringHashing("1111"),
-                "a@b.c", false));
-        save(new User("2222",Encryption.stringHashing("2222"),
-                "c@b.a", true));
-    }
-
     @Override
     public boolean save(User user) {
         if (user == null)

@@ -8,10 +8,13 @@ public class UserRegistrationResponse extends CoreResponse{
 
     private User user;
 
-    public UserRegistrationResponse(User user, List<CoreError> errors) {
+    public UserRegistrationResponse(List<CoreError> errors) {
         super(errors);
+    }
+    public UserRegistrationResponse(User user) {
         this.user = user;
     }
+
 
     public User getUser() {
         return user;

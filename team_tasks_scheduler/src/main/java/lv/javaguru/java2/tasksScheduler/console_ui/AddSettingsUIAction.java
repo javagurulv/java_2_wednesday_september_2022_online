@@ -1,7 +1,9 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
+import lv.javaguru.java2.tasksScheduler.requests.CheckSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddSettingsResponse;
+import lv.javaguru.java2.tasksScheduler.responses.CheckSettingsResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AddSettingsService;
 import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
 
@@ -12,7 +14,8 @@ public class AddSettingsUIAction implements UIAction {
     private CheckSettingsExistenceService checkSettingsExistenceService;
     private AddSettingsService addSettingsService;
 
-    public AddSettingsUIAction(CheckSettingsExistenceService checkSettingsExistenceService, AddSettingsService addSettingsService) {
+    public AddSettingsUIAction(CheckSettingsExistenceService checkSettingsExistenceService,
+                               AddSettingsService addSettingsService) {
         this.checkSettingsExistenceService = checkSettingsExistenceService;
         this.addSettingsService = addSettingsService;
     }
@@ -20,8 +23,11 @@ public class AddSettingsUIAction implements UIAction {
     @Override
     public boolean execute() {
 
-        if (checkSettingsExistenceService.execute())
+        CheckSettingsRequest checkSettingsRequest = new CheckSettingsRequest();
+        CheckSettingsResponse checkSettingsResponse = checkSettingsExistenceService.execute(checkSettingsRequest);
+        if (checkSettingsResponse.doesRecordExist()) {
             return true;
+        }
 
         Scanner scanner = new Scanner(System.in);
         System.out.println();

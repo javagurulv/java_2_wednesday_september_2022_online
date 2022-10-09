@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.*;
 import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.*;
+import lv.javaguru.java2.tasksScheduler.utils.TestData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,11 @@ public class UIActionMap {
     private SearchTasksService searchTasksService = new SearchTasksService(tasksRepository, searchTasksValidator , sessionService);
 
     private Map<Integer, UIAction> actionMap;
+
+    //TODO remove tests user and tasks
+    TestData testData = new TestData(userRegistrationService, addTaskService,
+            loginService, logoutService);
+
 
     public UIActionMap() {
         this.actionMap = new HashMap<>();

@@ -2,7 +2,9 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
+import lv.javaguru.java2.tasksScheduler.requests.GetCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
+import lv.javaguru.java2.tasksScheduler.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetCurrentUserService;
 
@@ -20,7 +22,11 @@ public class AmendCurrentUserUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-        User currentUser = getCurrentUserService.execute();
+
+        GetCurrentUserRequest getCurrentUserRequest = new GetCurrentUserRequest();
+        GetCurrentUserResponse getCurrentUserResponse = getCurrentUserService.execute(getCurrentUserRequest);
+        User currentUser = getCurrentUserResponse.getUser();
+
         if (currentUser == null) {
             System.out.println("Problem exists deriving current user information. Please contact administrator");
             return false;

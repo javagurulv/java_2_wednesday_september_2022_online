@@ -2,6 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
+import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.SearchTasksService;
 
@@ -20,8 +21,13 @@ public class SearchTasksUIAction implements UIAction {
     public boolean execute() {
         System.out.println("Please enter search phrase:");
         String searchPhrase = scanner.nextLine();
+        System.out.println("Enter order criterion (description/due date/end date):");
+        String orderBy = scanner.nextLine();
+        System.out.println("Enter order direction (ascending/descending):");
+        String orderDirection = scanner.nextLine();
+        Ordering ordering = new Ordering(orderBy, orderDirection);
 
-        SearchTasksRequest request = new SearchTasksRequest(searchPhrase);
+        SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering);
         SearchTasksResponse response = searchTasksService.execute(request);
 
         if (response.hasErrors()) {
@@ -35,7 +41,8 @@ public class SearchTasksUIAction implements UIAction {
                 System.out.println("There are no tasks found");
                 return true;
             }
-
+            System.out.println("Tasks found:");
+            response.getTasks().forEach(System.out::println);
             return true;
         }
     }

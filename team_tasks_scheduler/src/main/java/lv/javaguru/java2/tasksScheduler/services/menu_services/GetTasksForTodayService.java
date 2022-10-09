@@ -21,9 +21,8 @@ public class GetTasksForTodayService {
     }
 
     public GetTaskForTodayResponse execute(GetTasksForTodayRequests request) {
-        List<CoreError> errors = new ArrayList<>();
         List<Task> tasks =  tasksRepository.getAllOutstandingTasksByUserIdForToday(sessionService.getCurrentUserId());
 
-        return new GetTaskForTodayResponse(tasks, errors);
+        return new GetTaskForTodayResponse(tasks, null);
     }
 }

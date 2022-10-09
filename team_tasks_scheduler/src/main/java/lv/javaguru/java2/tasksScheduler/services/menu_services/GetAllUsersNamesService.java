@@ -20,8 +20,8 @@ public class GetAllUsersNamesService {
     }
 
     public GetAllUsersNameResponse execute(GetAllUsersNameRequest request) {
-        List<CoreError> errors = new ArrayList<>();
         List<String> userNames = usersRepository.getAllUsers().stream().map(User::getUsername).collect(toList());
-        return new GetAllUsersNameResponse(userNames, errors);
+
+        return new GetAllUsersNameResponse(userNames, null);
     }
 }

@@ -1,10 +1,12 @@
 package lv.javaguru.java2.tasksScheduler.requests;
 
+import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 
 import java.time.LocalDateTime;
 
 public class SearchTasksRequest {
+    private Ordering ordering;
     private String description;
     private LocalDateTime start;
     private LocalDateTime end;
@@ -16,13 +18,12 @@ public class SearchTasksRequest {
         this.end = end;
     }
 
-    public SearchTasksRequest(String searchPhrase) {
+    public SearchTasksRequest(String searchPhrase, Ordering ordering) {
         this.searchPhrase = searchPhrase;
+        this.ordering = ordering;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() { return description; }
     public LocalDateTime getEndDate() {
         return end;
     }

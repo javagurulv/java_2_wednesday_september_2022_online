@@ -24,7 +24,7 @@ public class AmendTaskService {
             return new AmendTaskResponse(errors);
         }
 
-        if (tasksRepository.update(request.getTask()) == false) {
+        if (!tasksRepository.update(request.getTask())) {
             errors.clear();
             errors.add(new CoreError("Database", "Unexpected error"));
             return new AmendTaskResponse(errors);
