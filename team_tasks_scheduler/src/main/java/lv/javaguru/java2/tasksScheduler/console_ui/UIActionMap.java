@@ -1,10 +1,9 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.database.InMemoryTasksRepositoryImpl;
-import lv.javaguru.java2.tasksScheduler.database.InMemoryUsersRepositoryImpl;
-import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.services.*;
+import lv.javaguru.java2.tasksScheduler.database.*;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.*;
+import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.*;
 
 import java.util.HashMap;
@@ -12,15 +11,21 @@ import java.util.Map;
 
 public class UIActionMap {
 
+    private SettingsRepository settingsRepository = new InMemorySettingsRepository();
     private UsersRepository usersRepository = new InMemoryUsersRepositoryImpl();
     private TasksRepository tasksRepository = new InMemoryTasksRepositoryImpl();
+
+    private AddSettingsValidator addSettingsValidator = new AddSettingsValidator();
     private UserRegistrationValidator userInfoValidator = new UserRegistrationValidator();
     private TaskInfoValidator taskInfoValidator = new TaskInfoValidator();
     private UserAmendValidator userAmendInfoValidator = new UserAmendValidator();
     private TaskAmendValidator taskAmendValidator = new TaskAmendValidator();
     private SearchTasksValidator searchTasksValidator = new SearchTasksValidator();
+
     private SessionService sessionService = new SessionService();
 
+    private CheckSettingsExistenceService checkSettingsExistenceService = new CheckSettingsExistenceService(settingsRepository);
+    private AddSettingsService addSettingsService = new AddSettingsService(settingsRepository, addSettingsValidator);
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
     private GetAllUsersNamesService getAllUsersNamesService = new GetAllUsersNamesService(usersRepository);
     private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository, userInfoValidator);
@@ -41,6 +46,7 @@ public class UIActionMap {
 
     public UIActionMap() {
         this.actionMap = new HashMap<>();
+        actionMap.put(0, new AddSettingsUIAction(checkSettingsExistenceService, addSettingsService));
         actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
         actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));

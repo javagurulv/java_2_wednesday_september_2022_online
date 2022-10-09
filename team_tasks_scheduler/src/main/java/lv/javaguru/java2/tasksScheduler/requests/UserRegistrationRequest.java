@@ -5,13 +5,13 @@ public class UserRegistrationRequest {
     private String username;
     private String password;
     private String email;
-    private String mobilePhone;
+    private boolean sendReminders;
 
-    public UserRegistrationRequest(String username, String password, String email, String mobilePhone) {
+    public UserRegistrationRequest(String username, String password, String email, boolean sendReminders) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.mobilePhone = mobilePhone;
+        this.sendReminders = sendReminders;
     }
 
     public String getUsername() {
@@ -26,7 +26,7 @@ public class UserRegistrationRequest {
         return email;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public boolean isSendReminders() {
+        return sendReminders;
     }
 }

@@ -115,7 +115,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
         for (Task tsk : tasks) {
             dscrptn = tsk.getDescription();
             dscrptn = dscrptn.toLowerCase();
-            if (dscrptn.contains(description.toLowerCase()) == true) {
+            if (dscrptn.contains(description.toLowerCase())) {
                 //search string found in description
                 taskList.add(tsk);
             }
@@ -181,7 +181,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
         List<Task> tasksList = new ArrayList<>();
         String taskFullStrDescription;
         for (Task tsk : tasks) {
-            if (tsk.getUserId() == userID) {
+            if (Objects.equals(tsk.getUserId(), userID)) {
                 taskFullStrDescription = tsk.getDescription() + tsk.getEndDate() + tsk.getDueDate();
                 if (taskFullStrDescription.contains(searchPhrase)) {
                     tasksList.add(tsk);

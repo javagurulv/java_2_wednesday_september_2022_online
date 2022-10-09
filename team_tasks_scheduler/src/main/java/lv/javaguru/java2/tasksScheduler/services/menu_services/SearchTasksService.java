@@ -1,10 +1,11 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.SearchTasksValidator;
 
 import java.util.List;

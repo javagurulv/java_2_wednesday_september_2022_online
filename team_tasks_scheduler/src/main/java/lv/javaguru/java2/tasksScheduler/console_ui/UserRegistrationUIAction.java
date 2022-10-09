@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
-import lv.javaguru.java2.tasksScheduler.services.UserRegistrationService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
 
 import java.util.Scanner;
 
@@ -24,10 +24,10 @@ public class UserRegistrationUIAction implements UIAction {
         String password = scanner.nextLine();
         System.out.println("Enter email: ");
         String email = scanner.nextLine();
-        System.out.println("Enter mobile phone: ");
-        String mobilePhone = scanner.nextLine();
+        System.out.println("Push 'Y' if reminders by email are required: ");
+        boolean sendReminders = scanner.nextLine().equals("Y");
 
-        UserRegistrationRequest request = new UserRegistrationRequest(username, password, email, mobilePhone);
+        UserRegistrationRequest request = new UserRegistrationRequest(username, password, email, sendReminders);
         UserRegistrationResponse response = userRegistrationService.execute(request);
 
         if (response.hasErrors()) {

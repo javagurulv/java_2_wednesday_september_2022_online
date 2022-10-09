@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.services.GetAllUsersService;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetAllUsersService;
 
 public class GetAllUsersUIAction implements UIAction {
     private GetAllUsersService getAllUsersService;

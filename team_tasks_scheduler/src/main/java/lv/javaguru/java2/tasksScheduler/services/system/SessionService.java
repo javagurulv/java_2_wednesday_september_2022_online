@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.system;
 
 public class SessionService {
 

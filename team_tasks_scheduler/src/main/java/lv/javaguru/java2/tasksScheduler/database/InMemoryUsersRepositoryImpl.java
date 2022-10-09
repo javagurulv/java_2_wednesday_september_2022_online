@@ -14,9 +14,9 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     {
         //TODO remove me
         save(new User("1111", Encryption.stringHashing("1111"),
-                "a@b.c", "123456"));
+                "a@b.c", false));
         save(new User("2222",Encryption.stringHashing("2222"),
-                "c@b.a", "654321"));
+                "c@b.a", true));
     }
 
     @Override

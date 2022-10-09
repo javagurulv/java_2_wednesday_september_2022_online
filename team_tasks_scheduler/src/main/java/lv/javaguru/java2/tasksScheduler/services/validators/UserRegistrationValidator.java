@@ -14,8 +14,6 @@ public class UserRegistrationValidator {
         validateUserName(request).ifPresent(errors::add);
         validateUserPassword(request).ifPresent(errors::add);
         validateUserEmail(request).ifPresent(errors::add);
-        validateUserPhone(request).ifPresent(errors::add);
-
         return errors;
     }
 
@@ -27,17 +25,9 @@ public class UserRegistrationValidator {
         return Optional.empty();
     }
 
-    private Optional<CoreError> validateUserPhone(UserRegistrationRequest request) {
-        if (request.getMobilePhone() == null || request.getMobilePhone().isEmpty() ||
-                request.getMobilePhone().matches("[0-9]+") != true ||
-                request.getMobilePhone().length() < 5) {
-            return Optional.of(new CoreError("Phone number", "Has to contain >5 0..9 digits"));
-        }
-        return Optional.empty();
-    }
     private Optional<CoreError> validateUserEmail(UserRegistrationRequest request) {
         if (request.getEmail() == null || request.getEmail().isEmpty() ||
-                request.getEmail().contains("@") != true) {
+                !request.getEmail().contains("@")) {
             return Optional.of(new CoreError("e-mail", "Has to contain char '@'"));
         }
         return Optional.empty();

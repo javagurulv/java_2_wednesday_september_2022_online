@@ -1,10 +1,11 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.UserAmendValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
@@ -38,7 +39,7 @@ public class AmendCurrentUserService {
         }
 
         User amendedUser = new User(request.getUsername(), Encryption.stringHashing(request.getPassword()),
-                request.getEmail(), request.getMobilePhone());
+                request.getEmail(), request.isSendReminders());
         amendedUser.setId(currentUser.getId());
         usersRepository.update(amendedUser);
         sessionService.setDecryptedPassword(request.getPassword());

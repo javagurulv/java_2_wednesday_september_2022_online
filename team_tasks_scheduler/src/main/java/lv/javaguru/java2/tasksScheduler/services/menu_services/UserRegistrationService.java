@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.User;
@@ -30,9 +30,9 @@ public class UserRegistrationService {
         user = new User(request.getUsername(),
                         Encryption.stringHashing(request.getPassword()),
                         request.getEmail(),
-                        request.getMobilePhone());
+                        request.isSendReminders());
 
-        if (false == usersRepository.save(user)) {
+        if (!usersRepository.save(user)) {
             errors.add(new CoreError("General","Error"));
             return new UserRegistrationResponse(user, errors);
         }

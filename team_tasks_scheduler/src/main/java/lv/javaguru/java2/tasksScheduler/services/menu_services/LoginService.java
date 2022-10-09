@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler.services;
+package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
@@ -6,6 +6,7 @@ import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.LoginResponse;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
 import java.util.ArrayList;
