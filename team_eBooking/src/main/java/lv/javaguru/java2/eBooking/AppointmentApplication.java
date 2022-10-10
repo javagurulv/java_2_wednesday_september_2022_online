@@ -3,9 +3,10 @@ package lv.javaguru.java2.eBooking;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
 import lv.javaguru.java2.eBooking.console_ui.*;
-import lv.javaguru.java2.eBooking.core.services.appointment_service.AddAppointmentService;
-import lv.javaguru.java2.eBooking.core.services.appointment_service.GetAllAppointmentsService;
-import lv.javaguru.java2.eBooking.core.services.appointment_service.RemoveAppointmentService;
+import lv.javaguru.java2.eBooking.core.services.appointment_service.add.AddAppointmentService;
+import lv.javaguru.java2.eBooking.core.services.appointment_service.add.AddAppointmentValidator;
+import lv.javaguru.java2.eBooking.core.services.appointment_service.print_all.GetAllAppointmentsService;
+import lv.javaguru.java2.eBooking.core.services.appointment_service.remove.RemoveAppointmentService;
 import lv.javaguru.java2.eBooking.core.services.client_service.add.AddClientService;
 import lv.javaguru.java2.eBooking.core.services.client_service.add.AddClientValidator;
 import lv.javaguru.java2.eBooking.core.services.client_service.print_all.GetAllClientsService;
@@ -16,11 +17,12 @@ import java.util.Scanner;
 
 public class AppointmentApplication {
     private static Database database = new InMemoryDatabase();
-    private static AddClientValidator validator= new AddClientValidator();
-    private static AddClientService addClientService = new AddClientService(database,validator);
+    private static AddClientValidator clientValidator= new AddClientValidator();
+    private static AddAppointmentValidator appointmentValidator = new AddAppointmentValidator();
+    private static AddClientService addClientService = new AddClientService(database,clientValidator);
     private static RemoveClientService removeClientService=new RemoveClientService(database);
     private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
-    private static AddAppointmentService addAppointmentService = new AddAppointmentService(database);
+    private static AddAppointmentService addAppointmentService = new AddAppointmentService(database,appointmentValidator);
     private static RemoveAppointmentService removeAppointmentService = new RemoveAppointmentService(database);
     private static GetAllAppointmentsService getAllAppointmentsService = new GetAllAppointmentsService(database);
 

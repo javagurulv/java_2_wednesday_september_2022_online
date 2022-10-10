@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.services.appointment_service;
+package lv.javaguru.java2.eBooking.core.services.appointment_service.remove;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.RemoveAppointmentRequest;

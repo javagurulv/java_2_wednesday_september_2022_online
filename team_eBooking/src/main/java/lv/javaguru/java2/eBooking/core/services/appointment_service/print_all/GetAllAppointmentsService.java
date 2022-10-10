@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.services.appointment_service;
+package lv.javaguru.java2.eBooking.core.services.appointment_service.print_all;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.database.Database;

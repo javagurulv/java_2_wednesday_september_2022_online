@@ -60,7 +60,6 @@ public class InMemoryDatabase implements Database {
                 return isAppointmentDeleted;
     }
 
-
     @Override
     public List<Appointment> getAllAppointments() {
         return appointments;

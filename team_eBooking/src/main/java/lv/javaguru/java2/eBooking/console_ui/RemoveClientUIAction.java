@@ -24,7 +24,7 @@ public class RemoveClientUIAction implements UIAction {
         if (response.hasError()) {
             response.getErrors().forEach(coreError -> System.out.println(
                     "Error:" + " " +
-                            coreError.getField() + " " + coreError.getMessage()));
+                            coreError.getField() + " " + coreError.getClientValidationMessage()));
         } else {
             if (response.isClientRemoved()) {
                 System.out.println("Client removed from database");
