@@ -87,7 +87,7 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
             try {
                 System.out.println();
                 System.out.println("""
-                        Do you wish to view a certain page of the result?
+                        Do you wish to split the result of the search into pages?
                         1. Yes
                         2. No""");
                 System.out.println();
@@ -95,11 +95,9 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
                 int userChoice = Integer.parseInt(scanner.nextLine());
                 if (userChoice == 1) {
 
-                    System.out.println("Enter page number to view: ");
-                    Integer pageNumber = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter size of the page");
+                    System.out.println("Enter a size of the page");
                     Integer pageSize = Integer.parseInt(scanner.nextLine());
-                    Paging paging = new Paging(pageNumber, pageSize);
+                    Paging paging = new Paging(1, pageSize);
                     searchVehicleRequestBuilder.paging(paging);
                     page = false;
 
