@@ -1,6 +1,7 @@
 package lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
+import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
@@ -65,6 +66,7 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
         }
 
         askOrdering(searchVehicleRequestBuilder);
+        askPaging(searchVehicleRequestBuilder);
 
         return searchVehicleRequestBuilder.build();
     }
@@ -76,6 +78,41 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
                         "Doors amount",
                         "Baggage amount",
                         "Conditioner"));
+    }
+
+    private void askPaging(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
+        boolean page = true;
+
+        while (page) {
+            try {
+                System.out.println();
+                System.out.println("""
+                        Do you wish to view a certain page of the result?
+                        1. Yes
+                        2. No""");
+                System.out.println();
+
+                int userChoice = Integer.parseInt(scanner.nextLine());
+                if (userChoice == 1) {
+
+                    System.out.println("Enter page number to view: ");
+                    Integer pageNumber = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter size of the page");
+                    Integer pageSize = Integer.parseInt(scanner.nextLine());
+                    Paging paging = new Paging(pageNumber, pageSize);
+                    searchVehicleRequestBuilder.paging(paging);
+                    page = false;
+
+                } else if (userChoice == 2) {
+                    page = false;
+                } else {
+                    System.out.println("You must choose 1 or 2");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: You must enter a number!");
+
+            }
+        }
     }
 
     private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {

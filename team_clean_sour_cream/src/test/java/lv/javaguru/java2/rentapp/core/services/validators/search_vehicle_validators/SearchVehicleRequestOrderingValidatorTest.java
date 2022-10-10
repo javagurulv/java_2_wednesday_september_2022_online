@@ -1,7 +1,8 @@
-package lv.javaguru.java2.rentapp.core.services.validators;
+package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestOrderingValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
