@@ -42,7 +42,7 @@ public class SearchVehicleUIAction implements UIAction {
                 } else if (request.getPaging() != null) {
                     System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                     response.getVehicleList().forEach(System.out::println);
-                    int resultPageNumber = 1;
+                    int resultPageNumber = request.getPaging().getPageNumber();
                     boolean continueSearch = true;
 
                     while (continueSearch) {
@@ -62,7 +62,7 @@ public class SearchVehicleUIAction implements UIAction {
                                 response = searchVehicleService.execute(request);
                                 if (response.getVehicleList().isEmpty()) {
                                     System.out.println("Page " + resultPageNumber + " is empty");
-                                    resultPageNumber--;
+                                    request.getPaging().setPageNumber(--resultPageNumber);
                                 }
                                 System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                                 response.getVehicleList().forEach(System.out::println);
