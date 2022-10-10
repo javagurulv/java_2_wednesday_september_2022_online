@@ -9,7 +9,7 @@ public interface Database {
 
     void addNewVehicle(Vehicle vehicle);
 
-    boolean deleteVehicleByPlateNumber(String plateNumber);
+    void deleteVehicleByPlateNumber(String plateNumber);
 
     List<Vehicle> getAllVehicles();
 

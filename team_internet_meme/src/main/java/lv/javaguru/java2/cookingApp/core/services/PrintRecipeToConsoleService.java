@@ -7,17 +7,18 @@ import lv.javaguru.java2.cookingApp.core.requests.PrintRecipeToConsoleRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.PrintRecipeToConsoleResponse;
 import lv.javaguru.java2.cookingApp.core.services.validators.PrintRecipeToConsoleValidator;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIDependency;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class PrintRecipeToConsoleService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency private PrintRecipeToConsoleValidator validator;
+    @Autowired private PrintRecipeToConsoleValidator validator;
 
 
     public PrintRecipeToConsoleResponse execute(PrintRecipeToConsoleRequest request) {

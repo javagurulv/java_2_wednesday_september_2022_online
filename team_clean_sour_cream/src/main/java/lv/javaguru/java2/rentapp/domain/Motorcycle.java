@@ -12,6 +12,8 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 @EqualsAndHashCode(callSuper = true)
 public class Motorcycle extends Vehicle {
 
+    public static final int MOTO_MAX_PASSENGER_AMOUNT = 4;
+    public static final int MOTO_MIN_PASSENGER_AMOUNT = 1;
     private Integer passengerAmount;
 
     public Motorcycle(String brand, String model, boolean isAvailableForRent, Integer yearOfProduction, Colour colour,

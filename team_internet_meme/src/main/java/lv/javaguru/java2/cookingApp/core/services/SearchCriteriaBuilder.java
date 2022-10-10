@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.AndSearchCriteria;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.IngredientNameCriteria;
-import lv.javaguru.java2.cookingApp.core.services.search_criteria.SearchCriteria;
-import lv.javaguru.java2.cookingApp.dependency_injection.DIComponent;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.AndSearchCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.IngredientNameCriteria;
+import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class SearchCriteriaBuilder {
 
 	public SearchCriteria build(SearchRecipeRequest request) {

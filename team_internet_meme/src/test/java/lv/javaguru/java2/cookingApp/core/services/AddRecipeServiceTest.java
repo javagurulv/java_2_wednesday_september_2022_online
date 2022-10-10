@@ -21,11 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class AddRecipeServiceTest {
 
-    @Mock
-    private Database database;
-
-    @Mock
-    private AddRecipeRequestValidator validator;
+    @Mock private Database database;
+    @Mock private AddRecipeRequestValidator validator;
 
     @InjectMocks
     private AddRecipeService service;

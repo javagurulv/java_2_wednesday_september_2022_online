@@ -8,7 +8,6 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
@@ -27,16 +26,8 @@ public class InMemoryDatabaseImpl implements Database {
     }
 
     @Override
-    public boolean deleteVehicleByPlateNumber(String plateNumber) {
-        boolean isVehicleDeleted = false;
-        Optional<Vehicle> vehicleToDeleteOpt = vehiclesDB.stream()
-                .filter(vehicle -> vehicle.getPlateNumber().equals(plateNumber))
-                .findFirst();
-        if (vehicleToDeleteOpt.isPresent()) {
-            Vehicle vehicleToDelete = vehicleToDeleteOpt.get();
-            isVehicleDeleted = vehiclesDB.remove(vehicleToDelete);
-        }
-        return isVehicleDeleted;
+    public void deleteVehicleByPlateNumber(String plateNumber) {
+       vehiclesDB.removeIf(vehicle -> vehicle.getPlateNumber().equals(plateNumber));
     }
 
     @Override
