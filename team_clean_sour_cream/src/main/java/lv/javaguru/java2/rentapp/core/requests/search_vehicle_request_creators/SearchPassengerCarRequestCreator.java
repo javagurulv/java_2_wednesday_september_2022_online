@@ -94,9 +94,10 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
 
                 int userChoice = Integer.parseInt(scanner.nextLine());
                 if (userChoice == 1) {
-
+                    System.out.println();
                     System.out.println("Enter a size of the page");
                     Integer pageSize = Integer.parseInt(scanner.nextLine());
+                    System.out.println();
                     Paging paging = new Paging(1, pageSize);
                     searchVehicleRequestBuilder.paging(paging);
                     page = false;
@@ -104,7 +105,9 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
                 } else if (userChoice == 2) {
                     page = false;
                 } else {
+                    System.out.println();
                     System.out.println("You must choose 1 or 2");
+                    System.out.println();
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Error: You must enter a number!");

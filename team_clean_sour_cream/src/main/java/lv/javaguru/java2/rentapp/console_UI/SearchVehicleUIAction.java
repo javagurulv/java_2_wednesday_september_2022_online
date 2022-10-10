@@ -43,8 +43,9 @@ public class SearchVehicleUIAction implements UIAction {
                     System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                     response.getVehicleList().forEach(System.out::println);
                     int resultPageNumber = 1;
-                    boolean endSearch = false;
-                    while (endSearch) {
+                    boolean continueSearch = true;
+
+                    while (continueSearch) {
 
                         System.out.println();
                         System.out.println("""
@@ -54,22 +55,36 @@ public class SearchVehicleUIAction implements UIAction {
                                 3. End search
                                 """);
                         System.out.println();
-                        Integer userChoice = Integer.parseInt(scanner.nextLine());
+                        int userChoice = Integer.parseInt(scanner.nextLine());
                         switch (userChoice) {
-                            case 1:
-                                System.out.println();
-                            case 2:
-                            case 3:
-                            default:
-                        }
+                            case 1 -> {
+                                request.getPaging().setPageNumber(++resultPageNumber);
+                                response = searchVehicleService.execute(request);
+                                if (response.getVehicleList().isEmpty()) {
+                                    System.out.println("Page " + resultPageNumber + " is empty");
+                                    resultPageNumber--;
+                                }
+                                System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
+                                response.getVehicleList().forEach(System.out::println);
+                            }
+                            case 2 -> {
+                                if (resultPageNumber != 1) {
+                                    request.getPaging().setPageNumber(--resultPageNumber);
+                                    System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
+                                    response.getVehicleList().forEach(System.out::println);
+                                } else {
+                                    System.out.println("You are already viewing the 1st page!");
+                                }
+                            }
+                            case 3 -> continueSearch = false;
 
+                            default -> System.out.println("You must choose one of the provided options (1-3)");
+                        }
                     }
                 } else {
                     System.out.println("Vehicles found by your criteria: ");
                     response.getVehicleList().forEach(System.out::println);
                 }
-
-
             }
         } catch (NumberFormatException e) {
             System.out.println("Error: You must enter a number!");
