@@ -1,7 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.requests;
 
-import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
-import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
+import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
 
 import java.time.LocalDateTime;
 

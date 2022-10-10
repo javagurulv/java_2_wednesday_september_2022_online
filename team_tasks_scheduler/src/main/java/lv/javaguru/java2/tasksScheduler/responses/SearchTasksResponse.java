@@ -1,7 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.responses;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
 
 import java.util.List;
 

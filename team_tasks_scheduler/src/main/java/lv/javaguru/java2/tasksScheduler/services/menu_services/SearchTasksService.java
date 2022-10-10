@@ -3,7 +3,8 @@ package lv.javaguru.java2.tasksScheduler.services.menu_services;
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
-import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
+import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
+import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
@@ -43,13 +44,27 @@ public class SearchTasksService {
 
     private List<Task> order(List<Task> tasks, Ordering ordering) {
         if (ordering != null) {
-            Comparator<Task> comparator = ordering.getOrderBy().equals("description")
-                    ? Comparator.comparing(Task::getDescription)
-                    : Comparator.comparing(Task::getEndDate);
+            //order by description by default
+            Comparator<Task> comparator = Comparator.comparing(Task::getDescription);
+            if (ordering.getOrderBy().equals("due date")) {
+                comparator = Comparator.comparing(Task::getDueDate);
+            }
+            else if (ordering.getOrderBy().equals("end date")) {
+                comparator = Comparator.comparing(Task::getEndDate);
+            }
             if (ordering.getOrderDirection().equals("descending")) {
                 comparator = comparator.reversed();
             }
             return tasks.stream().sorted(comparator).collect(Collectors.toList());
+        } else {
+            return tasks;
+        }
+    }
+
+    private List<Task> paging(List<Task> tasks, Paging paging) {
+        if (paging != null) {
+
+            return tasks;
         } else {
             return tasks;
         }

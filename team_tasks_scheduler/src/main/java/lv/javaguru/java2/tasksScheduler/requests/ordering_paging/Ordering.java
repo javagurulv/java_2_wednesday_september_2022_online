@@ -1,4 +1,4 @@
-package lv.javaguru.java2.tasksScheduler.requests.ordering;
+package lv.javaguru.java2.tasksScheduler.requests.ordering_paging;
 
 public class Ordering {
     private String orderBy;

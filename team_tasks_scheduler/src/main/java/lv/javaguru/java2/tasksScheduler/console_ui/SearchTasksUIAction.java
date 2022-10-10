@@ -2,7 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
-import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
+import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.SearchTasksService;
 
