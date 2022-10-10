@@ -10,7 +10,7 @@ import java.util.Optional;
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.TRAIL_MIN_LOAD_WEIGHT_IN_KG;
 
-public class SearchCarTrailerValidator extends SearchVehicleValidator {
+public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
     @Override
     public List<CoreError> validate(SearchVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();

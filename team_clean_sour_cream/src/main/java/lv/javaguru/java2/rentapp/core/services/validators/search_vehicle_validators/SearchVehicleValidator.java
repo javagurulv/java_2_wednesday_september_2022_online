@@ -2,70 +2,28 @@ package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_valida
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
-import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import lv.javaguru.java2.rentapp.core.services.validators.SearchVehicleRequestOrderingValidator;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.List;
-import java.util.Optional;
 
-public abstract class SearchVehicleValidator {
+public class SearchVehicleValidator {
 
-    public abstract List<CoreError> validate(SearchVehicleRequest request);
+    private SearchVehicleFieldsValidatorMap searchVehicleFieldsValidatorMap;
+    private SearchVehicleRequestOrderingValidator searchVehicleRequestOrderingValidator;
 
-    protected Optional<CoreError> validateVehicleType(SearchVehicleRequest request) {
+    public SearchVehicleValidator(SearchVehicleFieldsValidatorMap searchVehicleFieldsValidatorMap,
+                                  SearchVehicleRequestOrderingValidator searchVehicleRequestOrderingValidator) {
+        this.searchVehicleFieldsValidatorMap = searchVehicleFieldsValidatorMap;
+        this.searchVehicleRequestOrderingValidator = searchVehicleRequestOrderingValidator;
+    }
 
-        List<String> enumVehicleTypeValues = VehicleType.getAllEnumValues();
-
+    public List<CoreError> validate(SearchVehicleRequest request) {
         VehicleType vehicleType = request.getVehicleType();
-        if (vehicleType == null || vehicleType.getNameVehicleType().isBlank()) {
-            return Optional.of(new CoreError("Vehicle Type", "can`t be empty"));
-        } else if (areEnumValuesValid(enumVehicleTypeValues, vehicleType.getNameVehicleType())) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Vehicle Type", "must be one of the provided options (" + enumVehicleTypeValues + ")"));
+        List<CoreError> errors = searchVehicleFieldsValidatorMap.getVehicleValidatorByCarType(vehicleType).validate(request);
+        if (request.getOrdering() != null) {
+            errors.addAll(searchVehicleRequestOrderingValidator.validate(request.getOrdering()));
         }
-    }
-
-    protected Optional<CoreError> validateTransmissionType(SearchVehicleRequest request) {
-
-        List<String> enumTransmissionTypeValues = TransmissionType.getAllEnumValues();
-
-        Optional<String> transmissionTypeOpt = Optional.ofNullable(request.getTransmissionType());
-        if (transmissionTypeOpt.isEmpty()) {
-            return Optional.empty();
-        }
-
-        String transmissionType = transmissionTypeOpt.get();
-        if (transmissionType.isBlank()) {
-            return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
-        } else if (areEnumValuesValid(enumTransmissionTypeValues, transmissionType)) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("Transmission Type", "must be one of the provided options (" + enumTransmissionTypeValues + ")"));
-        }
-    }
-
-    protected Optional<CoreError> validateIsAirConditionerAvailable(SearchVehicleRequest request) {
-
-        Optional<String> isAirConditioningAvailableOpt = Optional.ofNullable(request.getHasConditioner());
-
-        if (isAirConditioningAvailableOpt.isEmpty()) {
-            return Optional.empty();
-        }
-
-        String isAirConditioningAvailable = isAirConditioningAvailableOpt.get();
-        if (isAirConditioningAvailable.isBlank()) {
-            return Optional.of(new CoreError("IsAirConditionerAvailable", "cannot be empty"));
-        } else if (isAirConditioningAvailable.equalsIgnoreCase("true")
-                || isAirConditioningAvailable.equalsIgnoreCase("false")) {
-            return Optional.empty();
-        } else {
-            return Optional.of(new CoreError("IsAirConditionerAvailable", "must be either true or false"));
-        }
-    }
-
-    protected boolean areEnumValuesValid(List<String> enumVehicleTypeValues, String vehicleType) {
-        return enumVehicleTypeValues.stream()
-                .anyMatch(enumVehicleTypeValue -> enumVehicleTypeValue.equalsIgnoreCase(vehicleType.replaceAll("[^a-zA-Z\s]", "")));
+        return errors;
     }
 }

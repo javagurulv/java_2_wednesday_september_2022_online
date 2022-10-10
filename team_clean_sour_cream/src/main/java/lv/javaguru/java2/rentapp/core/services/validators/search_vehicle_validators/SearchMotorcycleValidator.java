@@ -10,7 +10,7 @@ import java.util.Optional;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
-public class SearchMotorcycleValidator extends SearchVehicleValidator {
+public class SearchMotorcycleValidator extends SearchVehicleFieldsValidator {
 
     @Override
     public List<CoreError> validate(SearchVehicleRequest request) {

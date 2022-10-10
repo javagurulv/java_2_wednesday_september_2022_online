@@ -7,8 +7,10 @@ import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
+import lv.javaguru.java2.rentapp.core.services.validators.SearchVehicleRequestOrderingValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleFieldsValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
-import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidatorMap;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
@@ -19,19 +21,16 @@ import java.util.stream.Collectors;
 public class SearchVehicleService {
 
     private Database database;
-
-    private SearchVehicleValidatorMap searchVehicleValidatorMap;
+    private SearchVehicleValidator validator;
 
     public SearchVehicleService(Database database) {
         this.database = database;
-        this.searchVehicleValidatorMap = new SearchVehicleValidatorMap();
+        this.validator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(), new SearchVehicleRequestOrderingValidator());
     }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
-        VehicleType vehicleType = request.getVehicleType();
-        SearchVehicleValidator searchVehicleValidator = searchVehicleValidatorMap.getVehicleValidatorByCarType(vehicleType);
 
-        List<CoreError> errors = searchVehicleValidator.validate(request);
+        List<CoreError> errors = validator.validate(request);
 
         if (!errors.isEmpty()) {
             return new SearchVehicleResponse(null, errors);

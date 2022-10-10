@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
-public class SearchPassengerCarValidator extends SearchVehicleValidator {
+public class SearchPassengerCarValidator extends SearchVehicleFieldsValidator {
 
     @Override
     public List<CoreError> validate(SearchVehicleRequest request) {

@@ -7,11 +7,11 @@ import java.util.Map;
 
 import static lv.javaguru.java2.rentapp.enums.VehicleType.*;
 
-public class SearchVehicleValidatorMap {
+public class SearchVehicleFieldsValidatorMap {
 
-    private Map<VehicleType, SearchVehicleValidator> searchVehicleValidatorMap;
+    private Map<VehicleType, SearchVehicleFieldsValidator> searchVehicleValidatorMap;
 
-    public SearchVehicleValidatorMap() {
+    public SearchVehicleFieldsValidatorMap() {
         this.searchVehicleValidatorMap = new HashMap<>();
         searchVehicleValidatorMap.put(PASSENGER_CAR, new SearchPassengerCarValidator());
         searchVehicleValidatorMap.put(MINIBUS, new SearchMiniBusValidator());
@@ -19,7 +19,7 @@ public class SearchVehicleValidatorMap {
         searchVehicleValidatorMap.put(CAR_TRAILER, new SearchCarTrailerValidator());
     }
 
-    public SearchVehicleValidator getVehicleValidatorByCarType(VehicleType vehicleType) {
+    public SearchVehicleFieldsValidator getVehicleValidatorByCarType(VehicleType vehicleType) {
         return searchVehicleValidatorMap.get(vehicleType);
     }
 }

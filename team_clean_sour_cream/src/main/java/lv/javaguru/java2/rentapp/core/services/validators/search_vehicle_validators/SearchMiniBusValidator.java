@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
 
-public class SearchMiniBusValidator extends SearchVehicleValidator {
+public class SearchMiniBusValidator extends SearchVehicleFieldsValidator {
 
     @Override
     public List<CoreError> validate(SearchVehicleRequest request) {
