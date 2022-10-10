@@ -3,6 +3,8 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 import lv.javaguru.java2.tasksScheduler.database.*;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.*;
 import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
+import lv.javaguru.java2.tasksScheduler.services.system.GetCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.services.system.GetSettingsService;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.*;
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
@@ -17,6 +19,8 @@ public class UIActionMap {
     private TasksRepository tasksRepository = new InMemoryTasksRepositoryImpl();
 
     private AddSettingsValidator addSettingsValidator = new AddSettingsValidator();
+    private AmendSettingsValidator amendSettingsValidator = new AmendSettingsValidator();
+    private SettingsLoginValidator settingsLoginValidator = new SettingsLoginValidator();
     private UserRegistrationValidator userInfoValidator = new UserRegistrationValidator();
     private TaskInfoValidator taskInfoValidator = new TaskInfoValidator();
     private UserAmendValidator userAmendInfoValidator = new UserAmendValidator();
@@ -26,7 +30,11 @@ public class UIActionMap {
     private SessionService sessionService = new SessionService();
 
     private CheckSettingsExistenceService checkSettingsExistenceService = new CheckSettingsExistenceService(settingsRepository);
+    private GetSettingsService getSettingsService = new GetSettingsService(settingsRepository);
     private AddSettingsService addSettingsService = new AddSettingsService(settingsRepository, addSettingsValidator);
+    private AmendSettingsService amendSettingsService = new AmendSettingsService(settingsRepository, amendSettingsValidator, sessionService);
+    private SettingsLoginService settingsLoginService = new SettingsLoginService(settingsRepository, settingsLoginValidator, sessionService);
+    private ExitSettingsService exitSettingsService = new ExitSettingsService(sessionService);
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
     private GetAllUsersNamesService getAllUsersNamesService = new GetAllUsersNamesService(usersRepository);
     private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository, userInfoValidator);
@@ -56,7 +64,7 @@ public class UIActionMap {
         actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
         actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));
-        actionMap.put(4, null);
+        actionMap.put(4, new SettingsLoginUIAction(checkSettingsExistenceService, settingsLoginService, sessionService));
         actionMap.put(5, new ExitUIAction(exitService));
         actionMap.put(6, new GetOutstandingTasksUIAction(getOutstandingTasksService));
         actionMap.put(7, new GetTasksForTodayUIAction(getTasksForTodayService));
@@ -68,9 +76,8 @@ public class UIActionMap {
         actionMap.put(13, new DeleteCurrentUserUIAction(deleteCurrentUserService));
         actionMap.put(14, new LogoutUIAction(logoutService));
         actionMap.put(15, new GetAllUsersUIAction(getAllUsersService));
-        actionMap.put(16, null);
-        actionMap.put(17, null);
-        actionMap.put(18, null);
+        actionMap.put(16, new AmendSettingsUIAction(amendSettingsService, getSettingsService, sessionService));
+        actionMap.put(17, new ExitSettingsUIAction(exitSettingsService));
 
     }
 

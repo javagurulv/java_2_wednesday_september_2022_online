@@ -6,7 +6,7 @@ import lv.javaguru.java2.tasksScheduler.requests.GetCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendCurrentUserService;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.GetCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.services.system.GetCurrentUserService;
 
 import java.util.Scanner;
 
@@ -38,6 +38,7 @@ public class AmendCurrentUserUIAction implements UIAction {
             System.out.println("Send reminders = " + currentUser.isSendReminders());
             System.out.println();
         }
+
         String[] input = collectDataFromScreen(currentUser);
 
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(input[0], input[1],

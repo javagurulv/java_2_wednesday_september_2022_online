@@ -23,8 +23,7 @@ public class TaskAmendValidator {
 
     private Optional<CoreError> validateDescription(AmendTaskRequest request) {
         String description = request.getTask().getDescription();
-        if (description == null || description.isEmpty() ||
-                description.length() < 10) {
+        if (description == null || description.length() < 10) {
             return Optional.of(new CoreError("Description", "Has to be longer than 10 chars"));
         }
         return Optional.empty();
