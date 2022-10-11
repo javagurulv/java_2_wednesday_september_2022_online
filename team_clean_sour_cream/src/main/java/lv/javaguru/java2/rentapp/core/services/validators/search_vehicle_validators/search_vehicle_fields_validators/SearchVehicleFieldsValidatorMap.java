@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators;
 
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
