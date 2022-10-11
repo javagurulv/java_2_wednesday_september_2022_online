@@ -19,8 +19,7 @@ public class ExitSettingsService {
     }
 
     public ExitSettingsResponse execute(ExitSettingsRequest request) {
-        List<CoreError> errors = new ArrayList<>();
         sessionService.logOut();
-        return new ExitSettingsResponse(errors);
+        return new ExitSettingsResponse();
     }
 }

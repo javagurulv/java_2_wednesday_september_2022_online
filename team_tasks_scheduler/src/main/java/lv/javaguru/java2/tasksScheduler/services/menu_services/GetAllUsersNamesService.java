@@ -2,11 +2,9 @@ package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNameRequest;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
-import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNameResponse;
+import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNamesRequest;
+import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNamesResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -19,9 +17,9 @@ public class GetAllUsersNamesService {
         this.usersRepository = usersRepository;
     }
 
-    public GetAllUsersNameResponse execute(GetAllUsersNameRequest request) {
+    public GetAllUsersNamesResponse execute(GetAllUsersNamesRequest request) {
         List<String> userNames = usersRepository.getAllUsers().stream().map(User::getUsername).collect(toList());
 
-        return new GetAllUsersNameResponse(userNames, null);
+        return new GetAllUsersNamesResponse(userNames, null);
     }
 }
