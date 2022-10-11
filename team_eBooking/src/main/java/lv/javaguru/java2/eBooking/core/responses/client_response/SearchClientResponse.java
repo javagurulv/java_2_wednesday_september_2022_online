@@ -7,15 +7,15 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 import java.util.List;
 
 public class SearchClientResponse extends CoreResponse {
-    private List<CoreError> errors;
 
-    public SearchClientResponse(List<CoreError> errors, List<Client> client) {
-        super(errors);
-        this.errors = errors;
-    }
+    private List<Client> clients;
 
-    @Override
-    public List<CoreError> getErrors() {
-        return errors;
+    public SearchClientResponse(List<CoreError> errors, List<Client> clients){
+       super(errors);
+       this.clients=clients;
+   }
+
+    public List<Client> getClients() {
+        return clients;
     }
 }

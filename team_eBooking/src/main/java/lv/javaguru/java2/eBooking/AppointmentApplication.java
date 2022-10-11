@@ -11,6 +11,8 @@ import lv.javaguru.java2.eBooking.core.services.client_service.add.AddClientServ
 import lv.javaguru.java2.eBooking.core.services.client_service.add.AddClientValidator;
 import lv.javaguru.java2.eBooking.core.services.client_service.print_all.GetAllClientsService;
 import lv.javaguru.java2.eBooking.core.services.client_service.remove.RemoveClientService;
+import lv.javaguru.java2.eBooking.core.services.client_service.search.ClientSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.services.client_service.search.ClientSearchService;
 
 
 import java.util.Scanner;
@@ -18,14 +20,18 @@ import java.util.Scanner;
 public class AppointmentApplication {
     private static Database database = new InMemoryDatabase();
     private static AddClientValidator clientValidator= new AddClientValidator();
+    private static ClientSearchRequestValidator validator = new ClientSearchRequestValidator();
+
     private static AddAppointmentValidator appointmentValidator = new AddAppointmentValidator();
     private static AddClientService addClientService = new AddClientService(database,clientValidator);
     private static RemoveClientService removeClientService=new RemoveClientService(database);
     private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
+    private static ClientSearchService clientSearchService = new ClientSearchService(database,validator);
     private static AddAppointmentService addAppointmentService = new AddAppointmentService(database,appointmentValidator);
     private static RemoveAppointmentService removeAppointmentService = new RemoveAppointmentService(database);
     private static GetAllAppointmentsService getAllAppointmentsService = new GetAllAppointmentsService(database);
 
+    public static UIAction searchClientUIAction = new SearchClientUIAction(clientSearchService);
     public static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
     public static UIAction addClientUIAction  =new AddClientUIAction(addClientService);
     public static UIAction removeClientUIAction = new RemoveClientUIAction(removeClientService);
@@ -53,18 +59,25 @@ public class AppointmentApplication {
                     break;
                 }
                 case 4: {
-                    addAppointmentUIAction.execute();
+                    searchClientUIAction.execute();
                     break;
                 }
                 case 5: {
-                    removeAppointmentUIAction.execute();
+                    addAppointmentUIAction.execute();
                     break;
                 }
                 case 6: {
-                    printAppointmentUIAction.execute();
+                    removeAppointmentUIAction.execute();
                     break;
                 }
                 case 7: {
+                    printAppointmentUIAction.execute();
+                    break;
+                }
+                case 8:{
+
+                }
+                case 9: {
                     exitApplicationUIAction.execute();
                 }
             }
