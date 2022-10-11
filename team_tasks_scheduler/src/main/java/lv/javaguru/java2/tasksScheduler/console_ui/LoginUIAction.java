@@ -33,7 +33,9 @@ public class LoginUIAction implements UIAction {
         LoginResponse responseLogin = loginService.execute(requestLogin);
 
         if (responseLogin.hasErrors()) {
-            System.out.println("Invalid credentials. Please try again.");
+            responseLogin.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
             return false;
         }
         else {

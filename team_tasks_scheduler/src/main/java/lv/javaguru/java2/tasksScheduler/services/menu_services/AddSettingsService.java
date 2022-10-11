@@ -30,7 +30,10 @@ public class AddSettingsService {
                 request.getEmailFrom(), request.getEmailPassword(), request.getEmailHost(),
                 request.getEmailPort(), request.getEmailProtocol());
 
-        settingsRepository.save(settings);
+        if (!settingsRepository.save(settings)) {
+            errors.add(new CoreError("System", "Error adding to repository."));
+            return new AddSettingsResponse(errors);
+        }
 
         return new AddSettingsResponse(settings);
     }

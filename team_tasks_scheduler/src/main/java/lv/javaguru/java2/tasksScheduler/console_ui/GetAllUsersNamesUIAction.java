@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNameRequest;
-import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNameResponse;
+import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNamesRequest;
+import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNamesResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetAllUsersNamesService;
 
 public class GetAllUsersNamesUIAction implements UIAction {
@@ -14,21 +14,22 @@ public class GetAllUsersNamesUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-        GetAllUsersNameRequest request = new GetAllUsersNameRequest();
-        GetAllUsersNameResponse response = getAllUsersNamesService.execute(request);
+        GetAllUsersNamesRequest request = new GetAllUsersNamesRequest();
+        GetAllUsersNamesResponse response = getAllUsersNamesService.execute(request);
 
         if (response.hasErrors()) {
-            System.out.println("Registration failed");
             response.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
             );
             return false;
         }
-        else {
+        if (response.getUserNames().isEmpty()) {
+            System.out.println("There are no users to display.");
+        } else {
             System.out.println("--- Users list start --- ");
             response.getUserNames().forEach(System.out::println);
             System.out.println("---  Users list end  --- ");
-            return true;
         }
+        return true;
     }
 }

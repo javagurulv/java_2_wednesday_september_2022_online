@@ -1,14 +1,20 @@
 package generalPackage.usersResponses;
 
-public class IncreaseBalanceResponse {
+import java.util.List;
 
-    boolean addMoneySuccessful;
+public class IncreaseBalanceResponse extends CoreResponseUsers{
 
-    public IncreaseBalanceResponse(boolean addMoneyConfirmation) {
-        addMoneyConfirmation = addMoneyConfirmation;
+    private boolean addMoneySuccessful;
+
+    public IncreaseBalanceResponse(boolean addMoneySuccessful) {
+        this.addMoneySuccessful = addMoneySuccessful;
     }
 
-    public boolean addMoneySuccessful() {
+    public boolean isMoneyAdded() {
         return addMoneySuccessful;
+    }
+
+    public IncreaseBalanceResponse (List<CoreErrorUsers> errors){
+        super(errors);
     }
 }

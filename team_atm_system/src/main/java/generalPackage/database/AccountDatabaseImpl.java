@@ -44,41 +44,42 @@ public class AccountDatabaseImpl implements Database {
     //    added:
     @Override
     public boolean increaseBalance(int userID, int amount) {
-        if (userID != 0 && amount > 0) {
-            accounts.stream()
-                    .filter(account -> account.getUserID() == userID)
-                    .forEach(account -> account.setBalance(account.getBalance() + amount));
-        }
-        return false;
-    }
 
-
-    public boolean increaseBalanceV2(int userID, int amount) {
-		Accounts userAccount = accounts.stream()
-				.filter(account -> account.getUserID() == userID)
-				.findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("User with id not found " + userID));
-		int begin = userAccount.getBalance();
+        Accounts userAccount = accounts.stream()
+                .filter(account -> account.getUserID() == userID)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User with ID not found" + userID));
+        int begin = userAccount.getBalance();
         if (amount > 0) {
-			userAccount.setBalance(userAccount.getBalance() + amount);
+            userAccount.setBalance(userAccount.getBalance() + amount);
         }
         return userAccount.getBalance() == (begin + amount);
     }
 
     @Override
-    public void decreaseBalance(int userID, int amount) {
-        if (userID != 0 && amount > 0) {
-            accounts.stream()
-                    .filter(account -> account.getUserID() == userID)
-                    .forEach(accounts -> accounts.setBalance(accounts.getBalance() - amount));
+    public boolean decreaseBalance(int userID, int amount) {
+        Accounts userAccount = accounts.stream()
+                .filter(account -> account.getUserID() == userID)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User with ID was not found" + userID));
+        int startingBalance = userAccount.getBalance();
+        if (amount > 0 && startingBalance >= amount) {
+            userAccount.setBalance(userAccount.getBalance() - amount);
         }
+        else {
+            System.out.println("Insufficient funds");
+        }
+        return userAccount.getBalance() == startingBalance - amount;
     }
 
+
     @Override
-    public void printBalance(int userID) {
-        accounts.stream()
-                .filter(account -> account.getUserID() == userID)
-                .forEach(account -> System.out.println("Current balance is: " + account.getBalance()));
+    public int printBalance(int userID) {
+        Accounts userAccountToFind = accounts.stream()
+                .filter(account -> userID == account.getUserID())
+                .findAny()
+                .orElse(null);
+        return userAccountToFind.getBalance();
     }
 
     @Override

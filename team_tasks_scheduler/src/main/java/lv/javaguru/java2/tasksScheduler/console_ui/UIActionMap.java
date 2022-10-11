@@ -26,6 +26,7 @@ public class UIActionMap {
     private UserAmendValidator userAmendInfoValidator = new UserAmendValidator();
     private TaskAmendValidator taskAmendValidator = new TaskAmendValidator();
     private SearchTasksValidator searchTasksValidator = new SearchTasksValidator();
+    private LoginValidator loginValidator = new LoginValidator();
 
     private SessionService sessionService = new SessionService();
 
@@ -38,7 +39,7 @@ public class UIActionMap {
     private GetAllUsersService getAllUsersService = new GetAllUsersService(usersRepository);
     private GetAllUsersNamesService getAllUsersNamesService = new GetAllUsersNamesService(usersRepository);
     private UserRegistrationService userRegistrationService = new UserRegistrationService(usersRepository, userInfoValidator);
-    private LoginService loginService = new LoginService(usersRepository, tasksRepository, sessionService);
+    private LoginService loginService = new LoginService(usersRepository, loginValidator, tasksRepository, sessionService);
     private GetOutstandingTasksService getOutstandingTasksService = new GetOutstandingTasksService(tasksRepository, sessionService);
     private GetTasksForTodayService getTasksForTodayService = new GetTasksForTodayService(tasksRepository, sessionService);
     private AddTaskService addTaskService = new AddTaskService(tasksRepository, sessionService, taskInfoValidator);
