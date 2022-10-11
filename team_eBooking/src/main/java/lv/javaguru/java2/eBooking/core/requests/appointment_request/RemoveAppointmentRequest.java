@@ -5,7 +5,7 @@ public class RemoveAppointmentRequest {
     private Long AppointmentId;
 
     public RemoveAppointmentRequest(Long appointmentId) {
-        AppointmentId = appointmentId;
+        this.AppointmentId = appointmentId;
     }
 
     public Long getAppointmentId() {

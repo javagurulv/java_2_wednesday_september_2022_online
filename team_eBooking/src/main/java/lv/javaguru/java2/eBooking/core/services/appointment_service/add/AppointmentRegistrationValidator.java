@@ -13,7 +13,7 @@ public interface AppointmentRegistrationValidator extends Function<Appointment, 
     }
 
     static AppointmentRegistrationValidator masterNameEntryContainingValidSymbols() {
-        return appointment -> appointment.getMasterName().matches("^[a-zA-Z]+$")
+        return appointment -> appointment.getMasterName().matches("^[a-zA-Z ]+$")
                 ? AppointmentValidationResult.SUCCESS
                 : AppointmentValidationResult.MASTERNAME_NOT_VALID_ENTRY_SYMBOLS;
     }
@@ -25,7 +25,7 @@ public interface AppointmentRegistrationValidator extends Function<Appointment, 
     }
 
     static AppointmentRegistrationValidator appointmentServiceTypeEntryContainingValidSymbols() {
-        return appointment -> appointment.getTypeOfService().matches("^[a-zA-Z]+$")
+        return appointment -> appointment.getTypeOfService().matches("^[a-zA-Z ]+$")
                 ? AppointmentValidationResult.SUCCESS
                 : AppointmentValidationResult.SERVICETYPE_NOT_VALID_ENTRY_SYMBOLS;
     }
