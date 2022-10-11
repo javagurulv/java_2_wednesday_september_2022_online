@@ -10,6 +10,7 @@ import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.SearchTasksValidator;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +38,9 @@ public class SearchTasksService {
 
         List<Task> taskList = tasksRepository.searchTasks(request.getSearchPhrase(),
                 sessionService.getCurrentUserId());
+
         taskList = order(taskList, request.getOrdering());
+        taskList = paging(taskList,request.getPaging());
 
         return new SearchTasksResponse(taskList, errors);
     }
@@ -63,8 +66,19 @@ public class SearchTasksService {
 
     private List<Task> paging(List<Task> tasks, Paging paging) {
         if (paging != null) {
+            int pageNumber = paging.getPageNumber();
+            int pageSize = paging.getPageSize();
+            int start = (pageNumber-1)*pageSize;
+            List<Task> newTaskList = new ArrayList<>();
 
-            return tasks;
+            int i = start;
+            do {
+                newTaskList.add(tasks.get(i));
+                i++;
+            }
+            while (i < pageSize);
+
+            return newTaskList;
         } else {
             return tasks;
         }
