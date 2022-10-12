@@ -16,7 +16,7 @@ public class UIActionMap {
     private Map<Integer, UIAction> uiActionMap;
     private Database database = new InMemoryDatabaseImpl();
     private SearchVehicleValidator searchVehicleValidator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(),
-            new SearchVehicleRequestOrderingValidator, new SearchVehicleRequestPagingValidator());
+            new SearchVehicleRequestOrderingValidator(), new SearchVehicleRequestPagingValidator());
     private AddVehicleService addNewVehicleService = new AddVehicleService(database);
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database);
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);

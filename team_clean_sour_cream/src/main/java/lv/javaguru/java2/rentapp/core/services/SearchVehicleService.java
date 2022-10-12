@@ -22,7 +22,6 @@ public class SearchVehicleService {
 
     public SearchVehicleService(Database database, SearchVehicleValidator validator) {
         this.database = database;
-
         this.validator = validator;
     }
 
