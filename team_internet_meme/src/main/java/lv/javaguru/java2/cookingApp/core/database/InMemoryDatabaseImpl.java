@@ -42,7 +42,7 @@ public class InMemoryDatabaseImpl implements Database {
 
     @Override
     public List<Recipe> getAllRecipes() {
-        return recipesDB;
+        return new ArrayList<>(recipesDB);
     }
 
     @Override

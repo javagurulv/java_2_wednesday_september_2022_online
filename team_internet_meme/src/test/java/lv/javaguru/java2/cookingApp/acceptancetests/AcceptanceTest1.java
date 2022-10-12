@@ -61,7 +61,7 @@ public class AcceptanceTest1 {
         getDeleteRecipeService().execute(deleteRecipeRequest2);
 
         GetAllRecipesResponse response1 = getAllRecipesService().execute(new GetAllRecipesRequest());
-        assertTrue(response.getRecipes().isEmpty());
+        assertTrue(response1.getRecipes().isEmpty());
     }
 
     private AddRecipeService getAddRecipeService() {
