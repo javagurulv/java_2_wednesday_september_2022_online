@@ -1,50 +1,15 @@
 package lv.javaguru.java2.repo_men_inc;
 
 import lv.javaguru.java2.repo_men_inc.console_ui.*;
-import lv.javaguru.java2.repo_men_inc.core.validators.AddDebtorValidator;
-import lv.javaguru.java2.repo_men_inc.core.validators.AddHarvestedItemValidator;
-import lv.javaguru.java2.repo_men_inc.core.validators.RemoveDebtorValidator;
-import lv.javaguru.java2.repo_men_inc.core.validators.SearchDebtorValidator;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.database.DatabaseImpl;
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
-import lv.javaguru.java2.repo_men_inc.services.*;
+import lv.javaguru.java2.repo_men_inc.domain.ApplicationContext;
 
 import java.util.Scanner;
 
 public class RepoMenIncApplication {
 
-    private static final Database databaseImpl = new DatabaseImpl();
-
-    private static final AddDebtorValidator addDebtorValidator = new AddDebtorValidator(databaseImpl);
-    private static final AddDebtorService addDebtorService = new AddDebtorService(databaseImpl, addDebtorValidator);
-    private static final AddDebtorUIAction addNewDebtor = new AddDebtorUIAction(addDebtorService);
-
-    private static final RemoveDebtorValidator removeDebtorValidator = new RemoveDebtorValidator(databaseImpl);
-    private static final RemoveDebtorService removeDebtorService = new RemoveDebtorService(databaseImpl, removeDebtorValidator);
-    private static final RemoveDebtorUIAction removeDebtor = new RemoveDebtorUIAction(removeDebtorService);
-
-    private static final PrintDebtorListService printDebtorListService = new PrintDebtorListService(databaseImpl);
-    private static final PrintDebtorListUIAction printDebtorList = new PrintDebtorListUIAction(printDebtorListService);
-
-    private static final AddHarvestedItemValidator addHarvestedItemValidator = new AddHarvestedItemValidator(databaseImpl);
-    private static final AddHarvestedItemService addHarvestedItemService = new AddHarvestedItemService(databaseImpl, addHarvestedItemValidator);
-    private static final AddHarvestedItemUIAction addHarvestedItem = new AddHarvestedItemUIAction(addHarvestedItemService);
-
-    private static final SearchDebtorValidator searchDebtorValidator = new SearchDebtorValidator();
-    private static final SearchDebtorService searchDebtorService = new SearchDebtorService(databaseImpl, searchDebtorValidator);
-    private static final SearchDebtorUIAction searchDEbtorUIAction = new SearchDebtorUIAction(searchDebtorService);
-
-    private static final ExitUIAction exitUIAction = new ExitUIAction();
+    private static final ApplicationContext applicationContext = new ApplicationContext();
 
     public static void main(String[] args) {
-
-        databaseImpl.save(new Debtor("mr x"));
-        databaseImpl.save(new Debtor("mr y"));
-        databaseImpl.save(new Debtor("mr z"));
-        databaseImpl.getById(1L).getList().add("leg");
-        databaseImpl.getById(2L).getList().add("arm");
-        databaseImpl.getById(3L).getList().add("arm");
 
         while (true) {
             try {
@@ -59,12 +24,30 @@ public class RepoMenIncApplication {
 
     private static void executeUsersChoice(int userChoice) {
         switch (userChoice) {
-            case 1 -> addNewDebtor.execute();
-            case 2 -> addHarvestedItem.execute();
-            case 3 -> removeDebtor.execute();
-            case 4 -> printDebtorList.execute();
-            case 5 -> searchDEbtorUIAction.execute();
-            case 6 -> exitUIAction.execute();
+            case 1 -> {
+                AddDebtorUIAction addNewDebtor = applicationContext.getBean(AddDebtorUIAction.class);
+                addNewDebtor.execute();
+            }
+            case 2 -> {
+                AddHarvestedItemUIAction addHarvestedItem = applicationContext.getBean(AddHarvestedItemUIAction.class);
+                addHarvestedItem.execute();
+            }
+            case 3 -> {
+                RemoveDebtorUIAction removeDebtor = applicationContext.getBean(RemoveDebtorUIAction.class);
+                removeDebtor.execute();
+            }
+            case 4 -> {
+                PrintDebtorListUIAction printDebtorList = applicationContext.getBean(PrintDebtorListUIAction.class);
+                printDebtorList.execute();
+            }
+            case 5 -> {
+                SearchDebtorUIAction searchDEbtorUIAction = applicationContext.getBean(SearchDebtorUIAction.class);
+                searchDEbtorUIAction.execute();
+            }
+            case 6 -> {
+                ExitUIAction exitUIAction = applicationContext.getBean(ExitUIAction.class);
+                exitUIAction.execute();
+            }
         }
     }
 
