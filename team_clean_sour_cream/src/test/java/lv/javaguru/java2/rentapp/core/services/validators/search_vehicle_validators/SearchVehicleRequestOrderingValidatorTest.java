@@ -106,6 +106,7 @@ class SearchVehicleRequestOrderingValidatorTest {
         assertEquals("Must contain 'price' or 'year' only!", error.get(0).getMessage());
     }
 
+
     @Test
     void testValidateOrderDirectionErrorWhenFieldIsNotValid() {
         Ordering ordering = new Ordering("price", "not valid");
