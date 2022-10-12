@@ -8,9 +8,6 @@ import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
-import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestOrderingValidator;
-import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestPagingValidator;
-import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
@@ -23,11 +20,10 @@ public class SearchVehicleService {
     private Database database;
     private SearchVehicleValidator validator;
 
-    public SearchVehicleService(Database database) {
+    public SearchVehicleService(Database database, SearchVehicleValidator validator) {
         this.database = database;
-        this.validator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(),
-                new SearchVehicleRequestOrderingValidator(),
-                new SearchVehicleRequestPagingValidator());
+
+        this.validator = validator;
     }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
