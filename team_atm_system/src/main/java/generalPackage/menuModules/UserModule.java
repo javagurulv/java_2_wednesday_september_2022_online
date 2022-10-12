@@ -1,8 +1,6 @@
 package generalPackage.menuModules;
 
-import generalPackage.balanceOperations.DecreaseBalance;
-import generalPackage.balanceOperations.IncreaseBalance;
-import generalPackage.balanceOperations.PrintBalance;
+import generalPackage.balanceOperations.*;
 import generalPackage.balanceOperationsUI.*;
 import generalPackage.database.AccountDatabaseImpl;
 import generalPackage.database.Database;
@@ -11,13 +9,16 @@ import java.util.Scanner;
 
 public class UserModule {
     private static Database database = new AccountDatabaseImpl();
-    private static IncreaseBalance increaseBalance = new IncreaseBalance(database);
-    private static DecreaseBalance decreaseBalance = new DecreaseBalance(database);
-    private static PrintBalance printBalance = new PrintBalance(database);
-    private static UI_Menu printBalanceUIAction = new Balance(printBalance);
-    private static UI_Menu depositUIAction = new Deposit(increaseBalance);
-    private static UI_Menu withdrawUIAction = new Withdraw(decreaseBalance);
-    private static UI_Menu exitUIAction = new Exit();
+    private static IncreaseBalanceValidator increaseBalanceValidator = new IncreaseBalanceValidator();
+    private static IncreaseBalance increaseBalance = new IncreaseBalance(database, increaseBalanceValidator);
+    private static DecreaseBalanceValidator decreaseBalanceValidator = new DecreaseBalanceValidator();
+    private static DecreaseBalance decreaseBalance = new DecreaseBalance(database, decreaseBalanceValidator );
+    private static PrintBalanceValidator printBalanceValidator = new PrintBalanceValidator();
+    private static PrintBalance printBalance = new PrintBalance(database, printBalanceValidator);
+    private static UI_Menu printBalanceUIAction = new PrintBalanceServiceUIAction(printBalance);
+    private static UI_Menu depositUIAction = new IncreaseBalanceServiceUIAction(increaseBalance);
+    private static UI_Menu withdrawUIAction = new DecreaseBalanceServiceUIAction(decreaseBalance);
+    private static UI_Menu exitUIAction = new ExitServiceUIAction();
 
 
     public void executeUserModule (){

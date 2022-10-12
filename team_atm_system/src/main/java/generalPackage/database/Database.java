@@ -15,9 +15,9 @@ public interface Database {
     //    added:
     boolean increaseBalance(int userID, int amount);
 
-    void decreaseBalance(int userID, int amount);
+    boolean decreaseBalance(int userID, int amount);
 
-    void printBalance(int userID);
+    int printBalance(int userID);
 
     boolean isExist(String name);
 

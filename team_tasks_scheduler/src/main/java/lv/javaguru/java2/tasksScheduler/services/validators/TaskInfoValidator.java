@@ -1,7 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
+import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
+import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,9 +15,11 @@ import java.util.Optional;
 
 public class TaskInfoValidator {
 
-    public List<CoreError> validate(AddTaskRequest request) {
+    public List<CoreError> validate(AddTaskRequest request, TasksRepository taskList,
+                                        SessionService session) {
         List<CoreError> errors = new ArrayList<>();
 
+        validateDuplicate(request, taskList, session).ifPresent(errors::add);
         validateDescription(request).ifPresent(errors::add);
         validateRegularity(request).ifPresent(errors::add);
         validateDueDate(request).ifPresent(errors::add);
@@ -22,6 +27,16 @@ public class TaskInfoValidator {
         return errors;
     }
 
+    private Optional<CoreError> validateDuplicate(AddTaskRequest request,
+                                      TasksRepository taskList, SessionService session) {
+
+        Task task = new Task(request.getDescription(), request.getRegularity(),
+                request.getDueDate(), request.getEndDate(), session.getCurrentUserId());
+        if (taskList.exists(task)) {
+            return Optional.of(new CoreError("Task", "Already exists in database"));
+        }
+        return Optional.empty();
+    }
     private Optional<CoreError> validateDescription(AddTaskRequest request) {
         String description = request.getDescription();
         if (description == null || description.isEmpty() ||

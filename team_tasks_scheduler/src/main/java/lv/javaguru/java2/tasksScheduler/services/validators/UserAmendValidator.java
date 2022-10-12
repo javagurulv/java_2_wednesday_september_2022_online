@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
+import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
+import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 
@@ -8,16 +10,25 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserAmendValidator {
-    public List<CoreError> validate(AmendCurrentUserRequest request) {
+    public List<CoreError> validate(AmendCurrentUserRequest request, UsersRepository userList) {
         List<CoreError> errors = new ArrayList<>();
 
+        validateDuplicate(request, userList).ifPresent(errors::add);
         validateUserName(request).ifPresent(errors::add);
         validateUserPassword(request).ifPresent(errors::add);
         validateUserEmail(request).ifPresent(errors::add);
 
         return errors;
     }
+    private Optional<CoreError> validateDuplicate(AmendCurrentUserRequest request,
+                                                  UsersRepository userList) {
 
+        if (userList.existsByName(request.getUsername()) ||
+                    userList.existsByEmail(request.getEmail())) {
+            return Optional.of(new CoreError("User", "Exists in database"));
+        }
+        return Optional.empty();
+    }
     private Optional<CoreError> validateUserName(AmendCurrentUserRequest request) {
         if (request.getUsername() == null || request.getUsername().isEmpty() ||
                 request.getUsername().length() < 3) {
