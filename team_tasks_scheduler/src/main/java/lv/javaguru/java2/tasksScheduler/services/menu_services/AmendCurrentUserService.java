@@ -33,7 +33,7 @@ public class AmendCurrentUserService {
             return new AmendCurrentUserResponse(errors);
         }
 
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = validator.validate(request, usersRepository);
         if (!errors.isEmpty()) {
             return new AmendCurrentUserResponse(errors);
         }

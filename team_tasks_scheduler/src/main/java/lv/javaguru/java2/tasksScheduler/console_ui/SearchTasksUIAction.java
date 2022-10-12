@@ -2,7 +2,8 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
-import lv.javaguru.java2.tasksScheduler.requests.ordering.Ordering;
+import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
+import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.SearchTasksService;
 
@@ -23,10 +24,18 @@ public class SearchTasksUIAction implements UIAction {
         String searchPhrase = scanner.nextLine();
         System.out.println("Enter order criterion (description/due date/end date):");
         String orderBy = scanner.nextLine();
-        System.out.println("Enter order direction (ascending/descending):");
+        System.out.println("Enter ordering direction (ascending/descending):");
         String orderDirection = scanner.nextLine();
         Ordering ordering = new Ordering(orderBy, orderDirection);
 
+        //System.out.println("Enter pageNumber: ");
+        Integer pageNumber = 1;
+        System.out.println("Enter page size: ");
+        Integer pageSize = Integer.parseInt(scanner.nextLine());
+
+
+
+        //at first request we get found task count and check for request errors
         SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering);
         SearchTasksResponse response = searchTasksService.execute(request);
 
@@ -41,8 +50,20 @@ public class SearchTasksUIAction implements UIAction {
                 System.out.println("There are no tasks found");
                 return true;
             }
-            System.out.println("Tasks found:");
-            response.getTasks().forEach(System.out::println);
+            int foundTaskCount = response.getTasks().size();
+            System.out.println("Found task count:" + foundTaskCount);
+
+            if (pageSize > foundTaskCount)
+                pageSize = foundTaskCount;
+
+            for (pageNumber = 1; pageNumber <=foundTaskCount / pageSize; pageNumber++) {
+                Paging paging = new Paging(pageNumber, pageSize);
+                request = new SearchTasksRequest(searchPhrase, ordering, paging);
+                response = searchTasksService.execute(request);
+
+                System.out.println("Tasks found:");
+                response.getTasks().forEach(System.out::println);
+            }
             return true;
         }
     }

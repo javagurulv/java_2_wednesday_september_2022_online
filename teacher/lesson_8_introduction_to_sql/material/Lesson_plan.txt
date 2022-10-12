@@ -1,0 +1,6 @@
+Lesson 8 plan:
+
+1. Select
+2. Update
+3. Insert
+4. Delete

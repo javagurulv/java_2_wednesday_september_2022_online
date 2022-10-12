@@ -19,7 +19,7 @@ public class AmendTaskService {
     }
 
     public AmendTaskResponse execute(AmendTaskRequest request) {
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = validator.validate(request, tasksRepository);
         if (!errors.isEmpty()) {
             return new AmendTaskResponse(errors);
         }

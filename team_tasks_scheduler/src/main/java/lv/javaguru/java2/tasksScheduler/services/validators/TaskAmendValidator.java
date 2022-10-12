@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
+import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
+import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 
@@ -11,9 +13,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class TaskAmendValidator {
-    public List<CoreError> validate(AmendTaskRequest request) {
+    public List<CoreError> validate(AmendTaskRequest request, TasksRepository taskList) {
         List<CoreError> errors = new ArrayList<>();
 
+        validateDuplicate(request, taskList).ifPresent(errors::add);
         validateDescription(request).ifPresent(errors::add);
         validateRegularity(request).ifPresent(errors::add);
         validateDueDate(request).ifPresent(errors::add);
@@ -21,10 +24,17 @@ public class TaskAmendValidator {
         return errors;
     }
 
+    private Optional<CoreError> validateDuplicate(AmendTaskRequest request,
+                                                  TasksRepository taskList) {
+        Task task = request.getTask();
+        if (taskList.exists(task)) {
+            return Optional.of(new CoreError("Task", "Already exists"));
+        }
+        return Optional.empty();
+    }
     private Optional<CoreError> validateDescription(AmendTaskRequest request) {
         String description = request.getTask().getDescription();
-        if (description == null || description.isEmpty() ||
-                description.length() < 10) {
+        if (description == null || description.length() < 10) {
             return Optional.of(new CoreError("Description", "Has to be longer than 10 chars"));
         }
         return Optional.empty();

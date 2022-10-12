@@ -26,10 +26,11 @@ public class AddAccountServiceValidator {
     }
 
     private Optional<CoreError> validateUserID(AddAccountRequest request) {
-        return (Integer.toString(request.getUserId()) == null)
-            ? Optional.of(new CoreError("User ID", "can not be empty"))
-            : Optional.empty();
 
+        return (Integer.toString(request.getUserId()) == null)
+                ? Optional.of(new CoreError("User ID", "can not be empty"))
+                : Optional.empty();
+//
     }
 
     private Optional<CoreError> validateIDLength(AddAccountRequest request) {
@@ -43,6 +44,8 @@ public class AddAccountServiceValidator {
                 ? Optional.of(new CoreError("User ID", "should contain 4 digits"))
                 : Optional.empty();
     }
+
+//    Unfinished:
 
     private Optional<CoreError> validateUserIDduplicates(AddAccountRequest request) {
         return Optional.empty();

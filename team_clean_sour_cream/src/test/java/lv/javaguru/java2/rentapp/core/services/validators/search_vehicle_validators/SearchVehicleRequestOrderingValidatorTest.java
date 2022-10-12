@@ -91,6 +91,13 @@ class SearchVehicleRequestOrderingValidatorTest {
     }
 
     @Test
+    void testValidateOrderByNoErrorWhenFieldIsPrice() {
+        Ordering ordering = new Ordering("price", "ASC");
+        List<CoreError> error = validator.validate(ordering);
+        assertTrue(error.isEmpty());
+    }
+
+    @Test
     void testValidateOrderByErrorWhenFieldIsNotValid() {
         Ordering ordering = new Ordering("not valid", "ASC");
         List<CoreError> error = validator.validate(ordering);

@@ -21,15 +21,10 @@ public class InMemorySettingsRepository implements SettingsRepository {
     public boolean save(Settings settings) {
         if (settings == null)
             return false;
-        settingsRecord.add(settings);
-        return true;
-    }
-
-    @Override
-    public boolean update(Settings settings) {
-        if (settings == null || settingsRecord == null || settingsRecord.isEmpty())
-            return false;
-        settingsRecord.set(0, settings);
+        if (settingsRecord == null || settingsRecord.isEmpty())
+            settingsRecord.add(settings);
+        else
+            settingsRecord.set(0, settings);
         return true;
     }
 

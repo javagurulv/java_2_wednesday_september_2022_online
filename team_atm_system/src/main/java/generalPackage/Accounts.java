@@ -3,9 +3,9 @@ package generalPackage;
 import java.util.Objects;
 
 public class Accounts {
-    private  String name;
+    private String name;
 
-    private  int userID;
+    private int userID;
 
     private int balance;
 
@@ -14,7 +14,6 @@ public class Accounts {
         this.userID = userID;
         this.balance = balance;
     }
-
 
     public String getName() {
         return name;
@@ -40,7 +39,6 @@ public class Accounts {
         Accounts accounts = (Accounts) o;
         return Objects.equals(name, accounts.name) &&
                 Objects.equals(userID, accounts.userID);
-        //userID == accounts.userID && balance == accounts.balance && Objects.equals(name, accounts.name);
     }
 
     @Override

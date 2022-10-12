@@ -25,13 +25,15 @@ public class AddTaskService {
     }
 
     public AddTaskResponse execute(AddTaskRequest request) {
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = validator.validate(request, tasksRepository, sessionService);
         if (!errors.isEmpty()) {
             return new AddTaskResponse(errors);
         }
 
         Task task = new Task(request.getDescription(), request.getRegularity(), request.getDueDate(),
                                 request.getEndDate(), sessionService.getCurrentUserId());
+        tasksRepository.exists(task);
+
         if(!tasksRepository.save(task)) {
             errors.add(new CoreError("General","Error"));
             return new AddTaskResponse(errors);

@@ -5,10 +5,10 @@ import lv.javaguru.java2.tasksScheduler.domain.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetAllUsersNameResponse extends CoreResponse {
+public class GetAllUsersNamesResponse extends CoreResponse {
     List<String> userNames;
 
-    public GetAllUsersNameResponse(List<String> userNames, List<CoreError> errors) {
+    public GetAllUsersNamesResponse(List<String> userNames, List<CoreError> errors) {
         super(errors);
         this.userNames = userNames;
     }

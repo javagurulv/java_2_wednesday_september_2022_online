@@ -48,6 +48,13 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
                 .anyMatch(user -> user.getUsername().equalsIgnoreCase(username));
     }
 
+    //TODO think if there should be 2 exist() functions
+    @Override
+    public boolean existsByEmail(String email) {
+        return users.stream()
+                .anyMatch(user -> user.getEmail().equalsIgnoreCase(email));
+    }
+
     @Override
     public User getUserById(Long id) {
         return users.stream()

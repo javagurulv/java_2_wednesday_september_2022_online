@@ -6,8 +6,6 @@ public interface SettingsRepository {
 
     boolean save(Settings settings);
 
-    boolean update(Settings settings);
-
     boolean recordExists();
 
     boolean passwordIsValid(String password);

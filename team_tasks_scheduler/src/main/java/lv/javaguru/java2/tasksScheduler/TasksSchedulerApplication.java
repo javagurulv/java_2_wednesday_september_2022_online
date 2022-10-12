@@ -76,9 +76,8 @@ public class TasksSchedulerApplication {
         System.out.println();
         System.out.println("********************");
         System.out.println("1. Show all users information");
-        System.out.println("2. Change administrator password");
-        System.out.println("3. Amend settings");
-        System.out.println("4. Exit menu");
+        System.out.println("2. Amend settings");
+        System.out.println("3. Exit settings");
         System.out.println("********************");
         System.out.println();
     }
@@ -125,7 +124,7 @@ public class TasksSchedulerApplication {
             case 4:
                 menuType = MenuType.ADMIN;
                 break;
-            case 13, 14, 18:
+            case 13, 14, 17:
                 menuType = MenuType.START;
                 break;
             default:
