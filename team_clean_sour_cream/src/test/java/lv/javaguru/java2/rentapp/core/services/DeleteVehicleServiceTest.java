@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.delete_vehicle_service;
+package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
