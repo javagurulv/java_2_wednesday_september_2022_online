@@ -34,8 +34,6 @@ public class SearchTasksService {
             return new SearchTasksResponse(null, errors);
         }
 
-        Ordering ordering = request.getOrdering();
-
         List<Task> taskList = tasksRepository.searchTasks(request.getSearchPhrase(),
                 sessionService.getCurrentUserId());
 
@@ -47,14 +45,19 @@ public class SearchTasksService {
 
     private List<Task> order(List<Task> tasks, Ordering ordering) {
         if (ordering != null) {
-            //order by description by default
-            Comparator<Task> comparator = Comparator.comparing(Task::getDescription);
-            if (ordering.getOrderBy().equals("due date")) {
+            //order by ID by default
+            Comparator<Task> comparator = Comparator.comparing(Task::getId);
+
+            if (ordering.getOrderBy().equals("description")) {
+                comparator = Comparator.comparing(Task::getDescription);
+            }
+            else if (ordering.getOrderBy().equals("due date")) {
                 comparator = Comparator.comparing(Task::getDueDate);
             }
             else if (ordering.getOrderBy().equals("end date")) {
                 comparator = Comparator.comparing(Task::getEndDate);
             }
+
             if (ordering.getOrderDirection().equals("descending")) {
                 comparator = comparator.reversed();
             }
@@ -66,19 +69,11 @@ public class SearchTasksService {
 
     private List<Task> paging(List<Task> tasks, Paging paging) {
         if (paging != null) {
-            int pageNumber = paging.getPageNumber();
-            int pageSize = paging.getPageSize();
-            int start = (pageNumber-1)*pageSize;
-            List<Task> newTaskList = new ArrayList<>();
-
-            int i = start;
-            do {
-                newTaskList.add(tasks.get(i));
-                i++;
-            }
-            while (i < pageSize);
-
-            return newTaskList;
+            int skip = (paging.getPageNumber() - 1) * paging.getPageSize();
+            return tasks.stream()
+                    .skip(skip)
+                    .limit(paging.getPageSize())
+                    .collect(Collectors.toList());
         } else {
             return tasks;
         }

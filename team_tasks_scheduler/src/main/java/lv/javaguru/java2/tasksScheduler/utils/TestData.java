@@ -120,14 +120,18 @@ public class TestData {
                 LocalDateTime.of(2023,5,30,8,10),
                 LocalDateTime.of(2023,4,1,20,40));
         response = taskService.execute(request);
+        //--------------------------
         request = new AddTaskRequest("take my medication; every day", 0,
                 LocalDateTime.of(2023,3,12,9,5),
                 LocalDateTime.of(2023,2,10,17,55));
         response = taskService.execute(request);
-        request = new AddTaskRequest("download some movies", 2,
-                LocalDateTime.of(2022,12,30,8,10),
-                LocalDateTime.of(2022,10,11,20,40));
+        //--------------------
+        request = new AddTaskRequest("download some movies", 0,
+                LocalDateTime.of(2023,3,12,9,5),
+                LocalDateTime.of(2023,2,10,17,55));
         response = taskService.execute(request);
+        checkResponseForErrors(response);
+        //--------------------
         request = new AddTaskRequest("buy chocolate", 2,
                 LocalDateTime.of(2022,12,30,8,10),
                 LocalDateTime.of(2022,11,10,20,40));
@@ -182,6 +186,15 @@ public class TestData {
 
 
 
+    }
+    private boolean checkResponseForErrors(AddTaskResponse response) {
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+            return true;
+        }
+        return false;
     }
 
 }
