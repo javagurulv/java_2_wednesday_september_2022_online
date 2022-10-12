@@ -2,17 +2,17 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
+import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
-import lv.javaguru.java2.rentapp.core.services.validators.SearchVehicleRequestOrderingValidator;
-import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleFieldsValidator;
-import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleFieldsValidatorMap;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestOrderingValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestPagingValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
-import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.Comparator;
 import java.util.List;
@@ -25,7 +25,9 @@ public class SearchVehicleService {
 
     public SearchVehicleService(Database database) {
         this.database = database;
-        this.validator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(), new SearchVehicleRequestOrderingValidator());
+        this.validator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(),
+                new SearchVehicleRequestOrderingValidator(),
+                new SearchVehicleRequestPagingValidator());
     }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
@@ -40,7 +42,20 @@ public class SearchVehicleService {
         List<Vehicle> vehicles = database.search(andCriteria);
 
         vehicles = order(vehicles, request.getOrdering());
+        vehicles = paging(vehicles, request.getPaging());
         return new SearchVehicleResponse(vehicles, null);
+    }
+
+    private List<Vehicle> paging(List<Vehicle> vehicles, Paging paging) {
+        if (paging != null) {
+            int skip = (paging.getPageNumber() - 1) * paging.getPageSize();
+            return vehicles.stream()
+                    .skip(skip)
+                    .limit(paging.getPageSize())
+                    .collect(Collectors.toList());
+        } else {
+            return vehicles;
+        }
     }
 
     private List<Vehicle> order(List<Vehicle> vehicles, Ordering ordering) {

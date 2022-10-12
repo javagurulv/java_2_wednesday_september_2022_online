@@ -21,11 +21,16 @@ public class GetAllUsersUIAction implements UIAction {
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
             );
             return false;
-        } else {
+        }
+        if (response.getUsers().isEmpty()) {
+            System.out.println("There are no users to display.");
+        }
+        else {
             System.out.println("--- Users list start --- ");
             response.getUsers().forEach(System.out::println);
             System.out.println("---  Users list end  --- ");
-            return true;
+
         }
+        return true;
     }
 }

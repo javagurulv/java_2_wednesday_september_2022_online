@@ -1,0 +1,10 @@
+В таблице reader_books колонки reader_id, book_id являются
+вторичными ключами (foreign keys) ссылками соответственно на
+таблицу читателей и на таблицу книг. Создайте ограничения
+в виде вторичных ключей в таблице reader_books.
+
+ALTER TABLE `reader_books`
+ADD FOREIGN KEY (`book_id`) REFERENCES `books`(`id`);
+
+ALTER TABLE `reader_books`
+ADD FOREIGN KEY (`reader_id`) REFERENCES `readers`(`id`);

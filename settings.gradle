@@ -22,6 +22,11 @@ include 'teacher:lesson_6_dependency_injection_inversion_of_control:step_1_depen
 include 'teacher:lesson_7_spring_basics:step_1_spring'
 include 'teacher:lesson_7_spring_basics:step_2_strategy'
 
+include 'teacher:lesson_8_introduction_to_sql'
+
+include 'teacher:lesson_9_advanced_sql'
+
+
 
 include 'team_eBank'
 include 'team_clean_sour_cream'

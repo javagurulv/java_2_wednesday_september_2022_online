@@ -13,6 +13,7 @@ public interface UsersRepository {
     boolean update(User user);
 
     boolean existsByName(String username);
+    boolean existsByEmail(String email);
 
     User getUserById(Long id);
 

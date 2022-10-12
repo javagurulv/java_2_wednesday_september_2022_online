@@ -21,7 +21,7 @@ public class UserRegistrationService {
     }
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = validator.validate(request, usersRepository);
         if (!errors.isEmpty()) {
             return new UserRegistrationResponse(errors);
         }
@@ -32,7 +32,7 @@ public class UserRegistrationService {
                         request.isSendReminders());
 
         if (!usersRepository.save(user)) {
-            errors.add(new CoreError("General","Error"));
+            errors.add(new CoreError("System","Error adding to repository."));
             return new UserRegistrationResponse(errors);
         }
 

@@ -25,8 +25,6 @@ public class AddAccountService {
         if (!errors.isEmpty()) {
             return new AddAccountResponse(errors);
         }
-
-
         Accounts account = new Accounts(request.getUserName(), request.getUserId(), 0);
         database.addAccount(account);
         return new AddAccountResponse(account);

@@ -10,14 +10,10 @@ import java.util.*;
 public class SearchVehicleUIAction implements UIAction {
 
     private SearchVehicleService searchVehicleService;
-    private Map<Integer, SearchVehicleRequestCreator> requestCreatorMap = new HashMap<>();
+    private SearchVehicleRequestCreatorMap  requestCreatorMap= new SearchVehicleRequestCreatorMap();
 
     public SearchVehicleUIAction(SearchVehicleService searchVehicleService) {
         this.searchVehicleService = searchVehicleService;
-        requestCreatorMap.put(1, new SearchPassengerCarRequestCreator());
-        requestCreatorMap.put(2, new SearchMiniBusRequestCreator());
-        requestCreatorMap.put(3, new SearchMotorcycleRequestCreator());
-        requestCreatorMap.put(4, new SearchCarTrailerRequestCreator());
     }
 
     public void execute() {
@@ -31,18 +27,18 @@ public class SearchVehicleUIAction implements UIAction {
         try {
             int vehicleTypeChoice = Integer.parseInt(scanner.nextLine());
 
-            if ((vehicleTypeChoice <= 0) || (vehicleTypeChoice > requestCreatorMap.size())) {
-                System.out.println("You must enter an integer that corresponds with a number from program menu (1 - " + requestCreatorMap.size() + ")");
+            if ((vehicleTypeChoice <= 0) || (vehicleTypeChoice > requestCreatorMap.getRequestCreatorMapSize())) {
+                System.out.println("You must enter an integer that corresponds with a number from program menu (1 - " + requestCreatorMap.getRequestCreatorMapSize() + ")");
             } else {
 
-                SearchVehicleRequest request = requestCreatorMap.get(vehicleTypeChoice).createRequest();
+                SearchVehicleRequest request = requestCreatorMap.getSearchVehicleRequestCreator(vehicleTypeChoice).createRequest();
                 SearchVehicleResponse response = searchVehicleService.execute(request);
 
                 if (response.hasErrors()) {
                     response.getErrors().forEach(coreError ->
                             System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
                 } else if (response.getVehicleList().isEmpty()) {
-                    System.out.println("No vehicles found that matches your criteria");
+                    System.out.println("No vehicle found that matches your criteria");
                 } else {
                     System.out.println("Vehicles found by your criteria: ");
                     response.getVehicleList().forEach(System.out::println);

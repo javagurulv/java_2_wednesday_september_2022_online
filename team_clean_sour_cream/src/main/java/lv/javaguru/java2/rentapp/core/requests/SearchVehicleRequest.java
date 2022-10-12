@@ -23,5 +23,6 @@ public class SearchVehicleRequest {
     private Integer maxLoadWeightInKg;
 
     private Ordering ordering;
+    private Paging paging;
 
 }

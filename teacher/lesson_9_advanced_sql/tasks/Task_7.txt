@@ -1,0 +1,23 @@
+В dbCreationScript.sql добавьте SQL код создания таблицы reader_books
+(книги читателей) с полями reader_id, book_id, book_out_date,
+book_return_date и полем id которое должно быть
+объявлено как первичный ключ. В этой таблице будет храниться
+информация о том какой читатель какую книгу взял на чтение и когда
+вернул её обратно в библиотеку.
+Стратегия генерации первичного ключа (значения в колонке id)
+должно быть AUTO_INCREMENT.
+Поля reader_id, book_id, book_out_date являются обязательными.
+Поле book_return_date не обяхательное, потому что в момент, когда
+читатель берёт книгу из библиотеки мы не знаем дату когда он её вернёт обратно.
+
+
+CREATE TABLE IF NOT EXISTS `reader_books` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `reader_id` BIGINT NOT NULL,
+  `book_id` BIGINT NOT NULL,
+  `book_out_date` DATETIME NOT NULL,
+  `book_return_date` DATETIME,
+  PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;

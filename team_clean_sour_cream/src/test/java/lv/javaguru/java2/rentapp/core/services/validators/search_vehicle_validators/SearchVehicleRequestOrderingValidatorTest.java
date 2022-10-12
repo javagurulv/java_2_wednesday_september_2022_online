@@ -1,7 +1,8 @@
-package lv.javaguru.java2.rentapp.core.services.validators;
+package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestOrderingValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class SearchVehicleRequestOrderingValidatorTest {
     }
 
     @Test
-    void testValidateMandatoryOrderByNoError() {
+    void testValidateReturnsNoErrorWhenOrderingIsValid() {
         Ordering ordering = new Ordering("price", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertTrue(error.isEmpty());
@@ -60,13 +61,6 @@ class SearchVehicleRequestOrderingValidatorTest {
         assertFalse(error.isEmpty());
         assertEquals("orderBy", error.get(0).getField());
         assertEquals("Must not be empty!", error.get(0).getMessage());
-    }
-
-    @Test
-    void testValidateMandatoryOrderDirectionNoError() {
-        Ordering ordering = new Ordering("price", "ASC");
-        List<CoreError> error = validator.validate(ordering);
-        assertTrue(error.isEmpty());
     }
 
     @Test
@@ -104,33 +98,12 @@ class SearchVehicleRequestOrderingValidatorTest {
     }
 
     @Test
-    void testValidateOrderByNoErrorWhenFieldIsYear() {
-        Ordering ordering = new Ordering("year", "ASC");
-        List<CoreError> error = validator.validate(ordering);
-        assertTrue(error.isEmpty());
-    }
-
-    @Test
     void testValidateOrderByErrorWhenFieldIsNotValid() {
         Ordering ordering = new Ordering("not valid", "ASC");
         List<CoreError> error = validator.validate(ordering);
         assertFalse(error.isEmpty());
         assertEquals("orderBy", error.get(0).getField());
         assertEquals("Must contain 'price' or 'year' only!", error.get(0).getMessage());
-    }
-
-    @Test
-    void testValidateOrderDirectionNoErrorWhenFieldIsAscending() {
-        Ordering ordering = new Ordering("price", "ASC");
-        List<CoreError> error = validator.validate(ordering);
-        assertTrue(error.isEmpty());
-    }
-
-    @Test
-    void testValidateOrderDirectionNoErrorWhenFieldIsDescending() {
-        Ordering ordering = new Ordering("year", "DESC");
-        List<CoreError> error = validator.validate(ordering);
-        assertTrue(error.isEmpty());
     }
 
     @Test
