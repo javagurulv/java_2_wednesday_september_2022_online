@@ -4,7 +4,7 @@ import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.DeleteVehicleByPlateNumberResponse;
-import lv.javaguru.java2.rentapp.core.services.validators.DeleteVehicleByPlateNumberValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.DeleteVehicleByPlateNumberRequestValidator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
 public class DeleteVehicleByPlateNumberService {
 
     Database database;
-    private DeleteVehicleByPlateNumberValidator deleteVehicleByPlateNumberValidator;
+    private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator;
 
-    public DeleteVehicleByPlateNumberService(Database database) {
+    public DeleteVehicleByPlateNumberService(Database database, DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator) {
         this.database = database;
-        this.deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberValidator(database);
+        this.deleteVehicleByPlateNumberValidator = deleteVehicleByPlateNumberValidator;
     }
 
     public DeleteVehicleByPlateNumberResponse execute(DeleteVehicleByPlateNumberRequest request) {

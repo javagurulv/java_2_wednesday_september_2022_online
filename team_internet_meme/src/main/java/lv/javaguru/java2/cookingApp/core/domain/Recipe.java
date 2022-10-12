@@ -28,16 +28,17 @@ public class Recipe {
     }
 
     public void printToConsole() {
-        System.out.println("");
+        System.out.println();
         System.out.println(dishName);
         System.out.println("-----------");
         System.out.println("Ingredients");
         System.out.println("-----------");
         ingredients.forEach(System.out::println);
-        System.out.println("");
+        System.out.println();
         System.out.println("-----------");
         System.out.println("Cooking steps");
         System.out.println("-----------");
         cookingSteps.forEach(System.out::println);
+        System.out.println();
     }
 }

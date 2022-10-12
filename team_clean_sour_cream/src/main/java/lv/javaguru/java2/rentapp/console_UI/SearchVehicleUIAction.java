@@ -10,7 +10,7 @@ import java.util.*;
 public class SearchVehicleUIAction implements UIAction {
 
     private SearchVehicleService searchVehicleService;
-    private SearchVehicleRequestCreatorMap  requestCreatorMap= new SearchVehicleRequestCreatorMap();
+    private SearchVehicleRequestCreatorMap requestCreatorMap = new SearchVehicleRequestCreatorMap();
 
     public SearchVehicleUIAction(SearchVehicleService searchVehicleService) {
         this.searchVehicleService = searchVehicleService;
@@ -39,6 +39,48 @@ public class SearchVehicleUIAction implements UIAction {
                             System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
                 } else if (response.getVehicleList().isEmpty()) {
                     System.out.println("No vehicle found that matches your criteria");
+                } else if (request.getPaging() != null) {
+                    System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
+                    response.getVehicleList().forEach(System.out::println);
+                    int resultPageNumber = request.getPaging().getPageNumber();
+                    boolean continueSearch = true;
+
+                    while (continueSearch) {
+
+                        System.out.println();
+                        System.out.println("""
+                                Choose an option:
+                                1. Show next page
+                                2. Show previous page
+                                3. End search
+                                """);
+                        System.out.println();
+                        int userChoice = Integer.parseInt(scanner.nextLine());
+                        switch (userChoice) {
+                            case 1 -> {
+                                request.getPaging().setPageNumber(++resultPageNumber);
+                                response = searchVehicleService.execute(request);
+                                if (response.getVehicleList().isEmpty()) {
+                                    System.out.println("Page " + resultPageNumber + " is empty");
+                                    request.getPaging().setPageNumber(--resultPageNumber);
+                                }
+                                System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
+                                response.getVehicleList().forEach(System.out::println);
+                            }
+                            case 2 -> {
+                                if (resultPageNumber != 1) {
+                                    request.getPaging().setPageNumber(--resultPageNumber);
+                                    System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
+                                    response.getVehicleList().forEach(System.out::println);
+                                } else {
+                                    System.out.println("You are already viewing the 1st page!");
+                                }
+                            }
+                            case 3 -> continueSearch = false;
+
+                            default -> System.out.println("You must choose one of the provided options (1-3)");
+                        }
+                    }
                 } else {
                     System.out.println("Vehicles found by your criteria: ");
                     response.getVehicleList().forEach(System.out::println);
@@ -52,7 +94,7 @@ public class SearchVehicleUIAction implements UIAction {
     private void printVehicleTypesMenu() {
         System.out.println();
         System.out.println("""
-                Chose vehicle type:
+                Choose vehicle type:
                 1. Passenger Car
                 2. Mini Bus
                 3. Motorcycle

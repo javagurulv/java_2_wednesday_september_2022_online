@@ -77,26 +77,27 @@ public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreat
             try {
                 System.out.println();
                 System.out.println("""
-                        Do you wish to view a certain page of the result?
+                        Do you wish to split the result of the search into pages?
                         1. Yes
                         2. No""");
                 System.out.println();
 
                 int userChoice = Integer.parseInt(scanner.nextLine());
                 if (userChoice == 1) {
-
-                    System.out.println("Enter page number to view: ");
-                    Integer pageNumber = Integer.parseInt(scanner.nextLine());
+                    System.out.println();
                     System.out.println("Enter size of the page");
                     Integer pageSize = Integer.parseInt(scanner.nextLine());
-                    Paging paging = new Paging(pageNumber, pageSize);
+                    System.out.println();
+                    Paging paging = new Paging(1, pageSize);
                     searchVehicleRequestBuilder.paging(paging);
                     page = false;
 
                 } else if (userChoice == 2) {
                     page = false;
                 } else {
+                    System.out.println();
                     System.out.println("You must choose 1 or 2");
+                    System.out.println();
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Error: You must enter a number!");
