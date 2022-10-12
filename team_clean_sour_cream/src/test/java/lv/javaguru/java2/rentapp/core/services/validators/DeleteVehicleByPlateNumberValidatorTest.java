@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class DeleteVehicleByPlateNumberValidatorTest {
 
-    DeleteVehicleByPlateNumberValidator validator;
+    DeleteVehicleByPlateNumberRequestValidator validator;
     Database database;
 
 
@@ -28,7 +28,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     void setUp() {
 
         database = new InMemoryDatabaseImpl();
-        validator = new DeleteVehicleByPlateNumberValidator(database);
+        validator = new DeleteVehicleByPlateNumberRequestValidator(database);
     }
 
     @Test

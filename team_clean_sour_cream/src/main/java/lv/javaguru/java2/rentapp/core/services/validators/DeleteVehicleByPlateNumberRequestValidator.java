@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DeleteVehicleByPlateNumberValidator {
+public class DeleteVehicleByPlateNumberRequestValidator {
 
     private Database database;
 
-    public DeleteVehicleByPlateNumberValidator(Database database) {
+    public DeleteVehicleByPlateNumberRequestValidator(Database database) {
         this.database = database;
     }
 
