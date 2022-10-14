@@ -1,5 +1,8 @@
 package myApp.consoleUI;
 
+import myApp.dependency_injection.DIComponent;
+
+@DIComponent
 public class ExitUIAction implements UIAction {
 
     @Override

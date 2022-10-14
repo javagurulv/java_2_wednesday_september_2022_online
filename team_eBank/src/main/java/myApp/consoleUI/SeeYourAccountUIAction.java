@@ -4,16 +4,15 @@ import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.SeeYourAccountResponse;
 import myApp.core.services.SeeYourAccountService;
 import myApp.core.services.UserService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
+@DIComponent
 public class SeeYourAccountUIAction implements UIAction {
-
+    @DIDependency
     private SeeYourAccountService service;
+    @DIDependency
     private UserService userService;
-
-    public SeeYourAccountUIAction(SeeYourAccountService service, UserService userService) {
-        this.service = service;
-        this.userService = userService;
-    }
 
     @Override
     public void execute() {

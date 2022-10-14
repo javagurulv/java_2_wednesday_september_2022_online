@@ -3,18 +3,16 @@ package myApp.consoleUI;
 import myApp.core.requests.SwitchUserRequest;
 import myApp.core.responses.SwitchUserResponse;
 import myApp.core.services.SwitchUserService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
 
 
+@DIComponent
 public class SwitchUserUIAction implements UIAction {
-
+    @DIDependency
     private SwitchUserService service;
-
-    public SwitchUserUIAction(SwitchUserService service) {
-        this.service = service;
-    }
-
 
     @Override
     public void execute() {

@@ -4,16 +4,15 @@ import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.RemoveBankAccountResponse;
 import myApp.core.services.RemoveBankAccountService;
 import myApp.core.database.DataBase;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
-
+@DIComponent
 public class RemoveBankAccountUIAction implements UIAction {
 
+    @DIDependency
     private RemoveBankAccountService service;
-
-    public RemoveBankAccountUIAction(RemoveBankAccountService service) {
-        this.service = service;
-    }
 
     @Override
     public void execute() {

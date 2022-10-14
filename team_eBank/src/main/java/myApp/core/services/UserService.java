@@ -2,19 +2,21 @@ package myApp.core.services;
 
 import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
+import myApp.core.domain.Roles;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Optional;
 
+@DIComponent
 public class UserService {
+    @DIDependency
     private DataBase dataBase;
     private String personalCode;
     private String password;
 
-    public UserService(DataBase dataBase) {
-        this.dataBase = dataBase;
-    }
-
     public boolean logIn(String personalCode, String password) {
+
         Optional<BankAccount> result = dataBase.getAllBankAccounts().stream()
                 .filter(bankAccount -> bankAccount.getPersonalCode().equals(personalCode))
                 .filter(bankAccount -> bankAccount.getPassword().equals(password))
@@ -37,7 +39,6 @@ public class UserService {
     public String getPersonalCode() {
         return this.personalCode;
     }
-
 
 
    private void setPersonalCode(String personalCode) {

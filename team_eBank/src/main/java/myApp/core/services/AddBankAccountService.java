@@ -7,18 +7,19 @@ import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.AddBankAccountValidator;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.List;
 
+
+@DIComponent
 public class AddBankAccountService {
 
+    @DIDependency
     private DataBase dataBase;
+    @DIDependency
     private AddBankAccountValidator validator;
-
-    public AddBankAccountService(DataBase dataBase, AddBankAccountValidator validator) {
-        this.dataBase = dataBase;
-        this.validator = validator;
-    }
 
     public AddBankAccountResponse execute(AddBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

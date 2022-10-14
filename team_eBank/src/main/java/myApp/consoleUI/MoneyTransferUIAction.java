@@ -4,24 +4,23 @@ import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
 import myApp.core.services.UserService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class MoneyTransferUIAction implements UIAction {
-
+    @DIDependency
     private MoneyTransferService service;
+    @DIDependency
     private UserService userService;
-    public MoneyTransferUIAction(MoneyTransferService service, UserService userService) {
-        this.service = service;
-        this.userService = userService;
-    }
-
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         String yourPersonalCode = userService.getPersonalCode();
         System.out.println("Enter another personal code");
-        String anotherPersonalCode = scanner.nextLine() ;
+        String anotherPersonalCode = scanner.nextLine();
         System.out.println("Enter value: ");
         int value = scanner.nextInt();
         MoneyTransferRequest request = new MoneyTransferRequest(yourPersonalCode, anotherPersonalCode, value);

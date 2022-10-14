@@ -3,16 +3,15 @@ package myApp.consoleUI;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class AddBankAccountUIAction implements UIAction {
-
+    @DIDependency
     private AddBankAccountService service;
-    public AddBankAccountUIAction(AddBankAccountService service) {
-        this.service = service;
-    }
-
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
