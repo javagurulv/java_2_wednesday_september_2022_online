@@ -1,0 +1,7 @@
+Подключите к своему приложению следующий модуль из библиотеки Spring:
+
+compile('org.springframework:spring-orm:5.2.6.RELEASE')
+
+Эту строку надо добавить в build.gradle файл вашего проекта.
+
+Этот модуль Spring реализует поддержку ORM в экосистеме Spring.

@@ -1,0 +1,8 @@
+Создайте класс JdbcDatabaseImpl в пакете /core/database
+так чтобы он реализовывал интерфейс Database:
+
+@Component
+class JdbcDatabaseImpl implements Database {
+
+
+}

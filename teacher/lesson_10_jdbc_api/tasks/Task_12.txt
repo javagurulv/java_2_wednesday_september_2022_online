@@ -1,0 +1,15 @@
+Напишите реализацию метода deleteById() в JdbcDatabaseImpl,
+для этого воспользуйтесь JdbcTemplate:
+
+	@Override
+	public boolean deleteById(Long id) {
+		String sql = "DELETE FROM books WHERE id = ?";
+		Object[] args = new Object[] {id};
+		return jdbcTemplate.update(sql, args) == 1;
+	}
+
+Убедитесь, что данный метод удалаяет данные из реальной базы данных.
+Для этого вы можете поднять приложение, вызвать функционал который
+удаляет данные из базы данных и после его выполнения сделать SQL
+запрос в базу данных например через MySQL Workbench и убедиться, что
+данные удалились из базы данных.

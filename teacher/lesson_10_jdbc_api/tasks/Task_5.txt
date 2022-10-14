@@ -1,0 +1,15 @@
+Добавьте в класс BookListConfiguration Java код для
+чтения свойств подключения к базе данных прописанных
+в application.properties:
+
+	@Value("${jdbc.url}")
+	private String jdbcUrl;
+
+	@Value("${driverClass}")
+	private String driverClass;
+
+	@Value("${database.user.name}")
+	private String userName;
+
+	@Value("${database.user.password}")
+	private String password;

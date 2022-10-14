@@ -1,0 +1,9 @@
+В классе OrmBookRepositoryImpl объявите зависимость
+от Hibernate SessionFactory следующим образом:
+
+@Component
+class OrmBookRepositoryImpl implements BookRepository {
+
+	@Autowired private SessionFactory sessionFactory;
+
+}

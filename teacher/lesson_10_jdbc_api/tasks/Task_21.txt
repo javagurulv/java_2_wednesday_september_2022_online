@@ -1,0 +1,20 @@
+Перед выполнением acceptance и интеграционных тестов
+воспользуйтесь классом DatabaseCleaner для очистки базы данных
+перед выполнением каждого теста следующим образом:
+
+public class AcceptanceTest1 {
+
+	private ApplicationContext appContext;
+
+	@Before
+	public void setup() {
+		appContext = new AnnotationConfigApplicationContext(BookListConfiguration.class);
+		getDatabaseCleaner().clean();
+	}
+
+	private DatabaseCleaner getDatabaseCleaner() {
+		return appContext.getBean(DatabaseCleaner.class);
+	}
+
+}
+и

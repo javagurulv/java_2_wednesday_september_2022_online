@@ -1,0 +1,17 @@
+Для всех ваших доменных объектов добавьте аннотации
+@Entity и @Table следующим образом:
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="books")
+public class Book {
+
+}
+
+@Entity - маркер аннотация указывающая на то, что в этот класс
+          используется для ORM маппинга.
+
+@Table - явно указывает название таблицы в базе данных на которую
+         мапятся свойства этого класса.

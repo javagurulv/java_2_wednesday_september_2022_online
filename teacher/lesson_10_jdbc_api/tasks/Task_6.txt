@@ -1,0 +1,20 @@
+Добавьте в класс BookListConfiguration Java код для
+создания объекта DataSource и влючения его в Spring IoC контейнер:
+
+		@Bean
+    	public DataSource dataSource() {
+    		BasicDataSource dataSource = new BasicDataSource();
+    		dataSource.setUrl(jdbcUrl);
+    		dataSource.setDriverClassName(driverClass);
+    		dataSource.setUsername(userName);
+    		dataSource.setPassword(password);
+    		return dataSource;
+    	}
+
+@Bean - данная Spring аннотация позволяет включить созданную
+методом dataSource() инстанцию объекта DataSource в Spring IoC
+контейнер. Это означает, что все Spring компоненты в контейнере
+могут ссылаться на инстанцию DataSource в качестве зависимости.
+
+Метод DataSource dataSource() является типичным примером реализации
+дизайн паттерна Factory Method.
