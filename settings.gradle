@@ -26,6 +26,11 @@ include 'teacher:lesson_8_introduction_to_sql'
 
 include 'teacher:lesson_9_advanced_sql'
 
+include 'teacher:lesson_10_jdbc_api'
+
+include 'teacher:lesson_11_orm_introduction'
+
+include 'teacher:lesson_12_orm_relations'
 
 
 include 'team_eBank'

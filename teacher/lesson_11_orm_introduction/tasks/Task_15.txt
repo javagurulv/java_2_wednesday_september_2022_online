@@ -1,0 +1,10 @@
+В пакете database переименуйте реализации интерфейса BookRepository
+в InMemoryBookRepositoryImpl и JdbcBookRepositoryImpl соответственно.
+
+Создайте класс OrmBookRepositoryImpl следующим образом:
+
+@Component
+public class OrmBookRepositoryImpl implements BookRepository {
+
+
+}

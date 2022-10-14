@@ -1,0 +1,10 @@
+Добавьте в класс BookListConfiguration Java код для
+создания объекта JdbcTemplate и влючения его в Spring IoC контейнер:
+
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
+	}
+
+JdbcTemplate - это класс из модуля spring-jdbc предназначенный
+для упрощения работы с реляционной базой данных.

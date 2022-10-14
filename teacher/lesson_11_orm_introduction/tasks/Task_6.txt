@@ -1,0 +1,33 @@
+Для всех ваших доменных объектов для поля первичного ключа
+добавьте аннотации @Id, @Column и @GeneratedValue следующим образом:
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="books")
+public class Book {
+
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+}
+
+
+@Id - маркер аннотация указывающая на то, что данное поле является
+      первичным ключём в таблице базы данных.
+
+@Column - явно указывает название колонки в таблице базы данных
+          на которую мапится свойство класса.
+
+@GeneratedValue - позволяет указать стратегию генерации первичного
+                  ключа, в данном случае GenerationType.AUTO означает,
+                  что база данных будет автоматически сама генерить
+                  значение этого свойства при вставке новых данных
+                  в таблицу.

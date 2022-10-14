@@ -1,0 +1,7 @@
+Подключите к своему приложению библиотеку Hibernate:
+
+compile('org.hibernate:hibernate-core:5.4.25.Final')
+
+Эту строку надо добавить в build.gradle файл вашего проекта.
+
+Эта библиотека реализуем ORM - Object Relational Mapping.

@@ -1,0 +1,15 @@
+В классе BookListConfiguration с конфигурацией Spring
+создайте инстанцию PlatformTransactionManager следующим
+образом:
+
+public class BookListConfiguration {
+
+	@Bean
+	public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
+		return new HibernateTransactionManager(sessionFactory);
+	}
+
+}
+
+TransactionManager нужен для управления транзакциями к базе данных
+в Spring приложении.

@@ -1,0 +1,14 @@
+Создайте в пакете /core/domain класс ReaderBook
+(книга взятая читателем в библиотеке)
+и при помощи аннотаций укажите ORM мапинг на таблицу:
+
+CREATE TABLE IF NOT EXISTS `reader_books` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `reader_id` BIGINT NOT NULL,
+  `book_id` BIGINT NOT NULL,
+  `book_out_date` DATETIME NOT NULL,
+  `book_return_date` DATETIME,
+  PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
