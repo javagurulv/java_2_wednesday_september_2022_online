@@ -62,7 +62,7 @@ public class UIActionMap {
     public UIActionMap() {
         this.actionMap = new HashMap<>();
         actionMap.put(0, new AddSettingsUIAction(checkSettingsExistenceService, addSettingsService));
-        actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersNamesService));
+        actionMap.put(1, new GetAllUsersNamesUIAction(getAllUsersService));
         actionMap.put(2, new LoginUIAction(loginService, getTasksForTodayService));
         actionMap.put(3, new UserRegistrationUIAction(userRegistrationService));
         actionMap.put(4, new SettingsLoginUIAction(checkSettingsExistenceService, settingsLoginService, sessionService));

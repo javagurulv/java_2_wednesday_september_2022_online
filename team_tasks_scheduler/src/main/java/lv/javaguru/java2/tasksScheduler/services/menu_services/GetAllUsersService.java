@@ -6,6 +6,7 @@ import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersRequest;
 import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersResponse;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GetAllUsersService {
 
@@ -17,6 +18,6 @@ public class GetAllUsersService {
 
     public GetAllUsersResponse execute(GetAllUsersRequest request) {
 
-        return new GetAllUsersResponse(usersRepository.getAllUsers(), null);
+            return new GetAllUsersResponse(usersRepository.getAllUsers(), null);
     }
 }
