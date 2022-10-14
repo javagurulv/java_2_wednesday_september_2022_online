@@ -1,0 +1,16 @@
+В классе OrmBookRepositoryImpl реализуйте метод getAllBooks()
+используя Hibernate SessionFactory следующим образом:
+
+@Component
+class OrmBookRepositoryImpl implements BookRepository {
+
+	@Autowired private SessionFactory sessionFactory;
+
+	@Override
+	public List<Book> getAllBooks() {
+		return sessionFactory.getCurrentSession()
+				.createQuery("SELECT b FROM Book b", Book.class)
+				.getResultList();
+	}
+
+}

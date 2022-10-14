@@ -1,0 +1,12 @@
+В классе BookListConfiguration с конфигурацией Spring
+включите управление транзакциями @EnableTransactionManagement
+следующим образом:
+
+@EnableTransactionManagement
+public class BookListConfiguration {
+
+
+}
+
+@EnableTransactionManagement - эта аннотация включает управление
+транзакциями.

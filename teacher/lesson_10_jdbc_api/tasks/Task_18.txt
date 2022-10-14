@@ -1,0 +1,10 @@
+Добавьте свойства подключения к базе данных в тесты
+src/test/resources/application.properties
+
+jdbc.url=jdbc:mysql://localhost:3306/java2
+driverClass=com.mysql.jdbc.Driver
+database.user.name=root
+database.user.password=javaguru
+
+Эти сойства будут нужны вашим интеграционным тестам, которые
+поднимают Spring IoC контейнер и подключаются к реальной базе данных.

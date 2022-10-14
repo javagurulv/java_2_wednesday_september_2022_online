@@ -1,0 +1,17 @@
+На классе InMemoryDatabaseImpl закоментируйте аннатацию @Component:
+
+//@Component
+class InMemoryDatabaseImpl implements Database {
+
+}
+
+Это нужно сделать для того, чтобы Spring мог правильно зарезолвить
+зависимости рода:
+
+    @Autowired private Database database;
+
+В Spring IoC контексте должна быть только одна реализация Database
+интерфейса. Если в Spring IoC контейнере будет две реализации
+одного и того же интерфейса то при резолвинге зависимости Spring
+не сможет самостоятельно однозначно выбрать какую из них использовать
+и будет кидать ошибку.

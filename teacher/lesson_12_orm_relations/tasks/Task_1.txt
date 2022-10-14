@@ -1,0 +1,11 @@
+Создайте в пакете /core/domain класс Reader (читатель)
+и при помощи аннотаций укажите ORM мапинг на таблицу читателей:
+
+CREATE TABLE IF NOT EXISTS `readers` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(200) NOT NULL,
+  `last_name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;

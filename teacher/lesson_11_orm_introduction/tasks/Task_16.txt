@@ -1,0 +1,11 @@
+В пакете database закоментируйте аннотацию @Component
+на классе JdbcBookRepositoryImpl:
+
+//@Component
+class JdbcBookRepositoryImpl implements BookRepository {
+
+
+}
+
+В Spring приложении должна быть активна только одна реализация
+интерфейса BookRepository, а именно OrmBookRepositoryImpl.

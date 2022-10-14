@@ -1,0 +1,22 @@
+В src/main/resources/application.properties файл
+добавьте конфугурацию Hibernate:
+
+hibernate.packagesToScan=lv.javaguru.java2.library.core.domain
+hibernate.show_sql=true
+hibernate.hbm2ddl.auto=validate
+hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+
+hibernate.packagesToScan - пакет в котором находятся ваши доменные классы
+                           с Hibernate маппингом;
+hibernate.show_sql - показывать в консоли или нет SQL запросы, которые
+                     выполняет Hibernate при обращении к базе данных,
+                     при отладке приложения это очень полезная фича;
+hibernate.hbm2ddl.auto=validate - означает то, что при старте приложения
+                                  Hibernate будет подключаться к базе данных
+                                  и проверять соответствия мапинга прописанного
+                                  в доменных объектах и реальной структуры
+                                  базы данных;
+hibernate.dialect - диалект той базы к которой будет подключаться ваше приложение,
+                    это свойство Hibernate нужно для правильной генерации
+                    SQL команд, которые Hibernate отсылает в базу данных.

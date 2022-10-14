@@ -1,0 +1,7 @@
+Lesson 10 plan:
+
+1. JDBC overview
+2. Connection
+3. Statement
+4. Result Set
+5. Spring JDBC Template

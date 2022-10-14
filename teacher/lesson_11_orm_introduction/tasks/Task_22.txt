@@ -1,0 +1,23 @@
+Над классом OrmBookRepositoryImpl добавьте аннотацию
+@Transactional следующим образом:
+
+@Component
+@Transactional
+class OrmBookRepositoryImpl implements BookRepository {
+
+	@Autowired private SessionFactory sessionFactory;
+
+}
+
+@Transactional - это декларативное управление границами транзакции
+к базе данных. Если @Transactional стоит на классе, то все public
+методы этого класса будут выполняться в рамках открытой транзакции.
+Тоесть перед выполнением каждого public метода будет открываться
+транзакция к базе данных, а сразу после завершения работы метода
+транзакция будет закрываться (при успешном завершении метода
+транзакция будет комититься, а в случае ошибки откатываться).
+
+Это и есть так называемый декларативное управление транзакциями.
+Тоесть управление границами транзакций с помощью аннотации, а не кода.
+
+https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html
