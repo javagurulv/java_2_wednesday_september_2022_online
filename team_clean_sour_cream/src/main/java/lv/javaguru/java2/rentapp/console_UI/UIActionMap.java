@@ -3,7 +3,9 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.services.*;
+import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.VehicleCreatorMap;
 import lv.javaguru.java2.rentapp.core.services.validators.DeleteVehicleByPlateNumberRequestValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidatorMap;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +15,9 @@ public class UIActionMap {
     private Map<Integer, UIAction> uiActionMap;
     private Database database = new InMemoryDatabaseImpl();
     private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberRequestValidator(database);
-    private AddVehicleService addNewVehicleService = new AddVehicleService(database);
+    private VehicleCreatorMap vehicleCreatorMap = new VehicleCreatorMap();
+    private AddVehicleValidatorMap vehicleValidatorMap = new AddVehicleValidatorMap(database);
+    private AddVehicleService addNewVehicleService = new AddVehicleService(vehicleCreatorMap, vehicleValidatorMap, database);
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database, deleteVehicleByPlateNumberValidator);
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
     private ExitProgramService exitProgramService = new ExitProgramService();
