@@ -27,13 +27,8 @@ public class SearchTasksUIAction implements UIAction {
         System.out.println("Enter ordering direction (ascending/descending):");
         String orderDirection = scanner.nextLine();
         Ordering ordering = new Ordering(orderBy, orderDirection);
-
-        //System.out.println("Enter pageNumber: ");
-        Integer pageNumber = 1;
         System.out.println("Enter page size: ");
         Integer pageSize = Integer.parseInt(scanner.nextLine());
-
-
 
         //at first request we get found task count and check for request errors
         SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering);
@@ -56,12 +51,28 @@ public class SearchTasksUIAction implements UIAction {
             if (pageSize > foundTaskCount)
                 pageSize = foundTaskCount;
 
-            for (pageNumber = 1; pageNumber <=foundTaskCount / pageSize; pageNumber++) {
+            int numberOfPages = foundTaskCount/pageSize;
+            int numberOfPagesRemainder = foundTaskCount%pageSize;
+            int pageNumber;
+            //get whole page content
+            for (pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
                 Paging paging = new Paging(pageNumber, pageSize);
                 request = new SearchTasksRequest(searchPhrase, ordering, paging);
                 response = searchTasksService.execute(request);
-
-                System.out.println("Tasks found:");
+                //System.out.println("Tasks found:");
+                response.getTasks().forEach(System.out::println);
+                System.out.println("Show next page? (Y/N)");
+                String nextPage = scanner.nextLine();
+                if (nextPage.toLowerCase().equals("n")) {
+                    return true;
+                }
+            }
+            //get content which did no fill whole page
+            if (numberOfPagesRemainder > 0) {
+                Paging paging = new Paging(pageNumber, pageSize);
+                request = new SearchTasksRequest(searchPhrase, ordering, paging);
+                response = searchTasksService.execute(request);
+                //System.out.println("Tasks found:");
                 response.getTasks().forEach(System.out::println);
             }
             return true;
