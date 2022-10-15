@@ -24,7 +24,7 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "ID=" + id + "  " + dishName;
+        return "ID=" + id + " Name: " + dishName;
     }
 
     public void printToConsole() {

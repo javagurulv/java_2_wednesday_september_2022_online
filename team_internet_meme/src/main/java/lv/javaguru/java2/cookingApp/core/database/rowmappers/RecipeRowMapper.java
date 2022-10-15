@@ -15,7 +15,8 @@ import java.util.List;
 @Component
 public class RecipeRowMapper implements RowMapper<Recipe> {
 
-    @Autowired private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public Recipe mapRow(ResultSet rs, int rowNum) throws SQLException {

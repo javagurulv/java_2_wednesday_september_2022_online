@@ -16,10 +16,8 @@ AUTO_INCREMENT = 001;
 
 CREATE TABLE IF NOT EXISTS ingredients (
   id BIGINT NOT NULL AUTO_INCREMENT,
-  recipe_id BIGINT NOT NULL,
   ingredient VARCHAR(100) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+  PRIMARY KEY (id)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 001;
@@ -29,7 +27,7 @@ CREATE TABLE IF NOT EXISTS recipes_to_ingredients (
   ingredient_id BIGINT NOT NULL,
   amount DOUBLE(10, 1) NOT NULL,
   measurement VARCHAR(10) DEFAULT '',
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id),
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
   FOREIGN KEY (ingredient_id) REFERENCES ingredients(id)
 )
 ENGINE = InnoDB;
@@ -38,7 +36,7 @@ CREATE TABLE IF NOT EXISTS cooking_steps (
   recipe_id BIGINT NOT NULL,
   step_order INTEGER NOT NULL,
   instruction TEXT(1000) NOT NULL,
-  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 )
 ENGINE = InnoDB;
 

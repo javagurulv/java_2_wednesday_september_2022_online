@@ -1,17 +1,17 @@
 INSERT INTO recipes (id, dishName)
 VALUES (001, 'Easy pancakes');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (001, 001,'plain flour');
+INSERT INTO ingredients (ingredient)
+VALUES ('plain flour');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (002, 001,'large eggs');
+INSERT INTO ingredients (ingredient)
+VALUES ('large eggs');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (003, 001,'milk');
+INSERT INTO ingredients (ingredient)
+VALUES ('milk');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (004, 001,'sunflower or vegetable oil');
+INSERT INTO ingredients (ingredient)
+VALUES ('sunflower or vegetable oil');
 
 INSERT INTO cooking_steps (recipe_id, step_order, instruction)
 VALUES (001, 1, 'Put 100g plain flour, 2 large eggs, 300ml milk, 1 tbsp sunflower or vegetable oil and a pinch of salt into a bowl or large jug, then whisk to a smooth batter.');
@@ -41,23 +41,23 @@ VALUES (001, 004, 1.0, 'tbsp');
 INSERT INTO recipes (id, dishName)
 VALUES (002, 'Easy beef hotpot');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (005, 002,'onion');
+INSERT INTO ingredients (ingredient)
+VALUES ('onion');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (006, 002,'carrots');
+INSERT INTO ingredients (ingredient)
+VALUES ('carrots');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (007, 002,'potatoes');
+INSERT INTO ingredients (ingredient)
+VALUES ('potatoes');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (008, 002,'lean minced beef');
+INSERT INTO ingredients (ingredient)
+VALUES ('lean minced beef');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (009, 002,'beef stock cubes');
+INSERT INTO ingredients (ingredient)
+VALUES ('beef stock cubes');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (010, 002,'can baked beans');
+INSERT INTO ingredients (ingredient)
+VALUES ('can baked beans');
 
 INSERT INTO cooking_steps (recipe_id, step_order, instruction)
 VALUES (002, 1, 'Cut each onion into eight wedges. Roughly chop the carrots and cut the potatoes into large chunks. Put the kettle on.');
@@ -90,17 +90,17 @@ VALUES (002, 010, 400.0, 'g');
 INSERT INTO recipes (id, dishName)
 VALUES (003, 'Easy chocolate molten cakes');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (011, 003,'butter');
+INSERT INTO ingredients (ingredient)
+VALUES ('butter');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (012, 003,'dark chocolate, chopped');
+INSERT INTO ingredients (ingredient)
+VALUES ('dark chocolate, chopped');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (013, 003,'light brown soft sugar');
+INSERT INTO ingredients (ingredient)
+VALUES ('light brown soft sugar');
 
-INSERT INTO ingredients (id, recipe_id, ingredient)
-VALUES (014, 003,'vanilla extract');
+INSERT INTO ingredients (ingredient)
+VALUES ('vanilla extract');
 
 INSERT INTO cooking_steps (recipe_id, step_order, instruction)
 VALUES (003, 1, 'Heat oven to 200C/180C fan/gas 6. Butter 6 dariole moulds or basins well and place on a baking tray.');
