@@ -13,6 +13,7 @@ public class GetAllUsersUIAction implements UIAction {
 
     @Override
     public boolean execute() {
+
         GetAllUsersRequest request = new GetAllUsersRequest();
         GetAllUsersResponse response =  getAllUsersService.execute(request);
 

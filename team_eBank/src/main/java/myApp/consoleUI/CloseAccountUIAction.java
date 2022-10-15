@@ -5,16 +5,15 @@ import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.services.CloseAccountService;
 import myApp.core.services.UserService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
+@DIComponent
 public class CloseAccountUIAction implements UIAction {
-
+    @DIDependency
     private CloseAccountService service;
+    @DIDependency
     private UserService userService;
-
-    public CloseAccountUIAction(CloseAccountService service, UserService userService) {
-        this.service = service;
-        this.userService = userService;
-    }
 
     @Override
     public void execute() {

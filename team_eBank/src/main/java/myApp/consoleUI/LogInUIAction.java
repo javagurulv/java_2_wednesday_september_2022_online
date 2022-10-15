@@ -1,19 +1,17 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.LogInRequest;
-import myApp.core.responses.CoreError;
 import myApp.core.responses.LogInResponse;
 import myApp.core.services.LogInService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class LogInUIAction implements UIAction {
-
+    @DIDependency
     private LogInService logInService;
-
-    public LogInUIAction(LogInService logInService) {
-        this.logInService = logInService;
-    }
 
     @Override
     public void execute() {

@@ -4,17 +4,16 @@ import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
 import myApp.core.database.DataBase;
 import myApp.core.responses.CoreError;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.List;
 import java.util.Optional;
-
+@DIComponent
 public class UserAreAdminService {
 
+    @DIDependency
     private DataBase dataBase;
-
-    public UserAreAdminService(DataBase dataBase) {
-        this.dataBase = dataBase;
-    }
 
     public boolean isUserAreAdmin(String personalCode) {
         List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();

@@ -5,18 +5,16 @@ import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.CloseAccountValidator;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.List;
-
+@DIComponent
 public class CloseAccountService {
-
+    @DIDependency
     private DataBase dataBase;
+    @DIDependency
     private CloseAccountValidator validator;
-
-    public CloseAccountService(DataBase dataBase, CloseAccountValidator validator) {
-        this.dataBase = dataBase;
-        this.validator = validator;
-    }
 
     public CloseAccountResponse execute(CloseAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

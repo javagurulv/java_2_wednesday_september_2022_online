@@ -8,21 +8,19 @@ import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.validators.SearchBankAccountValidator;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@DIComponent
 public class SearchBankAccountService {
-
+    @DIDependency
     private DataBase dataBase;
+    @DIDependency
     private SearchBankAccountValidator validator;
-
-
-    public SearchBankAccountService(DataBase dataBase, SearchBankAccountValidator validator) {
-        this.dataBase = dataBase;
-        this.validator = validator;
-    }
 
     public SearchBankAccountResponse execute(SearchBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

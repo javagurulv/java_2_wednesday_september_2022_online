@@ -5,16 +5,14 @@ import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.SearchBankAccountService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
 import java.util.Scanner;
-
+@DIComponent
 public class SearchBankAccountUIAction implements UIAction {
-
+    @DIDependency
     private SearchBankAccountService service;
-
-    public SearchBankAccountUIAction(SearchBankAccountService service) {
-        this.service = service;
-    }
 
     @Override
     public void execute() {

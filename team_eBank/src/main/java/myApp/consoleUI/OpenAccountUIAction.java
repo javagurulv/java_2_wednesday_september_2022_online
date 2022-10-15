@@ -4,16 +4,15 @@ import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.OpenAccountService;
 import myApp.core.services.UserService;
+import myApp.dependency_injection.DIComponent;
+import myApp.dependency_injection.DIDependency;
 
+@DIComponent
 public class OpenAccountUIAction implements UIAction {
-
+    @DIDependency
     private OpenAccountService service;
+    @DIDependency
     private UserService userService;
-
-    public OpenAccountUIAction(OpenAccountService service, UserService userService) {
-        this.service = service;
-        this.userService = userService;
-    }
 
     @Override
     public void execute() {
