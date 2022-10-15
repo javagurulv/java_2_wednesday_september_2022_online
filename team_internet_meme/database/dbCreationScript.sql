@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS recipes (
 ENGINE = InnoDB
 AUTO_INCREMENT = 001;
 
-CREATE TABLE IF NOT EXISTS `ingredients` (
+CREATE TABLE IF NOT EXISTS ingredients (
   id BIGINT NOT NULL AUTO_INCREMENT,
   recipe_id BIGINT NOT NULL,
   ingredient VARCHAR(100) NOT NULL,
@@ -36,11 +36,14 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS cooking_steps (
   recipe_id BIGINT NOT NULL,
-  step INTEGER NOT NULL,
+  step_order INTEGER NOT NULL,
   instruction TEXT(1000) NOT NULL,
   FOREIGN KEY (recipe_id) REFERENCES recipes(id)
 )
 ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `idx_ingredient`
+ON ingredients (ingredient);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
