@@ -8,5 +8,8 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    implementation('org.reflections:reflections:0.9.12')
+    implementation('org.reflections:reflections:0.10.2')
+
+    implementation('org.springframework:spring-context:5.3.23')
+    testImplementation('org.springframework:spring-test:5.3.23')
 }

@@ -3,15 +3,14 @@ package myApp.consoleUI;
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.RemoveBankAccountResponse;
 import myApp.core.services.RemoveBankAccountService;
-import myApp.core.database.DataBase;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-@DIComponent
+@Component
 public class RemoveBankAccountUIAction implements UIAction {
 
-    @DIDependency
+    @Autowired
     private RemoveBankAccountService service;
 
     @Override

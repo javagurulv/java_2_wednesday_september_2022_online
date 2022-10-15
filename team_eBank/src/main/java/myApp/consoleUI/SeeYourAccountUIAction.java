@@ -4,14 +4,14 @@ import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.SeeYourAccountResponse;
 import myApp.core.services.SeeYourAccountService;
 import myApp.core.services.UserService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class SeeYourAccountUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private SeeYourAccountService service;
-    @DIDependency
+    @Autowired
     private UserService userService;
 
     @Override

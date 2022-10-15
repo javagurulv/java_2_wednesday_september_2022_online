@@ -1,14 +1,13 @@
 package myApp.core.services.validators;
 
-import myApp.core.responses.CoreError;
 import myApp.core.requests.RemoveBankAccountRequest;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import myApp.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-@DIComponent
+@Component
 public class RemoveBankAccountValidator {
 
     public List<CoreError> validate(RemoveBankAccountRequest request) {

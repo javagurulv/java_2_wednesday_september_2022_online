@@ -5,13 +5,14 @@ import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.SearchBankAccountService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-@DIComponent
+@Component
 public class SearchBankAccountUIAction implements UIAction {
-    @DIDependency
+
+    @Autowired
     private SearchBankAccountService service;
 
     @Override

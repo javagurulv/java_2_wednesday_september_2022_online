@@ -4,14 +4,14 @@ import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.OpenAccountService;
 import myApp.core.services.UserService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class OpenAccountUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private OpenAccountService service;
-    @DIDependency
+    @Autowired
     private UserService userService;
 
     @Override

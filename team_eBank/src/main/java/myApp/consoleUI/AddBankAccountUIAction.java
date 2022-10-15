@@ -3,14 +3,14 @@ package myApp.consoleUI;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AddBankAccountUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private AddBankAccountService service;
     @Override
     public void execute() {

@@ -5,15 +5,15 @@ import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.validators.MoneyTransferValidator;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-@DIComponent
+@Component
 public class MoneyTransferService {
-    @DIDependency
+    @Autowired
     private DataBase dataBase;
-    @DIDependency
+    @Autowired
     private MoneyTransferValidator validator;
 
     public MoneyTransferResponse execute(MoneyTransferRequest request) {

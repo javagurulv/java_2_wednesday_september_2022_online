@@ -5,15 +5,16 @@ import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.RemoveBankAccountResponse;
 import myApp.core.services.validators.RemoveBankAccountValidator;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-@DIComponent
+@Component
 public class RemoveBankAccountService {
-    @DIDependency
+
+    @Autowired
     private DataBase dataBase;
-    @DIDependency
+    @Autowired
     private RemoveBankAccountValidator validator;
 
     public RemoveBankAccountResponse execute(RemoveBankAccountRequest request) {

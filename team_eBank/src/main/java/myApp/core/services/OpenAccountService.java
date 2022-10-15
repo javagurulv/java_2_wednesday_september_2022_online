@@ -1,19 +1,20 @@
 package myApp.core.services;
+
 import myApp.core.database.DataBase;
 import myApp.core.requests.OpenAccountRequest;
-import myApp.core.responses.OpenAccountResponse;
 import myApp.core.responses.CoreError;
+import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.validators.OpenAccountValidator;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class OpenAccountService {
-    @DIDependency
+    @Autowired
     private DataBase dataBase;
-    @DIDependency
+    @Autowired
     private OpenAccountValidator validator;
 
     public OpenAccountResponse execute(OpenAccountRequest request) {

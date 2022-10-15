@@ -3,14 +3,14 @@ package myApp.consoleUI;
 import myApp.core.requests.LogInRequest;
 import myApp.core.responses.LogInResponse;
 import myApp.core.services.LogInService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class LogInUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private LogInService logInService;
 
     @Override
