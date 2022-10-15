@@ -14,6 +14,26 @@ CREATE TABLE IF NOT EXISTS `recipes` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 0001;
 
+CREATE TABLE IF NOT EXISTS `ingredients` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  'recipe_id' BIGINT NOT NULL,
+  `ingredient` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY ('recipe_id') REFERENCES recipes(id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 0001;
+
+CREATE TABLE IF NOT EXISTS `recipes_to_ingredients` (
+  `recipe_id` BIGINT NOT NULL,
+  'ingredient_id' BIGINT NOT NULL,
+  `amount` INTEGER NOT NULL,
+  'measurement' VARCHAR(10),
+  FOREIGN KEY ('recipe_id') REFERENCES recipes(id),
+  FOREIGN KEY ('ingredient_id') REFERENCES ingredients(id)
+)
+ENGINE = InnoDB
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
