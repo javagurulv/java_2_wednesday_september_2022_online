@@ -1,18 +1,17 @@
 package myApp.core.services;
 
+import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
-import myApp.core.database.DataBase;
-import myApp.core.responses.CoreError;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-@DIComponent
+@Component
 public class UserAreAdminService {
 
-    @DIDependency
+    @Autowired
     private DataBase dataBase;
 
     public boolean isUserAreAdmin(String personalCode) {

@@ -2,15 +2,14 @@ package myApp.core.services;
 
 import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class UserService {
-    @DIDependency
+    @Autowired
     private DataBase dataBase;
     private String personalCode;
     private String password;

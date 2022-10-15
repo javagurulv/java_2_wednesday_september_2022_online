@@ -4,16 +4,16 @@ import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
 import myApp.core.services.UserService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class MoneyTransferUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private MoneyTransferService service;
-    @DIDependency
+    @Autowired
     private UserService userService;
     @Override
     public void execute() {

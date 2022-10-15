@@ -3,14 +3,14 @@ package myApp.core.services;
 
 import myApp.core.requests.LogInRequest;
 import myApp.core.requests.SwitchUserRequest;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class SwitchUserService {
-    @DIDependency
+    @Autowired
     private UserService service;
-    @DIDependency
+    @Autowired
     private LogInService logInService;
 
     public String execute(SwitchUserRequest request) {

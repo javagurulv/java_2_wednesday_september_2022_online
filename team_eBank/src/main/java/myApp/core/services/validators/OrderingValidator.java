@@ -2,13 +2,13 @@ package myApp.core.services.validators;
 
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
-import myApp.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class OrderingValidator {
 
     public List<CoreError> validateOrdering(SearchBankAccountRequest request) {

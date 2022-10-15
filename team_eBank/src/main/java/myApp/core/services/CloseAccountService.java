@@ -5,15 +5,16 @@ import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.CloseAccountValidator;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-@DIComponent
+@Component
 public class CloseAccountService {
-    @DIDependency
+
+    @Autowired
     private DataBase dataBase;
-    @DIDependency
+    @Autowired
     private CloseAccountValidator validator;
 
     public CloseAccountResponse execute(CloseAccountRequest request) {

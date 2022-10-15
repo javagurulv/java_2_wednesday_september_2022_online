@@ -3,12 +3,12 @@ package myApp.consoleUI;
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
 import myApp.core.services.GetAllBankAccountsService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class GetAllAccountsUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private GetAllBankAccountsService service;
 
     @Override

@@ -2,17 +2,19 @@ package myApp.core.services.validators;
 
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
-@DIComponent
+@Component
 public class SearchBankAccountValidator {
-    @DIDependency
+    
+    @Autowired
     private SearchBankAccountRequestFieldValidator searchBankAccountRequestFieldValidator;
-    @DIDependency
+    @Autowired
     private OrderingValidator orderingValidator;
-    @DIDependency
+    @Autowired
     private PagingValidator pagingValidator;
 
     public List<CoreError> validate(SearchBankAccountRequest request) {

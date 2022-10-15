@@ -1,17 +1,17 @@
 package myApp.core.services;
 
-import myApp.core.domain.BankAccount;
 import myApp.core.database.DataBase;
+import myApp.core.domain.BankAccount;
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class GetAllBankAccountsService {
-    @DIDependency
+    @Autowired
     private DataBase dataBase;
 
     public GetAllBankAccountsResponse execute(GetAllBankAccountsRequest request) {
