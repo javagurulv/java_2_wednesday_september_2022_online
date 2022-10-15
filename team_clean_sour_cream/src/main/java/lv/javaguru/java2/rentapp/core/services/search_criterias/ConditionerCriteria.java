@@ -1,11 +1,13 @@
 package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lv.javaguru.java2.rentapp.domain.MiniBus;
 import lv.javaguru.java2.rentapp.domain.PassengerCar;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 @Getter
+@EqualsAndHashCode
 public class ConditionerCriteria implements SearchCriteria {
 
     private String hasConditioner;

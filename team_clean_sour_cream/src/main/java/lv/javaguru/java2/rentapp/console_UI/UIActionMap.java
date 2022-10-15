@@ -3,6 +3,10 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.database.Database;
 import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.services.*;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestOrderingValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestPagingValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.core.services.validators.DeleteVehicleByPlateNumberRequestValidator;
 
 import java.util.HashMap;
@@ -13,11 +17,13 @@ public class UIActionMap {
     private Map<Integer, UIAction> uiActionMap;
     private Database database = new InMemoryDatabaseImpl();
     private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberRequestValidator(database);
+    private SearchVehicleValidator searchVehicleValidator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(),
+            new SearchVehicleRequestOrderingValidator(), new SearchVehicleRequestPagingValidator());
     private AddVehicleService addNewVehicleService = new AddVehicleService(database);
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database, deleteVehicleByPlateNumberValidator);
     private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
     private ExitProgramService exitProgramService = new ExitProgramService();
-    private SearchVehicleService searchVehicleService = new SearchVehicleService(database);
+    private SearchVehicleService searchVehicleService = new SearchVehicleService(database, searchVehicleValidator);
 
 
     public UIActionMap() {
