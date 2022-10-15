@@ -1,19 +1,17 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.LogInRequest;
-import myApp.core.responses.CoreError;
 import myApp.core.responses.LogInResponse;
 import myApp.core.services.LogInService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class LogInUIAction implements UIAction {
-
+    @Autowired
     private LogInService logInService;
-
-    public LogInUIAction(LogInService logInService) {
-        this.logInService = logInService;
-    }
 
     @Override
     public void execute() {

@@ -1,20 +1,18 @@
 package myApp.core.services;
 
+import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
-import myApp.core.database.DataBase;
-import myApp.core.responses.CoreError;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-
+@Component
 public class UserAreAdminService {
 
+    @Autowired
     private DataBase dataBase;
-
-    public UserAreAdminService(DataBase dataBase) {
-        this.dataBase = dataBase;
-    }
 
     public boolean isUserAreAdmin(String personalCode) {
         List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();

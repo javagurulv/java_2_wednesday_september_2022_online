@@ -1,22 +1,21 @@
 package myApp.core.services;
+
 import myApp.core.database.DataBase;
 import myApp.core.requests.OpenAccountRequest;
-import myApp.core.responses.OpenAccountResponse;
 import myApp.core.responses.CoreError;
+import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.validators.OpenAccountValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+@Component
 public class OpenAccountService {
-
+    @Autowired
     private DataBase dataBase;
+    @Autowired
     private OpenAccountValidator validator;
-
-    public OpenAccountService(DataBase dataBase, OpenAccountValidator validator) {
-        this.dataBase = dataBase;
-        this.validator = validator;
-    }
 
     public OpenAccountResponse execute(OpenAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
@@ -27,6 +26,5 @@ public class OpenAccountService {
             return new OpenAccountResponse(errors);
         }
     }
-
 }
 

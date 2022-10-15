@@ -8,21 +8,27 @@ import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.validators.SearchBankAccountValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Component
 public class SearchBankAccountService {
 
+    @Value("${search.ordering.enabled}")
+    private boolean orderingEnabled;
+
+    @Value("${search.paging.enabled}")
+    private boolean pagingEnabled;
+
+    @Autowired
     private DataBase dataBase;
+    @Autowired
     private SearchBankAccountValidator validator;
-
-
-    public SearchBankAccountService(DataBase dataBase, SearchBankAccountValidator validator) {
-        this.dataBase = dataBase;
-        this.validator = validator;
-    }
 
     public SearchBankAccountResponse execute(SearchBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

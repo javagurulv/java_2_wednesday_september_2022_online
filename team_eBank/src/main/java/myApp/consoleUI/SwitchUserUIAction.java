@@ -1,20 +1,18 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.SwitchUserRequest;
-import myApp.core.responses.SwitchUserResponse;
 import myApp.core.services.SwitchUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 
+@Component
 public class SwitchUserUIAction implements UIAction {
 
+    @Autowired
     private SwitchUserService service;
-
-    public SwitchUserUIAction(SwitchUserService service) {
-        this.service = service;
-    }
-
 
     @Override
     public void execute() {

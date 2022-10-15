@@ -1,0 +1,14 @@
+В классе OrmBookRepositoryImpl реализуйте метод save()
+используя Hibernate SessionFactory следующим образом:
+
+@Component
+class OrmBookRepositoryImpl implements BookRepository {
+
+	@Autowired private SessionFactory sessionFactory;
+
+	@Override
+	public void save(Book book) {
+		sessionFactory.getCurrentSession().save(book);
+	}
+
+}

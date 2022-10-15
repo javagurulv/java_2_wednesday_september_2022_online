@@ -1,0 +1,18 @@
+В классе OrmBookRepositoryImpl реализуйте метод deleteById()
+используя Hibernate SessionFactory следующим образом:
+
+@Component
+class OrmBookRepositoryImpl implements BookRepository {
+
+	@Autowired private SessionFactory sessionFactory;
+
+	@Override
+	public boolean deleteById(Long id) {
+		Query query = sessionFactory.getCurrentSession().createQuery(
+				"delete Book where id = :id");
+		query.setParameter("id", id);
+		int result = query.executeUpdate();
+		return result == 1;
+	}
+
+}

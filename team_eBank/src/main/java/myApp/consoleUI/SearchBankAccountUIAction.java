@@ -5,16 +5,15 @@ import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.SearchBankAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class SearchBankAccountUIAction implements UIAction {
 
+    @Autowired
     private SearchBankAccountService service;
-
-    public SearchBankAccountUIAction(SearchBankAccountService service) {
-        this.service = service;
-    }
 
     @Override
     public void execute() {

@@ -45,37 +45,46 @@ public class SearchTasksUIAction implements UIAction {
                 System.out.println("There are no tasks found");
                 return true;
             }
-            int foundTaskCount = response.getTasks().size();
-            System.out.println("Found task count:" + foundTaskCount);
-
-            if (pageSize > foundTaskCount)
-                pageSize = foundTaskCount;
-
-            int numberOfPages = foundTaskCount/pageSize;
-            int numberOfPagesRemainder = foundTaskCount%pageSize;
-            int pageNumber;
-            //get whole page content
-            for (pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
-                Paging paging = new Paging(pageNumber, pageSize);
-                request = new SearchTasksRequest(searchPhrase, ordering, paging);
-                response = searchTasksService.execute(request);
-                //System.out.println("Tasks found:");
-                response.getTasks().forEach(System.out::println);
-                System.out.println("Show next page? (Y/N)");
-                String nextPage = scanner.nextLine();
-                if (nextPage.toLowerCase().equals("n")) {
-                    return true;
-                }
-            }
-            //get content which did no fill whole page
-            if (numberOfPagesRemainder > 0) {
-                Paging paging = new Paging(pageNumber, pageSize);
-                request = new SearchTasksRequest(searchPhrase, ordering, paging);
-                response = searchTasksService.execute(request);
-                //System.out.println("Tasks found:");
-                response.getTasks().forEach(System.out::println);
-            }
+            //previous request checked that some data were found in DB
+            printInfoRequestPages(response.getTasks().size(), pageSize,
+                                                    searchPhrase, ordering);
             return true;
+        }
+    }
+
+    private void printInfoRequestPages(int taskCount, int pageSize,
+                                          String searchPhrase, Ordering ordering) {
+        SearchTasksRequest request;
+        SearchTasksResponse response;
+
+        System.out.println("Found task count:" + taskCount);
+        if (pageSize > taskCount) {
+            //check so page size is not bigger than whole found data set
+            pageSize = taskCount;
+        }
+        int numberOfPages = taskCount / pageSize;
+        int numberOfPagesRemainder = taskCount % pageSize;
+        int pageNumber;
+        //get whole page content
+        for (pageNumber = 1; pageNumber <= numberOfPages; pageNumber++) {
+            Paging paging = new Paging(pageNumber, pageSize);
+            request = new SearchTasksRequest(searchPhrase, ordering, paging);
+            response = searchTasksService.execute(request);
+            //System.out.println("Tasks found:");
+            response.getTasks().forEach(System.out::println);
+            System.out.println("Show next page? (Y/N)");
+            String nextPage = scanner.nextLine();
+            if (nextPage.toLowerCase().equals("n")) {
+                return;
+            }
+        }
+        //get content which did no fill whole page
+        if (numberOfPagesRemainder > 0) {
+            Paging paging = new Paging(pageNumber, pageSize);
+            request = new SearchTasksRequest(searchPhrase, ordering, paging);
+            response = searchTasksService.execute(request);
+            //System.out.println("Tasks found:");
+            response.getTasks().forEach(System.out::println);
         }
     }
 }

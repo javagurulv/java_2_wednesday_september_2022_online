@@ -3,21 +3,17 @@ package myApp.core.database;
 import myApp.core.domain.Account;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class InMemoryDatabaseImpl implements DataBase {
-    private final List<BankAccount> bankAccounts = new ArrayList<>();
-
-
-    public InMemoryDatabaseImpl() {
-        BankAccount bankAccount = new BankAccount("Vladislav", "Kulikov", "user", Roles.Regular_user, "111-777");
-        BankAccount adminAccount = new BankAccount("Admin", "Admin", "Admin", Roles.Admin, "01");
-        bankAccounts.add(adminAccount);
-        bankAccounts.add(bankAccount);
-        bankAccount.setId(id);
-    }
+    private final List<BankAccount> bankAccounts = new ArrayList<>(List.of(new BankAccount("Admin", "Admin", "Admin",
+            Roles.Admin, "000000-00001")));
 
     private Long id = 1L;
     private Long idForAccount = 1L;

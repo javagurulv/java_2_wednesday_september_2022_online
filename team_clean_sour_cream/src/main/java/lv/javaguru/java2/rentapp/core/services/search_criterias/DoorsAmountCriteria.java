@@ -1,9 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
+import lombok.EqualsAndHashCode;
 import lv.javaguru.java2.rentapp.domain.MiniBus;
 import lv.javaguru.java2.rentapp.domain.PassengerCar;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
+@EqualsAndHashCode
 public class DoorsAmountCriteria implements SearchCriteria {
 
     private Integer doorsAmount;

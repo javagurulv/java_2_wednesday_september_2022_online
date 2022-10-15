@@ -1,0 +1,32 @@
+В классе BookListConfiguration с конфигурацией Spring
+создайте Hibernate SessionFactory инстанцию следующим
+образом:
+
+public class BookListConfiguration {
+
+	@Bean
+	public Properties hibernateProperties(
+			@Value("${hibernate.show_sql}") Boolean showSql,
+			@Value("${hibernate.hbm2ddl.auto}") String hbm2ddl,
+			@Value("${hibernate.dialect}") String dialect) {
+		Properties properties = new Properties();
+		properties.put("hibernate.show_sql", showSql);
+		properties.put("hibernate.hbm2ddl.auto", hbm2ddl);
+		properties.put("hibernate.dialect", dialect);
+		return properties;
+	}
+
+	@Bean
+	public SessionFactory sessionFactory(DataSource dataSource,
+										 @Value("${hibernate.packagesToScan}") String packagesToScan,
+										 Properties hibernateProperties
+	) throws IOException {
+		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+		sessionFactoryBean.setPackagesToScan(packagesToScan);
+		sessionFactoryBean.setDataSource(dataSource);
+		sessionFactoryBean.setHibernateProperties(hibernateProperties);
+		sessionFactoryBean.afterPropertiesSet();
+		return sessionFactoryBean.getObject();
+	}
+
+}

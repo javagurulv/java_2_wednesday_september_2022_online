@@ -1,24 +1,25 @@
 package myApp.core.services;
 
+import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
-import myApp.core.database.DataBase;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.AddBankAccountValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
+@Component
 public class AddBankAccountService {
 
+    @Autowired
     private DataBase dataBase;
+    @Autowired
     private AddBankAccountValidator validator;
-
-    public AddBankAccountService(DataBase dataBase, AddBankAccountValidator validator) {
-        this.dataBase = dataBase;
-        this.validator = validator;
-    }
 
     public AddBankAccountResponse execute(AddBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

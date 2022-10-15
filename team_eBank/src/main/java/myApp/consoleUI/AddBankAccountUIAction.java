@@ -3,16 +3,15 @@ package myApp.consoleUI;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class AddBankAccountUIAction implements UIAction {
-
+    @Autowired
     private AddBankAccountService service;
-    public AddBankAccountUIAction(AddBankAccountService service) {
-        this.service = service;
-    }
-
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
