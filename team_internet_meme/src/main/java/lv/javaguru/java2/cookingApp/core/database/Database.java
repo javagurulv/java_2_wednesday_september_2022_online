@@ -6,7 +6,7 @@ import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
 import java.util.List;
 
 public interface Database {
-    void save(Recipe recipe);
+    Long save(Recipe recipe);
     boolean deleteById(Long id);
     Recipe getById(Long id);
     List<Recipe> getAllRecipes();

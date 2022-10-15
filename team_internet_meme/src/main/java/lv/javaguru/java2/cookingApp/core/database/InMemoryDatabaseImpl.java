@@ -10,16 +10,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
+//@Component
 public class InMemoryDatabaseImpl implements Database {
     private Long nextId = 1L;
     private final List<Recipe> recipesDB = new ArrayList<>();
 
     @Override
-    public void save(Recipe recipe) {
+    public Long save(Recipe recipe) {
         recipe.setId(nextId);
         nextId++;
         recipesDB.add(recipe);
+        return nextId;
     }
 
     @Override
