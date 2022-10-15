@@ -1,5 +1,6 @@
 package lv.javaguru.java2.cookingApp.core.database;
 
+import lv.javaguru.java2.cookingApp.core.database.rowmappers.IngredientsRowMapper;
 import lv.javaguru.java2.cookingApp.core.database.rowmappers.RecipeRowMapper;
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
@@ -29,16 +30,21 @@ public class JdbcDatabaseImpl implements Database {
         Long recipeID = insertIntoRecipes.executeAndReturnKey(recipeArgs).longValue();
 
         for (Ingredient ingredient : recipe.getIngredients()) {
+            String sql1 = "SELECT * FROM ingredients WHERE ingredient LIKE ?";
+            Object[] args1 = new Object[]{ingredient.getName()};
+            List<Ingredient> duplicateIngredient = jdbcTemplate.query(sql1, new IngredientsRowMapper());
+            if (duplicateIngredient.isEmpty()) {
+                Map<String, Object> ingredientArgs = new HashMap<>();
+                ingredientArgs.put("ingredient", ingredient.getName());
+                ingredientArgs.put("recipe_id", recipeID);
+                Long ingredientID = insertIntoIngredients.executeAndReturnKey(ingredientArgs).longValue();
 
-            Map<String, Object> ingredientArgs = new HashMap<>();
-            ingredientArgs.put("ingredient", ingredient.getName());
-            ingredientArgs.put("recipe_id", recipeID);
-            Long ingredientID = insertIntoIngredients.executeAndReturnKey(ingredientArgs).longValue();
-
-            String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
-            Object[] args = new Object[]{recipeID, ingredientID, ingredient.getAmount(), ingredient.getMeasurement()};
-            jdbcTemplate.update(sql, args);
+                String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
+                Object[] args = new Object[]{recipeID, ingredientID, ingredient.getAmount(), ingredient.getMeasurement()};
+                jdbcTemplate.update(sql, args);
+            }
         }
+
         for (CookingStep cookingStep : recipe.getCookingSteps()) {
             String sql = "INSERT INTO cooking_steps (recipe_id, step_order, instruction) VALUES (?, ?, ?)";
             Object[] args = new Object[]{recipeID, cookingStep.getStepOrder(), cookingStep.getStepDescription()};
