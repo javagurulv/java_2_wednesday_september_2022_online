@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class VehicleDatabaseImpl implements VehicleDatabase {
 
     private Long nextId = 1L;
-    private List<Vehicle> vehiclesDB = new ArrayList<>();
+    private List<Vehicle> vehiclesDB = new ArrayList<>(TestData.getTestList());
 
     @Override
     public void addNewVehicle(Vehicle vehicle) {

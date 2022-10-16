@@ -1,6 +1,7 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
+import lv.javaguru.java2.rentapp.core.responses.RentVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.core.services.RentVehicleService;
 import lv.javaguru.java2.rentapp.core.services.VehicleAvailabilityService;
@@ -23,7 +24,9 @@ public class RentVehicleUIAction implements UIAction {
     @Override
     public void execute() {
 
-        GeneralRentVehicleRequest rentVehicleAvailabilityRequest = createVehicleAvailabilityRequest();
+        GeneralRentVehicleRequest.GeneralRentVehicleRequestBuilder generalRentVehicleRequestBuilder = createVehicleAvailabilityRequestBuilder();
+
+        GeneralRentVehicleRequest rentVehicleAvailabilityRequest = generalRentVehicleRequestBuilder.build();
         VehicleAvailabilityResponse vehicleAvailabilityResponse = vehicleAvailabilityService.execute(rentVehicleAvailabilityRequest);
 
         if (vehicleAvailabilityResponse.hasErrors()) {
@@ -35,12 +38,21 @@ public class RentVehicleUIAction implements UIAction {
             System.out.println("Available vehicles`ve been founded in that range: ");
             vehicleAvailabilityResponse.getVehicles().forEach(System.out::println);
 
+            GeneralRentVehicleRequest rentVehicleRequest = createRentVehicleRequest(generalRentVehicleRequestBuilder);
+            RentVehicleResponse rentVehicleResponse = rentVehicleService.execute(rentVehicleRequest);
 
+            if (rentVehicleResponse.hasErrors()) {
+                rentVehicleResponse.getErrors().forEach(coreError ->
+                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+                );
+            } else {
+                System.out.println(rentVehicleResponse.getMessage());
+            }
         }
 
     }
 
-    private GeneralRentVehicleRequest createVehicleAvailabilityRequest() {
+    private GeneralRentVehicleRequest.GeneralRentVehicleRequestBuilder createVehicleAvailabilityRequestBuilder() {
 
         System.out.println("Enter the dates for period you`ld like to rent the vehicle");
 
@@ -51,27 +63,31 @@ public class RentVehicleUIAction implements UIAction {
 
         return GeneralRentVehicleRequest.builder()
                 .rentStartDate(rentStartDate)
-                .rentEndDate(rentEndDate)
-                .build();
+                .rentEndDate(rentEndDate);
     }
 
-    private GeneralRentVehicleRequest createRentVehicleRequest() {
+    private GeneralRentVehicleRequest createRentVehicleRequest(GeneralRentVehicleRequest.GeneralRentVehicleRequestBuilder
+                                                                       generalRentVehicleRequestBuilder) {
         System.out.println("Please enter ID of vehicle you want to rent: ");
         Long vehicleId = Long.parseLong(scanner.nextLine());
         System.out.println("Please enter your personal ID (in format \"______-_____\": ");
         String personalId = scanner.nextLine();
         System.out.println("Please enter your first name: ");
         String firstName = scanner.nextLine();
-        System.out.println("Please enter your second name: ");
+        System.out.println("Please enter your last name: ");
         String lastName = scanner.nextLine();
         System.out.println("Please enter your email: ");
         String email = scanner.nextLine();
         System.out.println("Please enter your phone number");
         String phoneNumber = scanner.nextLine();
 
-        return GeneralRentVehicleRequest.builder()
-                .rentStartDate(rentStartDate)
-                .rentEndDate(rentEndDate)
+        return generalRentVehicleRequestBuilder
+                .vehicleId(vehicleId)
+                .personalId(personalId)
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .phoneNumber(phoneNumber)
                 .build();
     }
 }

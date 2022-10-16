@@ -24,8 +24,8 @@ public class RentDeal {
         this.client = client;
         this.vehicle = vehicle;
         this.startDate = startDate;
-        this.rentDuration = Duration.between(startDate, endDate.plusDays(1)).toDays();
-        this.rentCost = vehicle.getRentPricePerDay() * rentDuration;
+//        this.rentDuration = Duration.between(startDate, endDate.plusDays(1)).toDays();
+//        this.rentCost = vehicle.getRentPricePerDay() * rentDuration;
         this.endDate = endDate;
     }
 }

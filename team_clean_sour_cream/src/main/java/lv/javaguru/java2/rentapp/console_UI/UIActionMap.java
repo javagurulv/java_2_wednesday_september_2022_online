@@ -1,5 +1,7 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
+import lv.javaguru.java2.rentapp.core.database.DealDatabase;
+import lv.javaguru.java2.rentapp.core.database.DealDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.services.*;
@@ -18,6 +20,8 @@ public class UIActionMap {
 
     private Map<Integer, UIAction> uiActionMap;
     private VehicleDatabase vehicleDatabase = new VehicleDatabaseImpl();
+
+    private DealDatabase dealDatabase = new DealDatabaseImpl();
     private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberRequestValidator(vehicleDatabase);
     private SearchVehicleValidator searchVehicleValidator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(),
             new SearchVehicleRequestOrderingValidator(), new SearchVehicleRequestPagingValidator());
@@ -29,6 +33,10 @@ public class UIActionMap {
     private ExitProgramService exitProgramService = new ExitProgramService();
     private SearchVehicleService searchVehicleService = new SearchVehicleService(vehicleDatabase, searchVehicleValidator);
 
+    private VehicleAvailabilityService vehicleAvailabilityService = new VehicleAvailabilityService(dealDatabase, vehicleDatabase);
+
+    private RentVehicleService rentVehicleService = new RentVehicleService(dealDatabase, vehicleDatabase);
+
 
     public UIActionMap() {
         this.uiActionMap = new HashMap<>();
@@ -36,7 +44,8 @@ public class UIActionMap {
         uiActionMap.put(2, new DeleteVehicleByPlateNumberUIAction(deleteVehicleByPlateNumberService));
         uiActionMap.put(3, new ShowAllVehiclesUIAction(showAllVehiclesService));
         uiActionMap.put(4, new SearchVehicleUIAction(searchVehicleService));
-        uiActionMap.put(5, new ExitProgramUIAction(exitProgramService));
+        uiActionMap.put(5, new RentVehicleUIAction(vehicleAvailabilityService, rentVehicleService));
+        uiActionMap.put(6, new ExitProgramUIAction(exitProgramService));
     }
 
     public UIAction getAction(int userChoice) {
