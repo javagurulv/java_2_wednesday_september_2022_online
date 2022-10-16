@@ -8,12 +8,13 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @EqualsAndHashCode
-public class InMemoryDatabaseImpl implements Database {
+public class VehicleDatabaseImpl implements VehicleDatabase {
 
     private Long nextId = 1L;
     private List<Vehicle> vehiclesDB = new ArrayList<>();
@@ -32,11 +33,19 @@ public class InMemoryDatabaseImpl implements Database {
 
     @Override
     public List<Vehicle> getAllVehicles() {
-        return vehiclesDB;
+        return new ArrayList<>(vehiclesDB);
     }
 
     @Override
     public List<Vehicle> search(SearchCriteria searchCriteria) {
         return vehiclesDB.stream().filter(searchCriteria).collect(Collectors.toList());
     }
+
+    @Override
+    public Vehicle getById(Long id) {
+        Optional<Vehicle> vehicles = vehiclesDB.stream().filter(vehicle -> vehicle.getId().equals(id)).findFirst();
+        return vehicles.get();
+    }
+
+
 }

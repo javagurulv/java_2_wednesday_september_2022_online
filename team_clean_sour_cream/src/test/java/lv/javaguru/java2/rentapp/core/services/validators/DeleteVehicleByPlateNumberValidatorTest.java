@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeleteVehicleByPlateNumberValidatorTest {
 
     DeleteVehicleByPlateNumberRequestValidator validator;
-    Database database;
+    VehicleDatabase vehicleDatabase;
 
 
     Vehicle vehicle = Mockito.mock(Vehicle.class) ;
@@ -27,8 +27,8 @@ class DeleteVehicleByPlateNumberValidatorTest {
     @BeforeEach
     void setUp() {
 
-        database = new InMemoryDatabaseImpl();
-        validator = new DeleteVehicleByPlateNumberRequestValidator(database);
+        vehicleDatabase = new VehicleDatabaseImpl();
+        validator = new DeleteVehicleByPlateNumberRequestValidator(vehicleDatabase);
     }
 
     @Test
@@ -50,7 +50,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     @Test
     void testValidatePlateNumberReturnNoErrorIfVehicleWithThatPlateNumberIsInDatabase() {
         Mockito.when(vehicle.getPlateNumber()).thenReturn("123");
-        database.addNewVehicle(vehicle);
+        vehicleDatabase.addNewVehicle(vehicle);
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("123");
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());

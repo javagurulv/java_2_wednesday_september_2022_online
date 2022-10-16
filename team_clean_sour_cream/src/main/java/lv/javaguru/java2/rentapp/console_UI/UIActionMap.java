@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.services.*;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.VehicleCreatorMap;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleRequestOrderingValidator;
@@ -17,17 +17,17 @@ import java.util.Map;
 public class UIActionMap {
 
     private Map<Integer, UIAction> uiActionMap;
-    private Database database = new InMemoryDatabaseImpl();
-    private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberRequestValidator(database);
+    private VehicleDatabase vehicleDatabase = new VehicleDatabaseImpl();
+    private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator = new DeleteVehicleByPlateNumberRequestValidator(vehicleDatabase);
     private SearchVehicleValidator searchVehicleValidator = new SearchVehicleValidator(new SearchVehicleFieldsValidatorMap(),
             new SearchVehicleRequestOrderingValidator(), new SearchVehicleRequestPagingValidator());
     private VehicleCreatorMap vehicleCreatorMap = new VehicleCreatorMap();
-    private AddVehicleValidatorMap vehicleValidatorMap = new AddVehicleValidatorMap(database);
-    private AddVehicleService addNewVehicleService = new AddVehicleService(vehicleCreatorMap, vehicleValidatorMap, database);
-    private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(database, deleteVehicleByPlateNumberValidator);
-    private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(database);
+    private AddVehicleValidatorMap vehicleValidatorMap = new AddVehicleValidatorMap(vehicleDatabase);
+    private AddVehicleService addNewVehicleService = new AddVehicleService(vehicleCreatorMap, vehicleValidatorMap, vehicleDatabase);
+    private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService = new DeleteVehicleByPlateNumberService(vehicleDatabase, deleteVehicleByPlateNumberValidator);
+    private ShowAllVehiclesService showAllVehiclesService = new ShowAllVehiclesService(vehicleDatabase);
     private ExitProgramService exitProgramService = new ExitProgramService();
-    private SearchVehicleService searchVehicleService = new SearchVehicleService(database, searchVehicleValidator);
+    private SearchVehicleService searchVehicleService = new SearchVehicleService(vehicleDatabase, searchVehicleValidator);
 
 
     public UIActionMap() {

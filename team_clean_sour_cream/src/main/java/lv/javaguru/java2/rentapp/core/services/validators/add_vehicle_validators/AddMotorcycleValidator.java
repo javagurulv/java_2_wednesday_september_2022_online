@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MotorcycleCreator;
@@ -15,10 +15,10 @@ import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMO
 
 public class AddMotorcycleValidator extends AddVehicleValidator {
 
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
 
-    public AddMotorcycleValidator(Database database) {
-        this.database = database;
+    public AddMotorcycleValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
     }
 
     public List<CoreError> validate(AddVehicleRequest request) {
@@ -51,7 +51,7 @@ public class AddMotorcycleValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
         Vehicle motorcycle = new MotorcycleCreator().createVehicle(request);
-        return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(motorcycle))
+        return vehicleDatabase.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(motorcycle))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))
                 : Optional.empty();
     }

@@ -5,7 +5,7 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.List;
 
-public interface Database {
+public interface VehicleDatabase {
 
     void addNewVehicle(Vehicle vehicle);
 
@@ -14,5 +14,7 @@ public interface Database {
     List<Vehicle> getAllVehicles();
 
     List<Vehicle> search(SearchCriteria searchCriteria);
+
+    Vehicle getById(Long id);
 
 }
