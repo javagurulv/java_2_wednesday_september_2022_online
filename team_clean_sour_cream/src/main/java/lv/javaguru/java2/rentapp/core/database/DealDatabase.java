@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface DealDatabase {
 
-    public Long save(RentDeal rentDeal);
-    public List<RentDeal> getAllDeals();
-    public RentDeal getDealById(Long id);
+    Long save(RentDeal rentDeal);
 
+    List<RentDeal> getAllDeals();
+
+    RentDeal getDealById(Long id);
 
 }

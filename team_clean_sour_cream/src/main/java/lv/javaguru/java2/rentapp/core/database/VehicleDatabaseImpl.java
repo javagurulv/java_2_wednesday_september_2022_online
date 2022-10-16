@@ -28,7 +28,7 @@ public class VehicleDatabaseImpl implements VehicleDatabase {
 
     @Override
     public void deleteVehicleByPlateNumber(String plateNumber) {
-       vehiclesDB.removeIf(vehicle -> vehicle.getPlateNumber().equals(plateNumber));
+        vehiclesDB.removeIf(vehicle -> vehicle.getPlateNumber().equals(plateNumber));
     }
 
     @Override
@@ -42,10 +42,9 @@ public class VehicleDatabaseImpl implements VehicleDatabase {
     }
 
     @Override
-    public Vehicle getById(Long id) {
-        Optional<Vehicle> vehicles = vehiclesDB.stream().filter(vehicle -> vehicle.getId().equals(id)).findFirst();
-        return vehicles.get();
+    public Optional<Vehicle> getById(Long id) {
+        return vehiclesDB.stream()
+                .filter(vehicle -> vehicle.getId().equals(id))
+                .findAny();
     }
-
-
 }

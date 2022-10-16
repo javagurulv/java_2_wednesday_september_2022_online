@@ -4,6 +4,7 @@ import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface VehicleDatabase {
 
@@ -15,6 +16,6 @@ public interface VehicleDatabase {
 
     List<Vehicle> search(SearchCriteria searchCriteria);
 
-    Vehicle getById(Long id);
+    Optional<Vehicle> getById(Long id);
 
 }
