@@ -70,8 +70,7 @@ public class JdbcDatabaseImpl implements Database {
     @Override
     public List<Recipe> getAllRecipes() {
         String sql = "SELECT * FROM recipes";
-        jdbcTemplate.query(sql, new RecipeRowMapper());
-        return null;
+        return jdbcTemplate.query(sql, new RecipeRowMapper());
     }
 
     @Override
