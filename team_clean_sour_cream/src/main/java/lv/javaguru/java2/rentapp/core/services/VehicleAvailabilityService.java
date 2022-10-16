@@ -2,8 +2,8 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
-import lv.javaguru.java2.rentapp.core.requests.FindAvailableVehiclesRequest;
-import lv.javaguru.java2.rentapp.core.responses.FindAvailableVehiclesResponse;
+import lv.javaguru.java2.rentapp.core.requests.VehicleAvailabilityRequest;
+import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
@@ -21,16 +21,20 @@ public class VehicleAvailabilityService {
         this.vehicleDatabase = vehicleDatabase;
     }
 
-    public FindAvailableVehiclesResponse execute(FindAvailableVehiclesRequest request) {
+    public VehicleAvailabilityResponse execute(VehicleAvailabilityRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
+
         List<Vehicle> availableVehicles = findAvailableVehiclesInRange(startDate, endDate);
-        return new FindAvailableVehiclesResponse(null, availableVehicles);
+
+        return new VehicleAvailabilityResponse(null, availableVehicles);
     }
 
     private List<Vehicle> findAvailableVehiclesInRange(LocalDate startDate, LocalDate endDate) {
         List<RentDeal> rentDeals = dealDatabase.getAllDeals();
+
         List<Vehicle> unavailableVehicles = rentDeals.stream()
                 .filter(rentDeal -> isNotAvailableInGivenRange(startDate, endDate, rentDeal))
                 .map(RentDeal::getVehicle).toList();
