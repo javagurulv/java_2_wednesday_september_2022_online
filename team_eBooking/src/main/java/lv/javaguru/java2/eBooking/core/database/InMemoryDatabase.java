@@ -50,14 +50,14 @@ public class InMemoryDatabase implements Database {
     @Override
     public boolean deleteAppointmentById(Long id) {
         boolean isAppointmentDeleted = false;
-        Optional <Appointment> appointmentToBeRemoved =  appointments.stream()
+        Optional<Appointment> appointmentToBeRemoved = appointments.stream()
                 .filter(appointment -> appointment.getId().equals(id))
                 .findFirst();
-                if(appointmentToBeRemoved.isPresent()){
-                    Appointment appointmentToRemove = appointmentToBeRemoved.get();
-                    isAppointmentDeleted=appointments.remove(appointmentToRemove);
-                }
-                return isAppointmentDeleted;
+        if (appointmentToBeRemoved.isPresent()) {
+            Appointment appointmentToRemove = appointmentToBeRemoved.get();
+            isAppointmentDeleted = appointments.remove(appointmentToRemove);
+        }
+        return isAppointmentDeleted;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class InMemoryDatabase implements Database {
     @Override
     public List<Client> findClientByEMail(String clientEmail) {
         return clients.stream()
-                .filter(client ->client.getClientEmail().equals(clientEmail))
+                .filter(client -> client.getClientEmail().equals(clientEmail))
                 .collect(Collectors.toList());
     }
 
@@ -86,4 +86,27 @@ public class InMemoryDatabase implements Database {
                         && client.getClientPhoneNumber().equals(clientPhoneNumber))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Appointment> findAppointmentByMasterName(String masterName) {
+        return appointments.stream()
+                .filter(appointment -> appointment.getMasterName().equals(masterName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Appointment> findAppointmentByTypeOfService(String typeOFService) {
+        return appointments.stream()
+                .filter(appointment -> appointment.getTypeOfService().equals(typeOFService))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Appointment> findAppointmentByMasterNameAndTypeOfService(String masterName, String typeOfService) {
+        return appointments.stream()
+                .filter(appointment -> appointment.getMasterName().equals(masterName)
+                        && appointment.getTypeOfService().equals(typeOfService))
+                .collect(Collectors.toList());
+    }
+
 }

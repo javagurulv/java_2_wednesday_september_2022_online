@@ -1,8 +1,8 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.GetAllAppointmentRequest;
-import lv.javaguru.java2.eBooking.core.responses.appointment_response.GetAllAppointmentResponse;
-import lv.javaguru.java2.eBooking.core.services.appointment_service.print_all.GetAllAppointmentsService;
+import lv.javaguru.java2.eBooking.core.responses.appointment.GetAllAppointmentResponse;
+import lv.javaguru.java2.eBooking.core.services.appointment.print_all.GetAllAppointmentsService;
 
 public class PrintAppointmentUIAction implements UIAction {
     private GetAllAppointmentsService getAllAppointmentsService;

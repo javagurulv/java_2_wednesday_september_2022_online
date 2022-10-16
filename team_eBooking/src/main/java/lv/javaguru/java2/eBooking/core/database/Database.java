@@ -25,4 +25,11 @@ public interface Database {
 
     List<Client> findClientByEmailAndPhoneNumber(String clientEmail, String clientPhoneNumber);
 
+    List <Appointment> findAppointmentByMasterName(String masterName);
+
+    List <Appointment> findAppointmentByTypeOfService(String typeOFService);
+
+    List<Appointment> findAppointmentByMasterNameAndTypeOfService( String masterName,
+                                                                   String typeOfService);
+
 }

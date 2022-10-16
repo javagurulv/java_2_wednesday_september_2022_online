@@ -1,13 +1,9 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
-import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.responses.client_response.SearchClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client_service.search.ClientSearchService;
+import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
+import lv.javaguru.java2.eBooking.core.services.client.search.ClientSearchService;
 
-import javax.swing.plaf.IconUIResource;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class SearchClientUIAction implements UIAction{

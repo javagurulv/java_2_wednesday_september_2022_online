@@ -1,8 +1,8 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
 import lv.javaguru.java2.eBooking.core.requests.client_request.RemoveClientRequest;
-import lv.javaguru.java2.eBooking.core.responses.client_response.RemoveClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client_service.remove.RemoveClientService;
+import lv.javaguru.java2.eBooking.core.responses.client.RemoveClientResponse;
+import lv.javaguru.java2.eBooking.core.services.client.remove.RemoveClientService;
 
 import java.util.Scanner;
 
