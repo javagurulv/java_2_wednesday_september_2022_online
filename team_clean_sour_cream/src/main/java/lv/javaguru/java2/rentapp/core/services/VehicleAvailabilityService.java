@@ -2,7 +2,7 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
-import lv.javaguru.java2.rentapp.core.requests.VehicleAvailabilityRequest;
+import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -21,7 +21,7 @@ public class VehicleAvailabilityService {
         this.vehicleDatabase = vehicleDatabase;
     }
 
-    public VehicleAvailabilityResponse execute(VehicleAvailabilityRequest request) {
+    public VehicleAvailabilityResponse execute(GeneralRentVehicleRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);

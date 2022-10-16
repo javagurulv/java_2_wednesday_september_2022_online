@@ -1,11 +1,11 @@
 package lv.javaguru.java2.rentapp.core.requests;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
-public class RentVehicleRequest {
+@Builder
+public class GeneralRentVehicleRequest {
 
     private Long vehicleId;
 
