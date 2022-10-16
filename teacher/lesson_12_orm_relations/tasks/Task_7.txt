@@ -1,0 +1,8 @@
+При необходимости лишние индексы можно удалить из базы данных
+воспользовавшись SQL командой DROP INDEX:
+
+DROP INDEX ix_reader_books_reader_id
+ON reader_books;
+
+DROP INDEX ix_reader_books_book_id
+ON reader_books;

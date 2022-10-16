@@ -1,0 +1,1 @@
+Создайте пакет dependency_injection на уровне console_ui и core.

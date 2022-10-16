@@ -1,0 +1,13 @@
+dependencies {
+	implementation('org.reflections:reflections:0.9.12')
+	implementation('mysql:mysql-connector-java:8.0.22')
+	implementation('org.apache.commons:commons-dbcp2:2.8.0')
+
+	implementation('org.springframework:spring-jdbc:5.2.6.RELEASE')
+	implementation('org.springframework:spring-context:5.2.6.RELEASE')
+
+	testImplementation('junit:junit:4.13.1')
+	testImplementation('org.mockito:mockito-core:3.6.0')
+	testImplementation('org.springframework:spring-test:5.2.6.RELEASE')
+	testImplementation('com.h2database:h2:1.4.200')
+}

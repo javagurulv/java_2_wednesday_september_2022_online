@@ -3,17 +3,15 @@ package myApp.consoleUI;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
-import myApp.core.database.DataBase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class AddBankAccountUIAction implements UIAction {
-
+    @Autowired
     private AddBankAccountService service;
-    public AddBankAccountUIAction(AddBankAccountService service) {
-        this.service = service;
-    }
-
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
@@ -21,15 +19,21 @@ public class AddBankAccountUIAction implements UIAction {
         String name = scanner.nextLine();
         System.out.println("Enter surname: ");
         String surname = scanner.nextLine();
-        System.out.println("Enter balance: ");
-        int balance = scanner.nextInt();
-        AddBankAccountRequest request = new AddBankAccountRequest(name, surname, balance);
+        System.out.println("Enter personal code: ");
+        String personalCode = scanner.nextLine();
+        System.out.println("Enter password: ");
+        String password = scanner.nextLine();
+        AddBankAccountRequest request = new AddBankAccountRequest(name, surname, personalCode, password);
         AddBankAccountResponse response = service.execute(request);
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error: "
                     + coreError.getField() + " " + coreError.getMessage()));
         } else {
-            System.out.println("Account has been added");
+            if (response.getBankAccount() != null) {
+                System.out.println("Bank account has been added");
+            } else {
+                System.out.println("Bank account has not been added");
+            }
         }
     }
 }

@@ -1,0 +1,14 @@
+В dbCreationScript.sql добавьте SQL код создания таблицы books
+с текстовыми полями название и автор, и полем id которое должно быть
+объявлено как первичный ключ. Так как все поля являются обязательными
+добавьте к каждому из них ограничение NOT NULL. Стратегия генерации
+первичного ключа (значения в колонке id) должно быть AUTO_INCREMENT.
+
+CREATE TABLE IF NOT EXISTS `books` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(200) NOT NULL,
+  `author` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;

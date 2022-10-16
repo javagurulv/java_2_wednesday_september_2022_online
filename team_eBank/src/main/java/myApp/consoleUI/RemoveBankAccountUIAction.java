@@ -3,24 +3,22 @@ package myApp.consoleUI;
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.RemoveBankAccountResponse;
 import myApp.core.services.RemoveBankAccountService;
-import myApp.core.database.DataBase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class RemoveBankAccountUIAction implements UIAction {
 
+    @Autowired
     private RemoveBankAccountService service;
-
-    public RemoveBankAccountUIAction(RemoveBankAccountService service) {
-        this.service = service;
-    }
 
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter account id: ");
-        Long id = Long.parseLong(scanner.nextLine());
-        RemoveBankAccountRequest request = new RemoveBankAccountRequest(id);
+        System.out.println("Enter personal code: ");
+        String personalCode = scanner.nextLine();
+        RemoveBankAccountRequest request = new RemoveBankAccountRequest(personalCode);
         RemoveBankAccountResponse response = service.execute(request);
         System.out.println("Bank account has been deleted");
         if (response.hasErrors()) {

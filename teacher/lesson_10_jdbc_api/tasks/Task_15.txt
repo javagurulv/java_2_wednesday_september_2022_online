@@ -1,0 +1,11 @@
+Напишите реализацию метода findByAuthor() в JdbcDatabaseImpl,
+для этого воспользуйтесь JdbcTemplate:
+
+	@Override
+	public List<Book> findByAuthor(String author) {
+		String sql = "SELECT * FROM books WHERE author = ?";
+		Object[] args = new Object[] {author};
+		return jdbcTemplate.query(sql, args, new BookRowMapper());
+	}
+
+Убедитесь, что данный метод возвращает данные из реальной базы данных.

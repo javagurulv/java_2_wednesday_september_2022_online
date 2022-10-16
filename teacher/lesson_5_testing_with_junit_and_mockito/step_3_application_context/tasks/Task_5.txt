@@ -1,0 +1,15 @@
+Создайте в классе ApplicationContext конструктор без
+параметров и перенесите логику создания всех классов
+из BookListApplication класса в конструктор класса
+ApplicationContext следующим образом:
+
+    beans.put(Database.class, new InMemoryDatabaseImpl());
+
+    beans.put(AddBookValidator.class, new AddBookValidator());
+    beans.put(AddBookService.class, new AddBookService(
+        getBean(AddBookValidator.class)
+    ));
+
+Для получения зависимостей класса (тех объектов, которые
+нужно подать в конструктор класса) пользуйтесь методом
+getBean(...).

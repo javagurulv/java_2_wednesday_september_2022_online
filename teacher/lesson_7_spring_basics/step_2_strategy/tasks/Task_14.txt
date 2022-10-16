@@ -1,0 +1,25 @@
+Строка с созданием аппликационного контекста получилась очень длинной.
+Длинные строки кода плохо читать. Попробуем упростить это длинную строку.
+Для этого создание аппликационного контекста вынесем в отдельный метод.
+
+
+public class BookListApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext applicationContext = createApplicationContext();
+		ProgramMenu programMenu = applicationContext.getBean(ProgramMenu.class);
+		while (true) {
+			programMenu.print();
+			int menuNumber = programMenu.getMenuNumberFromUser();
+			programMenu.executeSelectedMenuItem(menuNumber);
+		}
+	}
+
+	private static ApplicationContext createApplicationContext() {
+		return new AnnotationConfigApplicationContext(BookListConfiguration.class);
+	}
+
+}
+
+Пускай код программы стал содержать чуть больше строк кода
+за счёт объявления нового метода, но зато такой код проще читать.

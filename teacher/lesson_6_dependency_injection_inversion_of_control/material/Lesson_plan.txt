@@ -1,0 +1,7 @@
+Lesson 6 plan:
+
+1. Class Dependencies
+2. Constructor injection
+3. Method injection
+4. Field injection
+5. Inversion of Control or Dependency Injection

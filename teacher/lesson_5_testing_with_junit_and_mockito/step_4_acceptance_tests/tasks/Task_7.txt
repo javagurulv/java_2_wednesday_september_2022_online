@@ -1,0 +1,2 @@
+Напишите acceptance тесты для удаления книги
+в библиотеку RemoveBookRequest.

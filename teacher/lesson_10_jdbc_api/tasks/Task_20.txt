@@ -1,0 +1,38 @@
+Для acceptance и интеграционных тестов нужно, чтобы в начале их
+выполнения база данных находилась в одном и том же состоянии.
+Например была полностью пустой. Тогда результат выполнения тестов
+будет одинаковый и прогнозируемый.
+
+Для того, чтобы удалять все данные из базы перед выполнением
+интеграционных и acceptance тестов в тестовой директории
+создайте следующий класс:
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DatabaseCleaner {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	public void clean() {
+		for(String tableName : getTableNames()) {
+			String sql = "delete from " + tableName;
+			jdbcTemplate.execute(sql);
+		}
+	}
+
+	private List<String> getTableNames() {
+		List<String> tableNames = new ArrayList<>();
+		tableNames.add("reader_books");
+		tableNames.add("readers");
+		tableNames.add("books");
+		return tableNames;
+	}
+
+}

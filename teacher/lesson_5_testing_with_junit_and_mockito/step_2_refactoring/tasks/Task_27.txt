@@ -1,0 +1,12 @@
+После добавления в класс SearchBooksRequestValidator конструктора
+с параметром OrderingValidator наш тестовый код перестал компилироваться.
+
+Добавьте создание OrderingValidator
+в класс SearchBooksRequestValidatorTest.
+
+Для имитации поведения OrderingValidator класса
+в SearchBooksRequestValidatorTest используйте моки.
+
+Исправьте тесты в классе SearchBooksRequestValidatorTest так, чтобы
+они проверяли не объект Ordering, а то что вызывается
+функционал класса OrderingValidator.

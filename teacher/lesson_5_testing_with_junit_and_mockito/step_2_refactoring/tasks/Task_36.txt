@@ -1,0 +1,12 @@
+После добавления в класс SearchBooksRequestValidator конструктора
+с параметром PagingValidator наш тестовый код перестал компилироваться.
+
+Добавьте создание PagingValidator
+в класс SearchBooksRequestValidatorTest.
+
+Для имитации поведения PagingValidator класса
+в SearchBooksRequestValidatorTest используйте моки.
+
+Исправьте тесты в классе SearchBooksRequestValidatorTest так, чтобы
+они проверяли не объект Paging, а то что вызывается
+функционал класса PagingValidator.

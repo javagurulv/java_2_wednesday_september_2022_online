@@ -1,0 +1,143 @@
+Давайте взглянем еще раз на тесты нашего SearchBooksRequestValidator.
+
+public class SearchBooksRequestValidatorTest {
+
+	private SearchBooksRequestValidator validator = new SearchBooksRequestValidator();
+
+	@Test
+	public void shouldNotReturnErrorsWhenTitleIsProvided() {
+		SearchBooksRequest request = new SearchBooksRequest("Title", null);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 0);
+	}
+
+	@Test
+	public void shouldNotReturnErrorsWhenAuthorIsProvided() {
+		SearchBooksRequest request = new SearchBooksRequest(null, "Author");
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 0);
+	}
+
+	@Test
+	public void shouldNotReturnErrorsWhenTitleAndAuthorIsProvided() {
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author");
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 0);
+	}
+
+	@Test
+	public void shouldReturnErrorWhenSearchFieldsAreEmpty() {
+		SearchBooksRequest request = new SearchBooksRequest(null, null);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 2);
+		assertEquals(errors.get(0).getField(), "title");
+		assertEquals(errors.get(0).getMessage(), "Must not be empty!");
+		assertEquals(errors.get(1).getField(), "author");
+		assertEquals(errors.get(1).getMessage(), "Must not be empty!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenOrderDirectionAreEmpty() {
+		Ordering ordering = new Ordering("title", null);
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", ordering);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "orderDirection");
+		assertEquals(errors.get(0).getMessage(), "Must not be empty!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenOrderByAreEmpty() {
+		Ordering ordering = new Ordering(null, "ASCENDING");
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", ordering);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "orderBy");
+		assertEquals(errors.get(0).getMessage(), "Must not be empty!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenOrderByContainNotValidValue() {
+		Ordering ordering = new Ordering("notValidValue", "ASCENDING");
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", ordering);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "orderBy");
+		assertEquals(errors.get(0).getMessage(), "Must contain 'author' or 'title' only!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenOrderDirectionContainNotValidValue() {
+		Ordering ordering = new Ordering("title", "notValidValue");
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", ordering);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "orderDirection");
+		assertEquals(errors.get(0).getMessage(), "Must contain 'ASCENDING' or 'DESCENDING' only!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenPageNumberContainNotValidValue() {
+		Paging paging = new Paging(0, 1);
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", paging);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "pageNumber");
+		assertEquals(errors.get(0).getMessage(), "Must be greater then 0!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenPageSizeContainNotValidValue() {
+		Paging paging = new Paging(1, 0);
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", paging);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "pageSize");
+		assertEquals(errors.get(0).getMessage(), "Must be greater then 0!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenPageNumberAreEmpty() {
+		Paging paging = new Paging(null, 1);
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", paging);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "pageNumber");
+		assertEquals(errors.get(0).getMessage(), "Must not be empty!");
+	}
+
+	@Test
+	public void shouldReturnErrorWhenPageSizeAreEmpty() {
+		Paging paging = new Paging(1, null);
+		SearchBooksRequest request = new SearchBooksRequest("Title", "Author", paging);
+		List<CoreError> errors = validator.validate(request);
+		assertEquals(errors.size(), 1);
+		assertEquals(errors.get(0).getField(), "pageSize");
+		assertEquals(errors.get(0).getMessage(), "Must not be empty!");
+	}
+
+}
+
+Кода получилось больше чем на 100 строчек. Логичный вопрос, который
+можно в таком случае себе задать может звучать так: почему тестов
+получилось так много?
+
+Ответ будет очевидным: потому что тестируемый класс отвечает за
+большое количество проверок (тоесть на него возлодено много
+ответственности).
+
+За что же отвечает наш тестируемый класс (SearchBooksRequestValidator)?
+
+- за проверку полей SearchBooksRequest (title, author)
+- за проверку объекта SearchBooksRequest (Ordering)
+- за проверку объекта SearchBooksRequest (Paging)
+
+Вот и получается, что ответственности у нашего класса много, что и
+приводит к большому количеству тестов в тестовом классе.
+
+Следующий логичный вопрос, который мы можем задать:
+
+- А можем ли мы что то с этим сделать?
+
+Прежде чем читать дальше, подумайте над этим вопросом и попытайтесь
+сформировать ваши идеи и предложения.

@@ -12,10 +12,34 @@ include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_1_search'
 include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_2_ordering'
 include 'teacher:lesson_4_git_brancing_pull_request_code_review:step_3_paging'
 
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_1_mockito'
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_2_refactoring'
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_3_application_context'
+include 'teacher:lesson_5_testing_with_junit_and_mockito:step_4_acceptance_tests'
 
-include 'team_xxx'
+include 'teacher:lesson_6_dependency_injection_inversion_of_control:step_1_dependency_injection'
+
+include 'teacher:lesson_7_spring_basics:step_1_spring'
+include 'teacher:lesson_7_spring_basics:step_2_strategy'
+
+include 'teacher:lesson_8_introduction_to_sql'
+
+include 'teacher:lesson_9_advanced_sql'
+
+include 'teacher:lesson_10_jdbc_api'
+
+include 'teacher:lesson_11_orm_introduction'
+
+include 'teacher:lesson_12_orm_relations'
+
+
 include 'team_eBank'
 include 'team_clean_sour_cream'
 include 'team_internet_meme'
 include 'team_eBooking'
+include 'team_fitness_club'
+include 'team_atm_system'
+include 'team_repo_men_inc'
+include 'team_tasks_scheduler'
+include 'team_eSimpleForum'
 

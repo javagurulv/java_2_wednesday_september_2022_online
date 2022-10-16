@@ -1,14 +1,11 @@
 package myApp.core.requests;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public class RemoveBankAccountRequest {
 
-    private Long id;
-
-    public RemoveBankAccountRequest(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
+    private String personalCode;
 }

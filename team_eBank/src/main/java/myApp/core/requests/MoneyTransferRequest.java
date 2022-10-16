@@ -1,26 +1,13 @@
 package myApp.core.requests;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public class MoneyTransferRequest {
 
-    private Long userID;
+    private String personalCode;
+    private String anotherPersonalCode;
     private int value;
-    private Long anotherAccountID;
-
-    public MoneyTransferRequest(Long userID, int value, Long anotherAccountID) {
-        this.userID = userID;
-        this.value = value;
-        this.anotherAccountID = anotherAccountID;
-    }
-
-    public Long getUserID() {
-        return userID;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public Long getAnotherAccountID() {
-        return anotherAccountID;
-    }
 }

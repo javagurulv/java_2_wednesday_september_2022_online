@@ -1,0 +1,15 @@
+dependencies {
+    testImplementation('junit:junit:4.13.2')
+    testImplementation('org.mockito:mockito-core:4.8.0')
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    implementation('org.reflections:reflections:0.10.2')
+
+    implementation('org.springframework:spring-context:5.3.23')
+    testImplementation('org.springframework:spring-test:5.3.23')
+}

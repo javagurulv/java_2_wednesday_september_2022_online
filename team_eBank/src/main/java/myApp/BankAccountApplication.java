@@ -1,60 +1,70 @@
 package myApp;
 
-import myApp.consoleUI.*;
-import myApp.core.database.DataBase;
-import myApp.core.database.InMemoryDatabaseImpl;
-import myApp.core.services.*;
+import myApp.config.BankAccountConfiguration;
+import myApp.consoleUI.LogInUIAction;
+import myApp.consoleUI.ProgramMenuForAdmin;
+import myApp.consoleUI.ProgramMenuForRegularUser;
+import myApp.core.services.UserAreAdminService;
+import myApp.core.services.UserService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.Scanner;
 
 class BankAccountApplication {
 
-    private static DataBase dataBase = new InMemoryDatabaseImpl();
-    private static AddBankAccountValidator validator = new AddBankAccountValidator();
-    private static AddBankAccountService service = new AddBankAccountService(dataBase, validator);
-    private static UIAction addUIAction = new AddBankAccountUIAction(service);
-    private static RemoveBankAccountValidator removeBankAccountValidator = new RemoveBankAccountValidator();
-    private static RemoveBankAccountService removeBankAccountService = new RemoveBankAccountService(dataBase
-            , removeBankAccountValidator);
-    private static UIAction removeUIAction = new RemoveBankAccountUIAction(removeBankAccountService);
-    private static UIAction getAllAccountsUIAction = new GetAllAccountsUIAction(dataBase);
-    private static MoneyTransferValidator moneyTransferValidator = new MoneyTransferValidator();
-    private static MoneyTransferService moneyTransferService = new MoneyTransferService(dataBase
-            , moneyTransferValidator);
-    private static UIAction moneyTransfer = new MoneyTransferUIAction(moneyTransferService);
-    private static UIAction exit = new ExitUIAction();
+    private static ApplicationContext applicationContext =
+            new AnnotationConfigApplicationContext(BankAccountConfiguration.class);
 
     public static void main(String[] args) {
+        run();
+    }
+
+    private static void run() {
+        logIn();
         while (true) {
-            printInformation();
-            int result = userChoice();
-            userSelectionResult(result);
+            String personalCode = getPersonalCode();
+            if (personalCode == null || personalCode.isEmpty()) {
+                System.out.println();
+                System.out.println("User not found");
+                System.out.println();
+                logIn();
+            } else {
+                if (isUserAdmin()) {
+                    ifAdminLogin();
+                } else {
+                    ifUserLogin();
+                }
+            }
         }
     }
 
-    private static void printInformation() {
-        System.out.println();
-        System.out.println("Menu: ");
-        System.out.println("1 - Get all accounts");
-        System.out.println("2 - Add account");
-        System.out.println("3 - Remove account");
-        System.out.println("4 - Transfer money");
-        System.out.println("5 - Exit");
+    private static void ifAdminLogin() {
+        ProgramMenuForAdmin adminMenu = applicationContext.getBean(ProgramMenuForAdmin.class);
+        adminMenu.printInformationForAdmin();
+        int result = adminMenu.userChoice();
+        adminMenu.executeSelectedMenuItem(result);
     }
 
-    private static void userSelectionResult(int userChoice) {
-        switch (userChoice) {
-            case 1 -> getAllAccountsUIAction.execute();
-            case 2 -> addUIAction.execute();
-            case 3 -> removeUIAction.execute();
-            case 4 -> moneyTransfer.execute();
-            case 5 -> exit.execute();
-        }
+    private static void ifUserLogin() {
+        ProgramMenuForRegularUser userMenu = applicationContext.getBean(ProgramMenuForRegularUser.class);
+        userMenu.printInformationForRegularUser();
+        int result = userMenu.userChoice();
+        userMenu.executeSelectedMenuItem(result);
     }
 
-    private static int userChoice() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter menu number: ");
-        return scanner.nextInt();
+    private static void logIn() {
+        LogInUIAction uiAction = applicationContext.getBean(LogInUIAction.class);
+        uiAction.execute();
+    }
+
+    private static boolean isUserAdmin() {
+        UserService userService = applicationContext.getBean(UserService.class);
+        UserAreAdminService userAreAdminService = applicationContext.getBean(UserAreAdminService.class);
+        return userAreAdminService.isUserAreAdmin(userService.getPersonalCode());
+    }
+
+    private static String getPersonalCode() {
+        UserService userService = applicationContext.getBean(UserService.class);
+        return userService.getPersonalCode();
     }
 }

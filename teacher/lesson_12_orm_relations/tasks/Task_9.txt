@@ -1,0 +1,23 @@
+Создайте в пакете /core/database класс ReaderBookRepository
+и реализуйте в этом классе методы save(ReaderBook readerBook)
+и findById(Long id):
+
+
+@Component
+@Transactional
+public class ReaderBookRepository {
+
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	public void save(ReaderBook readerBook) {
+		sessionFactory.getCurrentSession().save(readerBook);
+	}
+
+	public ReaderBook getById(Long id) {
+		return sessionFactory.getCurrentSession()
+				.get(ReaderBook.class, id);
+	}
+
+}
+

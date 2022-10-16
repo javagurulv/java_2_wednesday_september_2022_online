@@ -1,0 +1,37 @@
+Для всех свойств доменных объектов добавьте аннотацию @Column
+и явно укажите на какую колонку в таблице базы данных
+мапится каждое из свойств:
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import java.util.Objects;
+
+@Entity
+@Table(name="books")
+public class Book {
+
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	@Column(name="title", nullable = false)
+	private String title;
+
+	@Column(name="author", nullable = false)
+	private String author;
+
+}
+
+Не полагайтесь на то, что мапинг будет работать если названия
+свойств класса и названия колонок в таблице базы данных совпадают.
+Если вдруг одно из них поменяется, то мапинг перестанет работать.
+Явное указание названий колонок через аннотацию @Column дяёт
+возможность отдельно менять названия свойств класса и название
+колонок в базе данных. Тоесть проводить в будущем любого рода
+рефакторинг как на уровне кода приложения так и в самой базе данных.

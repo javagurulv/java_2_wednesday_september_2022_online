@@ -1,0 +1,13 @@
+Lesson 5 plan:
+
+1. JUnit
+2. Mockito
+3. Mock creation
+4. @Mock @InjectMocks MockitoJUnitRunner
+5. Mockito.when().thenReturn()
+6. Mockito.when().thenThrow()
+
+7. Application context - ? (fit in this lesson or move to next)
+8. Acceptance tests - ? (for in this lesson or move to next)
+
+

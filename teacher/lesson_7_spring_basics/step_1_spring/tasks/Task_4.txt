@@ -1,0 +1,27 @@
+Рядом с классом BookListApplication создайте класс BookListConfiguration:
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = "lv.javaguru.java2.library")
+public class BookListConfiguration {
+
+}
+
+Spring аннотация @Configuration используется для того, чтобы указать на то
+что данный класс является классом конфигурации.
+
+Spring Framework поддерживает несколько способов хранения конфигурации:
+1. properties файлы
+2. xml файлы
+3. конфигурация в Java коде
+
+Класс BookListConfiguration является примером конфигурации представленной
+прямо в Java коде.
+
+Spring аннотация @ComponentScan используется для указания главного пакета
+аппликации в котором при старте приложения будет происходить поиск классов
+проаннатированных аннотацией @Component. Все найденные классы с аннотацией
+@Component будут включены в контекст приложения и для них будут настроены
+зависимости.

@@ -1,0 +1,22 @@
+Для того, чтобы Spring на старте читал
+файл конфигурации application.properties нужно
+добавить аннотацию @PropertySource к классу
+с конфигурацией Spring Framework:
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@Configuration
+@ComponentScan(basePackages = "lv.javaguru.java2.library")
+@PropertySource(value = "classpath:application.properties")
+public class BookListConfiguration {
+
+}
+
+value = "classpath:application.properties" - означает,
+что приложение будет искать файл application.properties
+в своём classpath. В структуре проекта директория
+src/main/resources входит в classpath приложения при
+старте, поэтому файл application.properties будет
+прочитан приложением в момент запуска.

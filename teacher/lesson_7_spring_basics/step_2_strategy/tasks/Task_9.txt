@@ -1,0 +1,41 @@
+Создайте в классе ProgramMenu метод:
+
+    findUIAction(List<UIAction> uiActions, Class uiActionClass)
+
+целью которого будет нахождение в списке указанного UIAction класса.
+
+
+public class ProgramMenu {
+
+	private Map<Integer, UIAction> menuNumberToUIActionMap;
+
+	@Autowired
+	public ProgramMenu(List<UIAction> uiActions) {
+
+	}
+
+	private UIAction findUIAction(List<UIAction> uiActions, Class uiActionClass) {
+		return uiActions.stream()
+				.filter(uiAction -> uiAction.getClass().equals(uiActionClass))
+				.findFirst()
+				.get();
+	}
+
+	public void print() {
+		System.out.println();
+		System.out.println("Program menu:");
+		System.out.println("1. Add book to list");
+		System.out.println("2. Delete book from list");
+		System.out.println("3. Show all books in the list");
+		System.out.println("4. Search books");
+		System.out.println("5. Exit");
+		System.out.println();
+	}
+
+	public int getMenuNumberFromUser() {
+		System.out.println("Enter menu item number to execute:");
+		Scanner scanner = new Scanner(System.in);
+		return Integer.parseInt(scanner.nextLine());
+	}
+
+}

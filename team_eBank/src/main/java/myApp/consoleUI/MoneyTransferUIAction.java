@@ -1,29 +1,29 @@
 package myApp.consoleUI;
 
-import myApp.core.database.DataBase;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
+import myApp.core.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class MoneyTransferUIAction implements UIAction {
-
+    @Autowired
     private MoneyTransferService service;
-    public MoneyTransferUIAction(MoneyTransferService service) {
-        this.service = service;
-    }
-
+    @Autowired
+    private UserService userService;
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your ID: ");
-        Long accountID = scanner.nextLong();
-        System.out.println("Enter amount: ");
-        int amount = scanner.nextInt();
-        System.out.println("Enter the account id to whom you want to make a transfer: ");
-        Long anotherAccountID = scanner.nextLong();
-        MoneyTransferRequest request = new MoneyTransferRequest(accountID, amount, anotherAccountID);
+        String yourPersonalCode = userService.getPersonalCode();
+        System.out.println("Enter another personal code");
+        String anotherPersonalCode = scanner.nextLine();
+        System.out.println("Enter value: ");
+        int value = scanner.nextInt();
+        MoneyTransferRequest request = new MoneyTransferRequest(yourPersonalCode, anotherPersonalCode, value);
         MoneyTransferResponse response = service.execute(request);
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error: "

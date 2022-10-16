@@ -1,0 +1,11 @@
+Напишите реализацию метода findByTitle() в JdbcDatabaseImpl,
+для этого воспользуйтесь JdbcTemplate:
+
+	@Override
+	public List<Book> findByTitle(String title) {
+		String sql = "SELECT * FROM books WHERE title = ?";
+		Object[] args = new Object[] {title};
+		return jdbcTemplate.query(sql, args, new BookRowMapper());
+	}
+
+Убедитесь, что данный метод возвращает данные из реальной базы данных.

@@ -1,14 +1,17 @@
 package myApp.core.responses;
 
-import myApp.BankAccount;
 
+import myApp.core.domain.BankAccount;
 import java.util.List;
+
+
 
 public class GetAllBankAccountsResponse extends CoreResponse {
 
-    List<BankAccount> bankAccounts;
+    private List<BankAccount> bankAccounts;
 
-    public GetAllBankAccountsResponse(List<BankAccount> bankAccounts) {
+    public GetAllBankAccountsResponse(List<CoreError> errors, List<BankAccount> bankAccounts) {
+        super(errors);
         this.bankAccounts = bankAccounts;
     }
 

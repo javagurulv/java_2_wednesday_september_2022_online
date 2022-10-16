@@ -1,0 +1,36 @@
+Как ORM будет доставать данные из бызы данных для указанных
+в объектной модели связей?
+
+	@ManyToOne
+	@JoinColumn(name = "reader_id", nullable = false)
+	private Reader reader;
+
+	@ManyToOne
+	@JoinColumn(name = "book_id", nullable = false)
+	private Book book;
+
+Какой SQL запрос ORM будет выполнять?
+
+ORM будет выполнять SQL запрос с командой JOIN для того
+чтобы во время выполнения запроса объеденить несколько
+таблиц и в результате получить данные для заполнения
+всех свойств объектной модели:
+
+select reader_books.*,
+       readers.*,
+       books.*
+    from reader_books
+	LEFT JOIN readers
+		on reader_books.reader_id = readers.id
+    LEFT JOIN books
+        on reader_books.book_id = books.id
+WHERE reader_books.id = ?;
+
+Напишите команды SELECT с инструкцией JOIN для своей модели
+данных. Научитесь с помощью JOIN объединять таблицы во время
+выполнения запроса и в результате получать данные из разных
+таблиц.
+
+Описание разных способов объединения таблиц при помощи JOIN:
+https://shra.ru/2017/09/sql-join-v-primerakh-s-opisaniem/
+https://www.w3schools.com/sql/sql_join.asp
