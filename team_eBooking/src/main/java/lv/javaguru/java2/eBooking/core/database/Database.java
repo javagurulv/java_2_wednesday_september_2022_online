@@ -18,8 +18,7 @@ public interface Database {
     boolean deleteAppointmentById(Long id);
 
     List<Appointment> getAllAppointments();
-
-
+    
     List<Client> findClientByEMail(String clientEmail);
 
     List <Client> findClientByPhoneNumber(String clientPhoneNumber);

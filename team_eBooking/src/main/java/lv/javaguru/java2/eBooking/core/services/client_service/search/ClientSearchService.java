@@ -32,6 +32,7 @@ public class ClientSearchService {
         if(request.isEmailProvided() && request.isPhoneNumberProvided()){
             client=database.findClientByEmailAndPhoneNumber(request.getClientEmail(), request.getClientPhoneNumber());
         }
+        System.out.println("Client not found");
         return new SearchClientResponse(null, client);
     }
 

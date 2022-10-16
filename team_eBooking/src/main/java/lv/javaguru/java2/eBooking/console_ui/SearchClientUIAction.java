@@ -31,7 +31,7 @@ public class SearchClientUIAction implements UIAction{
             response.getErrors().forEach(coreError-> System.out.println(coreError.getField() +
                     " " + coreError.getClientValidationMessage()));
         } else {
-            response.getClients().forEach(Client::toString);
+            response.getClients().forEach(client -> System.out.println(client));
         }
     }
 }
