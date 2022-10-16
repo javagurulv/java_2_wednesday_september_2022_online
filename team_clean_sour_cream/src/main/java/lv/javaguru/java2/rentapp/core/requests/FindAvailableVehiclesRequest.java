@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class FindAvailableVehiclesRequest {
 
-    String startDate;
-    String endDate;
+    String rentStartDate;
+    String rentEndDate;
 
 }

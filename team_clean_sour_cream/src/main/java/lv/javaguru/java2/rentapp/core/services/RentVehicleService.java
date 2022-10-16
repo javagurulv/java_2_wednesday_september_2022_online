@@ -25,8 +25,8 @@ public class RentVehicleService {
     public RentVehicleResponse execute(RentVehicleRequest request) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(request.getStartDate(), formatter);
-        LocalDate endDate = LocalDate.parse(request.getEndDate(), formatter);
+        LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
+        LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
         Client client = new Client(request.getPersonalId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getPhoneNumber());
         Optional<Vehicle> vehicleOpt = vehicleDatabase.getById(request.getVehicleId());
         if (vehicleOpt.isPresent()) {

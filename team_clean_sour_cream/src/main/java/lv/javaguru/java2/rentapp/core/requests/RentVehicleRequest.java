@@ -15,7 +15,7 @@ public class RentVehicleRequest {
     private String email;
     private String phoneNumber;
 
-    private String startDate;
-    private String endDate;
+    private String rentStartDate;
+    private String rentEndDate;
 
 }
