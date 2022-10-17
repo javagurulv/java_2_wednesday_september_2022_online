@@ -20,13 +20,17 @@ public class RecipeRowMapper implements RowMapper<Recipe> {
 
     @Override
     public Recipe mapRow(ResultSet rs, int rowNum) throws SQLException {
-        String sql1 = "SELECT * FROM ingredients WHERE recipe_id = " + rs.getLong("recipes.id");
+        String sql1 = "SELECT ingredients.ingredient, recipes_to_ingredients.amount, measurement " +
+                "FROM ingredients INNER JOIN recipes_to_ingredients ON id = ingredient_id " +
+                "WHERE recipe_id = " + rs.getLong("recipes.id");
         List<Ingredient> ingredients = jdbcTemplate.query(sql1, new IngredientsRowMapper());
 
         String sql2 = "SELECT * FROM cooking_steps WHERE recipe_id = " + rs.getLong("recipes.id");
         List<CookingStep> cookingSteps = jdbcTemplate.query(sql2, new CookingStepsRowMapper());
 
-        return new Recipe(rs.getString("dishName"), ingredients, cookingSteps);
+        Recipe recipe = new Recipe(rs.getString("dishName"), ingredients, cookingSteps);
+        recipe.setId(rs.getLong("id"));
+        return recipe;
     }
 
 }
