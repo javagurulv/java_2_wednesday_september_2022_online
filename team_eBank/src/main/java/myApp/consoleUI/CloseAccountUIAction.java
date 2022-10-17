@@ -1,18 +1,17 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.CloseAccountRequest;
-
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.services.CloseAccountService;
 import myApp.core.services.UserService;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class CloseAccountUIAction implements UIAction {
-    @DIDependency
+    @Autowired
     private CloseAccountService service;
-    @DIDependency
+    @Autowired
     private UserService userService;
 
     @Override

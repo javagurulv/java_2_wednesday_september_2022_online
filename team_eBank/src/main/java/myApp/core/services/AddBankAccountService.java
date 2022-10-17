@@ -1,24 +1,24 @@
 package myApp.core.services;
 
+import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
-import myApp.core.database.DataBase;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.AddBankAccountValidator;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@DIComponent
+@Component
 public class AddBankAccountService {
 
-    @DIDependency
+    @Autowired
     private DataBase dataBase;
-    @DIDependency
+    @Autowired
     private AddBankAccountValidator validator;
 
     public AddBankAccountResponse execute(AddBankAccountRequest request) {

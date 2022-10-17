@@ -1,9 +1,10 @@
 package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
+import lombok.EqualsAndHashCode;
 import lv.javaguru.java2.rentapp.domain.*;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
-
+@EqualsAndHashCode
 public class VehicleTypeCriteria implements SearchCriteria {
 
     private String vehicleType;

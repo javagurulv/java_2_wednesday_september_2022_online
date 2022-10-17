@@ -18,10 +18,13 @@ public class AddVehicleService {
     private AddVehicleValidatorMap vehicleValidatorMap;
     private Database database;
 
-    public AddVehicleService(Database database) {
+    public AddVehicleService(VehicleCreatorMap vehicleCreatorMap,
+                             AddVehicleValidatorMap vehicleValidatorMap,
+                             Database database) {
+        this.vehicleCreatorMap = vehicleCreatorMap;
+        this.vehicleValidatorMap = vehicleValidatorMap;
         this.database = database;
-        this.vehicleCreatorMap = new VehicleCreatorMap();
-        this.vehicleValidatorMap = new AddVehicleValidatorMap(database);
+
     }
 
     public AddVehicleResponse execute(AddVehicleRequest request) {

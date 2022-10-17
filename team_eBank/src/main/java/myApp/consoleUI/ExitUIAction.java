@@ -1,8 +1,8 @@
 package myApp.consoleUI;
 
-import myApp.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class ExitUIAction implements UIAction {
 
     @Override

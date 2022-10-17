@@ -1,13 +1,13 @@
 package myApp.core.services.validators;
 
-import myApp.core.responses.CoreError;
 import myApp.core.requests.MoneyTransferRequest;
-import myApp.dependency_injection.DIComponent;
+import myApp.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-@DIComponent
+@Component
 public class MoneyTransferValidator {
 
     public List<CoreError> validate(MoneyTransferRequest request) {

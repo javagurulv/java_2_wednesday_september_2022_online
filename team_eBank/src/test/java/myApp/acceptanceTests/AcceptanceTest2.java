@@ -1,5 +1,6 @@
 package myApp.acceptanceTests;
 
+import myApp.config.BankAccountConfiguration;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.requests.Ordering;
 import myApp.core.requests.Paging;
@@ -7,18 +8,22 @@ import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
 import myApp.core.services.SearchBankAccountService;
-import myApp.dependency_injection.ApplicationContext;
-import myApp.dependency_injection.DIApplicationContextBuilder;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.junit.Assert.assertEquals;
 
 
 public class AcceptanceTest2 {
 
-    private ApplicationContext appContext =
-            new DIApplicationContextBuilder().build("myApp");
+    private ApplicationContext appContext;
 
+    @Before
+    public void setup() {
+        appContext = new AnnotationConfigApplicationContext(BankAccountConfiguration.class);
+    }
     @Test
     public void testSuccessFindTwoBankAccounts() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleOne",

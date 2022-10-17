@@ -1,25 +1,23 @@
 package myApp.core.services;
 
 import myApp.core.database.DataBase;
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
 import myApp.core.requests.LogInRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.LogInResponse;
 import myApp.core.services.validators.LogInValidator;
-import myApp.dependency_injection.DIComponent;
-import myApp.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
-@DIComponent
+@Component
 public class LogInService {
-    @DIDependency
+
+    @Autowired
     private DataBase dataBase;
-    @DIDependency
+    @Autowired
     private UserService userService;
-    @DIDependency
+    @Autowired
     private LogInValidator validator;
 
     public LogInResponse execute(LogInRequest request) {
