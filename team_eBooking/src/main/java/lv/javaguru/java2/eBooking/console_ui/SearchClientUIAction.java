@@ -19,6 +19,12 @@ public class SearchClientUIAction implements UIAction{
         String clientEmail = scanner.nextLine();
         System.out.println("Enter client phone number: ");
         String clientPhoneNumber = scanner.nextLine();
+//
+//        System.out.println("Sort by EMAIL or PHONE NUMBER");
+//        String orderBy = scanner.nextLine();
+//        System.out.println("Sort direction ASC or DESC");
+//        String orderDirection = scanner.nextLine();
+//        Ordering ordering = new Ordering(orderBy,orderDirection);
 
         SearchClientRequest request = new SearchClientRequest(clientEmail,clientPhoneNumber);
         SearchClientResponse response = clientSearchService.execute(request);
