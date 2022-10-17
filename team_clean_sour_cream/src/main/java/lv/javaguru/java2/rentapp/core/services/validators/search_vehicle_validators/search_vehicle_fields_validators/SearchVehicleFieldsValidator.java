@@ -14,15 +14,11 @@ public abstract class SearchVehicleFieldsValidator {
 
     protected Optional<CoreError> validateVehicleType(SearchVehicleRequest request) {
 
-        List<String> enumVehicleTypeValues = VehicleType.getAllEnumValues();
-
         VehicleType vehicleType = request.getVehicleType();
-        if (vehicleType == null || vehicleType.getNameVehicleType().isBlank()) {
+        if (vehicleType == null) {
             return Optional.of(new CoreError("Vehicle Type", "can`t be empty"));
-        } else if (areEnumValuesValid(enumVehicleTypeValues, vehicleType.getNameVehicleType())) {
-            return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Vehicle Type", "must be one of the provided options (" + enumVehicleTypeValues + ")"));
+            return Optional.empty();
         }
     }
 

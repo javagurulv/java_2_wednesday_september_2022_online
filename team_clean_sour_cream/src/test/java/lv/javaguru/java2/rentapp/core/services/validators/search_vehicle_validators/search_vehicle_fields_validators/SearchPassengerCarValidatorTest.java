@@ -2,6 +2,7 @@ package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_valida
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SearchPassengerCarValidatorTest {
 
@@ -24,7 +24,16 @@ class SearchPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidateReturnListWithAllErrorsWhenRequestIsNull() {
+    void testValidateReturnListWithErrorWhenRequestIsNull() {
+        searchVehicleRequest = SearchVehicleRequest.builder().build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertEquals(1, errors.size());
+        assertEquals("Vehicle Type", errors.get(0).getField());
+        assertEquals("can`t be empty", errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateReturnListWithAllErrorsWhenRequestIsNotValid() {
         searchVehicleRequest = SearchVehicleRequest.builder()
                 .transmissionType("")
                 .hasConditioner("")
@@ -51,7 +60,14 @@ class SearchPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidateTransmissionTypeIsNullReturnError() {
+    void testValidateVehicleTypeIsValidReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateVehicleType(searchVehicleRequest);
+        assertFalse(error.isPresent());
+    }
+
+    @Test
+    void testValidateVehicleTypeIsNullReturnError() {
         searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(null).build();
         Optional<CoreError> error = searchPassengerCarValidator.validateVehicleType(searchVehicleRequest);
         assertTrue(error.isPresent());
