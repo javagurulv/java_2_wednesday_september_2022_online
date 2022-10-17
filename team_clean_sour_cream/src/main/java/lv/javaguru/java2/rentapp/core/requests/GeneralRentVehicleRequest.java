@@ -18,4 +18,6 @@ public class GeneralRentVehicleRequest {
     private String rentStartDate;
     private String rentEndDate;
 
+    private Paging paging;
+
 }

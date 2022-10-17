@@ -3,6 +3,7 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
+import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -10,6 +11,7 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VehicleAvailabilityService {
 
@@ -28,8 +30,21 @@ public class VehicleAvailabilityService {
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
 
         List<Vehicle> availableVehicles = findAvailableVehiclesInRange(startDate, endDate);
+        availableVehicles = paging(availableVehicles, request.getPaging());
 
         return new VehicleAvailabilityResponse(null, availableVehicles);
+    }
+
+    private List<Vehicle> paging(List<Vehicle> vehicles, Paging paging) {
+        if (paging != null) {
+            int skip = (paging.getPageNumber() - 1) * paging.getPageSize();
+            return vehicles.stream()
+                    .skip(skip)
+                    .limit(paging.getPageSize())
+                    .collect(Collectors.toList());
+        } else {
+            return vehicles;
+        }
     }
 
     private List<Vehicle> findAvailableVehiclesInRange(LocalDate startDate, LocalDate endDate) {
