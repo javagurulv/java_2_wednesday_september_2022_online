@@ -33,9 +33,9 @@ public class RentVehicleUIAction implements UIAction {
             vehicleAvailabilityResponse.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
         } else if (vehicleAvailabilityResponse.getVehicles().isEmpty()) {
-            System.out.println("No vehicle available`ve been founded in that range");
+            System.out.println("No vehicle available`ve been found in that range");
         } else {
-            System.out.println("Available vehicles`ve been founded in that range: ");
+            System.out.println("Available vehicles`ve been found in that range: ");
             vehicleAvailabilityResponse.getVehicles().forEach(System.out::println);
 
             GeneralRentVehicleRequest rentVehicleRequest = createRentVehicleRequest(generalRentVehicleRequestBuilder);
@@ -46,6 +46,7 @@ public class RentVehicleUIAction implements UIAction {
                         System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
                 );
             } else {
+                System.out.println();
                 System.out.println(rentVehicleResponse.getMessage());
             }
         }
@@ -54,7 +55,7 @@ public class RentVehicleUIAction implements UIAction {
 
     private GeneralRentVehicleRequest.GeneralRentVehicleRequestBuilder createVehicleAvailabilityRequestBuilder() {
 
-        System.out.println("Enter the dates for period you`ld like to rent the vehicle");
+        System.out.println("Enter the dates for the period you`d like to rent the vehicle");
 
         System.out.println("Enter start date (in \"dd/MM/yyyy\" format): ");
         String rentStartDate = scanner.nextLine();
@@ -68,7 +69,7 @@ public class RentVehicleUIAction implements UIAction {
 
     private GeneralRentVehicleRequest createRentVehicleRequest(GeneralRentVehicleRequest.GeneralRentVehicleRequestBuilder
                                                                        generalRentVehicleRequestBuilder) {
-        System.out.println("Please enter ID of vehicle you want to rent: ");
+        System.out.println("Please enter ID of the vehicle you want to rent: ");
         Long vehicleId = Long.parseLong(scanner.nextLine());
         System.out.println("Please enter your personal ID (in format \"______-_____\": ");
         String personalId = scanner.nextLine();

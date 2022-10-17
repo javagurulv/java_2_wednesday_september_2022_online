@@ -45,7 +45,19 @@ public class VehicleAvailabilityService {
     }
 
     private boolean isNotAvailableInGivenRange(LocalDate startDate, LocalDate endDate, RentDeal rentDeal) {
-        return (startDate.isAfter(rentDeal.getStartDate()) && startDate.isBefore(rentDeal.getEndDate()))
-                || (endDate.isAfter(rentDeal.getStartDate()) && endDate.isBefore(rentDeal.getEndDate()));
+        return checkStartDate(startDate, rentDeal) || checkEndDate(endDate, rentDeal);
+    }
+
+    private boolean checkStartDate(LocalDate newDealStartDate, RentDeal rentDeal) {
+        LocalDate existingDealStartDate = rentDeal.getStartDate();
+        LocalDate existingDealEndDate = rentDeal.getEndDate();
+        return ((newDealStartDate.isAfter(existingDealStartDate) || newDealStartDate.isEqual(existingDealStartDate))
+                && (newDealStartDate.isBefore(existingDealEndDate) || newDealStartDate.isEqual(existingDealEndDate)));
+    }
+    private boolean checkEndDate(LocalDate newDealEndDate, RentDeal rentDeal) {
+        LocalDate existingDealStartDate = rentDeal.getStartDate();
+        LocalDate existingDealEndDate = rentDeal.getEndDate();
+        return ((newDealEndDate.isAfter(existingDealStartDate) || newDealEndDate.isEqual(existingDealStartDate))
+                && (newDealEndDate.isBefore(existingDealEndDate) || newDealEndDate.isEqual(existingDealEndDate)));
     }
 }
