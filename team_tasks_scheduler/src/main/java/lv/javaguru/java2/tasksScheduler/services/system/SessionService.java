@@ -1,5 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.system;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
+@DIComponent
 public class SessionService {
 
     private Long loggedUserId;

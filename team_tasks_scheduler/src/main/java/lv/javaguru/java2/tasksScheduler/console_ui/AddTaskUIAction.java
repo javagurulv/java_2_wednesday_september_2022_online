@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AddTaskService;
@@ -8,20 +10,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+@DIComponent
 public class AddTaskUIAction implements UIAction {
 
-    Scanner scanner = new Scanner(System.in);
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    private AddTaskService addTaskService;
-
-    public AddTaskUIAction(AddTaskService addTaskService) {
-        this.addTaskService = addTaskService;
-    }
+    @DIDependency private AddTaskService addTaskService;
 
     @Override
     public boolean execute() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter task description: ");
         String description = scanner.nextLine();
         System.out.println("Enter after what days count to repeat the task or 0 if this is once only task: ");

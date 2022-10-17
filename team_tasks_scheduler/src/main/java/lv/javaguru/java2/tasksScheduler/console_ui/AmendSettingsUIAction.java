@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
@@ -18,17 +20,12 @@ import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 
 import java.util.Scanner;
 
+@DIComponent
 public class AmendSettingsUIAction implements UIAction {
 
-    private AmendSettingsService amendSettingsService;
-    private GetSettingsService getSettingsService;
-    private SessionService sessionService;
-
-    public AmendSettingsUIAction(AmendSettingsService amendSettingsService, GetSettingsService getSettingsService, SessionService sessionService) {
-        this.amendSettingsService = amendSettingsService;
-        this.getSettingsService = getSettingsService;
-        this.sessionService = sessionService;
-    }
+    @DIDependency private AmendSettingsService amendSettingsService;
+    @DIDependency private GetSettingsService getSettingsService;
+    @DIDependency private SessionService sessionService;
 
     @Override
     public boolean execute() {

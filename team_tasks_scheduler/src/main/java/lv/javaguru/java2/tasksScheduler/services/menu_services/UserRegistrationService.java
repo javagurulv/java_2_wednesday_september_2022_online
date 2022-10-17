@@ -1,6 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
@@ -10,15 +12,11 @@ import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
 import java.util.List;
 
+@DIComponent
 public class UserRegistrationService {
 
-    private UsersRepository usersRepository;
-    private UserRegistrationValidator validator;
-
-    public UserRegistrationService(UsersRepository usersRepository, UserRegistrationValidator validator) {
-        this.usersRepository = usersRepository;
-        this.validator = validator;
-    }
+    @DIDependency private UsersRepository usersRepository;
+    @DIDependency private UserRegistrationValidator validator;
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
         List<CoreError> errors = validator.validate(request, usersRepository);
