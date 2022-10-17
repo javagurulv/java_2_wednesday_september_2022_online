@@ -2,7 +2,9 @@ package lv.javaguru.java2.eBooking.core.services.appointment.search;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
+import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.SearchAppointmentResponse;
@@ -22,17 +24,18 @@ public class AppointmentSearchService {
         this.validator = validator;
     }
 
-    public SearchAppointmentResponse execute(SearchAppointmentRequest request, Ordering ordering) {
+    public SearchAppointmentResponse execute(SearchAppointmentRequest request, Ordering ordering, Paging paging) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new SearchAppointmentResponse(errors, null);
         }
         List<Appointment> appointments = search(request);
 
-        if(ordering != null) {
+        if(ordering != null && paging!=null) {
             appointments = orderFunction.apply(appointments,request.getOrdering());
-        }
+            appointments = pagingAppointmentList.apply(appointments,request.getPaging());
 
+        }
         return new SearchAppointmentResponse(null, appointments);
     }
 
@@ -58,6 +61,17 @@ public class AppointmentSearchService {
                         : Comparator.comparing(Appointment::getTypeOfService);
                 return appointments.stream()
                         .sorted(appointmentComparator)
+                        .collect(Collectors.toList());
+            };
+
+
+    private BiFunction<List<Appointment>, Paging, List<Appointment>> pagingAppointmentList =
+            (appointments, paging) ->
+            {
+                int skip = (paging.getPageNumber() - 1) * paging.getPageSize();
+                return appointments.stream()
+                        .skip(skip)
+                        .limit(paging.getPageSize())
                         .collect(Collectors.toList());
             };
 }

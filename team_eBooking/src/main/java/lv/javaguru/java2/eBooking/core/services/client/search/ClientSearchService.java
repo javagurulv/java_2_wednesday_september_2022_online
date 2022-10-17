@@ -2,12 +2,15 @@ package lv.javaguru.java2.eBooking.core.services.client.search;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Client;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 public class ClientSearchService {
 
@@ -27,6 +30,7 @@ public class ClientSearchService {
         if (!errors.isEmpty()) {
             return new SearchClientResponse(errors, null);
         }
+
         List<Client> clients = search(request);
         return new SearchClientResponse(null, clients);
     }
