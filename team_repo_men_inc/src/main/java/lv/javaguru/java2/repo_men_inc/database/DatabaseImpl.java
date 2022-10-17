@@ -1,5 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.database;
 
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
 import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@DIComponent
 public class DatabaseImpl implements Database{
 
     private Long id = 1L;

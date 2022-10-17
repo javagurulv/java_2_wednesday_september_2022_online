@@ -2,16 +2,17 @@ package lv.javaguru.java2.repo_men_inc.console_ui;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.RemoveDebtorResponse;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 import lv.javaguru.java2.repo_men_inc.services.RemoveDebtorService;
 
 import java.util.Scanner;
 
+@DIComponent
 public class RemoveDebtorUIAction implements UIAction{
+    @DIDependency
     private RemoveDebtorService removeDebtorService;
 
-    public RemoveDebtorUIAction(RemoveDebtorService removeDebtorService) {
-        this.removeDebtorService = removeDebtorService;
-    }
     @Override
     public void execute() {
         try {

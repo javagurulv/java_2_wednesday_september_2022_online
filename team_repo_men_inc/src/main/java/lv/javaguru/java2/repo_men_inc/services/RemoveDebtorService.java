@@ -5,17 +5,17 @@ import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.responses.RemoveDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.core.validators.RemoveDebtorValidator;
 import lv.javaguru.java2.repo_men_inc.database.Database;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 
 import java.util.List;
 
+@DIComponent
 public class RemoveDebtorService {
+    @DIDependency
     private Database database;
+    @DIDependency
     private RemoveDebtorValidator removeDebtorValidator;
-
-    public RemoveDebtorService(Database database, RemoveDebtorValidator removeDebtorValidator) {
-        this.database = database;
-        this.removeDebtorValidator = removeDebtorValidator;
-    }
 
     public RemoveDebtorResponse execute(RemoveDebtorRequest removeDebtorRequest) {
 

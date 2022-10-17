@@ -3,14 +3,21 @@ package lv.javaguru.java2.repo_men_inc.core.validators;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddHarvestedItemRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.database.Database;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@DIComponent
 public class AddHarvestedItemValidator {
 
+    @DIDependency
     private Database database;
+
+    public AddHarvestedItemValidator() {
+    }
 
     public AddHarvestedItemValidator(Database database) {
         this.database = database;

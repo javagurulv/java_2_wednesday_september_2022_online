@@ -4,11 +4,13 @@ import lv.javaguru.java2.repo_men_inc.core.requests.Ordering;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingDirection;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingType;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@DIComponent
 public class OrderingValidator {
     public List<CoreError> validate(Ordering ordering) {
         List<CoreError> errors = new ArrayList<>();

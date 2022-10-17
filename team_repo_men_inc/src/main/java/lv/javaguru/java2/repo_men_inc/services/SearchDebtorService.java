@@ -5,6 +5,8 @@ import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.responses.SearchDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.core.validators.SearchDebtorValidator;
 import lv.javaguru.java2.repo_men_inc.database.Database;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 
 import java.util.ArrayList;
@@ -13,16 +15,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@DIComponent
 public class SearchDebtorService {
 
-    private final Database database;
-    private final SearchDebtorValidator searchDebtorValidator;
-
-
-    public SearchDebtorService(Database database, SearchDebtorValidator searchDebtorValidator) {
-        this.database = database;
-        this.searchDebtorValidator = searchDebtorValidator;
-    }
+    @DIDependency
+    private Database database;
+    @DIDependency
+    private SearchDebtorValidator searchDebtorValidator;
 
     public SearchDebtorResponse execute(SearchDebtorRequest searchDebtorRequest) {
         List<CoreError> errors = searchDebtorValidator.validate(searchDebtorRequest);

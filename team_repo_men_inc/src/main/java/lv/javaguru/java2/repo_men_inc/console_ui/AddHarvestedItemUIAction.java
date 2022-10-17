@@ -2,16 +2,16 @@ package lv.javaguru.java2.repo_men_inc.console_ui;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.AddHarvestedItemRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.AddHarvestedItemResponse;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 import lv.javaguru.java2.repo_men_inc.services.AddHarvestedItemService;
 
 import java.util.Scanner;
 
+@DIComponent
 public class AddHarvestedItemUIAction implements UIAction{
+    @DIDependency
     private AddHarvestedItemService addHarvestedItemService;
-
-    public AddHarvestedItemUIAction(AddHarvestedItemService addHarvestedItemService) {
-        this.addHarvestedItemService = addHarvestedItemService;
-    }
 
     @Override
     public void execute() {
