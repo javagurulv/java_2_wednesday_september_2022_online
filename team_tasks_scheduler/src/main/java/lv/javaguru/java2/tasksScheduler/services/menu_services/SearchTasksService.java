@@ -1,6 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
@@ -15,18 +17,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@DIComponent
 public class SearchTasksService {
 
-    private TasksRepository tasksRepository;
-    private SearchTasksValidator validator;
-    private SessionService sessionService;
-
-    public SearchTasksService(TasksRepository tasksRepository, SearchTasksValidator validator,
-                              SessionService sessionService) {
-        this.tasksRepository = tasksRepository;
-        this.validator = validator;
-        this.sessionService = sessionService;
-    }
+    @DIDependency private TasksRepository tasksRepository;
+    @DIDependency private SearchTasksValidator validator;
+    @DIDependency private SessionService sessionService;
 
     public SearchTasksResponse execute(SearchTasksRequest request) {
         List<CoreError>errors = validator.validate(request);

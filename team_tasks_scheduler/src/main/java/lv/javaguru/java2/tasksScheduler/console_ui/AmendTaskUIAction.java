@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
@@ -13,22 +15,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+@DIComponent
 public class AmendTaskUIAction implements UIAction {
 
-    Scanner scanner = new Scanner(System.in);
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    private AmendTaskService amendTaskService;
-    private GetOutstandingTasksService getOutstandingTasksService;
-
-    public AmendTaskUIAction(AmendTaskService amendTaskService, GetOutstandingTasksService getOutstandingTasksService) {
-        this.amendTaskService = amendTaskService;
-        this.getOutstandingTasksService = getOutstandingTasksService;
-    }
+    @DIDependency private AmendTaskService amendTaskService;
+    @DIDependency private GetOutstandingTasksService getOutstandingTasksService;
 
     @Override
     public boolean execute() {
+        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         GetOutstandingTasksRequests requestTasks = new GetOutstandingTasksRequests();
         GetOutstandingTasksResponse responseTasks = getOutstandingTasksService.execute(requestTasks);
 
@@ -100,6 +97,9 @@ public class AmendTaskUIAction implements UIAction {
     }
 
     private Task collectDataFromScreen(Task currentTask) {
+        Scanner scanner = new Scanner(System.in);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] fields = {"Description", "Regularity", "Due Date", "End Date"};
         String input;
         Task result = new Task(currentTask.getDescription(), currentTask.getRegularity(),

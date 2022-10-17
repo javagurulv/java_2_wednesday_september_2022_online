@@ -2,6 +2,8 @@ package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
@@ -13,19 +15,13 @@ import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import java.util.ArrayList;
 import java.util.List;
 
+@DIComponent
 public class LoginService {
 
-    private UsersRepository usersRepository;
-    private LoginValidator validator;
-    private TasksRepository tasksRepository;
-    private SessionService sessionService;
-
-    public LoginService(UsersRepository usersRepository, LoginValidator validator, TasksRepository tasksRepository, SessionService sessionService) {
-        this.usersRepository = usersRepository;
-        this.validator = validator;
-        this.tasksRepository = tasksRepository;
-        this.sessionService = sessionService;
-    }
+    @DIDependency private UsersRepository usersRepository;
+    @DIDependency private LoginValidator validator;
+    @DIDependency private TasksRepository tasksRepository;
+    @DIDependency private SessionService sessionService;
 
     public LoginResponse execute(LoginRequest request) {
 

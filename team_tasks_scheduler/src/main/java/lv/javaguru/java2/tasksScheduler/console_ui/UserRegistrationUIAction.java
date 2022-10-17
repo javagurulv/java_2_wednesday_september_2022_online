@@ -1,18 +1,17 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
 
 import java.util.Scanner;
 
+@DIComponent
 public class UserRegistrationUIAction implements UIAction {
 
-    private UserRegistrationService userRegistrationService;
-
-    public UserRegistrationUIAction(UserRegistrationService userRegistrationService) {
-        this.userRegistrationService = userRegistrationService;
-    }
+    @DIDependency private UserRegistrationService userRegistrationService;
 
     @Override
     public boolean execute() {

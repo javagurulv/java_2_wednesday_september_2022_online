@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.CheckSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
@@ -18,17 +20,12 @@ import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import java.util.List;
 import java.util.Scanner;
 
+@DIComponent
 public class SettingsLoginUIAction implements UIAction {
 
-    private CheckSettingsExistenceService checkSettingsExistenceService;
-    private SettingsLoginService settingsLoginService;
-    private SessionService sessionService;
-
-    public SettingsLoginUIAction(CheckSettingsExistenceService checkSettingsExistenceService, SettingsLoginService settingsLoginService, SessionService sessionService) {
-        this.checkSettingsExistenceService = checkSettingsExistenceService;
-        this.settingsLoginService = settingsLoginService;
-        this.sessionService = sessionService;
-    }
+    @DIDependency private CheckSettingsExistenceService checkSettingsExistenceService;
+    @DIDependency private SettingsLoginService settingsLoginService;
+    @DIDependency private SessionService sessionService;
 
     @Override
     public boolean execute() {
