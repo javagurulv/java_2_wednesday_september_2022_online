@@ -1,12 +1,15 @@
 package lv.javaguru.java2.eBooking.core.requests.client_request;
 
+
 public class SearchClientRequest {
     private String clientEmail;
     private String clientPhoneNumber;
 
+
     public SearchClientRequest(String clientEmail, String clientPhoneNumber) {
         this.clientEmail = clientEmail;
         this.clientPhoneNumber = clientPhoneNumber;
+
     }
 
     public String getClientEmail() {
