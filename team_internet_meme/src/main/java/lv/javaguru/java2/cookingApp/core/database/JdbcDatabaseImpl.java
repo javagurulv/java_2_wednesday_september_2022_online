@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class JdbcDatabaseImpl implements Database {
@@ -51,7 +52,8 @@ public class JdbcDatabaseImpl implements Database {
 
     @Override
     public List<Recipe> find(SearchCriteria searchCriteria) {
-        return null;
+        List<Recipe> allRecipes = getAllRecipes();
+        return allRecipes.stream().filter(searchCriteria).collect(Collectors.toList());
     }
 
     private Long saveDishName(Recipe recipe) {
