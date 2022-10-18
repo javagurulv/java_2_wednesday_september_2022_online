@@ -61,4 +61,11 @@ public class AppointmentSearchRequestValidator {
                 AppointmentValidationResult.APPOINTMENT_PAGENUMBER_MUST_NOT_BE_EMPTY))
                 : Optional.empty();
     }
+
+    public Optional<CoreError> validatePageSize(Paging paging){
+        return (paging.getPageSize() == null && paging.getPageNumber() != null)
+                ? Optional.of(new CoreError("Page size",
+                AppointmentValidationResult.APPOINTMENT_PAGESIZE_MUST_NOT_BE_EMPTY))
+                : Optional.empty();
+    }
 }
