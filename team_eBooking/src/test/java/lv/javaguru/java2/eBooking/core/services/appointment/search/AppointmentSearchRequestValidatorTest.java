@@ -1,10 +1,13 @@
 package lv.javaguru.java2.eBooking.core.services.appointment.search;
 
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.services.appointment.add.AppointmentValidationResult;
 import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -14,30 +17,32 @@ import static org.junit.Assert.*;
 public class AppointmentSearchRequestValidatorTest {
 
     AppointmentSearchRequestValidator validator = new AppointmentSearchRequestValidator();
+    Ordering ordering;
+    Paging paging;
     @Test
     public void shouldNotReturnErrorWhenMasterNameIsProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest("Master name: ", null);
+        SearchAppointmentRequest request = new SearchAppointmentRequest("Master name: ", null,paging,ordering);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),0);
     }
 
     @Test
     public void shouldNotReturnErrorWhenTypeOfServiceIsProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest(null, "Type of service: ");
+        SearchAppointmentRequest request = new SearchAppointmentRequest(null, "Type of service: ",paging,ordering);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),0);
     }
 
     @Test
     public void shouldNotReturnErrorWhenMasterNameAndTypeOfServiceAreProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest("Master name: ", "Type of service: ");
+        SearchAppointmentRequest request = new SearchAppointmentRequest("Master name: ", "Type of service: ",paging,ordering);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),0);
     }
 
     @Test
     public void shouldReturnErrorWhenMasterNameAndTypeOfServiceAreNotProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest(null, null);
+        SearchAppointmentRequest request = new SearchAppointmentRequest(null, null,paging,ordering);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),2);
         assertEquals(errors.get(0).getField(),"Master name: ");

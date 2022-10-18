@@ -1,18 +1,18 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.requests.DeleteCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.DeleteCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.DeleteCurrentUserService;
 
 import java.util.Scanner;
 
+@DIComponent
 public class DeleteCurrentUserUIAction implements UIAction {
 
+    @DIDependency
     private DeleteCurrentUserService deleteCurrentUserService;
-
-    public DeleteCurrentUserUIAction(DeleteCurrentUserService deleteCurrentUserService) {
-        this.deleteCurrentUserService = deleteCurrentUserService;
-    }
 
     @Override
     public boolean execute() {
