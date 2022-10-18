@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
 import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
@@ -7,13 +9,10 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.GetTasksForTodayS
 
 import java.util.List;
 
+@DIComponent
 public class GetTasksForTodayUIAction implements UIAction {
 
-    private GetTasksForTodayService getTasksForTodayService;
-
-    public GetTasksForTodayUIAction(GetTasksForTodayService getTasksForTodayService) {
-        this.getTasksForTodayService = getTasksForTodayService;
-    }
+    @DIDependency private GetTasksForTodayService getTasksForTodayService;
 
     @Override
     public boolean execute() {

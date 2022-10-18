@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
@@ -10,16 +12,13 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.SearchTasksServic
 import java.util.List;
 import java.util.Scanner;
 
+@DIComponent
 public class SearchTasksUIAction implements UIAction {
-    Scanner scanner = new Scanner(System.in);
-    private SearchTasksService searchTasksService;
-
-    public SearchTasksUIAction(SearchTasksService searchTasksService) {
-        this.searchTasksService = searchTasksService;
-    }
+    @DIDependency private SearchTasksService searchTasksService;
 
     @Override
     public boolean execute() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter search phrase:");
         String searchPhrase = scanner.nextLine();
         System.out.println("Enter order criterion (description/due date/end date):");
@@ -56,6 +55,7 @@ public class SearchTasksUIAction implements UIAction {
                                           String searchPhrase, Ordering ordering) {
         SearchTasksRequest request;
         SearchTasksResponse response;
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Found task count:" + taskCount);
         if (pageSize > taskCount) {

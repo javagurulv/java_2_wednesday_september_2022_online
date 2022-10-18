@@ -1,11 +1,13 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@DIComponent
 public class InMemorySettingsRepository implements SettingsRepository {
 
     private List<Settings> settingsRecord = new ArrayList<>();

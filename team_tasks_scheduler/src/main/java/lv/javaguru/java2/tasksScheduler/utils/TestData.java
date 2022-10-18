@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.utils;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
@@ -16,24 +18,18 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationS
 
 import java.time.LocalDateTime;
 
+
+@DIComponent
 public class TestData {
-    private UserRegistrationService userService;
-    private AddTaskService taskService;
-    private LoginService loginService;
-    private LogoutService logoutService;
+    @DIDependency private UserRegistrationService userService;
+    @DIDependency private AddTaskService taskService;
+    @DIDependency private LoginService loginService;
+    @DIDependency private LogoutService logoutService;
 
-    public TestData(UserRegistrationService userService, AddTaskService taskService,
-                    LoginService login, LogoutService logout) {
-        this.userService = userService;
-        this.taskService = taskService;
-        this.loginService = login;
-        this.logoutService = logout;
-
-        createAdmin();
+    public void createTestData() {
         createUsers();
         createTasks();
     }
-
     private void createAdmin() {
 
     }

@@ -1,16 +1,15 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.requests.ExitRequest;
 import lv.javaguru.java2.tasksScheduler.responses.ExitResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.ExitService;
 
+@DIComponent
 public class ExitUIAction implements UIAction {
 
-    public ExitService exitService;
-
-    public ExitUIAction(ExitService exitService) {
-        this.exitService = exitService;
-    }
+    @DIDependency public ExitService exitService;
 
     @Override
     public boolean execute() {
