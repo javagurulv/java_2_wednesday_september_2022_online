@@ -2,7 +2,6 @@ package lv.javaguru.java2.eBooking.core.services.appointment.search;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
-import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
@@ -32,7 +31,7 @@ public class AppointmentSearchService {
         List<Appointment> appointments = search(request);
 
         if(ordering != null && paging!=null) {
-            appointments = orderFunction.apply(appointments,request.getOrdering());
+            appointments = orderAppointments.apply(appointments,request.getOrdering());
             appointments = pagingAppointmentList.apply(appointments,request.getPaging());
 
         }
@@ -54,7 +53,7 @@ public class AppointmentSearchService {
         return appointments;
     }
 
-    private BiFunction<List<Appointment>, Ordering,List<Appointment>> orderFunction =
+    private BiFunction<List<Appointment>, Ordering,List<Appointment>> orderAppointments =
             (appointments, ordering) -> {
                 Comparator<Appointment> appointmentComparator = ordering.getOrderBy().equals("Master name: ")
                         ? Comparator.comparing(Appointment::getMasterName)

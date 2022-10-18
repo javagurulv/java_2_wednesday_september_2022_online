@@ -23,7 +23,9 @@ public class SearchAppointmentUIAction implements UIAction {
         System.out.println("Enter type of service: ");
         String typeOfService = scanner.nextLine();
 
-        Ordering ordering = new Ordering(masterName);
+        System.out.println("Order by Master name || Type of service");
+        String orderBy = scanner.nextLine();
+        Ordering ordering = new Ordering(orderBy);
 
         System.out.println("Enter page number: ");
         Integer pageNumber = Integer.parseInt(scanner.nextLine());

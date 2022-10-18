@@ -20,13 +20,15 @@ import lv.javaguru.java2.eBooking.core.services.client.search.ClientSearchServic
 import java.util.Scanner;
 
 public class AppointmentApplication {
+
     private static Database database = new InMemoryDatabase();
+
     private static AddClientValidator clientValidator = new AddClientValidator();
     private static ClientSearchRequestValidator validator = new ClientSearchRequestValidator();
     private static AppointmentSearchRequestValidator appointmentSearchRequestvalidator =
             new AppointmentSearchRequestValidator();
-
     private static AddAppointmentValidator appointmentValidator = new AddAppointmentValidator();
+
     private static AddClientService addClientService = new AddClientService(database, clientValidator);
     private static RemoveClientService removeClientService = new RemoveClientService(database);
     private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
