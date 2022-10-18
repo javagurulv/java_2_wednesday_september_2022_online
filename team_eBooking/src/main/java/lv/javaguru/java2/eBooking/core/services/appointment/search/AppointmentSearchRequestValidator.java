@@ -16,6 +16,7 @@ public class AppointmentSearchRequestValidator {
         errors.addAll(validateSearchFields(request));
         if (request.getOrdering() != null) {
             validateMandatoryOrderBy(request.getOrdering()).ifPresent(errors::add);
+            validateOrderBy(request.getOrdering()).ifPresent(errors::add);
         }
         return errors;
     }
@@ -40,4 +41,12 @@ public class AppointmentSearchRequestValidator {
                 : Optional.empty();
     }
 
+    public Optional<CoreError> validateOrderBy(Ordering ordering){
+        return (ordering.getOrderBy() != null)
+                && !(ordering.getOrderBy().equals("Master name")
+                || ordering.getOrderBy().equals("Type of service"))
+                ? Optional.of(new CoreError("Order by",
+                AppointmentValidationResult.APPOINTMENT_SHOULD_CONTAIN_MASTERNAME_OR_SERVICETYPE))
+                :Optional.empty();
+    }
 }

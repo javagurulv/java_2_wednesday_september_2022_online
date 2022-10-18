@@ -10,6 +10,7 @@ import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResul
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.matchers.Or;
 
 import java.util.List;
 
@@ -52,7 +53,6 @@ public class AppointmentSearchRequestValidatorTest {
     }
 
     @Test
-
     public void shouldReturnErrorWhenOrderByIsEmpty() {
         Ordering ordering = new Ordering(null);
         SearchAppointmentRequest request = new SearchAppointmentRequest(
@@ -66,5 +66,17 @@ public class AppointmentSearchRequestValidatorTest {
                 AppointmentValidationResult.APPOINTMENT_ORDERBY_MUST_NOT_BE_EMPTY);
     }
 
-
+    @Test
+    public void shouldReturnErrorWhenOrderByHasNotCorrectValue() {
+        Ordering ordering = new Ordering("valueIsNotCorrect");
+        SearchAppointmentRequest request = new SearchAppointmentRequest(
+                "Master name: ",
+                "Type of service: ",
+                ordering);
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(errors.size(), 1);
+        assertEquals(errors.get(0).getField(), "Order by");
+        assertEquals(errors.get(0).getAppointmentValidationMessage(),
+                AppointmentValidationResult.APPOINTMENT_SHOULD_CONTAIN_MASTERNAME_OR_SERVICETYPE);
+    }
 }
