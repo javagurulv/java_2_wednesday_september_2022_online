@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
@@ -24,12 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AddPassengerCarValidatorTest {
 
     AddPassengerCarValidator validator;
-    Database database;
+    VehicleDatabase vehicleDatabase;
 
     @BeforeEach
     void setUp() {
-        database = new InMemoryDatabaseImpl();
-        validator = new AddPassengerCarValidator(database);
+        vehicleDatabase = new VehicleDatabaseImpl();
+        validator = new AddPassengerCarValidator(vehicleDatabase);
     }
 
     @Test
@@ -49,7 +49,7 @@ class AddPassengerCarValidatorTest {
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
-        database.addNewVehicle(passengerCar1);
+        vehicleDatabase.addNewVehicle(passengerCar1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
@@ -65,7 +65,7 @@ class AddPassengerCarValidatorTest {
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
-        database.addNewVehicle(passengerCar1);
+        vehicleDatabase.addNewVehicle(passengerCar1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
