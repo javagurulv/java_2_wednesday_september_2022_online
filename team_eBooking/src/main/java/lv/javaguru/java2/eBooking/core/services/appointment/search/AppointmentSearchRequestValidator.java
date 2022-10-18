@@ -1,6 +1,7 @@
 package lv.javaguru.java2.eBooking.core.services.appointment.search;
 
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.services.appointment.add.AppointmentValidationResult;
@@ -17,6 +18,10 @@ public class AppointmentSearchRequestValidator {
         if (request.getOrdering() != null) {
             validateMandatoryOrderBy(request.getOrdering()).ifPresent(errors::add);
             validateOrderBy(request.getOrdering()).ifPresent(errors::add);
+        }
+
+        if(request.getPaging() != null){
+            validatePageNumber(request.getPaging()).ifPresent(errors::add);
         }
         return errors;
     }
@@ -48,5 +53,12 @@ public class AppointmentSearchRequestValidator {
                 ? Optional.of(new CoreError("Order by",
                 AppointmentValidationResult.APPOINTMENT_SHOULD_CONTAIN_MASTERNAME_OR_SERVICETYPE))
                 :Optional.empty();
+    }
+
+    public Optional<CoreError> validatePageNumber(Paging paging){
+        return (paging.getPageNumber() == null && paging.getPageSize() != null)
+                ? Optional.of(new CoreError("Page number",
+                AppointmentValidationResult.APPOINTMENT_PAGENUMBER_MUST_NOT_BE_EMPTY))
+                : Optional.empty();
     }
 }
