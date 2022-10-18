@@ -21,7 +21,10 @@ public class AppointmentSearchRequestValidator {
         }
 
         if(request.getPaging() != null){
+            validateMandatoryPageNumber(request.getPaging()).ifPresent(errors::add);
+            validateMandatoryPageSize(request.getPaging()).ifPresent(errors::add);
             validatePageNumber(request.getPaging()).ifPresent(errors::add);
+            validatePageSize(request.getPaging()).ifPresent(errors::add);
         }
         return errors;
     }
@@ -55,17 +58,31 @@ public class AppointmentSearchRequestValidator {
                 :Optional.empty();
     }
 
-    public Optional<CoreError> validatePageNumber(Paging paging){
+    public Optional<CoreError> validateMandatoryPageNumber(Paging paging){
         return (paging.getPageNumber() == null && paging.getPageSize() != null)
                 ? Optional.of(new CoreError("Page number",
                 AppointmentValidationResult.APPOINTMENT_PAGENUMBER_MUST_NOT_BE_EMPTY))
                 : Optional.empty();
     }
 
-    public Optional<CoreError> validatePageSize(Paging paging){
+    public Optional<CoreError> validateMandatoryPageSize(Paging paging){
         return (paging.getPageSize() == null && paging.getPageNumber() != null)
                 ? Optional.of(new CoreError("Page size",
                 AppointmentValidationResult.APPOINTMENT_PAGESIZE_MUST_NOT_BE_EMPTY))
+                : Optional.empty();
+    }
+
+    public Optional<CoreError> validatePageNumber(Paging paging){
+        return (paging.getPageNumber() !=null && paging.getPageNumber() <= 0)
+                ? Optional.of(new CoreError("Page number",
+                AppointmentValidationResult.APPOINTMENT_PAGENUMBER_GREATER_THAN_ZERO))
+                : Optional.empty();
+    }
+
+    public Optional<CoreError> validatePageSize(Paging paging){
+        return (paging.getPageSize() !=null && paging.getPageSize() <= 0)
+                ? Optional.of(new CoreError("Page number",
+                AppointmentValidationResult.APPOINTMENT_PAGESIZE_GREATER_THAN_ZERO))
                 : Optional.empty();
     }
 }
