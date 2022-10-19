@@ -30,7 +30,6 @@ public class ClientSearchService {
         if (!errors.isEmpty()) {
             return new SearchClientResponse(errors, null);
         }
-
         List<Client> clients = search(request);
         return new SearchClientResponse(null, clients);
     }
