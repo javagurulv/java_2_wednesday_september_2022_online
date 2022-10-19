@@ -52,8 +52,8 @@ public abstract class SearchVehicleFieldsValidator {
         String isAirConditioningAvailable = isAirConditioningAvailableOpt.get();
         if (isAirConditioningAvailable.isBlank()) {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "can`t be empty"));
-        } else if (isAirConditioningAvailable.equalsIgnoreCase("true")
-                || isAirConditioningAvailable.equalsIgnoreCase("false")) {
+        } else if (isAirConditioningAvailable.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase("true")
+                || isAirConditioningAvailable.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase("false")) {
             return Optional.empty();
         } else {
             return Optional.of(new CoreError("IsAirConditionerAvailable", "must be either true or false"));

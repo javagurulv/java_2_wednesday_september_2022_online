@@ -118,6 +118,55 @@ class SearchPassengerCarValidatorTest {
     }
 
     @Test
+    void testValidateIsAirConditionerAvailableValidReturnNoError1() {
+        searchVehicleRequest = SearchVehicleRequest.builder().hasConditioner(" Tr55ue").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
+        assertFalse(error.isPresent());
+    }
+
+    @Test
+    void testValidateIsAirConditionerAvailableValidReturnNoError2() {
+        searchVehicleRequest = SearchVehicleRequest.builder().hasConditioner("fAlS*e ").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
+        assertFalse(error.isPresent());
+    }
+
+    @Test
+    void testValidateIsAirConditionerAvailableNullReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().hasConditioner(null).build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
+        assertFalse(error.isPresent());
+        assertEquals(Optional.empty(), error);
+    }
+
+    @Test
+    void testValidateIsAirConditionerAvailableEmptyReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().hasConditioner("").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("IsAirConditionerAvailable", error.get().getField());
+        assertEquals("can`t be empty", error.get().getMessage());
+    }
+
+    @Test
+    void testValidateIsAirConditionerAvailableBlankReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().hasConditioner(" ").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("IsAirConditionerAvailable", error.get().getField());
+        assertEquals("can`t be empty", error.get().getMessage());
+    }
+
+    @Test
+    void testValidateIsAirConditionerAvailableNotValidReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().hasConditioner("not valid").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("IsAirConditionerAvailable", error.get().getField());
+        assertEquals("must be either true or false", error.get().getMessage());
+    }
+
+    @Test
     void testIsEnumVehicleValueValidPositive() {
         String testValue = "manual";
         assertTrue(searchPassengerCarValidator.isEnumVehicleValueValid(TransmissionType.getAllEnumValues(), testValue));
