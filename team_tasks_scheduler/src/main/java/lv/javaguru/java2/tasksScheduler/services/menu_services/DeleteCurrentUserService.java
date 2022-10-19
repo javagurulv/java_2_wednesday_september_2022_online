@@ -2,6 +2,8 @@ package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.requests.DeleteCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.DeleteCurrentUserResponse;
@@ -10,19 +12,12 @@ import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import java.util.ArrayList;
 import java.util.List;
 
+@DIComponent
 public class DeleteCurrentUserService {
 
-    private UsersRepository usersRepository;
-    private TasksRepository tasksRepository;
-    private SessionService sessionService;
-
-    public DeleteCurrentUserService(UsersRepository usersRepository,
-                                    TasksRepository tasksRepository,
-                                    SessionService sessionService) {
-        this.usersRepository = usersRepository;
-        this.tasksRepository = tasksRepository;
-        this.sessionService = sessionService;
-    }
+    @DIDependency private UsersRepository usersRepository;
+    @DIDependency private TasksRepository tasksRepository;
+    @DIDependency private SessionService sessionService;
 
     public DeleteCurrentUserResponse execute(DeleteCurrentUserRequest request) {
         try {

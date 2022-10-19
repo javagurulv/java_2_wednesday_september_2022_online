@@ -1,7 +1,9 @@
 package lv.javaguru.java2.rentapp.core.services.search_criterias;
 
+import lombok.EqualsAndHashCode;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
+@EqualsAndHashCode
 public class TransmissionTypeCriteria implements SearchCriteria {
 
     private String transmissionType;

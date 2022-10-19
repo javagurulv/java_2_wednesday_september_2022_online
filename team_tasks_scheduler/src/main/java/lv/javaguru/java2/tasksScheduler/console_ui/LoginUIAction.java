@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
@@ -11,15 +13,11 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.LoginService;
 import java.util.List;
 import java.util.Scanner;
 
+@DIComponent
 public class LoginUIAction implements UIAction {
 
-    private LoginService loginService;
-    private GetTasksForTodayService getTasksForTodayService;
-
-    public LoginUIAction(LoginService loginService, GetTasksForTodayService getTasksForTodayService) {
-        this.loginService = loginService;
-        this.getTasksForTodayService = getTasksForTodayService;
-    }
+    @DIDependency private LoginService loginService;
+    @DIDependency private GetTasksForTodayService getTasksForTodayService;
 
     @Override
     public boolean execute() {

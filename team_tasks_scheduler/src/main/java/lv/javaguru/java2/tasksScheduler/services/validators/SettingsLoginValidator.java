@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.SettingsRepository;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.SettingsLoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@DIComponent
 public class SettingsLoginValidator {
 
     public List<CoreError> validate(SettingsLoginRequest request, SettingsRepository settingsRepository) {

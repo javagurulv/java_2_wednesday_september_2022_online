@@ -1,9 +1,9 @@
 dependencies {
-	testImplementation('junit:junit:4.13.1')
-
+	implementation('org.reflections:reflections:0.10.2')
+	testImplementation('junit:junit:4.13.2')
 	// For e-mails sending
 	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
-
+	testImplementation('org.mockito:mockito-core:4.8.0')
 }
 
 
