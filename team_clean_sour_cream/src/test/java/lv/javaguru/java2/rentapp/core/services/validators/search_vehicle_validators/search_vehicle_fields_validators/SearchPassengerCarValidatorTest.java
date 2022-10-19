@@ -75,4 +75,57 @@ class SearchPassengerCarValidatorTest {
         assertEquals("can`t be empty", error.get().getMessage());
     }
 
+    @Test
+    void testValidateTransmissionTypeIsValidReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("Ma*n.. ual").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
+        assertFalse(error.isPresent());
+    }
+
+    @Test
+    void testValidateTransmissionTypeIsNullReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType(null).build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
+        assertFalse(error.isPresent());
+        assertEquals(Optional.empty(), error);
+    }
+
+    @Test
+    void testValidateTransmissionTypeIsEmptyReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("Transmission Type", error.get().getField());
+        assertEquals("can`t be empty", error.get().getMessage());
+    }
+
+    @Test
+    void testValidateTransmissionTypeIsBlankReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType(" ").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("Transmission Type", error.get().getField());
+        assertEquals("can`t be empty", error.get().getMessage());
+    }
+
+    @Test
+    void testValidateTransmissionTypeIsNotValidReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("not valid").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("Transmission Type", error.get().getField());
+        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValues() + ")", error.get().getMessage());
+    }
+
+    @Test
+    void testIsEnumVehicleValueValidPositive() {
+        String testValue = "manual";
+        assertTrue(searchPassengerCarValidator.isEnumVehicleValueValid(TransmissionType.getAllEnumValues(), testValue));
+    }
+
+    @Test
+    void testIsEnumVehicleValueValidNegative() {
+        String testValue = "not valid";
+        assertFalse(searchPassengerCarValidator.isEnumVehicleValueValid(TransmissionType.getAllEnumValues(), testValue));
+    }
 }
