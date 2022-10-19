@@ -167,6 +167,31 @@ class SearchPassengerCarValidatorTest {
     }
 
     @Test
+    void testValidatePassengerAmountIsValidReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().passengerAmount(1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testValidatePassengerAmountIsNullReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().passengerAmount(null).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertEquals(1, errors.size());
+        assertEquals("Vehicle Type", errors.get(0).getField());
+        assertEquals("can`t be empty", errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateTransmissionTypeIsEmptyReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("").build();
+        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
+        assertTrue(error.isPresent());
+        assertEquals("Transmission Type", error.get().getField());
+        assertEquals("can`t be empty", error.get().getMessage());
+    }
+
+    @Test
     void testIsEnumVehicleValueValidPositive() {
         String testValue = "manual";
         assertTrue(searchPassengerCarValidator.isEnumVehicleValueValid(TransmissionType.getAllEnumValues(), testValue));
