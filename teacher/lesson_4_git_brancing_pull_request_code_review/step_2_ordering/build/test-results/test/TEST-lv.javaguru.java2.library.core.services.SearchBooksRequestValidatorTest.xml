@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-16T15:20:36" hostname="Jevgenijss-MacBook-Pro.local" time="0.001">
+<testsuite name="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2022-10-19T14:38:16" hostname="VSAVONINS" time="0.01">
   <properties/>
-  <testcase name="shouldNotReturnErrorsWhenAuthorIsProvided" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.001"/>
+  <testcase name="shouldReturnErrorWhenOrderByAreEmpty" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.007"/>
+  <testcase name="shouldReturnErrorWhenOrderByContainNotValidValue" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.0"/>
+  <testcase name="shouldNotReturnErrorsWhenAuthorIsProvided" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.0"/>
+  <testcase name="shouldNotReturnErrorsWhenTitleIsProvided" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.0"/>
+  <testcase name="shouldReturnErrorWhenOrderDirectionContainNotValidValue" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.0"/>
+  <testcase name="shouldReturnErrorWhenSearchFieldsAreEmpty" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.001"/>
+  <testcase name="shouldReturnErrorWhenOrderDirectionAreEmpty" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.0"/>
+  <testcase name="shouldNotReturnErrorsWhenTitleAndAuthorIsProvided" classname="lv.javaguru.java2.library.core.services.SearchBooksRequestValidatorTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
