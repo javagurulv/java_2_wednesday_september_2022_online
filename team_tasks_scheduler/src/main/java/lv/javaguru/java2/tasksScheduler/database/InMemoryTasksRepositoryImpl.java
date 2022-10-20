@@ -1,5 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.enums.SearchDateType;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
+@DIComponent
 public class InMemoryTasksRepositoryImpl implements TasksRepository {
 
     private Long nextId = 1L;

@@ -2,15 +2,24 @@ package lv.javaguru.java2.repo_men_inc.core.validators;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.SearchDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@DIComponent
 public class SearchDebtorValidator {
 
-    private final PagingValidator pagingValidator;
-    private final OrderingValidator orderingValidator;
-    private final SearchDebtorFieldValidator searchDebtorFieldValidator;
+    @DIDependency
+    private PagingValidator pagingValidator;
+    @DIDependency
+    private OrderingValidator orderingValidator;
+    @DIDependency
+    private SearchDebtorFieldValidator searchDebtorFieldValidator;
+
+    public SearchDebtorValidator() {
+    }
 
     public SearchDebtorValidator(PagingValidator pagingValidator, OrderingValidator orderingValidator, SearchDebtorFieldValidator searchDebtorFieldValidator) {
         this.pagingValidator = pagingValidator;

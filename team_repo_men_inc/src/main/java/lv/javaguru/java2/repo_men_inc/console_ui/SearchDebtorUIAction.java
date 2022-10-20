@@ -2,17 +2,17 @@ package lv.javaguru.java2.repo_men_inc.console_ui;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.*;
 import lv.javaguru.java2.repo_men_inc.core.responses.SearchDebtorResponse;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 import lv.javaguru.java2.repo_men_inc.services.SearchDebtorService;
 
 import java.util.Scanner;
 
+@DIComponent
 public class SearchDebtorUIAction implements UIAction {
 
-    private final SearchDebtorService searchDebtorService;
-
-    public SearchDebtorUIAction(SearchDebtorService searchDebtorService) {
-        this.searchDebtorService = searchDebtorService;
-    }
+    @DIDependency
+    private SearchDebtorService searchDebtorService;
 
     @Override
     public void execute() {

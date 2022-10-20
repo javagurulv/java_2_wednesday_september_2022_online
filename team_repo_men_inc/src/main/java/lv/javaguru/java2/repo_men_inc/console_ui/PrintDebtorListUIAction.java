@@ -2,14 +2,14 @@ package lv.javaguru.java2.repo_men_inc.console_ui;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.PrintDebtorsListRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.PrintDebtorsListResponse;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 import lv.javaguru.java2.repo_men_inc.services.PrintDebtorListService;
 
+@DIComponent
 public class PrintDebtorListUIAction implements UIAction{
+    @DIDependency
     private PrintDebtorListService printDebtorListService;
-
-    public PrintDebtorListUIAction(PrintDebtorListService printDebtorListService) {
-        this.printDebtorListService = printDebtorListService;
-    }
 
     @Override
     public void execute() {

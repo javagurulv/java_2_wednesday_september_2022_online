@@ -1,16 +1,15 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.requests.LogoutRequest;
 import lv.javaguru.java2.tasksScheduler.responses.LogoutResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.LogoutService;
 
+@DIComponent
 public class LogoutUIAction implements UIAction {
 
-    private LogoutService logoutService;
-
-    public LogoutUIAction(LogoutService logoutService) {
-        this.logoutService = logoutService;
-    }
+    @DIDependency private LogoutService logoutService;
 
     @Override
     public boolean execute() {

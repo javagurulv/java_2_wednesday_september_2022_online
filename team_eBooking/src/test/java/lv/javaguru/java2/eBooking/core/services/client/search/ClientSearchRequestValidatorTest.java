@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 public class ClientSearchRequestValidatorTest {
     ClientSearchRequestValidator validator = new ClientSearchRequestValidator();
+
     @Test
     public void shouldNotReturnErrorWhenEmailIsProvided() {
         SearchClientRequest request = new SearchClientRequest("email: ", null);

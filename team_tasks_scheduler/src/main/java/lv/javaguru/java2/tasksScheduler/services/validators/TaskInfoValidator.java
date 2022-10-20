@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
+import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@DIComponent
 public class TaskInfoValidator {
 
     public List<CoreError> validate(AddTaskRequest request, TasksRepository taskList,

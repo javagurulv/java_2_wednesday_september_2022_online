@@ -2,7 +2,7 @@ package lv.javaguru.java2.eBooking.core.responses;
 
 import java.util.List;
 
-public abstract class CoreResponse {
+public abstract class   CoreResponse {
 
     private List<CoreError> errors;
 
