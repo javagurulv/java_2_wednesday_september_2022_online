@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 
+import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SearchPassengerCarValidatorTest {
@@ -29,7 +30,7 @@ class SearchPassengerCarValidatorTest {
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertEquals(1, errors.size());
         assertEquals("Vehicle Type", errors.get(0).getField());
-        assertEquals("can`t be empty", errors.get(0).getMessage());
+        assertEquals("can`t be null (should be provided)", errors.get(0).getMessage());
     }
 
     @Test
@@ -72,7 +73,7 @@ class SearchPassengerCarValidatorTest {
         Optional<CoreError> error = searchPassengerCarValidator.validateVehicleType(searchVehicleRequest);
         assertTrue(error.isPresent());
         assertEquals("Vehicle Type", error.get().getField());
-        assertEquals("can`t be empty", error.get().getMessage());
+        assertEquals("can`t be null (should be provided)", error.get().getMessage());
     }
 
     @Test
@@ -96,7 +97,7 @@ class SearchPassengerCarValidatorTest {
         Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
         assertTrue(error.isPresent());
         assertEquals("Transmission Type", error.get().getField());
-        assertEquals("can`t be empty", error.get().getMessage());
+        assertEquals("can`t be empty or blank", error.get().getMessage());
     }
 
     @Test
@@ -105,7 +106,7 @@ class SearchPassengerCarValidatorTest {
         Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
         assertTrue(error.isPresent());
         assertEquals("Transmission Type", error.get().getField());
-        assertEquals("can`t be empty", error.get().getMessage());
+        assertEquals("can`t be empty or blank", error.get().getMessage());
     }
 
     @Test
@@ -145,7 +146,7 @@ class SearchPassengerCarValidatorTest {
         Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
         assertTrue(error.isPresent());
         assertEquals("IsAirConditionerAvailable", error.get().getField());
-        assertEquals("can`t be empty", error.get().getMessage());
+        assertEquals("can`t be empty or blank", error.get().getMessage());
     }
 
     @Test
@@ -154,7 +155,7 @@ class SearchPassengerCarValidatorTest {
         Optional<CoreError> error = searchPassengerCarValidator.validateIsAirConditionerAvailable(searchVehicleRequest);
         assertTrue(error.isPresent());
         assertEquals("IsAirConditionerAvailable", error.get().getField());
-        assertEquals("can`t be empty", error.get().getMessage());
+        assertEquals("can`t be empty or blank", error.get().getMessage());
     }
 
     @Test
@@ -168,27 +169,134 @@ class SearchPassengerCarValidatorTest {
 
     @Test
     void testValidatePassengerAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().passengerAmount(1).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(1).build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
 
     @Test
-    void testValidatePassengerAmountIsNullReturnError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().passengerAmount(null).build();
+    void testValidatePassengerAmountNotProvidedIsNullReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(null).build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
-        assertEquals(1, errors.size());
-        assertEquals("Vehicle Type", errors.get(0).getField());
-        assertEquals("can`t be empty", errors.get(0).getMessage());
+        assertTrue(errors.isEmpty());
     }
 
     @Test
-    void testValidateTransmissionTypeIsEmptyReturnError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("").build();
-        Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
-        assertTrue(error.isPresent());
-        assertEquals("Transmission Type", error.get().getField());
-        assertEquals("can`t be empty", error.get().getMessage());
+    void testValidatePassengerAmountIsNegativeReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(-1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("can`t be negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountIsZeroReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(0).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("can`t be negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountIsLessThanMinAllowedReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(CAR_MIN_PASSENGER_AMOUNT - 1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("can`t be negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidatePassengerAmountIsMoreThanMaxAllowedReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(CAR_MAX_PASSENGER_AMOUNT + 1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Passenger amount", errors.get(0).getField());
+        assertEquals("can`t be more than " + CAR_MAX_PASSENGER_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsValidReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(2).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testValidateDoorsAmountNotProvidedIsNullReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(null).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsNegativeReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(-1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("can`t be negative, zero or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsZeroReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(0).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("can`t be negative, zero or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsLessThanMinAllowedReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(CAR_MIN_DOORS_AMOUNT - 1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("can`t be negative, zero or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateDoorsAmountIsMoreThanMaxAllowedReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(CAR_MAX_DOORS_AMOUNT + 1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Doors amount", errors.get(0).getField());
+        assertEquals("can`t be more than " + CAR_MAX_DOORS_AMOUNT, errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateBaggageAmountIsValidReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).baggageAmount(0).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testValidateBaggageAmountNotProvidedIsNullReturnNoError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).baggageAmount(null).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testValidateBaggageAmountIsNegativeReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).baggageAmount(-1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Baggage amount", errors.get(0).getField());
+        assertEquals("can`t be negative", errors.get(0).getMessage());
+    }
+
+    @Test
+    void testValidateBaggageAmountIsMoreThanMaxAllowedReturnError() {
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT + 1).build();
+        List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
+        assertFalse(errors.isEmpty());
+        assertEquals("Baggage amount", errors.get(0).getField());
+        assertEquals("can`t be more than " + CAR_MAX_BAGGAGE_AMOUNT, errors.get(0).getMessage());
     }
 
     @Test

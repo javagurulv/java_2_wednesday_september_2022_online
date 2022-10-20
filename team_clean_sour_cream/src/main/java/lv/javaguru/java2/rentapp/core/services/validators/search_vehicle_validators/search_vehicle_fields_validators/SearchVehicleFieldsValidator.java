@@ -16,7 +16,7 @@ public abstract class SearchVehicleFieldsValidator {
 
         VehicleType vehicleType = request.getVehicleType();
         if (vehicleType == null) {
-            return Optional.of(new CoreError("Vehicle Type", "can`t be empty"));
+            return Optional.of(new CoreError("Vehicle Type", "can`t be null (should be provided)"));
         } else {
             return Optional.empty();
         }
@@ -33,7 +33,7 @@ public abstract class SearchVehicleFieldsValidator {
 
         String transmissionType = transmissionTypeOpt.get();
         if (transmissionType.isBlank()) {
-            return Optional.of(new CoreError("Transmission Type", "can`t be empty"));
+            return Optional.of(new CoreError("Transmission Type", "can`t be empty or blank"));
         } else if (isEnumVehicleValueValid(enumTransmissionTypeValues, transmissionType)) {
             return Optional.empty();
         } else {
@@ -51,7 +51,7 @@ public abstract class SearchVehicleFieldsValidator {
 
         String isAirConditioningAvailable = isAirConditioningAvailableOpt.get();
         if (isAirConditioningAvailable.isBlank()) {
-            return Optional.of(new CoreError("IsAirConditionerAvailable", "can`t be empty"));
+            return Optional.of(new CoreError("IsAirConditionerAvailable", "can`t be empty or blank"));
         } else if (isAirConditioningAvailable.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase("true")
                 || isAirConditioningAvailable.replaceAll("[^a-zA-Z]", "").equalsIgnoreCase("false")) {
             return Optional.empty();
