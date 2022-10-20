@@ -1,20 +1,23 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.SearchTasksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class SearchTasksUIAction implements UIAction {
-    @DIDependency private SearchTasksService searchTasksService;
+    @Autowired
+    private SearchTasksService searchTasksService;
 
     @Override
     public boolean execute() {

@@ -1,11 +1,12 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class TaskInfoValidator {
 
     public List<CoreError> validate(AddTaskRequest request, TasksRepository taskList,

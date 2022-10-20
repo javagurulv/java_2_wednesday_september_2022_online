@@ -1,17 +1,20 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class UserRegistrationUIAction implements UIAction {
 
-    @DIDependency private UserRegistrationService userRegistrationService;
+    @Autowired
+    private UserRegistrationService userRegistrationService;
 
     @Override
     public boolean execute() {

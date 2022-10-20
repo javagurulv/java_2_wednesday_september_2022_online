@@ -1,15 +1,16 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class UserRegistrationValidator {
     public List<CoreError> validate(UserRegistrationRequest request, UsersRepository usersRepository) {
         List<CoreError> errors = new ArrayList<>();

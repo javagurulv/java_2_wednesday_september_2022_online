@@ -1,19 +1,23 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AddTaskService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AddTaskUIAction implements UIAction {
 
-    @DIDependency private AddTaskService addTaskService;
+    @Autowired
+    private AddTaskService addTaskService;
 
     @Override
     public boolean execute() {

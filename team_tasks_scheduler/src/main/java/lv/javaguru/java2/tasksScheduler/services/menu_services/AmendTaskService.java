@@ -1,20 +1,23 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.validators.TaskAmendValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class AmendTaskService {
 
-    @DIDependency private TasksRepository tasksRepository;
-    @DIDependency private TaskAmendValidator validator;
+    @Autowired
+    private TasksRepository tasksRepository;
+    @Autowired private TaskAmendValidator validator;
 
     public AmendTaskResponse execute(AmendTaskRequest request) {
         List<CoreError> errors = validator.validate(request, tasksRepository);
