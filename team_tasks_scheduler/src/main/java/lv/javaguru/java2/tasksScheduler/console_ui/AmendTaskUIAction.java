@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
@@ -9,17 +9,20 @@ import lv.javaguru.java2.tasksScheduler.responses.AmendTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendTaskService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AmendTaskUIAction implements UIAction {
 
-    @DIDependency private AmendTaskService amendTaskService;
-    @DIDependency private GetOutstandingTasksService getOutstandingTasksService;
+    @Autowired
+    private AmendTaskService amendTaskService;
+    @Autowired private GetOutstandingTasksService getOutstandingTasksService;
 
     @Override
     public boolean execute() {

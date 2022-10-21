@@ -1,8 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
@@ -11,18 +11,20 @@ import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.SearchTasksValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class SearchTasksService {
 
-    @DIDependency private TasksRepository tasksRepository;
-    @DIDependency private SearchTasksValidator validator;
-    @DIDependency private SessionService sessionService;
+    @Autowired private TasksRepository tasksRepository;
+    @Autowired private SearchTasksValidator validator;
+    @Autowired private SessionService sessionService;
 
     public SearchTasksResponse execute(SearchTasksRequest request) {
         List<CoreError>errors = validator.validate(request);

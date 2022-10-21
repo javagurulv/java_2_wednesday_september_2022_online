@@ -1,5 +1,4 @@
 package myApp.consoleUI;
-
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
@@ -34,5 +33,6 @@ public class MoneyTransferUIAction implements UIAction {
             System.out.println("Transaction not perfect");
         }
     }
+
 
 }

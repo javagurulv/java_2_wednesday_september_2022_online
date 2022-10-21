@@ -3,14 +3,11 @@ package lv.javaguru.java2.eBooking.core.services.appointment.search;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
-import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.services.appointment.add.AppointmentValidationResult;
-import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
-import org.junit.Assert;
-import org.junit.Before;
+
 import org.junit.Test;
-import org.mockito.internal.matchers.Or;
+
 
 import java.util.List;
 
@@ -78,5 +75,59 @@ public class AppointmentSearchRequestValidatorTest {
         assertEquals(errors.get(0).getField(), "Order by");
         assertEquals(errors.get(0).getAppointmentValidationMessage(),
                 AppointmentValidationResult.APPOINTMENT_SHOULD_CONTAIN_MASTERNAME_OR_SERVICETYPE);
+    }
+    @Test
+    public void shouldReturnErrorWhenPageSizeIsEmpty(){
+        Paging paging = new Paging(1,null);
+        SearchAppointmentRequest request= new SearchAppointmentRequest(
+                "Master name: ",
+                "Type of service:" ,
+                paging);
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(errors.size(),1);
+        assertEquals(errors.get(0).getField(),"Page size");
+        assertEquals(errors.get(0).getAppointmentValidationMessage(),
+                AppointmentValidationResult.APPOINTMENT_PAGESIZE_MUST_NOT_BE_EMPTY);
+    }
+    @Test
+    public void shouldReturnErrorWhenPageSizeEqualsZeroOrLess(){
+        Paging paging = new Paging(1,0);
+        SearchAppointmentRequest request= new SearchAppointmentRequest(
+                "Master name: ",
+                "Type of service:" ,
+                paging);
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(errors.size(),1);
+        assertEquals(errors.get(0).getField(),"Page size");
+        assertEquals(errors.get(0).getAppointmentValidationMessage(),
+                AppointmentValidationResult.APPOINTMENT_PAGESIZE_MUST_BE_GREATER_THAN_ZERO);
+    }
+
+    @Test
+    public void shouldReturnErrorWhenPageNumberIsEmpty(){
+        Paging paging = new Paging(null,1);
+        SearchAppointmentRequest request= new SearchAppointmentRequest(
+                "Master name: ",
+                "Type of service:" ,
+                paging);
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(errors.size(),1);
+        assertEquals(errors.get(0).getField(),"Page number");
+        assertEquals(errors.get(0).getAppointmentValidationMessage(),
+                AppointmentValidationResult.APPOINTMENT_PAGENUMBER_MUST_NOT_BE_EMPTY);
+    }
+
+    @Test
+    public void shouldReturnErrorWhenPageNumberEqualsZeroOrLess(){
+        Paging paging = new Paging(0,1);
+        SearchAppointmentRequest request= new SearchAppointmentRequest(
+                "Master name: ",
+                "Type of service:" ,
+                paging);
+        List<CoreError> errors = validator.validate(request);
+        assertEquals(errors.size(),1);
+        assertEquals(errors.get(0).getField(),"Page number");
+        assertEquals(errors.get(0).getAppointmentValidationMessage(),
+                AppointmentValidationResult.APPOINTMENT_PAGENUMBER_MUST_BE_GREATER_THAN_ZERO);
     }
 }

@@ -1,16 +1,7 @@
 package myApp.core.services;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import java.util.List;
+/*
 import myApp.core.database.DataBase;
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
-import myApp.core.requests.AddBankAccountRequest;
-import myApp.core.responses.AddBankAccountResponse;
-import myApp.core.responses.CoreError;
 import myApp.core.services.validators.AddBankAccountValidator;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,6 +16,7 @@ public class AddBankAccountServiceTest {
     private AddBankAccountValidator validator;
     @InjectMocks
     private AddBankAccountService service;
+
 
     @Test
     public void testShouldAddBankAccountToDataBase() {
@@ -89,3 +81,5 @@ public class AddBankAccountServiceTest {
                 response.getErrors().get(1).getMessage());
     }
 }
+
+ */

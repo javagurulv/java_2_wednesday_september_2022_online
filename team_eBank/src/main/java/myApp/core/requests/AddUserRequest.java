@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class OpenAccountRequest {
+public class AddUserRequest {
 
     private String personalCode;
-    private Integer amount;
+    private String password;
 }

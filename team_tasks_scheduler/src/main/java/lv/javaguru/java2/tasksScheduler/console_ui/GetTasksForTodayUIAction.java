@@ -1,18 +1,21 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
 import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetTasksForTodayService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class GetTasksForTodayUIAction implements UIAction {
 
-    @DIDependency private GetTasksForTodayService getTasksForTodayService;
+    @Autowired
+    private GetTasksForTodayService getTasksForTodayService;
 
     @Override
     public boolean execute() {

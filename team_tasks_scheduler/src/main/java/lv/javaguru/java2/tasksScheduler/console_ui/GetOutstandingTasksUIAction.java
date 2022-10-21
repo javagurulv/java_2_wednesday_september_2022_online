@@ -1,18 +1,20 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class GetOutstandingTasksUIAction implements UIAction {
 
-    @DIDependency private GetOutstandingTasksService getOutstandingTasksService;
+    @Autowired private GetOutstandingTasksService getOutstandingTasksService;
 
     @Override
     public boolean execute() {

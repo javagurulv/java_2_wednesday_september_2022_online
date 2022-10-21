@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetCurrentUserRequest;
@@ -9,14 +9,17 @@ import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.services.system.GetCurrentUserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AmendCurrentUserUIAction implements UIAction {
 
-    @DIDependency private AmendCurrentUserService amendCurrentUserService;
-    @DIDependency private GetCurrentUserService getCurrentUserService;
+    @Autowired
+    private AmendCurrentUserService amendCurrentUserService;
+    @Autowired private GetCurrentUserService getCurrentUserService;
 
     @Override
     public boolean execute() {

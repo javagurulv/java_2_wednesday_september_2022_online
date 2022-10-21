@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.CheckSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
@@ -16,16 +16,19 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.LoginService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.SettingsLoginService;
 import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class SettingsLoginUIAction implements UIAction {
 
-    @DIDependency private CheckSettingsExistenceService checkSettingsExistenceService;
-    @DIDependency private SettingsLoginService settingsLoginService;
-    @DIDependency private SessionService sessionService;
+    @Autowired
+    private CheckSettingsExistenceService checkSettingsExistenceService;
+    @Autowired private SettingsLoginService settingsLoginService;
+    @Autowired private SessionService sessionService;
 
     @Override
     public boolean execute() {

@@ -1,8 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
@@ -11,14 +11,18 @@ import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.TaskInfoValidator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
-@DIComponent
+@Component
 public class AddTaskService {
 
-    @DIDependency private TasksRepository tasksRepository;
-    @DIDependency private SessionService sessionService;
-    @DIDependency private TaskInfoValidator validator;
+    @Autowired
+    private TasksRepository tasksRepository;
+    @Autowired private SessionService sessionService;
+    @Autowired private TaskInfoValidator validator;
 
     public AddTaskResponse execute(AddTaskRequest request) {
         List<CoreError> errors = validator.validate(request, tasksRepository, sessionService);

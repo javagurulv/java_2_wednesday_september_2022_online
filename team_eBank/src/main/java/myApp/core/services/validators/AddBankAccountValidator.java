@@ -16,7 +16,6 @@ public class AddBankAccountValidator {
         validateName(request).ifPresent(errors::add);
         validateSurname(request).ifPresent(errors::add);
         validatePersonalCode(request).ifPresent(errors::add);
-        validatePassword(request).ifPresent(errors::add);
         return errors;
 
     }
@@ -40,11 +39,5 @@ public class AddBankAccountValidator {
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Personal Code",
                 "Personal code can only contain numbers and must not be empty"));
-    }
-    private Optional<CoreError> validatePassword(AddBankAccountRequest request) {
-        return request.getPassword() != null && !request.getPassword().isBlank()
-                ? Optional.empty()
-                : Optional.of(new CoreError("Field: Password",
-                "Password must not be empty"));
     }
 }

@@ -1,19 +1,18 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.ApplicationContext;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIApplicationContextBuilder;
+import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UIActionMap {
+
     private static ApplicationContext applicationContext =
-            new DIApplicationContextBuilder().build("lv.javaguru.java2.tasksScheduler");
-
-    //TODO remove tests user and tasks
-    TestData testData = applicationContext.getBean(TestData.class);
-
+            new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
 
     private Map<Integer, UIAction> actionMap;
     public UIActionMap() {
@@ -38,6 +37,8 @@ public class UIActionMap {
         actionMap.put(16, applicationContext.getBean(AmendSettingsUIAction.class));
         actionMap.put(17, applicationContext.getBean(ExitSettingsUIAction.class));
 
+        //TODO remove tests user and tasks
+        TestData testData = applicationContext.getBean(TestData.class);
         testData.createTestData();
     }
 

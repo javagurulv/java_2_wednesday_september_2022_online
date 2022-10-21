@@ -1,8 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.SettingsRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddSettingsResponse;
@@ -10,13 +8,17 @@ import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.validators.AddSettingsValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
-@DIComponent
+@Component
 public class AddSettingsService {
 
-    @DIDependency private SettingsRepository settingsRepository;
-    @DIDependency private AddSettingsValidator validator;
+    @Autowired
+    private SettingsRepository settingsRepository;
+    @Autowired private AddSettingsValidator validator;
 
     public AddSettingsResponse execute(AddSettingsRequest request) {
         List<CoreError> errors = validator.validate(request);

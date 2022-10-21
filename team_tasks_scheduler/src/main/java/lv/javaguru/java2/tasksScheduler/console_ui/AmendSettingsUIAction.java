@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
@@ -17,15 +17,18 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendSettingsServ
 import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
 import lv.javaguru.java2.tasksScheduler.services.system.GetSettingsService;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AmendSettingsUIAction implements UIAction {
 
-    @DIDependency private AmendSettingsService amendSettingsService;
-    @DIDependency private GetSettingsService getSettingsService;
-    @DIDependency private SessionService sessionService;
+    @Autowired
+    private AmendSettingsService amendSettingsService;
+    @Autowired private GetSettingsService getSettingsService;
+    @Autowired private SessionService sessionService;
 
     @Override
     public boolean execute() {

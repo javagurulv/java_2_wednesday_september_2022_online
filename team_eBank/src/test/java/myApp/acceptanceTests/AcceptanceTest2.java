@@ -1,5 +1,5 @@
 package myApp.acceptanceTests;
-
+/*
 import myApp.config.BankAccountConfiguration;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.requests.Ordering;
@@ -116,3 +116,4 @@ public class AcceptanceTest2 {
     }
 
 }
+ */

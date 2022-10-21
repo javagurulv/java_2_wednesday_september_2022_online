@@ -1,5 +1,4 @@
 package myApp.consoleUI;
-
 import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.SeeYourAccountResponse;
 import myApp.core.services.SeeYourAccountService;

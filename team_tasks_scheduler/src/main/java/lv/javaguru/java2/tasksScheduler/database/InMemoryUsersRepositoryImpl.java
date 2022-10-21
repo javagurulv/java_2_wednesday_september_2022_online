@@ -1,13 +1,14 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@DIComponent
+@Component
 public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     private Long nextId = 1L;
