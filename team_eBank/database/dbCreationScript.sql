@@ -6,22 +6,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE SCHEMA IF NOT EXISTS `bank` DEFAULT CHARACTER SET utf8 ;
 USE `bank` ;
 
-CREATE TABLE IF NOT EXISTS `accounts` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `balance` BIGINT NOT NULL,
-  PRIMARY KEY (`id`)
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1;
-
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` BIGINT NOT NULL AUTO_INCREMENT,
   `personal_code` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`personal_code`)
 )
-ENGINE = InnoDB
-AUTO_INCREMENT = 1;
+ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `bank_accounts` (
@@ -29,16 +19,16 @@ CREATE TABLE IF NOT EXISTS `bank_accounts` (
   `name` VARCHAR(100) NOT NULL,
   `surname` VARCHAR(100) NOT NULL,
   `personal_code` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  `role` VARCHAR(100) NOT NULL,
+  `balance` int,
+  PRIMARY KEY (`id`, `personal_code`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1;
 
 ALTER TABLE `bank_accounts`
-ADD FOREIGN KEY (`id`) REFERENCES `users`(`user_id`);
+ADD FOREIGN KEY (`personal_code`) REFERENCES `users`(`personal_code`);
 
-ALTER TABLE `accounts`
-ADD FOREIGN KEY (`id`) REFERENCES `bank_accounts`(`id`);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

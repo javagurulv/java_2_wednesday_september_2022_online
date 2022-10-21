@@ -30,5 +30,4 @@ public class LogInService {
         }
         return new LogInResponse("");
     }
-
 }

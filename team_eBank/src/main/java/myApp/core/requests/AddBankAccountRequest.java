@@ -10,6 +10,5 @@ public class AddBankAccountRequest {
     private String name;
     private String surname;
     private String personalCode;
-    private String password;
 
 }

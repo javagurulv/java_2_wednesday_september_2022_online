@@ -1,5 +1,6 @@
 package myApp.core.services;
 
+
 import myApp.core.database.DataBase;
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.CoreError;
@@ -20,11 +21,18 @@ public class OpenAccountService {
     public OpenAccountResponse execute(OpenAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-            boolean result = dataBase.openAccount(request.getPersonalCode());
-            return new OpenAccountResponse(result);
-        } else {
-            return new OpenAccountResponse(errors);
+            if (accountNullCheck(request.getPersonalCode())) {
+                boolean result = dataBase.openAccount(request.getPersonalCode(), request.getAmount());
+                return new OpenAccountResponse(result);
+            }
         }
+        return new OpenAccountResponse(errors);
+    }
+
+    private boolean accountNullCheck(String personalCode) {
+        return dataBase.getAllBankAccounts().stream()
+                .filter(b -> b.getPersonalCode().equals(personalCode))
+                .anyMatch(b -> b.getAccount() == null);
     }
 }
 
