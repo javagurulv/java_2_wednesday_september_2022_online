@@ -45,6 +45,10 @@ public class AmendSettingsService {
                 request.getEmailFrom(), request.getEmailPassword(), request.getEmailHost(),
                 request.getEmailPort(), request.getEmailProtocol());
 
+        if (currentSettings.equals(amendedSettings)) {
+            return null;
+        }
+
         if (!settingsRepository.save(amendedSettings)) {
             errors = new ArrayList<>();
             errors.add(new CoreError("Settings repository", "Update failed."));

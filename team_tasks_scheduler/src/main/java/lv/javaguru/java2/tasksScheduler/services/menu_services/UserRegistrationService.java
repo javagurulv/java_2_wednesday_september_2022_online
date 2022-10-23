@@ -22,7 +22,7 @@ public class UserRegistrationService {
     @Autowired private UserRegistrationValidator validator;
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
-        List<CoreError> errors = validator.validate(request, usersRepository);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new UserRegistrationResponse(errors);
         }
