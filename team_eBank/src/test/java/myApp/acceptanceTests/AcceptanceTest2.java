@@ -1,41 +1,52 @@
 package myApp.acceptanceTests;
-/*
+
 import myApp.config.BankAccountConfiguration;
-import myApp.core.requests.AddBankAccountRequest;
-import myApp.core.requests.Ordering;
-import myApp.core.requests.Paging;
-import myApp.core.requests.SearchBankAccountRequest;
+import myApp.core.requests.*;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
 import myApp.core.services.SearchBankAccountService;
+import myApp.matcher.DatabaseCleaner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
 
 
+@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {BankAccountConfiguration.class})
+@Sql({"/schema.sql"})
 public class AcceptanceTest2 {
 
-    private ApplicationContext appContext;
+    @Autowired
+    private AddBankAccountService addService;
+    @Autowired
+    private SearchBankAccountService searchBankAccountServiceService;
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
 
     @Before
     public void setup() {
-        appContext = new AnnotationConfigApplicationContext(BankAccountConfiguration.class);
+        databaseCleaner.clean();
     }
     @Test
     public void testSuccessFindTwoBankAccounts() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleOne",
-                "000000-00002", "password");
-        getAddBankAccountService().execute(bankAccountOne);
+                "000000-00002");
+        addService.execute(bankAccountOne,new AddUserRequest("000000-00002","password" ));
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "ExampleTwo",
-                "000000-00003", "password");
-        getAddBankAccountService().execute(bankAccountTwo);
+                "000000-00003");
+        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
 
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null );
-        SearchBankAccountResponse response = getSearchBankAccountService().execute(searchRequest);
+        SearchBankAccountResponse response = searchBankAccountServiceService.execute(searchRequest);
         assertEquals(2, response.getBankAccounts().size());
         assertEquals(response.getBankAccounts().get(0).getName(), "Example");
         assertEquals(response.getBankAccounts().get(0).getSurname(), "ExampleOne");
@@ -46,17 +57,17 @@ public class AcceptanceTest2 {
     @Test
     public void testSearchBooksWhenOrderingIsDescending() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
-                "000000-00002", "password");
-        getAddBankAccountService().execute(bankAccountOne);
+                "000000-00002");
+        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
-                "000000-00003", "password");
-        getAddBankAccountService().execute(bankAccountTwo);
+                "000000-00003");
+        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
 
         Ordering ordering = new Ordering("surname", "DESCENDING");
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
                 ordering);
-        SearchBankAccountResponse response = getSearchBankAccountService().execute(searchRequest);
+        SearchBankAccountResponse response = searchBankAccountServiceService.execute(searchRequest);
         assertEquals(2, response.getBankAccounts().size());
         assertEquals(response.getBankAccounts().get(0).getName(), "Example");
         assertEquals(response.getBankAccounts().get(0).getSurname(), "B");
@@ -67,17 +78,17 @@ public class AcceptanceTest2 {
     @Test
     public void testSearchBooksWhenOrderingIsAscending() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
-                "000000-00002", "password");
-        getAddBankAccountService().execute(bankAccountOne);
+                "000000-00002");
+        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
-                "000000-00003", "password");
-        getAddBankAccountService().execute(bankAccountTwo);
+                "000000-00003");
+        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
 
         Ordering ordering = new Ordering("surname", "ASCENDING");
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
                 ordering);
-        SearchBankAccountResponse response = getSearchBankAccountService().execute(searchRequest);
+        SearchBankAccountResponse response = searchBankAccountServiceService.execute(searchRequest);
 
         assertEquals(2, response.getBankAccounts().size());
         assertEquals(response.getBankAccounts().get(0).getName(), "Example");
@@ -89,31 +100,21 @@ public class AcceptanceTest2 {
     @Test
     public void testSearchBooksWithOrderingPaging() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
-                "000000-00002", "password");
-        getAddBankAccountService().execute(bankAccountOne);
+                "000000-00002");
+        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
-                "000000-00003", "password");
-        getAddBankAccountService().execute(bankAccountTwo);
+                "000000-00003");
+        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
 
         Ordering ordering = new Ordering("surname", "ASCENDING");
         Paging paging = new Paging(1, 1);
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
                 ordering, paging);
-        SearchBankAccountResponse response = getSearchBankAccountService().execute(searchRequest);
+        SearchBankAccountResponse response = searchBankAccountServiceService.execute(searchRequest);
 
         assertEquals(1, response.getBankAccounts().size());
         assertEquals(response.getBankAccounts().get(0).getName(), "Example");
         assertEquals(response.getBankAccounts().get(0).getSurname(), "A");
     }
-
-    private AddBankAccountService getAddBankAccountService() {
-        return appContext.getBean(AddBankAccountService.class);
-    }
-
-    private SearchBankAccountService getSearchBankAccountService() {
-        return appContext.getBean(SearchBankAccountService.class);
-    }
-
 }
- */
