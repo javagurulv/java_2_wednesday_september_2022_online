@@ -18,8 +18,13 @@ public class GetSettingsService {
 
     @Autowired
     private SettingsRepository settingsRepository;
+    @Autowired private SessionService sessionService;
 
     public GetSettingsResponse execute(GetSettingsRequest request) {
-        return new GetSettingsResponse(settingsRepository.getRecord());
+        Settings settings = new Settings(settingsRepository.getRecord());
+        if (request.isDecryptedPassword()) {
+            settings.setAdminPassword(sessionService.getDecryptedPassword());
+        }
+        return new GetSettingsResponse(settings);
     }
 }

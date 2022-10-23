@@ -20,14 +20,14 @@ public class AmendTaskService {
     @Autowired private TaskAmendValidator validator;
 
     public AmendTaskResponse execute(AmendTaskRequest request) {
-        List<CoreError> errors = validator.validate(request, tasksRepository);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new AmendTaskResponse(errors);
         }
 
         if (!tasksRepository.update(request.getTask())) {
             errors.clear();
-            errors.add(new CoreError("Database", "Unexpected error"));
+            errors.add(new CoreError("Tasks repository", "Update failed."));
             return new AmendTaskResponse(errors);
         }
 

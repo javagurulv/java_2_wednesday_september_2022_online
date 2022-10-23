@@ -24,7 +24,7 @@ public class AmendCurrentUserUIAction implements UIAction {
     @Override
     public boolean execute() {
 
-        GetCurrentUserRequest getCurrentUserRequest = new GetCurrentUserRequest();
+        GetCurrentUserRequest getCurrentUserRequest = new GetCurrentUserRequest(true);
         GetCurrentUserResponse getCurrentUserResponse = getCurrentUserService.execute(getCurrentUserRequest);
         User currentUser = getCurrentUserResponse.getUser();
 
@@ -40,27 +40,29 @@ public class AmendCurrentUserUIAction implements UIAction {
             System.out.println();
         }
 
-        String[] input = collectDataFromScreen(currentUser);
+        User input = collectDataFromScreen(currentUser);
 
-        AmendCurrentUserRequest request = new AmendCurrentUserRequest(input[0], input[1],
-                input[2], input[3].equals("Y"));
+        AmendCurrentUserRequest request = new AmendCurrentUserRequest(input);
         AmendCurrentUserResponse response = amendCurrentUserService.execute(request);
 
+        if (response == null) {
+            System.out.println("Nothing has been detected for amending.");
+            return true;
+        }
+
         if (response.hasErrors()) {
-            System.out.println("User information has not been amended.");
             response.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
             );
             return false;
         } else {
-            System.out.println("User information has been amended." + response.getUser().getId());
+            System.out.println("User information has been successfully amended. User ID = " + response.getUser().getId());
             return true;
         }
     }
 
-    private String[] collectDataFromScreen(User currentUser) {
+    private User collectDataFromScreen(User user) {
         String[] fields = {"Username", "Password", "Email", "Reminders indicator"};
-        String[] result = new String[fields.length];
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -73,24 +75,26 @@ public class AmendCurrentUserUIAction implements UIAction {
                     System.out.println("Push 'Y' if reminders by email are required: ");
                 else
                     System.out.println("Enter " + fields[i] + ": ");
-                input = scanner.nextLine();
-                result[i] = input;
-            }
-            else {
+
                 switch (i) {
-                    case 0: result[i] = currentUser.getUsername();
+                    case 0: user.setUsername(scanner.nextLine());
                     break;
-                    case 1: result[i] = currentUser.getPassword();
+                    case 1: user.setPassword(scanner.nextLine());
                     break;
-                    case 2: result[i] = currentUser.getEmail();
+                    case 2: user.setEmail(scanner.nextLine());
                     break;
-                    case 3: result[i] = currentUser.isSendReminders() ? "Y" : "N";
-                    break;
+                    case 3:
+                        if (scanner.nextLine().equalsIgnoreCase("Y")) {
+                            user.setSendReminders(true);
+                        } else {
+                            user.setSendReminders(false);
+                        }
+                        break;
                     default:
                         break;
                 }
             }
         }
-        return result;
+        return user;
     }
 }

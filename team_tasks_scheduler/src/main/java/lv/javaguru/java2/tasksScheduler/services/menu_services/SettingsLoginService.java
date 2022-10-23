@@ -7,12 +7,11 @@ import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.domain.User;
+import lv.javaguru.java2.tasksScheduler.requests.GetSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.requests.SettingsLoginRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AddSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
-import lv.javaguru.java2.tasksScheduler.responses.LoginResponse;
-import lv.javaguru.java2.tasksScheduler.responses.SettingsLoginResponse;
+import lv.javaguru.java2.tasksScheduler.responses.*;
+import lv.javaguru.java2.tasksScheduler.services.system.GetSettingsService;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.SettingsLoginValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
@@ -29,6 +28,7 @@ public class SettingsLoginService {
     private SettingsRepository settingsRepository;
     @Autowired private SettingsLoginValidator validator;
     @Autowired private SessionService sessionService;
+    @Autowired private GetSettingsService getSettingsService;
 
     public SettingsLoginResponse execute(SettingsLoginRequest request) {
 
@@ -37,8 +37,10 @@ public class SettingsLoginService {
             return new SettingsLoginResponse(errors);
         }
 
-        Settings settings = settingsRepository.getRecord();
         sessionService.login(0L, request.getAdminPassword());
+        GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
+        Settings settings = getSettingsResponse.getSettings();
+
         return new SettingsLoginResponse(settings);
     }
 }

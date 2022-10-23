@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.requests;
 
+import lv.javaguru.java2.tasksScheduler.domain.User;
+
 public class AmendCurrentUserRequest {
 
     private String username;
@@ -12,6 +14,13 @@ public class AmendCurrentUserRequest {
         this.password = password;
         this.email = email;
         this.sendReminders = sendReminders;
+    }
+
+    public AmendCurrentUserRequest(User user) {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.sendReminders = user.isSendReminders();
     }
 
     public String getUsername() {

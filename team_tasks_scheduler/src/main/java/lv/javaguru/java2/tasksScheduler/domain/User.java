@@ -17,6 +17,14 @@ public class User {
         this.sendReminders = sendReminders;
     }
 
+    public User(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.sendReminders = user.isSendReminders();
+    }
+
     public Long getId() {
         return id;
     }

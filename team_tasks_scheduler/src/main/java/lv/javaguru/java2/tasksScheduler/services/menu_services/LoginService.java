@@ -14,6 +14,7 @@ import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class LoginService {
                                              Encryption.stringHashing(request.getPassword()));
 
         sessionService.login(user.getId(), request.getPassword());
-        tasksRepository.deleteOutOfDateByUserId(sessionService.getCurrentUserId());
+        tasksRepository.deleteByUserIdTillDate(sessionService.getCurrentUserId(), LocalDateTime.now());
         return new LoginResponse(user);
     }
 }
