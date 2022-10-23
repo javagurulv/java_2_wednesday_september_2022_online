@@ -33,12 +33,19 @@ public class ClientSearchServiceTest {
     @Test
     public void shouldReturnResponseWithErrorsWhenValidationFails(){
         SearchClientRequest request = new SearchClientRequest(null,null);
-        List<CoreError> errors = new ArrayList<>();
+        List<CoreError> errors = validator.validate(request);
         errors.add(new CoreError("Email",ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY));
         errors.add(new CoreError("Phone number", ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY));
         Mockito.when(validator.validate(request)).thenReturn(errors);
         SearchClientResponse response = service.execute(request);
-        assertTrue(response.hasError());
 
+        assertTrue(response.hasError());
+        assertEquals(response.getErrors().size(),2);
+        assertEquals(response.getErrors().get(0).getField(),"Email");
+        assertEquals(response.getErrors().get(0).getClientValidationMessage(),
+                ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY);
+        assertEquals(response.getErrors().get(1).getField(),"Phone number");
+        assertEquals(response.getErrors().get(1).getClientValidationMessage(),
+                ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY);
     }
 }
