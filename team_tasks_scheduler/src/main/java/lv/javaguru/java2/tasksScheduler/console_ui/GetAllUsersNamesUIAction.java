@@ -1,8 +1,5 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-//import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersNamesRequest;
-
-
 import lv.javaguru.java2.tasksScheduler.requests.GetAllUsersRequest;
 //import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersNamesResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetAllUsersResponse;

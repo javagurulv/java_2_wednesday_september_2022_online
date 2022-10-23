@@ -17,8 +17,10 @@ public class GetCurrentUserService {
     @Autowired private SessionService sessionService;
 
     public GetCurrentUserResponse execute(GetCurrentUserRequest request) {
-        User result = usersRepository.getUserById(sessionService.getCurrentUserId());
-        result.setPassword(sessionService.getDecryptedPassword());
+        User result = new User(usersRepository.getUserById(sessionService.getCurrentUserId()));
+        if (request.isDecryptedPassword()) {
+            result.setPassword(sessionService.getDecryptedPassword());
+        }
         return new GetCurrentUserResponse(result);
     }
 }

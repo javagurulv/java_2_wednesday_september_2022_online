@@ -3,12 +3,13 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
+import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequest;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -18,7 +19,7 @@ public class GetOutstandingTasksUIAction implements UIAction {
 
     @Override
     public boolean execute() {
-        GetOutstandingTasksRequests request = new GetOutstandingTasksRequests();
+        GetOutstandingTasksRequest request = new GetOutstandingTasksRequest(LocalDateTime.MAX);
         GetOutstandingTasksResponse response = getOutstandingTasksService.execute(request);
 
         if (response.hasErrors()) {

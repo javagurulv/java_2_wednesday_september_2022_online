@@ -28,19 +28,18 @@ public class AmendSettingsUIAction implements UIAction {
     @Autowired
     private AmendSettingsService amendSettingsService;
     @Autowired private GetSettingsService getSettingsService;
-    @Autowired private SessionService sessionService;
 
     @Override
     public boolean execute() {
 
-        GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest());
+        GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
         Settings currentSettings = getSettingsResponse.getSettings();
 
         if (currentSettings == null) {
             System.out.println("Settings are not set up.");
             return false;
         } else {
-            System.out.println("Administrator password = " + sessionService.getDecryptedPassword());
+            System.out.println("Administrator password = " + currentSettings.getAdminPassword());
             System.out.println("Email from = " + currentSettings.getEmailFrom());
             System.out.println("Email password = " + currentSettings.getEmailPassword());
             System.out.println("Email host = " + currentSettings.getEmailHost());
@@ -49,11 +48,15 @@ public class AmendSettingsUIAction implements UIAction {
             System.out.println();
         }
 
-        String[] input = collectDataFromScreen(currentSettings);
+        Settings input = collectDataFromScreen(currentSettings);
 
-        AmendSettingsRequest request = new AmendSettingsRequest(input[0], input[1], input[2],
-                input[3], input[4], input[5]);
+        AmendSettingsRequest request = new AmendSettingsRequest(input);
         AmendSettingsResponse response = amendSettingsService.execute(request);
+
+        if (response == null) {
+            System.out.println("Nothing has been detected for amending.");
+            return true;
+        }
 
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
@@ -65,10 +68,9 @@ public class AmendSettingsUIAction implements UIAction {
         return true;
     }
 
-    private String[] collectDataFromScreen(Settings currentSettings) {
+    private Settings collectDataFromScreen(Settings settings) {
         String[] fields = {"Administrator password", "Email from", "Email password",
         "Email host", "Email port", "Email protocol"};
-        String[] result = new String[fields.length];
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -78,28 +80,25 @@ public class AmendSettingsUIAction implements UIAction {
             input = input.toUpperCase();
             if (input.equals("Y")) {
                 System.out.println("Enter " + fields[i] + ": ");
-                input = scanner.nextLine();
-                result[i] = input;
-            }
-            else {
+
                 switch (i) {
-                    case 0: result[i] = sessionService.getDecryptedPassword();
+                    case 0: settings.setAdminPassword(scanner.nextLine());
                         break;
-                    case 1: result[i] = currentSettings.getEmailFrom();
+                    case 1: settings.setEmailFrom(scanner.nextLine());
                         break;
-                    case 2: result[i] = currentSettings.getEmailPassword();
+                    case 2: settings.setEmailPassword(scanner.nextLine());
                         break;
-                    case 3: result[i] = currentSettings.getEmailHost();
+                    case 3: settings.setEmailHost(scanner.nextLine());
                         break;
-                    case 4: result[i] = currentSettings.getEmailPort();
+                    case 4: settings.setEmailPort(scanner.nextLine());
                         break;
-                    case 5: result[i] = currentSettings.getEmailProtocol();
+                    case 5: settings.setEmailProtocol(scanner.nextLine());
                         break;
                     default:
                         break;
                 }
             }
         }
-        return result;
+        return settings;
     }
 }

@@ -11,6 +11,7 @@ import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class DeleteCurrentUserService {
     public DeleteCurrentUserResponse execute(DeleteCurrentUserRequest request) {
         try {
             String deletedUserName = usersRepository.getUserById(sessionService.getCurrentUserId()).getUsername();
-            tasksRepository.deleteByUserId(sessionService.getCurrentUserId());
+            tasksRepository.deleteByUserIdTillDate(sessionService.getCurrentUserId(), LocalDateTime.MAX);
             usersRepository.deleteById(sessionService.getCurrentUserId());
             sessionService.logOut();
             return new DeleteCurrentUserResponse(deletedUserName);

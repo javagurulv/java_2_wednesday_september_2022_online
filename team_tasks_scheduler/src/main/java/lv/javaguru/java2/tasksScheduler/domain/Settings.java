@@ -1,7 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Component
 public class Settings {
 
     private String adminPassword;
@@ -11,6 +14,9 @@ public class Settings {
     private String emailPort;
     private String emailProtocol;
 
+    public Settings() {
+    }
+
     public Settings(String adminPassword, String emailFrom, String emailPassword, String emailHost, String emailPort, String emailProtocol) {
         this.adminPassword = adminPassword;
         this.emailFrom = emailFrom;
@@ -18,6 +24,15 @@ public class Settings {
         this.emailHost = emailHost;
         this.emailPort = emailPort;
         this.emailProtocol = emailProtocol;
+    }
+
+    public Settings(Settings settings) {
+        this.adminPassword = settings.getAdminPassword();
+        this.emailFrom = settings.getEmailFrom();
+        this.emailPassword = settings.getEmailPassword();
+        this.emailHost = settings.getEmailHost();
+        this.emailPort = settings.getEmailPort();
+        this.emailProtocol = settings.getEmailProtocol();
     }
 
     public String getAdminPassword() {
