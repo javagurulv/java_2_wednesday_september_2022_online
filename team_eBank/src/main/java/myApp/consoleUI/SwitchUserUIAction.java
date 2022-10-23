@@ -1,6 +1,7 @@
 package myApp.consoleUI;
 
 import myApp.core.requests.SwitchUserRequest;
+import myApp.core.responses.SwitchUserResponse;
 import myApp.core.services.SwitchUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,14 @@ public class SwitchUserUIAction implements UIAction {
         System.out.println("Enter your password: ");
         String password = scanner.nextLine();
         SwitchUserRequest request = new SwitchUserRequest(personalCode, password);
-        String response = service.execute(request);
+        SwitchUserResponse response = service.execute(request);
+        if (response.hasErrors()) {
+            if (response.hasErrors()) {
+                response.getErrors().forEach(coreError -> System.out.println("Error: "
+                        + coreError.getField() + " " + coreError.getMessage()));
+            } else {
+                System.out.println("Welcome!");
+            }
+        }
     }
 }
