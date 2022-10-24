@@ -2,7 +2,7 @@ package lv.javaguru.java2.eBooking.console_ui;
 
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.RemoveAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.appointment.RemoveAppointmentResponse;
-import lv.javaguru.java2.eBooking.core.services.appointment.remove.RemoveAppointmentService;
+import lv.javaguru.java2.eBooking.core.services.appointment.RemoveAppointmentService;
 
 import java.util.Scanner;
 

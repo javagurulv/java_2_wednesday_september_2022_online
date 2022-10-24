@@ -1,8 +1,8 @@
 package generalPackage.adminOperationsUI;
 
-import generalPackage.adminOperations.FindUserByIDService;
-import generalPackage.adminRequests.FindUserByIDRequest;
-import generalPackage.adminResponses.FindByIDAccountResponse;
+import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
+import generalPackage.core.responses.adminResponses.FindByIDAccountResponse;
+import generalPackage.core.services.adminOperations.FindUserByIDService;
 
 import java.util.Scanner;
 

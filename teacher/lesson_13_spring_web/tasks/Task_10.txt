@@ -1,0 +1,17 @@
+Запустите приложение используя WebBookListApplication.
+
+Откройте браузер и наберите: http://localhost:8080/.
+
+Перед вами должна открыться веб страница:
+
+Program menu
+Add book to list
+Delete book from list
+Show all books in the list
+Search books
+Register reader
+
+
+По умолчанию приложение поднимается на порту 8080.
+Если это вас не устраивает, то это можно поменять
+указав в свойствах приложения другой порт.

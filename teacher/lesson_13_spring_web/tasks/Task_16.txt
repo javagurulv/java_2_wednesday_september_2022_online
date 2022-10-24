@@ -1,0 +1,20 @@
+После обработки формы на странице /addBookToList приложение
+отрисовывает главную страницу, но url в адресной строке остаётся
+/addBookToList. Для того, чтобы при возврате со страницы /addBookToList
+на главную url в адресной строке тоже менялся воспользуемся
+командой redirect:
+
+	@PostMapping("/addBookToList")
+	public String processAddBookRequest(@ModelAttribute(value = "request") AddBookRequest request, ModelMap modelMap) {
+		AddBookResponse response = addBookService.execute(request);
+		if (response.hasErrors()) {
+			modelMap.addAttribute("errors", response.getErrors());
+			return "addBookToList";
+		} else {
+			return "redirect:/";
+		}
+	}
+
+Команда redirect отсылается на сторону браузера и заставляет его
+выполнить переход на указанную страницу и выполнить для неё
+GET запрос.

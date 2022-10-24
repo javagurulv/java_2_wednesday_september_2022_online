@@ -4,7 +4,9 @@ import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -33,12 +34,21 @@ public class ClientSearchServiceTest {
     @Test
     public void shouldReturnResponseWithErrorsWhenValidationFails(){
         SearchClientRequest request = new SearchClientRequest(null,null);
-        List<CoreError> errors = new ArrayList<>();
+        List<CoreError> errors = validator.validate(request);
         errors.add(new CoreError("Email",ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY));
         errors.add(new CoreError("Phone number", ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY));
         Mockito.when(validator.validate(request)).thenReturn(errors);
         SearchClientResponse response = service.execute(request);
-        assertTrue(response.hasError());
 
+        assertTrue(response.hasError());
+        assertEquals(response.getErrors().size(),2);
+        assertEquals(response.getErrors().get(0).getField(),"Email");
+        assertEquals(response.getErrors().get(0).getClientValidationMessage(),
+                ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY);
+        assertEquals(response.getErrors().get(1).getField(),"Phone number");
+        assertEquals(response.getErrors().get(1).getClientValidationMessage(),
+                ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY);
+
+        Mockito.verifyNoInteractions(database);
     }
 }

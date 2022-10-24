@@ -1,8 +1,8 @@
 package generalPackage.adminOperationsUI;
 
-import generalPackage.adminOperations.DeleteAccountService;
-import generalPackage.adminRequests.DeleteAccountRequest;
-import generalPackage.adminResponses.DeleteAccountResponse;
+import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
+import generalPackage.core.responses.adminResponses.DeleteAccountResponse;
+import generalPackage.core.services.adminOperations.DeleteAccountService;
 
 import java.util.Scanner;
 

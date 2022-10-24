@@ -1,0 +1,8 @@
+Подключите в build.gradle библиотеку:
+
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf:2.4.1') {
+        exclude (group: 'ch.qos.logback', module: 'logback-classic')
+    }
+
+Thymeleaf - это библиотека шаблонизатор для генерации HTML документов.
+Эта библиотека поможет вам в создании веб страниц.

@@ -1,0 +1,59 @@
+В папке src/main/resources/db/changelog/changes
+создайте файл changelog-3.xml:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="javaguru" id="3">
+        <createTable tableName="reader_books">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="reader_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_out_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_return_date" type="TIMESTAMP"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="reader_books"
+                       cascadeConstraints="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="javaguru" id="4">
+        <addForeignKeyConstraint baseTableName="reader_books"
+                                 baseColumnNames="reader_id"
+                                 constraintName="fk_reader_books_reader_id"
+                                 referencedTableName="readers"
+                                 referencedColumnNames="id"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="reader_books"
+                                      constraintName="fk_reader_books_reader_id"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="javaguru" id="5">
+        <addForeignKeyConstraint baseTableName="reader_books"
+                                 baseColumnNames="book_id"
+                                 constraintName="fk_reader_books_book_id"
+                                 referencedTableName="books"
+                                 referencedColumnNames="id"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="reader_books"
+                                      constraintName="fk_reader_books_book_id"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
+
+В этом файле представлен скрипт создания таблицы базы данных reader_books.
