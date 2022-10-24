@@ -1,8 +1,8 @@
 package generalPackage.adminOperationsUI;
 
-import generalPackage.adminOperations.GetAllAccountsService;
-import generalPackage.adminRequests.GetAllAccountsRequest;
-import generalPackage.adminResponses.GetAllAccountsResponse;
+import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
+import generalPackage.core.responses.adminResponses.GetAllAccountsResponse;
+import generalPackage.core.services.adminOperations.GetAllAccountsService;
 
 
 public class GetAllAccountsAdminUIAction implements AdminUIactions {
