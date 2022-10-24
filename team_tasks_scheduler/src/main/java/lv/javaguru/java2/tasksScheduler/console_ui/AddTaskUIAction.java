@@ -26,7 +26,7 @@ public class AddTaskUIAction implements UIAction {
 
         System.out.println("Enter task description: ");
         String description = scanner.nextLine();
-        System.out.println("Enter after what days count to repeat the task or 0 if this is once only task: ");
+        System.out.println("Enter repeat cycle in days or 0 if this is a single task: ");
         int regularity;
         try {
             regularity = Integer.parseInt(scanner.nextLine());
@@ -63,7 +63,7 @@ public class AddTaskUIAction implements UIAction {
             );
             return false;
         } else {
-            System.out.println("Task successfully added." + response.getTask().getId());
+            System.out.println("Task successfully added. Task ID = " + response.getTask().getId());
             return true;
         }
     }

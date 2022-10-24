@@ -1,0 +1,31 @@
+Создайте в пакете core/database пакет jpa.
+
+В пакете jpa объявите класс JpaBookRepository следуущим образом:
+
+
+@Repository
+public interface JpaBookRepository extends JpaRepository<Book, Long> {
+
+	List<Book> findByTitle(String title);
+
+	List<Book> findByAuthor(String author);
+
+	List<Book> findByTitleAndAuthor(String title, String author);
+
+}
+
+Spring Data JPA репозитории наследуются от
+extends JpaRepository<Book, Long> и параметризируются доменным
+объектом в котором содержится ORM мапинг и типом (Long) который
+соответствует типу поля первичного ключа в доменном объекте.
+
+В наследство от JpaRepository интерфейс получает стандартные CRUD методы.
+
+Если вам не хватает стандартных CRUD методом для работы с базой данных,
+то вы просто создаёте собственные используя два способа:
+- при помощи использования ключевых слов и свойств доменного объекта
+  в названии метода (findByTitle)
+- при помощи аннотации @Query
+
+    @Query(value = "SELECT COUNT(*) FROM cart WHERE deleted=false AND ordered=false AND session_id=?", nativeQuery = true)
+    Long countProductInCart(String sessionId);

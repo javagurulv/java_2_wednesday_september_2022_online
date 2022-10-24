@@ -20,6 +20,15 @@ public class Task {
         this.userId = userId;
     }
 
+    public Task(Task task) {
+        this.id = task.getId();
+        this.description = task.getDescription();
+        this.regularity = task.getRegularity();
+        this.dueDate = task.getDueDate();
+        this.endDate = task.getEndDate();
+        this.userId = task.getUserId();
+    }
+
     public Long getId() {
         return id;
     }

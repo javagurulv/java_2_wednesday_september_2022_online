@@ -1,8 +1,8 @@
 package generalPackage.adminOperationsUI;
 
-import generalPackage.adminOperations.AddAccountService;
-import generalPackage.adminRequests.AddAccountRequest;
-import generalPackage.adminResponses.AddAccountResponse;
+import generalPackage.core.requests.adminRequests.AddAccountRequest;
+import generalPackage.core.responses.adminResponses.AddAccountResponse;
+import generalPackage.core.services.adminOperations.AddAccountService;
 
 import java.util.Scanner;
 

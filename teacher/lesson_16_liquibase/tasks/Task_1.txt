@@ -1,0 +1,8 @@
+Цель этого урока перевести приложение на Liquibase.
+
+Добавьте в gradle.build библиотеку Liquibase (https://www.liquibase.org/):
+
+compile ('org.liquibase:liquibase-core:4.2.2')
+
+Данная библиотека предназначена для управления миграциями
+реляционных баз данных из приложения.

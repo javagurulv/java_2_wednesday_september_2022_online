@@ -2,7 +2,8 @@ package lv.javaguru.java2.eBooking.core.services.client.search;
 
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
 import org.junit.Test;
 
 import java.util.List;

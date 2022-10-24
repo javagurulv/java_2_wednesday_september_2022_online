@@ -2,24 +2,15 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.CheckSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
-import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.requests.SettingsLoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CheckSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
-import lv.javaguru.java2.tasksScheduler.responses.LoginResponse;
 import lv.javaguru.java2.tasksScheduler.responses.SettingsLoginResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.GetTasksForTodayService;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.LoginService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.SettingsLoginService;
 import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
-import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -28,7 +19,6 @@ public class SettingsLoginUIAction implements UIAction {
     @Autowired
     private CheckSettingsExistenceService checkSettingsExistenceService;
     @Autowired private SettingsLoginService settingsLoginService;
-    @Autowired private SessionService sessionService;
 
     @Override
     public boolean execute() {
@@ -57,7 +47,7 @@ public class SettingsLoginUIAction implements UIAction {
             System.out.println();
 
             System.out.println("--- Current settings start ---");
-            System.out.println("Administrator password = " + sessionService.getDecryptedPassword());
+            System.out.println("Administrator password = " + response.getSettings().getAdminPassword());
             System.out.println("Email from = " + response.getSettings().getEmailFrom());
             System.out.println("Email password = " + response.getSettings().getEmailPassword());
             System.out.println("Email host = " + response.getSettings().getEmailHost());

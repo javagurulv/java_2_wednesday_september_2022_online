@@ -40,6 +40,10 @@ public class TestData {
                 "a@b.c", false);
         UserRegistrationResponse response = userService.execute(request);
 
+        request = new UserRegistrationRequest("2222","2222",
+                "t@t.t", false);
+        response = userService.execute(request);
+
         request = new UserRegistrationRequest("John Doe","2222",
                 "c@b.a", false);
         response = userService.execute(request);

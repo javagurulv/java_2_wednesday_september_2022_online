@@ -3,6 +3,7 @@ package myApp.core.services;
 
 import myApp.core.requests.LogInRequest;
 import myApp.core.requests.SwitchUserRequest;
+import myApp.core.responses.SwitchUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +14,10 @@ public class SwitchUserService {
     @Autowired
     private LogInService logInService;
 
-    public String execute(SwitchUserRequest request) {
+    public SwitchUserResponse execute(SwitchUserRequest request) {
         service.logOut();
-        return logInService.execute(new LogInRequest(request.getPersonalCode(), request.getPassword()))
-                .getPersonalCode();
+        return new SwitchUserResponse(logInService.execute(new LogInRequest(request.getPersonalCode(), request.getPassword()))
+                .getPersonalCode());
     }
 
 }

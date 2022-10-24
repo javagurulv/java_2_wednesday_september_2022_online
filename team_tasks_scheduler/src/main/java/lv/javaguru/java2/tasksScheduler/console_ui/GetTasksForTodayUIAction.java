@@ -3,24 +3,26 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.requests.GetTasksForTodayRequests;
-import lv.javaguru.java2.tasksScheduler.responses.GetTaskForTodayResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.GetTasksForTodayService;
+import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequest;
+import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
 public class GetTasksForTodayUIAction implements UIAction {
 
     @Autowired
-    private GetTasksForTodayService getTasksForTodayService;
+    private GetOutstandingTasksService getOutstandingTasksService;
 
     @Override
     public boolean execute() {
-        GetTasksForTodayRequests request = new GetTasksForTodayRequests();
-        GetTaskForTodayResponse response = getTasksForTodayService.execute(request);
+        GetOutstandingTasksRequest request = new GetOutstandingTasksRequest(LocalDateTime.now().plusDays(1).with(LocalTime.MIN));
+        GetOutstandingTasksResponse response = getOutstandingTasksService.execute(request);
 
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->

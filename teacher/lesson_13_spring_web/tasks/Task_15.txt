@@ -1,0 +1,46 @@
+Добавляем обработку ошибок в AddBookController.
+
+Напомним, что при выполнении запроса на стороне приложения
+могут произойти ошибки. Например ошибки валидации.
+При возникновении ошибки контроллер должен оставлять пользователя
+на текущей странице и выводить ошибки на экран.
+
+Для вывода ошибок на экран добавьте в html шаблон страницы секцию:
+
+        <tr>
+            <form action="/addBookToList" th:object="${request}" method="post">
+                <td><input type="text" th:field="${request.title}"/></td>
+                <td><input type="text" th:field="${request.author}"/></td>
+                <td>
+                    <input type="submit" value="Add Book"/>
+                    <input type="reset" value="Clear"/>
+                </td>
+            </form>
+        </tr>
+    </table>
+
+    <td th:if="${errors != null}">
+        <tr th:each="error : ${errors}">
+            <td th:text="${error.field}" />
+            <td th:text="${error.message}" />
+        </tr>
+    </td>
+
+
+В классе контроллере измените метод обработки формы следующим
+образом:
+
+	@PostMapping("/addBookToList")
+	public String processAddBookRequest(@ModelAttribute(value = "request") AddBookRequest request, ModelMap modelMap) {
+		AddBookResponse response = addBookService.execute(request);
+		if (response.hasErrors()) {
+			modelMap.addAttribute("errors", response.getErrors());
+			return "addBookToList";
+		} else {
+			return "index";
+		}
+	}
+
+Запустите приложение и протестируйте добавленную функциональность.
+Теперь при возникновении ошибки пользователь остаётся на текущей
+странице и под формой выводится список ошибок.

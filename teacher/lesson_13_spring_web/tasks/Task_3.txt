@@ -1,0 +1,20 @@
+Подключите в build.gradle библиотеку:
+
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:2.4.1') {
+        exclude (group: 'ch.qos.logback', module: 'logback-classic')
+    }
+
+Это Spring Boot модуль объединяющий библиотеки для интеграции
+с базой данных. Подключение этой библиотеки позволит вам отключить
+следующие библиотеки, которые вы подключали ранее:
+
+
+/*
+    compile('org.springframework:spring-context:5.2.6.RELEASE')
+    compile('org.springframework:spring-jdbc:5.2.6.RELEASE')
+
+    compile('org.springframework:spring-orm:5.2.6.RELEASE')
+    compile('org.springframework:spring-tx:5.2.6.RELEASE')
+*/
+
+Удалите эти библтотеки из вашего build.gradle файла.

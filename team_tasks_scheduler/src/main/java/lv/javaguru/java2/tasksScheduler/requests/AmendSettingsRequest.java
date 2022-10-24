@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.requests;
 
+import lv.javaguru.java2.tasksScheduler.domain.Settings;
+
 public class AmendSettingsRequest {
 
     private String adminPassword;
@@ -16,6 +18,15 @@ public class AmendSettingsRequest {
         this.emailHost = emailHost;
         this.emailPort = emailPort;
         this.emailProtocol = emailProtocol;
+    }
+
+    public AmendSettingsRequest(Settings settings) {
+        this.adminPassword = settings.getAdminPassword();
+        this.emailFrom = settings.getEmailFrom();
+        this.emailPassword = settings.getEmailPassword();
+        this.emailHost = settings.getEmailHost();
+        this.emailPort = settings.getEmailPort();
+        this.emailProtocol = settings.getEmailProtocol();
     }
 
     public String getAdminPassword() {
