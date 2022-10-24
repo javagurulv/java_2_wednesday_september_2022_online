@@ -36,9 +36,9 @@ class SearchMiniBusValidatorTest {
         searchVehicleRequest = SearchVehicleRequest.builder()
                 .transmissionType("")
                 .hasConditioner("")
-                .passengerAmount(-1)
-                .doorsAmount(-1)
-                .baggageAmount(-1)
+                .passengerAmount(BUS_MAX_PASSENGER_AMOUNT + 1)
+                .doorsAmount(BUS_MAX_DOORS_AMOUNT + 1)
+                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT + 1)
                 .build();
         List<CoreError> errors = searchMiniBusValidator.validate(searchVehicleRequest);
         assertEquals(6, errors.size());
@@ -50,9 +50,9 @@ class SearchMiniBusValidatorTest {
                 .vehicleType(VehicleType.MINIBUS)
                 .transmissionType("manual")
                 .hasConditioner("true")
-                .passengerAmount(2)
-                .doorsAmount(2)
-                .baggageAmount(2)
+                .passengerAmount(BUS_MAX_PASSENGER_AMOUNT)
+                .doorsAmount(BUS_MAX_DOORS_AMOUNT)
+                .baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
                 .build();
         List<CoreError> errors = searchMiniBusValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
@@ -60,7 +60,7 @@ class SearchMiniBusValidatorTest {
 
     @Test
     void testValidatePassengerAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS).passengerAmount(1).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS).passengerAmount(BUS_MAX_PASSENGER_AMOUNT).build();
         List<CoreError> errors = searchMiniBusValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
@@ -110,7 +110,7 @@ class SearchMiniBusValidatorTest {
 
     @Test
     void testValidateDoorsAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS).doorsAmount(2).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS).doorsAmount(BUS_MAX_DOORS_AMOUNT).build();
         List<CoreError> errors = searchMiniBusValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
@@ -160,7 +160,7 @@ class SearchMiniBusValidatorTest {
 
     @Test
     void testValidateBaggageAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS).baggageAmount(0).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT).build();
         List<CoreError> errors = searchMiniBusValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }

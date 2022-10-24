@@ -36,7 +36,7 @@ class SearchMotorcycleValidatorTest {
     void testValidateReturnListWithAllErrorsWhenRequestIsNotValid() {
         searchVehicleRequest = SearchVehicleRequest.builder()
                 .transmissionType("")
-                .passengerAmount(-1)
+                .passengerAmount(MOTO_MAX_PASSENGER_AMOUNT + 1)
                 .build();
         List<CoreError> errors = searchMotorcycleValidator.validate(searchVehicleRequest);
         assertEquals(3, errors.size());
@@ -47,7 +47,7 @@ class SearchMotorcycleValidatorTest {
         searchVehicleRequest = SearchVehicleRequest.builder()
                 .vehicleType(VehicleType.MOTORCYCLE)
                 .transmissionType("manual")
-                .passengerAmount(2)
+                .passengerAmount(MOTO_MAX_PASSENGER_AMOUNT)
                 .build();
         List<CoreError> errors = searchMotorcycleValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
@@ -55,7 +55,7 @@ class SearchMotorcycleValidatorTest {
 
     @Test
     void testValidatePassengerAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MOTORCYCLE).passengerAmount(1).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.MOTORCYCLE).passengerAmount(MOTO_MAX_PASSENGER_AMOUNT).build();
         List<CoreError> errors = searchMotorcycleValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
@@ -102,5 +102,4 @@ class SearchMotorcycleValidatorTest {
         assertEquals("Passenger amount", errors.get(0).getField());
         assertEquals("can`t be more than " + MOTO_MAX_PASSENGER_AMOUNT, errors.get(0).getMessage());
     }
-
 }

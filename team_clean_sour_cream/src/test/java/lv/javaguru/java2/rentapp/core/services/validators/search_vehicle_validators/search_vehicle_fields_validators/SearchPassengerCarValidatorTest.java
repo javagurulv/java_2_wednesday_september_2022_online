@@ -38,9 +38,9 @@ class SearchPassengerCarValidatorTest {
         searchVehicleRequest = SearchVehicleRequest.builder()
                 .transmissionType("")
                 .hasConditioner("")
-                .passengerAmount(-1)
-                .doorsAmount(-1)
-                .baggageAmount(-1)
+                .passengerAmount(CAR_MAX_PASSENGER_AMOUNT + 1)
+                .doorsAmount(CAR_MAX_DOORS_AMOUNT + 1)
+                .baggageAmount(CAR_MAX_BAGGAGE_AMOUNT + 1)
                 .build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertEquals(6, errors.size());
@@ -52,9 +52,9 @@ class SearchPassengerCarValidatorTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .transmissionType("manual")
                 .hasConditioner("true")
-                .passengerAmount(2)
-                .doorsAmount(2)
-                .baggageAmount(2)
+                .passengerAmount(CAR_MAX_PASSENGER_AMOUNT)
+                .doorsAmount(CAR_MIN_DOORS_AMOUNT)
+                .baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
@@ -169,7 +169,7 @@ class SearchPassengerCarValidatorTest {
 
     @Test
     void testValidatePassengerAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(1).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).passengerAmount(CAR_MAX_PASSENGER_AMOUNT).build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
@@ -219,7 +219,7 @@ class SearchPassengerCarValidatorTest {
 
     @Test
     void testValidateDoorsAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(2).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).doorsAmount(CAR_MAX_DOORS_AMOUNT).build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
@@ -269,7 +269,7 @@ class SearchPassengerCarValidatorTest {
 
     @Test
     void testValidateBaggageAmountIsValidReturnNoError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).baggageAmount(0).build();
+        searchVehicleRequest = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT).build();
         List<CoreError> errors = searchPassengerCarValidator.validate(searchVehicleRequest);
         assertTrue(errors.isEmpty());
     }
