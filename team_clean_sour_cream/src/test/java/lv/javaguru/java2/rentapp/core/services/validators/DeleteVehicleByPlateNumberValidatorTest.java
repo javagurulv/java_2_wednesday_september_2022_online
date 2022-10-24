@@ -21,7 +21,6 @@ class DeleteVehicleByPlateNumberValidatorTest {
     DeleteVehicleByPlateNumberRequestValidator validator;
     Database database;
 
-
     Vehicle vehicle = Mockito.mock(Vehicle.class) ;
 
     @BeforeEach
