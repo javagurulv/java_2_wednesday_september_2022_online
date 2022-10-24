@@ -1,10 +1,11 @@
-package lv.javaguru.java2.eBooking.core.services.appointment.add;
+package lv.javaguru.java2.eBooking.core.services.appointment;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AddAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AddAppointmentResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.AddAppointmentValidator;
 
 import java.util.List;
 

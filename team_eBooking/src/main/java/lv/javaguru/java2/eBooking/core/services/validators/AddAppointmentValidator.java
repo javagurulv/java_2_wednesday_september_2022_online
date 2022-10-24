@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.services.appointment.add;
+package lv.javaguru.java2.eBooking.core.services.validators;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AddAppointmentRequest;

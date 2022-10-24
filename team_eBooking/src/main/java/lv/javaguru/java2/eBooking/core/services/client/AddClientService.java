@@ -1,10 +1,11 @@
-package lv.javaguru.java2.eBooking.core.services.client.add;
+package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.client_request.AddClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.AddClientResponse;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
+import lv.javaguru.java2.eBooking.core.services.validators.AddClientValidator;
 
 import java.util.List;
 

@@ -1,10 +1,9 @@
-package lv.javaguru.java2.eBooking.core.services.appointment.search;
+package lv.javaguru.java2.eBooking.core.services.validators;
 
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.services.appointment.add.AppointmentValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,10 @@
-package lv.javaguru.java2.eBooking.core.services.client.remove;
+package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.client_request.RemoveClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.RemoveClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;

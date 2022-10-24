@@ -1,7 +1,7 @@
 package lv.javaguru.java2.eBooking.core.responses;
 
-import lv.javaguru.java2.eBooking.core.services.appointment.add.AppointmentValidationResult;
-import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 public class CoreError {
     private String field;
