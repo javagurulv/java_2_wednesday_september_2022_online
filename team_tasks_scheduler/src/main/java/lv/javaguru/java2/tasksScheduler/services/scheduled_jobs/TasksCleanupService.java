@@ -16,10 +16,9 @@ public class TasksCleanupService extends Thread{
     public void run() {
         while(true) {
             if (isInterrupted()) {
-
+                return;
             }
             System.out.println("deleting tasks");
-            System.out.println(period);
             tasksRepository.deleteOutOfDate();
             try {
                 Thread.sleep(period * 1000);
