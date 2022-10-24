@@ -1,0 +1,22 @@
+Подключите в build.gradle библиотеку:
+
+    compile('org.springframework.boot:spring-boot-starter-web:2.4.1') {
+        exclude (group: 'ch.qos.logback', module: 'logback-classic')
+    }
+
+Эта модуль из проекта Spring Boot для создания веб приложений
+в экосистеме Spring Framework. Данный модуль объединяет следующие
+библиотеки и библиотеки от которых они зависят:
+
+org.springframework:spring-web:5.3.2
+org.springframework:spring-webmvc:5.3.2
+org.springframework.boot:spring-boot-starter-tomcat:2.4.1
+org.springframework.boot:spring-boot-starter-json:2.4.1
+org.springframework.boot:spring-boot-starter:2.4.1
+
+Самые важные для построения веб приложения это библиотеки:
+spring-web - основная библиотека из Spring Framework для всех веб приложений;
+spring-webmvc - библиотека реализующая MVC (Model View Controller) дизайн паттерн
+                для Spring веб приложений;
+spring-boot-starter-tomcat - библиотека предоставляющая Java веб сервер Tomcat
+                             необходимый для запуска веб приложений.

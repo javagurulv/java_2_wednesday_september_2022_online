@@ -1,0 +1,38 @@
+Создайте в приложении классы GetBookRequest и GetBookResponse
+следующим образом:
+
+public class GetBookRequest {
+
+	private Long id;
+
+	public GetBookRequest() { }
+
+	public GetBookRequest(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+}
+
+
+public class GetBookResponse extends CoreResponse {
+
+	private Book book;
+
+	public GetBookResponse(List<CoreError> errors) {
+		super(errors);
+	}
+
+	public GetBookResponse(Book book) {
+		this.book = book;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+}
+
+Разместите эти классы в соответствующих пакетах.

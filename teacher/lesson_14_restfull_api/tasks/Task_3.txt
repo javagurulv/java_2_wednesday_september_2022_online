@@ -1,0 +1,16 @@
+Объявите и реализуйте в BookRepository метод поиска
+книги по id:
+
+	@Override
+	public Optional<Book> getById(Long id) {
+		Book book = sessionFactory.getCurrentSession().get(Book.class, id);
+		if (book == null) {
+			return Optional.empty();
+		} else {
+			return Optional.of(book);
+		}
+	}
+
+Метод должен возвращать Optional<Book> так как не всегда книга
+может быть найдена по id (например когда делается поиск по не
+существующему id).

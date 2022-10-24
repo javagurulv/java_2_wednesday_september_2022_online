@@ -1,0 +1,18 @@
+В файле SpringCoreConfiguration пропишите создание SpringLiquibase
+следующим образом:
+
+public class SpringCoreConfiguration {
+
+	@Bean
+	public SpringLiquibase springLiquibase(DataSource dataSource) {
+		SpringLiquibase liquibase = new SpringLiquibase();
+		liquibase.setChangeLog("classpath:/db/changelog/changelog-master.xml");
+		liquibase.setShouldRun(true);
+		liquibase.setDataSource(dataSource);
+		return liquibase;
+	}
+
+}
+
+Этот класс при стартапе приложения (при поднятии IoC контейнера)
+запустит процесс миграции базы данных.

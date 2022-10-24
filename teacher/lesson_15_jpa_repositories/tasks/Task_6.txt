@@ -1,0 +1,15 @@
+Отключите старые версии репозиториев, что бы они больше
+не поднимались в IoC контейнере:
+
+
+//@Component
+//@Transactional
+public class OrmBookRepositoryImpl implements BookRepository { }
+
+//@Component
+//@Transactional
+public class ReaderBookRepository { }
+
+//@Component
+//@Transactional
+public class ReaderRepository { }

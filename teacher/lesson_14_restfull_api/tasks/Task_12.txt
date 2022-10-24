@@ -1,0 +1,35 @@
+Запустите приложение. Откройте программу Postman.
+
+Сформируйте HTTP PUT запрос на /book/{id}.
+
+Так как это HTTP PUT запрос, то данные о изменениях свойств книги
+передаются в теле запроса.
+
+Укажите в заголовках запроса (Headers) заголовок:
+Content-Type = application/json.
+
+Пример JSON документа для запроса:
+{"id": 1227, "newTitle": "hgjggj", "newAuthor": "WWW"}.
+
+Убедитесь, что при формировании
+правильного запроса в ответ вы получаете:
+
+{
+    "errors": null,
+    "updatedBook": {
+        "id": 1227,
+        "title": "hgjggj",
+        "author": "WWW"
+    }
+}
+а при указании не верного запроса (например title пустой):
+
+{
+    "errors": [
+        {
+            "field": "newTitle",
+            "message": "Must not be empty!"
+        }
+    ],
+    "updatedBook": null
+}

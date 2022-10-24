@@ -1,0 +1,16 @@
+В пакете web_ui/controllers создайте пакет /rest
+и в нём создайте класс BookRestController:
+
+@RestController
+@RequestMapping("/book")
+public class BookRestController {
+
+
+}
+
+@RestController - данная аннотация указывает на то, что данный класс
+                  будет являться REST контроллером.
+
+@RequestMapping("/book") - данная аннотация указывает на относительный
+                           адрес ресурса запросы на который будет
+                           обрабатывать данный класс.

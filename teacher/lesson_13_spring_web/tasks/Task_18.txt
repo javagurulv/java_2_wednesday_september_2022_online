@@ -1,0 +1,20 @@
+Реализуем функциональность показа всех книг /showAllBooks.
+
+Создайте класс ShowAllBooksController в пакете web_ui.controllers:
+
+@Controller
+public class ShowAllBooksController {
+
+	@Autowired private GetAllBooksService getAllBooksService;
+
+
+	@GetMapping(value = "/showAllBooks")
+	public String showAllBooks(ModelMap modelMap) {
+		GetAllBooksResponse response = getAllBooksService.execute(
+				new GetAllBooksRequest()
+		);
+		modelMap.addAttribute("books", response.getBooks());
+		return "/showAllBooks";
+	}
+
+}

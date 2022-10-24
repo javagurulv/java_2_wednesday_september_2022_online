@@ -1,0 +1,20 @@
+В классе BookRestController реализуйте метод обновления
+информации о книге:
+
+@RestController
+@RequestMapping("/book")
+public class BookRestController {
+
+	@Autowired private UpdateBookService updateBookService;
+
+	@PutMapping(path = "/{id}",
+			consumes = "application/json",
+			produces = "application/json")
+	public UpdateBookResponse updateBook(@RequestBody UpdateBookRequest request) {
+		return updateBookService.execute(request);
+	}
+
+}
+
+@PutMapping - указывает на то, что HTTP PUT запросы приходящие
+на относительный url /book/{id} будут обрабатываться методом updateBook().

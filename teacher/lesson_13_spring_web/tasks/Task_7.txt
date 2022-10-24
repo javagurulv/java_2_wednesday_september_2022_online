@@ -1,0 +1,30 @@
+Создайте в пакете lv.javaguru.java2.library.web_ui.config
+класс SpringWebConfiguration:
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = {"lv.javaguru.java2.library"})
+public class SpringWebConfiguration implements WebMvcConfigurer {
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**")
+				.addResourceLocations("/resources/");
+	}
+
+	@Bean
+	public SpringResourceTemplateResolver templateResolver() {
+		SpringResourceTemplateResolver resourceViewResolver = new SpringResourceTemplateResolver();
+		resourceViewResolver.setPrefix("classpath:/templates/");
+		resourceViewResolver.setSuffix(".html");
+		resourceViewResolver.setTemplateMode(TemplateMode.HTML);
+		resourceViewResolver.setCharacterEncoding("UTF-8");
+		resourceViewResolver.setCheckExistence(false);
+		return resourceViewResolver;
+	}
+
+}
+
+
+templateResolver - это инициализация темплейт фреймворка Thymeleaf.
+Этот фреймворк поможет в генерации html страниц.

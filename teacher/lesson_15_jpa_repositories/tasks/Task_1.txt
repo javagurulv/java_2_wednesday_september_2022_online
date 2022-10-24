@@ -1,0 +1,28 @@
+Цель этого урока перевести приложение на SpringBoot
+и подключить Spring Data JPA репозитории.
+
+В файле application.properties как в main так и test папках
+пропишите Spring Boot настройки датасорса и JPA следующим образом:
+
+
+spring.jpa.database=mysql
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+spring.datasource.url=jdbc:mysql://localhost:3306/java2
+spring.db.driver=com.mysql.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=javaguru
+
+
+search.ordering.enabled=true
+search.paging.enabled=true
+
+
+Старые конфигурации можно удалить полностью.
+Отличительной особенностью проекта Spring Boot является
+механизм авто конфигурации. Для поднятия в приложении подключения
+к базе данных или ORM достаточно в Spring Boot приложении просто
+прописать правильно конфигурацию. Все остальное выполнит сам
+Spring Boot.

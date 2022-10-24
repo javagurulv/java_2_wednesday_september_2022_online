@@ -1,0 +1,40 @@
+Реализуем функциональность показа всех книг /showAllBooks.
+
+Для этого создайте showAllBooks.html темплейт в папке templates:
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Book Library demo project">
+    <meta name="author" content="JavaGuru">
+    <title>Book Library</title>
+</head>
+
+<body>
+
+    <h3>Show all books in the list</h3>
+
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td>Author:</td>
+        </tr>
+
+        <td th:if="${books != null}">
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}" />
+                <td th:text="${book.author}" />
+            </tr>
+        </td>
+
+    </table>
+
+    <form action="/" method="get">
+        <input type="submit" value="Go to main page" name="Submit" />
+    </form>
+
+</body>
+
+</html>
