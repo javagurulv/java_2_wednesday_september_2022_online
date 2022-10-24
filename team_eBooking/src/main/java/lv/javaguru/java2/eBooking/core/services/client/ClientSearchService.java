@@ -1,16 +1,14 @@
-package lv.javaguru.java2.eBooking.core.services.client.search;
+package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 public class ClientSearchService {
 

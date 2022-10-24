@@ -4,7 +4,9 @@ import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client.add.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -47,5 +48,7 @@ public class ClientSearchServiceTest {
         assertEquals(response.getErrors().get(1).getField(),"Phone number");
         assertEquals(response.getErrors().get(1).getClientValidationMessage(),
                 ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY);
+
+        Mockito.verifyNoInteractions(database);
     }
 }

@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.services.client.add;
+package lv.javaguru.java2.eBooking.core.services.validators;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
 

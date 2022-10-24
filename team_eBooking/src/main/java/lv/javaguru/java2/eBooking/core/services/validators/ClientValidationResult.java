@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking.core.services.client.add;
+package lv.javaguru.java2.eBooking.core.services.validators;
 
 public enum ClientValidationResult {
     SUCCESS,

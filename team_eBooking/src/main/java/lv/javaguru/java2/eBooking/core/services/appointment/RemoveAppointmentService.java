@@ -1,10 +1,10 @@
-package lv.javaguru.java2.eBooking.core.services.appointment.remove;
+package lv.javaguru.java2.eBooking.core.services.appointment;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.RemoveAppointmentRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.RemoveAppointmentResponse;
-import lv.javaguru.java2.eBooking.core.services.appointment.add.AppointmentValidationResult;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
