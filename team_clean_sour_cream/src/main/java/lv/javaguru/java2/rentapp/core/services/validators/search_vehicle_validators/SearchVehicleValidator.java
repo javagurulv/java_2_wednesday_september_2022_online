@@ -23,6 +23,7 @@ public class SearchVehicleValidator {
 
     public List<CoreError> validate(SearchVehicleRequest request) {
         VehicleType vehicleType = request.getVehicleType();
+
         List<CoreError> errors = searchVehicleFieldsValidatorMap.getVehicleValidatorByCarType(vehicleType).validate(request);
         if (request.getOrdering() != null) {
             errors.addAll(searchVehicleRequestOrderingValidator.validate(request.getOrdering()));
