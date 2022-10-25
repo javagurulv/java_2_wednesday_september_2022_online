@@ -2,10 +2,10 @@ package lv.javaguru.java2.tasksScheduler.services.scheduled_jobs;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.utils.Emails;
+import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
+import lv.javaguru.java2.tasksScheduler.utils.Email;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,14 +17,25 @@ import java.util.List;
 @Component
 public class RemindersSendingService {
 
-    @Autowired
     private TasksRepository tasksRepository;
-    @Autowired
     private UsersRepository usersRepository;
-    @Autowired
-    private Settings settings;
+    private ReminderEmailService reminderEmailService;
+
+	private Email reminder;
+
+	public RemindersSendingService(TasksRepository tasksRepository,
+								   UsersRepository usersRepository,
+								   ReminderEmailService reminderEmailService) {
+		this.tasksRepository = tasksRepository;
+		this.usersRepository = usersRepository;
+		this.reminderEmailService = reminderEmailService;
+		reminder = reminderEmailService.getReminderEmailDraft();
+	}
 
     public void execute() {
+        if (reminder == null) {
+            return;
+        }
         List<User> users = usersRepository.getUsersAcceptedReminders();
         if (users == null) {
             return;
@@ -44,34 +55,29 @@ public class RemindersSendingService {
     }
 
     private void sendEmail(Task task) {
-        boolean send = false;
-        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime taskDueDate = getTaskDueDateForEmail(task);
+        if (taskDueDate != null) {
+            reminder.setTo(usersRepository.getUserById(task.getUserId()).getEmail());
+            reminder.setBody("Task: " + task.getDescription() +
+                    " is scheduled on <b style='color:red;'>" +
+                    taskDueDate + "." + "</b>");
+            reminder.send();
+        }
+    }
+
+    private LocalDateTime getTaskDueDateForEmail(Task task) {
         if (ValueChecking.dateIsInRange(task.getDueDate(),
                 LocalDateTime.now().plusDays(1).with(LocalTime.MIN),
                 LocalDateTime.now().plusDays(1).with(LocalTime.MAX))) {
-            date = task.getDueDate();
-            send = true;
-        } else if (ValueChecking.dateIsInRange(task.getDueDate(),
+            return task.getDueDate();
+        }
+        if (ValueChecking.dateIsInRange(task.getDueDate(),
                 LocalDateTime.now().with(LocalTime.MIN),
                 LocalDateTime.now().with(LocalTime.MAX)) &&
                 task.getRegularity() == 1) {
-            date = task.getDueDate().plusDays(1);
-            send = true;
+            return task.getDueDate().plusDays(1);
         }
-
-        if (send) {
-            Emails.sendEmail(settings.getEmailFrom(),
-                    settings.getEmailPassword(),
-                    settings.getEmailHost(),
-                    settings.getEmailPort(),
-                    settings.getEmailProtocol(),
-                    usersRepository.getUserById(task.getUserId()).getEmail(),
-                    "Reminder from the Tasks Scheduler application",
-                    "Task: '" + task.getDescription() +
-                            "' is scheduled on <b style='color:red;'>" +
-                            date.toString() + "." + "</b>",
-                    true);
-        }
+        return null;
     }
 }
 

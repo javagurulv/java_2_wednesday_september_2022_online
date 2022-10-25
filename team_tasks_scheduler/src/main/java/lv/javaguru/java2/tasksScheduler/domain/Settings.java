@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
-@Component
 public class Settings {
 
     private String adminPassword;
@@ -13,9 +12,6 @@ public class Settings {
     private String emailHost;
     private String emailPort;
     private String emailProtocol;
-
-    public Settings() {
-    }
 
     public Settings(String adminPassword, String emailFrom, String emailPassword, String emailHost, String emailPort, String emailProtocol) {
         this.adminPassword = adminPassword;
