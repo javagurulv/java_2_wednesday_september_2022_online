@@ -35,6 +35,7 @@ public class SearchRecipeUIAction implements UIAction {
     private SearchRecipeRequest getSearchRecipeRequest() {
         Scanner scanner = new Scanner(System.in);
         List<String> ingredientNames = new ArrayList<>();
+        System.out.println();
         System.out.println("You can search recipes by their ingredients.");
         System.out.println("Enter ingredient name: ");
         String ingredientName = scanner.nextLine();
@@ -42,14 +43,16 @@ public class SearchRecipeUIAction implements UIAction {
 
         boolean addAnotherIngredient = true;
         while (addAnotherIngredient) {
+            System.out.println();
             System.out.println("Add another ingredient to the search?");
             System.out.println("1. Yes");
             System.out.println("2. No");
+            System.out.println();
             int userChoice = Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
             if (userChoice == 1) {
                 System.out.println("Enter ingredient name: ");
                 String ingredientToAdd = scanner.nextLine();
-                ingredientNames.add(ingredientToAdd);;
+                ingredientNames.add(ingredientToAdd);
             } else if (userChoice == 2) {
                 addAnotherIngredient = false;
             } else {

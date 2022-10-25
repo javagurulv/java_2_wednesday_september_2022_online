@@ -4,17 +4,12 @@ import lv.javaguru.java2.cookingApp.core.database.rowmappers.RecipeRowMapper;
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import lv.javaguru.java2.cookingApp.core.services.searchcriteria.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Component
 public class JdbcDatabaseImpl implements Database {
@@ -53,9 +48,15 @@ public class JdbcDatabaseImpl implements Database {
     }
 
     @Override
-    public List<Recipe> find(SearchCriteria searchCriteria) {
-        List<Recipe> allRecipes = getAllRecipes();
-        return allRecipes.stream().filter(searchCriteria).collect(Collectors.toList());
+    public List<Recipe> searchByIngredients(List<String> ingredients) {
+        String inSql = String.join(",", Collections.nCopies(ingredients.size(), "?"));
+        String sql = "SELECT * FROM recipes " +
+                "INNER JOIN recipes_to_ingredients ON recipes.id = recipes_to_ingredients.recipe_id " +
+                "INNER JOIN ingredients ON ingredients.id = recipes_to_ingredients.ingredient_id " +
+                "WHERE ingredient IN (%s) " +
+                "GROUP BY dishName " +
+                "HAVING COUNT(ingredient) = " + ingredients.size();
+        return jdbcTemplate.query(String.format(sql, inSql), recipeRowMapper, ingredients.toArray());
     }
 
     private Long saveDishName(Recipe recipe) {
