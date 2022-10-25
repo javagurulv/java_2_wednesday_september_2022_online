@@ -70,9 +70,9 @@ public class JdbcDatabaseImpl implements Database {
         SimpleJdbcInsert insertIntoIngredients = new SimpleJdbcInsert(jdbcTemplate).withTableName("ingredients").usingGeneratedKeyColumns("id");
         for (Ingredient ingredient : recipe.getIngredients()) {
             String sql1 = "SELECT * FROM ingredients WHERE ingredient LIKE ?";
-            Long duplicateIngredientId = jdbcTemplate.queryForObject(sql1, (rs, rowNum) -> rs.getLong("id"), ingredient.getName());
-
-            if (duplicateIngredientId == null) {
+            List<Long> duplicateIngredientId = jdbcTemplate.query(sql1, (rs, rowNum) -> rs.getLong("id"), ingredient.getName());
+            Optional<Long> duplicateIngredientOpt = duplicateIngredientId.stream().findFirst();
+            if (duplicateIngredientOpt.isEmpty() ) {
                 Map<String, Object> ingredientArgs = new HashMap<>();
                 ingredientArgs.put("ingredient", ingredient.getName());
                 ingredientArgs.put("recipe_id", recipeID);
@@ -83,7 +83,7 @@ public class JdbcDatabaseImpl implements Database {
                 jdbcTemplate.update(sql, args);
             } else {
                 String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
-                Object[] args = new Object[]{recipeID, duplicateIngredientId, ingredient.getAmount(), ingredient.getMeasurement()};
+                Object[] args = new Object[]{recipeID, duplicateIngredientOpt.get(), ingredient.getAmount(), ingredient.getMeasurement()};
                 jdbcTemplate.update(sql, args);
             }
         }
