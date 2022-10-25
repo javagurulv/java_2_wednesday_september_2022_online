@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.DeleteVehicleByPlateNumberResponse;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  class DeleteVehicleServiceTest {
 
  @Mock private DeleteVehicleByPlateNumberRequestValidator validator;
- @Mock private Database database;
+ @Mock private VehicleDatabase vehicleDatabase;
 
 
  @InjectMocks
@@ -46,6 +46,6 @@ import static org.junit.jupiter.api.Assertions.*;
   assertFalse(response.hasErrors());
   assertEquals("Your vehicle was removed from list.", response.getVehicleDeletedMsg());
   assertNotNull(request.getPlateNumber());
-  Mockito.verify(database).deleteVehicleByPlateNumber(request.getPlateNumber());
+  Mockito.verify(vehicleDatabase).deleteVehicleByPlateNumber(request.getPlateNumber());
  }
 }

@@ -1,4 +1,4 @@
-Создайте класс JdbcDatabaseImpl в пакете /core/database
+Создайте класс JdbcDatabaseImpl в пакете /core/vehicleDatabase
 так чтобы он реализовывал интерфейс Database:
 
 @Component

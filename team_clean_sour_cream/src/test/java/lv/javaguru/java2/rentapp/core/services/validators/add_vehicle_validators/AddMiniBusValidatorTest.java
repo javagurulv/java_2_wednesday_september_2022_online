@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MiniBusCreator;
@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class AddMiniBusValidatorTest {
 
     AddMiniBusValidator validator;
-    Database database;
+    VehicleDatabase vehicleDatabase;
 
     @BeforeEach
     void setUp() {
-        database = new InMemoryDatabaseImpl();
-        validator = new AddMiniBusValidator(database);
+        vehicleDatabase = new VehicleDatabaseImpl();
+        validator = new AddMiniBusValidator(vehicleDatabase);
     }
 
     @Test
@@ -43,7 +43,7 @@ class AddMiniBusValidatorTest {
                 .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle miniBss1 = new MiniBusCreator().createVehicle(request1);
-        database.addNewVehicle(miniBss1);
+        vehicleDatabase.addNewVehicle(miniBss1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
@@ -59,7 +59,7 @@ class AddMiniBusValidatorTest {
                 .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(BUS_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle miniBus1 = new MiniBusCreator().createVehicle(request1);
-        database.addNewVehicle(miniBus1);
+        vehicleDatabase.addNewVehicle(miniBus1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(BUS_MAX_PASSENGER_AMOUNT).baggageAmount(BUS_MAX_BAGGAGE_AMOUNT)

@@ -1,31 +1,28 @@
-package lv.javaguru.java2.rentapp.core.requests.search_vehicle_request_creators;
+package lv.javaguru.java2.rentapp.core.requests.requestcreators.search_vehicle_request_creators;
 
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
-import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
-import static lv.javaguru.java2.rentapp.domain.MiniBus.BUS_MAX_DOORS_AMOUNT;
+import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 
-public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator {
+public class SearchCarTrailerRequestCreator implements SearchVehicleRequestCreator {
 
     Scanner scanner = new Scanner(System.in);
 
     @Override
     public SearchVehicleRequest createRequest() {
 
-
-        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS);
+        SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.CAR_TRAILER);
 
         boolean addAnotherCriteria = true;
 
-        List<String> criteria = miniBusSearchCriteriaFields();
+        List<String> criteria = carTrailerSearchCriteriaFields();
 
         while (addAnotherCriteria) {
             try {
@@ -49,11 +46,11 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
                     if (criteriaChoice >= 1 && criteriaChoice <= criteria.size()) {
 
                         switch (criteria.get(criteriaChoice - 1)) {
-                            case "Transmission type" -> askTransmissionType(searchVehicleRequestBuilder, criteria);
-                            case "Passenger amount" -> askPassengerAmount(searchVehicleRequestBuilder, criteria);
-                            case "Doors amount" -> askDoorsAmount(searchVehicleRequestBuilder, criteria);
-                            case "Baggage amount" -> askBaggageAmount(searchVehicleRequestBuilder, criteria);
-                            case "Conditioner" -> askConditioner(searchVehicleRequestBuilder, criteria);
+                            case "Deck width in cm" -> askDeckWidthInCm(searchVehicleRequestBuilder, criteria);
+                            case "Deck length in cm" -> askDeckLengthInCm(searchVehicleRequestBuilder, criteria);
+                            case "Deck height in cm" -> askDeckHeightInCm(searchVehicleRequestBuilder, criteria);
+                            case "Empty weight in kg" -> askEmptyWeightInKg(searchVehicleRequestBuilder, criteria);
+                            case "Max load weight in kg" -> askMaxLoadWeightInKg(searchVehicleRequestBuilder, criteria);
                         }
                     } else {
                         System.out.println("You must enter a number from program menu (1 - " + criteria.size() + ")");
@@ -80,7 +77,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
             try {
                 System.out.println();
                 System.out.println("""
-                        Do you wish to view a certain page of the result?
+                        Do you wish to split the result of the search into pages?
                         1. Yes
                         2. No""");
                 System.out.println();
@@ -111,6 +108,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
 
     private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
         boolean sort = true;
+
         while (sort) {
             try {
                 System.out.println();
@@ -141,47 +139,51 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
         }
     }
 
-    private List<String> miniBusSearchCriteriaFields() {
+    private void askDeckWidthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        System.out.println("Enter deck width in cm between " + TRAIL_MIN_DECK_WIDTH_IN_CM + " - " + TRAIL_MAX_DECK_WIDTH_IN_CM + " : ");
+        Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
+        searchVehicleRequestBuilder.deckWidthInCm(deckWidthInCm);
+        criteria.remove("Deck width in cm");
+    }
+
+    private void askDeckLengthInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                           searchVehicleRequestBuilder, List<String> criteria) {
+        System.out.println("Enter deck length in cm between " + TRAIL_MIN_DECK_LENGTH_IN_CM + " - " + TRAIL_MAX_DECK_LENGTH_IN_CM + " : ");
+        Integer deckLengthInCm = Integer.parseInt(scanner.nextLine());
+        searchVehicleRequestBuilder.deckLengthInCm(deckLengthInCm);
+        criteria.remove("Deck length in cm");
+    }
+
+    private void askDeckHeightInCm(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                           searchVehicleRequestBuilder, List<String> criteria) {
+        System.out.println("Enter deck height in cm between " + TRAIL_MIN_DECK_HEIGHT_IN_CM + " - " + TRAIL_MAX_DECK_HEIGHT_IN_CM + " : ");
+        Integer deckHeightInCm = Integer.parseInt(scanner.nextLine());
+        searchVehicleRequestBuilder.deckHeightInCm(deckHeightInCm);
+        criteria.remove("Deck height in cm");
+    }
+
+    private void askEmptyWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                            searchVehicleRequestBuilder, List<String> criteria) {
+        System.out.println("Enter empty weight in kg between " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG + " - " + TRAIL_MAX_EMPTY_WEIGHT_IN_KG + " : ");
+        Integer deckWidthInCm = Integer.parseInt(scanner.nextLine());
+        searchVehicleRequestBuilder.emptyWeightInKg(deckWidthInCm);
+        criteria.remove("Empty weight in kg");
+    }
+
+    private void askMaxLoadWeightInKg(SearchVehicleRequest.SearchVehicleRequestBuilder
+                                              searchVehicleRequestBuilder, List<String> criteria) {
+        System.out.println("Enter max load in kg between " + TRAIL_MIN_LOAD_WEIGHT_IN_KG + " - " + TRAIL_MAX_LOAD_WEIGHT_IN_KG + " : ");
+        Integer maxLoadWeightInKg = Integer.parseInt(scanner.nextLine());
+        searchVehicleRequestBuilder.maxLoadWeightInKg(maxLoadWeightInKg);
+        criteria.remove("Max load weight in kg");
+    }
+
+    private List<String> carTrailerSearchCriteriaFields() {
         return new ArrayList<>(
-                List.of("Transmission type",
-                        "Passenger amount",
-                        "Doors amount",
-                        "Baggage amount",
-                        "Conditioner"));
-    }
-
-    private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
-        String transmissionType = scanner.nextLine();
-        searchVehicleRequestBuilder.transmissionType(transmissionType);
-        criteria.remove("Transmission type");
-    }
-
-    private void askPassengerAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter passenger amount between " + BUS_MIN_PASSENGER_AMOUNT + " - " + BUS_MAX_PASSENGER_AMOUNT + " : ");
-        Integer numberOfPassengers = Integer.parseInt(scanner.nextLine());
-        searchVehicleRequestBuilder.passengerAmount(numberOfPassengers);
-        criteria.remove("Passenger amount");
-    }
-
-    private void askDoorsAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter doors amount between " + BUS_MIN_DOORS_AMOUNT + " - " + BUS_MAX_DOORS_AMOUNT + " : ");
-        Integer numberOfDoors = Integer.parseInt(scanner.nextLine());
-        searchVehicleRequestBuilder.doorsAmount(numberOfDoors);
-        criteria.remove("Doors amount");
-    }
-
-    private void askBaggageAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Enter baggage amount between 0 - " + BUS_MAX_BAGGAGE_AMOUNT + " : ");
-        Integer numberOfBaggage = Integer.parseInt(scanner.nextLine());
-        searchVehicleRequestBuilder.baggageAmount(numberOfBaggage);
-        criteria.remove("Baggage amount");
-    }
-
-    private void askConditioner(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
-        System.out.println("Has conditioner(true or false): ");
-        String hasConditioner = scanner.nextLine();
-        searchVehicleRequestBuilder.hasConditioner(hasConditioner);
-        criteria.remove("Conditioner");
+                List.of("Deck width in cm",
+                        "Deck length in cm",
+                        "Deck height in cm",
+                        "Empty weight in kg",
+                        "Max load weight in kg"));
     }
 }

@@ -1,4 +1,4 @@
-Создайте в пакете /core/database класс ReaderBookRepository
+Создайте в пакете /core/vehicleDatabase класс ReaderBookRepository
 и реализуйте в этом классе методы save(ReaderBook readerBook)
 и findById(Long id):
 

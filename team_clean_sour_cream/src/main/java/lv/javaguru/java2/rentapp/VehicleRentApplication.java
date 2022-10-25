@@ -19,6 +19,7 @@ class VehicleRentApplication {
                     executeUserChoice(userChoice);
                 }
             } catch (NumberFormatException e) {
+                System.out.println();
                 System.out.println("You must enter an integer!");
             }
         }
@@ -31,7 +32,8 @@ class VehicleRentApplication {
         System.out.println("2. Delete vehicle from list by plate number");
         System.out.println("3. Show all vehicles in the list");
         System.out.println("4. Search vehicles in the list");
-        System.out.println("5. Exit");
+        System.out.println("5. Make reservation");
+        System.out.println("6. Exit");
         System.out.println();
     }
 

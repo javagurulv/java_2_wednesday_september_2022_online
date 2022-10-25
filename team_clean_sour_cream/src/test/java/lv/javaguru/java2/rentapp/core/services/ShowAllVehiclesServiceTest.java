@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.responses.ShowAllVehiclesResponse;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class ShowAllVehiclesServiceTest {
 
-    @Mock private Database database;
+    @Mock private VehicleDatabase vehicleDatabase;
 
     @InjectMocks
     private ShowAllVehiclesService service;
@@ -28,7 +28,7 @@ class ShowAllVehiclesServiceTest {
         Vehicle vehicle2 = Mockito.mock(Vehicle.class);
         Vehicle vehicle3 = Mockito.mock(Vehicle.class);
 
-        Mockito.when(database.getAllVehicles()).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         ShowAllVehiclesResponse response = service.execute();
         assertEquals(3, response.getVehicles().size());
     }
