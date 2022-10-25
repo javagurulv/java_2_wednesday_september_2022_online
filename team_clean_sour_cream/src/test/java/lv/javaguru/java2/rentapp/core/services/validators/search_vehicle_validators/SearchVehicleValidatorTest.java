@@ -33,7 +33,7 @@ class SearchVehicleValidatorTest {
     @Mock
     private SearchVehicleRequestPagingValidator pagingValidator;
     @InjectMocks
-    private SearchVehicleValidator validator;
+    private SearchVehicleValidator searchVehicleValidator;
 
     @Test
     public void shouldReturnListWithNoErrorsWhenVehicleTypeIsProvidedButOrderingAndPagingIsNullNotProvided() {
@@ -44,12 +44,12 @@ class SearchVehicleValidatorTest {
         SearchVehicleFieldsValidator fieldsValidator = mock(SearchVehicleFieldsValidator.class);
         when(fieldsValidator.validate(request)).thenReturn(List.of());
         when(validatorMap.getVehicleValidatorByCarType(VehicleType.PASSENGER_CAR)).thenReturn(fieldsValidator);
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = searchVehicleValidator.validate(request);
         assertTrue(errors.isEmpty());
     }
 
     @Test
-    public void shouldNotInvokeOrderingValidator() {
+    public void shouldNotInvokeOrderingValidatorWhenOrderingIsNotProvidedIsNull() {
         SearchVehicleRequest request = mock(SearchVehicleRequest.class);
         when(request.getVehicleType()).thenReturn(VehicleType.PASSENGER_CAR);
         when(request.getOrdering()).thenReturn(null);
@@ -57,12 +57,12 @@ class SearchVehicleValidatorTest {
         SearchVehicleFieldsValidator fieldsValidator = mock(SearchVehicleFieldsValidator.class);
         when(fieldsValidator.validate(request)).thenReturn(List.of());
         when(validatorMap.getVehicleValidatorByCarType(VehicleType.PASSENGER_CAR)).thenReturn(fieldsValidator);
-        validator.validate(request);
+        searchVehicleValidator.validate(request);
         Mockito.verifyNoInteractions(orderingValidator);
     }
 
     @Test
-    public void shouldNotInvokePagingValidator() {
+    public void shouldNotInvokePagingValidatorWhenPagingIsNotProvidedIsNull() {
         SearchVehicleRequest request = mock(SearchVehicleRequest.class);
         when(request.getVehicleType()).thenReturn(VehicleType.PASSENGER_CAR);
         when(request.getOrdering()).thenReturn(null);
@@ -70,8 +70,22 @@ class SearchVehicleValidatorTest {
         SearchVehicleFieldsValidator fieldsValidator = mock(SearchVehicleFieldsValidator.class);
         when(fieldsValidator.validate(request)).thenReturn(List.of());
         when(validatorMap.getVehicleValidatorByCarType(VehicleType.PASSENGER_CAR)).thenReturn(fieldsValidator);
-        validator.validate(request);
+        searchVehicleValidator.validate(request);
         Mockito.verifyNoInteractions(pagingValidator);
+    }
+
+    @Test
+    public void shouldReturnFieldValidatorErrorWhenVehicleTypeIsNotProvided() {
+        SearchVehicleRequest request = mock(SearchVehicleRequest.class);
+        when(request.getVehicleType()).thenReturn(null);
+        when(request.getOrdering()).thenReturn(null);
+        when(request.getPaging()).thenReturn(null);
+        SearchVehicleFieldsValidator fieldsValidator = mock(SearchVehicleFieldsValidator.class);
+        List<CoreError> errors = searchVehicleValidator.validate(request);
+        Mockito.verifyNoInteractions(fieldsValidator);
+        assertEquals(1, errors.size());
+        assertEquals("Vehicle Type", errors.get(0).getField());
+        assertEquals("can`t be null (should be provided)", errors.get(0).getMessage());
     }
 
     @Test
@@ -84,7 +98,7 @@ class SearchVehicleValidatorTest {
         when(fieldsValidator.validate(request)).thenReturn(List.of(
                 new CoreError("Doors amount", "can`t be negative, zero or less than " + CAR_MIN_DOORS_AMOUNT)));
         when(validatorMap.getVehicleValidatorByCarType(VehicleType.PASSENGER_CAR)).thenReturn(fieldsValidator);
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = searchVehicleValidator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Doors amount", errors.get(0).getField());
         assertEquals("can`t be negative, zero or less than " + CAR_MIN_DOORS_AMOUNT, errors.get(0).getMessage());
@@ -102,7 +116,7 @@ class SearchVehicleValidatorTest {
         when(orderingValidator.validate(request.getOrdering())).thenReturn(
                 List.of(new CoreError("orderBy", "Must not be empty!"))
         );
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = searchVehicleValidator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("orderBy", errors.get(0).getField());
         assertEquals("Must not be empty!", errors.get(0).getMessage());
@@ -120,28 +134,9 @@ class SearchVehicleValidatorTest {
         when(pagingValidator.validate(request.getPaging())).thenReturn(
                 List.of(new CoreError("pageNumber", "Must not be empty!"))
         );
-        List<CoreError> errors = validator.validate(request);
+        List<CoreError> errors = searchVehicleValidator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals("pageNumber", errors.get(0).getField());
         assertEquals("Must not be empty!", errors.get(0).getMessage());
     }
-
-    @Test
-    public void shouldReturnAllValidatorsErrors() {
-        SearchVehicleRequest request = mock(SearchVehicleRequest.class);
-        when(request.getVehicleType()).thenReturn(VehicleType.PASSENGER_CAR);
-        when(request.getOrdering()).thenReturn(new Ordering(null, "ASC"));
-        when(request.getPaging()).thenReturn(new Paging(null, 1));
-        SearchVehicleFieldsValidator fieldsValidator = mock(SearchVehicleFieldsValidator.class);
-        when(fieldsValidator.validate(request)).thenReturn(new ArrayList<>());
-        when(validatorMap.getVehicleValidatorByCarType(VehicleType.PASSENGER_CAR)).thenReturn(fieldsValidator);
-        when(pagingValidator.validate(request.getPaging())).thenReturn(
-                List.of(new CoreError("pageNumber", "Must not be empty!"))
-        );
-        List<CoreError> errors = validator.validate(request);
-        assertEquals(errors.size(), 1);
-        assertEquals("pageNumber", errors.get(0).getField());
-        assertEquals("Must not be empty!", errors.get(0).getMessage());
-    }
-
 }

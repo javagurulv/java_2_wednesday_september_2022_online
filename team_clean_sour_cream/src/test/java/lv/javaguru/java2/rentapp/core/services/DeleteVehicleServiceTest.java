@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
   CoreError error = new CoreError("test" , "test");
   Mockito.when(validator.validate(request)).thenReturn(List.of(error));
   DeleteVehicleByPlateNumberResponse response = service.execute(request);
-  Mockito.verifyNoInteractions(database);
+  Mockito.verifyNoInteractions(vehicleDatabase);
   assertTrue(response.hasErrors());
  }
 
