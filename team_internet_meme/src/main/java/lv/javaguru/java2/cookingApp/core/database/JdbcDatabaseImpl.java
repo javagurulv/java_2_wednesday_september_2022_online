@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -39,9 +40,10 @@ public class JdbcDatabaseImpl implements Database {
     }
 
     @Override
-    public Recipe getById(Long id) {
+    public Optional<Recipe> getById(Long id) {
         String sql = "SELECT * FROM recipes WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, recipeRowMapper, id);
+        List<Recipe> recipe = jdbcTemplate.query(sql, recipeRowMapper, id);
+        return recipe.stream().findFirst();
     }
 
     @Override

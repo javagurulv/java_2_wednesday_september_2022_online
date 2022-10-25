@@ -37,8 +37,8 @@ public class InMemoryDatabaseImpl implements Database {
     }
 
     @Override
-    public Recipe getById(Long id) {
-        return recipesDB.stream().filter(recipe -> recipe.getId().equals(id)).collect(Collectors.toList()).get(0);
+    public Optional<Recipe> getById(Long id) {
+        return Optional.ofNullable(recipesDB.stream().filter(recipe -> recipe.getId().equals(id)).collect(Collectors.toList()).get(0));
     }
 
     @Override

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PrintRecipeToConsoleService {
@@ -26,9 +27,10 @@ public class PrintRecipeToConsoleService {
         if (!errors.isEmpty()) {
             return new PrintRecipeToConsoleResponse(errors);
         }
-        Recipe recipeToPrint = database.getById(request.getId());
-        recipeToPrint.printToConsole();
-        return new PrintRecipeToConsoleResponse(recipeToPrint);
+        Optional<Recipe> recipeToPrintOpt = database.getById(request.getId());
+        recipeToPrintOpt.ifPresent(Recipe::printToConsole);
+
+        return new PrintRecipeToConsoleResponse(recipeToPrintOpt);
 
     }
 }
