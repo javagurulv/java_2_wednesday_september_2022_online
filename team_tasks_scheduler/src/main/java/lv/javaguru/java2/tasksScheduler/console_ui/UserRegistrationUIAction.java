@@ -1,17 +1,20 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class UserRegistrationUIAction implements UIAction {
 
-    @DIDependency private UserRegistrationService userRegistrationService;
+    @Autowired
+    private UserRegistrationService userRegistrationService;
 
     @Override
     public boolean execute() {
@@ -24,7 +27,7 @@ public class UserRegistrationUIAction implements UIAction {
         System.out.println("Enter email: ");
         String email = scanner.nextLine();
         System.out.println("Push 'Y' if reminders by email are required: ");
-        boolean sendReminders = scanner.nextLine().equals("Y");
+        boolean sendReminders = scanner.nextLine().equalsIgnoreCase("Y");
 
         UserRegistrationRequest request = new UserRegistrationRequest(username, password, email, sendReminders);
         UserRegistrationResponse response = userRegistrationService.execute(request);
@@ -37,7 +40,7 @@ public class UserRegistrationUIAction implements UIAction {
             return false;
         }
         else {
-            System.out.println("Registration successfully completed. User ID:" + response.getUser().getId());
+            System.out.println("Registration successfully completed. User ID = " + response.getUser().getId());
             return true;
         }
     }

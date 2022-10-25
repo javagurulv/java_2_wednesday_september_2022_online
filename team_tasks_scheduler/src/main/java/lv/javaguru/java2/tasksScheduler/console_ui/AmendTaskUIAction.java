@@ -1,32 +1,35 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
-import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
+import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AmendTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendTaskService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AmendTaskUIAction implements UIAction {
 
-    @DIDependency private AmendTaskService amendTaskService;
-    @DIDependency private GetOutstandingTasksService getOutstandingTasksService;
+    @Autowired
+    private AmendTaskService amendTaskService;
+    @Autowired private GetOutstandingTasksService getOutstandingTasksService;
 
     @Override
     public boolean execute() {
         Scanner scanner = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        GetOutstandingTasksRequests requestTasks = new GetOutstandingTasksRequests();
+        GetOutstandingTasksRequest requestTasks = new GetOutstandingTasksRequest(LocalDateTime.MAX);
         GetOutstandingTasksResponse responseTasks = getOutstandingTasksService.execute(requestTasks);
 
         List<Task> tasks = responseTasks.getTasks();
@@ -46,7 +49,7 @@ public class AmendTaskUIAction implements UIAction {
             return false;
         }
         taskNumber--;
-        Task currentTask = tasks.get(taskNumber);
+        Task currentTask = new Task(tasks.get(taskNumber));
         if (currentTask == null) {
             System.out.println("Problem exists deriving current task data. Please contact administrator");
             return false;
@@ -60,18 +63,26 @@ public class AmendTaskUIAction implements UIAction {
         }
         Task amendedTask = collectDataFromScreen(currentTask);
 
+        if (amendedTask == null) {
+            return false;
+        }
+
+        if (amendedTask.equals(currentTask)) {
+            System.out.println("Nothing has been detected for amending.");
+            return true;
+        }
+
         AmendTaskRequest request = new AmendTaskRequest(amendedTask);
         AmendTaskResponse response = amendTaskService.execute(request);
 
         if (response.hasErrors()) {
-            System.out.println("Task information has not been amended.");
             response.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
             );
+            return false;
         } else {
-            System.out.println("Task information has been amended.");
+            System.out.println("Task information has been amended. User ID = " + response.getAmendedTask().getId());
         }
-        
         return true;
     }
 
@@ -97,19 +108,18 @@ public class AmendTaskUIAction implements UIAction {
     }
 
     private Task collectDataFromScreen(Task currentTask) {
+        if (currentTask == null)
+            return null;
+
+        Task result = new Task(currentTask);
         Scanner scanner = new Scanner(System.in);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] fields = {"Description", "Regularity", "Due Date", "End Date"};
         String input;
-        Task result = new Task(currentTask.getDescription(), currentTask.getRegularity(),
-                currentTask.getDueDate(), currentTask.getEndDate(), currentTask.getUserId());
-        result.setId(currentTask.getId());
         for (int i = 0; i < fields.length; i++) {
-            if (result == null)
-                break;
             System.out.println("Press 'Y' to amend " + fields[i]);
-            input = scanner.nextLine();
+            input = scanner.nextLine().toUpperCase();
             if (input.equals("Y")) {
                 System.out.println("Enter " + fields[i] + ": ");
                 input = scanner.nextLine();

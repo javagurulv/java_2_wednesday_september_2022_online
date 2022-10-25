@@ -8,6 +8,8 @@ import myApp.core.services.validators.LogInValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -25,10 +27,11 @@ public class LogInService {
         if (!errors.isEmpty()) {
             return new LogInResponse(errors);
         }
-        if (userService.logIn(request.getPersonalCode(), request.getPassword())) {
+        String encodePassword =
+                Base64.getEncoder().encodeToString(request.getPassword().getBytes(StandardCharsets.UTF_8));
+        if (userService.logIn(request.getPersonalCode(), encodePassword)) {
             return new LogInResponse(request.getPersonalCode());
         }
         return new LogInResponse("");
     }
-
 }

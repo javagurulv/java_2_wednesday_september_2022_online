@@ -1,9 +1,8 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client.search.ClientSearchService;
+import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
 
 import java.util.Scanner;
 

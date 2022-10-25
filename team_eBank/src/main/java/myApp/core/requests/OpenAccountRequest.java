@@ -8,4 +8,5 @@ import lombok.Getter;
 public class OpenAccountRequest {
 
     private String personalCode;
+    private Integer amount;
 }

@@ -17,6 +17,12 @@ public class SearchAppointmentRequest {
         this.ordering = ordering;
     }
 
+    public SearchAppointmentRequest(String masterName, String typeOfService, Paging paging) {
+        this.masterName = masterName;
+        this.typeOfService = typeOfService;
+        this.paging = paging;
+    }
+
     public SearchAppointmentRequest(String masterName, String typeOfService, Paging paging, Ordering ordering) {
         this.masterName = masterName;
         this.typeOfService = typeOfService;

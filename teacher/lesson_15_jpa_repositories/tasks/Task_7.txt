@@ -1,0 +1,19 @@
+Переведите ваше приложение на использование JPA репозиториев:
+
+
+public class AddBookService {
+
+	@Autowired private JpaBookRepository bookRepository;
+
+}
+
+public class RegisterReaderService {
+
+	@Autowired private JpaReaderRepository readerRepository;
+
+}
+
+и так далее. На старые репозитории приложение не должно ссылаться.
+Если это необходимо то поправьте название методов:
+
+getById() -> findById()  и так далее.

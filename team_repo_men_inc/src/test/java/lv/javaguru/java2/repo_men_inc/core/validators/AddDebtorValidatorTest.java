@@ -1,5 +1,7 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
+import lv.javaguru.java2.repo_men_inc.dependency_injection.ApplicationContext;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIApplicationContextBuilder;
 import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
@@ -13,8 +15,11 @@ import static org.junit.Assert.*;
 
 public class AddDebtorValidatorTest {
 
-    Database database = new DatabaseImpl();
-    AddDebtorValidator addDebtorValidator = new AddDebtorValidator(database);
+    protected ApplicationContext appContext =
+            new DIApplicationContextBuilder().build("lv.javaguru.java2.repo_men_inc");
+
+    Database database = appContext.getBean(DatabaseImpl.class);
+    AddDebtorValidator addDebtorValidator = appContext.getBean(AddDebtorValidator.class);
 
     @Test
     public void shouldReturnErrorsIfNameIsEmpty() {

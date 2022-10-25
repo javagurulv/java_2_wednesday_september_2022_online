@@ -1,16 +1,7 @@
 package myApp.core.database;
 
-import myApp.core.domain.Account;
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-@Component
+/*
+//@Component
 public class InMemoryDatabaseImpl implements DataBase {
     private final List<BankAccount> bankAccounts = new ArrayList<>(List.of(new BankAccount("Admin", "Admin", "Admin",
             Roles.Admin, "000000-00001")));
@@ -140,3 +131,5 @@ public class InMemoryDatabaseImpl implements DataBase {
                 .collect(Collectors.toList());
     }
 }
+
+ */

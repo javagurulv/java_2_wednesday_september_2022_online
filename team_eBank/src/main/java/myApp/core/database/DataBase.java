@@ -1,23 +1,27 @@
 package myApp.core.database;
 
 import myApp.core.domain.BankAccount;
+import myApp.core.domain.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface DataBase {
 
-    void addBankAccount(BankAccount bankAccount);
+    void addBankAccount(BankAccount bankAccount,User user);
 
     boolean deleteBankAccount(String personalCode);
 
     List<BankAccount> getAllBankAccounts();
-
+    List<User> getAllUsers();
     boolean bankTransfer(String personalCode, String anotherPersonalCode, int value);
 
-    boolean openAccount(String personalCode);
+    boolean openAccount(String personalCode, int value);
+
     boolean closeAccount(String personalCode);
+
    Optional<BankAccount> seeYourAccount(String personalCode);
+
     List<BankAccount> findByName(String name);
     List<BankAccount> findBySurname(String surname);
     List<BankAccount> findByPersonalCode(String personalCode);

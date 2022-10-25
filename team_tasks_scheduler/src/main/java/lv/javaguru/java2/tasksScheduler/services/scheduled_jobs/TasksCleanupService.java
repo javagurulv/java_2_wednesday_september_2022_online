@@ -1,15 +1,19 @@
 package lv.javaguru.java2.tasksScheduler.services.scheduled_jobs;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+
+@Component
 public class TasksCleanupService {
 
-    @DIDependency private TasksRepository tasksRepository;
+    @Autowired private TasksRepository tasksRepository;
 
     public void execute() {
-        tasksRepository.deleteOutOfDate();
+        tasksRepository.deleteByUserIdTillDate(null, LocalDateTime.now().minusDays(1).with(LocalTime.MIN));
     }
 }

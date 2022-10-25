@@ -1,10 +1,12 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,12 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class TaskAmendValidator {
-    public List<CoreError> validate(AmendTaskRequest request, TasksRepository taskList) {
+    @Autowired private TasksRepository tasksRepository;
+
+    public List<CoreError> validate(AmendTaskRequest request) {
         List<CoreError> errors = new ArrayList<>();
 
-        validateDuplicate(request, taskList).ifPresent(errors::add);
+        validateDuplicate(request).ifPresent(errors::add);
         validateDescription(request).ifPresent(errors::add);
         validateRegularity(request).ifPresent(errors::add);
         validateDueDate(request).ifPresent(errors::add);
@@ -26,10 +30,9 @@ public class TaskAmendValidator {
         return errors;
     }
 
-    private Optional<CoreError> validateDuplicate(AmendTaskRequest request,
-                                                  TasksRepository taskList) {
+    private Optional<CoreError> validateDuplicate(AmendTaskRequest request) {
         Task task = request.getTask();
-        if (taskList.exists(task)) {
+        if (tasksRepository.exists(task)) {
             return Optional.of(new CoreError("Task", "Already exists"));
         }
         return Optional.empty();
@@ -54,8 +57,7 @@ public class TaskAmendValidator {
         LocalDateTime dueDate = request.getTask().getDueDate();
         LocalDateTime endDate = request.getTask().getEndDate();
         LocalDateTime now = LocalDateTime.now();
-        if (dueDate.isBefore(now) == true ||
-                dueDate.isBefore(endDate) == true) {
+        if (dueDate.isBefore(now) || dueDate.isBefore(endDate)) {
             return Optional.of(new CoreError("Due date", "Start date can't be in the past"));
         }
         return Optional.empty();

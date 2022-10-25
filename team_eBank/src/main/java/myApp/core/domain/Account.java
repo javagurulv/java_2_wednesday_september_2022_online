@@ -7,6 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class Account {
 
-    private Long id;
     private int balance;
 }

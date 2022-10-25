@@ -1,8 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.menu_services;
 
 import lv.javaguru.java2.tasksScheduler.database.SettingsRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.AmendSettingsRequest;
@@ -13,16 +13,19 @@ import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.AddSettingsValidator;
 import lv.javaguru.java2.tasksScheduler.services.validators.AmendSettingsValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@DIComponent
+@Component
 public class AmendSettingsService {
 
-    @DIDependency private SettingsRepository settingsRepository;
-    @DIDependency private AmendSettingsValidator validator;
-    @DIDependency private SessionService sessionService;
+    @Autowired
+    private SettingsRepository settingsRepository;
+    @Autowired private AmendSettingsValidator validator;
+    @Autowired private SessionService sessionService;
 
     public AmendSettingsResponse execute(AmendSettingsRequest request) {
         List<CoreError> errors;
@@ -41,6 +44,10 @@ public class AmendSettingsService {
         Settings amendedSettings = new Settings(Encryption.stringHashing(request.getAdminPassword()),
                 request.getEmailFrom(), request.getEmailPassword(), request.getEmailHost(),
                 request.getEmailPort(), request.getEmailProtocol());
+
+        if (currentSettings.equals(amendedSettings)) {
+            return null;
+        }
 
         if (!settingsRepository.save(amendedSettings)) {
             errors = new ArrayList<>();

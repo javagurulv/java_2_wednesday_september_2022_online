@@ -1,7 +1,7 @@
 package generalPackage;
 
-import generalPackage.database.AccountDatabaseImpl;
-import generalPackage.database.Database;
+import generalPackage.core.database.AccountDatabaseImpl;
+import generalPackage.core.database.Database;
 import generalPackage.menuModules.AdminModule;
 import generalPackage.menuModules.UserModule;
 

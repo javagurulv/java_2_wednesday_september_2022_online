@@ -1,29 +1,33 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.DeleteTaskRequest;
-import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequests;
+import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequest;
 import lv.javaguru.java2.tasksScheduler.responses.DeleteTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.DeleteTaskService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class DeleteTaskUIAction implements UIAction{
 
-    @DIDependency private DeleteTaskService deleteTaskService;
-    @DIDependency private GetOutstandingTasksService getOutstandingTasksService;
+    @Autowired
+    private DeleteTaskService deleteTaskService;
+    @Autowired private GetOutstandingTasksService getOutstandingTasksService;
 
     @Override
     public boolean execute() {
         Scanner scanner = new Scanner(System.in);
 
-        GetOutstandingTasksRequests requestTasks = new GetOutstandingTasksRequests();
+        GetOutstandingTasksRequest requestTasks = new GetOutstandingTasksRequest(LocalDateTime.MAX);
         GetOutstandingTasksResponse responseTasks = getOutstandingTasksService.execute(requestTasks);
 
         List<Task> tasks = responseTasks.getTasks();

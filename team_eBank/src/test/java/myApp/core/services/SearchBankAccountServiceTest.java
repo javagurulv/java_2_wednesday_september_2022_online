@@ -1,5 +1,5 @@
 package myApp.core.services;
-
+/*
 import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.Roles;
@@ -189,3 +189,5 @@ public class SearchBankAccountServiceTest {
         verify(dataBase).findByName("Example");
     }
 }
+
+ */

@@ -1,5 +1,5 @@
 package myApp.core.services;
-
+/*
 import myApp.core.database.DataBase;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
@@ -51,3 +51,5 @@ public class CloseAccountServiceTest {
         verify(dataBase, times(0)).closeAccount(null);
     }
 }
+
+ */

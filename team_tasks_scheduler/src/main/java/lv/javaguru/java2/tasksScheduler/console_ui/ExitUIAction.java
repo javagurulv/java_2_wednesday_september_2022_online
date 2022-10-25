@@ -1,15 +1,18 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.requests.ExitRequest;
 import lv.javaguru.java2.tasksScheduler.responses.ExitResponse;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.ExitService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class ExitUIAction implements UIAction {
 
-    @DIDependency public ExitService exitService;
+    @Autowired
+    public ExitService exitService;
 
     @Override
     public boolean execute() {

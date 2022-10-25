@@ -1,5 +1,7 @@
 package lv.javaguru.java2.repo_men_inc.services;
 
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
 import lv.javaguru.java2.repo_men_inc.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.AddDebtorResponse;
@@ -9,14 +11,12 @@ import lv.javaguru.java2.repo_men_inc.database.Database;
 
 import java.util.List;
 
+@DIComponent
 public class AddDebtorService {
+    @DIDependency
     private Database database;
+    @DIDependency
     private AddDebtorValidator addDebtorValidator;
-
-    public AddDebtorService(Database database, AddDebtorValidator addDebtorValidator) {
-        this.database = database;
-        this.addDebtorValidator = addDebtorValidator;
-    }
 
     public AddDebtorResponse execute(AddDebtorRequest addDebtorRequest) {
 

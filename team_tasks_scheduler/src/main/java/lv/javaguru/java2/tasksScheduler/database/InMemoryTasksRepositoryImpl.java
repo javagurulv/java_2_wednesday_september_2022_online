@@ -1,8 +1,9 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.enums.SearchDateType;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
-@DIComponent
+@Component
 public class InMemoryTasksRepositoryImpl implements TasksRepository {
 
     private Long nextId = 1L;
@@ -38,19 +39,13 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public void deleteByUserId(Long userId) {
-        tasks.removeIf(task -> task.getUserId().equals(userId));
-    }
-
-    @Override
-    public void deleteOutOfDateByUserId(Long userId) {
-        tasks.removeIf(task -> task.getUserId().equals(userId) &&
-                task.getEndDate().isBefore(LocalDateTime.now()));
-    }
-
-    @Override
-    public void deleteOutOfDate() {
-        tasks.removeIf(task -> task.getEndDate().isBefore(LocalDateTime.now()));
+    public void deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
+        if (userId == null) {
+            tasks.removeIf(task -> task.getEndDate().isBefore(endDate));
+        } else {
+            tasks.removeIf(task -> task.getUserId().equals(userId) &&
+                    task.getEndDate().isBefore(endDate));
+        }
     }
 
     @Override
@@ -82,21 +77,22 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public List<Task> getAllOutstandingTasksByUserId(Long userId) {
+    public List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate) {
         return tasks.stream()
                 .filter(task -> task.getUserId().equals(userId) &&
-                        task.getEndDate().isAfter(LocalDateTime.now()))
+                        task.getEndDate().isAfter(LocalDateTime.now()) &&
+                        task.getDueDate().isBefore(endDate))
                 .sorted(Comparator.comparing(Task::getId))
                 .collect(toList());
     }
 
     @Override
-    public List<Task> getAllOutstandingTasksByUserIdForToday(Long userId) {
+    public List<Task> getAllTasksReadyForDueDateUpdate() {
         return tasks.stream()
-                .filter(task -> task.getUserId().equals(userId) &&
-                        task.getEndDate().isAfter(LocalDateTime.now()) &&
-                        task.getDueDate().isBefore(LocalDateTime.now().plusDays(1).with(LocalTime.MIN)))
-                .sorted(Comparator.comparing(Task::getId))
+                .filter(task -> task.getRegularity() > 0 &&
+                        task.getEndDate().isAfter(LocalDateTime.now().with(LocalTime.MIN)) &&
+                        task.getDueDate().isBefore(LocalDateTime.now().with(LocalTime.MIN)))
+                .sorted(Comparator.comparing(Task::getRegularity))
                 .collect(toList());
     }
 

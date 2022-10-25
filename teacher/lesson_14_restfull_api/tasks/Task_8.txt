@@ -1,0 +1,41 @@
+В классе BookRestController реализуйте метод добавления новой книги:
+
+@RestController
+@RequestMapping("/book")
+public class BookRestController {
+
+	@Autowired private AddBookService addBookService;
+
+	@PostMapping(path = "/",
+			consumes = "application/json",
+			produces = "application/json")
+	public AddBookResponse addBook(@RequestBody AddBookRequest request) {
+		return addBookService.execute(request);
+	}
+
+}
+
+
+@PostMapping(path = "/",
+			consumes = "application/json",
+			produces = "application/json")
+Указывает на то, что метод addBook() будет обрабатывать HTTP POST
+запросы на url /book/.
+
+consumes = "application/json" - указывает на то, что в теле HTTP POST
+запроса должен быть JSON документ.
+
+Пример JSON документа для запроса: {"title": "AAA", "author": "WWW"}.
+
+produces = "application/json" - указывает на то, что в теле HTTP
+ответа будет JSON документ.
+
+Пример JSON документа для ответа:
+{
+    "errors": null,
+    "newBook": {
+        "id": 1231,
+        "title": "AAA",
+        "author": "WWW"
+    }
+}.

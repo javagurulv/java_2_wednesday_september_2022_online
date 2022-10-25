@@ -1,0 +1,19 @@
+В классе BookRestController реализуйте метод удаления
+информации о книге:
+
+@RestController
+@RequestMapping("/book")
+public class BookRestController {
+
+	@Autowired private DeleteBookService deleteBookService;
+
+	@DeleteMapping(path = "/{id}", produces = "application/json")
+	public DeleteBookResponse deleteBook(@PathVariable Long id) {
+		DeleteBookRequest request = new DeleteBookRequest(id);
+		return deleteBookService.execute(request);
+	}
+
+}
+
+@DeleteMapping - указывает на то, что HTTP DELETE запросы приходящие
+на относительный url /book/{id} будут обрабатываться методом deleteBook().

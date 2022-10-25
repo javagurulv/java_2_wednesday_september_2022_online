@@ -4,11 +4,12 @@ import lv.javaguru.java2.repo_men_inc.core.requests.Ordering;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingDirection;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingType;
 import lv.javaguru.java2.repo_men_inc.core.requests.Paging;
-import lv.javaguru.java2.repo_men_inc.domain.ApplicationContext;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.ApplicationContext;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIApplicationContextBuilder;
 
 public class AcceptanceTestBase {
-
-    protected ApplicationContext appContext = new ApplicationContext();
+    protected ApplicationContext appContext =
+            new DIApplicationContextBuilder().build("lv.javaguru.java2.repo_men_inc");
 
     long idOfTheFirstDebtorInTheDatabase = 1L;
     long nonExistentDebtorsId = 10L;

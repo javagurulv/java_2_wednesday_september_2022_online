@@ -1,0 +1,36 @@
+Создайте в папке src/main/resources/db/changelog папку changes.
+
+В папке src/main/resources/db/changelog/changes
+создайте файл changelog-1.xml:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="javaguru" id="1">
+        <createTable tableName="books">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="books"
+                       cascadeConstraints="true"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
+
+В этом файле представлен скрипт создания таблицы базы данных books.
+Каждое изменение структуры базы данных оформляется в виде
+отдельного changeSet. У каждого changeSet должен быть свой уникальный
+id="1". С помощью id отслеживается какой из changeSet уже был
+выполнен на конкретной базе данных, а какой еще нет.

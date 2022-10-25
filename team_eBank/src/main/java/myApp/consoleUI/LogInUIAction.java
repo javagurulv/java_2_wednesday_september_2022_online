@@ -26,6 +26,8 @@ public class LogInUIAction implements UIAction {
             response.getErrors().stream()
                     .map(coreError -> "Field: " + coreError.getField() + "\n Message: " + coreError.getMessage()).forEach(System.out::println);
             System.out.println();
+        } else {
+            System.out.println("Welcome!");
         }
     }
 }

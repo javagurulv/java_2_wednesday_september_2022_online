@@ -1,13 +1,14 @@
 package lv.javaguru.java2.repo_men_inc;
 
 import lv.javaguru.java2.repo_men_inc.console_ui.*;
-import lv.javaguru.java2.repo_men_inc.domain.ApplicationContext;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.ApplicationContext;
+import lv.javaguru.java2.repo_men_inc.dependency_injection.DIApplicationContextBuilder;
 
 import java.util.Scanner;
 
 public class RepoMenIncApplication {
-
-    private static final ApplicationContext applicationContext = new ApplicationContext();
+    private static ApplicationContext applicationContext =
+            new DIApplicationContextBuilder().build("lv.javaguru.java2.repo_men_inc");
 
     public static void main(String[] args) {
 

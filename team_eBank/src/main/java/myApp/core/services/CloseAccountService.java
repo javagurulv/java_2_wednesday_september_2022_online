@@ -20,11 +20,17 @@ public class CloseAccountService {
     public CloseAccountResponse execute(CloseAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-            boolean result = dataBase.closeAccount(request.getPersonalCode());
-            return new CloseAccountResponse(result);
-        } else {
-            return new CloseAccountResponse(errors);
+            if (accountNullCheck(request.getPersonalCode())) {
+                boolean result = dataBase.closeAccount(request.getPersonalCode());
+                return new CloseAccountResponse(result);
+            }
         }
+            return new CloseAccountResponse(errors);
     }
 
+    private boolean accountNullCheck(String personalCode) {
+        return dataBase.getAllBankAccounts().stream()
+                .filter(b -> b.getPersonalCode().equals(personalCode))
+                .anyMatch(b -> b.getAccount() != null);
+    }
 }

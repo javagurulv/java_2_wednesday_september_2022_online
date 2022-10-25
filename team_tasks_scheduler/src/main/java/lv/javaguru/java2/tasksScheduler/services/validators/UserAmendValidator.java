@@ -1,32 +1,42 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class UserAmendValidator {
-    public List<CoreError> validate(AmendCurrentUserRequest request, UsersRepository userList) {
+    @Autowired private UsersRepository usersRepository;
+    @Autowired private SessionService sessionService;
+
+    public List<CoreError> validate(AmendCurrentUserRequest request) {
         List<CoreError> errors = new ArrayList<>();
 
-        validateDuplicate(request, userList).ifPresent(errors::add);
+        validateDuplicate(request).ifPresent(errors::add);
         validateUserName(request).ifPresent(errors::add);
         validateUserPassword(request).ifPresent(errors::add);
         validateUserEmail(request).ifPresent(errors::add);
 
         return errors;
     }
-    private Optional<CoreError> validateDuplicate(AmendCurrentUserRequest request,
-                                                  UsersRepository userList) {
-
-        if (userList.existsByName(request.getUsername()) ||
-                    userList.existsByEmail(request.getEmail())) {
+    private Optional<CoreError> validateDuplicate(AmendCurrentUserRequest request) {
+        User currentUser = usersRepository.getUserById(sessionService.getCurrentUserId());
+        if (currentUser == null) {
+            return Optional.of(new CoreError("User", "Problem occurs deriving current user details"));
+        }
+        if (currentUser.getUsername().equals(request.getUsername())) {
+            return Optional.empty();
+        }
+        if (usersRepository.existsByName(request.getUsername())) {
             return Optional.of(new CoreError("User", "Exists in database"));
         }
         return Optional.empty();

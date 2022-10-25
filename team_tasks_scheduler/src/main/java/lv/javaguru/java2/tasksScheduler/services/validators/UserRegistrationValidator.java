@@ -1,22 +1,26 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
+
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class UserRegistrationValidator {
-    public List<CoreError> validate(UserRegistrationRequest request, UsersRepository usersRepository) {
+    @Autowired private UsersRepository usersRepository;
+
+    public List<CoreError> validate(UserRegistrationRequest request) {
         List<CoreError> errors = new ArrayList<>();
         validateUserName(request).ifPresent(errors::add);
         validateUserPassword(request).ifPresent(errors::add);
         validateUserEmail(request).ifPresent(errors::add);
-        validateIfDuplicate(request, usersRepository).ifPresent(errors::add);
+        validateIfDuplicate(request).ifPresent(errors::add);
         return errors;
     }
 
@@ -45,7 +49,7 @@ public class UserRegistrationValidator {
         return Optional.empty();
     }
 
-    private Optional<CoreError> validateIfDuplicate(UserRegistrationRequest request, UsersRepository usersRepository) {
+    private Optional<CoreError> validateIfDuplicate(UserRegistrationRequest request) {
         if (request == null) {
             return Optional.empty();
         }

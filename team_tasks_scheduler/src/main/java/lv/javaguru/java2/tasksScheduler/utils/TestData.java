@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.utils;
 
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIComponent;
-import lv.javaguru.java2.tasksScheduler.dependency_injection.DIDependency;
+
+
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
@@ -15,16 +15,18 @@ import lv.javaguru.java2.tasksScheduler.services.menu_services.AddTaskService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.LoginService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.LogoutService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 
-@DIComponent
+@Component
 public class TestData {
-    @DIDependency private UserRegistrationService userService;
-    @DIDependency private AddTaskService taskService;
-    @DIDependency private LoginService loginService;
-    @DIDependency private LogoutService logoutService;
+    @Autowired private UserRegistrationService userService;
+    @Autowired private AddTaskService taskService;
+    @Autowired private LoginService loginService;
+    @Autowired private LogoutService logoutService;
 
     public void createTestData() {
         createUsers();
@@ -37,6 +39,10 @@ public class TestData {
         UserRegistrationRequest request = new UserRegistrationRequest("1111","1111",
                 "a@b.c", false);
         UserRegistrationResponse response = userService.execute(request);
+
+        request = new UserRegistrationRequest("2222","2222",
+                "t@t.t", false);
+        response = userService.execute(request);
 
         request = new UserRegistrationRequest("John Doe","2222",
                 "c@b.a", false);
