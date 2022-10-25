@@ -8,6 +8,7 @@ import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
 import lv.javaguru.java2.tasksScheduler.utils.Email;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -17,13 +18,19 @@ import java.util.List;
 @Component
 public class RemindersSendingService {
 
+    @Value("${reminder.email.body.header}")
+    private String bodyHeader;
+
+    @Value("${reminder.email.body.footer}")
+    private String bodyFooter;
+
     private TasksRepository tasksRepository;
     private UsersRepository usersRepository;
     private ReminderEmailService reminderEmailService;
 
 	private Email reminder;
 
-	public RemindersSendingService(TasksRepository tasksRepository,
+    public RemindersSendingService(TasksRepository tasksRepository,
 								   UsersRepository usersRepository,
 								   ReminderEmailService reminderEmailService) {
 		this.tasksRepository = tasksRepository;
@@ -58,9 +65,7 @@ public class RemindersSendingService {
         LocalDateTime taskDueDate = getTaskDueDateForEmail(task);
         if (taskDueDate != null) {
             reminder.setTo(usersRepository.getUserById(task.getUserId()).getEmail());
-            reminder.setBody("Task: " + task.getDescription() +
-                    " is scheduled on <b style='color:red;'>" +
-                    taskDueDate + "." + "</b>");
+            reminder.setBody(getReminderEmailBody(task, taskDueDate));
             reminder.send();
         }
     }
@@ -78,6 +83,24 @@ public class RemindersSendingService {
             return task.getDueDate().plusDays(1);
         }
         return null;
+    }
+
+    private String getReminderEmailBody(Task task, LocalDateTime dueDate) {
+        String result = reminder.getBody();
+        if (!bodyHeader.isBlank()) {
+            result = bodyHeader + "\n";
+        }
+        if (reminder.isBodyHTML()) {
+            result += "<b style='color:blue;'>Due date</b>: " + dueDate + "\n" +
+                    "<b style='color:blue;'>Task</b>: " + task.getDescription();
+        } else {
+            result += "Due date: " + dueDate + "\n" +
+                    "Task: " + task.getDescription();
+        }
+        if (!bodyFooter.isBlank()) {
+            result += "\n" + bodyFooter;
+        }
+        return result;
     }
 }
 

@@ -1,6 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
+import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.RemindersSendingService;
+import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
