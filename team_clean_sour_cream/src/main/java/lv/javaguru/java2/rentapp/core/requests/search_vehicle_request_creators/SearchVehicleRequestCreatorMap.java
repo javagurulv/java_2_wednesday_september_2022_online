@@ -7,9 +7,11 @@ public class SearchVehicleRequestCreatorMap {
 
     private Map<Integer, SearchVehicleRequestCreator> requestCreatorMap;
 
-    public SearchVehicleRequestCreatorMap() {
+    private SearchPassengerCarRequestCreator searchPassengerCarRequestCreator;
+
+    public SearchVehicleRequestCreatorMap(SearchPassengerCarRequestCreator searchPassengerCarRequestCreator) {
         requestCreatorMap = new HashMap<>();
-        requestCreatorMap.put(1, new SearchPassengerCarRequestCreator());
+        requestCreatorMap.put(1, searchPassengerCarRequestCreator);
         requestCreatorMap.put(2, new SearchMiniBusRequestCreator());
         requestCreatorMap.put(3, new SearchMotorcycleRequestCreator());
         requestCreatorMap.put(4, new SearchCarTrailerRequestCreator());
