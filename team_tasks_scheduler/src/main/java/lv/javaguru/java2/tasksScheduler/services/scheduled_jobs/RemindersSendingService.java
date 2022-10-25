@@ -17,14 +17,20 @@ import java.util.List;
 @Component
 public class RemindersSendingService {
 
-    @Autowired
     private TasksRepository tasksRepository;
-    @Autowired
     private UsersRepository usersRepository;
-    @Autowired
     private ReminderEmailService reminderEmailService;
 
-    private Email reminder = reminderEmailService.getReminderEmailDraft();
+	private Email reminder;
+
+	public RemindersSendingService(TasksRepository tasksRepository,
+								   UsersRepository usersRepository,
+								   ReminderEmailService reminderEmailService) {
+		this.tasksRepository = tasksRepository;
+		this.usersRepository = usersRepository;
+		this.reminderEmailService = reminderEmailService;
+		reminder = reminderEmailService.getReminderEmailDraft();
+	}
 
     public void execute() {
         if (reminder == null) {
