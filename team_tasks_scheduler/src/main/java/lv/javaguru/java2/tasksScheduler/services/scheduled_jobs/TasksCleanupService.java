@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 
 @Component
 public class TasksCleanupService extends Thread{
@@ -19,7 +22,7 @@ public class TasksCleanupService extends Thread{
                 return;
             }
             System.out.println("deleting tasks");
-            //tasksRepository.deleteOutOfDate();
+            tasksRepository.deleteByUserIdTillDate(null, LocalDateTime.now().minusDays(1).with(LocalTime.MIN));
             try {
                 Thread.sleep(period * 1000);
             } catch (InterruptedException e) {

@@ -87,7 +87,7 @@ public class RemindersSendingService {
 
     private String getReminderEmailBody(Task task, LocalDateTime dueDate) {
         String result = reminder.getBody();
-        if (!bodyHeader.isBlank()) {
+        if (bodyHeader != null && !bodyHeader.isBlank()) {
             result = bodyHeader + "\n";
         }
         if (reminder.isBodyHTML()) {
@@ -97,7 +97,7 @@ public class RemindersSendingService {
             result += "Due date: " + dueDate + "\n" +
                     "Task: " + task.getDescription();
         }
-        if (!bodyFooter.isBlank()) {
+        if (bodyFooter != null && !bodyFooter.isBlank()) {
             result += "\n" + bodyFooter;
         }
         return result;

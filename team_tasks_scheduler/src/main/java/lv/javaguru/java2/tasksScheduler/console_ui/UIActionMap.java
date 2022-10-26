@@ -41,7 +41,9 @@ public class UIActionMap {
 
         //TODO remove tests user and tasks
         TestData testData = applicationContext.getBean(TestData.class);
-        testData.createTestData();
+        testData.createTestSettings();
+        testData.createTestUsers();
+        testData.createTestTasks();
     }
 
     public UIAction getAction(int userChoice) {

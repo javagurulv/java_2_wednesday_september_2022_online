@@ -3,18 +3,9 @@ package lv.javaguru.java2.tasksScheduler.utils;
 
 
 import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
-import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
-import lv.javaguru.java2.tasksScheduler.requests.LogoutRequest;
-import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
-import lv.javaguru.java2.tasksScheduler.responses.LoginResponse;
-import lv.javaguru.java2.tasksScheduler.responses.LogoutResponse;
-import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.AddTaskService;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.LoginService;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.LogoutService;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
+import lv.javaguru.java2.tasksScheduler.requests.*;
+import lv.javaguru.java2.tasksScheduler.responses.*;
+import lv.javaguru.java2.tasksScheduler.services.menu_services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +14,7 @@ import java.time.LocalDateTime;
 
 @Component
 public class TestData {
+    @Autowired private AddSettingsService addSettingsService;
     @Autowired private UserRegistrationService userService;
     @Autowired private AddTaskService taskService;
     @Autowired private LoginService loginService;
@@ -35,7 +27,13 @@ public class TestData {
         createTasks();
     }
     public void createTestSettings() {
+        createSettings();
+    }
 
+    private void createSettings() {
+        AddSettingsRequest request = new AddSettingsRequest("admin", "olegsktest@gmail.com",
+                "glzblubwocovtifc", "smtp.gmail.com", "465", "ssl");
+        AddSettingsResponse response = addSettingsService.execute(request);
     }
 
     private void createUsers() {
