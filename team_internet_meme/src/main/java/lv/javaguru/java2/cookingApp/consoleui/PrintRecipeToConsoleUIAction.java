@@ -26,6 +26,8 @@ public class PrintRecipeToConsoleUIAction implements UIAction{
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError -> System.out.println("Error: " + coreError.getField() + " "
                     + coreError.getMessage()));
+        } else if (response.getPrintedRecipe().isEmpty()) {
+            System.out.println("No recipe with id " + id  + " found in the database");
         }
     }
 }

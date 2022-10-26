@@ -8,7 +8,7 @@ class InMemoryDatabaseImpl implements Database {
 Это нужно сделать для того, чтобы Spring мог правильно зарезолвить
 зависимости рода:
 
-    @Autowired private Database database;
+    @Autowired private Database vehicleDatabase;
 
 В Spring IoC контексте должна быть только одна реализация Database
 интерфейса. Если в Spring IoC контейнере будет две реализации

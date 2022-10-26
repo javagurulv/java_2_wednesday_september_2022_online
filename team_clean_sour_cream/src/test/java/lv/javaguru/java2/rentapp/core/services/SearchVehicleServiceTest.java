@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class SearchVehicleServiceTest {
 
-    @Mock private Database database;
+    @Mock private VehicleDatabase vehicleDatabase;
     @Mock private SearchVehicleValidator validator;
 
     @InjectMocks
@@ -55,7 +55,7 @@ class SearchVehicleServiceTest {
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
-        Mockito.verify(database).search(searchCriteriaCaptor.capture());
+        Mockito.verify(vehicleDatabase).search(searchCriteriaCaptor.capture());
         AndSearchCriteria andSearchCriteria1 = new AndSearchCriteria(new VehicleTypeCriteria("Passenger Car"), null);
         AndSearchCriteria andSearchCriteria2 = new AndSearchCriteria(andSearchCriteria1, new DoorsAmountCriteria(3));
         SearchCriteria expected = new AndSearchCriteria(andSearchCriteria2, new PassengerAmountCriteria(3));
@@ -70,7 +70,7 @@ class SearchVehicleServiceTest {
         Vehicle vehicle3 = getVehicle(2020);
         SearchVehicleRequest request = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -89,7 +89,7 @@ class SearchVehicleServiceTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .ordering(new Ordering("year", "ASC")).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -108,7 +108,7 @@ class SearchVehicleServiceTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .ordering(new Ordering("year", "DESC")).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -127,7 +127,7 @@ class SearchVehicleServiceTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .ordering(new Ordering("price", "ASC")).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -146,7 +146,7 @@ class SearchVehicleServiceTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .ordering(new Ordering("price", "DESC")).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -165,7 +165,7 @@ class SearchVehicleServiceTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .paging(new Paging(1, 1)).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -182,7 +182,7 @@ class SearchVehicleServiceTest {
                 .vehicleType(VehicleType.PASSENGER_CAR)
                 .paging(new Paging(2, 1)).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 
@@ -200,7 +200,7 @@ class SearchVehicleServiceTest {
                 .ordering(new Ordering("price", "ASC"))
                 .paging(new Paging(2, 1)).build();
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        Mockito.when(database.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
+        Mockito.when(vehicleDatabase.search(any())).thenReturn(List.of(vehicle1, vehicle2, vehicle3));
         SearchVehicleResponse response = service.execute(request);
         assertFalse(response.hasErrors());
 

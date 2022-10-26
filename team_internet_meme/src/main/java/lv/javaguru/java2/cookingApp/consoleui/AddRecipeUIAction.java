@@ -13,25 +13,21 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
-public class AddRecipeUIAction implements UIAction{
+public class AddRecipeUIAction implements UIAction {
 
     @Autowired
     private AddRecipeService addRecipeService;
 
     @Override
     public void execute() {
-        try {
-            AddRecipeRequest addRecipeRequest = createRequest();
-            AddRecipeResponse response = addRecipeService.execute(addRecipeRequest);
-            if (response.hasErrors()) {
-                response.getErrors().forEach(coreError -> System.out.println("Error: " + coreError.getField() + " "
-                        + coreError.getMessage()));
-            } else {
-                System.out.println("New recipe id is: " + response.getNewRecipe().getId());
-                System.out.println("Recipe was added to database.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("You have not entered a number! Please try again.");
+        AddRecipeRequest addRecipeRequest = createRequest();
+        AddRecipeResponse response = addRecipeService.execute(addRecipeRequest);
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError -> System.out.println("Error: " + coreError.getField() + " "
+                    + coreError.getMessage()));
+        } else {
+            System.out.println("New recipe id is: " + response.getNewRecipe().getId());
+            System.out.println("Recipe was added to database.");
         }
 
     }
@@ -47,7 +43,7 @@ public class AddRecipeUIAction implements UIAction{
 
         int numberOfIngredients = Integer.parseInt(numberStr);
         List<Ingredient> ingredients = new ArrayList<>();
-        for (int i = 1; i <= numberOfIngredients ; i++) {
+        for (int i = 1; i <= numberOfIngredients; i++) {
             System.out.println("Ingredient " + i);
             System.out.println("Enter ingredient: ");
             String ingredientName = scanner.nextLine();

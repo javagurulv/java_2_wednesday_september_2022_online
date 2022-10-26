@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 
 public class SearchVehicleService {
 
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
     private SearchVehicleValidator validator;
 
-    public SearchVehicleService(Database database, SearchVehicleValidator validator) {
-        this.database = database;
+    public SearchVehicleService(VehicleDatabase vehicleDatabase, SearchVehicleValidator validator) {
+        this.vehicleDatabase = vehicleDatabase;
         this.validator = validator;
     }
 
@@ -34,7 +34,7 @@ public class SearchVehicleService {
         }
 
         SearchCriteria andCriteria = getSearchCriteria(request);
-        List<Vehicle> vehicles = database.search(andCriteria);
+        List<Vehicle> vehicles = vehicleDatabase.search(andCriteria);
 
         vehicles = order(vehicles, request.getOrdering());
         vehicles = paging(vehicles, request.getPaging());

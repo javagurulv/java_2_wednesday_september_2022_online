@@ -32,26 +32,24 @@ public class AddVehicleUIAction implements UIAction {
     public void execute() {
 
         printVehicleTypeMenu();
-        try {
-            int userChoice = getUserChoice();
 
-            if (userChoice > VehicleType.values().length || userChoice < 1) {
-                System.out.println("You must enter a number from program menu (1 - " + VehicleType.values().length + ")");
+        int userChoice = getUserChoice();
+
+        if (userChoice > VehicleType.values().length || userChoice < 1) {
+            System.out.println("You must enter a number from program menu (1 - " + VehicleType.values().length + ")");
+        } else {
+            AddVehicleResponse addVehicleResponse = executeUserChoice(userChoice);
+
+            if (addVehicleResponse.hasErrors()) {
+                addVehicleResponse.getErrors().forEach(coreError ->
+                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+                );
             } else {
-                AddVehicleResponse addVehicleResponse = executeUserChoice(userChoice);
-
-                if (addVehicleResponse.hasErrors()) {
-                    addVehicleResponse.getErrors().forEach(coreError ->
-                            System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
-                    );
-                } else {
-                    System.out.println("New vehicle id was: " + addVehicleResponse.getNewVehicle().getId());
-                    System.out.println("Your vehicle was added to list.");
-                }
+                System.out.println("New vehicle id was: " + addVehicleResponse.getNewVehicle().getId());
+                System.out.println("Your vehicle was added to list.");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Error: You must enter a number!");
         }
+
     }
 
     private void printVehicleTypeMenu() {
