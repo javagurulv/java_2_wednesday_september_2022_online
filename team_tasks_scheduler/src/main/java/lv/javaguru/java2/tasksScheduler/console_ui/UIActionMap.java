@@ -2,6 +2,7 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
 import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -12,6 +13,12 @@ import java.util.Map;
 
 public class UIActionMap {
 
+    @Value("${need.test.data.users}")
+    private boolean isTestUsersNeeded;
+    @Value("${need.test.data.tasks}")
+    private boolean isTestTasksNeeded;
+    @Value("${need.test.data.settings}")
+    private boolean isTestSettingsNeeded;
     private static ApplicationContext applicationContext =
             new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
 
@@ -40,7 +47,12 @@ public class UIActionMap {
 
         //TODO remove tests user and tasks
         TestData testData = applicationContext.getBean(TestData.class);
-        testData.createTestData();
+        if (isTestSettingsNeeded)
+            testData.createTestSettings();
+        if (isTestUsersNeeded)
+            testData.createTestUsers();
+        if (isTestTasksNeeded)
+            testData.createTestTasks();
 
         TasksCleanupService cleanupService = applicationContext.getBean(TasksCleanupService.class);
         cleanupService.start();

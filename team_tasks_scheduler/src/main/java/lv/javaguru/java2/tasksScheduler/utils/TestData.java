@@ -28,13 +28,16 @@ public class TestData {
     @Autowired private LoginService loginService;
     @Autowired private LogoutService logoutService;
 
-    public void createTestData() {
+    public void createTestUsers() {
         createUsers();
+    }
+    public void createTestTasks() {
         createTasks();
     }
-    private void createAdmin() {
+    public void createTestSettings() {
 
     }
+
     private void createUsers() {
         UserRegistrationRequest request = new UserRegistrationRequest("1111","1111",
                 "a@b.c", false);
