@@ -10,6 +10,7 @@ import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+@Disabled
 public class AcceptanceTest2 {
 
     ApplicationContext appContext;

@@ -12,6 +12,7 @@ import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
 import lv.javaguru.java2.cookingApp.core.services.DeleteRecipeService;
 import lv.javaguru.java2.cookingApp.core.services.GetAllRecipesService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled
 public class AcceptanceTest1 {
 
     private ApplicationContext appContext;
