@@ -33,6 +33,7 @@ public class SettingsLoginService {
     @Autowired private GetSettingsService getSettingsService;
 
 
+    // TODO below is for reminders testing
     @Autowired private TasksRepository tasksRepository;
     @Autowired private UsersRepository usersRepository;
     @Autowired private ReminderEmailService reminderEmailService;
@@ -48,9 +49,10 @@ public class SettingsLoginService {
         GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
         Settings settings = getSettingsResponse.getSettings();
 
+        // TODO below is for reminders testing
         RemindersSendingService remindersSendingService = new RemindersSendingService(
-                tasksRepository, usersRepository, reminderEmailService); // OK
-        remindersSendingService.execute(); // OK
+                tasksRepository, usersRepository, reminderEmailService);
+        remindersSendingService.execute();
 
         return new SettingsLoginResponse(settings);
     }
