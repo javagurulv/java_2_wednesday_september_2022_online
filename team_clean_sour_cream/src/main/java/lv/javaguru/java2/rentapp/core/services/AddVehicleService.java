@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
@@ -16,14 +16,14 @@ public class AddVehicleService {
 
     private VehicleCreatorMap vehicleCreatorMap;
     private AddVehicleValidatorMap vehicleValidatorMap;
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
 
     public AddVehicleService(VehicleCreatorMap vehicleCreatorMap,
                              AddVehicleValidatorMap vehicleValidatorMap,
-                             Database database) {
+                             VehicleDatabase vehicleDatabase) {
         this.vehicleCreatorMap = vehicleCreatorMap;
         this.vehicleValidatorMap = vehicleValidatorMap;
-        this.database = database;
+        this.vehicleDatabase = vehicleDatabase;
 
     }
 
@@ -38,7 +38,7 @@ public class AddVehicleService {
 
         VehicleCreator vehicleTypeCreator = vehicleCreatorMap.getVehicleTypeCreatorByCarType(vehicleType);
         Vehicle vehicle = vehicleTypeCreator.createVehicle(request);
-        database.addNewVehicle(vehicle);
+        vehicleDatabase.addNewVehicle(vehicle);
         return new AddVehicleResponse(vehicle);
     }
 }

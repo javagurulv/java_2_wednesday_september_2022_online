@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.DeleteVehicleByPlateNumberResponse;
@@ -11,11 +11,11 @@ import java.util.List;
 
 public class DeleteVehicleByPlateNumberService {
 
-    Database database;
+    VehicleDatabase vehicleDatabase;
     private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator;
 
-    public DeleteVehicleByPlateNumberService(Database database, DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator) {
-        this.database = database;
+    public DeleteVehicleByPlateNumberService(VehicleDatabase vehicleDatabase, DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator) {
+        this.vehicleDatabase = vehicleDatabase;
         this.deleteVehicleByPlateNumberValidator = deleteVehicleByPlateNumberValidator;
     }
 
@@ -25,13 +25,13 @@ public class DeleteVehicleByPlateNumberService {
         if (!errors.isEmpty()) {
             return new DeleteVehicleByPlateNumberResponse(errors);
         }
-        database.deleteVehicleByPlateNumber(request.getPlateNumber());
+        vehicleDatabase.deleteVehicleByPlateNumber(request.getPlateNumber());
         return new DeleteVehicleByPlateNumberResponse("Your vehicle was removed from list.");
     }
 
     public void showAllVehiclesPlateNumbers() {
         System.out.println("Available are:");
-        database.getAllVehicles().stream()
+        vehicleDatabase.getAllVehicles().stream()
                 .map(Vehicle::getPlateNumber)
                 .forEach(System.out::println);
         System.out.println();

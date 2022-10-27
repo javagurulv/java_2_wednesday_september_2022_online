@@ -1,17 +1,16 @@
 package lv.javaguru.java2.cookingApp.acceptancetests;
 
+import lv.javaguru.java2.cookingApp.DatabaseCleaner;
 import lv.javaguru.java2.cookingApp.config.CookingAppConfiguration;
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.GetAllRecipesResponse;
 import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
-import lv.javaguru.java2.cookingApp.core.services.GetAllRecipesService;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -20,13 +19,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+@Disabled
 public class AcceptanceTest2 {
 
-    ApplicationContext applicationContext;
+    ApplicationContext appContext;
 
     @BeforeEach
     void setUp() {
-        applicationContext = new AnnotationConfigApplicationContext(CookingAppConfiguration.class);
+        appContext = new AnnotationConfigApplicationContext(CookingAppConfiguration.class);
+        getDatabaseCleaner().clean();
     }
 
     @Test
@@ -54,14 +56,19 @@ public class AcceptanceTest2 {
         assertEquals(2, response.getRecipes().size());
         assertEquals("TestDish2v2", response.getRecipes().get(0).getDishName());
         assertEquals("TestDish2v3", response.getRecipes().get(1).getDishName());
+        getDatabaseCleaner().clean();
     }
 
 
     private AddRecipeService getAddRecipeService() {
-        return applicationContext.getBean(AddRecipeService.class);
+        return appContext.getBean(AddRecipeService.class);
     }
 
     private SearchRecipeService getSearchRecipeService() {
-        return applicationContext.getBean(SearchRecipeService.class);
+        return appContext.getBean(SearchRecipeService.class);
+    }
+
+    private DatabaseCleaner getDatabaseCleaner() {
+        return appContext.getBean(DatabaseCleaner.class);
     }
 }

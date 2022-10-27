@@ -35,9 +35,9 @@ public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
 
         Integer deckWidthInCm = deckWidthInCmOpt.get();
         if (deckWidthInCm <= 0 || deckWidthInCm < TRAIL_MIN_DECK_WIDTH_IN_CM) {
-            return Optional.of(new CoreError("Deck Width in cm", "cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM));
+            return Optional.of(new CoreError("Deck Width in cm", "can`t be negative, zero or less than " + TRAIL_MIN_DECK_WIDTH_IN_CM));
         } else if (deckWidthInCm > TRAIL_MAX_DECK_WIDTH_IN_CM) {
-            return Optional.of(new CoreError("Deck Width in cm", "cannot be more than " + TRAIL_MAX_DECK_WIDTH_IN_CM));
+            return Optional.of(new CoreError("Deck Width in cm", "can`t be more than " + TRAIL_MAX_DECK_WIDTH_IN_CM));
         } else {
             return Optional.empty();
         }
@@ -52,9 +52,9 @@ public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
 
         Integer deckLengthInCm = deckLengthInCmOpt.get();
         if (deckLengthInCm <= 0 || deckLengthInCm < TRAIL_MIN_DECK_LENGTH_IN_CM) {
-            return Optional.of(new CoreError("Deck Length in cm", "cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM));
+            return Optional.of(new CoreError("Deck Length in cm", "can`t be negative, zero or less than " + TRAIL_MIN_DECK_LENGTH_IN_CM));
         } else if (deckLengthInCm > TRAIL_MAX_DECK_LENGTH_IN_CM) {
-            return Optional.of(new CoreError("Deck Length in cm", "cannot be more than " + TRAIL_MAX_DECK_LENGTH_IN_CM));
+            return Optional.of(new CoreError("Deck Length in cm", "can`t be more than " + TRAIL_MAX_DECK_LENGTH_IN_CM));
         } else {
             return Optional.empty();
         }
@@ -69,9 +69,9 @@ public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
 
         Integer deckHeightInCm = deckHeightInCmOpt.get();
         if (deckHeightInCm <= 0 || deckHeightInCm < TRAIL_MIN_DECK_HEIGHT_IN_CM) {
-            return Optional.of(new CoreError("Deck Height in cm", "cannot be empty, negative, zero or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM));
+            return Optional.of(new CoreError("Deck Height in cm", "can`t be negative, zero or less than " + TRAIL_MIN_DECK_HEIGHT_IN_CM));
         } else if (deckHeightInCm > TRAIL_MAX_DECK_HEIGHT_IN_CM) {
-            return Optional.of(new CoreError("Deck Height in cm", "cannot be more than " + TRAIL_MAX_DECK_HEIGHT_IN_CM));
+            return Optional.of(new CoreError("Deck Height in cm", "can`t be more than " + TRAIL_MAX_DECK_HEIGHT_IN_CM));
         } else {
             return Optional.empty();
         }
@@ -86,9 +86,9 @@ public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
 
         Integer emptyWeightInKg = emptyWeightInKgOpt.get();
         if (emptyWeightInKg <= 0 || emptyWeightInKg < TRAIL_MIN_EMPTY_WEIGHT_IN_KG) {
-            return Optional.of(new CoreError("Empty Weight in KG", "cannot be empty, negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG));
+            return Optional.of(new CoreError("Empty Weight in KG", "can`t be negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG));
         } else if (emptyWeightInKg > TRAIL_MAX_EMPTY_WEIGHT_IN_KG) {
-            return Optional.of(new CoreError("Empty Weight in KG", "cannot be more than " + TRAIL_MAX_EMPTY_WEIGHT_IN_KG));
+            return Optional.of(new CoreError("Empty Weight in KG", "can`t be more than " + TRAIL_MAX_EMPTY_WEIGHT_IN_KG));
         } else {
             return Optional.empty();
         }
@@ -103,9 +103,9 @@ public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
 
         Integer maxLoadWeightInKg = maxLoadWeightInKgOpt.get();
         if (maxLoadWeightInKg <= 0 || maxLoadWeightInKg < TRAIL_MIN_LOAD_WEIGHT_IN_KG) {
-            return Optional.of(new CoreError("Max Load Weight in KG", "cannot be empty, negative, zero or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG));
+            return Optional.of(new CoreError("Max Load Weight in KG", "can`t be negative, zero or less than " + TRAIL_MIN_LOAD_WEIGHT_IN_KG));
         } else if (maxLoadWeightInKg > TRAIL_MAX_LOAD_WEIGHT_IN_KG) {
-            return Optional.of(new CoreError("Max Load Weight in KG", "cannot be more than " + TRAIL_MAX_LOAD_WEIGHT_IN_KG));
+            return Optional.of(new CoreError("Max Load Weight in KG", "can`t be more than " + TRAIL_MAX_LOAD_WEIGHT_IN_KG));
         } else {
             return Optional.empty();
         }

@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.CarTrailerCreator;
@@ -20,12 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class AddCarTrailerValidatorTest {
 
     AddCarTrailerValidator validator;
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
 
     @BeforeEach
     void setUp() {
-        database = new InMemoryDatabaseImpl();
-        validator = new AddCarTrailerValidator(database);
+        vehicleDatabase = new VehicleDatabaseImpl();
+        validator = new AddCarTrailerValidator(vehicleDatabase);
     }
 
     @Test
@@ -170,7 +170,7 @@ class AddCarTrailerValidatorTest {
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MIN_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MIN_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MIN_LOAD_WEIGHT_IN_KG).build();
         Vehicle carTrailer1 = new CarTrailerCreator().createVehicle(request1);
-        database.addNewVehicle(carTrailer1);
+        vehicleDatabase.addNewVehicle(carTrailer1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
@@ -186,7 +186,7 @@ class AddCarTrailerValidatorTest {
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MIN_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MIN_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MIN_LOAD_WEIGHT_IN_KG).build();
         Vehicle carTrailer1 = new CarTrailerCreator().createVehicle(request1);
-        database.addNewVehicle(carTrailer1);
+        vehicleDatabase.addNewVehicle(carTrailer1);
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)

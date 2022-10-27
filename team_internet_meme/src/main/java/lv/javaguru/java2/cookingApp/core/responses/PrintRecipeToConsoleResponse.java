@@ -4,13 +4,14 @@ import lombok.Getter;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 public class PrintRecipeToConsoleResponse extends CoreResponse{
 
-    private Recipe printedRecipe;
+    private Optional<Recipe> printedRecipe;
 
-    public PrintRecipeToConsoleResponse(Recipe printedRecipe) {
+    public PrintRecipeToConsoleResponse(Optional<Recipe> printedRecipe) {
         this.printedRecipe = printedRecipe;
     }
 

@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -11,10 +11,10 @@ import java.util.Optional;
 
 public class DeleteVehicleByPlateNumberRequestValidator {
 
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
 
-    public DeleteVehicleByPlateNumberRequestValidator(Database database) {
-        this.database = database;
+    public DeleteVehicleByPlateNumberRequestValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
     }
 
     public List<CoreError> validate(DeleteVehicleByPlateNumberRequest request) {
@@ -32,7 +32,7 @@ public class DeleteVehicleByPlateNumberRequestValidator {
 
     private Optional<CoreError> validateVehicleToDeleteExists(DeleteVehicleByPlateNumberRequest request) {
         if (request.getPlateNumber() != null && !request.getPlateNumber().isBlank()) {
-            Optional<Vehicle> vehicleToDeleteOpt = database.getAllVehicles().stream()
+            Optional<Vehicle> vehicleToDeleteOpt = vehicleDatabase.getAllVehicles().stream()
                     .filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
                     .findFirst();
             if (vehicleToDeleteOpt.isEmpty()) {

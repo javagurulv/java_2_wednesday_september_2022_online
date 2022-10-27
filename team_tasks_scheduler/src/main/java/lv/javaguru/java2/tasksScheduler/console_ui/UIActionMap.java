@@ -1,6 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
 import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
+import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.RemindersSendingService;
+import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -39,7 +41,9 @@ public class UIActionMap {
 
         //TODO remove tests user and tasks
         TestData testData = applicationContext.getBean(TestData.class);
-        testData.createTestData();
+        testData.createTestSettings();
+        testData.createTestUsers();
+        testData.createTestTasks();
     }
 
     public UIAction getAction(int userChoice) {

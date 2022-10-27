@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,7 +44,7 @@ class PrintRecipeToConsoleServiceTest {
         PrintRecipeToConsoleRequest request = Mockito.mock(PrintRecipeToConsoleRequest.class);
         Recipe recipe = Mockito.mock(Recipe.class);
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
-        Mockito.when(database.getById(request.getId())).thenReturn(recipe);
+        Mockito.when(database.getById(request.getId())).thenReturn(Optional.of(recipe));
         PrintRecipeToConsoleResponse response = service.execute(request);
 
         assertFalse(response.hasErrors());

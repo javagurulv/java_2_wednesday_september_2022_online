@@ -11,7 +11,9 @@ import lv.javaguru.java2.tasksScheduler.requests.GetSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.requests.SettingsLoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.*;
+import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.RemindersSendingService;
 import lv.javaguru.java2.tasksScheduler.services.system.GetSettingsService;
+import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.SettingsLoginValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
@@ -30,6 +32,12 @@ public class SettingsLoginService {
     @Autowired private SessionService sessionService;
     @Autowired private GetSettingsService getSettingsService;
 
+
+    // TODO below is for reminders testing
+    @Autowired private TasksRepository tasksRepository;
+    @Autowired private UsersRepository usersRepository;
+    @Autowired private ReminderEmailService reminderEmailService;
+
     public SettingsLoginResponse execute(SettingsLoginRequest request) {
 
         List<CoreError> errors = validator.validate(request, settingsRepository);
@@ -40,6 +48,11 @@ public class SettingsLoginService {
         sessionService.login(0L, request.getAdminPassword());
         GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
         Settings settings = getSettingsResponse.getSettings();
+
+        // TODO below is for reminders testing
+        RemindersSendingService remindersSendingService = new RemindersSendingService(
+                tasksRepository, usersRepository, reminderEmailService);
+        remindersSendingService.execute();
 
         return new SettingsLoginResponse(settings);
     }

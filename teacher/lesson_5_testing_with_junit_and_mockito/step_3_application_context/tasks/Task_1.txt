@@ -6,11 +6,11 @@
 На данный момент логика инициализации всех этих классов
 выглядит примерно так:
 
-	private static Database database = new InMemoryDatabaseImpl();
+	private static Database vehicleDatabase = new InMemoryDatabaseImpl();
 	private static AddBookValidator addBookValidator = new AddBookValidator();
-	private static AddBookService addBookService = new AddBookService(database, addBookValidator);
-	private static RemoveBookService removeBookService = new RemoveBookService(database);
-	private static GetAllBooksService getAllBooksService = new GetAllBooksService(database);
+	private static AddBookService addBookService = new AddBookService(vehicleDatabase, addBookValidator);
+	private static RemoveBookService removeBookService = new RemoveBookService(vehicleDatabase);
+	private static GetAllBooksService getAllBooksService = new GetAllBooksService(vehicleDatabase);
 	private static UIAction addBookUIAction = new AddBookUIAction(addBookService);
 	private static UIAction removeBookUIAction = new RemoveBookUIAction(removeBookService);
 	private static UIAction getAllBooksUIAction = new GetAllBooksUIAction(getAllBooksService);
