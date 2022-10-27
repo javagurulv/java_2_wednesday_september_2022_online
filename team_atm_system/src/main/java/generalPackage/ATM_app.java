@@ -17,33 +17,33 @@ public class ATM_app {
 
     public static void main(String[] args) {
 
-        while (true){
-        printOperationChoice();
-        int menuItem = getUserSelection();
-        executeStartingChoice(menuItem);
-    }
+        while (true) {
+            printOperationChoice();
+            int menuItem = getUserSelection();
+            executeStartingChoice(menuItem);
+        }
     }
 
-    private static void printOperationChoice(){
+    private static void printOperationChoice() {
         System.out.println();
         System.out.println("Please choose type of operation:");
-        System.out.println("1. Admin operations");
-        System.out.println("2. User Operations");
-        System.out.println("3. Exit");
+        System.out.println("1. User Operations");
+        System.out.println("2. Exit");
     }
 
-    private static void executeStartingChoice(int menuItem){
-        switch (menuItem){
-            case 1:{
-                adminModule.executeAdminModule();
-                break;
-            }
-            case 2:{
+    private static void executeStartingChoice(int menuItem) {
+        switch (menuItem) {
+            case 1: {
                 userModule.executeUserModule();
             }
-            case 3:{
+            case 2: {
                 System.out.println("Good bye!");
                 System.exit(0);
+            }
+            case 11: {
+                System.out.println();
+                System.out.println("You successful log in as administrator");
+                adminModule.executeAdminModule();
             }
         }
     }
@@ -55,5 +55,4 @@ public class ATM_app {
 
         return scanner.nextInt();
     }
-
 }
