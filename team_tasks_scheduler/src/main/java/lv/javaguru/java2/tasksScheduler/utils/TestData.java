@@ -7,6 +7,7 @@ import lv.javaguru.java2.tasksScheduler.requests.*;
 import lv.javaguru.java2.tasksScheduler.responses.*;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,12 @@ import java.time.LocalDateTime;
 
 @Component
 public class TestData {
+    @Value("${need.test.data.users}")
+    private boolean isTestUsersNeeded;
+    @Value("${need.test.data.tasks}")
+    private boolean isTestTasksNeeded;
+    @Value("${need.test.data.settings}")
+    private boolean isTestSettingsNeeded;
     @Autowired private AddSettingsService addSettingsService;
     @Autowired private UserRegistrationService userService;
     @Autowired private AddTaskService taskService;
@@ -21,13 +28,19 @@ public class TestData {
     @Autowired private LogoutService logoutService;
 
     public void createTestUsers() {
-        createUsers();
+        if (isTestUsersNeeded) {
+            createUsers();
+        }
     }
     public void createTestTasks() {
-        createTasks();
+        if (isTestTasksNeeded) {
+            createTasks();
+        }
     }
     public void createTestSettings() {
-        createSettings();
+        if (isTestSettingsNeeded){
+            createSettings();
+        }
     }
 
     private void createSettings() {
