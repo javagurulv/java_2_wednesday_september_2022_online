@@ -1,14 +1,13 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.services.ShowAllVehiclesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ShowAllVehiclesUIAction implements UIAction {
-
+    @Autowired
     private ShowAllVehiclesService showAllVehiclesService;
-
-    public ShowAllVehiclesUIAction(ShowAllVehiclesService showAllVehiclesService) {
-        this.showAllVehiclesService = showAllVehiclesService;
-    }
 
     @Override
     public void execute() {
