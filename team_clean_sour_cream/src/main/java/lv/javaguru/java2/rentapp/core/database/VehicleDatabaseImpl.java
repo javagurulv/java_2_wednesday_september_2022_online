@@ -5,12 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 @Getter
 @Setter
 @EqualsAndHashCode
