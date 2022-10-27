@@ -7,6 +7,8 @@ import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.CarTrailerCr
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +16,11 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 
+@Component
 public class AddCarTrailerValidator extends AddVehicleValidator {
 
+    @Autowired
     private VehicleDatabase vehicleDatabase;
-
-    public AddCarTrailerValidator(VehicleDatabase vehicleDatabase) {
-        this.vehicleDatabase = vehicleDatabase;
-    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();

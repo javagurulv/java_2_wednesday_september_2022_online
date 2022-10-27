@@ -4,18 +4,18 @@ import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class DeleteVehicleByPlateNumberRequestValidator {
 
+    @Autowired
     private VehicleDatabase vehicleDatabase;
-
-    public DeleteVehicleByPlateNumberRequestValidator(VehicleDatabase vehicleDatabase) {
-        this.vehicleDatabase = vehicleDatabase;
-    }
 
     public List<CoreError> validate(DeleteVehicleByPlateNumberRequest request) {
         List<CoreError> errors = new ArrayList<>();

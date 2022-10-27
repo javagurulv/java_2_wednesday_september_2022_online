@@ -2,6 +2,7 @@ package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_valida
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Optional;
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.TRAIL_MIN_LOAD_WEIGHT_IN_KG;
 
+@Component
 public class SearchCarTrailerValidator extends SearchVehicleFieldsValidator {
     @Override
     public List<CoreError> validate(SearchVehicleRequest request) {

@@ -25,7 +25,7 @@ class AddCarTrailerValidatorTest {
     @BeforeEach
     void setUp() {
         vehicleDatabase = new VehicleDatabaseImpl();
-        validator = new AddCarTrailerValidator(vehicleDatabase);
+        validator = new AddCarTrailerValidator();
     }
 
     @Test

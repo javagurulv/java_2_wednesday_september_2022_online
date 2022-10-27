@@ -5,6 +5,7 @@ import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
+@Component
 public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCreator {
 
     Scanner scanner = new Scanner(System.in);

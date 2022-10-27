@@ -5,6 +5,8 @@ import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MiniBusCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +14,11 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
 
+@Component
 public class AddMiniBusValidator extends AddVehicleValidator {
 
+    @Autowired
     public VehicleDatabase vehicleDatabase;
-
-    public AddMiniBusValidator(VehicleDatabase vehicleDatabase) {
-        this.vehicleDatabase = vehicleDatabase;
-    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();

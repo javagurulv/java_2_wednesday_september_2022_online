@@ -5,6 +5,8 @@ import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MotorcycleCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +15,11 @@ import java.util.Optional;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
+@Component
 public class AddMotorcycleValidator extends AddVehicleValidator {
 
+    @Autowired
     private VehicleDatabase vehicleDatabase;
-
-    public AddMotorcycleValidator(VehicleDatabase vehicleDatabase) {
-        this.vehicleDatabase = vehicleDatabase;
-    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();

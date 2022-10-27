@@ -10,9 +10,22 @@ class SearchVehicleFieldsValidatorMapTest {
 
     SearchVehicleFieldsValidatorMap searchVehicleFieldsValidatorMap;
 
+    SearchPassengerCarValidator searchPassengerCarValidator;
+
+    SearchMiniBusValidator searchMiniBusValidator;
+
+    SearchMotorcycleValidator searchMotorcycleValidator;
+
+    SearchCarTrailerValidator searchCarTrailerValidator;
+
     @BeforeEach
     void setUp() {
-        searchVehicleFieldsValidatorMap = new SearchVehicleFieldsValidatorMap();
+        searchPassengerCarValidator = new SearchPassengerCarValidator();
+        searchMiniBusValidator = new SearchMiniBusValidator();
+        searchMotorcycleValidator = new SearchMotorcycleValidator();
+        searchCarTrailerValidator = new SearchCarTrailerValidator();
+        searchVehicleFieldsValidatorMap = new SearchVehicleFieldsValidatorMap(searchPassengerCarValidator, searchMiniBusValidator,
+                searchMotorcycleValidator, searchCarTrailerValidator);
     }
 
     @Test

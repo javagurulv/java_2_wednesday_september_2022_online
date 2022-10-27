@@ -5,23 +5,20 @@ import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class SearchVehicleValidator {
-
+    @Autowired
     private SearchVehicleFieldsValidatorMap searchVehicleFieldsValidatorMap;
+    @Autowired
     private SearchVehicleRequestOrderingValidator searchVehicleRequestOrderingValidator;
+    @Autowired
     private SearchVehicleRequestPagingValidator searchVehicleRequestPagingValidator;
-
-    public SearchVehicleValidator(SearchVehicleFieldsValidatorMap searchVehicleFieldsValidatorMap,
-                                  SearchVehicleRequestOrderingValidator searchVehicleRequestOrderingValidator,
-                                  SearchVehicleRequestPagingValidator searchVehicleRequestPagingValidator) {
-        this.searchVehicleFieldsValidatorMap = searchVehicleFieldsValidatorMap;
-        this.searchVehicleRequestOrderingValidator = searchVehicleRequestOrderingValidator;
-        this.searchVehicleRequestPagingValidator = searchVehicleRequestPagingValidator;
-    }
 
     public List<CoreError> validate(SearchVehicleRequest request) {
 

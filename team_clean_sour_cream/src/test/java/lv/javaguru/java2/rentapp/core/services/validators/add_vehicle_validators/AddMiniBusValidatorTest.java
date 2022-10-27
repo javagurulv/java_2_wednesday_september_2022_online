@@ -23,7 +23,7 @@ class AddMiniBusValidatorTest {
     @BeforeEach
     void setUp() {
         vehicleDatabase = new VehicleDatabaseImpl();
-        validator = new AddMiniBusValidator(vehicleDatabase);
+        validator = new AddMiniBusValidator();
     }
 
     @Test

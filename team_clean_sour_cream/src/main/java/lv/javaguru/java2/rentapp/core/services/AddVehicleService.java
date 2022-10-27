@@ -9,23 +9,19 @@ import lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators
 import lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidatorMap;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AddVehicleService {
-
+    @Autowired
     private VehicleCreatorMap vehicleCreatorMap;
+    @Autowired
     private AddVehicleValidatorMap vehicleValidatorMap;
+    @Autowired
     private VehicleDatabase vehicleDatabase;
-
-    public AddVehicleService(VehicleCreatorMap vehicleCreatorMap,
-                             AddVehicleValidatorMap vehicleValidatorMap,
-                             VehicleDatabase vehicleDatabase) {
-        this.vehicleCreatorMap = vehicleCreatorMap;
-        this.vehicleValidatorMap = vehicleValidatorMap;
-        this.vehicleDatabase = vehicleDatabase;
-
-    }
 
     public AddVehicleResponse execute(AddVehicleRequest request) {
         VehicleType vehicleType = request.getVehicleType();
