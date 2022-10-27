@@ -33,9 +33,9 @@ public class SearchMotorcycleValidator extends SearchVehicleFieldsValidator {
 
         Integer passengerAmount = passengerAmountOpt.get();
         if (passengerAmount <= 0 || passengerAmount < MOTO_MIN_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "can`t be negative, zero or less than " + MOTO_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > MOTO_MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + MOTO_MAX_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "can`t be more than " + MOTO_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }

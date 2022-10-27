@@ -35,9 +35,9 @@ public class SearchMiniBusValidator extends SearchVehicleFieldsValidator {
 
         Integer passengerAmount = passengerAmountOpt.get();
         if (passengerAmount <= 0 || passengerAmount < BUS_MIN_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "can`t be negative, zero or less than " + BUS_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > BUS_MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + BUS_MAX_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "can`t be more than " + BUS_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -52,9 +52,9 @@ public class SearchMiniBusValidator extends SearchVehicleFieldsValidator {
 
         Integer doorsAmount = doorsAmountOpt.get();
         if (doorsAmount <= 0 || doorsAmount < BUS_MIN_DOORS_AMOUNT) {
-            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative, zero or less than " + BUS_MIN_DOORS_AMOUNT));
+            return Optional.of(new CoreError("Doors amount", "can`t be negative, zero or less than " + BUS_MIN_DOORS_AMOUNT));
         } else if (doorsAmount > BUS_MAX_DOORS_AMOUNT) {
-            return Optional.of(new CoreError("Doors amount", "cannot be more than " + BUS_MAX_DOORS_AMOUNT));
+            return Optional.of(new CoreError("Doors amount", "can`t be more than " + BUS_MAX_DOORS_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -69,9 +69,9 @@ public class SearchMiniBusValidator extends SearchVehicleFieldsValidator {
 
         Integer baggageAmount = baggageAmountOpt.get();
         if (baggageAmount < 0) {
-            return Optional.of(new CoreError("Baggage amount", "cannot be empty or negative"));
+            return Optional.of(new CoreError("Baggage amount", "can`t be negative"));
         } else if (baggageAmount > BUS_MAX_BAGGAGE_AMOUNT) {
-            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + BUS_MAX_BAGGAGE_AMOUNT));
+            return Optional.of(new CoreError("Baggage amount", "can`t be more than " + BUS_MAX_BAGGAGE_AMOUNT));
         } else {
             return Optional.empty();
         }
