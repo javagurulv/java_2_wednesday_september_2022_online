@@ -9,6 +9,7 @@ import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
@@ -69,14 +70,14 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateEngineType(AddVehicleRequest request) {
-        List<String> enumEngineTypeValues = EngineType.getAllEnumValues();
+        List<String> enumEngineTypeValuesExceptNone = getAllEngineTypeValuesExceptNone();
         String engineType = request.getEngineType();
         if (engineType == null || engineType.isBlank()) {
             return Optional.of(new CoreError("Engine Type", "cannot be empty"));
-        } else if (areEnumValuesValid(enumEngineTypeValues, engineType)) {
+        } else if (areEnumValuesValid(enumEngineTypeValuesExceptNone, engineType)) {
             return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Engine Type", "must be one of the provided options (" + enumEngineTypeValues + ")"));
+            return Optional.of(new CoreError("Engine Type", "must be one of the provided options (" + enumEngineTypeValuesExceptNone + ")"));
         }
     }
 
@@ -88,19 +89,31 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateTransmissionType(AddVehicleRequest request) {
-        List<String> enumTransmissionTypeValues = TransmissionType.getAllEnumValues();
+        List<String> enumTransmissionTypeValuesExceptNone = getAllTransmissionTypeValuesExceptNone();
         String transmissionType = request.getTransmissionType();
         if (transmissionType == null || transmissionType.isBlank()) {
             return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
-        } else if (areEnumValuesValid(enumTransmissionTypeValues, transmissionType)) {
+        } else if (areEnumValuesValid(enumTransmissionTypeValuesExceptNone, transmissionType)) {
             return Optional.empty();
         } else {
-            return Optional.of(new CoreError("Transmission Type", "must be one of the provided options (" + enumTransmissionTypeValues + ")"));
+            return Optional.of(new CoreError("Transmission Type", "must be one of the provided options (" + enumTransmissionTypeValuesExceptNone + ")"));
         }
     }
 
     protected boolean areEnumValuesValid(List<String> enumValues, String value) {
         return enumValues.stream()
                 .anyMatch(enumValue -> enumValue.equalsIgnoreCase(value.replaceAll("[^a-zA-Z]", "")));
+    }
+
+    static List<String> getAllTransmissionTypeValuesExceptNone() {
+        return TransmissionType.getAllEnumValues().stream()
+                .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
+                .collect(Collectors.toList());
+    }
+
+    static List<String> getAllEngineTypeValuesExceptNone() {
+        return EngineType.getAllEnumValues().stream()
+                .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
+                .collect(Collectors.toList());
     }
 }

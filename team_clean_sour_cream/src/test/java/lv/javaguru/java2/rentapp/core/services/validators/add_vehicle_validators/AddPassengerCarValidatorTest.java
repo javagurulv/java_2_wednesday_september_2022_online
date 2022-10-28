@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.getAllEngineTypeValuesExceptNone;
+import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.getAllTransmissionTypeValuesExceptNone;
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -336,12 +338,12 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateEngineTypeWrongInputShouldReturnError() {
-        String engineType = "wrong";
+        String engineType = "none";
         AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
         Optional<CoreError> errorOptional = validator.validateEngineType(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Engine Type", errorOptional.get().getField());
-        assertEquals("must be one of the provided options (" + EngineType.getAllEnumValues() + ")", errorOptional.get().getMessage());
+        assertEquals("must be one of the provided options (" + getAllEngineTypeValuesExceptNone() + ")", errorOptional.get().getMessage());
     }
 
     @Test
@@ -420,7 +422,7 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateTransmissionTypeWrongInputShouldReturnError() {
-        String transmissionType = "wrong";
+        String transmissionType = "none";
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType(transmissionType).passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
@@ -428,7 +430,7 @@ class AddPassengerCarValidatorTest {
         Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Transmission Type", errorOptional.get().getField());
-        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValues() + ")", errorOptional.get().getMessage());
+        assertEquals("must be one of the provided options (" + getAllTransmissionTypeValuesExceptNone() + ")", errorOptional.get().getMessage());
     }
 
     @Test
