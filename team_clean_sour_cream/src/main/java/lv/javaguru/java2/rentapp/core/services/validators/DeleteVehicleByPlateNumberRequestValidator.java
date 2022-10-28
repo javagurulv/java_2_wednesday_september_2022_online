@@ -14,8 +14,13 @@ import java.util.Optional;
 @Component
 public class DeleteVehicleByPlateNumberRequestValidator {
 
-    @Autowired
+
     private VehicleDatabase vehicleDatabase;
+
+    @Autowired
+    public DeleteVehicleByPlateNumberRequestValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
+    }
 
     public List<CoreError> validate(DeleteVehicleByPlateNumberRequest request) {
         List<CoreError> errors = new ArrayList<>();

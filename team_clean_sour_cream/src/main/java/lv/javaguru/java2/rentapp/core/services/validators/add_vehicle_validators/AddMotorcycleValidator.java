@@ -18,8 +18,13 @@ import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMO
 @Component
 public class AddMotorcycleValidator extends AddVehicleValidator {
 
-    @Autowired
+
     private VehicleDatabase vehicleDatabase;
+
+    @Autowired
+    public AddMotorcycleValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
+    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();

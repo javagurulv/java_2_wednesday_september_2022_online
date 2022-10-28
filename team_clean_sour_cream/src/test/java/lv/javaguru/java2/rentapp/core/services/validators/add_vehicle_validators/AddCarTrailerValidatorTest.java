@@ -25,7 +25,7 @@ class AddCarTrailerValidatorTest {
     @BeforeEach
     void setUp() {
         vehicleDatabase = new VehicleDatabaseImpl();
-        validator = new AddCarTrailerValidator();
+        validator = new AddCarTrailerValidator(vehicleDatabase);
     }
 
     @Test
@@ -468,7 +468,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Empty Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative, zero or less than "+ TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test

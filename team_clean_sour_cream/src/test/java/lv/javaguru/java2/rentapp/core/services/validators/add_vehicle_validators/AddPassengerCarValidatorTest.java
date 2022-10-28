@@ -29,7 +29,7 @@ class AddPassengerCarValidatorTest {
     @BeforeEach
     void setUp() {
         vehicleDatabase = new VehicleDatabaseImpl();
-        validator = new AddPassengerCarValidator();
+        validator = new AddPassengerCarValidator(vehicleDatabase);
     }
 
     @Test

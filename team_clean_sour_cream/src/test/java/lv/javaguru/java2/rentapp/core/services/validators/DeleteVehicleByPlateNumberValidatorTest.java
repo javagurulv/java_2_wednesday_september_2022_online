@@ -27,7 +27,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
     void setUp() {
 
         vehicleDatabase = new VehicleDatabaseImpl();
-        validator = new DeleteVehicleByPlateNumberRequestValidator();
+        validator = new DeleteVehicleByPlateNumberRequestValidator(vehicleDatabase);
     }
 
     @Test

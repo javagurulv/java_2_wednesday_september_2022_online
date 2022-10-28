@@ -17,8 +17,13 @@ import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
 @Component
 public class AddMiniBusValidator extends AddVehicleValidator {
 
-    @Autowired
+
     public VehicleDatabase vehicleDatabase;
+
+    @Autowired
+    public AddMiniBusValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
+    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();

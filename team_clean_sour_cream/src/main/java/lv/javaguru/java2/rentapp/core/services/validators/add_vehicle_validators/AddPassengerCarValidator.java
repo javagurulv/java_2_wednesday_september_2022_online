@@ -16,8 +16,13 @@ import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
 @Component
 public class AddPassengerCarValidator extends AddVehicleValidator {
-    @Autowired
+
     private VehicleDatabase vehicleDatabase;
+
+    @Autowired
+    public AddPassengerCarValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
+    }
 
     public List<CoreError> validate(AddVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
