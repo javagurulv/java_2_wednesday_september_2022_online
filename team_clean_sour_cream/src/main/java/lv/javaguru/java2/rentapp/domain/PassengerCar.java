@@ -6,16 +6,21 @@ import lombok.Setter;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import org.springframework.beans.factory.annotation.Value;
 
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 public class PassengerCar extends Vehicle {
-
+    @Value("${car.max.passenger.amount}")
     public static final int CAR_MAX_PASSENGER_AMOUNT = 7;
+    @Value("${car.min.passenger.amount}")
     public static final int CAR_MIN_PASSENGER_AMOUNT = 1;
+    @Value("${car.max.baggage.amount}")
     public static final int CAR_MAX_BAGGAGE_AMOUNT = 10;
+    @Value("${car.max.doors.amount}")
     public static final int CAR_MAX_DOORS_AMOUNT = 5;
+    @Value("${car.mix.doors.amount}")
     public static final int CAR_MIN_DOORS_AMOUNT = 2;
     private Integer passengerAmount;
     private Integer baggageAmount;

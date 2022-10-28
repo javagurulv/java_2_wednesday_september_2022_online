@@ -4,18 +4,17 @@ import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.requestcreators.search_vehicle_request_creators.*;
 import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.SearchVehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class SearchVehicleUIAction implements UIAction {
-
+    @Autowired
     private SearchVehicleService searchVehicleService;
+    @Autowired
     private SearchVehicleRequestCreatorMap requestCreatorMap;
-
-    public SearchVehicleUIAction(SearchVehicleService searchVehicleService, SearchVehicleRequestCreatorMap requestCreatorMap) {
-        this.searchVehicleService = searchVehicleService;
-        this.requestCreatorMap = requestCreatorMap;
-    }
 
     public void execute() {
 

@@ -5,6 +5,8 @@ import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,12 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
+@Component
 public class AddPassengerCarValidator extends AddVehicleValidator {
 
     private VehicleDatabase vehicleDatabase;
 
+    @Autowired
     public AddPassengerCarValidator(VehicleDatabase vehicleDatabase) {
         this.vehicleDatabase = vehicleDatabase;
     }

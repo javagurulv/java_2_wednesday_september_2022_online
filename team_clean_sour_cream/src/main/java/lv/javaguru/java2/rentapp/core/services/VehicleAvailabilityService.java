@@ -7,21 +7,21 @@ import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class VehicleAvailabilityService {
 
+    @Autowired
     private DealDatabase dealDatabase;
+    @Autowired
     private VehicleDatabase vehicleDatabase;
-
-    public VehicleAvailabilityService(DealDatabase dealDatabase, VehicleDatabase vehicleDatabase) {
-        this.dealDatabase = dealDatabase;
-        this.vehicleDatabase = vehicleDatabase;
-    }
 
     public VehicleAvailabilityResponse execute(GeneralRentVehicleRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -69,6 +69,7 @@ public class VehicleAvailabilityService {
         return ((newDealStartDate.isAfter(existingDealStartDate) || newDealStartDate.isEqual(existingDealStartDate))
                 && (newDealStartDate.isBefore(existingDealEndDate) || newDealStartDate.isEqual(existingDealEndDate)));
     }
+
     private boolean checkEndDate(LocalDate newDealEndDate, RentDeal rentDeal) {
         LocalDate existingDealStartDate = rentDeal.getStartDate();
         LocalDate existingDealEndDate = rentDeal.getEndDate();

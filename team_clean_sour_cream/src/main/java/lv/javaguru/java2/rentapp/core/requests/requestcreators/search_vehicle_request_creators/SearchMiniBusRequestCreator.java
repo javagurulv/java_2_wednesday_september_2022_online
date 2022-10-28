@@ -5,6 +5,7 @@ import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
 import static lv.javaguru.java2.rentapp.domain.MiniBus.BUS_MAX_DOORS_AMOUNT;
 
+@Component
 public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator {
 
     Scanner scanner = new Scanner(System.in);

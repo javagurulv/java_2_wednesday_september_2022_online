@@ -10,20 +10,20 @@ import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class SearchVehicleService {
 
+    @Autowired
     private VehicleDatabase vehicleDatabase;
+    @Autowired
     private SearchVehicleValidator validator;
-
-    public SearchVehicleService(VehicleDatabase vehicleDatabase, SearchVehicleValidator validator) {
-        this.vehicleDatabase = vehicleDatabase;
-        this.validator = validator;
-    }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
 

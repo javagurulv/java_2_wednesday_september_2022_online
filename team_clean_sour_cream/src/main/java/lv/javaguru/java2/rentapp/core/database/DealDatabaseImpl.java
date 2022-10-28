@@ -1,10 +1,12 @@
 package lv.javaguru.java2.rentapp.core.database;
 
 import lv.javaguru.java2.rentapp.domain.RentDeal;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DealDatabaseImpl implements DealDatabase {
 
     private Long nextId = 1L;

@@ -6,7 +6,9 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PassengerCarCreator implements VehicleCreator {
 
     @Override
