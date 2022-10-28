@@ -14,24 +14,24 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DeleteVehicleByPlateNumberValidatorTest {
 
     DeleteVehicleByPlateNumberRequestValidator validator;
     VehicleDatabase vehicleDatabase;
-
-    Vehicle vehicle = Mockito.mock(Vehicle.class) ;
+    Vehicle vehicle;
 
     @BeforeEach
     void setUp() {
-
-        vehicleDatabase = new VehicleDatabaseImpl();
+        vehicle = Mockito.mock(Vehicle.class);
+        vehicleDatabase = Mockito.mock(VehicleDatabaseImpl.class);
         validator = new DeleteVehicleByPlateNumberRequestValidator(vehicleDatabase);
     }
 
     @Test
-    void testValidateListOfErrors() {
+    void testValidateListReturnErrors() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("");
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -39,7 +39,9 @@ class DeleteVehicleByPlateNumberValidatorTest {
 
     @Test
     void testValidatePlateNumberReturnErrorIfVehicleWithThatPlateNumberIsNotInDatabase() {
-        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("Not in database");
+        when(vehicle.getPlateNumber()).thenReturn("123");
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(vehicle));
+        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("456");
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Plate number", errors.get(0).getField());
@@ -48,8 +50,8 @@ class DeleteVehicleByPlateNumberValidatorTest {
 
     @Test
     void testValidatePlateNumberReturnNoErrorIfVehicleWithThatPlateNumberIsInDatabase() {
-        Mockito.when(vehicle.getPlateNumber()).thenReturn("123");
-        vehicleDatabase.addNewVehicle(vehicle);
+        when(vehicle.getPlateNumber()).thenReturn("123");
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(vehicle));
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("123");
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
