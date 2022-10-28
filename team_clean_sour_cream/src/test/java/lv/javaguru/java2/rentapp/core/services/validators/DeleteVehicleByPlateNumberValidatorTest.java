@@ -64,6 +64,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
+        Mockito.verifyNoInteractions(vehicleDatabase);
     }
 
     @Test
@@ -73,6 +74,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
+        Mockito.verifyNoInteractions(vehicleDatabase);
     }
 
     @Test
@@ -82,5 +84,6 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
+        Mockito.verifyNoInteractions(vehicleDatabase);
     }
 }
