@@ -11,6 +11,8 @@ import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +22,7 @@ import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
 class AddPassengerCarValidatorTest {
 
@@ -28,7 +31,7 @@ class AddPassengerCarValidatorTest {
 
     @BeforeEach
     void setUp() {
-        vehicleDatabase = new VehicleDatabaseImpl();
+        vehicleDatabase = Mockito.mock(VehicleDatabaseImpl.class);
         validator = new AddPassengerCarValidator(vehicleDatabase);
     }
 
@@ -49,7 +52,7 @@ class AddPassengerCarValidatorTest {
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
-        vehicleDatabase.addNewVehicle(passengerCar1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(passengerCar1));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
@@ -59,13 +62,13 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidateVehicleIsNotDuplicateShouldReturnError() {
+    void testValidateVehicleIsDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
-        vehicleDatabase.addNewVehicle(passengerCar1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(passengerCar1));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
