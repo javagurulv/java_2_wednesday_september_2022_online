@@ -2,11 +2,11 @@ package lv.javaguru.java2.eBooking.core.services.appointment.search;
 
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
-import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.services.validators.AppointmentValidationResult;
 
-import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchValidator;
 import org.junit.Test;
 
 
@@ -14,34 +14,34 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AppointmentSearchRequestValidatorTest {
+public class AppointmentSearchValidatorTest {
 
-    AppointmentSearchRequestValidator validator = new AppointmentSearchRequestValidator();
+    AppointmentSearchValidator validator = new AppointmentSearchValidator();
 
     @Test
     public void shouldNotReturnErrorWhenMasterNameIsProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest("Master name: ", null);
+        AppointmentSearchRequest request = new AppointmentSearchRequest("Master name: ", null);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
     }
 
     @Test
     public void shouldNotReturnErrorWhenTypeOfServiceIsProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest(null, "Type of service: ");
+        AppointmentSearchRequest request = new AppointmentSearchRequest(null, "Type of service: ");
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
     }
 
     @Test
     public void shouldNotReturnErrorWhenMasterNameAndTypeOfServiceAreProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest("Master name: ", "Type of service: ");
+        AppointmentSearchRequest request = new AppointmentSearchRequest("Master name: ", "Type of service: ");
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
     }
 
     @Test
     public void shouldReturnErrorWhenMasterNameAndTypeOfServiceAreNotProvided() {
-        SearchAppointmentRequest request = new SearchAppointmentRequest(null, null);
+        AppointmentSearchRequest request = new AppointmentSearchRequest(null, null);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 2);
         assertEquals(errors.get(0).getField(), "Master name: ");
@@ -53,7 +53,7 @@ public class AppointmentSearchRequestValidatorTest {
     @Test
     public void shouldReturnErrorWhenOrderByIsEmpty() {
         Ordering ordering = new Ordering(null);
-        SearchAppointmentRequest request = new SearchAppointmentRequest(
+        AppointmentSearchRequest request = new AppointmentSearchRequest(
                 "Master name: ",
                 "Type of service: ",
                 ordering);
@@ -67,7 +67,7 @@ public class AppointmentSearchRequestValidatorTest {
     @Test
     public void shouldReturnErrorWhenOrderByHasNotCorrectValue() {
         Ordering ordering = new Ordering("valueIsNotCorrect");
-        SearchAppointmentRequest request = new SearchAppointmentRequest(
+        AppointmentSearchRequest request = new AppointmentSearchRequest(
                 "Master name: ",
                 "Type of service: ",
                 ordering);
@@ -80,7 +80,7 @@ public class AppointmentSearchRequestValidatorTest {
     @Test
     public void shouldReturnErrorWhenPageSizeIsEmpty(){
         Paging paging = new Paging(1,null);
-        SearchAppointmentRequest request= new SearchAppointmentRequest(
+        AppointmentSearchRequest request= new AppointmentSearchRequest(
                 "Master name: ",
                 "Type of service:" ,
                 paging);
@@ -93,7 +93,7 @@ public class AppointmentSearchRequestValidatorTest {
     @Test
     public void shouldReturnErrorWhenPageSizeEqualsZeroOrLess(){
         Paging paging = new Paging(1,0);
-        SearchAppointmentRequest request= new SearchAppointmentRequest(
+        AppointmentSearchRequest request= new AppointmentSearchRequest(
                 "Master name: ",
                 "Type of service:" ,
                 paging);
@@ -107,7 +107,7 @@ public class AppointmentSearchRequestValidatorTest {
     @Test
     public void shouldReturnErrorWhenPageNumberIsEmpty(){
         Paging paging = new Paging(null,1);
-        SearchAppointmentRequest request= new SearchAppointmentRequest(
+        AppointmentSearchRequest request= new AppointmentSearchRequest(
                 "Master name: ",
                 "Type of service:" ,
                 paging);
@@ -121,7 +121,7 @@ public class AppointmentSearchRequestValidatorTest {
     @Test
     public void shouldReturnErrorWhenPageNumberEqualsZeroOrLess(){
         Paging paging = new Paging(0,1);
-        SearchAppointmentRequest request= new SearchAppointmentRequest(
+        AppointmentSearchRequest request= new AppointmentSearchRequest(
                 "Master name: ",
                 "Type of service:" ,
                 paging);

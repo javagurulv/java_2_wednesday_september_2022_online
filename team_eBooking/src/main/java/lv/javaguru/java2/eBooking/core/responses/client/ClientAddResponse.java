@@ -6,15 +6,15 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 
 import java.util.List;
 
-public class AddClientResponse extends CoreResponse {
+public class ClientAddResponse extends CoreResponse {
 
     private Client newClient;
 
-    public AddClientResponse(List<CoreError> errors){
+    public ClientAddResponse(List<CoreError> errors){
         super(errors);
     }
 
-    public AddClientResponse(Client newClient) {
+    public ClientAddResponse(Client newClient) {
         this.newClient = newClient;
     }
 

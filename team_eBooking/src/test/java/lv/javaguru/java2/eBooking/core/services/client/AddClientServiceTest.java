@@ -1,10 +1,10 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
-import lv.javaguru.java2.eBooking.core.requests.client_request.AddClientRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.responses.client.AddClientResponse;
-import lv.javaguru.java2.eBooking.core.services.validators.AddClientValidator;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientAddResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientAddValidator;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,51 +23,51 @@ public class AddClientServiceTest {
     @Mock
     private Database database;
     @Mock
-    private AddClientValidator validator;
+    private ClientAddValidator validator;
     @InjectMocks
-    private AddClientService service;
+    private ClientAddService service;
 
     @Test
     public void shouldReturnResponseWithErrorWhenValidatorFails() {
-        AddClientRequest request = new AddClientRequest(null, null);
+        ClientAddRequest request = new ClientAddRequest(null, null);
         Mockito
                 .when(validator.validate(request))
                 .thenReturn(List.of(new CoreError("client email",
                         ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY)));
-        AddClientResponse response = service.execute(request);
+        ClientAddResponse response = service.execute(request);
 
         assertTrue(response.hasError());
     }
 
     @Test
     public void shouldNotInvokeDatabaseWhenValidatorFails() {
-        AddClientRequest request = new AddClientRequest(null, null);
+        ClientAddRequest request = new ClientAddRequest(null, null);
 
         Mockito.when(validator.validate(request)).thenReturn(List.of(
                 new CoreError("client email",
                         ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY),
                 new CoreError("Client phone number",
                         ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY)));
-        AddClientResponse response = service.execute(request);
+        ClientAddResponse response = service.execute(request);
         assertEquals(response.getErrors().size(), 2);
         Mockito.verifyNoInteractions(database);
     }
 
     @Test
     public void shouldReturnResponseWithoutErrorWhenRequestIsValid() {
-        AddClientRequest request = new AddClientRequest("Client email", "Client phone number");
+        ClientAddRequest request = new ClientAddRequest("Client email", "Client phone number");
         Mockito
                 .when(validator.validate(request))
                 .thenReturn(List.of());
-        AddClientResponse response = service.execute(request);
+        ClientAddResponse response = service.execute(request);
         assertFalse(response.hasError());
     }
 
     @Test
     public void shouldReturnResponseWithAClientWhenRequestIsValid() {
-        AddClientRequest request = new AddClientRequest("Client email", "Client phone number");
+        ClientAddRequest request = new ClientAddRequest("Client email", "Client phone number");
         Mockito.when(validator.validate(request)).thenReturn(List.of());
-        AddClientResponse response = service.execute(request);
+        ClientAddResponse response = service.execute(request);
         assertNotNull(response.getNewClient());
         assertEquals(response.getNewClient().getClientEmail(), request.getClientEmail());
         assertEquals(response.getNewClient().getClientPhoneNumber(), request.getClientPhoneNumber());

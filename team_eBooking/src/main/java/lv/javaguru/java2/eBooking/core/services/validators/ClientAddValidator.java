@@ -1,7 +1,7 @@
 package lv.javaguru.java2.eBooking.core.services.validators;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.requests.client_request.AddClientRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 
 import java.util.ArrayList;
@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class AddClientValidator {
+public class ClientAddValidator {
 
-    public List<CoreError> validate(AddClientRequest request) {
+    public List<CoreError> validate(ClientAddRequest request) {
        List<CoreError> errors = new ArrayList<>();
         validateClientEMail(request).ifPresent(coreError -> errors.add(coreError));
         validateClientPhoneNumber(request).ifPresent(coreError -> errors.add(coreError));
         return errors;
     }
 
-    public Optional<CoreError> validateClientEMail(AddClientRequest request) {
+    public Optional<CoreError> validateClientEMail(ClientAddRequest request) {
         ClientValidationResult result = ClientRegistrationValidator.emailFieldIsNotEmpty()
                 .and(ClientRegistrationValidator.isEmailContainingAtSign())
                 .and(ClientRegistrationValidator.isEmailContainingValidSymbols())
@@ -31,7 +31,7 @@ public class AddClientValidator {
                 : Optional.empty();
     }
 
-    public Optional<CoreError> validateClientPhoneNumber(AddClientRequest request) {
+    public Optional<CoreError> validateClientPhoneNumber(ClientAddRequest request) {
         ClientValidationResult result = ClientRegistrationValidator.phoneNumberFieldIsNotEmpty()
                 .and(ClientRegistrationValidator.isPhoneNumberContainingValidSymbols())
                 .and(ClientRegistrationValidator.isPhoneNumberLengthValid())

@@ -2,8 +2,8 @@ package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.requests.client_request.GetAllClientsRequest;
-import lv.javaguru.java2.eBooking.core.responses.client.GetAllClientsResponse;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllRequest;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientsGetAllResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,21 +17,21 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GetAllClientsServiceTest {
+public class ClientGetAllServiceTest {
 
     @Mock
     private Database database;
 
     @InjectMocks
-    private GetAllClientsService service;
+    private ClientGetAllService service;
 
     @Test
     public void shouldGetAListOgClientsFromDatabase(){
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Client email", "Client phone number"));
         Mockito.when(database.getAllClients()).thenReturn(clients);
-        GetAllClientsRequest request = new GetAllClientsRequest();
-        GetAllClientsResponse response = service.execute(request);
+        ClientGetAllRequest request = new ClientGetAllRequest();
+        ClientsGetAllResponse response = service.execute(request);
 
         assertFalse(response.hasError());
         assertEquals(response.getClients().size(),1);
