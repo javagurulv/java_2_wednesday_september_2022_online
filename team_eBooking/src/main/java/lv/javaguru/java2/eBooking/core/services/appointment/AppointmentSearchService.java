@@ -4,10 +4,10 @@ import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
-import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.responses.appointment.SearchAppointmentResponse;
-import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentSearchResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchValidator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,17 +17,17 @@ import java.util.stream.Collectors;
 
 public class AppointmentSearchService {
     private Database database;
-    private AppointmentSearchRequestValidator validator;
+    private AppointmentSearchValidator validator;
 
-    public AppointmentSearchService(Database database, AppointmentSearchRequestValidator validator) {
+    public AppointmentSearchService(Database database, AppointmentSearchValidator validator) {
         this.database = database;
         this.validator = validator;
     }
 
-    public SearchAppointmentResponse execute(SearchAppointmentRequest request, Ordering ordering, Paging paging) {
+    public AppointmentSearchResponse execute(AppointmentSearchRequest request, Ordering ordering, Paging paging) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
-            return new SearchAppointmentResponse(errors, null);
+            return new AppointmentSearchResponse(errors, null);
         }
         List<Appointment> appointments = search(request);
 
@@ -36,10 +36,10 @@ public class AppointmentSearchService {
             appointments = pagingAppointmentList.apply(appointments,request.getPaging());
 
         }
-        return new SearchAppointmentResponse(null, appointments);
+        return new AppointmentSearchResponse(null, appointments);
     }
 
-    private List<Appointment> search(SearchAppointmentRequest request) {
+    private List<Appointment> search(AppointmentSearchRequest request) {
         List<Appointment> appointments = new ArrayList<>();
         if (request.isMasterNameProvided() && !request.isTypeOfServiceProvided()) {
             appointments = database.findAppointmentByMasterName(request.getMasterName());

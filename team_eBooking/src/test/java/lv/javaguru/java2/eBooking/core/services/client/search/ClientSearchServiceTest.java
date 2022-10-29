@@ -2,12 +2,12 @@ package lv.javaguru.java2.eBooking.core.services.client.search;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientSearchResponse;
 import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,19 +27,19 @@ public class ClientSearchServiceTest {
     private Database database;
 
     @Mock
-    private ClientSearchRequestValidator validator;
+    private ClientSearchValidator validator;
 
     @InjectMocks
     private ClientSearchService service;
 
     @Test
     public void shouldReturnResponseWithErrorsWhenValidationFails() {
-        SearchClientRequest request = new SearchClientRequest(null, null);
+        ClientSearchRequest request = new ClientSearchRequest(null, null);
         List<CoreError> errors = validator.validate(request);
         errors.add(new CoreError("Email", ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY));
         errors.add(new CoreError("Phone number", ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY));
         Mockito.when(validator.validate(request)).thenReturn(errors);
-        SearchClientResponse response = service.execute(request);
+        ClientSearchResponse response = service.execute(request);
 
         assertTrue(response.hasError());
         assertEquals(response.getErrors().size(), 2);
@@ -55,12 +55,12 @@ public class ClientSearchServiceTest {
 
     @Test
     public void shouldNotReturnErrorWhenSearchingByEmail() {
-        SearchClientRequest request = new SearchClientRequest("Email", null);
+        ClientSearchRequest request = new ClientSearchRequest("Email", null);
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Email", "Phone number"));
         Mockito.when(database.findClientByEMail("Email")).thenReturn(clients);
-        SearchClientResponse response = service.execute(request);
+        ClientSearchResponse response = service.execute(request);
 
         assertFalse(response.hasError());
         assertEquals(response.getClients().size(), 1);
@@ -70,14 +70,14 @@ public class ClientSearchServiceTest {
 
     @Test
     public void shouldNotReturnErrorWhenSearchingByPhoneNumber() {
-        SearchClientRequest request = new SearchClientRequest(null, "Phone number");
+        ClientSearchRequest request = new ClientSearchRequest(null, "Phone number");
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Email", "Phone number"));
         Mockito
                 .when(database.findClientByPhoneNumber("Phone number"))
                 .thenReturn(clients);
-        SearchClientResponse response = service.execute(request);
+        ClientSearchResponse response = service.execute(request);
 
         assertFalse(response.hasError());
         assertEquals(response.getClients().size(), 1);
@@ -87,14 +87,14 @@ public class ClientSearchServiceTest {
 
     @Test
     public void shouldNotReturnErrorWhenSearchingByEmailAndPhoneNumber() {
-        SearchClientRequest request = new SearchClientRequest("Email", "Phone number");
+        ClientSearchRequest request = new ClientSearchRequest("Email", "Phone number");
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Email", "Phone number"));
         Mockito
                 .when(database.findClientByEmailAndPhoneNumber("Email", "Phone number"))
                 .thenReturn(clients);
-        SearchClientResponse response = service.execute(request);
+        ClientSearchResponse response = service.execute(request);
 
         assertFalse(response.hasError());
         assertEquals(response.getClients().size(), 1);

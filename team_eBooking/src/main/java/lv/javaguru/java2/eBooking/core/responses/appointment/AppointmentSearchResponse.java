@@ -6,11 +6,11 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 
 import java.util.List;
 
-public class SearchAppointmentResponse extends CoreResponse {
+public class AppointmentSearchResponse extends CoreResponse {
 
     private List<Appointment> appointments;
 
-    public SearchAppointmentResponse(List<CoreError> errors, List<Appointment> appointments) {
+    public AppointmentSearchResponse(List<CoreError> errors, List<Appointment> appointments) {
         super(errors);
         this.appointments = appointments;
     }

@@ -2,29 +2,29 @@ package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.database.Database;
-import lv.javaguru.java2.eBooking.core.requests.client_request.AddClientRequest;
-import lv.javaguru.java2.eBooking.core.responses.client.AddClientResponse;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientAddResponse;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.services.validators.AddClientValidator;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientAddValidator;
 
 import java.util.List;
 
-public class AddClientService {
+public class ClientAddService {
     private Database database;
-    private AddClientValidator validator;
+    private ClientAddValidator validator;
 
-    public AddClientService(Database database, AddClientValidator validator) {
+    public ClientAddService(Database database, ClientAddValidator validator) {
         this.database = database;
         this.validator = validator;
     }
 
-    public AddClientResponse execute(AddClientRequest request) {
+    public ClientAddResponse execute(ClientAddRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
-            return new AddClientResponse(errors);
+            return new ClientAddResponse(errors);
         }
         Client client = new Client(request.getClientEmail(), request.getClientPhoneNumber());
         database.saveClient(client);
-        return new AddClientResponse(client);
+        return new ClientAddResponse(client);
     }
 }

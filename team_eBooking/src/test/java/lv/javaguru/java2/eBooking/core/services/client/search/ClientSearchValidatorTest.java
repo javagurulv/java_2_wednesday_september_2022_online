@@ -1,21 +1,21 @@
 package lv.javaguru.java2.eBooking.core.services.client.search;
 
-import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchValidator;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class ClientSearchRequestValidatorTest {
-    ClientSearchRequestValidator validator = new ClientSearchRequestValidator();
+public class ClientSearchValidatorTest {
+    ClientSearchValidator validator = new ClientSearchValidator();
 
     @Test
     public void shouldNotReturnErrorWhenEmailIsProvided() {
-        SearchClientRequest request = new SearchClientRequest("email: ", null);
+        ClientSearchRequest request = new ClientSearchRequest("email: ", null);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),0);
 
@@ -23,20 +23,20 @@ public class ClientSearchRequestValidatorTest {
 
     @Test
     public void shouldNotReturnErrorWhenPhoneNumberIsProvided() {
-        SearchClientRequest request = new SearchClientRequest(null, "phone number: ");
+        ClientSearchRequest request = new ClientSearchRequest(null, "phone number: ");
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),0);
     }
 
     @Test
     public void shouldNotReturnErrorWhenEmailAndPhoneNumberAreProvided() {
-        SearchClientRequest request = new SearchClientRequest("email: ", "phone number: ");
+        ClientSearchRequest request = new ClientSearchRequest("email: ", "phone number: ");
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),0);
     }
     @Test
     public void shouldReturnErrorWhenEmailAndPhoneNumberAreNotProvided() {
-        SearchClientRequest request = new SearchClientRequest(null, null);
+        ClientSearchRequest request = new ClientSearchRequest(null, null);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(),2);
         assertEquals(errors.get(0).getField(),"email: ");

@@ -1,7 +1,7 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
-import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientSearchResponse;
 import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
 
 import java.util.Scanner;
@@ -20,8 +20,8 @@ public class SearchClientUIAction implements UIAction {
         System.out.println("Enter client phone number: ");
         String clientPhoneNumber = scanner.nextLine();
 
-        SearchClientRequest request = new SearchClientRequest(clientEmail, clientPhoneNumber);
-        SearchClientResponse response = clientSearchService.execute(request);
+        ClientSearchRequest request = new ClientSearchRequest(clientEmail, clientPhoneNumber);
+        ClientSearchResponse response = clientSearchService.execute(request);
 
         if (response.hasError()) {
             response.getErrors().forEach(coreError -> System.out.println(coreError.getField() +

@@ -5,15 +5,15 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 
 import java.util.List;
 
-public class RemoveClientResponse extends CoreResponse {
+public class ClientRemoveResponse extends CoreResponse {
 
     private boolean clientRemoved;
 
-    public RemoveClientResponse(List<CoreError> errors) {
+    public ClientRemoveResponse(List<CoreError> errors) {
         super(errors);
     }
 
-    public RemoveClientResponse(boolean clientRemoved) {
+    public ClientRemoveResponse(boolean clientRemoved) {
         this.clientRemoved = clientRemoved;
     }
 

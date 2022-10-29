@@ -1,29 +1,29 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
-import lv.javaguru.java2.eBooking.core.requests.client_request.RemoveClientRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.responses.client.RemoveClientResponse;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientRemoveResponse;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RemoveClientService {
+public class ClientRemoveService {
     private Database database;
 
-    public RemoveClientService(Database database) {
+    public ClientRemoveService(Database database) {
         this.database = database;
     }
 
-    public RemoveClientResponse execute(RemoveClientRequest request) {
+    public ClientRemoveResponse execute(ClientRemoveRequest request) {
         if (request.getRemoveClientId() == null) {
             CoreError error = new CoreError("Id", ClientValidationResult.CLIENT_ID_MUST_NOT_BE_EMPTY);
             List<CoreError> errors = new ArrayList<>();
             errors.add(error);
-            return new RemoveClientResponse(errors);
+            return new ClientRemoveResponse(errors);
         }
         boolean isClientRemoved = database.deleteClientById(request.getRemoveClientId());
-        return new RemoveClientResponse(isClientRemoved);
+        return new ClientRemoveResponse(isClientRemoved);
     }
 }

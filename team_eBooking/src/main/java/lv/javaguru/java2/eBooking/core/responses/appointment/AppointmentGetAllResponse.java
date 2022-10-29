@@ -5,11 +5,11 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 
 import java.util.List;
 
-public class GetAllAppointmentResponse extends CoreResponse {
+public class AppointmentGetAllResponse extends CoreResponse {
 
     private List<Appointment> appointmentList;
 
-    public GetAllAppointmentResponse(List<Appointment> appointmentList) {
+    public AppointmentGetAllResponse(List<Appointment> appointmentList) {
         this.appointmentList = appointmentList;
     }
 

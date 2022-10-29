@@ -1,10 +1,10 @@
 package lv.javaguru.java2.eBooking.core.requests.appointment_request;
 
-public class RemoveAppointmentRequest {
+public class AppointmentRemoveRequest {
 
     private Long AppointmentId;
 
-    public RemoveAppointmentRequest(Long appointmentId) {
+    public AppointmentRemoveRequest(Long appointmentId) {
         this.AppointmentId = appointmentId;
     }
 

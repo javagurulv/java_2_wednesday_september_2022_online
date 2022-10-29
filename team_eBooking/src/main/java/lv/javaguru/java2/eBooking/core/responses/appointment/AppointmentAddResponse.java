@@ -6,15 +6,15 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 
 import java.util.List;
 
-public class AddAppointmentResponse extends CoreResponse {
+public class AppointmentAddResponse extends CoreResponse {
 
     private Appointment newAppointment;
 
-    public AddAppointmentResponse(Appointment newAppointment) {
+    public AppointmentAddResponse(Appointment newAppointment) {
         this.newAppointment = newAppointment;
     }
 
-    public AddAppointmentResponse(List<CoreError> errors) {
+    public AppointmentAddResponse(List<CoreError> errors) {
         super(errors);
     }
 

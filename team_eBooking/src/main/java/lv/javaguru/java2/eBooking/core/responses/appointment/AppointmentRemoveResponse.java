@@ -5,15 +5,15 @@ import lv.javaguru.java2.eBooking.core.responses.CoreResponse;
 
 import java.util.List;
 
-public class RemoveAppointmentResponse extends CoreResponse {
+public class AppointmentRemoveResponse extends CoreResponse {
 
     private boolean isAppointmentRemoved;
 
-    public RemoveAppointmentResponse(List<CoreError> errors){
+    public AppointmentRemoveResponse(List<CoreError> errors){
         super(errors);
     }
 
-    public RemoveAppointmentResponse(boolean isAppointmentRemoved) {
+    public AppointmentRemoveResponse(boolean isAppointmentRemoved) {
         this.isAppointmentRemoved = isAppointmentRemoved;
     }
 
