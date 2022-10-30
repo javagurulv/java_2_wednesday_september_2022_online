@@ -14,13 +14,16 @@ public class Email {
     private String protocol;
     private String to;
     private String subject;
+    private String bodyHeader;
     private String body;
-    private boolean bodyHTML;
+    private String bodyFooter;
+    private boolean bodyIsHTML;
 
     public Email() {
     }
 
-    public Email(String from, String password, String host, String port, String protocol, String to, String subject, String body, boolean bodyHTML) {
+    public Email(String from, String password, String host, String port, String protocol,
+                 String to, String subject, String bodyHeader, String body, String bodyFooter, boolean bodyIsHTML) {
         this.from = from;
         this.password = password;
         this.host = host;
@@ -28,8 +31,10 @@ public class Email {
         this.protocol = protocol;
         this.to = to;
         this.subject = subject;
+        this.bodyHeader = bodyHeader;
         this.body = body;
-        this.bodyHTML = bodyHTML;
+        this.bodyFooter = bodyFooter;
+        this.bodyIsHTML = bodyIsHTML;
     }
 
     public String getFrom() {
@@ -88,6 +93,14 @@ public class Email {
         this.subject = subject;
     }
 
+    public String getBodyHeader() {
+        return bodyHeader;
+    }
+
+    public void setBodyHeader(String bodyHeader) {
+        this.bodyHeader = bodyHeader;
+    }
+
     public String getBody() {
         return body;
     }
@@ -96,12 +109,20 @@ public class Email {
         this.body = body;
     }
 
-    public boolean isBodyHTML() {
-        return bodyHTML;
+    public String getBodyFooter() {
+        return bodyFooter;
     }
 
-    public void setBodyHTML(boolean bodyHTML) {
-        this.bodyHTML = bodyHTML;
+    public void setBodyFooter(String bodyFooter) {
+        this.bodyFooter = bodyFooter;
+    }
+
+    public boolean isBodyIsHTML() {
+        return bodyIsHTML;
+    }
+
+    public void setBodyIsHTML(boolean bodyIsHTML) {
+        this.bodyIsHTML = bodyIsHTML;
     }
 
     public boolean send() {
@@ -126,7 +147,7 @@ public class Email {
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
-            if (bodyHTML)
+            if (bodyIsHTML)
                 message.setContent(body,"text/html; charset=utf-8");
             else
                 message.setText(body);
@@ -143,12 +164,12 @@ public class Email {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Email email = (Email) o;
-        return bodyHTML == email.bodyHTML && Objects.equals(from, email.from) && Objects.equals(password, email.password) && Objects.equals(host, email.host) && Objects.equals(port, email.port) && Objects.equals(protocol, email.protocol) && Objects.equals(to, email.to) && Objects.equals(subject, email.subject) && Objects.equals(body, email.body);
+        return bodyIsHTML == email.bodyIsHTML && Objects.equals(from, email.from) && Objects.equals(password, email.password) && Objects.equals(host, email.host) && Objects.equals(port, email.port) && Objects.equals(protocol, email.protocol) && Objects.equals(to, email.to) && Objects.equals(subject, email.subject) && Objects.equals(bodyHeader, email.bodyHeader) && Objects.equals(body, email.body) && Objects.equals(bodyFooter, email.bodyFooter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(from, password, host, port, protocol, to, subject, body, bodyHTML);
+        return Objects.hash(from, password, host, port, protocol, to, subject, bodyHeader, body, bodyFooter, bodyIsHTML);
     }
 
     @Override
@@ -161,8 +182,10 @@ public class Email {
                 ", protocol='" + protocol + '\'' +
                 ", to='" + to + '\'' +
                 ", subject='" + subject + '\'' +
+                ", bodyHeader='" + bodyHeader + '\'' +
                 ", body='" + body + '\'' +
-                ", bodyHTML=" + bodyHTML +
+                ", bodyFooter='" + bodyFooter + '\'' +
+                ", bodyIsHTML=" + bodyIsHTML +
                 '}';
     }
 }

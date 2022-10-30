@@ -14,8 +14,14 @@ public class ReminderEmailService {
     @Value("${reminder.email.subject}")
     private String reminderSubject;
 
+    @Value("${reminder.email.body.header}")
+    private String bodyHeader;
+
     @Value("${reminder.email.body.html}")
-    private Boolean bodyHTML;
+    private Boolean bodyIsHTML;
+
+    @Value("${reminder.email.body.footer}")
+    private String bodyFooter;
 
     public Email getReminderEmailDraft() {
         if (!settingsRepository.recordExists()) {
@@ -26,7 +32,9 @@ public class ReminderEmailService {
                 "Reminder from the Tasks Scheduler application" :
                 reminderSubject;
 
-        boolean htmlFormat = bodyHTML != null && bodyHTML;
+        String header = bodyHeader != null ? bodyHeader : "";
+        String footer = bodyFooter != null ? bodyFooter : "";
+        boolean htmlFormat = bodyIsHTML != null && bodyIsHTML;
 
         Email emailDraft = new Email(settingsRepository.getRecord().getEmailFrom(),
                 settingsRepository.getRecord().getEmailPassword(),
@@ -35,7 +43,9 @@ public class ReminderEmailService {
                 settingsRepository.getRecord().getEmailProtocol(),
                 settingsRepository.getRecord().getEmailFrom(),
                 subject,
+                header,
                 "Undefined content. Please contact Tasks Scheduler support to prevent it in the future.",
+                footer,
                 htmlFormat);
         return emailDraft;
     }

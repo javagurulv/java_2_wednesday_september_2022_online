@@ -13,16 +13,11 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
 public class RemindersSendingService {
-
-    @Value("${reminder.email.body.header}")
-    private String bodyHeader;
-
-    @Value("${reminder.email.body.footer}")
-    private String bodyFooter;
 
     private TasksRepository tasksRepository;
     private UsersRepository usersRepository;
@@ -86,19 +81,26 @@ public class RemindersSendingService {
     }
 
     private String getReminderEmailBody(Task task, LocalDateTime dueDate) {
-        String result = reminder.getBody();
-        if (bodyHeader != null && !bodyHeader.isBlank()) {
-            result = bodyHeader + "\n";
-        }
-        if (reminder.isBodyHTML()) {
-            result += "<b style='color:blue;'>Due date</b>: " + dueDate + "\n" +
-                    "<b style='color:blue;'>Task</b>: " + task.getDescription();
+        DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String result = "";
+        if (reminder.isBodyIsHTML()) {
+            if (!reminder.getBodyHeader().isBlank()) {
+                result += "<b>" + reminder.getBodyHeader() + "</b><br><br>";
+            }
+            result += "<b style='color:blue;'>Due date and time</b>: " + dueDate.format(printFormat) + "<br>" +
+                    "<b style='color:blue'>Task</b>: " + task.getDescription();
+            if (!reminder.getBodyFooter().isBlank()) {
+                result += "<br><br><b style='color:red'><em>" + reminder.getBodyFooter() + "</em></b>";
+            }
         } else {
-            result += "Due date: " + dueDate + "\n" +
+            if (!reminder.getBodyHeader().isBlank()) {
+                result += reminder.getBodyHeader() + "\r\n" + "\r\n";
+            }
+            result += "Due date and time: " + dueDate.format(printFormat) + "\r\n" +
                     "Task: " + task.getDescription();
-        }
-        if (bodyFooter != null && !bodyFooter.isBlank()) {
-            result += "\n" + bodyFooter;
+            if (!reminder.getBodyFooter().isBlank()) {
+                result += "\r\n" + "\r\n" + reminder.getBodyFooter();
+            }
         }
         return result;
     }

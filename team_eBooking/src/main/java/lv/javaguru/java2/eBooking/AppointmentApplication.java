@@ -3,17 +3,17 @@ package lv.javaguru.java2.eBooking;
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
 import lv.javaguru.java2.eBooking.console_ui.*;
-import lv.javaguru.java2.eBooking.core.services.appointment.AddAppointmentService;
-import lv.javaguru.java2.eBooking.core.services.validators.AddAppointmentValidator;
-import lv.javaguru.java2.eBooking.core.services.appointment.GetAllAppointmentsService;
-import lv.javaguru.java2.eBooking.core.services.appointment.RemoveAppointmentService;
-import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentAddService;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentAddValidator;
+import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentGetAllService;
+import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentRemoveService;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchValidator;
 import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentSearchService;
-import lv.javaguru.java2.eBooking.core.services.client.AddClientService;
-import lv.javaguru.java2.eBooking.core.services.validators.AddClientValidator;
-import lv.javaguru.java2.eBooking.core.services.client.GetAllClientsService;
-import lv.javaguru.java2.eBooking.core.services.client.RemoveClientService;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.services.client.ClientAddService;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientAddValidator;
+import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
+import lv.javaguru.java2.eBooking.core.services.client.ClientRemoveService;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchValidator;
 import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
 
 
@@ -23,30 +23,30 @@ public class AppointmentApplication {
 
     private static Database database = new InMemoryDatabase();
 
-    private static AddClientValidator clientValidator = new AddClientValidator();
-    private static ClientSearchRequestValidator validator = new ClientSearchRequestValidator();
-    private static AppointmentSearchRequestValidator appointmentSearchRequestvalidator =
-            new AppointmentSearchRequestValidator();
-    private static AddAppointmentValidator appointmentValidator = new AddAppointmentValidator();
+    private static ClientAddValidator clientValidator = new ClientAddValidator();
+    private static ClientSearchValidator validator = new ClientSearchValidator();
+    private static AppointmentSearchValidator appointmentSearchRequestvalidator =
+            new AppointmentSearchValidator();
+    private static AppointmentAddValidator appointmentValidator = new AppointmentAddValidator();
 
-    private static AddClientService addClientService = new AddClientService(database, clientValidator);
-    private static RemoveClientService removeClientService = new RemoveClientService(database);
-    private static GetAllClientsService getAllClientsService = new GetAllClientsService(database);
+    private static ClientAddService clientAddService = new ClientAddService(database, clientValidator);
+    private static ClientRemoveService clientRemoveService = new ClientRemoveService(database);
+    private static ClientGetAllService clientGetAllService = new ClientGetAllService(database);
     private static ClientSearchService clientSearchService = new ClientSearchService(database, validator);
-    private static AddAppointmentService addAppointmentService = new AddAppointmentService(database, appointmentValidator);
-    private static RemoveAppointmentService removeAppointmentService = new RemoveAppointmentService(database);
-    private static GetAllAppointmentsService getAllAppointmentsService = new GetAllAppointmentsService(database);
+    private static AppointmentAddService appointmentAddService = new AppointmentAddService(database, appointmentValidator);
+    private static AppointmentRemoveService appointmentRemoveService = new AppointmentRemoveService(database);
+    private static AppointmentGetAllService appointmentGetAllService = new AppointmentGetAllService(database);
     private static AppointmentSearchService appointmentSearchService = new AppointmentSearchService(database, appointmentSearchRequestvalidator);
 
     public static UIAction searchAppointmentUIAction = new SearchAppointmentUIAction(appointmentSearchService);
     public static UIAction searchClientUIAction = new SearchClientUIAction(clientSearchService);
     public static UIAction printApplicationMenuUIAction = new PrintApplicationMenuUIAction();
-    public static UIAction addClientUIAction = new AddClientUIAction(addClientService);
-    public static UIAction removeClientUIAction = new RemoveClientUIAction(removeClientService);
-    public static UIAction printClientUIAction = new PrintClientUIAction(getAllClientsService);
-    public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(addAppointmentService);
-    public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(removeAppointmentService);
-    public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(getAllAppointmentsService);
+    public static UIAction addClientUIAction = new AddClientUIAction(clientAddService);
+    public static UIAction removeClientUIAction = new RemoveClientUIAction(clientRemoveService);
+    public static UIAction printClientUIAction = new PrintClientUIAction(clientGetAllService);
+    public static UIAction addAppointmentUIAction = new AddAppointmentUIAction(appointmentAddService);
+    public static UIAction removeAppointmentUIAction = new RemoveAppointmentUIAction(appointmentRemoveService);
+    public static UIAction printAppointmentUIAction = new PrintAppointmentUIAction(appointmentGetAllService);
     public static UIAction exitApplicationUIAction = new ExitApplicationUIAction();
 
     public static void main(String[] args) {
