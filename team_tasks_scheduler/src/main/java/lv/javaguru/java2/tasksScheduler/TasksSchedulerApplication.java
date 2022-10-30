@@ -5,7 +5,6 @@ import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupService;
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

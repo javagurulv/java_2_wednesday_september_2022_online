@@ -6,6 +6,7 @@ import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -16,13 +17,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class TaskInfoValidator {
+public class TaskAddValidator {
+    @Autowired private TasksRepository tasksRepository;
+    @Autowired private SessionService sessionService;
 
-    public List<CoreError> validate(AddTaskRequest request, TasksRepository taskList,
-                                        SessionService session) {
+    public List<CoreError> validate(AddTaskRequest request) {
         List<CoreError> errors = new ArrayList<>();
 
-        validateDuplicate(request, taskList, session).ifPresent(errors::add);
+        validateDuplicate(request).ifPresent(errors::add);
         validateDescription(request).ifPresent(errors::add);
         validateRegularity(request).ifPresent(errors::add);
         validateDueDate(request).ifPresent(errors::add);
@@ -30,12 +32,11 @@ public class TaskInfoValidator {
         return errors;
     }
 
-    private Optional<CoreError> validateDuplicate(AddTaskRequest request,
-                                      TasksRepository taskList, SessionService session) {
+    private Optional<CoreError> validateDuplicate(AddTaskRequest request) {
 
         Task task = new Task(request.getDescription(), request.getRegularity(),
-                request.getDueDate(), request.getEndDate(), session.getCurrentUserId());
-        if (taskList.exists(task)) {
+                request.getDueDate(), request.getEndDate(), sessionService.getCurrentUserId());
+        if (tasksRepository.exists(task)) {
             return Optional.of(new CoreError("Task", "Already exists in database"));
         }
         return Optional.empty();

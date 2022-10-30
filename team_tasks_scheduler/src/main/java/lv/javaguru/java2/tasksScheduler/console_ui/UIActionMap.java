@@ -20,6 +20,8 @@ import java.util.Map;
 public class UIActionMap {
 
     private Map<Integer, UIAction> actionMap;
+
+    @Autowired
     public UIActionMap(List<UIAction> uiActions) {
         actionMap = new HashMap<>();
         actionMap.put(0, findUIAction(uiActions, AddSettingsUIAction.class));

@@ -6,16 +6,17 @@ import java.util.List;
 
 public class AmendTaskResponse extends CoreResponse {
 
-    Task amendedTask;
+    private Task task;
+
     public AmendTaskResponse(List<CoreError> errors) {
         super(errors);
     }
 
-    public AmendTaskResponse(Task amendedTask) {
-        this.amendedTask = amendedTask;
+    public AmendTaskResponse(Task task) {
+        this.task = task;
     }
 
     public Task getAmendedTask() {
-        return amendedTask;
+        return task;
     }
 }
