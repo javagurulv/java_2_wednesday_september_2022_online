@@ -7,6 +7,7 @@ import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 import java.time.LocalDate;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -105,8 +106,8 @@ public abstract class AddVehicleValidator {
                 .anyMatch(enumValue -> enumValue.equalsIgnoreCase(value.replaceAll("[^a-zA-Z]", "")));
     }
 
-    static List<String> getAllTransmissionTypeValuesExceptNone() {
-        return TransmissionType.getAllEnumValues().stream()
+    public <E extends Enum<E>> List<String> getAllEnumsValuesExceptNone(E enumToGetValues) {
+        return enumToGetValues.getAllEnumValues().stream()
                 .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
                 .collect(Collectors.toList());
     }
@@ -114,6 +115,12 @@ public abstract class AddVehicleValidator {
     static List<String> getAllEngineTypeValuesExceptNone() {
         return EngineType.getAllEnumValues().stream()
                 .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
+                .collect(Collectors.toList());
+    }
+
+    public <E extends Enum<E>> List<String> getAllEnumValues(E enumToGetValues) {
+        return EnumSet.allOf(enumToGetValues.getClass()).stream()
+                .map((enumToGetValues.getClass())enumToGetValues -> enumToGetValues.)
                 .collect(Collectors.toList());
     }
 }
