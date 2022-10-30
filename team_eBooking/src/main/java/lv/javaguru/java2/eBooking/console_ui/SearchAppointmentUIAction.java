@@ -34,7 +34,7 @@ public class SearchAppointmentUIAction implements UIAction {
         Paging paging = new Paging(pageNumber, pageSize);
 
         AppointmentSearchRequest request = new AppointmentSearchRequest(masterName,typeOfService,paging,ordering);
-        AppointmentSearchResponse response = appointmentSearchService.execute(request,ordering,paging);
+        AppointmentSearchResponse response = appointmentSearchService.execute(request);
 
         if(response.hasError()){
             response.getErrors().forEach(coreError-> System.out.println(coreError.getField() +

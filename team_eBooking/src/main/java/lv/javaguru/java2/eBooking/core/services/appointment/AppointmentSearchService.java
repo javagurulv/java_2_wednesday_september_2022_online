@@ -12,6 +12,7 @@ import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchVali
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -24,18 +25,17 @@ public class AppointmentSearchService {
         this.validator = validator;
     }
 
-    public AppointmentSearchResponse execute(AppointmentSearchRequest request, Ordering ordering, Paging paging) {
+    public AppointmentSearchResponse execute(AppointmentSearchRequest request) {
         List<CoreError> errors = validator.validate(request);
+
         if (!errors.isEmpty()) {
-            return new AppointmentSearchResponse(errors, null);
+                return new AppointmentSearchResponse(errors, null);
         }
         List<Appointment> appointments = search(request);
 
-        if(ordering != null && paging!=null) {
-            appointments = orderAppointments.apply(appointments,request.getOrdering());
-            appointments = pagingAppointmentList.apply(appointments,request.getPaging());
+        appointments = orderByAppointments.apply(appointments, request.getOrdering());
+        appointments = pagingAppointmentList.apply(appointments, request.getPaging());
 
-        }
         return new AppointmentSearchResponse(null, appointments);
     }
 
@@ -54,9 +54,9 @@ public class AppointmentSearchService {
         return appointments;
     }
 
-    private BiFunction<List<Appointment>, Ordering,List<Appointment>> orderAppointments =
+    private BiFunction<List<Appointment>, Ordering, List<Appointment>> orderByAppointments =
             (appointments, ordering) -> {
-                Comparator<Appointment> appointmentComparator = ordering.getOrderBy().equals("Master name: ")
+                Comparator<Appointment> appointmentComparator = (ordering.getOrderBy().equals("Master name"))
                         ? Comparator.comparing(Appointment::getMasterName)
                         : Comparator.comparing(Appointment::getTypeOfService);
                 return appointments.stream()
