@@ -21,7 +21,7 @@ public class TasksCleanupService extends Thread{
             if (isInterrupted()) {
                 return;
             }
-            System.out.println("deleting tasks");
+            //System.out.println("deleting tasks");
             tasksRepository.deleteByUserIdTillDate(null, LocalDateTime.now().minusDays(1).with(LocalTime.MIN));
             try {
                 Thread.sleep(period * 1000);
