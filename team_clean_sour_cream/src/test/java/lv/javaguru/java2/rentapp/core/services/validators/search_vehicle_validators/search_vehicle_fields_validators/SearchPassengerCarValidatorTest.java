@@ -111,11 +111,11 @@ class SearchPassengerCarValidatorTest {
 
     @Test
     void testValidateTransmissionTypeIsNotValidReturnError() {
-        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("not valid").build();
+        searchVehicleRequest = SearchVehicleRequest.builder().transmissionType("none").build();
         Optional<CoreError> error = searchPassengerCarValidator.validateTransmissionType(searchVehicleRequest);
         assertTrue(error.isPresent());
         assertEquals("Transmission Type", error.get().getField());
-        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValues() + ")", error.get().getMessage());
+        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValuesExceptNone() + ")", error.get().getMessage());
     }
 
     @Test
