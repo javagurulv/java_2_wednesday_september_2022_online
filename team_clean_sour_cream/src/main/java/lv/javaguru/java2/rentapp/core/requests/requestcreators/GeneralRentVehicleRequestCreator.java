@@ -2,11 +2,12 @@ package lv.javaguru.java2.rentapp.core.requests.requestcreators;
 
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class GeneralRentVehicleRequestCreator {
-
 
     public GeneralRentVehicleRequest createVehicleAvailabilityRequest() {
         Scanner scanner = new Scanner(System.in);

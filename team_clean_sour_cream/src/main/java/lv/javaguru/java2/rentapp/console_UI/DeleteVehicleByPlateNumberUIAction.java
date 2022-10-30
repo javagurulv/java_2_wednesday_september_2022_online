@@ -3,16 +3,16 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.DeleteVehicleByPlateNumberResponse;
 import lv.javaguru.java2.rentapp.core.services.DeleteVehicleByPlateNumberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class DeleteVehicleByPlateNumberUIAction implements UIAction {
 
+    @Autowired
     private DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService;
-
-    public DeleteVehicleByPlateNumberUIAction(DeleteVehicleByPlateNumberService deleteVehicleByPlateNumberService) {
-        this.deleteVehicleByPlateNumberService = deleteVehicleByPlateNumberService;
-    }
 
     @Override
     public void execute() {

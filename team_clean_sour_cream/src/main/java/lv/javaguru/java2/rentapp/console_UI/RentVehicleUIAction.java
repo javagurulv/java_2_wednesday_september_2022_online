@@ -1,27 +1,25 @@
 package lv.javaguru.java2.rentapp.console_UI;
 
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
-import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.requestcreators.GeneralRentVehicleRequestCreator;
 import lv.javaguru.java2.rentapp.core.responses.RentVehicleResponse;
-import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.core.services.RentVehicleService;
 import lv.javaguru.java2.rentapp.core.services.VehicleAvailabilityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component
 public class RentVehicleUIAction implements UIAction {
 
+    @Autowired
     private VehicleAvailabilityService vehicleAvailabilityService;
+    @Autowired
     private GeneralRentVehicleRequestCreator requestCreator;
+    @Autowired
     private RentVehicleService rentVehicleService;
-
-    public RentVehicleUIAction(VehicleAvailabilityService vehicleAvailabilityService, GeneralRentVehicleRequestCreator requestCreator, RentVehicleService rentVehicleService) {
-        this.vehicleAvailabilityService = vehicleAvailabilityService;
-        this.requestCreator = requestCreator;
-        this.rentVehicleService = rentVehicleService;
-    }
 
     @Override
     public void execute() {
@@ -49,7 +47,7 @@ public class RentVehicleUIAction implements UIAction {
         if (rentVehicleResponse != null && rentVehicleResponse.hasErrors()) {
             rentVehicleResponse.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
-        } else if (rentVehicleResponse != null){
+        } else if (rentVehicleResponse != null) {
             System.out.println();
             System.out.println(rentVehicleResponse.getMessage());
         }

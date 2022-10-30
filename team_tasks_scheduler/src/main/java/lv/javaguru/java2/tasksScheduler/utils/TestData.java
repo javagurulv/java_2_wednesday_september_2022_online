@@ -199,9 +199,6 @@ public class TestData {
         logoutRequest = new LogoutRequest();
         logoutResponse = logoutService.execute(logoutRequest);
 
-
-
-
     }
     private boolean checkResponseForErrors(AddTaskResponse response) {
         if (response.hasErrors()) {

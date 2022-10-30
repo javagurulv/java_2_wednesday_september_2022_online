@@ -1,22 +1,26 @@
 package lv.javaguru.java2.rentapp;
 
+import lv.javaguru.java2.rentapp.config.VehicleRentConfiguration;
 import lv.javaguru.java2.rentapp.console_UI.*;
-
-import java.util.Scanner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 class VehicleRentApplication {
 
-    private static UIActionMap uiActionMap = new UIActionMap();
-
     public static void main(String[] args) {
+
+        ApplicationContext applicationContext = createApplicationContext();
+
+        ProgramMenu programMenu = applicationContext.getBean(ProgramMenu.class);
+
         while (true) {
             try {
-                printMainMenu();
-                int userChoice = getUserChoice();
-                if (userChoice > uiActionMap.getUIActionMapSize() || userChoice < 1) {
-                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - " + uiActionMap.getUIActionMapSize() + ")");
+                programMenu.printMainMenu();
+                int userChoice = programMenu.getMenuNumberFromUser();
+                if (userChoice > programMenu.getMenuNumberToUIActionMapSize() || userChoice < 1) {
+                    System.out.println("You must enter an integer that corresponds with a number from program menu (1 - " + programMenu.getMenuNumberToUIActionMapSize() + ")");
                 } else {
-                    executeUserChoice(userChoice);
+                    programMenu.executeSelectedMenuItem(userChoice);
                 }
             } catch (NumberFormatException e) {
                 System.out.println();
@@ -25,27 +29,8 @@ class VehicleRentApplication {
         }
     }
 
-    private static void printMainMenu() {
-        System.out.println();
-        System.out.println("Program menu:");
-        System.out.println("1. Add vehicle to list");
-        System.out.println("2. Delete vehicle from list by plate number");
-        System.out.println("3. Show all vehicles in the list");
-        System.out.println("4. Search vehicles in the list");
-        System.out.println("5. Make reservation");
-        System.out.println("6. Exit");
-        System.out.println();
-    }
-
-    private static int getUserChoice() {
-        System.out.println("Enter menu item number to execute:");
-        Scanner scanner = new Scanner(System.in);
-        return Integer.parseInt(scanner.nextLine().replaceAll("[^0-9]", ""));
-    }
-
-    private static void executeUserChoice(int userChoice) {
-        uiActionMap.getAction(userChoice).execute();
-        System.out.println();
+    private static ApplicationContext createApplicationContext() {
+        return new AnnotationConfigApplicationContext(VehicleRentConfiguration.class);
     }
 }
 

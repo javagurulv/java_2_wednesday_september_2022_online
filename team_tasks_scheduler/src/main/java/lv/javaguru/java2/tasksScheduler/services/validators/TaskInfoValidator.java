@@ -61,9 +61,8 @@ public class TaskInfoValidator {
         LocalDateTime dueDate = request.getDueDate();
         LocalDateTime endDate = request.getEndDate();
         LocalDateTime now = LocalDateTime.now();
-        if (dueDate.isBefore(now) == true ||
-            dueDate.isBefore(endDate) == true) {
-            return Optional.of(new CoreError("Due date", "Start date can't be in the past"));
+        if (dueDate.isBefore(now) || dueDate.isAfter(endDate)) {
+            return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date"));
         }
         return Optional.empty();
     }
@@ -78,8 +77,8 @@ public class TaskInfoValidator {
                                                      dueDate.getMonth(),
                                                      dueDate.getDayOfMonth());
         Period period = Period.between(dueDateOnly, endDateOnly);
-        if (period.getYears() > 100) {
-            return Optional.of(new CoreError("End date", "Humans don't live that long!"));
+        if (period.getYears() > 100 || endDate.isBefore(LocalDateTime.now())) {
+            return Optional.of(new CoreError("End date", "Must not be in the past or > 100 years in the future"));
         }
         return Optional.empty();
     }

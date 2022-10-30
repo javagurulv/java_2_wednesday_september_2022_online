@@ -7,6 +7,8 @@ import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -18,15 +20,13 @@ import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMO
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
+@Component
 public class AddVehicleUIAction implements UIAction {
 
     Scanner scanner = new Scanner(System.in);
 
+    @Autowired
     private AddVehicleService addVehicleService;
-
-    public AddVehicleUIAction(AddVehicleService addNewVehicleService) {
-        this.addVehicleService = addNewVehicleService;
-    }
 
     @Override
     public void execute() {

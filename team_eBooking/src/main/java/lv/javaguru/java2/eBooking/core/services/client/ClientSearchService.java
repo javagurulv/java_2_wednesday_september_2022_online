@@ -2,10 +2,10 @@ package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.requests.client_request.SearchClientRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
-import lv.javaguru.java2.eBooking.core.responses.client.SearchClientResponse;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchRequestValidator;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientSearchResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +13,26 @@ import java.util.List;
 public class ClientSearchService {
 
     private Database database;
-    private ClientSearchRequestValidator validator;
+    private ClientSearchValidator validator;
 
 
     public ClientSearchService(Database database,
-                               ClientSearchRequestValidator validator) {
+                               ClientSearchValidator validator) {
         this.database = database;
         this.validator = validator;
 
     }
 
-    public SearchClientResponse execute(SearchClientRequest request) {
+    public ClientSearchResponse execute(ClientSearchRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
-            return new SearchClientResponse(errors, null);
+            return new ClientSearchResponse(errors, null);
         }
         List<Client> clients = search(request);
-        return new SearchClientResponse(null, clients);
+        return new ClientSearchResponse(null, clients);
     }
 
-    private List<Client> search(SearchClientRequest request) {
+    private List<Client> search(ClientSearchRequest request) {
         List<Client> clients = new ArrayList<>();
         if (request.isEmailProvided() && !request.isPhoneNumberProvided()) {
             clients = database.findClientByEMail(request.getClientEmail());

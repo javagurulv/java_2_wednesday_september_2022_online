@@ -7,20 +7,19 @@ import lv.javaguru.java2.rentapp.core.responses.RentVehicleResponse;
 import lv.javaguru.java2.rentapp.domain.Client;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+@Component
 public class RentVehicleService {
-
+    @Autowired
     private DealDatabase dealDatabase;
+    @Autowired
     private VehicleDatabase vehicleDatabase;
-
-    public RentVehicleService(DealDatabase dealDatabase, VehicleDatabase vehicleDatabase) {
-        this.dealDatabase = dealDatabase;
-        this.vehicleDatabase = vehicleDatabase;
-    }
 
     public RentVehicleResponse execute(GeneralRentVehicleRequest request) {
 
