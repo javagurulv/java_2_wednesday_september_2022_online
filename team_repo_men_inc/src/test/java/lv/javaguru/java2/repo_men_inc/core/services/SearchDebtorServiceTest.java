@@ -1,16 +1,18 @@
-package lv.javaguru.java2.repo_men_inc.services;
+package lv.javaguru.java2.repo_men_inc.core.services;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.*;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.responses.SearchDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.core.validators.SearchDebtorValidator;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,12 @@ public class SearchDebtorServiceTest {
     private SearchDebtorValidator searchDebtorValidator;
     @InjectMocks
     private SearchDebtorService searchDebtorService;
+
+    @Before
+    public void setup() {
+        ReflectionTestUtils.setField(searchDebtorService, "orderingEnabled", true);
+        ReflectionTestUtils.setField(searchDebtorService, "pagingEnabled", true);
+    }
 
     @Test
     public void shouldReturnErrorsWhenValidationFails() {

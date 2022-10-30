@@ -1,10 +1,10 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.database.DatabaseImpl;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.DatabaseImpl;
 import org.junit.Test;
 
 import java.util.List;

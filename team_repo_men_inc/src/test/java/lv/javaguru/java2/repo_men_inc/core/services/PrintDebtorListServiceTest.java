@@ -1,9 +1,9 @@
-package lv.javaguru.java2.repo_men_inc.services;
+package lv.javaguru.java2.repo_men_inc.core.services;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.PrintDebtorsListRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.PrintDebtorsListResponse;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

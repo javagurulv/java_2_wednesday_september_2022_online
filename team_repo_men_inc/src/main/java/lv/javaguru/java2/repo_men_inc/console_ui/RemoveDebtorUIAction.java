@@ -2,15 +2,15 @@ package lv.javaguru.java2.repo_men_inc.console_ui;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.RemoveDebtorResponse;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
-import lv.javaguru.java2.repo_men_inc.services.RemoveDebtorService;
+import lv.javaguru.java2.repo_men_inc.core.services.RemoveDebtorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class RemoveDebtorUIAction implements UIAction{
-    @DIDependency
+    @Autowired
     private RemoveDebtorService removeDebtorService;
 
     @Override

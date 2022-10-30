@@ -2,13 +2,13 @@ package lv.javaguru.java2.repo_men_inc.core.validators;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.Paging;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class PagingValidator {
 
     public List<CoreError> validate(Paging paging) {

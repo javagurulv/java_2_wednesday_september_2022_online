@@ -1,10 +1,10 @@
-package lv.javaguru.java2.repo_men_inc.services;
+package lv.javaguru.java2.repo_men_inc.core.services;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.responses.RemoveDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.core.validators.RemoveDebtorValidator;
-import lv.javaguru.java2.repo_men_inc.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

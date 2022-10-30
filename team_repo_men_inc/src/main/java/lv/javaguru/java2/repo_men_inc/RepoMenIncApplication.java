@@ -1,14 +1,15 @@
 package lv.javaguru.java2.repo_men_inc;
 
+import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
 import lv.javaguru.java2.repo_men_inc.console_ui.*;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.ApplicationContext;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIApplicationContextBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
 public class RepoMenIncApplication {
     private static ApplicationContext applicationContext =
-            new DIApplicationContextBuilder().build("lv.javaguru.java2.repo_men_inc");
+            new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
 
     public static void main(String[] args) {
 

@@ -1,14 +1,14 @@
-package lv.javaguru.java2.repo_men_inc.database;
+package lv.javaguru.java2.repo_men_inc.core.database;
 
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class DatabaseImpl implements Database{
 
     private Long id = 1L;

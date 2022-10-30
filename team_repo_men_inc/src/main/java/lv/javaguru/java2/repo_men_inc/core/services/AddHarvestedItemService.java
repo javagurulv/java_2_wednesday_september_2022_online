@@ -1,20 +1,20 @@
-package lv.javaguru.java2.repo_men_inc.services;
+package lv.javaguru.java2.repo_men_inc.core.services;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.AddHarvestedItemRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.AddHarvestedItemResponse;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.validators.AddHarvestedItemValidator;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class AddHarvestedItemService {
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private AddHarvestedItemValidator addHarvestedItemValidator;
 
     public AddHarvestedItemResponse execute(AddHarvestedItemRequest addHarvestedItemRequest) {

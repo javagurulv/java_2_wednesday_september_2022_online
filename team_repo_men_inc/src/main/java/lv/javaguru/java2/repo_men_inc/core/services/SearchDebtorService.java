@@ -1,13 +1,17 @@
-package lv.javaguru.java2.repo_men_inc.services;
+package lv.javaguru.java2.repo_men_inc.core.services;
 
-import lv.javaguru.java2.repo_men_inc.core.requests.*;
+import lv.javaguru.java2.repo_men_inc.core.requests.Ordering;
+import lv.javaguru.java2.repo_men_inc.core.requests.OrderingDirection;
+import lv.javaguru.java2.repo_men_inc.core.requests.Paging;
+import lv.javaguru.java2.repo_men_inc.core.requests.SearchDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.responses.SearchDebtorResponse;
 import lv.javaguru.java2.repo_men_inc.core.validators.SearchDebtorValidator;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,13 +19,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class SearchDebtorService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private SearchDebtorValidator searchDebtorValidator;
+
+    @Value("${search.ordering.enabled}")
+    private boolean orderingEnabled;
+
+    @Value("${search.paging.enabled}")
+    private boolean pagingEnabled;
 
     public SearchDebtorResponse execute(SearchDebtorRequest searchDebtorRequest) {
         List<CoreError> errors = searchDebtorValidator.validate(searchDebtorRequest);
@@ -54,7 +64,7 @@ public class SearchDebtorService {
     }
 
     private List<Debtor> order(List<Debtor> debtors, Ordering ordering) {
-        if (ordering != null) {
+        if (orderingEnabled && ordering != null) {
             Comparator<Debtor> debtorComparator = null;
             switch (ordering.getOrderBy()) {
                 case NAME -> debtorComparator = Comparator.comparing(Debtor::getName);
@@ -71,7 +81,7 @@ public class SearchDebtorService {
     }
 
     private List<Debtor> paging(List<Debtor> debtors, Paging paging) {
-        if (paging != null) {
+        if (pagingEnabled && paging != null) {
             int skip = (paging.getPageNumber() - 1) * paging.getPageSize();
             return debtors.stream()
                     .skip(skip)

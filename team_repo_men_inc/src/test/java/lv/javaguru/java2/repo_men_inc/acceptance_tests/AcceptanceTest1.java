@@ -2,7 +2,8 @@ package lv.javaguru.java2.repo_men_inc.acceptance_tests;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.*;
 import lv.javaguru.java2.repo_men_inc.core.responses.*;
-import lv.javaguru.java2.repo_men_inc.services.*;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.services.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -59,6 +60,7 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
 
     @Test
     public void searchForAnExistingDebtorsInDatabase() {
+        System.out.println(appContext.getBean(Database.class).getAllDebtors());
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(debtorPresentInDatabase, null, null, null);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(1, searchDebtorResponse.getDebtors().size());
