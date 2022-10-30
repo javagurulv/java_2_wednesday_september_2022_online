@@ -19,8 +19,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.getAllEngineTypeValuesExceptNone;
-import static lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidator.getAllTransmissionTypeValuesExceptNone;
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -343,7 +341,7 @@ class AddPassengerCarValidatorTest {
         Optional<CoreError> errorOptional = validator.validateEngineType(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Engine Type", errorOptional.get().getField());
-        assertEquals("must be one of the provided options (" + getAllEngineTypeValuesExceptNone() + ")", errorOptional.get().getMessage());
+        assertEquals("must be one of the provided options (" + EngineType.getAllEnumValuesExceptNone() + ")", errorOptional.get().getMessage());
     }
 
     @Test
@@ -430,7 +428,7 @@ class AddPassengerCarValidatorTest {
         Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Transmission Type", errorOptional.get().getField());
-        assertEquals("must be one of the provided options (" + getAllTransmissionTypeValuesExceptNone() + ")", errorOptional.get().getMessage());
+        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValuesExceptNone() + ")", errorOptional.get().getMessage());
     }
 
     @Test

@@ -7,10 +7,8 @@ import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 
 import java.time.LocalDate;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
@@ -71,7 +69,7 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateEngineType(AddVehicleRequest request) {
-        List<String> enumEngineTypeValuesExceptNone = getAllEngineTypeValuesExceptNone();
+        List<String> enumEngineTypeValuesExceptNone = EngineType.getAllEnumValuesExceptNone();
         String engineType = request.getEngineType();
         if (engineType == null || engineType.isBlank()) {
             return Optional.of(new CoreError("Engine Type", "cannot be empty"));
@@ -90,7 +88,7 @@ public abstract class AddVehicleValidator {
     }
 
     protected Optional<CoreError> validateTransmissionType(AddVehicleRequest request) {
-        List<String> enumTransmissionTypeValuesExceptNone = getAllTransmissionTypeValuesExceptNone();
+        List<String> enumTransmissionTypeValuesExceptNone = TransmissionType.getAllEnumValuesExceptNone();
         String transmissionType = request.getTransmissionType();
         if (transmissionType == null || transmissionType.isBlank()) {
             return Optional.of(new CoreError("Transmission Type", "cannot be empty"));
@@ -104,23 +102,5 @@ public abstract class AddVehicleValidator {
     protected boolean areEnumValuesValid(List<String> enumValues, String value) {
         return enumValues.stream()
                 .anyMatch(enumValue -> enumValue.equalsIgnoreCase(value.replaceAll("[^a-zA-Z]", "")));
-    }
-
-    public <E extends Enum<E>> List<String> getAllEnumsValuesExceptNone(E enumToGetValues) {
-        return enumToGetValues.getAllEnumValues().stream()
-                .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
-                .collect(Collectors.toList());
-    }
-
-    static List<String> getAllEngineTypeValuesExceptNone() {
-        return EngineType.getAllEnumValues().stream()
-                .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
-                .collect(Collectors.toList());
-    }
-
-    public <E extends Enum<E>> List<String> getAllEnumValues(E enumToGetValues) {
-        return EnumSet.allOf(enumToGetValues.getClass()).stream()
-                .map((enumToGetValues.getClass())enumToGetValues -> enumToGetValues.)
-                .collect(Collectors.toList());
     }
 }
