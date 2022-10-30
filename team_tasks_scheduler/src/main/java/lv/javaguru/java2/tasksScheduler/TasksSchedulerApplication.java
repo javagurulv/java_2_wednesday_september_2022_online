@@ -2,7 +2,6 @@ package lv.javaguru.java2.tasksScheduler;
 
 import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupService;
 
 import java.util.Scanner;
 
@@ -19,7 +18,6 @@ public class TasksSchedulerApplication {
             if (executeSelectedMenuItem(menuType, menuNumber))
                 break;
         } while (true);
-
 
         while (true) {
             printMenu(menuType);
