@@ -17,6 +17,11 @@ public class ATM_app {
 
     public static void main(String[] args) {
 
+        startApp();
+
+    }
+
+    public static void startApp() {
         while (true) {
             printOperationChoice();
             int menuItem = getUserSelection();
@@ -29,6 +34,13 @@ public class ATM_app {
         System.out.println("Please choose type of operation:");
         System.out.println("1. User Operations");
         System.out.println("2. Exit");
+    }
+
+    private static int getUserSelection() {
+        System.out.println("Enter menu item number to proceed: ");
+        Scanner scanner = new Scanner(System.in);
+
+        return scanner.nextInt();
     }
 
     private static void executeStartingChoice(int menuItem) {
@@ -46,13 +58,5 @@ public class ATM_app {
                 adminModule.executeAdminModule();
             }
         }
-    }
-
-
-    private static int getUserSelection() {
-        System.out.println("Enter menu item number to proceed: ");
-        Scanner scanner = new Scanner(System.in);
-
-        return scanner.nextInt();
     }
 }

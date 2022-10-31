@@ -16,10 +16,7 @@ import generalPackage.core.services.usersOperations.PrintBalance;
 import generalPackage.core.services.usersOperations.usersValidators.DecreaseBalanceValidator;
 import generalPackage.core.services.usersOperations.usersValidators.IncreaseBalanceValidator;
 import generalPackage.core.services.usersOperations.usersValidators.PrintBalanceValidator;
-import generalPackage.usersOperationsUI.DecreaseBalanceServiceUIAction;
-import generalPackage.usersOperationsUI.ExitServiceUIAction;
-import generalPackage.usersOperationsUI.IncreaseBalanceServiceUIAction;
-import generalPackage.usersOperationsUI.PrintBalanceServiceUIAction;
+import generalPackage.usersOperationsUI.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -93,6 +90,8 @@ public class ApplicationContext {
 
         beans.put(PrintBalanceServiceUIAction.class, new PrintBalanceServiceUIAction(
                 getBean(PrintBalance.class)));
+
+        beans.put(MainMenuUIAction.class, new MainMenuUIAction());
 
         beans.put(ExitServiceUIAction.class, new ExitServiceUIAction());
 

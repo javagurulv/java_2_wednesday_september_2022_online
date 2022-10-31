@@ -1,5 +1,6 @@
 package generalPackage.usersOperationsUI;
 
+import generalPackage.core.database.UserInfo;
 import generalPackage.core.requests.usersRequests.IncreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.IncreaseBalanceResponse;
 import generalPackage.core.services.usersOperations.IncreaseBalance;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 public class IncreaseBalanceServiceUIAction implements UI_Menu {
 
     private IncreaseBalance increaseBalance;
+    private static UserInfo userInfo = new UserInfo();
 
     public IncreaseBalanceServiceUIAction(IncreaseBalance increaseBalance) {
         this.increaseBalance = increaseBalance;
@@ -17,11 +19,10 @@ public class IncreaseBalanceServiceUIAction implements UI_Menu {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please confirm your ID: ");
-        int userID = scanner.nextInt();
         System.out.print("Please, input amount for deposit : ");
         int amountToDeposit = scanner.nextInt();
-        IncreaseBalanceRequest request = new IncreaseBalanceRequest(userID, amountToDeposit);
+
+        IncreaseBalanceRequest request = new IncreaseBalanceRequest(userInfo.getUserId(), amountToDeposit);
         IncreaseBalanceResponse response = increaseBalance.execute(request);
 
         if (response.hasErrors()) {

@@ -1,44 +1,47 @@
 package generalPackage.menuModules;
 
-//import generalPackage.core.services.usersOperations.DecreaseBalance;
-//import generalPackage.core.services.usersOperations.IncreaseBalance;
-//import generalPackage.core.services.usersOperations.PrintBalance;
-//import generalPackage.core.services.usersOperations.*;
-//import generalPackage.core.services.usersOperations.usersValidators.DecreaseBalanceValidator;
-//import generalPackage.core.services.usersOperations.usersValidators.IncreaseBalanceValidator;
-//import generalPackage.core.services.usersOperations.usersValidators.PrintBalanceValidator;
-
 import generalPackage.ApplicationContext;
-import generalPackage.usersOperationsUI.DecreaseBalanceServiceUIAction;
-import generalPackage.usersOperationsUI.ExitServiceUIAction;
-import generalPackage.usersOperationsUI.IncreaseBalanceServiceUIAction;
-import generalPackage.usersOperationsUI.PrintBalanceServiceUIAction;
+import generalPackage.core.database.AccountDatabaseImpl;
+import generalPackage.core.database.UserInfo;
+import generalPackage.usersOperationsUI.*;
 
 import java.util.Scanner;
 
 public class UserModule {
-//    private static Database database = new AccountDatabaseImpl();
-//    private static IncreaseBalanceValidator increaseBalanceValidator = new IncreaseBalanceValidator();
-//    private static IncreaseBalance increaseBalance = new IncreaseBalance(database, increaseBalanceValidator);
-//    private static DecreaseBalanceValidator decreaseBalanceValidator = new DecreaseBalanceValidator();
-//    private static DecreaseBalance decreaseBalance = new DecreaseBalance(database, decreaseBalanceValidator );
-//    private static PrintBalanceValidator printBalanceValidator = new PrintBalanceValidator();
-//    private static PrintBalance printBalance = new PrintBalance(database, printBalanceValidator);
-//    private static UI_Menu printBalanceUIAction = new PrintBalanceServiceUIAction(printBalance);
-//    private static UI_Menu depositUIAction = new IncreaseBalanceServiceUIAction(increaseBalance);
-//    private static UI_Menu withdrawUIAction = new DecreaseBalanceServiceUIAction(decreaseBalance);
-//    private static UI_Menu exitUIAction = new ExitServiceUIAction();
-
     private static ApplicationContext applicationContext = new ApplicationContext();
+    private static UserInfo userInfo = new UserInfo();
+    private static AccountDatabaseImpl accountDatabase = new AccountDatabaseImpl();
 
     public void executeUserModule() {
+
+        UserInfo.userLogIn();
+        startProgram();
+
+//        userIdCheck();
+
+    }
+
+    /*
+    public static void userIdCheck() {
+        if (accountDatabase.userIdIsExist(userInfo.getUserId())) {
+            startProgram();
+        } else if (!accountDatabase.userIdIsExist(userInfo.getUserId())) {
+            nonExist();
+        }
+    }
+     */
+
+    public static void startProgram() {
         while (true) {
             printUserOperationsMenu();
             int menuItem = getUserSelection();
             executeUserOperationMenuItem(menuItem);
         }
-
     }
+
+//    public static void nonExist() {
+//        System.out.println("User id not registered, try again.");
+//    }
 
     private static void printUserOperationsMenu() {
         System.out.println();
@@ -46,7 +49,8 @@ public class UserModule {
         System.out.println("1. Withdraw");
         System.out.println("2. Fulfill account");
         System.out.println("3. Print balance");
-        System.out.println("4. Exit");
+        System.out.println("4. Return to main menu ");
+        System.out.println("5. Exit");
         System.out.println();
     }
 
@@ -79,6 +83,11 @@ public class UserModule {
                 break;
             }
             case 4: {
+                MainMenuUIAction uiAction = applicationContext.getBean(MainMenuUIAction.class);
+                uiAction.execute();
+                break;
+            }
+            case 5: {
                 ExitServiceUIAction uiAction = applicationContext.getBean(ExitServiceUIAction.class);
                 uiAction.execute();
 //                exitUIAction.execute();

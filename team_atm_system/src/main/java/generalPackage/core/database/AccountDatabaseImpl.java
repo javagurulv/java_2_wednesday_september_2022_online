@@ -9,7 +9,6 @@ import java.util.Optional;
 public class AccountDatabaseImpl implements Database {
 
     private List<Accounts> accounts = new ArrayList<>();
-    private int userID;
 
     public AccountDatabaseImpl() {
         accounts.add(new Accounts("Ivan", 1234, 300));
@@ -65,8 +64,7 @@ public class AccountDatabaseImpl implements Database {
         int startingBalance = userAccount.getBalance();
         if (amount > 0 && startingBalance >= amount) {
             userAccount.setBalance(userAccount.getBalance() - amount);
-        }
-        else {
+        } else {
             System.out.println("Insufficient funds");
         }
         return userAccount.getBalance() == startingBalance - amount;
@@ -85,6 +83,11 @@ public class AccountDatabaseImpl implements Database {
     @Override
     public boolean isExist(String name) {
         return accounts.contains(name);
+    }
+
+    @Override
+    public boolean userIdIsExist(int userID) {
+        return accounts.contains(userID);
     }
 
     @Override
