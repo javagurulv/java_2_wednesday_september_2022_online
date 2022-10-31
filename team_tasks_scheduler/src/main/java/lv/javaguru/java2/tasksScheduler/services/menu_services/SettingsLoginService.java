@@ -18,6 +18,7 @@ import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import lv.javaguru.java2.tasksScheduler.services.validators.SettingsLoginValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -32,12 +33,6 @@ public class SettingsLoginService {
     @Autowired private SessionService sessionService;
     @Autowired private GetSettingsService getSettingsService;
 
-
-    // TODO below is for reminders testing
-    @Autowired private TasksRepository tasksRepository;
-    @Autowired private UsersRepository usersRepository;
-    @Autowired private ReminderEmailService reminderEmailService;
-
     public SettingsLoginResponse execute(SettingsLoginRequest request) {
 
         List<CoreError> errors = validator.validate(request, settingsRepository);
@@ -48,11 +43,6 @@ public class SettingsLoginService {
         sessionService.login(0L, request.getAdminPassword());
         GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
         Settings settings = getSettingsResponse.getSettings();
-
-        // TODO below is for reminders testing
-        RemindersSendingService remindersSendingService = new RemindersSendingService(
-                tasksRepository, usersRepository, reminderEmailService);
-        remindersSendingService.execute();
 
         return new SettingsLoginResponse(settings);
     }

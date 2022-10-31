@@ -1,20 +1,20 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.requests.client_request.GetAllClientsRequest;
-import lv.javaguru.java2.eBooking.core.responses.client.GetAllClientsResponse;
-import lv.javaguru.java2.eBooking.core.services.client.GetAllClientsService;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllRequest;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientsGetAllResponse;
+import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
 
 public class PrintClientUIAction implements UIAction {
-private GetAllClientsService getAllClientsService;
+private ClientGetAllService clientGetAllService;
 
-    public PrintClientUIAction(GetAllClientsService getAllClientsService) {
-        this.getAllClientsService = getAllClientsService;
+    public PrintClientUIAction(ClientGetAllService clientGetAllService) {
+        this.clientGetAllService = clientGetAllService;
     }
 
     public void execute() {
         System.out.println("Client list");
-        GetAllClientsRequest request = new GetAllClientsRequest();
-        GetAllClientsResponse response = getAllClientsService.execute(request);
+        ClientGetAllRequest request = new ClientGetAllRequest();
+        ClientsGetAllResponse response = clientGetAllService.execute(request);
         response.getClients().forEach(System.out::println);
     }
 }
