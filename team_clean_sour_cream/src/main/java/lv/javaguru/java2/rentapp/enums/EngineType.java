@@ -33,4 +33,10 @@ public enum EngineType {
                 .map(EngineType::getNameEngineType)
                 .collect(Collectors.toList());
     }
+
+    public static List<String> getAllEnumValuesExceptNone() {
+        return getAllEnumValues().stream()
+                .filter(value -> !value.equalsIgnoreCase(EngineType.NONE.getNameEngineType()))
+                .collect(Collectors.toList());
+    }
 }

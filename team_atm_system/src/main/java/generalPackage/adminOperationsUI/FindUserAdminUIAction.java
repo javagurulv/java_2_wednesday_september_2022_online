@@ -3,16 +3,20 @@ package generalPackage.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
 import generalPackage.core.responses.adminResponses.FindByIDAccountResponse;
 import generalPackage.core.services.adminOperations.FindUserByIDService;
+import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class FindUserAdminUIAction implements AdminUIactions {
 
+    @DIDependency
     private FindUserByIDService findUserByIDService;
 
-    public FindUserAdminUIAction(FindUserByIDService findUserByIDService) {
-        this.findUserByIDService = findUserByIDService;
-    }
+//    public FindUserAdminUIAction(FindUserByIDService findUserByIDService) {
+//        this.findUserByIDService = findUserByIDService;
+//    }
 
 
     @Override

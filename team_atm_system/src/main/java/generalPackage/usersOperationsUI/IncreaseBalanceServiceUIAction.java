@@ -1,28 +1,31 @@
 package generalPackage.usersOperationsUI;
 
-import generalPackage.core.database.UserInfo;
 import generalPackage.core.requests.usersRequests.IncreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.IncreaseBalanceResponse;
 import generalPackage.core.services.usersOperations.IncreaseBalance;
+import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class IncreaseBalanceServiceUIAction implements UI_Menu {
 
+    @DIDependency
     private IncreaseBalance increaseBalance;
-    private static UserInfo userInfo = new UserInfo();
 
-    public IncreaseBalanceServiceUIAction(IncreaseBalance increaseBalance) {
-        this.increaseBalance = increaseBalance;
-    }
+//    public IncreaseBalanceServiceUIAction(IncreaseBalance increaseBalance) {
+//        this.increaseBalance = increaseBalance;
+//    }
 
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please confirm your ID: ");
+        int userID = scanner.nextInt();
         System.out.print("Please, input amount for deposit : ");
         int amountToDeposit = scanner.nextInt();
-
-        IncreaseBalanceRequest request = new IncreaseBalanceRequest(userInfo.getUserId(), amountToDeposit);
+        IncreaseBalanceRequest request = new IncreaseBalanceRequest(userID, amountToDeposit);
         IncreaseBalanceResponse response = increaseBalance.execute(request);
 
         if (response.hasErrors()) {

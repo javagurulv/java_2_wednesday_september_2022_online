@@ -1,31 +1,47 @@
 package lv.javaguru.java2.atmapp.menuModules;
 
-import lv.javaguru.java2.atmapp.balanceServices.*;
-import lv.javaguru.java2.atmapp.balanceServicesUI.*;
-import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
-import lv.javaguru.java2.atmapp.database.Database;
+import lv.javaguru.java2.atmapp.ApplicationContext;
+import lv.javaguru.java2.atmapp.core.database.AccountDatabaseImpl;
+import lv.javaguru.java2.atmapp.core.database.UserInfo;
+import lv.javaguru.java2.atmapp.usersOperationsUI.*;
 
 import java.util.Scanner;
 
 public class UserModule {
-    private static Database database = new AccountDatabaseImpl();
-    private static IncreaseBalance increaseBalance = new IncreaseBalance(database);
-    private static DecreaseBalance decreaseBalance = new DecreaseBalance(database);
-    private static PrintBalance printBalance = new PrintBalance(database);
-    private static UI_Menu printBalanceUIAction = new Balance(printBalance);
-    private static UI_Menu depositUIAction = new Deposit(increaseBalance);
-    private static UI_Menu withdrawUIAction = new Withdraw(decreaseBalance);
-    private static UI_Menu exitUIAction = new Exit();
+    private static ApplicationContext applicationContext = new ApplicationContext();
+    private static UserInfo userInfo = new UserInfo();
+    private static AccountDatabaseImpl accountDatabase = new AccountDatabaseImpl();
 
+    public void executeUserModule() {
 
-    public void executeUserModule (){
-        while (true){
+        UserInfo.userLogIn();
+        startProgram();
+
+//        userIdCheck();
+
+    }
+
+    /*
+    public static void userIdCheck() {
+        if (accountDatabase.userIdIsExist(userInfo.getUserId())) {
+            startProgram();
+        } else if (!accountDatabase.userIdIsExist(userInfo.getUserId())) {
+            nonExist();
+        }
+    }
+     */
+
+    public static void startProgram() {
+        while (true) {
             printUserOperationsMenu();
             int menuItem = getUserSelection();
             executeUserOperationMenuItem(menuItem);
         }
-
     }
+
+//    public static void nonExist() {
+//        System.out.println("User id not registered, try again.");
+//    }
 
     private static void printUserOperationsMenu() {
         System.out.println();
@@ -33,7 +49,8 @@ public class UserModule {
         System.out.println("1. Withdraw");
         System.out.println("2. Fulfill account");
         System.out.println("3. Print balance");
-        System.out.println("4. Exit");
+        System.out.println("4. Return to main menu ");
+        System.out.println("5. Exit");
         System.out.println();
     }
 
@@ -48,19 +65,32 @@ public class UserModule {
     private static void executeUserOperationMenuItem(int menuItem) {
         switch (menuItem) {
             case 1: {
-                withdrawUIAction.execute();
+                DecreaseBalanceServiceUIAction uiAction = applicationContext.getBean(DecreaseBalanceServiceUIAction.class);
+//                withdrawUIAction.execute();
+                uiAction.execute();
                 break;
             }
             case 2: {
-                depositUIAction.execute();
+                IncreaseBalanceServiceUIAction uiAction = applicationContext.getBean(IncreaseBalanceServiceUIAction.class);
+                uiAction.execute();
+//                depositUIAction.execute();
                 break;
             }
             case 3: {
-                printBalanceUIAction.execute();
+                PrintBalanceServiceUIAction uiAction = applicationContext.getBean(PrintBalanceServiceUIAction.class);
+//                printBalanceUIAction.execute();
+                uiAction.execute();
                 break;
             }
             case 4: {
-                exitUIAction.execute();
+                MainMenuUIAction uiAction = applicationContext.getBean(MainMenuUIAction.class);
+                uiAction.execute();
+                break;
+            }
+            case 5: {
+                ExitServiceUIAction uiAction = applicationContext.getBean(ExitServiceUIAction.class);
+                uiAction.execute();
+//                exitUIAction.execute();
                 break;
             }
         }

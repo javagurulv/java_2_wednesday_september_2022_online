@@ -3,16 +3,20 @@ package generalPackage.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.AddAccountResponse;
 import generalPackage.core.services.adminOperations.AddAccountService;
+import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class AddAccountAdminUIAction implements AdminUIactions {
 
+    @DIDependency
     private AddAccountService addAccountService;
 
-    public AddAccountAdminUIAction(AddAccountService addAccountService) {
-        this.addAccountService = addAccountService;
-    }
+//    public AddAccountAdminUIAction(AddAccountService addAccountService) {
+//        this.addAccountService = addAccountService;
+//    }
 
 
     @Override
@@ -27,8 +31,7 @@ public class AddAccountAdminUIAction implements AdminUIactions {
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
                     System.out.println("Registration errors were detected: " + coreError.getField() + " " + coreError.getMessage()));
-        }
-        else {
+        } else {
             System.out.println("Account was added to database");
             System.out.println("ID: " + response.getNewAccount().getUserID());
             System.out.println("Name: " + response.getNewAccount().getName());

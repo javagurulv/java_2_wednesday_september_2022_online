@@ -1,34 +1,40 @@
 package lv.javaguru.java2.atmapp.menuModules;
 
-import lv.javaguru.java2.atmapp.adminServices.*;
-import lv.javaguru.java2.atmapp.adminServicesUI.*;
-import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
-import lv.javaguru.java2.atmapp.database.Database;
+import lv.javaguru.java2.atmapp.ApplicationContext;
+import lv.javaguru.java2.atmapp.adminOperationsUI.*;
 
 import java.util.Scanner;
 
 public class AdminModule {
 
 
-    private static Database database = new AccountDatabaseImpl();
+//    private static Database database = new AccountDatabaseImpl();
+//    private static AddAccountServiceValidator addAccountServiceValidator = new AddAccountServiceValidator();
+//    private static DeleteAccountServiceValidator deleteAccountServiceValidator = new DeleteAccountServiceValidator();
+//    private static FindUserByIDServiceValidator findUserByIDServiceValidator= new FindUserByIDServiceValidator();
+//    private static AddAccountService addAccountService = new AddAccountService(database, addAccountServiceValidator);
+//    private static DeleteAccountService deleteAccountService = new DeleteAccountService(database, deleteAccountServiceValidator);
+//    private static FindUserByIDService findUserByIDService = new FindUserByIDService(database, findUserByIDServiceValidator);
+//    private static GetAllAccountsService getAllAccountsService = new GetAllAccountsService(database);
+//    private static AdminUIactions addAccountUI = new AddAccountAdminUIAction(addAccountService);
+//    private static AdminUIactions deleteAccountUI = new DeleteAccountAdminUIAction(deleteAccountService);
+//    private static AdminUIactions findAccountUI = new FindUserAdminUIAction(findUserByIDService);
+//    private static AdminUIactions getAllAccountsUI = new GetAllAccountsAdminUIAction(getAllAccountsService);
+//
+//    private static AdminUIactions exitUIMenu = new ExitAdminUIAction();
 
-    private static AddAccountService addAccountService = new AddAccountService(database);
-    private static DeleteAccountService deleteAccountService = new DeleteAccountService(database);
-    private static FindUserByIDServiсe findUserByIDServise = new FindUserByIDServiсe(database);
-    private static GetAllAccountsService getAllAccountsService = new GetAllAccountsService(database);
-    private static AdminUIactions addAccountUI = new AddAccountAdminUIAction(addAccountService);
-    private static AdminUIactions deleteAccountUI = new DeleteAccountAdminUIAction(deleteAccountService);
-    private static AdminUIactions findAccountUI = new FindUserAdminUIAction(findUserByIDServise);
-    private static AdminUIactions getAllAccountsUI = new GetAllAccountsAdminUIAction(getAllAccountsService);
 
-    private static AdminUIactions exitUIMenu = new ExitAdminUIAction();
+    private static ApplicationContext applicationContext = new ApplicationContext();
 
-    public void executeAdminModule (){
+    public void executeAdminModule() {
+        startAdminPanel();
+    }
+
+    public static void startAdminPanel(){
         while (true) {
             printAdminMenu();
             int menuItem = getUserSelection();
             executeAdminMenuItem(menuItem);
-
         }
     }
 
@@ -39,7 +45,8 @@ public class AdminModule {
         System.out.println("2. Delete account");
         System.out.println("3. Find account");
         System.out.println("4. Print all accounts");
-        System.out.println("5. Exit");
+        System.out.println("5. Return to main menu.");
+        System.out.println("6. Exit");
         System.out.println();
     }
 
@@ -53,23 +60,36 @@ public class AdminModule {
     private static void executeAdminMenuItem(int menuItem) {
         switch (menuItem) {
             case 1: {
-                addAccountUI.execute();
+                AddAccountAdminUIAction uiAction = applicationContext.getBean(AddAccountAdminUIAction.class);
+//                addAccountUI.execute();
+                uiAction.execute();
                 break;
             }
             case 2: {
-                deleteAccountUI.execute();
+                DeleteAccountAdminUIAction uiAction = applicationContext.getBean(DeleteAccountAdminUIAction.class);
+                uiAction.execute();
                 break;
             }
             case 3: {
-                findAccountUI.execute();
+                FindUserAdminUIAction uiAction = applicationContext.getBean(FindUserAdminUIAction.class);
+//                findAccountUI.execute();
+                uiAction.execute();
                 break;
             }
             case 4: {
-                getAllAccountsUI.execute();
+                GetAllAccountsAdminUIAction uiAction = applicationContext.getBean(GetAllAccountsAdminUIAction.class);
+//                getAllAccountsUI.execute();
+                uiAction.execute();
                 break;
             }
-            case 5: {
-                exitUIMenu.execute();
+            case 5:{
+                AdminMainMenuUIAction uiAction = applicationContext.getBean(AdminMainMenuUIAction.class);
+                uiAction.execute();
+            }
+            case 6: {
+                ExitAdminUIAction uiAction = applicationContext.getBean(ExitAdminUIAction.class);
+//                exitUIMenu.execute();
+                uiAction.execute();
                 break;
             }
         }

@@ -3,16 +3,20 @@ package generalPackage.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
 import generalPackage.core.responses.adminResponses.DeleteAccountResponse;
 import generalPackage.core.services.adminOperations.DeleteAccountService;
+import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.Scanner;
 
+@DIComponent
 public class DeleteAccountAdminUIAction implements AdminUIactions {
 
+    @DIDependency
     private DeleteAccountService deleteAccountService;
 
-    public DeleteAccountAdminUIAction(DeleteAccountService deleteAccountService) {
-        this.deleteAccountService = deleteAccountService;
-    }
+//    public DeleteAccountAdminUIAction(DeleteAccountService deleteAccountService) {
+//        this.deleteAccountService = deleteAccountService;
+//    }
 
 
     @Override

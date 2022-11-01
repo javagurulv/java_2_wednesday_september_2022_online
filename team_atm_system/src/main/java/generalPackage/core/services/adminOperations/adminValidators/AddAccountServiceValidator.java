@@ -2,12 +2,14 @@ package generalPackage.core.services.adminOperations.adminValidators;
 
 import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
+import generalPackage.dependencyInjection.DIComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
+@DIComponent
 public class AddAccountServiceValidator {
 
     public List<CoreError> validate(AddAccountRequest request) {
