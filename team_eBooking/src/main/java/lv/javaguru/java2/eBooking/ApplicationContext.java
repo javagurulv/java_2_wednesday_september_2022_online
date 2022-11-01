@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class ApplicationContext {
 
-    private Map<Class, Object> beans = new HashMap<>();
+    private Map<Class, Object> beans = new HashMap<Class,Object>();
 
     public ApplicationContext() {
         beans.put(Database.class, new InMemoryDatabase());
@@ -43,7 +43,7 @@ public class ApplicationContext {
                 getBean(AppointmentRemoveValidator.class)));
         beans.put(ClientGetAllService.class,new ClientGetAllService(
                 getBean(Database.class)));
-        beans.put(AppointmentGetAllService.class, new ClientGetAllService(
+        beans.put(AppointmentGetAllService.class, new AppointmentGetAllService(
                 getBean(Database.class)));
         beans.put(ClientSearchService.class, new ClientSearchService(
                 getBean(Database.class),
