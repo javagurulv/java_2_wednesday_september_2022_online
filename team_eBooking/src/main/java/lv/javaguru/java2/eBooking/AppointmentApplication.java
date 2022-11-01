@@ -38,7 +38,7 @@ public class AppointmentApplication {
                     break;
                 }
                 case 3: {
-                    PrintClientUIAction printClientUIAction = appContext.getBean(PrintAppointmentUIAction.class);
+                    PrintClientUIAction printClientUIAction = appContext.getBean(PrintClientUIAction.class);
                     printClientUIAction.execute();
                     break;
                 }
@@ -70,6 +70,7 @@ public class AppointmentApplication {
                 case 9: {
                     ExitApplicationUIAction exitApplicationUIAction = appContext.getBean(ExitApplicationUIAction.class);
                     exitApplicationUIAction.execute();
+                    break;
                 }
             }
         }
