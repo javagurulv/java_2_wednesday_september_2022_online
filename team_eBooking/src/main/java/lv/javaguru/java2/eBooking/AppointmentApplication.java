@@ -48,12 +48,12 @@ public class AppointmentApplication {
                     break;
                 }
                 case 5: {
-                    AddAppointmentUIAction addAppointmentUIAction = appContext.getBean(AddClientUIAction.class);
+                    AddAppointmentUIAction addAppointmentUIAction = appContext.getBean(AddAppointmentUIAction.class);
                     addAppointmentUIAction.execute();
                     break;
                 }
                 case 6: {
-                    RemoveAppointmentUIAction removeAppointmentUIAction=appContext.getBean(RemoveClientUIAction.class);
+                    RemoveAppointmentUIAction removeAppointmentUIAction=appContext.getBean(RemoveAppointmentUIAction.class);
                     removeAppointmentUIAction.execute();
                     break;
                 }
