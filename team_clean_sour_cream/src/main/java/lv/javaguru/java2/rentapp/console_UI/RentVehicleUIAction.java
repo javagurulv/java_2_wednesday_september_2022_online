@@ -92,14 +92,12 @@ public class RentVehicleUIAction implements UIAction {
             switch (userChoice) {
                 case 1 -> {
                     request.getPaging().setPageNumber(++resultPageNumber);
-                    List<Vehicle> availableVehicles = searchVehicleService.execute(request.getSearchVehicleRequest()).getVehicleList();
-                    VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, availableVehicles);
+                    VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, foundVehicles);
                     if (response.getVehicles().isEmpty()) {
                         System.out.println("Page " + resultPageNumber + " is empty");
                         System.out.println();
                         request.getPaging().setPageNumber(--resultPageNumber);
-                        availableVehicles = searchVehicleService.execute(request.getSearchVehicleRequest()).getVehicleList();
-                        response = vehicleAvailabilityService.execute(request, availableVehicles);
+                        response = vehicleAvailabilityService.execute(request, foundVehicles);
                     }
                     System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                     response.getVehicles().forEach(System.out::println);
@@ -107,8 +105,7 @@ public class RentVehicleUIAction implements UIAction {
                 case 2 -> {
                     if (resultPageNumber != 1) {
                         request.getPaging().setPageNumber(--resultPageNumber);
-                        List<Vehicle> availableVehicles = searchVehicleService.execute(request.getSearchVehicleRequest()).getVehicleList();
-                        VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, availableVehicles);
+                        VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, foundVehicles);
                         System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                         response.getVehicles().forEach(System.out::println);
                     } else {
