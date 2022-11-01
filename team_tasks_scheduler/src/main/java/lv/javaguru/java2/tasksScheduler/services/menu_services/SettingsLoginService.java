@@ -27,15 +27,13 @@ import java.util.List;
 @Component
 public class SettingsLoginService {
 
-    @Autowired
-    private SettingsRepository settingsRepository;
     @Autowired private SettingsLoginValidator validator;
     @Autowired private SessionService sessionService;
     @Autowired private GetSettingsService getSettingsService;
 
     public SettingsLoginResponse execute(SettingsLoginRequest request) {
 
-        List<CoreError> errors = validator.validate(request, settingsRepository);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new SettingsLoginResponse(errors);
         }

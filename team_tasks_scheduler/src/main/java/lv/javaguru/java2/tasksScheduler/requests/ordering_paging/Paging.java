@@ -16,4 +16,8 @@ public class Paging {
     public Integer getPageSize() {
         return pageSize;
     }
+
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 }

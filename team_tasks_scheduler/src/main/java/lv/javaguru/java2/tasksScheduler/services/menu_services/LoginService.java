@@ -29,7 +29,7 @@ public class LoginService {
 
     public LoginResponse execute(LoginRequest request) {
 
-        List<CoreError> errors = validator.validate(request, usersRepository);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new LoginResponse(errors);
         }
