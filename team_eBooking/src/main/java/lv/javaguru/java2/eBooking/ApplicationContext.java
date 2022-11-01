@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class ApplicationContext {
 
-    private Map<Class, Object> beans = new HashMap<Class,Object>();
+    private Map<Class, Object> beans = new HashMap<>();
 
     public ApplicationContext() {
         beans.put(Database.class, new InMemoryDatabase());
