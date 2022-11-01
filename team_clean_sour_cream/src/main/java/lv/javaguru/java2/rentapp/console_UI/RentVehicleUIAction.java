@@ -3,12 +3,16 @@ package lv.javaguru.java2.rentapp.console_UI;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.requestcreators.GeneralRentVehicleRequestCreator;
 import lv.javaguru.java2.rentapp.core.responses.RentVehicleResponse;
+import lv.javaguru.java2.rentapp.core.responses.SearchVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.core.services.RentVehicleService;
+import lv.javaguru.java2.rentapp.core.services.SearchVehicleService;
 import lv.javaguru.java2.rentapp.core.services.VehicleAvailabilityService;
+import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Component
@@ -20,12 +24,24 @@ public class RentVehicleUIAction implements UIAction {
     private GeneralRentVehicleRequestCreator requestCreator;
     @Autowired
     private RentVehicleService rentVehicleService;
+    @Autowired
+    private SearchVehicleService searchVehicleService;
 
     @Override
     public void execute() {
 
         GeneralRentVehicleRequest rentVehicleAvailabilityRequest = requestCreator.createVehicleAvailabilityRequest();
-        VehicleAvailabilityResponse vehicleAvailabilityResponse = vehicleAvailabilityService.execute(rentVehicleAvailabilityRequest);
+
+        SearchVehicleResponse searchVehicleResponse = searchVehicleService.execute(rentVehicleAvailabilityRequest.getSearchVehicleRequest());
+        List<Vehicle> foundVehicles = searchVehicleResponse.getVehicleList();
+
+        if (searchVehicleResponse.hasErrors()) {
+            searchVehicleResponse.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
+            return;
+        }
+
+        VehicleAvailabilityResponse vehicleAvailabilityResponse = vehicleAvailabilityService.execute(rentVehicleAvailabilityRequest, foundVehicles);
         RentVehicleResponse rentVehicleResponse = null;
 
         if (vehicleAvailabilityResponse.hasErrors()) {
@@ -33,14 +49,16 @@ public class RentVehicleUIAction implements UIAction {
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
         } else if (vehicleAvailabilityResponse.getVehicles().isEmpty()) {
             System.out.println("No available vehicle found in that range");
-        } else if (rentVehicleAvailabilityRequest.getPaging() != null) {
-            selectPageMenu(rentVehicleAvailabilityRequest, vehicleAvailabilityResponse);
-            GeneralRentVehicleRequest rentVehicleRequest = requestCreator.createRentVehicleRequest(rentVehicleAvailabilityRequest);
+        } else if (rentVehicleAvailabilityRequest.getSearchVehicleRequest().getPaging() != null) {
+            selectPageMenu(rentVehicleAvailabilityRequest, foundVehicles);
+
+            GeneralRentVehicleRequest rentVehicleRequest = requestCreator.createRentVehicleRequest(rentVehicleAvailabilityRequest, vehicleAvailabilityResponse.getVehicles());
             rentVehicleResponse = rentVehicleService.execute(rentVehicleRequest);
         } else {
             System.out.println("Available vehicles found in that range: ");
             vehicleAvailabilityResponse.getVehicles().forEach(System.out::println);
-            GeneralRentVehicleRequest rentVehicleRequest = requestCreator.createRentVehicleRequest(rentVehicleAvailabilityRequest);
+
+            GeneralRentVehicleRequest rentVehicleRequest = requestCreator.createRentVehicleRequest(rentVehicleAvailabilityRequest, vehicleAvailabilityResponse.getVehicles());
             rentVehicleResponse = rentVehicleService.execute(rentVehicleRequest);
         }
 
@@ -54,10 +72,10 @@ public class RentVehicleUIAction implements UIAction {
 
     }
 
-    private void selectPageMenu(GeneralRentVehicleRequest request, VehicleAvailabilityResponse response) {
+    private void selectPageMenu(GeneralRentVehicleRequest request, List<Vehicle> foundVehicles) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Available vehicles (Page " + request.getPaging().getPageNumber() + "): ");
-        response.getVehicles().forEach(System.out::println);
+        foundVehicles.forEach(System.out::println);
         int resultPageNumber = request.getPaging().getPageNumber();
         boolean continueSearch = true;
 
@@ -74,11 +92,14 @@ public class RentVehicleUIAction implements UIAction {
             switch (userChoice) {
                 case 1 -> {
                     request.getPaging().setPageNumber(++resultPageNumber);
-                    response = vehicleAvailabilityService.execute(request);
+                    List<Vehicle> availableVehicles = searchVehicleService.execute(request.getSearchVehicleRequest()).getVehicleList();
+                    VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, availableVehicles);
                     if (response.getVehicles().isEmpty()) {
                         System.out.println("Page " + resultPageNumber + " is empty");
+                        System.out.println();
                         request.getPaging().setPageNumber(--resultPageNumber);
-                        response = vehicleAvailabilityService.execute(request);
+                        availableVehicles = searchVehicleService.execute(request.getSearchVehicleRequest()).getVehicleList();
+                        response = vehicleAvailabilityService.execute(request, availableVehicles);
                     }
                     System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                     response.getVehicles().forEach(System.out::println);
@@ -86,7 +107,8 @@ public class RentVehicleUIAction implements UIAction {
                 case 2 -> {
                     if (resultPageNumber != 1) {
                         request.getPaging().setPageNumber(--resultPageNumber);
-                        response = vehicleAvailabilityService.execute(request);
+                        List<Vehicle> availableVehicles = searchVehicleService.execute(request.getSearchVehicleRequest()).getVehicleList();
+                        VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, availableVehicles);
                         System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
                         response.getVehicles().forEach(System.out::println);
                     } else {
