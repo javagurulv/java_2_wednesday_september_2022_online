@@ -27,11 +27,14 @@ public class AdminModule {
     private static ApplicationContext applicationContext = new ApplicationContext();
 
     public void executeAdminModule() {
+        startAdminPanel();
+    }
+
+    public static void startAdminPanel(){
         while (true) {
             printAdminMenu();
             int menuItem = getUserSelection();
             executeAdminMenuItem(menuItem);
-
         }
     }
 
@@ -42,7 +45,8 @@ public class AdminModule {
         System.out.println("2. Delete account");
         System.out.println("3. Find account");
         System.out.println("4. Print all accounts");
-        System.out.println("5. Exit");
+        System.out.println("5. Return to main menu.");
+        System.out.println("6. Exit");
         System.out.println();
     }
 
@@ -78,7 +82,11 @@ public class AdminModule {
                 uiAction.execute();
                 break;
             }
-            case 5: {
+            case 5:{
+                AdminMainMenuUIAction uiAction = applicationContext.getBean(AdminMainMenuUIAction.class);
+                uiAction.execute();
+            }
+            case 6: {
                 ExitAdminUIAction uiAction = applicationContext.getBean(ExitAdminUIAction.class);
 //                exitUIMenu.execute();
                 uiAction.execute();

@@ -62,6 +62,8 @@ public class ApplicationContext {
         beans.put(GetAllAccountsAdminUIAction.class, new GetAllAccountsAdminUIAction(
                 getBean(GetAllAccountsService.class)));
 
+        beans.put(AdminMainMenuUIAction.class, new AdminMainMenuUIAction());
+
         beans.put(ExitAdminUIAction.class, new ExitAdminUIAction());
 
 //        Users part:
