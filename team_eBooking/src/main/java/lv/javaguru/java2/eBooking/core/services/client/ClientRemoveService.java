@@ -4,6 +4,7 @@ import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientRemoveResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientRemoveValidator;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 import java.util.ArrayList;
@@ -11,9 +12,11 @@ import java.util.List;
 
 public class ClientRemoveService {
     private Database database;
+    private ClientRemoveValidator validator;
 
-    public ClientRemoveService(Database database) {
+    public ClientRemoveService(Database database, ClientRemoveValidator validator) {
         this.database = database;
+        this.validator = validator;
     }
 
     public ClientRemoveResponse execute(ClientRemoveRequest request) {
