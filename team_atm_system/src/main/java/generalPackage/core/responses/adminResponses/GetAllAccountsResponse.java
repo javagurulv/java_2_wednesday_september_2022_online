@@ -4,11 +4,12 @@ import generalPackage.Accounts;
 
 import java.util.List;
 
-public class GetAllAccountsResponse {
+public class GetAllAccountsResponse extends CoreResponse {
 
-private List<Accounts> accounts;
+    private List<Accounts> accounts;
 
-    public GetAllAccountsResponse(List<Accounts> accounts) {
+    public GetAllAccountsResponse(List<Accounts> accounts, List<CoreError> errors) {
+        super(errors);
         this.accounts = accounts;
     }
 

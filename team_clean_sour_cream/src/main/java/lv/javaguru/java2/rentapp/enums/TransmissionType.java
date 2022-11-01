@@ -27,4 +27,10 @@ public enum TransmissionType {
                 .map(TransmissionType::getNameTransmissionType)
                 .collect(Collectors.toList());
     }
+
+    public static List<String> getAllEnumValuesExceptNone() {
+        return getAllEnumValues().stream()
+                .filter(value -> !value.equalsIgnoreCase(TransmissionType.NONE.getNameTransmissionType()))
+                .collect(Collectors.toList());
+    }
 }

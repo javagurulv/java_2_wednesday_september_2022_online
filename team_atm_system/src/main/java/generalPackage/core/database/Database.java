@@ -21,9 +21,10 @@ public interface Database {
 
     boolean isExist(String name);
 
-    boolean userIdIsExist(int userID);
-
     // added 23-09:
     Accounts findUserByID(int userID);
+
+    List <Accounts> searchAccountByName (String name);
+
 
 }

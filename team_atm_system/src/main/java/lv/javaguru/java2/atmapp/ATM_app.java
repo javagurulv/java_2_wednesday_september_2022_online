@@ -1,7 +1,7 @@
 package lv.javaguru.java2.atmapp;
 
-import lv.javaguru.java2.atmapp.database.AccountDatabaseImpl;
-import lv.javaguru.java2.atmapp.database.Database;
+import lv.javaguru.java2.atmapp.core.database.AccountDatabaseImpl;
+import lv.javaguru.java2.atmapp.core.database.Database;
 import lv.javaguru.java2.atmapp.menuModules.AdminModule;
 import lv.javaguru.java2.atmapp.menuModules.UserModule;
 
@@ -17,6 +17,11 @@ public class ATM_app {
 
     public static void main(String[] args) {
 
+        startApp();
+
+    }
+
+    public static void startApp() {
         while (true) {
             printOperationChoice();
             int menuItem = getUserSelection();
@@ -27,27 +32,9 @@ public class ATM_app {
     private static void printOperationChoice() {
         System.out.println();
         System.out.println("Please choose type of operation:");
-        System.out.println("1. Admin operations");
-        System.out.println("2. User Operations");
-        System.out.println("3. Exit");
+        System.out.println("1. User Operations");
+        System.out.println("2. Exit");
     }
-
-    private static void executeStartingChoice(int menuItem) {
-        switch (menuItem) {
-            case 1: {
-                adminModule.executeAdminModule();
-                break;
-            }
-            case 2: {
-                userModule.executeUserModule();
-            }
-            case 3: {
-                System.out.println("Good bye!");
-                System.exit(0);
-            }
-        }
-    }
-
 
     private static int getUserSelection() {
         System.out.println("Enter menu item number to proceed: ");
@@ -56,4 +43,20 @@ public class ATM_app {
         return scanner.nextInt();
     }
 
+    private static void executeStartingChoice(int menuItem) {
+        switch (menuItem) {
+            case 1: {
+                userModule.executeUserModule();
+            }
+            case 2: {
+                System.out.println("Good bye!");
+                System.exit(0);
+            }
+            case 11: {
+                System.out.println();
+                System.out.println("You successful log in as administrator");
+                adminModule.executeAdminModule();
+            }
+        }
+    }
 }

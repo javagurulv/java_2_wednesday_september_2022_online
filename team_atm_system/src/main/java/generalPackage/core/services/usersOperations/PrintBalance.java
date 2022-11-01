@@ -5,18 +5,23 @@ import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
 import generalPackage.core.responses.usersResponses.PrintBalanceResponse;
 import generalPackage.core.services.usersOperations.usersValidators.PrintBalanceValidator;
+import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.List;
 
+@DIComponent
 public class PrintBalance {
 
+    @DIDependency
     private Database database;
+    @DIDependency
     private PrintBalanceValidator validator;
 
-    public PrintBalance(Database database, PrintBalanceValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+//    public PrintBalance(Database database, PrintBalanceValidator validator) {
+//        this.database = database;
+//        this.validator = validator;
+//    }
 
     public PrintBalanceResponse execute(PrintBalanceRequest request) {
         List<CoreErrorUsers> errorUsers = validator.validate(request);

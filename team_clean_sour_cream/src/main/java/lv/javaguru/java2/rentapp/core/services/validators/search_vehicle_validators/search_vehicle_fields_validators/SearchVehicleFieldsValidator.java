@@ -24,7 +24,7 @@ public abstract class SearchVehicleFieldsValidator {
 
     protected Optional<CoreError> validateTransmissionType(SearchVehicleRequest request) {
 
-        List<String> enumTransmissionTypeValues = TransmissionType.getAllEnumValues();
+        List<String> enumTransmissionTypeValues = TransmissionType.getAllEnumValuesExceptNone();
 
         Optional<String> transmissionTypeOpt = Optional.ofNullable(request.getTransmissionType());
         if (transmissionTypeOpt.isEmpty()) {

@@ -7,19 +7,24 @@ import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.AddAccountResponse;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.services.adminOperations.adminValidators.AddAccountServiceValidator;
+import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.List;
 
 
+@DIComponent
 public class AddAccountService {
 
+    @DIDependency
     private Database database;
+    @DIDependency
     private AddAccountServiceValidator validator;
 
-    public AddAccountService(Database database, AddAccountServiceValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+//    public AddAccountService(Database database, AddAccountServiceValidator validator) {
+//        this.database = database;
+//        this.validator = validator;
+//    }
 
     public AddAccountResponse execute(AddAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
