@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     implementation('org.reflections:reflections:0.10.2')
+    implementation 'commons-validator:commons-validator:1.7'
     implementation('org.springframework:spring-context:5.3.23')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
@@ -11,6 +12,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:4.8.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
     testImplementation('org.springframework:spring-test:5.3.23')
+
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
