@@ -15,7 +15,7 @@ import java.util.Scanner;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
-@Setter
+
 @Component
 public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreator {
 

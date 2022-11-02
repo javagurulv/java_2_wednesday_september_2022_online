@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
-@Setter
+
 @Component
 public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCreator {
 

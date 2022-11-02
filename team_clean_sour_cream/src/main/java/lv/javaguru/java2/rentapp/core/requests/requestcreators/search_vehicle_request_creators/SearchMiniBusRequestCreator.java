@@ -15,7 +15,6 @@ import java.util.Scanner;
 import static lv.javaguru.java2.rentapp.domain.MiniBus.*;
 import static lv.javaguru.java2.rentapp.domain.MiniBus.BUS_MAX_DOORS_AMOUNT;
 
-@Setter
 @Component
 public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator {
 
