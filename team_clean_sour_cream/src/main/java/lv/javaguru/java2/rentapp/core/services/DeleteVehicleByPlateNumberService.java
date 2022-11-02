@@ -5,7 +5,6 @@ import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.DeleteVehicleByPlateNumberResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.DeleteVehicleByPlateNumberRequestValidator;
-import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,12 +28,5 @@ public class DeleteVehicleByPlateNumberService {
         return new DeleteVehicleByPlateNumberResponse("Your vehicle was removed from list.");
     }
 
-    public void showAllVehiclesPlateNumbers() {
-        System.out.println("Available are:");
-        vehicleDatabase.getAllVehicles().stream()
-                .map(Vehicle::getPlateNumber)
-                .forEach(System.out::println);
-        System.out.println();
-    }
 }
 
