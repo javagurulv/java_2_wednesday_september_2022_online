@@ -64,7 +64,7 @@ public class TasksSchedulerApplication {
     private static void printStartMenu() {
         System.out.println();
         System.out.println("********************");
-        System.out.println("1. Show all usernames registered in the system");
+        System.out.println("1. Show usernames registered in the system");
         System.out.println("2. User Login");
         System.out.println("3. User registration");
         System.out.println("4. System settings");
@@ -80,7 +80,7 @@ public class TasksSchedulerApplication {
         System.out.println("2. Show tasks for today");
         System.out.println("3. Add task");
         System.out.println("4. Amend task");
-        System.out.println("5. Search task");
+        System.out.println("5. Search tasks");
         System.out.println("6. Delete tasks");
         System.out.println("7. Amend current user information");
         System.out.println("8. Delete current user");
@@ -92,7 +92,7 @@ public class TasksSchedulerApplication {
     private static void printAdminMenu() {
         System.out.println();
         System.out.println("********************");
-        System.out.println("1. Show all users information");
+        System.out.println("1. Show users information");
         System.out.println("2. Amend settings");
         System.out.println("3. Exit settings");
         System.out.println("********************");

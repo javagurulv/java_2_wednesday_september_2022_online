@@ -6,6 +6,7 @@ import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +44,7 @@ public class TaskAddValidator {
     }
     private Optional<CoreError> validateDescription(AddTaskRequest request) {
         String description = request.getDescription();
-        if (description == null || description.isEmpty() ||
+        if (ValueChecking.stringIsEmpty(description) ||
                 description.length() < 10) {
             return Optional.of(new CoreError("Description", "Has to be longer than 10 chars"));
         }

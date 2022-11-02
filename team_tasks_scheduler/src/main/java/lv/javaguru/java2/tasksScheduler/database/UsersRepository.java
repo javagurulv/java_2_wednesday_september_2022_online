@@ -21,4 +21,10 @@ public interface UsersRepository {
     List<User> getUsersAcceptedReminders();
 
     List<User> getAllUsers();
+
+    List<User> getUsersByUsername(String username);
+
+    List<User> getUsersByEmail(String email);
+
+    List<User> getUsersByUsernameAndEmail(String username, String email);
 }
