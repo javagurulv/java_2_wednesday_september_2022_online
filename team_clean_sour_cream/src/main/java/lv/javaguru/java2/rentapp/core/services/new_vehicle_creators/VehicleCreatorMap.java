@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static lv.javaguru.java2.rentapp.enums.VehicleType.*;
@@ -16,16 +17,22 @@ public class VehicleCreatorMap {
     private Map<VehicleType, VehicleCreator> vehicleTypeCreatorMap;
 
     @Autowired
-    public VehicleCreatorMap(PassengerCarCreator passengerCarCreator, MiniBusCreator miniBusCreator,
-                             MotorcycleCreator motorcycleCreator, CarTrailerCreator carTrailerCreator) {
+    public VehicleCreatorMap(List<VehicleCreator> vehicleCreators) {
         this.vehicleTypeCreatorMap = new HashMap<>();
-        vehicleTypeCreatorMap.put(PASSENGER_CAR, passengerCarCreator);
-        vehicleTypeCreatorMap.put(MINIBUS, miniBusCreator);
-        vehicleTypeCreatorMap.put(MOTORCYCLE, motorcycleCreator);
-        vehicleTypeCreatorMap.put(CAR_TRAILER, carTrailerCreator);
+        vehicleTypeCreatorMap.put(PASSENGER_CAR, findVehicleCreator(vehicleCreators, PassengerCarCreator.class));
+        vehicleTypeCreatorMap.put(MINIBUS, findVehicleCreator(vehicleCreators, MiniBusCreator.class));
+        vehicleTypeCreatorMap.put(MOTORCYCLE, findVehicleCreator(vehicleCreators, MotorcycleCreator.class));
+        vehicleTypeCreatorMap.put(CAR_TRAILER, findVehicleCreator(vehicleCreators, CarTrailerCreator.class));
     }
 
     public VehicleCreator getVehicleTypeCreatorByCarType(VehicleType vehicleType) {
         return vehicleTypeCreatorMap.get(vehicleType);
+    }
+
+    private VehicleCreator findVehicleCreator(List<VehicleCreator> vehicleCreators, Class vehicleCreatorClass) {
+        return vehicleCreators.stream()
+                .filter(vehicleCreator -> vehicleCreator.getClass().equals(vehicleCreatorClass))
+                .findFirst()
+                .get();
     }
 }

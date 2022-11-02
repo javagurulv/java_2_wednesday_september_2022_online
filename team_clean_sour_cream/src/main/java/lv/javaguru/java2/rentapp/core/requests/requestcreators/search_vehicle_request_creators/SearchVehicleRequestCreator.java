@@ -5,5 +5,6 @@ import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 public interface SearchVehicleRequestCreator {
 
     SearchVehicleRequest createRequest();
+    void setPagingEnabled(boolean pagingEnabled);
 
 }
