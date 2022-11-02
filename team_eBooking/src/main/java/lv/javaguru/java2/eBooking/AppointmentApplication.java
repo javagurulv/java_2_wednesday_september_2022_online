@@ -1,17 +1,6 @@
 package lv.javaguru.java2.eBooking;
-
-import lv.javaguru.java2.eBooking.core.database.Database;
-import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
 import lv.javaguru.java2.eBooking.console_ui.*;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentAddService;
-import lv.javaguru.java2.eBooking.core.services.validators.*;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentGetAllService;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentRemoveService;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentSearchService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientAddService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientRemoveService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
+
 
 
 import java.util.Scanner;
