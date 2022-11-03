@@ -1,17 +1,20 @@
 package lv.javaguru.java2.eBooking.core.services.validators;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
+import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
 
+import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public interface ClientRegistrationValidator extends Function<Client, ClientValidationResult> {
+public interface ClientRegistrationValidator extends Function<Client,ClientValidationResult> {
 
 
-    static ClientRegistrationValidator emailFieldIsNotEmpty(){
-           return client -> !client.getClientEmail().isEmpty()
-                   ? ClientValidationResult.SUCCESS
-                   :ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY;
-       }
+    static ClientRegistrationValidator emailFieldIsNotEmpty() {
+        return client -> !client.getClientEmail().isEmpty()
+                ? ClientValidationResult.SUCCESS
+                : ClientValidationResult.EMAIL_MUST_NOT_BE_EMPTY;
+    }
 
     static ClientRegistrationValidator isEmailContainingValidSymbols() {
         return client -> client.getClientEmail().matches("^[@.a-zA-Z0-9]+$")

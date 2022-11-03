@@ -1,7 +1,10 @@
 package lv.javaguru.java2.eBooking.core.services.validators;
 
+import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 
 import java.util.ArrayList;
@@ -9,10 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class ClientAddValidator {
+public class ClientAddValidator{
 
     public List<CoreError> validate(ClientAddRequest request) {
-       List<CoreError> errors = new ArrayList<>();
+        List<CoreError> errors = new ArrayList<>();
+
         validateClientEMail(request).ifPresent(coreError -> errors.add(coreError));
         validateClientPhoneNumber(request).ifPresent(coreError -> errors.add(coreError));
         return errors;
@@ -37,7 +41,7 @@ public class ClientAddValidator {
                 .and(ClientRegistrationValidator.isPhoneNumberLengthValid())
                 .and(ClientRegistrationValidator.isPhoneNumberRegionCodeValid())
                 .apply(new Client(request.getClientEmail(), request.getClientPhoneNumber()));
-        return (isEmpty( request.getClientPhoneNumber())
+        return (isEmpty(request.getClientPhoneNumber())
                 || isEmpty(request.getClientPhoneNumber())
                 || result != ClientValidationResult.SUCCESS)
                 ? Optional.of(new CoreError("telephone number", result))

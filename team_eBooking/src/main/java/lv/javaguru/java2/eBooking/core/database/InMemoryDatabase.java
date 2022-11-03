@@ -2,6 +2,7 @@ package lv.javaguru.java2.eBooking.core.database;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.domain.Client;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class InMemoryDatabase implements Database {
 
     @Override
     public void saveClient(Client client) {
-        if(!isClientDuplicated(client)){
+       if(!isClientDuplicated(client)){
             client.setId(nextId);
             nextId++;
             clients.add(client);

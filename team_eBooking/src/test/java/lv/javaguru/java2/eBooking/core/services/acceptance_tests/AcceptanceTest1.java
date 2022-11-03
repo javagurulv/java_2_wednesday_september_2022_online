@@ -33,9 +33,6 @@ public class AcceptanceTest1 {
     public ClientAddService getClientAddService() {
         return applicationContext.getBean(ClientAddService.class);
     }
-    public ClientSearchService getClientSearchService() {
-        return applicationContext.getBean(ClientSearchService.class);
-    }
 
     public ClientGetAllService getAllClientService() {
         return applicationContext.getBean(ClientGetAllService.class);
