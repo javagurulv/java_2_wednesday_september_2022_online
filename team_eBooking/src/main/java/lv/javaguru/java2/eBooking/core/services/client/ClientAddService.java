@@ -24,6 +24,7 @@ public class ClientAddService {
             return new ClientAddResponse(errors);
         }
         Client client = new Client(request.getClientEmail(), request.getClientPhoneNumber());
+
         database.saveClient(client);
         return new ClientAddResponse(client);
     }
