@@ -6,7 +6,6 @@ import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllReque
 import lv.javaguru.java2.eBooking.core.responses.client.ClientsGetAllResponse;
 import lv.javaguru.java2.eBooking.core.services.client.ClientAddService;
 import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
