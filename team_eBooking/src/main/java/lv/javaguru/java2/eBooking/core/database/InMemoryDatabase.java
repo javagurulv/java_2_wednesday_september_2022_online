@@ -2,6 +2,7 @@ package lv.javaguru.java2.eBooking.core.database;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.domain.Client;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +16,17 @@ public class InMemoryDatabase implements Database {
 
     @Override
     public void saveClient(Client client) {
-        if(!isClientDuplicated(client)){
             client.setId(nextId);
             nextId++;
             clients.add(client);
+        System.out.println(getAllClients().size());
         }
-    }
 
-    public boolean isClientDuplicated(Client client){
-        return clients.stream()
-                .anyMatch(client1 -> client1.getClientEmail().equals(client.getClientEmail())
-                        || client1.getClientPhoneNumber().equals(client.getClientPhoneNumber()));
-    }
+//    public boolean isClientDuplicated(Client client){
+//        return clients.stream()
+//                .anyMatch(client1 -> client1.getClientEmail().equals(client.getClientEmail())
+//                        || client1.getClientPhoneNumber().equals(client.getClientPhoneNumber()));
+//    }
 
     @Override
     public boolean deleteClientById(Long id) {
@@ -116,5 +116,4 @@ public class InMemoryDatabase implements Database {
                         && appointment.getTypeOfService().equals(typeOfService))
                 .collect(Collectors.toList());
     }
-
 }
