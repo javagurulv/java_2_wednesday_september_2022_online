@@ -15,18 +15,22 @@ public class InMemoryDatabase implements Database {
     private List<Appointment> appointments = new ArrayList<>();
 
     @Override
-    public void saveClient(Client client) {
+    public void saveClient(Client client) throws RuntimeException {
+        if (!isClientDuplicated(client)) {
             client.setId(nextId);
             nextId++;
             clients.add(client);
-        System.out.println(getAllClients().size());
+        } else {
+            throw new RuntimeException("Found duplicated data, try again...");
         }
+    }
 
-//    public boolean isClientDuplicated(Client client){
-//        return clients.stream()
-//                .anyMatch(client1 -> client1.getClientEmail().equals(client.getClientEmail())
-//                        || client1.getClientPhoneNumber().equals(client.getClientPhoneNumber()));
-//    }
+    @Override
+    public boolean isClientDuplicated(Client client) {
+        return clients.stream()
+                .anyMatch(client1 -> client1.getClientEmail().equals(client.getClientEmail())
+                        || client1.getClientPhoneNumber().equals(client.getClientPhoneNumber()));
+    }
 
     @Override
     public boolean deleteClientById(Long id) {

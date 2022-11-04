@@ -10,6 +10,8 @@ public interface Database {
 
    void saveClient(Client client);
 
+   boolean isClientDuplicated(Client client);
+
     boolean deleteClientById(Long id);
 
     List<Client> getAllClients();
