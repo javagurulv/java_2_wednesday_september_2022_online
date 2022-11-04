@@ -1,4 +1,4 @@
-package generalPackage.usersOperationsUI;
+package generalPackage.UIActions.usersOperationsUI;
 
 import generalPackage.dependencyInjection.DIComponent;
 

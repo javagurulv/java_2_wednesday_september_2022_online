@@ -1,17 +1,8 @@
 package myApp.core.database;
 
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
-import myApp.core.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
-
+/*
 @Component
-public class JdbcDatabaseImpl implements DataBase {
+public class JdbcBankAccountRepositoryImpl implements BankAccountRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -140,4 +131,4 @@ public class JdbcDatabaseImpl implements DataBase {
         List<BankAccount> bankAccount = jdbcTemplate.query(sql, args, new BankAccountRowMapper());
         return Optional.of(bankAccount.get(0));
     }
-}
+ */

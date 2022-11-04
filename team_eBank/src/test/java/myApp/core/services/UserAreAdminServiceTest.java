@@ -1,12 +1,9 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
-import org.junit.Before;
+import myApp.core.database.BankAccountRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static junit.framework.TestCase.*;
@@ -15,7 +12,7 @@ import static junit.framework.TestCase.*;
 public class UserAreAdminServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @Mock
     private UserAreAdminService service;
 

@@ -1,4 +1,4 @@
-package generalPackage.adminOperationsUI;
+package generalPackage.UIActions.adminOperationsUI;
 
 import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
 import generalPackage.core.responses.adminResponses.FindByIDAccountResponse;
@@ -11,13 +11,8 @@ import java.util.Scanner;
 @DIComponent
 public class FindUserAdminUIAction implements AdminUIactions {
 
-    @DIDependency
-    private FindUserByIDService findUserByIDService;
-
-//    public FindUserAdminUIAction(FindUserByIDService findUserByIDService) {
-//        this.findUserByIDService = findUserByIDService;
-//    }
-
+@DIDependency
+private FindUserByIDService findUserByIDService;
 
     @Override
     public void execute() {

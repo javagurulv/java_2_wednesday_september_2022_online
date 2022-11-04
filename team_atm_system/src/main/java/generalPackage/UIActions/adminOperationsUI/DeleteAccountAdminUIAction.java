@@ -1,4 +1,4 @@
-package generalPackage.adminOperationsUI;
+package generalPackage.UIActions.adminOperationsUI;
 
 import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
 import generalPackage.core.responses.adminResponses.DeleteAccountResponse;
@@ -13,11 +13,6 @@ public class DeleteAccountAdminUIAction implements AdminUIactions {
 
     @DIDependency
     private DeleteAccountService deleteAccountService;
-
-//    public DeleteAccountAdminUIAction(DeleteAccountService deleteAccountService) {
-//        this.deleteAccountService = deleteAccountService;
-//    }
-
 
     @Override
     public void execute() {

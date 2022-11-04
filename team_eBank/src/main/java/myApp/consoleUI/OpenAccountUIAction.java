@@ -1,5 +1,5 @@
 package myApp.consoleUI;
-
+/*
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.OpenAccountService;
@@ -31,3 +31,5 @@ public class OpenAccountUIAction implements UIAction {
         }
     }
 }
+
+ */

@@ -1,4 +1,4 @@
-package myApp.core.domain;
+package myApp.core.enums;
 
 public enum Roles {
 

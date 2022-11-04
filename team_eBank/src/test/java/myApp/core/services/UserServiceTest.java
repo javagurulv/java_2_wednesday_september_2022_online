@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
+import myApp.core.database.BankAccountRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +15,7 @@ import static junit.framework.TestCase.assertFalse;
 public class UserServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @InjectMocks
     private UserService service;
 

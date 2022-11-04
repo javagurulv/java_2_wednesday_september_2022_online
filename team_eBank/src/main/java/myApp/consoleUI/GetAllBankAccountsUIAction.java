@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GetAllAccountsUIAction implements UIAction {
+public class GetAllBankAccountsUIAction implements UIAction {
     @Autowired
     private GetAllBankAccountsService service;
 

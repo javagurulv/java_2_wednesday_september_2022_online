@@ -20,11 +20,6 @@ public class SearchAccountsService {
     private SearchAccountsServiceValidator validator;
 
 
-//    public SearchAccountsService(Database database, SearchAccountsServiceValidator validaror) {
-//        this.database = database;
-//        this.validator = validaror;
-//    }
-
     public SearchAccountsServiceResponse execute(SearchAccountsServiceRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {

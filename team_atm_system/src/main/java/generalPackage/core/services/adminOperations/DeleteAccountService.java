@@ -11,6 +11,7 @@ import generalPackage.dependencyInjection.DIDependency;
 import java.util.List;
 
 
+
 @DIComponent
 public class DeleteAccountService {
 
@@ -20,6 +21,7 @@ public class DeleteAccountService {
     private DeleteAccountServiceValidator validator;
 
 
+
 //    public DeleteAccountService(Database database, DeleteAccountServiceValidator validator) {
 //        this.database = database;
 //        this.validator = validator;
@@ -27,7 +29,7 @@ public class DeleteAccountService {
 
     public DeleteAccountResponse execute(DeleteAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
-        if (!errors.isEmpty()) {
+        if (!errors.isEmpty()){
             return new DeleteAccountResponse(errors);
         }
         boolean accountDeleted = database.deleteAccount(request.getUserIDtoDelete());

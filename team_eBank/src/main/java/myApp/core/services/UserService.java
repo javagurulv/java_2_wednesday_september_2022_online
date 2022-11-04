@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
+import myApp.core.database.BankAccountRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +12,19 @@ import java.util.Optional;
 @Component
 public class UserService {
     @Autowired
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     private String personalCode;
     private String password;
 
     public boolean logIn(String personalCode, String password) {
-        Optional<User> user = dataBase.getAllUsers().stream()
+        List<User> userList = bankAccountRepository.getAllUsers();
+        Optional<User> user = userList.stream()
                 .filter(user1 -> user1.getPersonalCode().equals(personalCode))
                 .filter(user1 -> user1.getPassword().equals(password))
                 .findFirst();
+
         if (user.isPresent()) {
-            List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();
+            List<BankAccount> bankAccounts = bankAccountRepository.getAllBankAccounts();
             Optional<BankAccount> result = bankAccounts.stream()
                     .filter(bankAccount -> bankAccount.getPersonalCode().equals(user.get().getPersonalCode()))
                     .findFirst();

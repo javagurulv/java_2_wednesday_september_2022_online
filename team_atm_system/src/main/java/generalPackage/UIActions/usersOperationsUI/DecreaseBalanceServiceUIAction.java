@@ -1,4 +1,4 @@
-package generalPackage.usersOperationsUI;
+package generalPackage.UIActions.usersOperationsUI;
 
 import generalPackage.core.requests.usersRequests.DecreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.DecreaseBalanceResponse;
@@ -11,12 +11,9 @@ import java.util.Scanner;
 @DIComponent
 public class DecreaseBalanceServiceUIAction implements UI_Menu {
 
-    @DIDependency
-    private DecreaseBalance decreaseBalance;
+@DIDependency
+private DecreaseBalance decreaseBalance;
 
-//    public DecreaseBalanceServiceUIAction(DecreaseBalance decreaseBalance) {
-//        this.decreaseBalance = decreaseBalance;
-//    }
 
     @Override
     public void execute() {

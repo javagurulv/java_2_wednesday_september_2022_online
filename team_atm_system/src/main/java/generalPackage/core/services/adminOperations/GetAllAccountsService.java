@@ -23,15 +23,6 @@ public class GetAllAccountsService {
     @DIDependency
     private GetAllAccountsServiceValidator validator;
 
-//    public GetAllAccountsService(Database database, GetAllAccountsServiceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
-
-//    public GetAllAccountsResponse execute (GetAllAccountsRequest request){
-//        List <Accounts> accounts = database.getAllAccounts();
-//        return new GetAllAccountsResponse(accounts);
-//    }
 
     public GetAllAccountsResponse execute(GetAllAccountsRequest request) {
         List<CoreError> errors = validator.validate(request);

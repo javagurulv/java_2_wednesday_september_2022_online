@@ -1,5 +1,8 @@
-package generalPackage.adminOperationsUI;
+package generalPackage.UIActions.adminOperationsUI;
 
+import generalPackage.dependencyInjection.DIComponent;
+
+@DIComponent
 public class ExitAdminUIAction implements AdminUIactions {
 
 

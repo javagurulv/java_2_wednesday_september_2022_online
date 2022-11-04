@@ -1,6 +1,6 @@
 package myApp.core.services;
-
-import myApp.core.database.DataBase;
+/*
+import myApp.core.database.BankAccountRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.SeeYourAccountResponse;
@@ -11,10 +11,12 @@ import java.util.Optional;
 @Component
 public class SeeYourAccountService {
     @Autowired
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
 
     public SeeYourAccountResponse execute(SeeYourAccountRequest request) {
-        Optional<BankAccount> bankAccount = dataBase.seeYourAccount(request.getPersonalCode());
+        Optional<BankAccount> bankAccount = bankAccountRepository.seeYourAccount(request.getPersonalCode());
         return new SeeYourAccountResponse(bankAccount);
     }
 }
+
+ */

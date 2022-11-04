@@ -2,7 +2,6 @@ package generalPackage.core.database;
 
 import generalPackage.Accounts;
 import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +11,8 @@ import java.util.stream.Collectors;
 @DIComponent
 public class AccountDatabaseImpl implements Database {
 
-    @DIDependency
     private List<Accounts> accounts = new ArrayList<>();
-    @DIDependency
+
     private int userID;
 
     public AccountDatabaseImpl() {
@@ -77,7 +75,8 @@ public class AccountDatabaseImpl implements Database {
         int startingBalance = userAccount.getBalance();
         if (amount > 0 && startingBalance >= amount) {
             userAccount.setBalance(userAccount.getBalance() - amount);
-        } else {
+        }
+        else {
             System.out.println("Insufficient funds");
         }
         return userAccount.getBalance() == startingBalance - amount;
@@ -109,6 +108,11 @@ public class AccountDatabaseImpl implements Database {
 
     @Override
     public List<Accounts> searchAccountByName(String name) {
+//       List <SelectedAccounts> selectedAccounts = new ArrayList<>();
+//         accountsToFind = accounts.stream()
+//                .filter( accounts -> name.equals(accounts.getName()) )
+//                .collect(Collectors.toList());
+
         return accounts.stream()
                 .filter(accounts -> accounts.getName().equals(name))
                 .collect(Collectors.toList());

@@ -2,7 +2,7 @@ package myApp.core.services;
 /*
 import myApp.core.database.DataBase;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
+import myApp.core.roles.Roles;
 import myApp.core.requests.Ordering;
 import myApp.core.requests.Paging;
 import myApp.core.requests.SearchBankAccountRequest;

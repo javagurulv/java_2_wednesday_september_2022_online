@@ -3,7 +3,7 @@ package generalPackage.dependencyInjection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DIComponentFilter {
+class DIComponentFilter {
 
     public List<Class> filter(List<Class> classes) {
 

@@ -5,20 +5,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DIDependencyResolver {
+class DIDependencyResolver {
 
     public void resolve(ApplicationContext applicationContext,
                         List<Class> diComponents) {
         diComponents.forEach(diComponent -> {
             Object diInstance = applicationContext.getBean(diComponent);
-            List<Field> diFields = findFieldsWithDIInstanceAnnotation(diComponent);
+            List<Field> diFields = findFieldsWithDIDependencyAnnotation(diComponent);
             diFields.forEach(field -> {
                 tryToSetDependency(applicationContext, diInstance, field);
             });
         });
     }
 
-    private List<Field> findFieldsWithDIInstanceAnnotation(Class diComponent) {
+    private List<Field> findFieldsWithDIDependencyAnnotation(Class diComponent) {
 
         return Arrays.stream(diComponent.getDeclaredFields())
                 .filter(field -> field.isAnnotationPresent(DIDependency.class))

@@ -18,10 +18,6 @@ public class PrintBalance {
     @DIDependency
     private PrintBalanceValidator validator;
 
-//    public PrintBalance(Database database, PrintBalanceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
 
     public PrintBalanceResponse execute(PrintBalanceRequest request) {
         List<CoreErrorUsers> errorUsers = validator.validate(request);

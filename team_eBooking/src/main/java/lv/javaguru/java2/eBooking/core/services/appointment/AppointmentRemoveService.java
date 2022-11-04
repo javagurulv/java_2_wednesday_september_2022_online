@@ -4,6 +4,7 @@ import lv.javaguru.java2.eBooking.core.database.Database;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentRemoveResponse;
+import lv.javaguru.java2.eBooking.core.services.validators.AppointmentRemoveValidator;
 import lv.javaguru.java2.eBooking.core.services.validators.AppointmentValidationResult;
 
 import java.util.ArrayList;
@@ -11,9 +12,11 @@ import java.util.List;
 
 public class AppointmentRemoveService {
     private Database database;
+    private AppointmentRemoveValidator validator;
 
-    public AppointmentRemoveService(Database database) {
+    public AppointmentRemoveService(Database database, AppointmentRemoveValidator validator) {
         this.database = database;
+        this.validator = validator;
     }
 
     public AppointmentRemoveResponse execute(AppointmentRemoveRequest request){

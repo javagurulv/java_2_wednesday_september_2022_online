@@ -1,6 +1,5 @@
 package generalPackage.core.services.adminOperations.adminValidators;
 
-// import ordering.adminResponses.CoreError;
 import generalPackage.core.requests.adminRequests.Ordering;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.dependencyInjection.DIComponent;

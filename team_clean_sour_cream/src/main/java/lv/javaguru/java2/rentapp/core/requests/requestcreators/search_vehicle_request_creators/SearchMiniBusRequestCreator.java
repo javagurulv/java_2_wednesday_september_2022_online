@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.requests.requestcreators.search_vehicle_request_creators;
 
+import lombok.Setter;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
@@ -17,11 +18,11 @@ import static lv.javaguru.java2.rentapp.domain.MiniBus.BUS_MAX_DOORS_AMOUNT;
 @Component
 public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator {
 
-    Scanner scanner = new Scanner(System.in);
+    private boolean pagingEnabled = true;
 
     @Override
     public SearchVehicleRequest createRequest() {
-
+        Scanner scanner = new Scanner(System.in);
 
         SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.MINIBUS);
 
@@ -60,6 +61,9 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
                     } else {
                         System.out.println("You must enter a number from program menu (1 - " + criteria.size() + ")");
                     }
+                    if (criteria.isEmpty()) {
+                        addAnotherCriteria = false;
+                    }
                 } else if (userChoice == 2) {
                     addAnotherCriteria = false;
                 } else {
@@ -70,12 +74,14 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
             }
         }
         askOrdering(searchVehicleRequestBuilder);
-        askPaging(searchVehicleRequestBuilder);
-
+        if (pagingEnabled) {
+            askPaging(searchVehicleRequestBuilder);
+        }
         return searchVehicleRequestBuilder.build();
     }
 
     private void askPaging(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
+        Scanner scanner = new Scanner(System.in);
         boolean page = true;
 
         while (page) {
@@ -112,6 +118,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     }
 
     private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
+        Scanner scanner = new Scanner(System.in);
         boolean sort = true;
         while (sort) {
             try {
@@ -153,6 +160,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     }
 
     private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
         String transmissionType = scanner.nextLine();
         searchVehicleRequestBuilder.transmissionType(transmissionType);
@@ -160,6 +168,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     }
 
     private void askPassengerAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter passenger amount between " + BUS_MIN_PASSENGER_AMOUNT + " - " + BUS_MAX_PASSENGER_AMOUNT + " : ");
         Integer numberOfPassengers = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.passengerAmount(numberOfPassengers);
@@ -167,6 +176,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     }
 
     private void askDoorsAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter doors amount between " + BUS_MIN_DOORS_AMOUNT + " - " + BUS_MAX_DOORS_AMOUNT + " : ");
         Integer numberOfDoors = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.doorsAmount(numberOfDoors);
@@ -174,6 +184,7 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     }
 
     private void askBaggageAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter baggage amount between 0 - " + BUS_MAX_BAGGAGE_AMOUNT + " : ");
         Integer numberOfBaggage = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.baggageAmount(numberOfBaggage);
@@ -181,9 +192,15 @@ public class SearchMiniBusRequestCreator implements SearchVehicleRequestCreator 
     }
 
     private void askConditioner(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Has conditioner(true or false): ");
         String hasConditioner = scanner.nextLine();
         searchVehicleRequestBuilder.hasConditioner(hasConditioner);
         criteria.remove("Conditioner");
+    }
+
+    @Override
+    public void setPagingEnabled(boolean pagingEnabled) {
+        this.pagingEnabled = pagingEnabled;
     }
 }

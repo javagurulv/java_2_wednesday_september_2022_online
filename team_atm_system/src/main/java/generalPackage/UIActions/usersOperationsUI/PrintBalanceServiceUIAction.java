@@ -1,4 +1,4 @@
-package generalPackage.usersOperationsUI;
+package generalPackage.UIActions.usersOperationsUI;
 
 import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.PrintBalanceResponse;
@@ -8,15 +8,12 @@ import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.Scanner;
 
+
 @DIComponent
 public class PrintBalanceServiceUIAction implements UI_Menu {
 
-    @DIDependency
-    private PrintBalance printBalance;
-
-//    public PrintBalanceServiceUIAction(PrintBalance printBalance) {
-//        this.printBalance = printBalance;
-//    }
+@DIDependency
+private PrintBalance printBalance;
 
     @Override
     public void execute() {

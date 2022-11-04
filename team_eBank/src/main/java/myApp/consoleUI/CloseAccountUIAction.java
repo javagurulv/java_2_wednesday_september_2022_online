@@ -1,5 +1,5 @@
 package myApp.consoleUI;
-
+/*
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.services.CloseAccountService;
@@ -28,4 +28,4 @@ public class CloseAccountUIAction implements UIAction {
     }
 }
 
-
+ */

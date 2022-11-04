@@ -21,10 +21,6 @@ public class AddAccountService {
     @DIDependency
     private AddAccountServiceValidator validator;
 
-//    public AddAccountService(Database database, AddAccountServiceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
 
     public AddAccountResponse execute(AddAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

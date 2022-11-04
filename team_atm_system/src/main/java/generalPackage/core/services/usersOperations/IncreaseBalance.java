@@ -19,11 +19,6 @@ public class IncreaseBalance {
     private IncreaseBalanceValidator validator;
 
 
-//    public IncreaseBalance(Database database, IncreaseBalanceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
-
     public IncreaseBalanceResponse execute(IncreaseBalanceRequest request) {
         List<CoreErrorUsers> errorUsers = validator.validate(request);
         if (!errorUsers.isEmpty()) {

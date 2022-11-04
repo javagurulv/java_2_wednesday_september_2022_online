@@ -1,4 +1,4 @@
-package generalPackage.adminOperationsUI;
+package generalPackage.UIActions.adminOperationsUI;
 
 import generalPackage.core.requests.adminRequests.SearchAccountsServiceRequest;
 import generalPackage.core.responses.adminResponses.SearchAccountsServiceResponse;
@@ -14,9 +14,6 @@ public class SearchAccountsAdminUIAction implements AdminUIactions {
     @DIDependency
     private SearchAccountsService searchAccountsService;
 
-//    public SearchAccountsAdminUIAction(SearchAccountsService searchAccountsService) {
-//        this.searchAccountsService = searchAccountsService;
-//    }
 
     @Override
     public void execute() {

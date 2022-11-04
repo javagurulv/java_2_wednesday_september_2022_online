@@ -1,4 +1,4 @@
-package generalPackage.adminOperationsUI;
+package generalPackage.UIActions.adminOperationsUI;
 
 public interface AdminUIactions {
 

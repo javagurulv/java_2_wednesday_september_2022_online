@@ -9,6 +9,7 @@ import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
 import generalPackage.core.requests.adminRequests.Ordering;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.dependencyInjection.DIComponent;
+import generalPackage.dependencyInjection.DIDependency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +17,9 @@ import java.util.List;
 @DIComponent
 public class GetAllAccountsServiceValidator {
 
+    @DIDependency
     private OrderingValidator orderingValidator;
 
-    public GetAllAccountsServiceValidator(OrderingValidator orderingValidator) {
-        this.orderingValidator = orderingValidator;
-    }
 
     public List<CoreError> validate(GetAllAccountsRequest request) {
         List<CoreError> errors = new ArrayList<>();

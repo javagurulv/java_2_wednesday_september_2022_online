@@ -15,7 +15,7 @@ public class ProgramMenuForAdmin {
     @Autowired
     public ProgramMenuForAdmin(List<UIAction> uiActions) {
         menuNumberToUIActionMap = new HashMap<>();
-        menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllAccountsUIAction.class));
+        menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllBankAccountsUIAction.class));
         menuNumberToUIActionMap.put(2, findUIAction(uiActions, AddBankAccountUIAction.class));
         menuNumberToUIActionMap.put(3, findUIAction(uiActions, RemoveBankAccountUIAction.class));
         menuNumberToUIActionMap.put(4, findUIAction(uiActions, SearchBankAccountUIAction.class));

@@ -19,11 +19,6 @@ public class DecreaseBalance {
     DecreaseBalanceValidator validator;
 
 
-//    public DecreaseBalance(Database database, DecreaseBalanceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
-
     public DecreaseBalanceResponse execute(DecreaseBalanceRequest request) {
         List<CoreErrorUsers> errorUsers = validator.validate(request);
         if (!errorUsers.isEmpty()) {

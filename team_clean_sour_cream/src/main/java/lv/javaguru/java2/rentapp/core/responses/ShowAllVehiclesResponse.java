@@ -10,7 +10,14 @@ public class ShowAllVehiclesResponse extends CoreResponse {
 
     private List<Vehicle> vehicles;
 
+    private String msg;
+
     public ShowAllVehiclesResponse(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
+
+    public ShowAllVehiclesResponse(String msg) {
+        this.msg = msg;
+    }
+
 }

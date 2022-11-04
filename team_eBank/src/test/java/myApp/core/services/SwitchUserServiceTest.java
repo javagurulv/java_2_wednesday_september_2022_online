@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
+import myApp.core.database.BankAccountRepository;
 import myApp.core.requests.LogInRequest;
 import myApp.core.requests.SwitchUserRequest;
 import myApp.core.responses.LogInResponse;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotEquals;
 public class SwitchUserServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @InjectMocks
     private LogInService logInService;
     @Mock

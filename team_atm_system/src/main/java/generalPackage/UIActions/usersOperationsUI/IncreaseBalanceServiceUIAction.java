@@ -1,4 +1,4 @@
-package generalPackage.usersOperationsUI;
+package generalPackage.UIActions.usersOperationsUI;
 
 import generalPackage.core.requests.usersRequests.IncreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.IncreaseBalanceResponse;
@@ -13,10 +13,6 @@ public class IncreaseBalanceServiceUIAction implements UI_Menu {
 
     @DIDependency
     private IncreaseBalance increaseBalance;
-
-//    public IncreaseBalanceServiceUIAction(IncreaseBalance increaseBalance) {
-//        this.increaseBalance = increaseBalance;
-//    }
 
     @Override
     public void execute() {

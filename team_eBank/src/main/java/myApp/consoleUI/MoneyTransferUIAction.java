@@ -1,11 +1,12 @@
 package myApp.consoleUI;
+/*
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
 import myApp.core.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+/*
 import java.util.Scanner;
 
 @Component
@@ -33,6 +34,6 @@ public class MoneyTransferUIAction implements UIAction {
             System.out.println("Transaction not perfect");
         }
     }
-
-
 }
+
+ */

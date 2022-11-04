@@ -16,12 +16,9 @@ public class FindUserByIDService {
 
     @DIDependency
     private Database database;
-    @DIDependency private FindUserByIDServiceValidator validator;
+    @DIDependency
+    private FindUserByIDServiceValidator validator;
 
-//    public FindUserByIDService(Database database, FindUserByIDServiceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
 
     public FindByIDAccountResponse execute(FindUserByIDRequest request) {
         List <CoreError> errors =validator.validate(request);

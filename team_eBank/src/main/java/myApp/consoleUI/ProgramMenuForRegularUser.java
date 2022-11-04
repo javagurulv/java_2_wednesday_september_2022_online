@@ -15,10 +15,10 @@ public class ProgramMenuForRegularUser {
     @Autowired
     public ProgramMenuForRegularUser(List<UIAction> uiActions) {
         menuNumberToUIActionMap = new HashMap<>();
-        menuNumberToUIActionMap.put(1, findUIAction(uiActions, MoneyTransferUIAction.class));
-        menuNumberToUIActionMap.put(2, findUIAction(uiActions, OpenAccountUIAction.class));
-        menuNumberToUIActionMap.put(3, findUIAction(uiActions, CloseAccountUIAction.class));
-        menuNumberToUIActionMap.put(4, findUIAction(uiActions, SeeYourAccountUIAction.class));
+       // menuNumberToUIActionMap.put(1, findUIAction(uiActions, MoneyTransferUIAction.class));
+      //  menuNumberToUIActionMap.put(2, findUIAction(uiActions, OpenAccountUIAction.class));
+       // menuNumberToUIActionMap.put(3, findUIAction(uiActions, CloseAccountUIAction.class));
+     //   menuNumberToUIActionMap.put(4, findUIAction(uiActions, SeeYourAccountUIAction.class));
         menuNumberToUIActionMap.put(5, findUIAction(uiActions, SwitchUserUIAction.class));
         menuNumberToUIActionMap.put(6, findUIAction(uiActions, ExitUIAction.class));
     }

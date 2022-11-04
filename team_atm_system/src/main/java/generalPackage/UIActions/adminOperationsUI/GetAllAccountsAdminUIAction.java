@@ -1,4 +1,4 @@
-package generalPackage.adminOperationsUI;
+package generalPackage.UIActions.adminOperationsUI;
 
 import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
 import generalPackage.core.requests.adminRequests.Ordering;
@@ -13,12 +13,8 @@ import java.util.Scanner;
 @DIComponent
 public class GetAllAccountsAdminUIAction implements AdminUIactions {
 
-    @DIDependency
-    private GetAllAccountsService getAllAccountsService;
-
-//    public GetAllAccountsAdminUIAction(GetAllAccountsService getAllAccountsService) {
-//        this.getAllAccountsService = getAllAccountsService;
-//    }
+@DIDependency
+private GetAllAccountsService getAllAccountsService;
 
 
     @Override

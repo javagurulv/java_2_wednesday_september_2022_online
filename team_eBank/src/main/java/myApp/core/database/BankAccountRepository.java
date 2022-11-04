@@ -4,9 +4,8 @@ import myApp.core.domain.BankAccount;
 import myApp.core.domain.User;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface DataBase {
+public interface BankAccountRepository {
 
     void addBankAccount(BankAccount bankAccount,User user);
 
@@ -14,13 +13,13 @@ public interface DataBase {
 
     List<BankAccount> getAllBankAccounts();
     List<User> getAllUsers();
-    boolean bankTransfer(String personalCode, String anotherPersonalCode, int value);
+    //boolean bankTransfer(String personalCode, String anotherPersonalCode, int value);
 
-    boolean openAccount(String personalCode, int value);
+    //boolean openAccount(String personalCode, int value);
 
-    boolean closeAccount(String personalCode);
+    //boolean closeAccount(String personalCode);
 
-   Optional<BankAccount> seeYourAccount(String personalCode);
+  // Optional<BankAccount> seeYourAccount(String personalCode);
 
     List<BankAccount> findByName(String name);
     List<BankAccount> findBySurname(String surname);
