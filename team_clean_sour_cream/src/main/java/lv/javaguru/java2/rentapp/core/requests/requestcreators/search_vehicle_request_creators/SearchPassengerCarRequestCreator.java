@@ -61,6 +61,9 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
                     } else {
                         System.out.println("You must enter a number from program menu (1 - " + criteria.size() + ")");
                     }
+                    if (criteria.isEmpty()) {
+                        addAnotherCriteria = false;
+                    }
                 } else if (userChoice == 2) {
                     addAnotherCriteria = false;
                 } else {
