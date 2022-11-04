@@ -9,12 +9,12 @@ import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class AcceptanceTest1 {
+public class Acceptance_Test1 {
 
     private ApplicationContext applicationContext = new ApplicationContext();
 
     @Test
-    public void shouldReturnClientList(){
+    public void shouldReturnValidClientList(){
         ClientAddRequest request1 = new ClientAddRequest(
                 "email@gmail.com",
                 "0037111111111");
