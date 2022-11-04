@@ -1,6 +1,6 @@
 package myApp.core.services;
-
-import myApp.core.database.DataBase;
+/*
+import myApp.core.database.BankAccountRepository;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
@@ -13,7 +13,7 @@ import java.util.List;
 public class CloseAccountService {
 
     @Autowired
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @Autowired
     private CloseAccountValidator validator;
 
@@ -21,7 +21,7 @@ public class CloseAccountService {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
             if (accountNullCheck(request.getPersonalCode())) {
-                boolean result = dataBase.closeAccount(request.getPersonalCode());
+                boolean result = bankAccountRepository.closeAccount(request.getPersonalCode());
                 return new CloseAccountResponse(result);
             }
         }
@@ -29,8 +29,10 @@ public class CloseAccountService {
     }
 
     private boolean accountNullCheck(String personalCode) {
-        return dataBase.getAllBankAccounts().stream()
+        return bankAccountRepository.getAllBankAccounts().stream()
                 .filter(b -> b.getPersonalCode().equals(personalCode))
                 .anyMatch(b -> b.getAccount() != null);
     }
 }
+
+ */

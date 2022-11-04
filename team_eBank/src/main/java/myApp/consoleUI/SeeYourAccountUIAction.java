@@ -1,11 +1,5 @@
 package myApp.consoleUI;
-import myApp.core.requests.SeeYourAccountRequest;
-import myApp.core.responses.SeeYourAccountResponse;
-import myApp.core.services.SeeYourAccountService;
-import myApp.core.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
+/*
 @Component
 public class SeeYourAccountUIAction implements UIAction {
     @Autowired
@@ -29,3 +23,5 @@ public class SeeYourAccountUIAction implements UIAction {
         }
     }
 }
+
+ */

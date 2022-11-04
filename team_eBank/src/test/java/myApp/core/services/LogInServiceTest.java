@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
+import myApp.core.database.BankAccountRepository;
 import myApp.core.requests.LogInRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.LogInResponse;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class LogInServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @Mock
     private LogInValidator validator;
     @Mock

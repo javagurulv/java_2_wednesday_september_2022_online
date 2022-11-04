@@ -1,6 +1,5 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
 import myApp.core.requests.LogInRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.LogInResponse;
@@ -15,8 +14,6 @@ import java.util.List;
 @Component
 public class LogInService {
 
-    @Autowired
-    private DataBase dataBase;
     @Autowired
     private UserService userService;
     @Autowired

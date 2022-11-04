@@ -1,8 +1,7 @@
 package myApp.core.services;
 
-import myApp.core.database.DataBase;
+import myApp.core.database.BankAccountRepository;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +11,13 @@ import java.util.Optional;
 public class UserAreAdminService {
 
     @Autowired
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
 
     public boolean isUserAreAdmin(String personalCode) {
-        List<BankAccount> bankAccounts = dataBase.getAllBankAccounts();
+        List<BankAccount> bankAccounts = bankAccountRepository.getAllBankAccounts();
         Optional<BankAccount> bankAccount = bankAccounts.stream()
                 .filter(bankAccount1 -> bankAccount1.getPersonalCode().equals(personalCode))
                 .findFirst();
-            return bankAccount.get().getRole().equals(Roles.Admin);
+            return bankAccount.get().getRole().equals("Roles.Admin");
     }
 }

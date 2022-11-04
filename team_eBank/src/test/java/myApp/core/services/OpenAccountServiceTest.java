@@ -3,7 +3,7 @@ package myApp.core.services;
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
+import myApp.core.roles.Roles;
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.OpenAccountResponse;
