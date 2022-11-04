@@ -26,6 +26,7 @@ public class ExitUIAction implements UIAction {
             return false;
         } else {
             System.out.println("Good bye!");
+
             System.exit(0);
             return true;
         }
