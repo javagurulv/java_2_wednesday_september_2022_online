@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.requests.requestcreators.search_vehicle_request_creators;
 
+import lombok.Setter;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
@@ -14,13 +15,16 @@ import java.util.Scanner;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMOUNT;
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 
+
 @Component
 public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreator {
 
-    Scanner scanner = new Scanner(System.in);
+    private boolean pagingEnabled = true;
+
 
     @Override
     public SearchVehicleRequest createRequest() {
+        Scanner scanner = new Scanner(System.in);
 
         SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder = SearchVehicleRequest.builder().vehicleType(VehicleType.MOTORCYCLE);
 
@@ -66,12 +70,14 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
             }
         }
         askOrdering(searchVehicleRequestBuilder);
-        askPaging(searchVehicleRequestBuilder);
-
+        if (pagingEnabled) {
+            askPaging(searchVehicleRequestBuilder);
+        }
         return searchVehicleRequestBuilder.build();
     }
 
     private void askPaging(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
+        Scanner scanner = new Scanner(System.in);
         boolean page = true;
 
         while (page) {
@@ -108,6 +114,7 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askOrdering(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder) {
+        Scanner scanner = new Scanner(System.in);
         boolean sort = true;
 
         while (sort) {
@@ -147,6 +154,7 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askTransmissionType(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
         String transmissionType = scanner.nextLine();
         searchVehicleRequestBuilder.transmissionType(transmissionType);
@@ -154,9 +162,15 @@ public class SearchMotorcycleRequestCreator implements SearchVehicleRequestCreat
     }
 
     private void askPassengerAmount(SearchVehicleRequest.SearchVehicleRequestBuilder searchVehicleRequestBuilder, List<String> criteria) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter passenger amount between " + MOTO_MIN_PASSENGER_AMOUNT + " - " + MOTO_MAX_PASSENGER_AMOUNT + " : ");
         Integer numberOfPassengers = Integer.parseInt(scanner.nextLine());
         searchVehicleRequestBuilder.passengerAmount(numberOfPassengers);
         criteria.remove("Passenger amount");
+    }
+
+    @Override
+    public void setPagingEnabled(boolean pagingEnabled) {
+        this.pagingEnabled = pagingEnabled;
     }
 }
