@@ -33,7 +33,8 @@ public class UIActionMap {
         actionMap.put(14, findUIAction(uiActions, LogoutUIAction.class));
         actionMap.put(15, findUIAction(uiActions, GetUsersUIAction.class));
         actionMap.put(16, findUIAction(uiActions, AmendSettingsUIAction.class));
-        actionMap.put(17, findUIAction(uiActions, ExitSettingsUIAction.class));
+        actionMap.put(17, findUIAction(uiActions, RunJobsUIAction.class));
+        actionMap.put(18, findUIAction(uiActions, ExitSettingsUIAction.class));
      }
 
     public UIAction getAction(int userChoice) {

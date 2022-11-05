@@ -16,7 +16,7 @@ public class DueDatesUpdateRunService {
     private DueDatesUpdateService dueDatesUpdateService;
     @Autowired private CreateLogsService createLogsService;
 
-    public JobRunResult run(boolean manual) {
+    public JobRunResult execute(boolean manual) {
         JobRunResult result = new JobRunResult("DueDatesUpdate");
         if (!manual) {
             result.setRunType("Auto");

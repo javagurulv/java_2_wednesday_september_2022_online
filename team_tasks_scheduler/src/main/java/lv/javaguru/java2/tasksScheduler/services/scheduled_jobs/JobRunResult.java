@@ -10,6 +10,9 @@ public class JobRunResult {
     private String runType;
     private String status;
 
+    public JobRunResult() {
+    }
+
     public JobRunResult(String jobName) {
         this.jobName = jobName;
         this.timestampStart = LocalDateTime.now();

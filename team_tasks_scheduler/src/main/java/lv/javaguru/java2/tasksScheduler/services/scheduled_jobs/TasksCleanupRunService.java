@@ -16,7 +16,7 @@ public class TasksCleanupRunService {
     @Autowired private TasksCleanupService tasksCleanupService;
     @Autowired private CreateLogsService createLogsService;
 
-    public JobRunResult run(boolean manual) {
+    public JobRunResult execute(boolean manual) {
         JobRunResult result = new JobRunResult("TasksCleanup");
         if (!manual) {
             result.setRunType("Auto");

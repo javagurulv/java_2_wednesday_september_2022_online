@@ -3,9 +3,11 @@ package lv.javaguru.java2.tasksScheduler.services.scheduled_jobs;
 import lv.javaguru.java2.tasksScheduler.services.system.CreateLogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class RemindersSendingRunService {
     @Value("${logs.job.tasks.reminderssending.create}")
     private boolean createLog;
@@ -17,7 +19,7 @@ public class RemindersSendingRunService {
     private RemindersSendingService remindersSendingService;
     @Autowired private CreateLogsService createLogsService;
 
-    public JobRunResult run(boolean manual) {
+    public JobRunResult execute(boolean manual) {
         if (!sendReminders) {
             return null;
         }
