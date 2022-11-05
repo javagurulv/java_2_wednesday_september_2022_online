@@ -15,6 +15,11 @@ public class BankAccount {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(name="name", nullable = false)
     private String name;
     @Column(name="surname", nullable = false)
@@ -34,11 +39,18 @@ public class BankAccount {
         this.balance = balance;
     }
 
+    public BankAccount(User user, String name, String surname, String role, String personalCode) {
+        this.user = user;
+        this.name = name;
+        this.surname = surname;
+        this.role = role;
+        this.personalCode = personalCode;
+    }
+
     public BankAccount(String name, String surname, String role, String personalCode) {
         this.name = name;
         this.surname = surname;
         this.role = role;
         this.personalCode = personalCode;
-
     }
 }

@@ -3,7 +3,7 @@ package myApp;
 import myApp.config.BankAccountConfiguration;
 import myApp.consoleUI.AdminOrRegularUserMenu;
 import myApp.consoleUI.LogInUIAction;
-import myApp.core.services.UserService;
+import myApp.core.services.authentication.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

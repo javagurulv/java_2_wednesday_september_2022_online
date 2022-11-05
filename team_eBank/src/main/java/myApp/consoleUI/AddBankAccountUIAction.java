@@ -17,16 +17,19 @@ public class AddBankAccountUIAction implements UIAction {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter personal code: ");
-        String personalCode = scanner.nextLine();
+        System.out.println("Enter login: ");
+        String login = scanner.nextLine();
         System.out.println("Enter password: ");
         String password = scanner.nextLine();
         System.out.println("Enter name: ");
         String name = scanner.nextLine();
         System.out.println("Enter surname: ");
         String surname = scanner.nextLine();
+        System.out.println("Enter personal code: ");
+        String personalCode = scanner.nextLine();
         String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes());
-        AddUserRequest userRequest = new AddUserRequest(personalCode, encodedPassword);
+        String encodedLogin = Base64.getEncoder().encodeToString(login.getBytes());
+        AddUserRequest userRequest = new AddUserRequest(encodedLogin, encodedPassword);
         AddBankAccountRequest request = new AddBankAccountRequest(name, surname, personalCode);
         AddBankAccountResponse response = service.execute(request, userRequest);
         if (response.hasErrors()) {
