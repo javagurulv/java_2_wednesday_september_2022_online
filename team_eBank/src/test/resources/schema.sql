@@ -7,12 +7,13 @@ CREATE SCHEMA IF NOT EXISTS `bank` DEFAULT CHARACTER SET utf8 ;
 USE `bank` ;
 
 CREATE TABLE IF NOT EXISTS `users` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `personal_code` VARCHAR(100) NOT NULL,
   `password` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`personal_code`)
+  PRIMARY KEY (`id`)
 )
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
+AUTO_INCREMENT = 1;
 
 CREATE TABLE IF NOT EXISTS `bank_accounts` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -21,13 +22,13 @@ CREATE TABLE IF NOT EXISTS `bank_accounts` (
   `personal_code` VARCHAR(100) NOT NULL,
   `role` VARCHAR(100) NOT NULL,
   `balance` int,
-  PRIMARY KEY (`id`, `personal_code`)
+  PRIMARY KEY (`id`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1;
 
 ALTER TABLE `bank_accounts`
-ADD FOREIGN KEY (`personal_code`) REFERENCES `users`(`personal_code`);
+ADD FOREIGN KEY (`id`) REFERENCES `users`(`id`);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

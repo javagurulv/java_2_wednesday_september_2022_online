@@ -1,5 +1,4 @@
 package myApp.core.services;
-/*
 
 import myApp.core.database.BankAccountRepository;
 import myApp.core.requests.OpenAccountRequest;
@@ -22,7 +21,7 @@ public class OpenAccountService {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
             if (accountNullCheck(request.getPersonalCode())) {
-                boolean result = bankAccountRepository.openAccount(request.getPersonalCode(), request.getAmount());
+                boolean result = bankAccountRepository.openAccount(request.getPersonalCode());
                 return new OpenAccountResponse(result);
             }
         }
@@ -32,9 +31,7 @@ public class OpenAccountService {
     private boolean accountNullCheck(String personalCode) {
         return bankAccountRepository.getAllBankAccounts().stream()
                 .filter(b -> b.getPersonalCode().equals(personalCode))
-                .anyMatch(b -> b.getAccount() == null);
+                .anyMatch(b -> b.getBalance() == null);
     }
 }
-
- */
 

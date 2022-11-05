@@ -1,5 +1,5 @@
 package myApp.core.services;
-/*
+
 import myApp.core.database.BankAccountRepository;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
@@ -31,8 +31,6 @@ public class CloseAccountService {
     private boolean accountNullCheck(String personalCode) {
         return bankAccountRepository.getAllBankAccounts().stream()
                 .filter(b -> b.getPersonalCode().equals(personalCode))
-                .anyMatch(b -> b.getAccount() != null);
+                .anyMatch(b -> b.getBalance() != null);
     }
 }
-
- */

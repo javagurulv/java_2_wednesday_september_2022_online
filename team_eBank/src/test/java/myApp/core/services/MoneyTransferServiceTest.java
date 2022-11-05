@@ -1,6 +1,22 @@
 package myApp.core.services;
-//need to fix
-/*
+
+import myApp.core.database.BankAccountRepository;
+import myApp.core.requests.MoneyTransferRequest;
+import myApp.core.responses.CoreError;
+import myApp.core.responses.MoneyTransferResponse;
+import myApp.core.services.validators.MoneyTransferValidator;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.List;
+
+import static junit.framework.TestCase.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @RunWith(MockitoJUnitRunner.class)
 public class MoneyTransferServiceTest {
 
@@ -13,19 +29,19 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testSuccessMoneyTransfer() {
-        MoneyTransferRequest request = new MoneyTransferRequest("000-001",
-                "000-002", 100);
+        MoneyTransferRequest request = new MoneyTransferRequest("000000-00001",
+                "000000-00002", 100);
         when(validator.validate(request)).thenReturn(List.of());
         MoneyTransferResponse response = service.execute(request);
         assertFalse(response.hasErrors());
-        verify(bankAccountRepository).bankTransfer("000-001",
-                "000-002", 100);
+        verify(bankAccountRepository).bankTransfer("000000-00001",
+                "000000-00002", 100);
     }
 
     @Test
     public void testShouldReturnPersonalCodeError() {
         MoneyTransferRequest request = new MoneyTransferRequest("",
-                "000-111",  100);
+                "000000-00002", 100);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
                 "Your personal code must not be empty")));
         MoneyTransferResponse response = service.execute(request);
@@ -38,8 +54,8 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testShouldReturnAnotherPersonalCodeError() {
-        MoneyTransferRequest request = new MoneyTransferRequest("000-111",
-                "",  100);
+        MoneyTransferRequest request = new MoneyTransferRequest("000000-00001",
+                "", 100);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Another personal code",
                 "Another personal code must not be empty")));
         MoneyTransferResponse response = service.execute(request);
@@ -53,8 +69,8 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testShouldReturnValueError() {
-        MoneyTransferRequest request = new MoneyTransferRequest("000-111",
-                "000-112",  0);
+        MoneyTransferRequest request = new MoneyTransferRequest("000000-00001",
+                "000000-00002", 0);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Value",
                 "Value must not be empty")));
         MoneyTransferResponse response = service.execute(request);
@@ -90,4 +106,3 @@ public class MoneyTransferServiceTest {
                 response.getErrors().get(2).getMessage());
     }
 }
- */

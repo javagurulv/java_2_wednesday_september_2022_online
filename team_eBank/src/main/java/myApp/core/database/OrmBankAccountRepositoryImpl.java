@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Transactional
@@ -25,11 +26,15 @@ public class OrmBankAccountRepositoryImpl implements BankAccountRepository {
 
     @Override
     public boolean deleteBankAccount(String personalCode) {
-        Query query = sessionFactory.getCurrentSession().createQuery(
-                "delete BankAccount where personal_code = :personalCode");
-        query.setParameter("personal_code", personalCode);
-        int result = query.executeUpdate();
-        return result == 1;
+        Query queryBankAccount = sessionFactory.getCurrentSession().createQuery(
+                "delete BankAccount where personal_code = :personal_code");
+        queryBankAccount.setParameter("personal_code", personalCode);
+        int result = queryBankAccount.executeUpdate();
+        Query queryUser = sessionFactory.getCurrentSession().createQuery(
+                "delete User where personal_code = :personal_code");
+        queryUser.setParameter("personal_code", personalCode);
+        int result2 = queryUser.executeUpdate();
+        return result == 1 && result2 == 1;
     }
 
     @Override
@@ -38,15 +43,14 @@ public class OrmBankAccountRepositoryImpl implements BankAccountRepository {
                 .createQuery("SELECT b FROM BankAccount b", BankAccount.class)
                 .getResultList();
     }
+
     @Override
     public List<User> getAllUsers() {
-        List<User> users = sessionFactory.getCurrentSession()
+        return sessionFactory.getCurrentSession()
                 .createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
-        List<User> secondUsers = users;
-        return secondUsers;
-
     }
+
     @Override
     public List<BankAccount> findByName(String name) {
         Query query = sessionFactory.getCurrentSession().createQuery(
@@ -99,14 +103,57 @@ public class OrmBankAccountRepositoryImpl implements BankAccountRepository {
     }
 
     @Override
-    public     List<BankAccount> findByNameAndSurnameAndPersonalCode(String name,
-                                                                     String surname,
-                                                                     String personalCode ){
+    public List<BankAccount> findByNameAndSurnameAndPersonalCode(String name,
+                                                                 String surname,
+                                                                 String personalCode) {
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "select b FROM BankAccount b where name = : name AND surname = : surname AND personal_code = personalCode");
         query.setParameter("name", name);
         query.setParameter("surname", surname);
         query.setParameter("personal_code", personalCode);
         return query.getResultList();
+    }
+
+    @Override
+    public boolean openAccount(String personalCode) {
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "Update BankAccount set balance = : balance where personal_code =: personal_code");
+        query.setParameter("balance", 0);
+        query.setParameter("personal_code", personalCode);
+        int result = query.executeUpdate();
+        return result == 1;
+    }
+
+    @Override
+    public boolean closeAccount(String personalCode) {
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "Update BankAccount set balance = : balance where personal_code =: personal_code");
+        query.setParameter("balance", null);
+        query.setParameter("personal_code", personalCode);
+        int result = query.executeUpdate();
+        return result == 1;
+    }
+
+
+    @Override
+    public Optional<BankAccount> seeYourAccount(String personalCode) {
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "select b FROM BankAccount b where personal_code =: personal_code");
+        query.setParameter("personal_code", personalCode);
+        return query.uniqueResultOptional();
+    }
+
+    @Override
+    public boolean bankTransfer(String personalCode, String anotherPersonalCode, int value) {
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "UPDATE BankAccount SET balance = balance - balance where personal_code =: personal_code");
+        query.setParameter("personal_code", personalCode);
+        int resultOne = query.executeUpdate();
+
+        Query queryTwo = sessionFactory.getCurrentSession().createQuery(
+                "UPDATE BankAccount SET balance = balance + balance where personal_code =: personal_code");
+        queryTwo.setParameter("personal_code", anotherPersonalCode);
+        int resultTwo = queryTwo.executeUpdate();
+        return resultOne == 1 && resultTwo == 1;
     }
 }

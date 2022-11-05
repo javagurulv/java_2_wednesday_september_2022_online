@@ -1,5 +1,5 @@
 package myApp.core.services;
-/*
+
 import myApp.core.database.BankAccountRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.SeeYourAccountRequest;
@@ -18,5 +18,3 @@ public class SeeYourAccountService {
         return new SeeYourAccountResponse(bankAccount);
     }
 }
-
- */

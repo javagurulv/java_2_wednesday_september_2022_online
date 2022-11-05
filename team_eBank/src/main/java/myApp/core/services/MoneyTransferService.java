@@ -1,5 +1,5 @@
 package myApp.core.services;
-/*
+
 import myApp.core.database.BankAccountRepository;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
@@ -27,4 +27,3 @@ public class MoneyTransferService {
         }
     }
 }
- */
