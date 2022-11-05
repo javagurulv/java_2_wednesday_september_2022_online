@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.acceptance_tests;
 
-import lv.javaguru.java2.eBooking.ApplicationContext;
+import lv.javaguru.java2.eBooking.dependency_injection.ApplicationContext;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientsGetAllResponse;
