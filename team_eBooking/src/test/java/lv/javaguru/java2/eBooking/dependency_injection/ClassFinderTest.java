@@ -15,7 +15,7 @@ public class ClassFinderTest {
         Set<Class> classList = classFinder.
                 findAllClassesInsidePackageUsingReflectionLibrary(
                         "lv.javaguru.java2.eBooking");
-        assertEquals(classList.size(),70);
+        assertEquals(classList.size(),72);
         assertTrue(classList
                 .stream()
                 .anyMatch(aClass -> aClass.equals(Database.class)));
