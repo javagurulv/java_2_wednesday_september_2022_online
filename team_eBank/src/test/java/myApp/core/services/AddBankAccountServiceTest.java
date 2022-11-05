@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.domain.User;
 import myApp.core.requests.AddBankAccountRequest;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class AddBankAccountServiceTest {
 
     @Mock
-    private BankAccountRepository bankAccountRepository;
+    private BankRepository bankRepository;
     @Mock
     private AddBankAccountValidator validator;
     @InjectMocks
@@ -38,7 +38,7 @@ public class AddBankAccountServiceTest {
                 , "000000-00003");
         when(validator.validate(request)).thenReturn(List.of());
         service.execute(request,new AddUserRequest("000000-00003", "password"));
-        verify(bankAccountRepository).addBankAccount(new BankAccount("Example", "Example", "Roles.Regular_user",
+        verify(bankRepository).addBankAccount(new BankAccount("Example", "Example", "Roles.Regular_user",
                 "000000-00003", null),
                 new User("000000-00003", "password"));
     }

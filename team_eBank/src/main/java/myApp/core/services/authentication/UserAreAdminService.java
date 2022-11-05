@@ -1,20 +1,22 @@
-package myApp.core.services;
+package myApp.core.services.authentication;
 
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 @Component
+@Transactional
 public class UserAreAdminService {
 
     @Autowired
-    private BankAccountRepository bankAccountRepository;
+    private BankRepository bankRepository;
 
     public boolean isUserAreAdmin(String personalCode) {
-        List<BankAccount> bankAccounts = bankAccountRepository.getAllBankAccounts();
+        List<BankAccount> bankAccounts = bankRepository.getAllBankAccounts();
         Optional<BankAccount> bankAccount = bankAccounts.stream()
                 .filter(bankAccount1 -> bankAccount1.getPersonalCode().equals(personalCode))
                 .findFirst();

@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Component
 @Transactional
-public class OrmBankAccountRepositoryImpl implements BankAccountRepository {
+public class OrmBankRepositoryImpl implements BankRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -21,18 +21,24 @@ public class OrmBankAccountRepositoryImpl implements BankAccountRepository {
     @Override
     public void addBankAccount(BankAccount bankAccount, User user) {
         sessionFactory.getCurrentSession().save(user);
-        sessionFactory.getCurrentSession().save(bankAccount);
+        BankAccount bankAccount1 = new BankAccount(user, bankAccount.getName(), bankAccount.getSurname(),
+                bankAccount.getRole(), bankAccount.getPersonalCode());
+        sessionFactory.getCurrentSession().save(bankAccount1);
     }
 
     @Override
     public boolean deleteBankAccount(String personalCode) {
-        Query queryBankAccount = sessionFactory.getCurrentSession().createQuery(
-                "delete BankAccount where personal_code = :personal_code");
-        queryBankAccount.setParameter("personal_code", personalCode);
-        int result = queryBankAccount.executeUpdate();
+        Query queryBankAccount = sessionFactory.getCurrentSession().createQuery("Select b From BankAccount b" +
+                " Where personal_code =: personal_code", BankAccount.class);
+        queryBankAccount.setParameter("personal_code",personalCode);
+        Optional<BankAccount> bankAccount = queryBankAccount.uniqueResultOptional();
+        Query queryDeleteBankAccount = sessionFactory.getCurrentSession().createQuery(
+                "delete BankAccount where personal_code =: personal_code");
+        queryDeleteBankAccount.setParameter("personal_code", personalCode);
+        int result = queryDeleteBankAccount.executeUpdate();
         Query queryUser = sessionFactory.getCurrentSession().createQuery(
-                "delete User where personal_code = :personal_code");
-        queryUser.setParameter("personal_code", personalCode);
+                "delete User where id = :id");
+        queryUser.setParameter("id", bankAccount.get().getId());
         int result2 = queryUser.executeUpdate();
         return result == 1 && result2 == 1;
     }

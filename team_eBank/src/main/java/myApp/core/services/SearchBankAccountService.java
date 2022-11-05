@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.Ordering;
 import myApp.core.requests.Paging;
@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 @Component
+@Transactional
 public class SearchBankAccountService {
 
     @Value("${search.ordering.enabled}")
@@ -26,7 +28,7 @@ public class SearchBankAccountService {
     private boolean pagingEnabled;
 
     @Autowired
-    private BankAccountRepository bankAccountRepository;
+    private BankRepository bankRepository;
     @Autowired
     private SearchBankAccountValidator validator;
 
@@ -47,25 +49,25 @@ public class SearchBankAccountService {
     private List<BankAccount> search(SearchBankAccountRequest request) {
         List<BankAccount> bankAccounts = new ArrayList<>();
         if (request.nameNullCheck() && !request.surnameNullCheck() && !request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findByName(request.getName());
+            bankAccounts = bankRepository.findByName(request.getName());
         }
         if (!request.nameNullCheck() && request.surnameNullCheck() && !request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findBySurname(request.getSurname());
+            bankAccounts = bankRepository.findBySurname(request.getSurname());
         }
         if (!request.nameNullCheck() && !request.surnameNullCheck() && request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findByPersonalCode(request.getPersonalCode());
+            bankAccounts = bankRepository.findByPersonalCode(request.getPersonalCode());
         }
         if (request.nameNullCheck() && request.surnameNullCheck() && !request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findByNameAndSurname(request.getName(), request.getSurname());
+            bankAccounts = bankRepository.findByNameAndSurname(request.getName(), request.getSurname());
         }
         if (request.nameNullCheck() && !request.surnameNullCheck() && request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findByNameAndPersonalCode(request.getName(), request.getPersonalCode());
+            bankAccounts = bankRepository.findByNameAndPersonalCode(request.getName(), request.getPersonalCode());
         }
         if (!request.nameNullCheck() && request.surnameNullCheck() && request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findBySurnameAndPersonalCode(request.getSurname(), request.getPersonalCode());
+            bankAccounts = bankRepository.findBySurnameAndPersonalCode(request.getSurname(), request.getPersonalCode());
         }
         if (request.nameNullCheck() && request.surnameNullCheck() && request.personalCodeNullCheck()) {
-            bankAccounts = bankAccountRepository.findByNameAndSurnameAndPersonalCode(request.getName(), request.getSurname(),
+            bankAccounts = bankRepository.findByNameAndSurnameAndPersonalCode(request.getName(), request.getSurname(),
                     request.getPersonalCode());
         }
         return bankAccounts;

@@ -3,7 +3,7 @@ package myApp.consoleUI;
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.OpenAccountService;
-import myApp.core.services.UserService;
+import myApp.core.services.authentication.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

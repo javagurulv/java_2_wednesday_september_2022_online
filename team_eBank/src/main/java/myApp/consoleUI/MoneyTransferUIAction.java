@@ -3,7 +3,7 @@ package myApp.consoleUI;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
-import myApp.core.services.UserService;
+import myApp.core.services.authentication.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

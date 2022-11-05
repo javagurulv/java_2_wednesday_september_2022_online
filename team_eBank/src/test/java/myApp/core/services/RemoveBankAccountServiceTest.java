@@ -1,5 +1,5 @@
 package myApp.core.services;
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.RemoveBankAccountResponse;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class RemoveBankAccountServiceTest {
 
     @Mock
-    BankAccountRepository bankAccountRepository;
+    BankRepository bankRepository;
     @Mock
     RemoveBankAccountValidator validator;
     @InjectMocks
@@ -31,11 +31,11 @@ public class RemoveBankAccountServiceTest {
     public void testSuccessRemoveBankAccount() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest("000-001");
         when(validator.validate(request)).thenReturn(List.of());
-        when(bankAccountRepository.deleteBankAccount("000-001")).thenReturn(true);
+        when(bankRepository.deleteBankAccount("000-001")).thenReturn(true);
         RemoveBankAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
         assertTrue(response.isDeleted());
-        verify(bankAccountRepository).deleteBankAccount("000-001");
+        verify(bankRepository).deleteBankAccount("000-001");
     }
 
     @Test

@@ -2,7 +2,7 @@ package myApp.consoleUI;
 
 import myApp.core.requests.SwitchUserRequest;
 import myApp.core.responses.SwitchUserResponse;
-import myApp.core.services.SwitchUserService;
+import myApp.core.services.authentication.SwitchUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

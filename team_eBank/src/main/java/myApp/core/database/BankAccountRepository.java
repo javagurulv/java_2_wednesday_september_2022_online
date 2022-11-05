@@ -1,32 +1,25 @@
 package myApp.core.database;
 
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.User;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import javax.transaction.Transactional;
 
-public interface BankAccountRepository {
+@Component
+@Transactional
+public class BankAccountRepository {
 
-    void addBankAccount(BankAccount bankAccount,User user);
+    @Autowired
+    SessionFactory sessionFactory;
 
-    boolean deleteBankAccount(String personalCode);
+    public void save(BankAccount bankAccount) {
+        sessionFactory.getCurrentSession().save(bankAccount);
+    }
 
-    List<BankAccount> getAllBankAccounts();
-    List<User> getAllUsers();
-    boolean bankTransfer(String personalCode, String anotherPersonalCode, int value);
-
-    boolean openAccount(String personalCode);
-
-    boolean closeAccount(String personalCode);
-
-   Optional<BankAccount> seeYourAccount(String personalCode);
-
-    List<BankAccount> findByName(String name);
-    List<BankAccount> findBySurname(String surname);
-    List<BankAccount> findByPersonalCode(String personalCode);
-    List<BankAccount> findByNameAndSurname(String name, String surname);
-    List<BankAccount> findByNameAndPersonalCode(String name, String personalCode );
-    List<BankAccount> findBySurnameAndPersonalCode(String surname, String personalCode );
-    List<BankAccount> findByNameAndSurnameAndPersonalCode(String name,String surname, String personalCode );
+    public BankAccount getById(Long id) {
+        return sessionFactory.getCurrentSession()
+                .get(BankAccount.class, id);
+    }
 }

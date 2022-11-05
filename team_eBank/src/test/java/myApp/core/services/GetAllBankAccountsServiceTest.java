@@ -1,7 +1,7 @@
 package myApp.core.services;
 
 
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
@@ -22,20 +22,20 @@ import static org.mockito.Mockito.when;
 public class GetAllBankAccountsServiceTest {
 
     @Mock
-    private BankAccountRepository bankAccountRepository;
+    private BankRepository bankRepository;
     @InjectMocks
     private GetAllBankAccountsService service;
 
     @Test
    public void execute() {
         GetAllBankAccountsRequest request = new GetAllBankAccountsRequest();
-        when(bankAccountRepository.getAllBankAccounts()).thenReturn(List.of(new BankAccount("Example", "Example",
+        when(bankRepository.getAllBankAccounts()).thenReturn(List.of(new BankAccount("Example", "Example",
                 "Roles.Regular_user", "000000-00001")));
         GetAllBankAccountsResponse response = service.execute(request);
         assertEquals(response.getBankAccounts().get(0).getName(), "Example");
         assertEquals(response.getBankAccounts().get(0).getSurname(), "Example");
         assertEquals(response.getBankAccounts().get(0).getPersonalCode(), "000000-00001");
-        verify(bankAccountRepository).getAllBankAccounts();
+        verify(bankRepository).getAllBankAccounts();
     }
 }
 

@@ -1,10 +1,13 @@
 package myApp.core.services;
 
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.requests.LogInRequest;
 import myApp.core.requests.SwitchUserRequest;
 import myApp.core.responses.LogInResponse;
 import myApp.core.responses.SwitchUserResponse;
+import myApp.core.services.authentication.LogInService;
+import myApp.core.services.authentication.SwitchUserService;
+import myApp.core.services.authentication.UserService;
 import myApp.core.services.validators.LogInValidator;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,7 +23,7 @@ import static org.junit.Assert.assertNotEquals;
 public class SwitchUserServiceTest {
 
     @Mock
-    private BankAccountRepository bankAccountRepository;
+    private BankRepository bankRepository;
     @InjectMocks
     private LogInService logInService;
     @Mock

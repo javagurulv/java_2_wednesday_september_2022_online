@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankAccountRepository;
+import myApp.core.database.BankRepository;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.MoneyTransferResponse;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 public class MoneyTransferServiceTest {
 
     @Mock
-    private BankAccountRepository bankAccountRepository;
+    private BankRepository bankRepository;
     @Mock
     private MoneyTransferValidator validator;
     @InjectMocks
@@ -34,7 +34,7 @@ public class MoneyTransferServiceTest {
         when(validator.validate(request)).thenReturn(List.of());
         MoneyTransferResponse response = service.execute(request);
         assertFalse(response.hasErrors());
-        verify(bankAccountRepository).bankTransfer("000000-00001",
+        verify(bankRepository).bankTransfer("000000-00001",
                 "000000-00002", 100);
     }
 
