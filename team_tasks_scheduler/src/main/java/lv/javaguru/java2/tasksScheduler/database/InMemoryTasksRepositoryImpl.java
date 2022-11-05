@@ -39,13 +39,22 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public void deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
+    public int deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
+        List<Task> tasksToBeRemoved;
         if (userId == null) {
-            tasks.removeIf(task -> task.getEndDate().isBefore(endDate));
+            tasksToBeRemoved = tasks.stream()
+                    .filter(task -> task.getEndDate().isBefore(endDate))
+                    .collect(toList());
+//            tasks.removeIf(task -> task.getEndDate().isBefore(endDate));
         } else {
-            tasks.removeIf(task -> task.getUserId().equals(userId) &&
-                    task.getEndDate().isBefore(endDate));
+            tasksToBeRemoved = tasks.stream()
+                    .filter(task -> task.getUserId().equals(userId) &&
+                            task.getEndDate().isBefore(endDate))
+                    .collect(toList());
+//            tasks.removeIf(task -> task.getUserId().equals(userId) &&
+//                    task.getEndDate().isBefore(endDate));
         }
+        return tasks.removeAll(tasksToBeRemoved) ? tasksToBeRemoved.size() : 0;
     }
 
     @Override

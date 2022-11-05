@@ -8,6 +8,7 @@ import lv.javaguru.java2.tasksScheduler.utils.TestData;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class TasksSchedulerApplication {
@@ -36,7 +37,7 @@ public class TasksSchedulerApplication {
         } while (true);
 
         //start 2nd thread
-        cleanupService.start();
+//        cleanupService.start();
 
         while (true) {
             printMenu(menuType);
@@ -94,7 +95,8 @@ public class TasksSchedulerApplication {
         System.out.println("********************");
         System.out.println("1. Show users information");
         System.out.println("2. Amend settings");
-        System.out.println("3. Exit settings");
+        System.out.println("3. Run jobs manually");
+        System.out.println("4. Exit settings");
         System.out.println("********************");
         System.out.println();
     }
@@ -142,7 +144,7 @@ public class TasksSchedulerApplication {
             case 4:
                 menuType = MenuType.ADMIN;
                 break;
-            case 13, 14, 17:
+            case 13, 14, 18:
                 menuType = MenuType.START;
                 break;
             default:

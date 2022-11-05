@@ -4,11 +4,9 @@ import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
+import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailTemplateCreationService;
 import lv.javaguru.java2.tasksScheduler.utils.Email;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,48 +19,55 @@ public class RemindersSendingService {
 
     private TasksRepository tasksRepository;
     private UsersRepository usersRepository;
-    private ReminderEmailService reminderEmailService;
+    private ReminderEmailTemplateCreationService reminderEmailTemplateCreationService;
 
 	private Email reminder;
 
     public RemindersSendingService(TasksRepository tasksRepository,
 								   UsersRepository usersRepository,
-								   ReminderEmailService reminderEmailService) {
+								   ReminderEmailTemplateCreationService reminderEmailTemplateCreationService) {
 		this.tasksRepository = tasksRepository;
 		this.usersRepository = usersRepository;
-		this.reminderEmailService = reminderEmailService;
-		reminder = reminderEmailService.getReminderEmailDraft();
+		this.reminderEmailTemplateCreationService = reminderEmailTemplateCreationService;
+		reminder = reminderEmailTemplateCreationService.getReminderEmailDraft();
 	}
 
-    public void execute() {
+    public int execute() {
         if (reminder == null) {
-            return;
+            return 0;
         }
         List<User> users = usersRepository.getUsersAcceptedReminders();
         if (users == null) {
-            return;
+            return 0;
         }
+        int sentEmails = 0;
         LocalDateTime todayStart = LocalDateTime.now().with(LocalTime.MIN);
         for (User user : users) {
             List<Task> tasks = tasksRepository.getAllOutstandingTasksByUserIdTillDate(user.getId(),
                     todayStart.plusDays(2));
-            batchEmails(tasks);
+            sentEmails+=batchEmails(tasks);
         }
+        return sentEmails;
     }
 
-    private void batchEmails(List<Task> tasks) {
+    private int batchEmails(List<Task> tasks) {
+        int sentEmails = 0;
         for (Task task : tasks) {
-            sendEmail(task);
+            if (sendEmail(task)) {
+                sentEmails++;
+            }
         }
+        return sentEmails;
     }
 
-    private void sendEmail(Task task) {
+    private boolean sendEmail(Task task) {
         LocalDateTime taskDueDate = getTaskDueDateForEmail(task);
         if (taskDueDate != null) {
             reminder.setTo(usersRepository.getUserById(task.getUserId()).getEmail());
             reminder.setBody(getReminderEmailBody(task, taskDueDate));
-            reminder.send();
+            return reminder.send();
         }
+        return false;
     }
 
     private LocalDateTime getTaskDueDateForEmail(Task task) {

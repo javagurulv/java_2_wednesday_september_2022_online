@@ -2,42 +2,50 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=1;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=1;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `java2` DEFAULT CHARACTER SET utf8 ;
-USE `java2` ;
+CREATE SCHEMA IF NOT EXISTS `java2_task_scheduler` DEFAULT CHARACTER SET utf8 ;
+USE `java2_task_scheduler` ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-CREATE TABLE IF NOT EXISTS 'users' (
-    'user_id'  BIGINT NOT NULL AUTO_INCREMENT,
-    'username' VARCHAR(100) NOT NULL,
-    'password'  VARCHAR(32) NOT NULL,  --md5 hash string 128bit/32chars
-    'email' VARCHAR(200) NOT NULL,
-    'send_reminder' BOOLEAN NOT NULL,
-    PRIMARY KEY ('user_id)'
+CREATE TABLE IF NOT EXISTS `users` (
+    `user_id`  BIGINT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(100) NOT NULL,
+    `user_password`  VARCHAR(32) NOT NULL,
+    `email` VARCHAR(200) NOT NULL,
+    `send_reminder` BOOLEAN NOT NULL,
+    PRIMARY KEY (`user_id`)
 )
-
-CREATE TABLE IF NOT EXISTS 'tasks' (
-    'task_id' BIGINT NO NULL AUTO_INCREMENT,
-    'description' VARCHAR(200) NOT NULL,
-    'regularity' INTEGER NOT NULL,
-    'Due date' DATETIME NOT NULL,
-    'End date' DATETIME NOT NULL,
-    'user_id' BIGINT NOT NULL,
-    FOREIGN KEY ('user_id') REFERENCES 'users'('user_id')
-)
-
-CREATE TABLE IF NOT EXISTS 'settings' (
-    'id' BIGINT NO NULL AUTO_INCREMENT,
-    'admin_password' VARCHAR(200) NOT NULL,
-    'email_from' VARCHAR(200) NOT NULL,
-    'email_password' VARCHAR(200) NOT NULL,
-    'email_host' VARCHAR(200) NOT NULL,
-    'email_port' VARCHAR(200) NOT NULL,
-    'email_protocol' VARCHAR(200) NOT NULL,
-    PRIMARY KEY ('id')
-)
-
 ENGINE = InnoDB
-AUTO_INCREMENT = 1002
+AUTO_INCREMENT = 1002;
+
+CREATE TABLE IF NOT EXISTS `tasks` (
+    `task_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `task_description` VARCHAR(200) NOT NULL,
+    `regularity` INTEGER NOT NULL,
+    `Due_date` DATETIME NOT NULL,
+    `End_date` DATETIME NOT NULL,
+    `user_id` BIGINT NOT NULL,
+    PRIMARY KEY (`task_id`),
+    FOREIGN KEY (`user_id`) REFERENCES users(`user_id`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
+
+CREATE TABLE IF NOT EXISTS `settings` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `admin_password` VARCHAR(200) NOT NULL,
+    `email_from` VARCHAR(200) NOT NULL,
+    `email_password` VARCHAR(200) NOT NULL,
+    `email_host` VARCHAR(200) NOT NULL,
+    `email_port` VARCHAR(200) NOT NULL,
+    `email_protocol` VARCHAR(200) NOT NULL,
+    PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1002;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

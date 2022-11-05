@@ -10,24 +10,25 @@ import java.time.LocalTime;
 
 
 @Component
-public class TasksCleanupService extends Thread{
+//public class TasksCleanupService extends Thread{
+public class TasksCleanupService {
 
     @Autowired private TasksRepository tasksRepository;
-    @Value("${task.db.scanning.period}")
-    private int period; //time in seconds
+//    @Value("${task.db.scanning.period}")
+//    private int period; //time in seconds
 
-    public void run() {
-        while(true) {
-            if (isInterrupted()) {
-                return;
-            }
+    public int execute() {
+//        while(true) {
+//            if (isInterrupted()) {
+//                return;
+//            }
             //System.out.println("deleting tasks");
-            tasksRepository.deleteByUserIdTillDate(null, LocalDateTime.now().minusDays(1).with(LocalTime.MIN));
-            try {
-                Thread.sleep(period * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+            return tasksRepository.deleteByUserIdTillDate(null, LocalDateTime.now().minusDays(1).with(LocalTime.MIN));
+//            try {
+//                Thread.sleep(period * 1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }

@@ -12,7 +12,7 @@ public interface TasksRepository {
 
     void deleteById(Long id);
 
-    void deleteByUserIdTillDate(Long userId, LocalDateTime endDate);
+    int deleteByUserIdTillDate(Long userId, LocalDateTime endDate);
 
     boolean update(Task task);
 

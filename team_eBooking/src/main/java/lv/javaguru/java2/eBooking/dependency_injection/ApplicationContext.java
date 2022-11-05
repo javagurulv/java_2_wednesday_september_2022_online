@@ -1,4 +1,4 @@
-package lv.javaguru.java2.eBooking;
+package lv.javaguru.java2.eBooking.dependency_injection;
 
 import lv.javaguru.java2.eBooking.console_ui.AddClientUIAction;
 

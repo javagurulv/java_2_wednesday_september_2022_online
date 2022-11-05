@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.acceptance_tests;
 
-import lv.javaguru.java2.eBooking.ApplicationContext;
+import lv.javaguru.java2.eBooking.dependency_injection.ApplicationContext;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientsGetAllResponse;
@@ -9,12 +9,12 @@ import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-public class AcceptanceTest1 {
+public class Acceptance_Test1 {
 
     private ApplicationContext applicationContext = new ApplicationContext();
 
     @Test
-    public void shouldReturnClientList(){
+    public void shouldReturnValidClientList(){
         ClientAddRequest request1 = new ClientAddRequest(
                 "email@gmail.com",
                 "0037111111111");
