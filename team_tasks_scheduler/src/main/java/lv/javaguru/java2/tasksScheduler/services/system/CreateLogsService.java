@@ -15,7 +15,7 @@ public class CreateLogsService {
     @Value("${logs.directory.path}")
     private String logDirectoryPath;
 
-    public void run(String record) {
+    public void execute(String record) {
          if (ValueChecking.stringIsEmpty(logDirectoryPath)) {
              return;
          }

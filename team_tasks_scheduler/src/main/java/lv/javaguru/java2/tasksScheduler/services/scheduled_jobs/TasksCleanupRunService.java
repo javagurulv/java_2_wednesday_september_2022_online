@@ -1,5 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.scheduled_jobs;
 
+import lv.javaguru.java2.tasksScheduler.requests.JobRunRequest;
+import lv.javaguru.java2.tasksScheduler.responses.JobRunResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.CreateLogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,9 +18,9 @@ public class TasksCleanupRunService {
     @Autowired private TasksCleanupService tasksCleanupService;
     @Autowired private CreateLogsService createLogsService;
 
-    public JobRunResult execute(boolean manual) {
+    public JobRunResponse execute(JobRunRequest request) {
         JobRunResult result = new JobRunResult("TasksCleanup");
-        if (!manual) {
+        if (!request.isManual()) {
             result.setRunType("Auto");
         }
         try {
@@ -26,11 +28,11 @@ public class TasksCleanupRunService {
             result.setTimestampEnd(LocalDateTime.now());
             result.setStatus("Succeed");
         } catch (Exception e) {
-            return result;
+            return new JobRunResponse(result);
         }
         if (createLog) {
-            createLogsService.run(result.getRecordInLogFormat());
+            createLogsService.execute(result.getRecordInLogFormat());
         }
-        return result;
+        return new JobRunResponse(result);
     }
 }
