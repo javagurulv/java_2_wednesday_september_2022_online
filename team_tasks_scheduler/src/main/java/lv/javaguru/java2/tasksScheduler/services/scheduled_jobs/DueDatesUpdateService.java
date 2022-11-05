@@ -14,11 +14,12 @@ public class DueDatesUpdateService {
 
     @Autowired private TasksRepository tasksRepository;
 
-    public void execute() {
+    public int execute() {
         List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate();
         if (tasks == null) {
-            return;
+            return 0;
         }
+        int recordsUpdated = 0;
         for (Task task : tasks) {
             do {
                 task.setDueDate(task.getDueDate().plusDays(task.getRegularity()));
@@ -26,7 +27,10 @@ public class DueDatesUpdateService {
                     break;
                 }
             } while(true);
-            tasksRepository.update(task);
+            if (tasksRepository.update(task)) {
+                recordsUpdated++;
+            }
         }
+        return recordsUpdated;
     }
 }

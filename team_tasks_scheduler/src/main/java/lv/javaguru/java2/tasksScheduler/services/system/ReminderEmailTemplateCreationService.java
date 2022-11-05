@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReminderEmailService {
+public class ReminderEmailTemplateCreationService {
     @Autowired
     private SettingsRepository settingsRepository;
 

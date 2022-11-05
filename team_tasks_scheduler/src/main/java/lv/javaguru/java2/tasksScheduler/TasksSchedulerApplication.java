@@ -4,10 +4,12 @@ import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
 import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupService;
+import lv.javaguru.java2.tasksScheduler.services.system.CreateLogsService;
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class TasksSchedulerApplication {
@@ -36,7 +38,7 @@ public class TasksSchedulerApplication {
         } while (true);
 
         //start 2nd thread
-        cleanupService.start();
+//        cleanupService.start();
 
         while (true) {
             printMenu(menuType);
