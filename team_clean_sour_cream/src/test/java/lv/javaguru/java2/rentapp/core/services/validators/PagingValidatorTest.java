@@ -1,7 +1,8 @@
-package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.validators.PagingValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,13 +10,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SearchVehicleRequestPagingValidatorTest {
+class PagingValidatorTest {
 
-    SearchVehicleRequestPagingValidator validator;
+    PagingValidator validator;
 
     @BeforeEach
     void setUp() {
-        validator = new SearchVehicleRequestPagingValidator();
+        validator = new PagingValidator();
     }
 
     @Test

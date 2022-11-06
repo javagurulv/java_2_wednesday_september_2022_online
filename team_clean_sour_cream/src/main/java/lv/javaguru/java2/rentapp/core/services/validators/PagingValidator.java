@@ -1,4 +1,4 @@
-package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators;
+package lv.javaguru.java2.rentapp.core.services.validators;
 
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class SearchVehicleRequestPagingValidator {
+public class PagingValidator {
 
     public List<CoreError> validate(Paging paging) {
         List<CoreError> errors = new ArrayList<>();
