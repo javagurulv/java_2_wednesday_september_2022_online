@@ -20,7 +20,7 @@ public class VehicleAvailabilityServiceValidator {
 
     public List<CoreError> execute(GeneralRentVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
-        validateStrartDateIsPresent(request).ifPresent(errors::add);
+        validateStartDateIsPresent(request).ifPresent(errors::add);
         validateStartDateFormat(request).ifPresent(errors::add);
         validateStartDateNotInPast(request).ifPresent(errors::add);
         validateStartDateIsNotToFar(request).ifPresent(errors::add);
@@ -34,14 +34,14 @@ public class VehicleAvailabilityServiceValidator {
         return errors;
     }
 
-    private Optional<CoreError> validateStrartDateIsPresent(GeneralRentVehicleRequest request) {
-        return (request.getRentStartDate() == null && request.getRentStartDate().isBlank())
+    private Optional<CoreError> validateStartDateIsPresent(GeneralRentVehicleRequest request) {
+        return (request.getRentStartDate() == null || request.getRentStartDate().isBlank())
                 ? Optional.of(new CoreError("Start date", "can't be empty"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateStartDateFormat(GeneralRentVehicleRequest request) {
-        if (validateStrartDateIsPresent(request).isPresent()) {
+        if (validateStartDateIsPresent(request).isPresent()) {
             return Optional.empty();
         }
         DateValidator dateValidator = DateValidator.getInstance();
@@ -52,7 +52,7 @@ public class VehicleAvailabilityServiceValidator {
     }
 
     private Optional<CoreError> validateStartDateNotInPast(GeneralRentVehicleRequest request) {
-        if (validateStrartDateIsPresent(request).isPresent() || validateStartDateFormat(request).isPresent()) {
+        if (validateStartDateIsPresent(request).isPresent() || validateStartDateFormat(request).isPresent()) {
             return Optional.empty();
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -63,18 +63,18 @@ public class VehicleAvailabilityServiceValidator {
     }
 
     private Optional<CoreError> validateStartDateIsNotToFar(GeneralRentVehicleRequest request) {
-        if (validateStrartDateIsPresent(request).isPresent() || validateStartDateFormat(request).isPresent()) {
+        if (validateStartDateIsPresent(request).isPresent() || validateStartDateFormat(request).isPresent()) {
             return Optional.empty();
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         return startDate.isAfter(LocalDate.now().plusYears(1))
-                ? Optional.of(new CoreError("Start date", "has to be within one year from now "))
+                    ? Optional.of(new CoreError("Start date", "has to be within one year from now "))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateEndDateIsPresent(GeneralRentVehicleRequest request) {
-        return (request.getRentEndDate() == null && request.getRentEndDate().isBlank())
+        return (request.getRentEndDate() == null || request.getRentEndDate().isBlank())
                 ? Optional.of(new CoreError("End date", "can't be empty"))
                 : Optional.empty();
     }
@@ -102,7 +102,7 @@ public class VehicleAvailabilityServiceValidator {
     }
 
     private Optional<CoreError> validateEndDateIsNotBeforeStartDate(GeneralRentVehicleRequest request) {
-        if (validateStrartDateIsPresent(request).isPresent() || validateStartDateFormat(request).isPresent() ||
+        if (validateStartDateIsPresent(request).isPresent() || validateStartDateFormat(request).isPresent() ||
                 validateEndDateIsPresent(request).isPresent() || validateEndDateFormat(request).isPresent()) {
             return Optional.empty();
         }
