@@ -71,11 +71,11 @@ public class JobRunResult {
     }
 
     public String getRecordInLogFormat() {
-        return "JobName:" + this.jobName + " " +
-                "RunStart:" + this.timestampStart + " " +
-                "RunEnd:" + this.timestampEnd + " " +
-                "ActionsCount:" + this.actionsCount + " " +
-                "RunType:" + this.runType + " " +
-                "Status:" + this.status;
+        return "JobName=" + this.jobName + "; " +
+                "RunStart=" + this.timestampStart + "; " +
+                "RunEnd=" + this.timestampEnd + "; " +
+                "ActionsCount=" + this.actionsCount + "; " +
+                "RunType=" + this.runType + "; " +
+                "Status=" + this.status + ";";
     }
 }
