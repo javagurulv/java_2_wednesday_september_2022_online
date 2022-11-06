@@ -3,7 +3,6 @@ package lv.javaguru.java2.rentapp.core.services.validators;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import org.apache.commons.validator.GenericValidator;
-import org.apache.commons.validator.routines.DateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +43,6 @@ public class VehicleAvailabilityServiceValidator {
         if (validateStartDateIsPresent(request).isPresent()) {
             return Optional.empty();
         }
-        DateValidator dateValidator = DateValidator.getInstance();
         return !GenericValidator.isDate(request.getRentStartDate(), "dd/MM/yyyy", true)
                 ? Optional.of(new CoreError("Start date", "has to be in format dd/MM/yyyy "))
                 : Optional.empty();
@@ -83,7 +81,6 @@ public class VehicleAvailabilityServiceValidator {
         if (validateEndDateIsPresent(request).isPresent()) {
             return Optional.empty();
         }
-        DateValidator dateValidator = DateValidator.getInstance();
         return !GenericValidator.isDate(request.getRentEndDate(), "dd/MM/yyyy", true)
                 ? Optional.of(new CoreError("End date", "has to be in format dd/MM/yyyy "))
                 : Optional.empty();
