@@ -75,7 +75,7 @@ public class JobRunResult {
                 "RunStart:" + this.timestampStart + " " +
                 "RunEnd:" + this.timestampEnd + " " +
                 "ActionsCount:" + this.actionsCount + " " +
-                "RunType:" + this.runType +
+                "RunType:" + this.runType + " " +
                 "Status:" + this.status;
     }
 }

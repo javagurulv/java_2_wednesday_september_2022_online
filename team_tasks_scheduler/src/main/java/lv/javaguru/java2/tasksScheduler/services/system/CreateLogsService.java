@@ -30,8 +30,11 @@ public class CreateLogsService {
         if (ValueChecking.stringIsEmpty(logDirectoryPath)) {
             return null;
         }
-        return logDirectoryPath + "/" + "Log_" + LocalDateTime.now().getYear() +
+        String path = (logDirectoryPath.charAt(logDirectoryPath.length() - 1) == '/') ?
+                logDirectoryPath : logDirectoryPath + "/";
+        path += "log_" + LocalDateTime.now().getYear() +
                 "_" + LocalDateTime.now().getMonth().getValue();
+        return path;
     }
 
     private void addRecordToLogFile(String path, String record) {
