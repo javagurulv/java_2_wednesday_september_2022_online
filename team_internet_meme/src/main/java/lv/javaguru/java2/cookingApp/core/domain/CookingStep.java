@@ -8,10 +8,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-@AllArgsConstructor
 public class CookingStep {
+    private Long id;
     private int stepOrder;
     private String stepDescription;
+
+    public CookingStep(int stepOrder, String stepDescription) {
+        this.stepOrder = stepOrder;
+        this.stepDescription = stepDescription;
+    }
 
     @Override
     public String toString() {

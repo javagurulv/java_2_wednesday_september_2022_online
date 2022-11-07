@@ -1,6 +1,6 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class AddRecipeServiceTest {
 
-    @Mock private Database database;
+    @Mock private RecipeRepository recipeRepository;
     @Mock private AddRecipeRequestValidator validator;
 
     @InjectMocks
@@ -45,7 +45,7 @@ class AddRecipeServiceTest {
         assertFalse(response.hasErrors());
         assertNotNull(response.getNewRecipe());
         Recipe recipe = response.getNewRecipe();
-        Mockito.verify(database).save(recipe);
+        Mockito.verify(recipeRepository).save(recipe);
     }
 
 

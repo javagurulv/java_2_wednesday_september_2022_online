@@ -1,11 +1,11 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.PrintRecipeToConsoleRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.PrintRecipeToConsoleResponse;
-import lv.javaguru.java2.cookingApp.core.services.validators.PrintRecipeToConsoleValidator;
+import lv.javaguru.java2.cookingApp.core.services.validators.IdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,8 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class PrintRecipeToConsoleServiceTest {
 
-    @Mock private Database database;
-    @Mock private PrintRecipeToConsoleValidator validator;
+    @Mock private RecipeRepository recipeRepository;
+    @Mock private IdValidator validator;
 
     @InjectMocks
     private PrintRecipeToConsoleService service;
@@ -32,7 +32,7 @@ class PrintRecipeToConsoleServiceTest {
     void testShouldReturnResponseWithErrorWhenRequestIsNotValid() {
         PrintRecipeToConsoleRequest request = Mockito.mock(PrintRecipeToConsoleRequest.class);
         CoreError error = new CoreError("Test", "Test");
-        Mockito.when(validator.validate(request)).thenReturn(List.of(error));
+        Mockito.when(validator.validate(request.getId())).thenReturn(List.of(error));
         PrintRecipeToConsoleResponse response = service.execute(request);
         assertTrue(response.hasErrors());
         assertEquals("Test", error.getField());
@@ -43,14 +43,13 @@ class PrintRecipeToConsoleServiceTest {
     void testShouldReturnResponseWithRecipe() {
         PrintRecipeToConsoleRequest request = Mockito.mock(PrintRecipeToConsoleRequest.class);
         Recipe recipe = Mockito.mock(Recipe.class);
-        Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
-        Mockito.when(database.getById(request.getId())).thenReturn(Optional.of(recipe));
+        Mockito.when(validator.validate(request.getId())).thenReturn(new ArrayList<>());
+        Mockito.when(recipeRepository.getById(request.getId())).thenReturn(Optional.of(recipe));
         PrintRecipeToConsoleResponse response = service.execute(request);
 
         assertFalse(response.hasErrors());
         assertNotNull(response.getPrintedRecipe());
-        Mockito.verify(database).getById(request.getId());
-        Mockito.verify(recipe).printToConsole();
+        Mockito.verify(recipeRepository).getById(request.getId());
     }
 
 }

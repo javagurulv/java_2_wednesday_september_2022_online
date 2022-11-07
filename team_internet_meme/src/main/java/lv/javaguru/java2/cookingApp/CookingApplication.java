@@ -21,8 +21,6 @@ public class CookingApplication {
                 System.out.println("You have to enter a number!");
             }
         }
-
-
     }
 
     private static ApplicationContext createApplicationContext() {
