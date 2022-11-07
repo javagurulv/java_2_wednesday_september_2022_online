@@ -3,20 +3,12 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
-import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.AmendSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.requests.CheckSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.GetSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AddSettingsResponse;
 import lv.javaguru.java2.tasksScheduler.responses.AmendSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.responses.CheckSettingsResponse;
 import lv.javaguru.java2.tasksScheduler.responses.GetSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.AddSettingsService;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendSettingsService;
-import lv.javaguru.java2.tasksScheduler.services.system.CheckSettingsExistenceService;
 import lv.javaguru.java2.tasksScheduler.services.system.GetSettingsService;
-import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
