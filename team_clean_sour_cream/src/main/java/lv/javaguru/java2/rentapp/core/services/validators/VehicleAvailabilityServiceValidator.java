@@ -20,21 +20,25 @@ public class VehicleAvailabilityServiceValidator {
     public List<CoreError> validate(GeneralRentVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
         validateStartDateIsPresent(request).ifPresent(errors::add);
-        validateStartDateFormat(request).ifPresent(errors::add);
+        if (validateStartDateIsPresent(request).isEmpty()) {
+            validateStartDateFormat(request).ifPresent(errors::add);
+        }
         if (validateStartDateIsPresent(request).isEmpty() && validateStartDateFormat(request).isEmpty()) {
             validateStartDateNotInPast(request).ifPresent(errors::add);
             validateStartDateIsNotToFarShouldBeLessThanOneYearForward(request).ifPresent(errors::add);
         }
 
         validateEndDateIsPresent(request).ifPresent(errors::add);
-        validateEndDateFormat(request).ifPresent(errors::add);
+        if (validateEndDateIsPresent(request).isEmpty()) {
+            validateEndDateFormat(request).ifPresent(errors::add);
+        }
         if (validateEndDateIsPresent(request).isEmpty() && validateEndDateFormat(request).isEmpty()) {
             validateEndDateNotInPast(request).ifPresent(errors::add);
-            validateEndDateIsNotToFarShouldBeLessThanTwoMonthsForward(request).ifPresent(errors::add);
         }
 
         if (validateStartDateIsPresent(request).isEmpty() && validateStartDateFormat(request).isEmpty() &&
                 validateEndDateIsPresent(request).isEmpty() && validateEndDateFormat(request).isEmpty()) {
+            validateEndDateIsNotToFarShouldBeLessThanTwoMonthsForwardAfterStartDate(request).ifPresent(errors::add);
             validateEndDateIsNotBeforeStartDate(request).ifPresent(errors::add);
             validateEndDateIsNotEqualStartDate(request).ifPresent(errors::add);
         }
@@ -95,10 +99,11 @@ public class VehicleAvailabilityServiceValidator {
                 : Optional.empty();
     }
 
-    private Optional<CoreError> validateEndDateIsNotToFarShouldBeLessThanTwoMonthsForward(GeneralRentVehicleRequest request) {
+    private Optional<CoreError> validateEndDateIsNotToFarShouldBeLessThanTwoMonthsForwardAfterStartDate(GeneralRentVehicleRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
-        return endDate.isAfter(LocalDate.now().plusMonths(2))
+        return endDate.isAfter(startDate.plusMonths(2))
                 ? Optional.of(new CoreError("End date", "has to be within two months from rent start date"))
                 : Optional.empty();
     }

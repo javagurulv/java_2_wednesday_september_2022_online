@@ -102,7 +102,7 @@ class VehicleAvailabilityServiceValidatorTest {
     void testValidateStartDateIsNotToFarReturnError() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String rentStartDate = LocalDate.now().plusYears(3).format(formatter);
-        String rentEndDate = LocalDate.now().plusYears(4).format(formatter);
+        String rentEndDate = LocalDate.now().plusYears(3).plusMonths(1).format(formatter);
         GeneralRentVehicleRequest request = GeneralRentVehicleRequest.builder().rentStartDate(rentStartDate).rentEndDate(rentEndDate).build();
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
