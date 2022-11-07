@@ -3,9 +3,11 @@ package lv.javaguru.java2.eBooking.console_ui;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientSearchResponse;
 import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class SearchClientUIAction implements UIAction {
     private ClientSearchService clientSearchService;
 

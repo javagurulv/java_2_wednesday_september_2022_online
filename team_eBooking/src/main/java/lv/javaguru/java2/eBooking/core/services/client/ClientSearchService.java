@@ -6,22 +6,18 @@ import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchReque
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientSearchResponse;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class ClientSearchService {
 
-    private Database database;
+    @Autowired
+    Database database;
+    @Autowired
     private ClientSearchValidator validator;
-
-
-    public ClientSearchService(Database database,
-                               ClientSearchValidator validator) {
-        this.database = database;
-        this.validator = validator;
-
-    }
 
     public ClientSearchResponse execute(ClientSearchRequest request) {
         List<CoreError> errors = validator.validate(request);

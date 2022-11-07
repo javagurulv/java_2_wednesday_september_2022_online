@@ -8,6 +8,8 @@ import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentS
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentSearchResponse;
 import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,15 +17,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
-
+@Component
 public class AppointmentSearchService {
+    @Autowired
     private Database database;
+    @Autowired
     private AppointmentSearchValidator validator;
-
-    public AppointmentSearchService(Database database, AppointmentSearchValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
 
     public AppointmentSearchResponse execute(AppointmentSearchRequest request) {
         List<CoreError> errors = validator.validate(request);

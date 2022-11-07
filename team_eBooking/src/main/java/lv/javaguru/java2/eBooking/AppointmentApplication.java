@@ -1,63 +1,63 @@
 package lv.javaguru.java2.eBooking;
+import lv.javaguru.java2.eBooking.config.BookingListConfiguration;
 import lv.javaguru.java2.eBooking.console_ui.*;
-import lv.javaguru.java2.eBooking.dependency_injection.ApplicationContext;
-
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import java.util.Scanner;
+
 
 public class AppointmentApplication {
 
- private static ApplicationContext appContext = new ApplicationContext();
-
+private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(BookingListConfiguration.class);
     public static void main(String[] args) {
 
         while (true) {
-            PrintApplicationMenuUIAction printApplicationMenuUIAction =appContext.getBean(PrintApplicationMenuUIAction.class);
+            PrintApplicationMenuUIAction printApplicationMenuUIAction =applicationContext.getBean(PrintApplicationMenuUIAction.class);
             printApplicationMenuUIAction.execute();
             switch (chooseMenuNumber()) {
                 case 1: {
 
-                    AddClientUIAction addClientUIAction = appContext.getBean(AddClientUIAction.class);
+                    AddClientUIAction addClientUIAction = applicationContext.getBean(AddClientUIAction.class);
                     addClientUIAction.execute();
                     break;
                 }
                 case 2: {
-                    RemoveClientUIAction removeClientUIAction = appContext.getBean(RemoveClientUIAction.class);
+                    RemoveClientUIAction removeClientUIAction = applicationContext.getBean(RemoveClientUIAction.class);
                     removeClientUIAction.execute();
                     break;
                 }
                 case 3: {
-                    PrintClientUIAction printClientUIAction = appContext.getBean(PrintClientUIAction.class);
+                    PrintClientUIAction printClientUIAction = applicationContext.getBean(PrintClientUIAction.class);
                     printClientUIAction.execute();
                     break;
                 }
                 case 4: {
-                    SearchClientUIAction searchClientUIAction = appContext.getBean(SearchClientUIAction.class);
+                    SearchClientUIAction searchClientUIAction = applicationContext.getBean(SearchClientUIAction.class);
                     searchClientUIAction.execute();
                     break;
                 }
                 case 5: {
-                    AddAppointmentUIAction addAppointmentUIAction = appContext.getBean(AddAppointmentUIAction.class);
+                    AddAppointmentUIAction addAppointmentUIAction = applicationContext.getBean(AddAppointmentUIAction.class);
                     addAppointmentUIAction.execute();
                     break;
                 }
                 case 6: {
-                    RemoveAppointmentUIAction removeAppointmentUIAction=appContext.getBean(RemoveAppointmentUIAction.class);
+                    RemoveAppointmentUIAction removeAppointmentUIAction=applicationContext.getBean(RemoveAppointmentUIAction.class);
                     removeAppointmentUIAction.execute();
                     break;
                 }
                 case 7: {
-                    PrintAppointmentUIAction printAppointmentUIAction = appContext.getBean(PrintAppointmentUIAction.class);
+                    PrintAppointmentUIAction printAppointmentUIAction = applicationContext.getBean(PrintAppointmentUIAction.class);
                     printAppointmentUIAction.execute();
                     break;
                 }
                 case 8: {
-                    SearchAppointmentUIAction searchAppointmentUIAction = appContext.getBean(SearchAppointmentUIAction.class);
+                    SearchAppointmentUIAction searchAppointmentUIAction = applicationContext.getBean(SearchAppointmentUIAction.class);
                     searchAppointmentUIAction.execute();
                     break;
                 }
                 case 9: {
-                    ExitApplicationUIAction exitApplicationUIAction = appContext.getBean(ExitApplicationUIAction.class);
+                    ExitApplicationUIAction exitApplicationUIAction = applicationContext.getBean(ExitApplicationUIAction.class);
                     exitApplicationUIAction.execute();
                     break;
                 }

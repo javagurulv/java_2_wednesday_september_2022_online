@@ -3,11 +3,12 @@ package lv.javaguru.java2.eBooking.core.services.validators;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Component
 public class AppointmentAddValidator {
 
     public List<CoreError> validate(AppointmentAddRequest request){

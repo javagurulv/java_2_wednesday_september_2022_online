@@ -5,10 +5,12 @@ import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentSearchResponse;
 import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentSearchService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 
 import java.util.Scanner;
-
+@Component
 public class SearchAppointmentUIAction implements UIAction {
     private AppointmentSearchService appointmentSearchService;
 
