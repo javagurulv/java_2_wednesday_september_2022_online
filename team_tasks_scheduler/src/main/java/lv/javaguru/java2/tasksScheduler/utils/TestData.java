@@ -2,7 +2,6 @@ package lv.javaguru.java2.tasksScheduler.utils;
 
 
 
-import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.*;
 import lv.javaguru.java2.tasksScheduler.responses.*;
 import lv.javaguru.java2.tasksScheduler.services.menu_services.*;

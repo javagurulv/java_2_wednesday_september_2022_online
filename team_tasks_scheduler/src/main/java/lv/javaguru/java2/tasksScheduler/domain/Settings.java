@@ -1,7 +1,5 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
-import org.springframework.stereotype.Component;
-
 import java.util.Objects;
 
 public class Settings {
