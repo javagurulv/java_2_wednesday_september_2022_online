@@ -27,8 +27,10 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class SearchVehicleServiceTest {
 
-    @Mock private VehicleDatabase vehicleDatabase;
-    @Mock private SearchVehicleValidator validator;
+    @Mock
+    private VehicleDatabase vehicleDatabase;
+    @Mock
+    private SearchVehicleValidator validator;
 
     @InjectMocks
     private SearchVehicleService service;
@@ -208,22 +210,15 @@ class SearchVehicleServiceTest {
         assertEquals(vehicle1, response.getVehicleList().get(0));
     }
 
-    private Vehicle getVehicle() {
-        return new PassengerCar("test", "test", true,2000,
-                Colour.RED, 100.0, EngineType.GAS, "test", TransmissionType.MANUAL,
-                3, 3, 3, true);
-    }
     private Vehicle getVehicle(Integer year) {
         return new PassengerCar("test", "test", true, year,
                 Colour.RED, 100.0, EngineType.GAS, "test", TransmissionType.MANUAL,
                 3, 3, 3, true);
     }
+
     private Vehicle getVehicle(Double price) {
         return new PassengerCar("test", "test", true, 2000,
                 Colour.RED, price, EngineType.GAS, "test", TransmissionType.MANUAL,
                 3, 3, 3, true);
     }
-
-
-
 }

@@ -19,21 +19,24 @@ public class VehicleAvailabilityServiceValidator {
 
     public List<CoreError> validate(GeneralRentVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
+
         validateStartDateIsPresent(request).ifPresent(errors::add);
         if (validateStartDateIsPresent(request).isEmpty()) {
             validateStartDateFormat(request).ifPresent(errors::add);
-        }
-        if (validateStartDateIsPresent(request).isEmpty() && validateStartDateFormat(request).isEmpty()) {
-            validateStartDateNotInPast(request).ifPresent(errors::add);
-            validateStartDateIsNotToFarShouldBeLessThanOneYearForward(request).ifPresent(errors::add);
+
+            if (validateStartDateFormat(request).isEmpty()) {
+                validateStartDateNotInPast(request).ifPresent(errors::add);
+                validateStartDateIsNotToFarShouldBeLessThanOneYearForward(request).ifPresent(errors::add);
+            }
         }
 
         validateEndDateIsPresent(request).ifPresent(errors::add);
         if (validateEndDateIsPresent(request).isEmpty()) {
             validateEndDateFormat(request).ifPresent(errors::add);
-        }
-        if (validateEndDateIsPresent(request).isEmpty() && validateEndDateFormat(request).isEmpty()) {
-            validateEndDateNotInPast(request).ifPresent(errors::add);
+
+            if (validateEndDateFormat(request).isEmpty()) {
+                validateEndDateNotInPast(request).ifPresent(errors::add);
+            }
         }
 
         if (validateStartDateIsPresent(request).isEmpty() && validateStartDateFormat(request).isEmpty() &&
@@ -51,7 +54,7 @@ public class VehicleAvailabilityServiceValidator {
 
     private Optional<CoreError> validateStartDateIsPresent(GeneralRentVehicleRequest request) {
         return (request.getRentStartDate() == null || request.getRentStartDate().isBlank())
-                ? Optional.of(new CoreError("Start date", "can't be empty"))
+                ? Optional.of(new CoreError("Start date", "can't be empty or not present"))
                 : Optional.empty();
     }
 
