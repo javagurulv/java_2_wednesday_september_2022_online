@@ -1,11 +1,13 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.database.CookingStepRepository;
+import lv.javaguru.java2.cookingApp.core.database.IngredientRepository;
+import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.PrintRecipeToConsoleRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.responses.PrintRecipeToConsoleResponse;
-import lv.javaguru.java2.cookingApp.core.services.validators.PrintRecipeToConsoleValidator;
+import lv.javaguru.java2.cookingApp.core.services.validators.IdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,35 +24,56 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class PrintRecipeToConsoleServiceTest {
 
-    @Mock private Database database;
-    @Mock private PrintRecipeToConsoleValidator validator;
+    @Mock private RecipeRepository recipeRepository;
+    @Mock private IdValidator validator;
+    @Mock private IngredientRepository ingredientRepository;
+    @Mock private CookingStepRepository cookingStepRepository;
 
     @InjectMocks
     private PrintRecipeToConsoleService service;
 
     @Test
     void testShouldReturnResponseWithErrorWhenRequestIsNotValid() {
-        PrintRecipeToConsoleRequest request = Mockito.mock(PrintRecipeToConsoleRequest.class);
+        PrintRecipeToConsoleRequest request = new PrintRecipeToConsoleRequest(1L);
         CoreError error = new CoreError("Test", "Test");
-        Mockito.when(validator.validate(request)).thenReturn(List.of(error));
+        Mockito.when(validator.validate(1L)).thenReturn(List.of(error));
         PrintRecipeToConsoleResponse response = service.execute(request);
         assertTrue(response.hasErrors());
         assertEquals("Test", error.getField());
         assertEquals("Test", error.getMessage());
+        Mockito.verifyNoInteractions(recipeRepository);
+        Mockito.verifyNoInteractions(ingredientRepository);
+        Mockito.verifyNoInteractions(cookingStepRepository);
     }
 
     @Test
     void testShouldReturnResponseWithRecipe() {
-        PrintRecipeToConsoleRequest request = Mockito.mock(PrintRecipeToConsoleRequest.class);
-        Recipe recipe = Mockito.mock(Recipe.class);
-        Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
-        Mockito.when(database.getById(request.getId())).thenReturn(Optional.of(recipe));
+        PrintRecipeToConsoleRequest request = new PrintRecipeToConsoleRequest(1L);
+        Recipe recipe = new Recipe("test");
+        Mockito.when(validator.validate(1L)).thenReturn(new ArrayList<>());
+        Mockito.when(recipeRepository.getById(1L)).thenReturn(Optional.of(recipe));
         PrintRecipeToConsoleResponse response = service.execute(request);
 
         assertFalse(response.hasErrors());
-        assertNotNull(response.getPrintedRecipe());
-        Mockito.verify(database).getById(request.getId());
-        Mockito.verify(recipe).printToConsole();
+        assertTrue(response.getPrintedRecipe().isPresent());
+        assertEquals(recipe, response.getPrintedRecipe().get());
+        Mockito.verify(recipeRepository).getById(1L);
+        Mockito.verify(ingredientRepository).getIngredientsByRecipeId(1L);
+        Mockito.verify(cookingStepRepository).getCookingStepsByRecipeId(1L);
+    }
+
+    @Test
+    void testShouldReturnResponseWithNoRecipeIfNoIdInDatabase() {
+        PrintRecipeToConsoleRequest request = new PrintRecipeToConsoleRequest(1L);
+        Mockito.when(validator.validate(1L)).thenReturn(new ArrayList<>());
+        Mockito.when(recipeRepository.getById(request.getId())).thenReturn(Optional.empty());
+        PrintRecipeToConsoleResponse response = service.execute(request);
+
+        assertFalse(response.hasErrors());
+        assertTrue(response.getPrintedRecipe().isEmpty());
+        Mockito.verify(recipeRepository).getById(1L);
+        Mockito.verifyNoInteractions(ingredientRepository);
+        Mockito.verifyNoInteractions(cookingStepRepository);
     }
 
 }

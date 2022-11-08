@@ -4,11 +4,12 @@ import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Component
 public class AppointmentSearchValidator {
 
     public List<CoreError> validate(AppointmentSearchRequest request) {

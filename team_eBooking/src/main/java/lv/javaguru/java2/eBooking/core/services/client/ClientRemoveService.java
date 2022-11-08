@@ -6,18 +6,18 @@ import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientRemoveResponse;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientRemoveValidator;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ClientRemoveService {
-    private Database database;
-    private ClientRemoveValidator validator;
-
-    public ClientRemoveService(Database database, ClientRemoveValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+    @Autowired
+    Database database;
+    @Autowired
+    ClientRemoveValidator validator;
 
     public ClientRemoveResponse execute(ClientRemoveRequest request) {
         if (request.getRemoveClientId() == null) {

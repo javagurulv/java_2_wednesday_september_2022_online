@@ -3,11 +3,12 @@ package lv.javaguru.java2.eBooking.core.services.validators;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentRemoveRequest;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Component
 public class AppointmentRemoveValidator {
 
     public List<CoreError> validate(AppointmentRemoveRequest request){

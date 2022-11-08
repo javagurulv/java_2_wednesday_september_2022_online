@@ -1,6 +1,6 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.responses.CoreError;
@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class SearchRecipeServiceTest {
 
-    @Mock private Database database;
+    @Mock private RecipeRepository recipeRepository;
     @Mock private SearchRecipeRequestValidator validator;
 
     @InjectMocks
@@ -47,14 +47,14 @@ class SearchRecipeServiceTest {
         Recipe recipe1 = Mockito.mock(Recipe.class);
         Recipe recipe2 = Mockito.mock(Recipe.class);
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
-        Mockito.when(database.searchByIngredients(any())).thenReturn(List.of(recipe1, recipe2));
+        Mockito.when(recipeRepository.searchByIngredients(any())).thenReturn(List.of(recipe1, recipe2));
         SearchRecipeResponse response = service.execute(request);
         assertNotNull(response.getRecipes());
         assertFalse(response.hasErrors());
         assertEquals(recipe1, response.getRecipes().get(0));
         assertEquals(recipe2, response.getRecipes().get(1));
 
-		Mockito.verify(database).searchByIngredients(ingredientListCaptor.capture());
+		Mockito.verify(recipeRepository).searchByIngredients(ingredientListCaptor.capture());
 		List<String> captorValue = ingredientListCaptor.getValue();
         assertEquals(List.of("Ingredient1","Ingredient2"), captorValue);
     }
