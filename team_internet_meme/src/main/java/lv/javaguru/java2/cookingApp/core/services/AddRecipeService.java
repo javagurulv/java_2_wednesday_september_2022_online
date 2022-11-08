@@ -1,6 +1,8 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
 
+import lv.javaguru.java2.cookingApp.core.database.CookingStepRepository;
+import lv.javaguru.java2.cookingApp.core.database.IngredientRepository;
 import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
@@ -16,8 +18,9 @@ import java.util.List;
 @Component
 public class AddRecipeService {
 
-    @Autowired
-    private RecipeRepository recipeRepository;
+    @Autowired private RecipeRepository recipeRepository;
+    @Autowired private IngredientRepository ingredientRepository;
+    @Autowired private CookingStepRepository cookingStepRepository;
     @Autowired private AddRecipeRequestValidator validator;
 
     public AddRecipeResponse execute(AddRecipeRequest request) {
@@ -26,7 +29,9 @@ public class AddRecipeService {
             return new AddRecipeResponse(errors);
         }
         Recipe recipe = new Recipe(request.getDishName());
-        recipeRepository.save(recipe);
+        Long recipeId = recipeRepository.save(recipe);
+        ingredientRepository.saveIngredients(request.getIngredients(), recipeId);
+        cookingStepRepository.saveCookingSteps(request.getCookingSteps(), recipeId);
         return new AddRecipeResponse(recipe);
     }
 }

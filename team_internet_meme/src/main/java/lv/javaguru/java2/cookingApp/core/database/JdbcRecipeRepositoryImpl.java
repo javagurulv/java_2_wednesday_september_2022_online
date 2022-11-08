@@ -17,7 +17,10 @@ public class JdbcRecipeRepositoryImpl implements RecipeRepository {
 
     @Override
     public Long save(Recipe recipe) {
-        Long recipeID = saveDishName(recipe);
+        SimpleJdbcInsert insertIntoRecipes = new SimpleJdbcInsert(jdbcTemplate).withTableName("recipes").usingGeneratedKeyColumns("id");
+        Map<String, String> recipeArgs = new HashMap<>();
+        recipeArgs.put("dishName", recipe.getDishName());
+        Long recipeID = insertIntoRecipes.executeAndReturnKey(recipeArgs).longValue();
         recipe.setId(recipeID);
         return recipeID;
     }
@@ -54,44 +57,5 @@ public class JdbcRecipeRepositoryImpl implements RecipeRepository {
                 "HAVING COUNT(ingredient) = " + ingredients.size();
         return jdbcTemplate.query(String.format(sql, inSql), recipeRowMapper, ingredients.toArray());
     }
-
-    private Long saveDishName(Recipe recipe) {
-        SimpleJdbcInsert insertIntoRecipes = new SimpleJdbcInsert(jdbcTemplate).withTableName("recipes").usingGeneratedKeyColumns("id");
-        Map<String, String> recipeArgs = new HashMap<>();
-        recipeArgs.put("dishName", recipe.getDishName());
-        return insertIntoRecipes.executeAndReturnKey(recipeArgs).longValue();
-    }
-
-//    private void saveIngredients(Recipe recipe, Long recipeID) {
-//        SimpleJdbcInsert insertIntoIngredients = new SimpleJdbcInsert(jdbcTemplate).withTableName("ingredients").usingGeneratedKeyColumns("id");
-//        for (Ingredient ingredient : recipe.getIngredients()) {
-//            String sql1 = "SELECT * FROM ingredients WHERE ingredient LIKE ?";
-//            List<Long> duplicateIngredientId = jdbcTemplate.query(sql1, (rs, rowNum) -> rs.getLong("id"), ingredient.getName());
-//            Optional<Long> duplicateIngredientOpt = duplicateIngredientId.stream().findFirst();
-//            if (duplicateIngredientOpt.isEmpty() ) {
-//                Map<String, Object> ingredientArgs = new HashMap<>();
-//                ingredientArgs.put("ingredient", ingredient.getName());
-//                ingredientArgs.put("recipe_id", recipeID);
-//                Long ingredientID = insertIntoIngredients.executeAndReturnKey(ingredientArgs).longValue();
-//
-//                String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
-//                Object[] args = new Object[]{recipeID, ingredientID, ingredient.getAmount(), ingredient.getMeasurement()};
-//                jdbcTemplate.update(sql, args);
-//            } else {
-//                String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
-//                Object[] args = new Object[]{recipeID, duplicateIngredientOpt.get(), ingredient.getAmount(), ingredient.getMeasurement()};
-//                jdbcTemplate.update(sql, args);
-//            }
-//        }
-//    }
-//
-//    private void saveCookingSteps(Recipe recipe, Long recipeID) {
-//        for (CookingStep cookingStep : recipe.getCookingSteps()) {
-//            String sql = "INSERT INTO cooking_steps (recipe_id, step_order, instruction) VALUES (?, ?, ?)";
-//            Object[] args = new Object[]{recipeID, cookingStep.getStepOrder(), cookingStep.getStepDescription()};
-//            jdbcTemplate.update(sql, args);
-//        }
-//    }
-
 
 }
