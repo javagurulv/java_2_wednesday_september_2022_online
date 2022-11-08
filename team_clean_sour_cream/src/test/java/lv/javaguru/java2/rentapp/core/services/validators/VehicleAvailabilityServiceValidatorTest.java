@@ -6,6 +6,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -103,11 +104,11 @@ class VehicleAvailabilityServiceValidatorTest {
     @Test
     void testValidateShouldCheckStartDateForCorrectFormatByGenericValidator() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
-        GenericValidator genericValidator = Mockito.mock(GenericValidator.class);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Mockito.when(request.getRentStartDate()).thenReturn(LocalDate.now().plusDays(1).format(formatter));
-        Mockito.verify(genericValidator, atLeastOnce());
-        GenericValidator.isDate(request.getRentStartDate(), "dd/MM/yyyy", true);
+        try(MockedStatic<GenericValidator> genericValidator = Mockito.mockStatic(GenericValidator.class)) {
+            genericValidator.verify(GenericValidator.isDate(request.getRentStartDate(), "dd/MM/yyyy", true), atLeastOnce());
+        }
     }
 
     @Test
