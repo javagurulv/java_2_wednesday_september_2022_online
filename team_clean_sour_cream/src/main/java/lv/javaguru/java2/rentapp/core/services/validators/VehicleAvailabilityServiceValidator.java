@@ -20,15 +20,7 @@ public class VehicleAvailabilityServiceValidator {
     public List<CoreError> validate(GeneralRentVehicleRequest request) {
         List<CoreError> errors = new ArrayList<>();
 
-        validateStartDateIsPresent(request).ifPresent(errors::add);
-        if (validateStartDateIsPresent(request).isEmpty()) {
-            validateStartDateFormat(request).ifPresent(errors::add);
-
-            if (validateStartDateFormat(request).isEmpty()) {
-                validateStartDateNotInPast(request).ifPresent(errors::add);
-                validateStartDateIsNotToFarShouldBeLessThanOneYearForward(request).ifPresent(errors::add);
-            }
-        }
+        boolean isStartDateValid = validateAllStartDateValidations(request, errors);
 
         validateEndDateIsPresent(request).ifPresent(errors::add);
         if (validateEndDateIsPresent(request).isEmpty()) {
@@ -36,20 +28,44 @@ public class VehicleAvailabilityServiceValidator {
 
             if (validateEndDateFormat(request).isEmpty()) {
                 validateEndDateNotInPast(request).ifPresent(errors::add);
-            }
-        }
 
-        if (validateStartDateIsPresent(request).isEmpty() && validateStartDateFormat(request).isEmpty() &&
-                validateEndDateIsPresent(request).isEmpty() && validateEndDateFormat(request).isEmpty()) {
-            validateEndDateIsNotToFarShouldBeLessThanTwoMonthsForwardAfterStartDate(request).ifPresent(errors::add);
-            validateEndDateIsNotBeforeStartDate(request).ifPresent(errors::add);
-            validateEndDateIsNotEqualStartDate(request).ifPresent(errors::add);
+                if (validateEndDateNotInPast(request).isEmpty() && isStartDateValid) {
+                    validateEndDateIsLessThanTwoMonthsForwardAfterStartDate(request).ifPresent(errors::add);
+
+                    if (validateEndDateIsLessThanTwoMonthsForwardAfterStartDate(request).isEmpty()) {
+                        validateEndDateIsNotEqualStartDate(request).ifPresent(errors::add);
+
+                        if (validateEndDateIsNotEqualStartDate(request).isEmpty()) {
+                            validateEndDateIsNotBeforeStartDate(request).ifPresent(errors::add);
+                        }
+                    }
+                }
+            }
         }
 
         if (request.getPaging() != null) {
             errors.addAll(pagingValidator.validate(request.getPaging()));
         }
         return errors;
+    }
+
+    private boolean validateAllStartDateValidations(GeneralRentVehicleRequest request, List<CoreError> errors) {
+
+        validateStartDateIsPresent(request).ifPresent(errors::add);
+
+        if (validateStartDateIsPresent(request).isEmpty()) {
+            validateStartDateFormat(request).ifPresent(errors::add);
+
+            if (validateStartDateFormat(request).isEmpty()) {
+                validateStartDateNotInPast(request).ifPresent(errors::add);
+
+                if (validateStartDateNotInPast(request).isEmpty()) {
+                    validateStartDateIsLessThanOneYearForward(request).ifPresent(errors::add);
+                    return validateStartDateIsLessThanOneYearForward(request).isEmpty();
+                }
+            }
+        }
+        return false;
     }
 
     private Optional<CoreError> validateStartDateIsPresent(GeneralRentVehicleRequest request) {
@@ -60,7 +76,7 @@ public class VehicleAvailabilityServiceValidator {
 
     private Optional<CoreError> validateStartDateFormat(GeneralRentVehicleRequest request) {
         return !GenericValidator.isDate(request.getRentStartDate(), "dd/MM/yyyy", true)
-                ? Optional.of(new CoreError("Start date", "has to be in format dd/MM/yyyy "))
+                ? Optional.of(new CoreError("Start date", "has to be valid and in format dd/MM/yyyy"))
                 : Optional.empty();
 
     }
@@ -73,11 +89,11 @@ public class VehicleAvailabilityServiceValidator {
                 : Optional.empty();
     }
 
-    private Optional<CoreError> validateStartDateIsNotToFarShouldBeLessThanOneYearForward(GeneralRentVehicleRequest request) {
+    private Optional<CoreError> validateStartDateIsLessThanOneYearForward(GeneralRentVehicleRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         return startDate.isAfter(LocalDate.now().plusYears(1))
-                ? Optional.of(new CoreError("Start date", "has to be within one year from now "))
+                ? Optional.of(new CoreError("Start date", "has to be within one year from now"))
                 : Optional.empty();
     }
 
@@ -89,7 +105,7 @@ public class VehicleAvailabilityServiceValidator {
 
     private Optional<CoreError> validateEndDateFormat(GeneralRentVehicleRequest request) {
         return !GenericValidator.isDate(request.getRentEndDate(), "dd/MM/yyyy", true)
-                ? Optional.of(new CoreError("End date", "has to be in format dd/MM/yyyy "))
+                ? Optional.of(new CoreError("End date", "has to be valid and in format dd/MM/yyyy"))
                 : Optional.empty();
 
     }
@@ -102,7 +118,7 @@ public class VehicleAvailabilityServiceValidator {
                 : Optional.empty();
     }
 
-    private Optional<CoreError> validateEndDateIsNotToFarShouldBeLessThanTwoMonthsForwardAfterStartDate(GeneralRentVehicleRequest request) {
+    private Optional<CoreError> validateEndDateIsLessThanTwoMonthsForwardAfterStartDate(GeneralRentVehicleRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
@@ -111,23 +127,23 @@ public class VehicleAvailabilityServiceValidator {
                 : Optional.empty();
     }
 
-    private Optional<CoreError> validateEndDateIsNotBeforeStartDate(GeneralRentVehicleRequest request) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
-        LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
-        return (endDate.isBefore(startDate))
-                ? Optional.of(new CoreError("End date ", "can't be before start date"))
-                : Optional.empty();
-
-    }
-
     private Optional<CoreError> validateEndDateIsNotEqualStartDate(GeneralRentVehicleRequest request) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
         return (endDate.isEqual(startDate))
-                ? Optional.of(new CoreError("Start and End date ", "must`n be equal"))
+                ? Optional.of(new CoreError("Start and End date", "must`n be equal"))
                 : Optional.empty();
+    }
+
+    private Optional<CoreError> validateEndDateIsNotBeforeStartDate(GeneralRentVehicleRequest request) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
+        LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
+        return (endDate.isBefore(startDate))
+                ? Optional.of(new CoreError("End date", "can't be before start date"))
+                : Optional.empty();
+
     }
 
 }
