@@ -1,11 +1,10 @@
 package lv.javaguru.java2.cookingApp.core.domain;
 
-import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import javax.persistence.*;
 
 @Getter
 @Setter
