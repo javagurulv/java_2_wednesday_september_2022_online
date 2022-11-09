@@ -3,15 +3,15 @@ package generalPackage.UIActions.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.AddAccountResponse;
 import generalPackage.core.services.adminOperations.AddAccountService;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class AddAccountAdminUIAction implements AdminUIactions {
 
-@DIDependency
+@Autowired
 private AddAccountService addAccountService;
 
 

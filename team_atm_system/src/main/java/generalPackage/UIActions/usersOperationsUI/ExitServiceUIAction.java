@@ -1,8 +1,8 @@
 package generalPackage.UIActions.usersOperationsUI;
 
-import generalPackage.dependencyInjection.DIComponent;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class ExitServiceUIAction implements UI_Menu {
 
     @Override

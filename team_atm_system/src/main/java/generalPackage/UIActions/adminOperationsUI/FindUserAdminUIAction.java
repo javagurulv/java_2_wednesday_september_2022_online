@@ -3,16 +3,17 @@ package generalPackage.UIActions.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
 import generalPackage.core.responses.adminResponses.FindByIDAccountResponse;
 import generalPackage.core.services.adminOperations.FindUserByIDService;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class FindUserAdminUIAction implements AdminUIactions {
 
-@DIDependency
+@Autowired
 private FindUserByIDService findUserByIDService;
+
 
     @Override
     public void execute() {

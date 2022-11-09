@@ -6,17 +6,17 @@ import generalPackage.core.requests.adminRequests.SearchAccountsServiceRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.SearchAccountsServiceResponse;
 import generalPackage.core.services.adminOperations.adminValidators.SearchAccountsServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class SearchAccountsService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private SearchAccountsServiceValidator validator;
 
 

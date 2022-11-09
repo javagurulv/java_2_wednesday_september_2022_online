@@ -7,18 +7,18 @@ import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.AddAccountResponse;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.services.adminOperations.adminValidators.AddAccountServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
-@DIComponent
+@Component
 public class AddAccountService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private AddAccountServiceValidator validator;
 
 

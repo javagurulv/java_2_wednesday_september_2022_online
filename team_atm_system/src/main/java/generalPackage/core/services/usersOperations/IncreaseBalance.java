@@ -5,17 +5,17 @@ import generalPackage.core.requests.usersRequests.IncreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
 import generalPackage.core.responses.usersResponses.IncreaseBalanceResponse;
 import generalPackage.core.services.usersOperations.usersValidators.IncreaseBalanceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class IncreaseBalance {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private IncreaseBalanceValidator validator;
 
 

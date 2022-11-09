@@ -3,15 +3,15 @@ package generalPackage.UIActions.usersOperationsUI;
 import generalPackage.core.requests.usersRequests.DecreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.DecreaseBalanceResponse;
 import generalPackage.core.services.usersOperations.DecreaseBalance;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class DecreaseBalanceServiceUIAction implements UI_Menu {
 
-@DIDependency
+@Autowired
 private DecreaseBalance decreaseBalance;
 
 

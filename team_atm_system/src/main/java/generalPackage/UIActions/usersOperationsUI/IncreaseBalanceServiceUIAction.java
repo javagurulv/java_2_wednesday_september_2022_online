@@ -3,16 +3,17 @@ package generalPackage.UIActions.usersOperationsUI;
 import generalPackage.core.requests.usersRequests.IncreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.IncreaseBalanceResponse;
 import generalPackage.core.services.usersOperations.IncreaseBalance;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class IncreaseBalanceServiceUIAction implements UI_Menu {
 
-    @DIDependency
+    @Autowired
     private IncreaseBalance increaseBalance;
+
 
     @Override
     public void execute() {

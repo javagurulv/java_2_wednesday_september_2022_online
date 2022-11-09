@@ -1,8 +1,8 @@
 package generalPackage.UIActions.adminOperationsUI;
 
-import generalPackage.dependencyInjection.DIComponent;
+import org.springframework.stereotype.Component;
 
-@DIComponent
+@Component
 public class ExitAdminUIAction implements AdminUIactions {
 
 

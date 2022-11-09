@@ -8,19 +8,19 @@ import generalPackage.core.requests.adminRequests.Ordering;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.GetAllAccountsResponse;
 import generalPackage.core.services.adminOperations.adminValidators.GetAllAccountsServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class GetAllAccountsService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private GetAllAccountsServiceValidator validator;
 
 
