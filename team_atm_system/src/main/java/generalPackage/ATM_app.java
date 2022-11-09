@@ -13,10 +13,6 @@ import java.util.Scanner;
 
 public class ATM_app {
 
-//    private static Database database = new AccountDatabaseImpl();
-//    private static ApplicationContext applicationContext =
-//            new DIApplicationContextBuilder().build("generalPackage");
-
 private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AtmAppConfiguration.class);
 
     public static void main(String[] args) {
