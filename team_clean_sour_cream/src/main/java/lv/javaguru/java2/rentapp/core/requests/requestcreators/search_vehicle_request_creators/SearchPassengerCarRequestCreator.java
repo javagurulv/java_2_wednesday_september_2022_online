@@ -168,7 +168,7 @@ public class SearchPassengerCarRequestCreator implements SearchVehicleRequestCre
                                              searchVehicleRequestBuilder, List<String> criteria) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter transmission type " + TransmissionType.getAllEnumValues() + " : ");
+        System.out.println("Enter transmission type " + TransmissionType.getAllEnumValuesExceptNone() + " : ");
         String transmissionType = scanner.nextLine();
         searchVehicleRequestBuilder.transmissionType(transmissionType);
         criteria.remove("Transmission type");

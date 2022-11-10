@@ -99,7 +99,7 @@ public class VehicleAvailabilityServiceValidator {
 
     private Optional<CoreError> validateEndDateIsPresent(GeneralRentVehicleRequest request) {
         return (request.getRentEndDate() == null || request.getRentEndDate().isBlank())
-                ? Optional.of(new CoreError("End date", "can't be empty"))
+                ? Optional.of(new CoreError("End date", "can't be empty or not present"))
                 : Optional.empty();
     }
 
