@@ -52,7 +52,7 @@ public class GeneralRentVehicleRequestCreator {
         System.out.println("Please enter ID of the vehicle you want to rent: ");
         Long vehicleId = Long.parseLong(scanner.nextLine());
         System.out.println("Please enter your personal ID (in format \"______-_____\": ");
-        String personalId = scanner.nextLine();
+        String personalId = scanner.nextLine().replaceAll("[\s]", "");
         System.out.println("Please enter your first name: ");
         String firstName = scanner.nextLine();
         System.out.println("Please enter your last name: ");

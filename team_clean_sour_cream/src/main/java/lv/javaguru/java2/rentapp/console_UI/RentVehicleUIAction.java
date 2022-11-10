@@ -62,14 +62,16 @@ public class RentVehicleUIAction implements UIAction {
             rentVehicleResponse = rentVehicleService.execute(rentVehicleRequest);
         }
 
-        if (rentVehicleResponse != null && rentVehicleResponse.hasErrors()) {
+        assert rentVehicleResponse != null;
+        if (rentVehicleResponse.hasErrors()) {
             rentVehicleResponse.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
-        } else if (rentVehicleResponse != null) {
+        } else if (rentVehicleResponse.getNewRentDeal() != null) {
             System.out.println();
+            System.out.println("Your rent deal is saved with Nr. " + rentVehicleResponse.getNewRentDeal().getId());
+        } else{
             System.out.println(rentVehicleResponse.getMessage());
         }
-
     }
 
     private void selectPageMenu(GeneralRentVehicleRequest request, List<Vehicle> foundVehicles) {

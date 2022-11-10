@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class RentDeal {
 
     private Long id;
