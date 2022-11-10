@@ -12,7 +12,8 @@ public class ShowAllVehiclesResponse extends CoreResponse {
 
     private String msg;
 
-    public ShowAllVehiclesResponse(List<Vehicle> vehicles) {
+    public ShowAllVehiclesResponse(List<Vehicle> vehicles, List<CoreError> errors) {
+        super(errors);
         this.vehicles = vehicles;
     }
 
