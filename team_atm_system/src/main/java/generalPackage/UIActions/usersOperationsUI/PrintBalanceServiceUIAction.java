@@ -3,17 +3,18 @@ package generalPackage.UIActions.usersOperationsUI;
 import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.PrintBalanceResponse;
 import generalPackage.core.services.usersOperations.PrintBalance;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 
-@DIComponent
+@Component
 public class PrintBalanceServiceUIAction implements UI_Menu {
 
-@DIDependency
+@Autowired
 private PrintBalance printBalance;
+
 
     @Override
     public void execute() {

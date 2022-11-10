@@ -2,14 +2,14 @@ package generalPackage.core.services.adminOperations.adminValidators;
 
 import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
-import generalPackage.dependencyInjection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
-@DIComponent
+@Component
 public class DeleteAccountServiceValidator {
 
     public List<CoreError> validate(DeleteAccountRequest request) {

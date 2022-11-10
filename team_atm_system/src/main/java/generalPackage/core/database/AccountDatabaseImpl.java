@@ -1,14 +1,14 @@
 package generalPackage.core.database;
 
 import generalPackage.Accounts;
-import generalPackage.dependencyInjection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class AccountDatabaseImpl implements Database {
 
     private List<Accounts> accounts = new ArrayList<>();

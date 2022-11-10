@@ -3,15 +3,15 @@ package generalPackage.UIActions.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
 import generalPackage.core.responses.adminResponses.DeleteAccountResponse;
 import generalPackage.core.services.adminOperations.DeleteAccountService;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class DeleteAccountAdminUIAction implements AdminUIactions {
 
-    @DIDependency
+    @Autowired
     private DeleteAccountService deleteAccountService;
 
     @Override

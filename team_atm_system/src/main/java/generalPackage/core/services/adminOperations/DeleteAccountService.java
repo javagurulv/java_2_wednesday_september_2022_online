@@ -5,27 +5,21 @@ import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.DeleteAccountResponse;
 import generalPackage.core.services.adminOperations.adminValidators.DeleteAccountServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
 
-@DIComponent
+@Component
 public class DeleteAccountService {
 
-    @DIDependency
+    @Autowired
     private Database database;
-    @DIDependency
+    @Autowired
     private DeleteAccountServiceValidator validator;
 
-
-
-//    public DeleteAccountService(Database database, DeleteAccountServiceValidator validator) {
-//        this.database = database;
-//        this.validator = validator;
-//    }
 
     public DeleteAccountResponse execute(DeleteAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

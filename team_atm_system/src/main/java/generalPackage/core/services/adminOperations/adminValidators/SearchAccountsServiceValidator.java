@@ -2,13 +2,13 @@ package generalPackage.core.services.adminOperations.adminValidators;
 
 import generalPackage.core.requests.adminRequests.SearchAccountsServiceRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
-import generalPackage.dependencyInjection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class SearchAccountsServiceValidator {
 
     public List<CoreError> validate(SearchAccountsServiceRequest request) {
