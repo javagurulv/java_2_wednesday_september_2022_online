@@ -10,6 +10,9 @@ public class User {
     private String email;
     private boolean sendReminders;
 
+    public User() {
+
+    }
     public User(String username, String password, String email, boolean sendReminders) {
         this.username = username;
         this.password = password;
@@ -58,8 +61,10 @@ public class User {
     }
 
     public boolean isSendReminders() {
-        return sendReminders;
+        return this.sendReminders;
     }
+
+    public boolean getSendReminders() {return this.sendReminders; }
 
     public void setSendReminders(boolean sendReminders) {
         this.sendReminders = sendReminders;

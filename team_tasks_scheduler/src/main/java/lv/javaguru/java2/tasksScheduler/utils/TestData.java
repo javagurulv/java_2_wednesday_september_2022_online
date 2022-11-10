@@ -52,6 +52,7 @@ public class TestData {
         UserRegistrationRequest request = new UserRegistrationRequest("1111","1111",
                 "a@b.c", false);
         UserRegistrationResponse response = userService.execute(request);
+        checkResponseForErrors(response);
 
         request = new UserRegistrationRequest("2222","2222",
                 "t@t.t", false);
@@ -200,6 +201,16 @@ public class TestData {
 
     }
     private boolean checkResponseForErrors(AddTaskResponse response) {
+        if (response.hasErrors()) {
+            response.getErrors().forEach(coreError ->
+                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+            );
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkResponseForErrors(UserRegistrationResponse response) {
         if (response.hasErrors()) {
             response.getErrors().forEach(coreError ->
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class TasksCleanupService implements Runnable{
+public class TasksCleanupJob implements Runnable{
     @Autowired
     TasksCleanupRunService tasksCleanupRunService;
     @Override

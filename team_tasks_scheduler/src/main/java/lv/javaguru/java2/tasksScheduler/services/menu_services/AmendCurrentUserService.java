@@ -19,8 +19,7 @@ import java.util.List;
 @Component
 public class AmendCurrentUserService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+    @Autowired private UsersRepository usersRepository;
     @Autowired private SessionService sessionService;
     @Autowired private UserAmendValidator validator;
 

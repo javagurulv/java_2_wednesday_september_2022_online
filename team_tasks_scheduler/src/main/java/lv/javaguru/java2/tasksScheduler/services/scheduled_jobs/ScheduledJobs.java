@@ -11,7 +11,7 @@ public class ScheduledJobs {
     private CronTrigger cronTrigger;
 
     @Autowired
-    TasksCleanupService tasksCleanupService;
+    TasksCleanupJob tasksCleanupService;
 
     @Autowired
     public ScheduledJobs() {

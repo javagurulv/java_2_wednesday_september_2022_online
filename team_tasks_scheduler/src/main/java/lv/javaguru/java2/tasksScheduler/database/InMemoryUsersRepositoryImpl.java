@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-@Component
+//@Component
 public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     private Long nextId = 1L;

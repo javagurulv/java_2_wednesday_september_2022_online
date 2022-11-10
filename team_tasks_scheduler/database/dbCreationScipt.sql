@@ -9,26 +9,31 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
+CREATE USER IF NOT EXISTS 'user666'@'localhost' IDENTIFIED BY 'password123';
+GRANT CREATE, ALTER, INSERT, UPDATE, DELETE, SELECT ON java2_task_scheduler.* TO 'user666'@'localhost';
+
+
 CREATE TABLE IF NOT EXISTS `users` (
-    `user_id`  BIGINT NOT NULL AUTO_INCREMENT,
+    `id`  BIGINT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(100) NOT NULL,
     `user_password`  VARCHAR(32) NOT NULL,
     `email` VARCHAR(200) NOT NULL,
     `send_reminder` BOOLEAN NOT NULL,
-    PRIMARY KEY (`user_id`)
+    PRIMARY KEY (`id`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
 
 CREATE TABLE IF NOT EXISTS `tasks` (
-    `task_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
     `task_description` VARCHAR(200) NOT NULL,
     `regularity` INTEGER NOT NULL,
     `Due_date` DATETIME NOT NULL,
     `End_date` DATETIME NOT NULL,
     `user_id` BIGINT NOT NULL,
-    PRIMARY KEY (`task_id`),
-    FOREIGN KEY (`user_id`) REFERENCES users(`user_id`)
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES users(`id`)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;
