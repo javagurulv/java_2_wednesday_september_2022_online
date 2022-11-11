@@ -14,7 +14,7 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
-@Component
+//@Component
 public class InMemoryTasksRepositoryImpl implements TasksRepository {
 
     private Long nextId = 1L;

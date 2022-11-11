@@ -35,7 +35,15 @@ public class JdbcDatabaseImpl implements UsersRepository {
 
     @Override
     public boolean update(User user) {
-        return false;
+        int result;
+        String sql =    "UPDATE users " +
+                        "SET username = ?, user_password = ?, email = ?, send_reminder = ? " +
+                        "WHERE id = ?";
+        Object[] args = new Object[] {user.getUsername(), user.getPassword(),
+                                user.getEmail(), user.getSendReminders(), user.getId()};
+        result = jdbcTemplate.update(sql, args);
+
+        return result == 1;
     }
 
     @Override
