@@ -42,10 +42,10 @@ public class RentVehicleService {
             Vehicle vehicle = vehicleOpt.get();
             RentDeal rentDeal = new RentDeal(client, vehicle, startDate, endDate);
             dealDatabase.save(rentDeal);
-            return new RentVehicleResponse("Your rent deal nr. " + rentDeal.getId() + " is accepted");
-
+            return new RentVehicleResponse(rentDeal);
         }
-        return new RentVehicleResponse("Will be List of core errors after validations");
+
+        return new RentVehicleResponse("Vehicle not found in database");
     }
 
     private Client getClient(GeneralRentVehicleRequest request) {
