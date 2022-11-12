@@ -3,7 +3,6 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
-import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.VehicleAvailabilityServiceValidator;
