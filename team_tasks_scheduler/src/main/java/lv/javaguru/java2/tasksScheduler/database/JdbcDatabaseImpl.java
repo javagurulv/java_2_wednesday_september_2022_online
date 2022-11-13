@@ -36,6 +36,10 @@ public class JdbcDatabaseImpl implements UsersRepository {
     @Override
     public boolean update(User user) {
         int result;
+
+        if (user == null) {
+            return false;
+        }
         String sql =    "UPDATE users " +
                         "SET username = ?, user_password = ?, email = ?, send_reminder = ? " +
                         "WHERE id = ?";
@@ -61,7 +65,7 @@ public class JdbcDatabaseImpl implements UsersRepository {
         Object[] args = new Object[] {id};
         List<User> users = jdbcTemplate.query(sql, new UserRowMapper(), args);
 
-        return users.get(0);
+        return users.stream().findAny().orElse(null);
     }
 
     @Override

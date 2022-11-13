@@ -125,7 +125,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
         return false;
     }
 
-    public List<Task> searchTaskByDescription(String description) {
+    public List<Task> searchTaskByDescription(String description, Long userId) {
         List<Task> taskList = new ArrayList<>();
         String dscrptn;
         for (Task tsk : tasks) {
@@ -140,7 +140,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public List<Task> searchTaskByDate(LocalDateTime date) {
+    public List<Task> searchTaskByDate(LocalDateTime date, Long userId) {
         List<Task> tasksList = new ArrayList<>();
 
         for (Task tsk : tasks) {

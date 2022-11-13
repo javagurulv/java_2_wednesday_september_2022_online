@@ -24,8 +24,8 @@ public interface TasksRepository {
 
     List<Task> getAllTasksReadyForDueDateUpdate(Long userId);
 
-    List<Task> searchTaskByDescription(String description);
-    List<Task> searchTaskByDate(LocalDateTime date);
+    List<Task> searchTaskByDescription(String description, Long userId);
+    List<Task> searchTaskByDate(LocalDateTime date, Long userId);
     List<Task> searchTaskByDateRange(LocalDateTime start, LocalDateTime end, SearchDateType type);
 
     List<Task> searchTasks(String searchPhrase, Long userID);
