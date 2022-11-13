@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="eBooking project">
+  <meta name="author" content="JavaGuru">
+  <title>Appointment eBooking</title>
+</head>
+
+<body>
+
+<h3>Show all registered clients</h3>
+
+<table>
+  <tr>
+    <td>Email:</td>
+    <td>Telephone number:</td>
+  </tr>
+
+  <td th:if="${clients != null}">
+    <tr th:each="client : ${clients}">
+      <td th:text="${clients.clientEmail}" />
+      <td th:text="${clients.clientPhoneNumber}" />
+    </tr>
+  </td>
+
+</table>
+
+<form action="/" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
+
+</body>
+
+</html>
