@@ -11,7 +11,6 @@ public class WebBookingAppointmentApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringWebConfiguration.class);
-
         ProgramMenu programMenu = context.getBean(ProgramMenu.class);
 
         while (true) {

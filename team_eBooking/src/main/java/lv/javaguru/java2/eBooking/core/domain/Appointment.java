@@ -1,61 +1,44 @@
 package lv.javaguru.java2.eBooking.core.domain;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Appointment {
+@Data
+@Entity(name = "appointments")
 
+public class Appointment {
+    @Id
+
+    @SequenceGenerator(
+            name = "appointment_sequence",
+            sequenceName = "appointment_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "appointment_sequence"
+    )
+
+    @Column (
+            name = "id",
+            nullable = false
+    )
     private Long id;
+    @Column (
+            name = "master_name",
+            nullable = false
+    )
     private String masterName;
+    @Column (
+            name = "service_type",
+            nullable = false
+    )
     private String typeOfService;
 
     public Appointment(String masterName, String typeOfService) {
         this.masterName=masterName;
         this.typeOfService = typeOfService;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMasterName() {
-        return masterName;
-    }
-
-    public void setMasterName(String masterName) {
-        this.masterName = masterName;
-    }
-
-    public String getTypeOfService() {
-        return typeOfService;
-    }
-
-    public void setTypeOfService(String typeOfService) {
-        this.typeOfService = typeOfService;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Appointment that = (Appointment) o;
-        return id.equals(that.id) && masterName.equals(that.masterName) && typeOfService.equals(that.typeOfService);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, masterName, typeOfService);
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", masterName='" + masterName + '\'' +
-                ", typeOfService='" + typeOfService + '\'' +
-                '}';
     }
 }
