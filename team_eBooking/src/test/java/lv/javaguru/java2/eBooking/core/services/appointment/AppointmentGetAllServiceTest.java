@@ -1,10 +1,9 @@
 package lv.javaguru.java2.eBooking.core.services.appointment;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentGetAllRequest;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentGetAllResponse;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,7 +19,7 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.class)
 public class AppointmentGetAllServiceTest {
 
-    @Mock private Database database;
+    @Mock private ClientRepository clientRepository;
     @InjectMocks
     private AppointmentGetAllService service;
 
@@ -28,7 +27,7 @@ public class AppointmentGetAllServiceTest {
     public void shouldGetAListOfAppointmentsFromDatabase(){
         List<Appointment> appointmentList = new ArrayList<>();
         appointmentList.add(new Appointment("Master name", "Type of service"));
-        Mockito.when(database.getAllAppointments()).thenReturn(appointmentList);
+        Mockito.when(clientRepository.getAllAppointments()).thenReturn(appointmentList);
         AppointmentGetAllRequest request = new AppointmentGetAllRequest();
         AppointmentGetAllResponse response = service.execute(request);
 

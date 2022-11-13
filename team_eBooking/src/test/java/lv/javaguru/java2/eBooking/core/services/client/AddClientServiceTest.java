@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientAddResponse;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class AddClientServiceTest {
 
     @Mock
-    private Database database;
+    private ClientRepository clientRepository;
     @Mock
     private ClientAddValidator validator;
     @InjectMocks
@@ -50,7 +50,7 @@ public class AddClientServiceTest {
                         ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY)));
         ClientAddResponse response = service.execute(request);
         assertEquals(response.getErrors().size(), 2);
-        Mockito.verifyNoInteractions(database);
+        Mockito.verifyNoInteractions(clientRepository);
     }
 
     @Test

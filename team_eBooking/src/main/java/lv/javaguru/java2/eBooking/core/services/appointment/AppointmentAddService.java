@@ -1,7 +1,7 @@
 package lv.javaguru.java2.eBooking.core.services.appointment;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentAddResponse;
@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class AppointmentAddService {
     @Autowired
-    private Database database;
+    private ClientRepository clientRepository;
     @Autowired
     private AppointmentAddValidator validator;
 
@@ -25,7 +25,7 @@ public class AppointmentAddService {
         }
         Appointment newAppointment = new Appointment(request.getMasterName(),
                 request.getTypeOfService());
-        database.saveAppointment(newAppointment);
+        clientRepository.saveAppointment(newAppointment);
         return new AppointmentAddResponse(newAppointment);
     }
 }

@@ -1,7 +1,7 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientAddResponse;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ClientAddService {
 
     @Autowired
-    Database database;
+    ClientRepository clientRepository;
     @Autowired
     private ClientAddValidator validator;
 
@@ -25,7 +25,7 @@ public class ClientAddService {
         }
         Client client = new Client(request.getClientEmail(), request.getClientPhoneNumber());
 
-        database.saveClient(client);
+        clientRepository.saveClient(client);
         return new ClientAddResponse(client);
     }
 }

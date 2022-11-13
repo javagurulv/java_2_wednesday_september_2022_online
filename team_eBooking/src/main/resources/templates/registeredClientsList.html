@@ -21,8 +21,8 @@
 
   <td th:if="${clients != null}">
     <tr th:each="client : ${clients}">
-      <td th:text="${clients.clientEmail}" />
-      <td th:text="${clients.clientPhoneNumber}" />
+      <td th:text="${client.clientEmail}" />
+      <td th:text="${client.clientPhoneNumber}" />
     </tr>
   </td>
 
