@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Component
-public class TasksCleanupRunService {
+public class TasksCleanupService {
 
     @Value("${logs.job.tasks.cleanup.create}")
     private boolean createLog;

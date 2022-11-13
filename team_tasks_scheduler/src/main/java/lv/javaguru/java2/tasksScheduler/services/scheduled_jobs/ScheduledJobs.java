@@ -24,7 +24,7 @@ public class ScheduledJobs {
     }
     private ThreadPoolTaskScheduler threadPoolTaskScheduler(){
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
-        threadPoolTaskScheduler.setPoolSize(5);
+        threadPoolTaskScheduler.setPoolSize(3);
         threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
         threadPoolTaskScheduler.initialize();
         return threadPoolTaskScheduler;

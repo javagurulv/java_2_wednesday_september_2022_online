@@ -10,6 +10,7 @@ import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.responses.GetUsersResponse;
+//import lv.javaguru.java2.tasksScheduler.services.validators.GetUsersValidator;
 import lv.javaguru.java2.tasksScheduler.services.validators.GetUsersValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

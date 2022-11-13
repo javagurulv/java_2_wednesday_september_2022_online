@@ -28,39 +28,39 @@ public class AmendSettingsValidator {
     private Optional<CoreError> validateAdminPassword(AmendSettingsRequest request) {
         return (ValueChecking.stringIsEmpty(request.getAdminPassword()) ||
                 request.getAdminPassword().length() < 3)
-                ? Optional.of(new CoreError("Administrator password", "Must be > 3 characters"))
+                ? Optional.of(new CoreError("Administrator password", "Must be > 3 characters!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateEmailFrom(AmendSettingsRequest request) {
         return (ValueChecking.stringIsEmpty(request.getEmailFrom()) ||
                 !request.getEmailFrom().contains("@"))
-                ? Optional.of(new CoreError("Email from", "Must be provided and contain char '@'"))
+                ? Optional.of(new CoreError("Email from", "Must be provided and contain char '@'!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateEmailPassword(AmendSettingsRequest request) {
         return (ValueChecking.stringIsEmpty(request.getEmailPassword()))
-                ? Optional.of(new CoreError("Email password", "Must be provided"))
+                ? Optional.of(new CoreError("Email password", "Must be provided!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateEmailHost(AmendSettingsRequest request) {
         return (ValueChecking.stringIsEmpty(request.getEmailHost()))
-                ? Optional.of(new CoreError("Email host", "Must be provided"))
+                ? Optional.of(new CoreError("Email host", "Must be provided!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateEmailPort(AmendSettingsRequest request) {
         return (ValueChecking.stringIsEmpty(request.getEmailPort()) ||
                 !ValueChecking.stringIsInteger(request.getEmailPort()))
-                ? Optional.of(new CoreError("Email port", "Must be provided and be an integer"))
+                ? Optional.of(new CoreError("Email port", "Must be provided and be an integer!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateEmailProtocol(AmendSettingsRequest request) {
         return (ValueChecking.stringIsEmpty(request.getEmailProtocol()))
-                ? Optional.of(new CoreError("Email protocol", "Must be provided"))
+                ? Optional.of(new CoreError("Email protocol", "Must be provided!"))
                 : Optional.empty();
     }
 }
