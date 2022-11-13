@@ -33,7 +33,7 @@ public class CreateLogsService {
         String path = (logDirectoryPath.charAt(logDirectoryPath.length() - 1) == '/') ?
                 logDirectoryPath : logDirectoryPath + "/";
         path += "log_" + LocalDateTime.now().getYear() +
-                "_" + LocalDateTime.now().getMonth().getValue() + ".log";
+                "_" + LocalDateTime.now().getMonth().getValue() + ".txt";
         return path;
     }
 

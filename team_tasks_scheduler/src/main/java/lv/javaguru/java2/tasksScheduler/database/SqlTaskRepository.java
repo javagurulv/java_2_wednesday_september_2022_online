@@ -60,7 +60,7 @@ public class SqlTaskRepository implements TasksRepository{
     }
 
     @Override
-    public List<Task> getAllTasksReadyForDueDateUpdate() {
+    public List<Task> getAllTasksReadyForDueDateUpdate(Long userId) {
         return null;
     }
 

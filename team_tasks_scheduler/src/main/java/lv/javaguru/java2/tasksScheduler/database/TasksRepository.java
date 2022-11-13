@@ -22,7 +22,7 @@ public interface TasksRepository {
 
     List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate);
 
-    List<Task> getAllTasksReadyForDueDateUpdate();
+    List<Task> getAllTasksReadyForDueDateUpdate(Long userId);
 
     List<Task> searchTaskByDescription(String description);
     List<Task> searchTaskByDate(LocalDateTime date);

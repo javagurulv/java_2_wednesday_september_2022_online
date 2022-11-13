@@ -40,7 +40,7 @@ public class DueDatesUpdateService {
     }
 
     private int updateDates() {
-        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate();
+        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate(null);
         if (tasks == null) {
             return 0;
         }

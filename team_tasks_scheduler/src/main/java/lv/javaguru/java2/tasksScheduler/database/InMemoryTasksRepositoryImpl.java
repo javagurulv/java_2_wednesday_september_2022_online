@@ -95,13 +95,23 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public List<Task> getAllTasksReadyForDueDateUpdate() {
-        return tasks.stream()
-                .filter(task -> task.getRegularity() > 0 &&
-                        task.getEndDate().isAfter(LocalDateTime.now().with(LocalTime.MIN)) &&
-                        task.getDueDate().isBefore(LocalDateTime.now().with(LocalTime.MIN)))
-                .sorted(Comparator.comparing(Task::getRegularity))
-                .collect(toList());
+    public List<Task> getAllTasksReadyForDueDateUpdate(Long userId) {
+        if (userId != null) {
+            return tasks.stream()
+                    .filter(task -> task.getUserId().equals(userId) &&
+                            task.getRegularity() > 0 &&
+                            task.getEndDate().isAfter(LocalDateTime.now().with(LocalTime.MIN)) &&
+                            task.getDueDate().isBefore(LocalDateTime.now().with(LocalTime.MIN)))
+                    .sorted(Comparator.comparing(Task::getRegularity))
+                    .collect(toList());
+        } else {
+            return tasks.stream()
+                    .filter(task -> task.getRegularity() > 0 &&
+                            task.getEndDate().isAfter(LocalDateTime.now().with(LocalTime.MIN)) &&
+                            task.getDueDate().isBefore(LocalDateTime.now().with(LocalTime.MIN)))
+                    .sorted(Comparator.comparing(Task::getRegularity))
+                    .collect(toList());
+        }
     }
 
     private boolean duplicateTasks(Task task1, Task task2) {
