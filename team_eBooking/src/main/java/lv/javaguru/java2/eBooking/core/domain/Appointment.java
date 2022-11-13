@@ -3,7 +3,6 @@ package lv.javaguru.java2.eBooking.core.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Data
 @Entity(name = "appointments")
