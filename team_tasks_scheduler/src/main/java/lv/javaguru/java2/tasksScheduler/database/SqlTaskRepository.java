@@ -1,14 +1,12 @@
 package lv.javaguru.java2.tasksScheduler.database;
 
 import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.enums.SearchDateType;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -133,7 +131,25 @@ public class SqlTaskRepository implements TasksRepository{
 
     @Override
     public List<Task> getAllTasksReadyForDueDateUpdate(Long userId) {
-        return null;
+        String sql;
+        Object[] args;
+        List<Task> tasks;
+
+        if (userId != null) {
+            //MySQL TIMESTAMP(CURDATE()) is returning [DATE+00:00:00]
+            sql = "SELECT * FROM tasks WHERE user_id = ? AND (regularity > 0 AND " +
+                    " end_date > TIMESTAMP(CURDATE()) AND due_date < TIMESTAMP(CURDATE())) " +
+                    " ORDER BY regularity";
+            args = new Object[]{userId};
+            tasks = jdbcTemplate.query(sql, new TaskRowMapper(), args);
+            return tasks;
+        } else {
+            sql = "SELECT * FROM tasks WHERE regularity > 0 AND end_date > TIMESTAMP(CURDATE()) " +
+                    " AND due_date < TIMESTAMP(CURDATE()) " +
+                    " ORDER BY regularity ";
+            tasks = jdbcTemplate.query(sql, new TaskRowMapper());
+            return tasks;
+        }
     }
 
     @Override
@@ -157,7 +173,7 @@ public class SqlTaskRepository implements TasksRepository{
     public List<Task> searchTasks(String searchPhrase, Long userId) {
         String sql = "SELECT * FROM tasks " +
         "WHERE user_id = ? AND (task_description LIKE ? OR " +
-                " due_date LIKE ? OR end_date LIKE ?) ";
+                " CONVERT(due_date, CHAR) LIKE ? OR CONVERT(end_date, CHAR) LIKE ?) ";
         Object[] args = new Object[] {userId, "%"+searchPhrase+"%", "%"+searchPhrase+"%",
                                     "%"+searchPhrase+"%"}; //adding wildcard to SQL query. for LIKE
         return jdbcTemplate.query(sql, new TaskRowMapper(), args);
@@ -172,10 +188,10 @@ public class SqlTaskRepository implements TasksRepository{
                                              31,23,59,59);
             return pEndDate;
         }
-        else if (dateTime.isBefore(LocalDateTime.of(1000,01,
-                                        01,00,00,00))) {
-            pEndDate = LocalDateTime.of(1000,01,
-                                            01,00,00,00);
+        else if (dateTime.isBefore(LocalDateTime.of(1000,1,
+                                        1,0,0,0))) {
+            pEndDate = LocalDateTime.of(1000,1,
+                                            1,0,0,0);
             return pEndDate;
         }
         return dateTime;
