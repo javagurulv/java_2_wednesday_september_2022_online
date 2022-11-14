@@ -11,14 +11,17 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Entity
 @Table(name = "ingredients")
+@SecondaryTable(name = "recipes_to_ingredients")
 public class Ingredient {
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "ingredient")
+    @Column(name = "ingredient", nullable = false)
     private String name;
+    @Column(name = "measurement", table = "recipes_to_ingredients")
     private String measurement;
+    @Column(name = "amount", nullable = false, table = "recipes_to_ingredients")
     private Double amount;
 
 

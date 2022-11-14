@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS cooking_steps (
   id BIGINT NOT NULL AUTO_INCREMENT,
   recipe_id BIGINT NOT NULL,
   step_order INTEGER NOT NULL,
-  instruction TEXT(1000) NOT NULL,
+  instruction VARCHAR(1000) NOT NULL,
   FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
   PRIMARY KEY (id)
 )

@@ -15,7 +15,7 @@ public class CookingStep {
 
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "step_order", nullable = false)
     private int stepOrder;
