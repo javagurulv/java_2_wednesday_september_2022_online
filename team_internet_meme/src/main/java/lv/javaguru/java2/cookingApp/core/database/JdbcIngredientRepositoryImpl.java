@@ -5,7 +5,6 @@ import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,5 +48,10 @@ public class JdbcIngredientRepositoryImpl implements IngredientRepository {
                 "FROM ingredients INNER JOIN recipes_to_ingredients ON ingredients.id = ingredient_id " +
                 "WHERE recipe_id = " + recipeId;
         return jdbcTemplate.query(sql1, new IngredientsRowMapper());
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return jdbcTemplate.update("DELETE FROM ingredients WHERE id = " + id) == 1;
     }
 }

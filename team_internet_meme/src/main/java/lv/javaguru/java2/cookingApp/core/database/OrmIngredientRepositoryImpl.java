@@ -7,11 +7,8 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.math.BigInteger;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class OrmIngredientRepositoryImpl implements IngredientRepository {
@@ -30,9 +27,7 @@ public class OrmIngredientRepositoryImpl implements IngredientRepository {
                 NativeQuery insertIntoIngredients = session.createNativeQuery("INSERT INTO ingredients(ingredient) VALUES (?)");
                 insertIntoIngredients.setParameter(1, ingredient.getName()).executeUpdate();
 
-                BigInteger ingredientId = (BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()")
-                        .uniqueResult();
-
+                BigInteger ingredientId = (BigInteger) session.createSQLQuery("SELECT LAST_INSERT_ID()").uniqueResult();
 
                 NativeQuery insertIntoRecipesToIngredients = session.createNativeQuery("INSERT INTO recipes_to_ingredients (recipe_id, ingredient_id, amount, measurement) VALUES (?, ?, ?, ?)");
                 insertIntoRecipesToIngredients.setParameter(1, recipeId);
@@ -56,5 +51,10 @@ public class OrmIngredientRepositoryImpl implements IngredientRepository {
     @Override
     public List<Ingredient> getIngredientsByRecipeId(Long id) {
         return sessionFactory.getCurrentSession().createQuery("Select i FROM Ingredient i where recipe_id = " + id, Ingredient.class).getResultList();
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return sessionFactory.getCurrentSession().createQuery("DELETE Ingredient WHERE id = " + id).executeUpdate() == 1;
     }
 }

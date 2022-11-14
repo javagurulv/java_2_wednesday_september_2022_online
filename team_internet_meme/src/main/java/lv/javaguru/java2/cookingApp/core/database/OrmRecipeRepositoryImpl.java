@@ -1,14 +1,12 @@
 package lv.javaguru.java2.cookingApp.core.database;
 
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.query.Query;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +22,7 @@ public class OrmRecipeRepositoryImpl implements RecipeRepository {
 
     @Override
     public boolean deleteById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("delete Recipe where id = :id");
-        query.setParameter("id", id);
-        int result = query.executeUpdate();
-        return result == 1;
+        return sessionFactory.getCurrentSession().createQuery("delete Recipe where id = :id").executeUpdate() == 1;
     }
 
     @Override
@@ -41,11 +36,19 @@ public class OrmRecipeRepositoryImpl implements RecipeRepository {
     }
 
     @Override
-    public List searchByIngredients(List<String> ingredients) {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Recipe.class);
-        for (String ingredient : ingredients) {
-            criteria.add(Restrictions.like("ingredient", ingredient));
+    public List<Recipe> searchByIngredients(List<String> ingredients) {
+        String inSql = String.join(",", Collections.nCopies(ingredients.size(), "?"));
+        String sql = "SELECT * FROM recipes " +
+                "INNER JOIN recipes_to_ingredients ON recipes.id = recipes_to_ingredients.recipe_id " +
+                "INNER JOIN ingredients ON ingredients.id = recipes_to_ingredients.ingredient_id " +
+                "WHERE ingredient IN (%s) " +
+                "GROUP BY dishName " +
+                "HAVING COUNT(ingredient) = " + ingredients.size();
+
+        NativeQuery<Recipe> query = sessionFactory.getCurrentSession().createNativeQuery(String.format(sql, inSql), Recipe.class);
+        for (int i = 0; i < ingredients.size(); i++) {
+            query.setParameter(i + 1, ingredients.get(i));
         }
-        return criteria.list();
+        return query.getResultList();
     }
 }
