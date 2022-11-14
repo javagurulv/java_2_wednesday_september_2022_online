@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
+//@Component
 public class JdbcRecipeRepositoryImpl implements RecipeRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;

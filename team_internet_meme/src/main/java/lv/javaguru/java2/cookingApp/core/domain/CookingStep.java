@@ -21,6 +21,9 @@ public class CookingStep {
     private int stepOrder;
     @Column(name = "instruction", nullable = false)
     private String stepDescription;
+    @OneToOne
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
 
     public CookingStep() {
     }
