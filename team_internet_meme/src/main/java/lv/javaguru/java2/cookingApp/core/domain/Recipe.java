@@ -4,14 +4,24 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @EqualsAndHashCode
+@Entity
+@Table(name = "recipes")
 public class Recipe {
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "dishName", nullable = false)
     private String dishName;
+
+    public Recipe() {
+    }
 
     public Recipe(String dishName) {
         this.dishName = dishName;
