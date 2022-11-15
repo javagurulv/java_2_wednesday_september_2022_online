@@ -5,15 +5,13 @@ import lv.javaguru.java2.cookingApp.core.domain.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
+//@Component
 public class JdbcRecipeRepositoryImpl implements RecipeRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;
-    @Autowired private RecipeRowMapper recipeRowMapper;
 
     @Override
     public Long save(Recipe recipe) {
@@ -36,14 +34,14 @@ public class JdbcRecipeRepositoryImpl implements RecipeRepository {
     @Override
     public Optional<Recipe> getById(Long id) {
         String sql = "SELECT * FROM recipes WHERE id = ?";
-        List<Recipe> recipe = jdbcTemplate.query(sql, recipeRowMapper, id);
+        List<Recipe> recipe = jdbcTemplate.query(sql, new RecipeRowMapper(), id);
         return recipe.stream().findFirst();
     }
 
     @Override
     public List<Recipe> getAllRecipes() {
         String sql = "SELECT * FROM recipes";
-        return jdbcTemplate.query(sql, recipeRowMapper);
+        return jdbcTemplate.query(sql, new RecipeRowMapper());
     }
 
     @Override
@@ -55,7 +53,7 @@ public class JdbcRecipeRepositoryImpl implements RecipeRepository {
                 "WHERE ingredient IN (%s) " +
                 "GROUP BY dishName " +
                 "HAVING COUNT(ingredient) = " + ingredients.size();
-        return jdbcTemplate.query(String.format(sql, inSql), recipeRowMapper, ingredients.toArray());
+        return jdbcTemplate.query(String.format(sql, inSql), new RecipeRowMapper(), ingredients.toArray());
     }
 
 }

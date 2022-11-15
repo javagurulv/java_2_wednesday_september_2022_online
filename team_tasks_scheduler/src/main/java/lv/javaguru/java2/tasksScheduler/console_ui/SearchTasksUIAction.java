@@ -30,8 +30,12 @@ public class SearchTasksUIAction implements UIAction {
         String orderDirection = scanner.nextLine();
         Ordering ordering = new Ordering(orderBy, orderDirection);
         System.out.println("Enter page size: ");
-        Integer pageSize = Integer.parseInt(scanner.nextLine());
-
+        Integer pageSize;
+        try {
+            pageSize = Integer.parseInt(scanner.nextLine());
+        } catch (RuntimeException e) {
+            pageSize = 10; //default size
+        }
         //at first request we get found task count and check for request errors
         SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering);
         SearchTasksResponse response = searchTasksService.execute(request);

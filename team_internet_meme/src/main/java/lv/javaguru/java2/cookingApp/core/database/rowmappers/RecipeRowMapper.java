@@ -9,11 +9,8 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Component
-public class RecipeRowMapper implements RowMapper<Recipe> {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+public class RecipeRowMapper implements RowMapper<Recipe> {
 
     @Override
     public Recipe mapRow(ResultSet rs, int rowNum) throws SQLException {
