@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS vehicle_type
 (
     `id`   TINYINT      NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
-    UNIQUE KEY (`name`),
+    UNIQUE INDEX (`name`),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS colour
 (
     `id`   TINYINT      NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
-    UNIQUE KEY (`name`),
+    UNIQUE INDEX (`name`),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS engine_type
 (
     `id`   TINYINT      NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
-    UNIQUE KEY (`name`),
+    UNIQUE INDEX (`name`),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS transmission_type
 (
     `id`   TINYINT      NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(100) NOT NULL,
-    UNIQUE KEY (`name`),
+    UNIQUE INDEX (`name`),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS vehicle
     FOREIGN KEY (`colour_id`) REFERENCES colour (`id`),
     FOREIGN KEY (`engine_type_id`) REFERENCES engine_type (`id`),
     FOREIGN KEY (`transmission_type_id`) REFERENCES transmission_type (`id`),
-    UNIQUE KEY (`plate_number`),
+    UNIQUE INDEX (`plate_number`),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS passenger_car
     `doorsAmount`      TINYINT NOT NULL,
     `air_conditioning` BIT(1)  NOT NULL,
 
-    UNIQUE KEY (`vehicle_id`),
+    UNIQUE INDEX (`vehicle_id`),
     FOREIGN KEY (`vehicle_id`) REFERENCES vehicle (`id`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS mini_bus
     `doorsAmount`      TINYINT NOT NULL,
     `air_conditioning` BIT(1)  NOT NULL,
 
-    UNIQUE KEY (`vehicle_id`),
+    UNIQUE INDEX (`vehicle_id`),
     FOREIGN KEY (`vehicle_id`) REFERENCES vehicle (`id`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS motorcycle
     `vehicle_id`       BIGINT  NOT NULL,
     `passenger_amount` TINYINT NOT NULL,
 
-    UNIQUE KEY (`vehicle_id`),
+    UNIQUE INDEX (`vehicle_id`),
     FOREIGN KEY (`vehicle_id`) REFERENCES vehicle (`id`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS car_trailer
     `deck_length_cm` SMALLINT NOT NULL,
     `deck_height_cm` SMALLINT NOT NULL,
 
-    UNIQUE KEY (`vehicle_id`),
+    UNIQUE INDEX (`vehicle_id`),
     FOREIGN KEY (`vehicle_id`) REFERENCES vehicle (`id`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
@@ -137,4 +137,3 @@ CREATE TABLE IF NOT EXISTS car_trailer
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
-
