@@ -1,7 +1,7 @@
 package lv.javaguru.java2.cookingApp.acceptancetests;
 
 import lv.javaguru.java2.cookingApp.DatabaseCleaner;
-import lv.javaguru.java2.cookingApp.config.CookingAppConfiguration;
+import lv.javaguru.java2.cookingApp.config.SpringCoreConfiguration;
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
@@ -27,7 +27,7 @@ public class AcceptanceTest2 {
 
     @BeforeEach
     void setUp() {
-        appContext = new AnnotationConfigApplicationContext(CookingAppConfiguration.class);
+        appContext = new AnnotationConfigApplicationContext(SpringCoreConfiguration.class);
         getDatabaseCleaner().clean();
     }
 

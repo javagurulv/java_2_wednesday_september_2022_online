@@ -22,7 +22,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "lv.javaguru.java2.cookingApp")
 @PropertySource(value = "classpath:application.properties")
 @EnableTransactionManagement
-public class CookingAppConfiguration {
+public class SpringCoreConfiguration {
 
     @Value("${jdbc.url}")
     private String jdbcUrl;
