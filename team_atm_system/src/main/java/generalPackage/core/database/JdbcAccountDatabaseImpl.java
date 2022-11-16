@@ -59,11 +59,18 @@ public class JdbcAccountDatabaseImpl implements Database {
         String sql = "UPDATE accounts SET balance = balance - ? where id = ?";
         Object[] args = new Object[]{amount, userID};
 
-        //     19.11 temporary add:
-//        if ((jdbcTemplate.update(sql, args) == 1)) {
+        String sqlCheck = "SELECT balance from accounts WHERE id = ?";
+        Object[] argsCheck = new Object[]{userID};
+        int startingBalance = jdbcTemplate.queryForObject(sqlCheck, argsCheck, Integer.class);
+//        19.11 temporary add:
+        if (startingBalance >= amount) {
+            jdbcTemplate.update(sql, args);
             transactionDatabase.decreaseBalanceRecord(userID, amount);
-//        }
-        return jdbcTemplate.update(sql, args) == 1;
+        }
+        else {
+            System.out.println("Insufficient funds");
+        }
+        return startingBalance == jdbcTemplate.queryForObject(sqlCheck, argsCheck, Integer.class) - amount;
     }
 
     @Override
