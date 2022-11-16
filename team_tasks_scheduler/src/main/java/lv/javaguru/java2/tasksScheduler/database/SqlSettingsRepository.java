@@ -24,7 +24,7 @@ public class SqlSettingsRepository implements SettingsRepository{
                 "email_host, email_port, email_protocol) "
                 + " VALUES (?, ?, ?, ?, ?, ?)";
         Object[] args = new Object[]{settings.getAdminPassword(), settings.getEmailFrom(),
-                                    settings.getAdminPassword(), settings.getEmailHost(),
+                                    settings.getEmailPassword(), settings.getEmailHost(),
                                     settings.getEmailPort(), settings.getEmailProtocol()};
         result = jdbcTemplate.update(sql, args);
 
