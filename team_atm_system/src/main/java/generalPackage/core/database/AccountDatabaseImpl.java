@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
-public class AccountDatabaseImpl implements Database {
+//@Component
+ public class AccountDatabaseImpl implements Database {
 
     private List<Accounts> accounts = new ArrayList<>();
 
