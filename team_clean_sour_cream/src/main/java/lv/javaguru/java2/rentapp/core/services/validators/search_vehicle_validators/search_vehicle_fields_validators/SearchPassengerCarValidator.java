@@ -2,6 +2,7 @@ package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_valida
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
+@Component
 public class SearchPassengerCarValidator extends SearchVehicleFieldsValidator {
 
     @Override
@@ -35,9 +37,9 @@ public class SearchPassengerCarValidator extends SearchVehicleFieldsValidator {
 
         Integer passengerAmount = passengerAmountOpt.get();
         if (passengerAmount <= 0 || passengerAmount < CAR_MIN_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be empty, negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "can`t be negative, zero or less than " + CAR_MIN_PASSENGER_AMOUNT));
         } else if (passengerAmount > CAR_MAX_PASSENGER_AMOUNT) {
-            return Optional.of(new CoreError("Passenger amount", "cannot be more than " + CAR_MAX_PASSENGER_AMOUNT));
+            return Optional.of(new CoreError("Passenger amount", "can`t be more than " + CAR_MAX_PASSENGER_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -52,9 +54,9 @@ public class SearchPassengerCarValidator extends SearchVehicleFieldsValidator {
 
         Integer doorsAmount = doorsAmountOpt.get();
         if (doorsAmount <= 0 || doorsAmount < CAR_MIN_DOORS_AMOUNT) {
-            return Optional.of(new CoreError("Doors amount", "cannot be empty, negative, zero or less than "+ CAR_MIN_DOORS_AMOUNT));
+            return Optional.of(new CoreError("Doors amount", "can`t be negative, zero or less than " + CAR_MIN_DOORS_AMOUNT));
         } else if (doorsAmount > CAR_MAX_DOORS_AMOUNT) {
-            return Optional.of(new CoreError("Doors amount", "cannot be more than " + CAR_MAX_DOORS_AMOUNT));
+            return Optional.of(new CoreError("Doors amount", "can`t be more than " + CAR_MAX_DOORS_AMOUNT));
         } else {
             return Optional.empty();
         }
@@ -69,11 +71,12 @@ public class SearchPassengerCarValidator extends SearchVehicleFieldsValidator {
 
         Integer baggageAmount = baggageAmountOpt.get();
         if (baggageAmount < 0) {
-            return Optional.of(new CoreError("Baggage amount", "cannot be empty or negative"));
+            return Optional.of(new CoreError("Baggage amount", "can`t be negative"));
         } else if (baggageAmount > CAR_MAX_BAGGAGE_AMOUNT) {
-            return Optional.of(new CoreError("Baggage amount", "cannot be more than " + CAR_MAX_BAGGAGE_AMOUNT));
+            return Optional.of(new CoreError("Baggage amount", "can`t be more than " + CAR_MAX_BAGGAGE_AMOUNT));
         } else {
             return Optional.empty();
         }
     }
+
 }

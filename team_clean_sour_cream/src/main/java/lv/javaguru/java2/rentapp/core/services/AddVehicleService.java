@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
@@ -9,23 +9,19 @@ import lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators
 import lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators.AddVehicleValidatorMap;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AddVehicleService {
-
+    @Autowired
     private VehicleCreatorMap vehicleCreatorMap;
+    @Autowired
     private AddVehicleValidatorMap vehicleValidatorMap;
-    private Database database;
-
-    public AddVehicleService(VehicleCreatorMap vehicleCreatorMap,
-                             AddVehicleValidatorMap vehicleValidatorMap,
-                             Database database) {
-        this.vehicleCreatorMap = vehicleCreatorMap;
-        this.vehicleValidatorMap = vehicleValidatorMap;
-        this.database = database;
-
-    }
+    @Autowired
+    private VehicleDatabase vehicleDatabase;
 
     public AddVehicleResponse execute(AddVehicleRequest request) {
         VehicleType vehicleType = request.getVehicleType();
@@ -38,7 +34,7 @@ public class AddVehicleService {
 
         VehicleCreator vehicleTypeCreator = vehicleCreatorMap.getVehicleTypeCreatorByCarType(vehicleType);
         Vehicle vehicle = vehicleTypeCreator.createVehicle(request);
-        database.addNewVehicle(vehicle);
+        vehicleDatabase.addNewVehicle(vehicle);
         return new AddVehicleResponse(vehicle);
     }
 }

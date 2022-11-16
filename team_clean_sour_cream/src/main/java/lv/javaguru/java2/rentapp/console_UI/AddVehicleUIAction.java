@@ -7,6 +7,8 @@ import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -18,40 +20,36 @@ import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMO
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 
+@Component
 public class AddVehicleUIAction implements UIAction {
 
     Scanner scanner = new Scanner(System.in);
 
+    @Autowired
     private AddVehicleService addVehicleService;
-
-    public AddVehicleUIAction(AddVehicleService addNewVehicleService) {
-        this.addVehicleService = addNewVehicleService;
-    }
 
     @Override
     public void execute() {
 
         printVehicleTypeMenu();
-        try {
-            int userChoice = getUserChoice();
 
-            if (userChoice > VehicleType.values().length || userChoice < 1) {
-                System.out.println("You must enter a number from program menu (1 - " + VehicleType.values().length + ")");
+        int userChoice = getUserChoice();
+
+        if (userChoice > VehicleType.values().length || userChoice < 1) {
+            System.out.println("You must enter a number from program menu (1 - " + VehicleType.values().length + ")");
+        } else {
+            AddVehicleResponse addVehicleResponse = executeUserChoice(userChoice);
+
+            if (addVehicleResponse.hasErrors()) {
+                addVehicleResponse.getErrors().forEach(coreError ->
+                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
+                );
             } else {
-                AddVehicleResponse addVehicleResponse = executeUserChoice(userChoice);
-
-                if (addVehicleResponse.hasErrors()) {
-                    addVehicleResponse.getErrors().forEach(coreError ->
-                            System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage())
-                    );
-                } else {
-                    System.out.println("New vehicle id was: " + addVehicleResponse.getNewVehicle().getId());
-                    System.out.println("Your vehicle was added to list.");
-                }
+                System.out.println("New vehicle id was: " + addVehicleResponse.getNewVehicle().getId());
+                System.out.println("Your vehicle was added to list.");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Error: You must enter a number!");
         }
+
     }
 
     private void printVehicleTypeMenu() {

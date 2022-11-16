@@ -16,6 +16,6 @@
 Это все классы которые реализуют интерфейс UIAction.
 
 В нашем приложении уже есть уровень доступа к данным.
-Это интерфейс lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database и его InMemory реализация.
+Это интерфейс lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.vehicleDatabase и его InMemory реализация.
 
 Теперь наша задача реализовать в нашем приложении уровень бизнес логики.

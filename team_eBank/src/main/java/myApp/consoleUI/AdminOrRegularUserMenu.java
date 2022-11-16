@@ -1,7 +1,7 @@
 package myApp.consoleUI;
 
-import myApp.core.services.UserAreAdminService;
-import myApp.core.services.UserService;
+import myApp.core.services.authentication.UserAreAdminService;
+import myApp.core.services.authentication.UserService;
 import org.springframework.context.ApplicationContext;
 
 public class AdminOrRegularUserMenu {

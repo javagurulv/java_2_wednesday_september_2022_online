@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
@@ -10,20 +10,20 @@ import lv.javaguru.java2.rentapp.core.services.search_criterias.*;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.car_trailer_criteria.*;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.SearchVehicleValidator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class SearchVehicleService {
 
-    private Database database;
+    @Autowired
+    private VehicleDatabase vehicleDatabase;
+    @Autowired
     private SearchVehicleValidator validator;
-
-    public SearchVehicleService(Database database, SearchVehicleValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
 
     public SearchVehicleResponse execute(SearchVehicleRequest request) {
 
@@ -34,7 +34,7 @@ public class SearchVehicleService {
         }
 
         SearchCriteria andCriteria = getSearchCriteria(request);
-        List<Vehicle> vehicles = database.search(andCriteria);
+        List<Vehicle> vehicles = vehicleDatabase.search(andCriteria);
 
         vehicles = order(vehicles, request.getOrdering());
         vehicles = paging(vehicles, request.getPaging());

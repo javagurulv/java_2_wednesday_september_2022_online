@@ -1,6 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class AddVehicleServiceTest {
 
-    @Mock private Database database;
+    @Mock private VehicleDatabase vehicleDatabase;
     @Mock private VehicleCreatorMap vehicleCreatorMap;
     @Mock private VehicleCreator vehicleCreator;
     @Mock private AddVehicleValidatorMap addVehicleValidatorMap;
@@ -57,7 +57,7 @@ class AddVehicleServiceTest {
 
         AddVehicleResponse response = service.execute(request);
 
-        Mockito.verify(database).addNewVehicle(addedVehicle);
+        Mockito.verify(vehicleDatabase).addNewVehicle(addedVehicle);
         assertFalse(response.hasErrors());
         assertEquals(addedVehicle, response.getNewVehicle());
     }

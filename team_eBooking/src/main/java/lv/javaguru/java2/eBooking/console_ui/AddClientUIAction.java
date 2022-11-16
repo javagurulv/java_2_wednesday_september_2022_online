@@ -1,16 +1,18 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.requests.client_request.AddClientRequest;
-import lv.javaguru.java2.eBooking.core.responses.client.AddClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client.add.AddClientService;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientAddResponse;
+import lv.javaguru.java2.eBooking.core.services.client.ClientAddService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class AddClientUIAction implements UIAction {
-    private AddClientService addClientService;
+    private ClientAddService clientAddService;
 
-    public AddClientUIAction(AddClientService addClientService) {
-        this.addClientService = addClientService;
+    public AddClientUIAction(ClientAddService clientAddService) {
+        this.clientAddService = clientAddService;
     }
 
     public void execute() {
@@ -19,8 +21,8 @@ public class AddClientUIAction implements UIAction {
         String clientEmail = scanner.nextLine();
         System.out.println("Enter phone number");
         String clientPhoneNumber = scanner.nextLine();
-        AddClientRequest request = new AddClientRequest(clientEmail, clientPhoneNumber);
-        AddClientResponse response = addClientService.execute(request);
+        ClientAddRequest request = new ClientAddRequest(clientEmail, clientPhoneNumber);
+        ClientAddResponse response = clientAddService.execute(request);
 
         if (response.hasError()) {
             response.getErrors().forEach(coreError ->

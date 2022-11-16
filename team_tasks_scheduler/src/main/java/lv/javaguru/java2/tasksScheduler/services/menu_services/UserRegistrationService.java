@@ -17,12 +17,11 @@ import java.util.List;
 @Component
 public class UserRegistrationService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+    @Autowired private UsersRepository usersRepository;
     @Autowired private UserRegistrationValidator validator;
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
-        List<CoreError> errors = validator.validate(request, usersRepository);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new UserRegistrationResponse(errors);
         }

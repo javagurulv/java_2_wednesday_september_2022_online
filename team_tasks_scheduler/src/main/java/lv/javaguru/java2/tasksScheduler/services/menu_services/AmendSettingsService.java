@@ -4,13 +4,10 @@ import lv.javaguru.java2.tasksScheduler.database.SettingsRepository;
 
 
 import lv.javaguru.java2.tasksScheduler.domain.Settings;
-import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.requests.AmendSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AddSettingsResponse;
 import lv.javaguru.java2.tasksScheduler.responses.AmendSettingsResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
-import lv.javaguru.java2.tasksScheduler.services.validators.AddSettingsValidator;
 import lv.javaguru.java2.tasksScheduler.services.validators.AmendSettingsValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,10 @@ public class AmendSettingsService {
         Settings amendedSettings = new Settings(Encryption.stringHashing(request.getAdminPassword()),
                 request.getEmailFrom(), request.getEmailPassword(), request.getEmailHost(),
                 request.getEmailPort(), request.getEmailProtocol());
+
+        if (currentSettings.equals(amendedSettings)) {
+            return null;
+        }
 
         if (!settingsRepository.save(amendedSettings)) {
             errors = new ArrayList<>();

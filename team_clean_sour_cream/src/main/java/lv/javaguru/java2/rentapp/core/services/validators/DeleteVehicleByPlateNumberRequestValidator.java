@@ -1,20 +1,25 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class DeleteVehicleByPlateNumberRequestValidator {
 
-    private Database database;
 
-    public DeleteVehicleByPlateNumberRequestValidator(Database database) {
-        this.database = database;
+    private VehicleDatabase vehicleDatabase;
+
+    @Autowired
+    public DeleteVehicleByPlateNumberRequestValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
     }
 
     public List<CoreError> validate(DeleteVehicleByPlateNumberRequest request) {
@@ -25,14 +30,14 @@ public class DeleteVehicleByPlateNumberRequestValidator {
     }
 
     private Optional<CoreError> validateVehicleByPlateNumber(DeleteVehicleByPlateNumberRequest request) {
-        return (request.getPlateNumber() == null || request.getPlateNumber().isBlank())
+        return (!isPlateNumberPresent(request))
                 ? Optional.of(new CoreError("Plate number", "can`t be empty or blank"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateVehicleToDeleteExists(DeleteVehicleByPlateNumberRequest request) {
-        if (request.getPlateNumber() != null && !request.getPlateNumber().isBlank()) {
-            Optional<Vehicle> vehicleToDeleteOpt = database.getAllVehicles().stream()
+        if (isPlateNumberPresent(request)) {
+            Optional<Vehicle> vehicleToDeleteOpt = vehicleDatabase.getAllVehicles().stream()
                     .filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
                     .findFirst();
             if (vehicleToDeleteOpt.isEmpty()) {
@@ -40,6 +45,10 @@ public class DeleteVehicleByPlateNumberRequestValidator {
             }
         }
         return Optional.empty();
+    }
+
+    private boolean isPlateNumberPresent(DeleteVehicleByPlateNumberRequest request) {
+        return request.getPlateNumber() != null && !request.getPlateNumber().isBlank();
     }
 }
 

@@ -1,12 +1,14 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.CarTrailerCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +16,15 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 
+@Component
 public class AddCarTrailerValidator extends AddVehicleValidator {
 
-    private Database database;
 
-    public AddCarTrailerValidator(Database database) {
-        this.database = database;
+    private VehicleDatabase vehicleDatabase;
+
+    @Autowired
+    public AddCarTrailerValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
     }
 
     public List<CoreError> validate(AddVehicleRequest request) {
@@ -124,7 +129,7 @@ public class AddCarTrailerValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
         Vehicle carTrailer = new CarTrailerCreator().createVehicle(request);
-        return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(carTrailer))
+        return vehicleDatabase.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(carTrailer))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))
                 : Optional.empty();
     }

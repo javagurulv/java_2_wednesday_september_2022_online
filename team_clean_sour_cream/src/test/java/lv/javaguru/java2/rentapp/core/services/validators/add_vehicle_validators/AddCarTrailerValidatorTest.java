@@ -1,13 +1,18 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.CarTrailerCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import lv.javaguru.java2.rentapp.enums.EngineType;
+import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,16 +21,18 @@ import java.util.Optional;
 import static lv.javaguru.java2.rentapp.domain.CarTrailer.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class AddCarTrailerValidatorTest {
 
     AddCarTrailerValidator validator;
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
 
     @BeforeEach
     void setUp() {
-        database = new InMemoryDatabaseImpl();
-        validator = new AddCarTrailerValidator(database);
+        vehicleDatabase = Mockito.mock(VehicleDatabaseImpl.class);
+        validator = new AddCarTrailerValidator(vehicleDatabase);
     }
 
     @Test
@@ -87,7 +94,7 @@ class AddCarTrailerValidatorTest {
         Optional<CoreError> errors = validator.validateEngineType(request);
         assertTrue(errors.isPresent());
         assertEquals("Engine Type", errors.get().getField());
-        assertEquals("for Car Trailer must be \"None\"", errors.get().getMessage());
+        assertEquals("for Car Trailer must be \"" + EngineType.NONE.getNameEngineType() + "\"", errors.get().getMessage());
     }
 
     @Test
@@ -150,7 +157,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Transmission Type", errors.get(0).getField());
-        assertEquals("for Car Trailer must be \"None\"", errors.get(0).getMessage());
+        assertEquals("for Car Trailer must be \"" + TransmissionType.NONE.getNameTransmissionType() + "\"", errors.get(0).getMessage());
     }
 
     @Test
@@ -170,7 +177,7 @@ class AddCarTrailerValidatorTest {
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MIN_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MIN_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MIN_LOAD_WEIGHT_IN_KG).build();
         Vehicle carTrailer1 = new CarTrailerCreator().createVehicle(request1);
-        database.addNewVehicle(carTrailer1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(carTrailer1 ));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
@@ -180,13 +187,13 @@ class AddCarTrailerValidatorTest {
     }
 
     @Test
-    void testValidateVehicleIsNotDuplicateShouldReturnError() {
+    void testValidateVehicleIsDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
                 .deckHeightInCm(TRAIL_MIN_DECK_HEIGHT_IN_CM).emptyWeightInKg(TRAIL_MIN_EMPTY_WEIGHT_IN_KG).maxLoadWeightInKg(TRAIL_MIN_LOAD_WEIGHT_IN_KG).build();
         Vehicle carTrailer1 = new CarTrailerCreator().createVehicle(request1);
-        database.addNewVehicle(carTrailer1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(carTrailer1 ));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
                 .transmissionType("none").deckWidthInCm(TRAIL_MIN_DECK_WIDTH_IN_CM).deckLengthInCm(TRAIL_MIN_DECK_LENGTH_IN_CM)
@@ -468,7 +475,7 @@ class AddCarTrailerValidatorTest {
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Empty Weight in KG", errors.get(0).getField());
-        assertEquals("cannot be empty, negative, zero or less than "+ TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
+        assertEquals("cannot be empty, negative, zero or less than " + TRAIL_MIN_EMPTY_WEIGHT_IN_KG, errors.get(0).getMessage());
     }
 
     @Test

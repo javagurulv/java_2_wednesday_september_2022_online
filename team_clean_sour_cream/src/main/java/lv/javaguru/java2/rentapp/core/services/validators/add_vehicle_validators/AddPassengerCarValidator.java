@@ -1,10 +1,12 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +14,14 @@ import java.util.Optional;
 
 import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 
+@Component
 public class AddPassengerCarValidator extends AddVehicleValidator {
 
-    private Database database;
+    private VehicleDatabase vehicleDatabase;
 
-    public AddPassengerCarValidator(Database database) {
-        this.database = database;
+    @Autowired
+    public AddPassengerCarValidator(VehicleDatabase vehicleDatabase) {
+        this.vehicleDatabase = vehicleDatabase;
     }
 
     public List<CoreError> validate(AddVehicleRequest request) {
@@ -87,7 +91,7 @@ public class AddPassengerCarValidator extends AddVehicleValidator {
 
     private Optional<CoreError> validateVehicleIsNotDuplicate(AddVehicleRequest request) {
         Vehicle passengerCar = new PassengerCarCreator().createVehicle(request);
-        return database.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(passengerCar))
+        return vehicleDatabase.getAllVehicles().stream().anyMatch(vehicle -> vehicle.equals(passengerCar))
                 ? Optional.of(new CoreError("Vehicle", "is already in the database"))
                 : Optional.empty();
     }

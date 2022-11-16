@@ -13,11 +13,18 @@ public interface UsersRepository {
     boolean update(User user);
 
     boolean existsByName(String username);
-    boolean existsByEmail(String email);
 
     User getUserById(Long id);
 
     User getUserByNameAndPassword(String username, String password);
 
+    List<User> getUsersAcceptedReminders();
+
     List<User> getAllUsers();
+
+    List<User> getUsersByUsername(String username);
+
+    List<User> getUsersByEmail(String email);
+
+    List<User> getUsersByUsernameAndEmail(String username, String email);
 }

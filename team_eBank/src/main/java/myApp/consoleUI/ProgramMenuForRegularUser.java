@@ -47,6 +47,7 @@ public class ProgramMenuForRegularUser {
                 .findFirst()
                 .get();
     }
+
     public void executeSelectedMenuItem(int selectedMenu) {
         menuNumberToUIActionMap.get(selectedMenu).execute();
     }

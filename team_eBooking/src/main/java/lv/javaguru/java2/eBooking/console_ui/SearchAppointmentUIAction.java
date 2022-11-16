@@ -2,13 +2,15 @@ package lv.javaguru.java2.eBooking.console_ui;
 
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
-import lv.javaguru.java2.eBooking.core.requests.appointment_request.SearchAppointmentRequest;
-import lv.javaguru.java2.eBooking.core.responses.appointment.SearchAppointmentResponse;
-import lv.javaguru.java2.eBooking.core.services.appointment.search.AppointmentSearchService;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentSearchRequest;
+import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentSearchResponse;
+import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentSearchService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 
 import java.util.Scanner;
-
+@Component
 public class SearchAppointmentUIAction implements UIAction {
     private AppointmentSearchService appointmentSearchService;
 
@@ -33,8 +35,8 @@ public class SearchAppointmentUIAction implements UIAction {
         Integer pageSize = Integer.parseInt(scanner.nextLine());
         Paging paging = new Paging(pageNumber, pageSize);
 
-        SearchAppointmentRequest request = new SearchAppointmentRequest(masterName,typeOfService,paging,ordering);
-        SearchAppointmentResponse response = appointmentSearchService.execute(request,ordering,paging);
+        AppointmentSearchRequest request = new AppointmentSearchRequest(masterName,typeOfService,paging,ordering);
+        AppointmentSearchResponse response = appointmentSearchService.execute(request);
 
         if(response.hasError()){
             response.getErrors().forEach(coreError-> System.out.println(coreError.getField() +

@@ -32,6 +32,13 @@ include 'teacher:lesson_11_orm_introduction'
 
 include 'teacher:lesson_12_orm_relations'
 
+include 'teacher:lesson_13_spring_web'
+
+include 'teacher:lesson_14_restfull_api'
+
+include 'teacher:lesson_15_jpa_repositories'
+
+include 'teacher:lesson_16_liquibase'
 
 include 'team_eBank'
 include 'team_clean_sour_cream'

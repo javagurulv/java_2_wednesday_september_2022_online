@@ -1,13 +1,16 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.MotorcycleCreator;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,16 +19,18 @@ import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MAX_PASSENGER_AMO
 import static lv.javaguru.java2.rentapp.domain.Motorcycle.MOTO_MIN_PASSENGER_AMOUNT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class AddMotorcycleValidatorTest {
 
     AddMotorcycleValidator validator;
-    Database database;
+    VehicleDatabase vehicleDatabase;
 
     @BeforeEach
     void setUp() {
-        database = new InMemoryDatabaseImpl();
-        validator = new AddMotorcycleValidator(database);
+        vehicleDatabase = Mockito.mock(VehicleDatabaseImpl.class);
+        validator = new AddMotorcycleValidator(vehicleDatabase);
     }
 
     @Test
@@ -43,7 +48,7 @@ class AddMotorcycleValidatorTest {
                 .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(MOTO_MAX_PASSENGER_AMOUNT).build();
         Vehicle motorcycle1 = new MotorcycleCreator().createVehicle(request1);
-        database.addNewVehicle(motorcycle1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(motorcycle1));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(MOTO_MAX_PASSENGER_AMOUNT).build();
@@ -52,12 +57,12 @@ class AddMotorcycleValidatorTest {
     }
 
     @Test
-    void testValidateVehicleIsNotDuplicateShouldReturnError() {
+    void testValidateVehicleIsDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(MOTO_MAX_PASSENGER_AMOUNT).build();
         Vehicle motorcycle1 = new MotorcycleCreator().createVehicle(request1);
-        database.addNewVehicle(motorcycle1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(motorcycle1));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(MOTO_MAX_PASSENGER_AMOUNT).build();

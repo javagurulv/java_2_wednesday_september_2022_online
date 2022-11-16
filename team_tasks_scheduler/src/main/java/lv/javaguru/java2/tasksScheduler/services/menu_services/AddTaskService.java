@@ -7,9 +7,8 @@ import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
-import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
-import lv.javaguru.java2.tasksScheduler.services.validators.TaskInfoValidator;
+import lv.javaguru.java2.tasksScheduler.services.validators.TaskAddValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,10 +21,10 @@ public class AddTaskService {
     @Autowired
     private TasksRepository tasksRepository;
     @Autowired private SessionService sessionService;
-    @Autowired private TaskInfoValidator validator;
+    @Autowired private TaskAddValidator validator;
 
     public AddTaskResponse execute(AddTaskRequest request) {
-        List<CoreError> errors = validator.validate(request, tasksRepository, sessionService);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new AddTaskResponse(errors);
         }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
-@Component
+//@Component
 public class InMemoryTasksRepositoryImpl implements TasksRepository {
 
     private Long nextId = 1L;
@@ -39,19 +38,22 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public void deleteByUserId(Long userId) {
-        tasks.removeIf(task -> task.getUserId().equals(userId));
-    }
-
-    @Override
-    public void deleteOutOfDateByUserId(Long userId) {
-        tasks.removeIf(task -> task.getUserId().equals(userId) &&
-                task.getEndDate().isBefore(LocalDateTime.now()));
-    }
-
-    @Override
-    public void deleteOutOfDate() {
-        tasks.removeIf(task -> task.getEndDate().isBefore(LocalDateTime.now()));
+    public int deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
+        List<Task> tasksToBeRemoved;
+        if (userId == null) {
+            tasksToBeRemoved = tasks.stream()
+                    .filter(task -> task.getEndDate().isBefore(endDate))
+                    .collect(toList());
+//            tasks.removeIf(task -> task.getEndDate().isBefore(endDate));
+        } else {
+            tasksToBeRemoved = tasks.stream()
+                    .filter(task -> task.getUserId().equals(userId) &&
+                            task.getEndDate().isBefore(endDate))
+                    .collect(toList());
+//            tasks.removeIf(task -> task.getUserId().equals(userId) &&
+//                    task.getEndDate().isBefore(endDate));
+        }
+        return tasks.removeAll(tasksToBeRemoved) ? tasksToBeRemoved.size() : 0;
     }
 
     @Override
@@ -83,22 +85,33 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public List<Task> getAllOutstandingTasksByUserId(Long userId) {
+    public List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate) {
         return tasks.stream()
                 .filter(task -> task.getUserId().equals(userId) &&
-                        task.getEndDate().isAfter(LocalDateTime.now()))
+                        task.getEndDate().isAfter(LocalDateTime.now()) &&
+                        task.getDueDate().isBefore(endDate))
                 .sorted(Comparator.comparing(Task::getId))
                 .collect(toList());
     }
 
     @Override
-    public List<Task> getAllOutstandingTasksByUserIdForToday(Long userId) {
-        return tasks.stream()
-                .filter(task -> task.getUserId().equals(userId) &&
-                        task.getEndDate().isAfter(LocalDateTime.now()) &&
-                        task.getDueDate().isBefore(LocalDateTime.now().plusDays(1).with(LocalTime.MIN)))
-                .sorted(Comparator.comparing(Task::getId))
-                .collect(toList());
+    public List<Task> getAllTasksReadyForDueDateUpdate(Long userId) {
+        if (userId != null) {
+            return tasks.stream()
+                    .filter(task -> task.getUserId().equals(userId) &&
+                            task.getRegularity() > 0 &&
+                            task.getEndDate().isAfter(LocalDateTime.now().with(LocalTime.MIN)) &&
+                            task.getDueDate().isBefore(LocalDateTime.now().with(LocalTime.MIN)))
+                    .sorted(Comparator.comparing(Task::getRegularity))
+                    .collect(toList());
+        } else {
+            return tasks.stream()
+                    .filter(task -> task.getRegularity() > 0 &&
+                            task.getEndDate().isAfter(LocalDateTime.now().with(LocalTime.MIN)) &&
+                            task.getDueDate().isBefore(LocalDateTime.now().with(LocalTime.MIN)))
+                    .sorted(Comparator.comparing(Task::getRegularity))
+                    .collect(toList());
+        }
     }
 
     private boolean duplicateTasks(Task task1, Task task2) {
@@ -112,7 +125,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
         return false;
     }
 
-    public List<Task> searchTaskByDescription(String description) {
+    public List<Task> searchTaskByDescription(String description, Long userId) {
         List<Task> taskList = new ArrayList<>();
         String dscrptn;
         for (Task tsk : tasks) {
@@ -127,7 +140,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public List<Task> searchTaskByDate(LocalDateTime date) {
+    public List<Task> searchTaskByDate(LocalDateTime date, Long userId) {
         List<Task> tasksList = new ArrayList<>();
 
         for (Task tsk : tasks) {

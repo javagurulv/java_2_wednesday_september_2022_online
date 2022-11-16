@@ -1,0 +1,26 @@
+Измените класс запуска приложения следующим образом:
+
+@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+public class WebBookListApplication {
+
+	public static void main(String[] args) {
+		ConfigurableApplicationContext context = SpringApplication.run(SpringWebConfiguration.class);
+
+		ProgramMenu programMenu = context.getBean(ProgramMenu.class);
+		while (true) {
+			programMenu.print();
+			int menuNumber = programMenu.getMenuNumberFromUser();
+			programMenu.executeSelectedMenuItem(menuNumber);
+		}
+	}
+
+}
+
+
+@SpringBootApplication - данная аннотация необходима для
+автоконфигурации библиотек Spring входящих в Spring Boot.
+
+ConfigurableApplicationContext context = SpringApplication.run(SpringWebConfiguration.class);
+
+Так можно запустить Spring Ioc контекст используя
+библиотеку Spring Boot.

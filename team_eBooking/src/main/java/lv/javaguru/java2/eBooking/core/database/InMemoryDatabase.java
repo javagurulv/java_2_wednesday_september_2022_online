@@ -2,22 +2,36 @@ package lv.javaguru.java2.eBooking.core.database;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.domain.Client;
+import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Component
 public class InMemoryDatabase implements Database {
     private Long nextId = 1L;
     private List<Client> clients = new ArrayList<>();
     private List<Appointment> appointments = new ArrayList<>();
 
     @Override
-    public void saveClient(Client client) {
-        client.setId(nextId);
-        nextId++;
-        clients.add(client);
+    public void saveClient(Client client) throws RuntimeException {
+        if (!isClientDuplicated(client)) {
+            client.setId(nextId);
+            nextId++;
+            clients.add(client);
+        } else {
+            throw new RuntimeException("Found duplicated data, try again...");
+        }
+    }
+
+    @Override
+    public boolean isClientDuplicated(Client client) {
+        return clients.stream()
+                .anyMatch(client1 -> client1.getClientEmail().equals(client.getClientEmail())
+                        || client1.getClientPhoneNumber().equals(client.getClientPhoneNumber()));
     }
 
     @Override
@@ -108,5 +122,4 @@ public class InMemoryDatabase implements Database {
                         && appointment.getTypeOfService().equals(typeOfService))
                 .collect(Collectors.toList());
     }
-
 }

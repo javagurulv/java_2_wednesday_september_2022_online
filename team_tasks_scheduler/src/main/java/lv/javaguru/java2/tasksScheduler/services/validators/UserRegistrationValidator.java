@@ -4,6 +4,8 @@ import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 
 import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,17 +14,19 @@ import java.util.Optional;
 
 @Component
 public class UserRegistrationValidator {
-    public List<CoreError> validate(UserRegistrationRequest request, UsersRepository usersRepository) {
+    @Autowired private UsersRepository usersRepository;
+
+    public List<CoreError> validate(UserRegistrationRequest request) {
         List<CoreError> errors = new ArrayList<>();
         validateUserName(request).ifPresent(errors::add);
         validateUserPassword(request).ifPresent(errors::add);
         validateUserEmail(request).ifPresent(errors::add);
-        validateIfDuplicate(request, usersRepository).ifPresent(errors::add);
+        validateIfDuplicate(request).ifPresent(errors::add);
         return errors;
     }
 
     private Optional<CoreError> validateUserName(UserRegistrationRequest request) {
-        if (request.getUsername() == null || request.getUsername().isEmpty() ||
+        if (ValueChecking.stringIsEmpty(request.getUsername()) ||
                 request.getUsername().length() < 3) {
             return Optional.of(new CoreError("User name", "Has to be longer than 3 chars"));
         }
@@ -30,7 +34,7 @@ public class UserRegistrationValidator {
     }
 
     private Optional<CoreError> validateUserEmail(UserRegistrationRequest request) {
-        if (request.getEmail() == null || request.getEmail().isEmpty() ||
+        if (ValueChecking.stringIsEmpty(request.getEmail()) ||
                 !request.getEmail().contains("@")) {
             return Optional.of(new CoreError("e-mail", "Has to contain char '@'"));
         }
@@ -38,7 +42,7 @@ public class UserRegistrationValidator {
     }
 
     private Optional<CoreError> validateUserPassword(UserRegistrationRequest request) {
-        if (request.getPassword() == null || request.getPassword().isEmpty() ||
+        if (ValueChecking.stringIsEmpty(request.getPassword()) ||
                 request.getPassword().length() < 3
             ) {
             return Optional.of(new CoreError("Password", "Should be >3 characters"));
@@ -46,7 +50,7 @@ public class UserRegistrationValidator {
         return Optional.empty();
     }
 
-    private Optional<CoreError> validateIfDuplicate(UserRegistrationRequest request, UsersRepository usersRepository) {
+    private Optional<CoreError> validateIfDuplicate(UserRegistrationRequest request) {
         if (request == null) {
             return Optional.empty();
         }

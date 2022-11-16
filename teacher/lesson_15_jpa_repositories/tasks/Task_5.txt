@@ -1,0 +1,15 @@
+В пакете core/database/jpa создайте интерфейсы
+для всех оставшихся доменных объектов в вашем приложении.
+
+
+@Repository
+public interface JpaReaderBookRepository extends JpaRepository<ReaderBook, Long> {
+
+}
+
+
+@Repository
+public interface JpaReaderRepository extends JpaRepository<Reader, Long> {
+
+
+}

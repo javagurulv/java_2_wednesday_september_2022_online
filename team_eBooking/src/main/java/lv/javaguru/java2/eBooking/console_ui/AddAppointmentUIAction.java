@@ -1,16 +1,18 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.requests.appointment_request.AddAppointmentRequest;
-import lv.javaguru.java2.eBooking.core.responses.appointment.AddAppointmentResponse;
-import lv.javaguru.java2.eBooking.core.services.appointment.add.AddAppointmentService;
+import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentAddRequest;
+import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentAddResponse;
+import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentAddService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class AddAppointmentUIAction implements UIAction {
-    private AddAppointmentService addAppointmentService;
+    private AppointmentAddService appointmentAddService;
 
-    public AddAppointmentUIAction(AddAppointmentService addAppointmentService) {
-        this.addAppointmentService = addAppointmentService;
+    public AddAppointmentUIAction(AppointmentAddService appointmentAddService) {
+        this.appointmentAddService = appointmentAddService;
     }
 
     public void execute() {
@@ -20,8 +22,8 @@ public class AddAppointmentUIAction implements UIAction {
         System.out.println("Choose type of service");
         String typeOfService = scanner.nextLine();
         System.out.println("Choose available date");
-        AddAppointmentRequest request = new AddAppointmentRequest(masterName, typeOfService);
-        AddAppointmentResponse response = addAppointmentService.execute(request);
+        AppointmentAddRequest request = new AppointmentAddRequest(masterName, typeOfService);
+        AppointmentAddResponse response = appointmentAddService.execute(request);
 
         if (response.hasError()) {
             response.getErrors().forEach(coreError ->

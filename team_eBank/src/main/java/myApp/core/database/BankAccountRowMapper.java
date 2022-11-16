@@ -1,8 +1,7 @@
 package myApp.core.database;
 
-import myApp.core.domain.Account;
+
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -18,13 +17,13 @@ public class BankAccountRowMapper implements RowMapper<BankAccount> {
         bankAccount.setSurname(rs.getString("surname"));
         bankAccount.setPersonalCode(rs.getString("personal_code"));
         if (rs.getString("role").equals("Roles.Admin")) {
-            bankAccount.setRole(Roles.Admin);
+            bankAccount.setRole("Roles.Admin");
         } else if (rs.getString("role").equals("Roles.Regular_User")) {
-            bankAccount.setRole(Roles.Regular_user);
+            bankAccount.setRole("Roles.Regular_user");
         }
-        bankAccount.setAccount(new Account(rs.getInt("balance")));
+        bankAccount.setBalance(rs.getInt("balance"));
         if (rs.wasNull()) {
-            bankAccount.setAccount(null);
+            bankAccount.setBalance(null);
         }
         return bankAccount;
     }

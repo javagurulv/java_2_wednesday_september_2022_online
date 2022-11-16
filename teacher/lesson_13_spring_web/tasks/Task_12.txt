@@ -1,0 +1,53 @@
+Создайте в пакете web_ui.controllers класс AddBookController:
+
+
+@Controller
+public class AddBookController {
+
+	@Autowired private AddBookService addBookService;
+
+
+	@GetMapping(value = "/addBookToList")
+	public String showAddBookPage(ModelMap modelMap) {
+		modelMap.addAttribute("request", new AddBookRequest());
+		return "addBookToList";
+	}
+
+	@PostMapping("/addBookToList")
+	public String processAddBookRequest(@ModelAttribute(value = "request") AddBookRequest request) {
+		addBookService.execute(request);
+		return "index";
+	}
+
+}
+
+
+@Controller - говорит о том, что в этом классе будет определены
+входные точки для обработки HTTP запросов.
+
+@GetMapping(value = "/addBookToList") - определяет, что метод
+на котором эта аннотация находится будет обрабатывать HTTP GET
+запросы пришедшие на относительный адрес /addBookToList.
+
+Внутри веб приложения всегда работают с относительными адресами.
+
+https://javaguru.lv/java1/  - полный адрес
+https://javaguru.lv  - доменный адрес
+/java1/  - относительный адрес страницы
+
+Это связано с тем, что при разработке не известно на какой домен
+будет установлено веб приложение. При использовании веб приложения
+оно может быть перенесено на другой домен. Чтобы при переносе на
+другой домен не менять код внутри приложения используют относительные
+адреса.
+
+При обработке GET запроса в кладётся объект
+"request", new AddBookRequest() и создание ответа
+поручается addBookToList.html темплейту.
+
+При обработке POST запроса поля заполненной HTML формы
+ожтдаются в виде @ModelAttribute(value = "request") AddBookRequest request.
+Полученный запрос отдаётся на обработку в сервис.
+После выполнения запроса программа поручает
+создание ответа index.html, что вернёт пользователя
+на главную страницу веб приложения.

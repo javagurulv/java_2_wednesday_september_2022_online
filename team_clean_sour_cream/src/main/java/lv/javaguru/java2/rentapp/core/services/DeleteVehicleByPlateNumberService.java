@@ -1,23 +1,22 @@
 package lv.javaguru.java2.rentapp.core.services;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.DeleteVehicleByPlateNumberResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.DeleteVehicleByPlateNumberRequestValidator;
-import lv.javaguru.java2.rentapp.domain.Vehicle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class DeleteVehicleByPlateNumberService {
 
-    Database database;
+    @Autowired
+    VehicleDatabase vehicleDatabase;
+    @Autowired
     private DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator;
-
-    public DeleteVehicleByPlateNumberService(Database database, DeleteVehicleByPlateNumberRequestValidator deleteVehicleByPlateNumberValidator) {
-        this.database = database;
-        this.deleteVehicleByPlateNumberValidator = deleteVehicleByPlateNumberValidator;
-    }
 
     public DeleteVehicleByPlateNumberResponse execute(DeleteVehicleByPlateNumberRequest request) {
 
@@ -25,16 +24,9 @@ public class DeleteVehicleByPlateNumberService {
         if (!errors.isEmpty()) {
             return new DeleteVehicleByPlateNumberResponse(errors);
         }
-        database.deleteVehicleByPlateNumber(request.getPlateNumber());
+        vehicleDatabase.deleteVehicleByPlateNumber(request.getPlateNumber());
         return new DeleteVehicleByPlateNumberResponse("Your vehicle was removed from list.");
     }
 
-    public void showAllVehiclesPlateNumbers() {
-        System.out.println("Available are:");
-        database.getAllVehicles().stream()
-                .map(Vehicle::getPlateNumber)
-                .forEach(System.out::println);
-        System.out.println();
-    }
 }
 

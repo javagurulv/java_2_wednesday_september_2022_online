@@ -1,29 +1,52 @@
 package lv.javaguru.java2.tasksScheduler;
 
+import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
 import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
+import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.ScheduledJobs;
+import lv.javaguru.java2.tasksScheduler.utils.TestData;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
-public class TasksSchedulerApplication {
 
-    private static UIActionMap uiActionMap = new UIActionMap();
-    private static MenuType menuType = MenuType.START;
+public class TasksSchedulerApplication {
+    private static  MenuType menuType = MenuType.START;
 
     public static void main(String[] args) {
+
+        ApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
+
+        UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
+        ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);
+
+        backgroundJobs.start();
+
+
+
+        TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
+        testData.createTestSettings();
+        testData.createTestUsers();
+        testData.createTestTasks();
+
+
         int menuNumber = 0;
 
         do {
             // Loop to set up Settings on the first run
-            if (executeSelectedMenuItem(menuType, menuNumber))
+            if (executeSelectedMenuItem(uiActionMap, menuType, menuNumber))
                 break;
         } while (true);
 
+        //start 2nd thread
+//        cleanupService.start();
 
         while (true) {
             printMenu(menuType);
             menuNumber = getMenuNumberFromUser();
-            executeSelectedMenuItem(menuType, menuNumber);
+            executeSelectedMenuItem(uiActionMap, menuType, menuNumber);
         }
     }
 
@@ -46,7 +69,7 @@ public class TasksSchedulerApplication {
     private static void printStartMenu() {
         System.out.println();
         System.out.println("********************");
-        System.out.println("1. Show all usernames registered in the system");
+        System.out.println("1. Show usernames registered in the system");
         System.out.println("2. User Login");
         System.out.println("3. User registration");
         System.out.println("4. System settings");
@@ -62,7 +85,7 @@ public class TasksSchedulerApplication {
         System.out.println("2. Show tasks for today");
         System.out.println("3. Add task");
         System.out.println("4. Amend task");
-        System.out.println("5. Search task");
+        System.out.println("5. Search tasks");
         System.out.println("6. Delete tasks");
         System.out.println("7. Amend current user information");
         System.out.println("8. Delete current user");
@@ -74,9 +97,10 @@ public class TasksSchedulerApplication {
     private static void printAdminMenu() {
         System.out.println();
         System.out.println("********************");
-        System.out.println("1. Show all users information");
+        System.out.println("1. Show users information");
         System.out.println("2. Amend settings");
-        System.out.println("3. Exit settings");
+        System.out.println("3. Run jobs manually");
+        System.out.println("4. Exit settings");
         System.out.println("********************");
         System.out.println();
     }
@@ -91,7 +115,8 @@ public class TasksSchedulerApplication {
         }
     }
 
-    private static boolean executeSelectedMenuItem(MenuType type, int choice) {
+    private static boolean executeSelectedMenuItem(UIActionMap uiActionMap,
+                                                    MenuType type, int choice) {
 
         UIAction selectedAction = uiActionMap.getAction(getAlignedMenuChoice(type, choice));
         if (selectedAction == null) {
@@ -123,7 +148,7 @@ public class TasksSchedulerApplication {
             case 4:
                 menuType = MenuType.ADMIN;
                 break;
-            case 13, 14, 17:
+            case 13, 14, 18:
                 menuType = MenuType.START;
                 break;
             default:

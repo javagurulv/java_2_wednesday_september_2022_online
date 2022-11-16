@@ -8,6 +8,8 @@ public class Accounts {
     private int userID;
 
     private int balance;
+    public Accounts() {
+    }
 
     public Accounts(String name, int userID, int balance) {
         this.name = name;
@@ -26,6 +28,14 @@ public class Accounts {
 
     public int getBalance() {
         return balance;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public void setBalance(int balance) {

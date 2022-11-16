@@ -1,4 +1,4 @@
-В пакете database переименуйте реализации интерфейса BookRepository
+В пакете vehicleDatabase переименуйте реализации интерфейса BookRepository
 в InMemoryBookRepositoryImpl и JdbcBookRepositoryImpl соответственно.
 
 Создайте класс OrmBookRepositoryImpl следующим образом:

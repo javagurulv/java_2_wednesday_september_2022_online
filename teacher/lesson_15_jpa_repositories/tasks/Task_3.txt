@@ -1,0 +1,23 @@
+Упростите конфигурацию в классе SpringCoreConfiguration:
+
+
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan(basePackages = "lv.javaguru.java2.library.core")
+@PropertySource(value = "classpath:application.properties")
+@EnableTransactionManagement
+@EntityScan(basePackages = "lv.javaguru.java2.library.core.domain")
+@EnableJpaRepositories(value = "lv.javaguru.java2.library.core.database.jpa")
+public class SpringCoreConfiguration {
+
+}
+
+@EntityScan - указывает в каком пакете вашего приложения расположены
+              доменные объекты в которых прописан ORM мапинг.
+
+@EnableJpaRepositories - включает функциональность Spring Data JPA
+                         репозиториев.
+
+Все остальные настройки, которые мы прописывали руками внутри
+класса теперь не нужны, Spring Boot с помощью авто конфинурации
+сделает то же самое.

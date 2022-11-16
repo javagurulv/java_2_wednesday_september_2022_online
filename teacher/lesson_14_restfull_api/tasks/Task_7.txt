@@ -1,0 +1,25 @@
+В классе BookRestController реализуйте метод поиска книги
+по id:
+
+@RestController
+@RequestMapping("/book")
+public class BookRestController {
+
+	@Autowired private GetBookService getBookService;
+
+	@GetMapping(path = "/{id}", produces = "application/json")
+	public GetBookResponse getBook(@PathVariable Long id) {
+		GetBookRequest request = new GetBookRequest(id);
+		return getBookService.execute(request);
+	}
+
+
+}
+
+@GetMapping - указывает на то, что HTTP GET запросы приходящие
+на относительный url /book/{id} будут обрабатываться методом getBook().
+В url вместо {id} может быть указано любое целое число.
+
+@PathVariable Long id - указывает на то, что значение {id}
+из адресной строки должно быть превращено в Long и передано
+в метод getBook() в качестве параметра.

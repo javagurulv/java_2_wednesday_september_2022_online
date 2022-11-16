@@ -1,0 +1,29 @@
+В папке main/resources создайте папку templates.
+
+Создайте в папке templates файл index.html:
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Book Library demo project">
+    <meta name="author" content="JavaGuru">
+    <title>Book Library</title>
+</head>
+
+<body>
+
+    <h3>Program menu</h3>
+
+    <a href="/addBookToList">Add book to list</a> <br>
+    <a href="/deleteBookFromList">Delete book from list</a> <br>
+    <a href="/showAllBooks">Show all books in the list</a> <br>
+    <a href="/searchBooks">Search books</a> <br>
+    <a href="/registerReader">Register reader</a> <br>
+
+</body>
+
+</html>
+
+Это простой html файл со списком пунктов меню программы.

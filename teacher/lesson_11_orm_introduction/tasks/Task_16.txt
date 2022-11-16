@@ -1,4 +1,4 @@
-В пакете database закоментируйте аннотацию @Component
+В пакете vehicleDatabase закоментируйте аннотацию @Component
 на классе JdbcBookRepositoryImpl:
 
 //@Component

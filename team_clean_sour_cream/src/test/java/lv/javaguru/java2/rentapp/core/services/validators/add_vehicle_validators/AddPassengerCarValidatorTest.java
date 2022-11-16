@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.AddVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.services.new_vehicle_creators.PassengerCarCreator;
@@ -11,6 +11,9 @@ import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,16 +23,18 @@ import static lv.javaguru.java2.rentapp.domain.PassengerCar.*;
 import static lv.javaguru.java2.rentapp.domain.Vehicle.MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class AddPassengerCarValidatorTest {
 
     AddPassengerCarValidator validator;
-    Database database;
+    VehicleDatabase vehicleDatabase;
 
     @BeforeEach
     void setUp() {
-        database = new InMemoryDatabaseImpl();
-        validator = new AddPassengerCarValidator(database);
+        vehicleDatabase = Mockito.mock(VehicleDatabaseImpl.class);
+        validator = new AddPassengerCarValidator(vehicleDatabase);
     }
 
     @Test
@@ -49,7 +54,7 @@ class AddPassengerCarValidatorTest {
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
-        database.addNewVehicle(passengerCar1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(passengerCar1));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand2").model("model2").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
@@ -59,13 +64,13 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    void testValidateVehicleIsNotDuplicateShouldReturnError() {
+    void testValidateVehicleIsDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
                 .doorsAmount(CAR_MAX_DOORS_AMOUNT).isAirConditioningAvailable("true").build();
         Vehicle passengerCar1 = new PassengerCarCreator().createVehicle(request1);
-        database.addNewVehicle(passengerCar1);
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(passengerCar1));
         AddVehicleRequest request2 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType("manual").passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
@@ -331,12 +336,12 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateEngineTypeWrongInputShouldReturnError() {
-        String engineType = "wrong";
+        String engineType = "none";
         AddVehicleRequest request = AddVehicleRequest.builder().engineType(engineType).build();
         Optional<CoreError> errorOptional = validator.validateEngineType(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Engine Type", errorOptional.get().getField());
-        assertEquals("must be one of the provided options (" + EngineType.getAllEnumValues() + ")", errorOptional.get().getMessage());
+        assertEquals("must be one of the provided options (" + EngineType.getAllEnumValuesExceptNone() + ")", errorOptional.get().getMessage());
     }
 
     @Test
@@ -415,7 +420,7 @@ class AddPassengerCarValidatorTest {
 
     @Test
     void testValidateTransmissionTypeWrongInputShouldReturnError() {
-        String transmissionType = "wrong";
+        String transmissionType = "none";
         AddVehicleRequest request = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
                 .transmissionType(transmissionType).passengerAmount(CAR_MAX_PASSENGER_AMOUNT).baggageAmount(CAR_MAX_BAGGAGE_AMOUNT)
@@ -423,7 +428,7 @@ class AddPassengerCarValidatorTest {
         Optional<CoreError> errorOptional = validator.validateTransmissionType(request);
         assertTrue(errorOptional.isPresent());
         assertEquals("Transmission Type", errorOptional.get().getField());
-        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValues() + ")", errorOptional.get().getMessage());
+        assertEquals("must be one of the provided options (" + TransmissionType.getAllEnumValuesExceptNone() + ")", errorOptional.get().getMessage());
     }
 
     @Test

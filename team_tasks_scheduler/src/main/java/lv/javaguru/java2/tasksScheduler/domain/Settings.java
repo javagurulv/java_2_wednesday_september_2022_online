@@ -20,6 +20,15 @@ public class Settings {
         this.emailProtocol = emailProtocol;
     }
 
+    public Settings(Settings settings) {
+        this.adminPassword = settings.getAdminPassword();
+        this.emailFrom = settings.getEmailFrom();
+        this.emailPassword = settings.getEmailPassword();
+        this.emailHost = settings.getEmailHost();
+        this.emailPort = settings.getEmailPort();
+        this.emailProtocol = settings.getEmailProtocol();
+    }
+
     public String getAdminPassword() {
         return adminPassword;
     }

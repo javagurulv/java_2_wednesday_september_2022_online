@@ -4,6 +4,7 @@ import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 
 
+import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
@@ -14,7 +15,8 @@ import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -28,7 +30,7 @@ public class LoginService {
 
     public LoginResponse execute(LoginRequest request) {
 
-        List<CoreError> errors = validator.validate(request, usersRepository);
+        List<CoreError> errors = validator.validate(request);
         if (!errors.isEmpty()) {
             return new LoginResponse(errors);
         }
@@ -37,7 +39,28 @@ public class LoginService {
                                              Encryption.stringHashing(request.getPassword()));
 
         sessionService.login(user.getId(), request.getPassword());
-        tasksRepository.deleteOutOfDateByUserId(sessionService.getCurrentUserId());
+        tasksRepository.deleteByUserIdTillDate(sessionService.getCurrentUserId(), LocalDateTime.now());
+        updateDueDates();
         return new LoginResponse(user);
+    }
+
+    private int updateDueDates() {
+        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate(sessionService.getCurrentUserId());
+        if (tasks == null) {
+            return 0;
+        }
+        int recordsUpdated = 0;
+        for (Task task : tasks) {
+            do {
+                task.setDueDate(task.getDueDate().plusDays(task.getRegularity()));
+                if (task.getDueDate().isAfter(LocalDateTime.now().minusDays(1).with(LocalTime.MAX))) {
+                    break;
+                }
+            } while(true);
+            if (tasksRepository.update(task)) {
+                recordsUpdated++;
+            }
+        }
+        return recordsUpdated;
     }
 }

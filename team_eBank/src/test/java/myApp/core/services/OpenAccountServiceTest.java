@@ -1,11 +1,11 @@
 package myApp.core.services;
+//need to finish
 /*
+import myApp.core.database.BankAccountRepository;
 import myApp.core.database.DataBase;
 import myApp.core.database.InMemoryDatabaseImpl;
-import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
+import myApp.core.roles.Roles;
 import myApp.core.requests.OpenAccountRequest;
-import myApp.core.responses.CoreError;
 import myApp.core.responses.OpenAccountResponse;
 import myApp.core.services.validators.OpenAccountValidator;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 public class OpenAccountServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @Mock
     private OpenAccountValidator validator;
     @InjectMocks
@@ -31,15 +31,15 @@ public class OpenAccountServiceTest {
 
     @Test
     public void testSuccessOpenAccount() {
-        OpenAccountRequest request = new OpenAccountRequest("000-001");
+        OpenAccountRequest request = new OpenAccountRequest("000000-00001");
         when(validator.validate(request)).thenReturn(List.of());
-        when(dataBase.openAccount("000-001")).thenReturn(true);
+        when(bankAccountRepository.openAccount("000-001")).thenReturn(true);
         OpenAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
-        verify(dataBase).openAccount("000-001");
+        verify(bankAccountRepository).openAccount("000-001");
         assertTrue(response.isCompleted());
     }
-
+/*
     @Test
     public void testShouldReturnPersonalCodeError() {
         OpenAccountRequest request = new OpenAccountRequest(null);
@@ -55,5 +55,5 @@ public class OpenAccountServiceTest {
     }
 
 }
-
  */
+

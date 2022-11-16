@@ -1,0 +1,6 @@
+Пробегитесь по возможностям Spring Boot фреймворка:
+https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html
+
+
+Посмотрите на список свойств конфигурации Spring Boot:
+https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties-core

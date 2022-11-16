@@ -1,10 +1,10 @@
 Подключите AddXXXService к классу AddXXXUIAction.
 Сделайте так, что бы AddXXXUIAction напрямую вызывал
-AddXXXService и не использовал lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database.
+AddXXXService и не использовал lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.vehicleDatabase.
 
 У нас будет следующая связка:
 
-AddXXXUIAction -> AddXXXService -> lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.database.
+AddXXXUIAction -> AddXXXService -> lv.javaguru.java2.hardcore.lv.javaguru.java2.realestate.core.vehicleDatabase.
 
 AddXXXUIAction запрашивает все необходимые данные
 для создания объекта у пользователя и передаёт их

@@ -1,23 +1,28 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_vehicle_validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static lv.javaguru.java2.rentapp.enums.VehicleType.*;
 
+@Component
 public class AddVehicleValidatorMap {
 
     private Map<VehicleType, AddVehicleValidator> addVehicleValidatorMap;
 
-    public AddVehicleValidatorMap(Database database) {
+    @Autowired
+    public AddVehicleValidatorMap(AddPassengerCarValidator addPassengerCarValidator, AddMiniBusValidator addMiniBusValidator,
+                                  AddMotorcycleValidator addMotorcycleValidator, AddCarTrailerValidator addCarTrailerValidator) {
         this.addVehicleValidatorMap = new HashMap<>();
-        addVehicleValidatorMap.put(PASSENGER_CAR, new AddPassengerCarValidator(database));
-        addVehicleValidatorMap.put(MINIBUS, new AddMiniBusValidator(database));
-        addVehicleValidatorMap.put(MOTORCYCLE, new AddMotorcycleValidator(database));
-        addVehicleValidatorMap.put(CAR_TRAILER, new AddCarTrailerValidator(database));
+        addVehicleValidatorMap.put(PASSENGER_CAR, addPassengerCarValidator);
+        addVehicleValidatorMap.put(MINIBUS, addMiniBusValidator);
+        addVehicleValidatorMap.put(MOTORCYCLE, addMotorcycleValidator);
+        addVehicleValidatorMap.put(CAR_TRAILER, addCarTrailerValidator);
     }
 
     public AddVehicleValidator getVehicleValidatorByCarType(VehicleType vehicleType) {

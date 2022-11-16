@@ -1,9 +1,9 @@
 package myApp.core.services;
+//need to finish
 /*
-import myApp.core.database.DataBase;
-import myApp.core.domain.Account;
+
+import myApp.core.database.BankAccountRepository;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.Roles;
 import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.SeeYourAccountResponse;
 import org.junit.Test;
@@ -14,7 +14,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
-import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,22 +23,21 @@ import static org.mockito.Mockito.when;
 public class SeeYourAccountServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankAccountRepository bankAccountRepository;
     @InjectMocks
     private SeeYourAccountService service;
 
     @Test
     public void testSeeAccount() {
-        SeeYourAccountRequest request = new SeeYourAccountRequest("000-001");
+        SeeYourAccountRequest request = new SeeYourAccountRequest("0000000-00001");
         Optional<BankAccount> bankAccount = Optional.of(new BankAccount(
-                "Example", "ExampleTwo","password", Roles.Regular_user, "000-111"
-        ));
-        bankAccount.get().setAccount(new Account(1L, 500));
-        when(dataBase.seeYourAccount("000-001")).thenReturn(bankAccount);
+                "Example", "ExampleTwo","password", "Roles.Regular_user",0));
+        when(bankAccountRepository.seeYourAccount("0000000-00001")).thenReturn(bankAccount);
         SeeYourAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
-        verify(dataBase).seeYourAccount("000-001");
+        verify(bankAccountRepository).seeYourAccount("0000000-00001");
     }
 }
+
 
  */

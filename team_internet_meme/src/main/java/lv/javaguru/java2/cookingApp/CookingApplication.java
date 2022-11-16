@@ -11,10 +11,15 @@ public class CookingApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = createApplicationContext();
         ProgramMenu programMenu = applicationContext.getBean(ProgramMenu.class);
+
         while (true) {
-            programMenu.print();
-            int menuNumber = programMenu.getMenuNumberFromUser();
-            programMenu.executeSelectedMenuItem(menuNumber);
+            try {
+                programMenu.print();
+                int menuNumber = programMenu.getMenuNumberFromUser();
+                programMenu.executeSelectedMenuItem(menuNumber);
+            } catch (NumberFormatException e) {
+                System.out.println("You have to enter a number!");
+            }
         }
     }
 

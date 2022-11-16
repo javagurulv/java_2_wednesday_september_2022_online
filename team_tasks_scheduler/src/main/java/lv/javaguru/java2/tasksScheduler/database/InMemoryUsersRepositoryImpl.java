@@ -2,13 +2,15 @@ package lv.javaguru.java2.tasksScheduler.database;
 
 
 import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Component
+import static java.util.stream.Collectors.toList;
+
+//@Component
 public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     private Long nextId = 1L;
@@ -51,13 +53,6 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
                 .anyMatch(user -> user.getUsername().equalsIgnoreCase(username));
     }
 
-    //TODO think if there should be 2 exist() functions
-    @Override
-    public boolean existsByEmail(String email) {
-        return users.stream()
-                .anyMatch(user -> user.getEmail().equalsIgnoreCase(email));
-    }
-
     @Override
     public User getUserById(Long id) {
         return users.stream()
@@ -76,7 +71,39 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
+    public List<User> getUsersAcceptedReminders() {
+        return users.stream()
+                .filter(user -> user.isSendReminders() &&
+                        !user.getEmail().isBlank())
+                .collect(toList());
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return new ArrayList<>(users);
     }
+
+    @Override
+    public List<User> getUsersByUsername(String username) {
+        return users.stream()
+                .filter(user -> user.getUsername().contains(username))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getUsersByEmail(String email) {
+        return users.stream()
+                .filter(user -> user.getEmail().contains(email))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getUsersByUsernameAndEmail(String username, String email) {
+        return users.stream()
+                .filter(user -> user.getUsername().contains(username))
+                .filter(user -> user.getEmail().contains(email))
+                .collect(Collectors.toList());
+    }
+
+
 }

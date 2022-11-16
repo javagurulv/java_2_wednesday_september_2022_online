@@ -1,7 +1,7 @@
 package lv.javaguru.java2.rentapp.core.services.validators;
 
-import lv.javaguru.java2.rentapp.core.database.Database;
-import lv.javaguru.java2.rentapp.core.database.InMemoryDatabaseImpl;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
+import lv.javaguru.java2.rentapp.core.database.VehicleDatabaseImpl;
 import lv.javaguru.java2.rentapp.core.requests.DeleteVehicleByPlateNumberRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -14,25 +14,24 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DeleteVehicleByPlateNumberValidatorTest {
 
     DeleteVehicleByPlateNumberRequestValidator validator;
-    Database database;
-
-
-    Vehicle vehicle = Mockito.mock(Vehicle.class) ;
+    VehicleDatabase vehicleDatabase;
+    Vehicle vehicle;
 
     @BeforeEach
     void setUp() {
-
-        database = new InMemoryDatabaseImpl();
-        validator = new DeleteVehicleByPlateNumberRequestValidator(database);
+        vehicle = Mockito.mock(Vehicle.class);
+        vehicleDatabase = Mockito.mock(VehicleDatabaseImpl.class);
+        validator = new DeleteVehicleByPlateNumberRequestValidator(vehicleDatabase);
     }
 
     @Test
-    void testValidateListOfErrors() {
+    void testValidateListReturnErrors() {
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("");
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
@@ -40,7 +39,9 @@ class DeleteVehicleByPlateNumberValidatorTest {
 
     @Test
     void testValidatePlateNumberReturnErrorIfVehicleWithThatPlateNumberIsNotInDatabase() {
-        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("Not in database");
+        when(vehicle.getPlateNumber()).thenReturn("123");
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(vehicle));
+        DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("456");
         List<CoreError> errors = validator.validate(request);
         assertEquals(1, errors.size());
         assertEquals("Plate number", errors.get(0).getField());
@@ -49,8 +50,8 @@ class DeleteVehicleByPlateNumberValidatorTest {
 
     @Test
     void testValidatePlateNumberReturnNoErrorIfVehicleWithThatPlateNumberIsInDatabase() {
-        Mockito.when(vehicle.getPlateNumber()).thenReturn("123");
-        database.addNewVehicle(vehicle);
+        when(vehicle.getPlateNumber()).thenReturn("123");
+        when(vehicleDatabase.getAllVehicles()).thenReturn(List.of(vehicle));
         DeleteVehicleByPlateNumberRequest request = new DeleteVehicleByPlateNumberRequest("123");
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
@@ -63,6 +64,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
+        Mockito.verifyNoInteractions(vehicleDatabase);
     }
 
     @Test
@@ -72,6 +74,7 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
+        Mockito.verifyNoInteractions(vehicleDatabase);
     }
 
     @Test
@@ -81,5 +84,6 @@ class DeleteVehicleByPlateNumberValidatorTest {
         assertFalse(errors.isEmpty());
         assertEquals("Plate number", errors.get(0).getField());
         assertEquals("can`t be empty or blank", errors.get(0).getMessage());
+        Mockito.verifyNoInteractions(vehicleDatabase);
     }
 }
