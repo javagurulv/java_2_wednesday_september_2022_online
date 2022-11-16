@@ -134,6 +134,40 @@ CREATE TABLE IF NOT EXISTS car_trailer
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
+CREATE TABLE IF NOT EXISTS client
+(
+    `id`             BIGINT       NOT NULL AUTO_INCREMENT,
+    `personal_id`    VARCHAR(12)  NOT NULL,
+    `name`           VARCHAR(100) NOT NULL,
+    `surname`        VARCHAR(100) NOT NULL,
+    `email`          VARCHAR(255) NOT NULL,
+    `phone`          VARCHAR(20)  NOT NULL,
+
+    UNIQUE INDEX (`personal_id`),
+    UNIQUE INDEX (`email`),
+)
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 0001;
+
+CREATE TABLE IF NOT EXISTS rent_deal
+(
+    `id`         BIGINT        NOT NULL AUTO_INCREMENT,
+    `client_id`  BIGINT        NOT NULL,
+    `vehicle_id` BIGINT        NOT NULL,
+    `start_date` DATE          NOT NULL,
+    `duration`   SMALLINT      NOT NULL,
+    `end_date`   DATE          NOT NULL,
+    `price`      DECIMAL(5, 2) NOT NULL,
+
+    UNIQUE INDEX (`vehicle_id`),
+    FOREIGN KEY (`vehicle_id`) REFERENCES vehicle (`id`) ON DELETE CASCADE,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB
+    AUTO_INCREMENT = 0001;
+
+
+
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
