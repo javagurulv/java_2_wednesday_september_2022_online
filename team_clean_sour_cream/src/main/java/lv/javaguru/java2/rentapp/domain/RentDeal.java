@@ -31,4 +31,7 @@ public class RentDeal {
         this.rentCost = vehicle.getRentPricePerDay() * rentDuration;
         this.endDate = endDate;
     }
+
+	public RentDeal() {
+	}
 }
