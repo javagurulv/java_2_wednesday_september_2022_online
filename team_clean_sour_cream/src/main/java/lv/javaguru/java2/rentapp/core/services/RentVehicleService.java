@@ -8,6 +8,7 @@ import lv.javaguru.java2.rentapp.core.responses.RentVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.RentVehicleValidator;
 import lv.javaguru.java2.rentapp.domain.Client;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
+import lv.javaguru.java2.rentapp.domain.RentDealFactory;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class RentVehicleService {
         Optional<Vehicle> vehicleOpt = vehicleDatabase.getById(request.getVehicleId());
         if (vehicleOpt.isPresent()) {
             Vehicle vehicle = vehicleOpt.get();
-            RentDeal rentDeal = new RentDeal(client, vehicle, startDate, endDate);
+            RentDeal rentDeal = new RentDealFactory().createRentDeal(client, vehicle, startDate, endDate);
             dealDatabase.save(rentDeal);
             return new RentVehicleResponse(rentDeal);
         }
