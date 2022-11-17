@@ -17,14 +17,14 @@
 
 <h2>Add your recipe to the book!</h2>
 
-<form action="/addRecipe" method="post">
+<form action="/addRecipe" th:object="${request}" method="post">
     <h3>Name of your recipe</h3>
-    <input type="text" id="name" name="name" required autofocus><br><br>
+    <input type="text" th:field="${request.dishName}" required autofocus><br><br>
     <h3>Required ingredients</h3>
     <label for="ingr">Ingredients:</label>
-    <input type="text" id="ingr" name="ingr" required>
+    <input type="text" id="ingr" name="ingr" th:field="${request.ingredients}" required>
     <label for="amount">amount:</label>
-    <input type="number" id="amount" name="amount" min="0" max="1000">
+    <input type="number" id="amount" name="amount" min="0" max="1000" required>
     <input list="measurement" name="measurement">
     <datalist id="measurement">
         <option value="ml"></option>
