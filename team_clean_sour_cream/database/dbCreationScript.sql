@@ -9,66 +9,29 @@ CREATE SCHEMA IF NOT EXISTS `rentApp` DEFAULT CHARACTER SET utf8mb4;
 USE
     `rentApp`;
 
-
-CREATE TABLE IF NOT EXISTS vehicle_type
-(
-    `id`   TINYINT      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(100) NOT NULL,
-    UNIQUE INDEX (`name`),
-    PRIMARY KEY (`id`)
-)
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 01;
-
-CREATE TABLE IF NOT EXISTS colour
-(
-    `id`   TINYINT      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(100) NOT NULL,
-    UNIQUE INDEX (`name`),
-    PRIMARY KEY (`id`)
-)
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 01;
-
-CREATE TABLE IF NOT EXISTS engine_type
-(
-    `id`   TINYINT      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(100) NOT NULL,
-    UNIQUE INDEX (`name`),
-    PRIMARY KEY (`id`)
-)
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 01;
-
-CREATE TABLE IF NOT EXISTS transmission_type
-(
-    `id`   TINYINT      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(100) NOT NULL,
-    UNIQUE INDEX (`name`),
-    PRIMARY KEY (`id`)
-)
-    ENGINE = InnoDB
-    AUTO_INCREMENT = 01;
-
 CREATE TABLE IF NOT EXISTS vehicle
 (
     `id`                   BIGINT        NOT NULL AUTO_INCREMENT,
-    `vehicle_type_id`      TINYINT       NOT NULL,
+    `vehicle_type`         VARCHAR(100)  NOT NULL,
     `name`                 VARCHAR(100)  NOT NULL,
     `brand`                VARCHAR(100)  NOT NULL,
     `model`                VARCHAR(100)  NOT NULL,
     `is_available`         BIT(1)        NOT NULL,
     `year`                 YEAR          NOT NULL,
-    `colour_id`            TINYINT       NOT NULL,
+    `colour`               VARCHAR(100)  NOT NULL,
     `price`                DECIMAL(5, 2) NOT NULL,
-    `engine_type_id`       TINYINT       NOT NULL,
+    `engine_type`          VARCHAR(100)  NOT NULL,
     `plate_number`         CHAR(30)      NOT NULL,
-    `transmission_type_id` TINYINT       NOT NULL,
+    `transmission_type`    VARCHAR(100)  NOT NULL,
     FOREIGN KEY (`vehicle_type_id`) REFERENCES vehicle_type (`id`),
     FOREIGN KEY (`colour_id`) REFERENCES colour (`id`),
     FOREIGN KEY (`engine_type_id`) REFERENCES engine_type (`id`),
     FOREIGN KEY (`transmission_type_id`) REFERENCES transmission_type (`id`),
     UNIQUE INDEX (`plate_number`),
+    UNIQUE INDEX (`vehicle_type`),
+    UNIQUE INDEX (`colour`),
+    UNIQUE INDEX (`engine_type`),
+    UNIQUE INDEX (`transmission_type`),
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
