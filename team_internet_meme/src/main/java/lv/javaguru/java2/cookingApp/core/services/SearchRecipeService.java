@@ -3,9 +3,9 @@ package lv.javaguru.java2.cookingApp.core.services;
 
 import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.CoreError;
-import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.SearchRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.CoreError;
+import lv.javaguru.java2.cookingApp.core.dto.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.validators.SearchRecipeRequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

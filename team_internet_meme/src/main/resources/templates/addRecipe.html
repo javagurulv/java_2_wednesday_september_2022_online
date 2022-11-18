@@ -8,7 +8,6 @@
     <title>Cooking book</title>
     <script>
         function addIngredient() {
-
         }
     </script>
 </head>
@@ -17,57 +16,45 @@
 
 <h2>Add your recipe to the book!</h2>
 
-<form action="/addRecipe" th:object="${request}" method="post">
+<form action="/addRecipe" method="post" th:object="${ingredients}">
     <h3>Name of your recipe</h3>
-    <input type="text" th:field="${request.dishName}" required autofocus><br><br>
+    <input type="text" th:field="${request.dishName}"  autofocus><br><br>
+
     <h3>Required ingredients</h3>
-    <label for="ingr">Ingredients:</label>
-    <input type="text" id="ingr" name="ingr" th:field="${request.ingredients}" required>
-    <label for="amount">amount:</label>
-    <input type="number" id="amount" name="amount" min="0" max="1000" required>
-    <input list="measurement" name="measurement">
-    <datalist id="measurement">
-        <option value="ml"></option>
-        <option value="L"></option>
-        <option value="mg"></option>
-        <option value="g"></option>
-        <option value="kg"></option>
-        <option value="tbsp"></option>
-    </datalist>
-    <button type="button" onclick="addIngredient()">+</button>
-    <br><br>
-    <label for="cookStep">Cooking step:</label>
-    <textarea id="cookStep" name="cookStep" rows="5" cols="40" required></textarea><br><br>
+    <div th:each="ingr, ingrStat : *{ingredients}">
+
+        <label for="ingr">Ingredients:</label>
+        <input type="text" id="ingr" name="ingr" th:field="*{ingredients[__${ingrStat.index}__].name}" >
+
+        <label for="amount">amount:</label>
+        <input type="number" id="amount" name="amount" th:field="*{ingredients[__${ingrStat.index}__].amount}" min="0" max="10000" >
+
+        <select id="measurement" name="measurement" th:field="*{ingredients[__${ingrStat.index}__].measurement}">
+            <option value="ml">ml</option>
+            <option value="L">L</option>
+            <option value="mg">mg</option>
+            <option value="g">g</option>
+            <option value="kg">kg</option>
+            <option value="tbsp">tbsp</option>
+            <option value=""></option>
+        </select>
+
+        <button type="button" onclick="addIngredient()">Add ingredient</button>
+    </div><br>
+    <div th:each="cookStep, cookStepStat : *{cookingSteps}">
+        <p><label for="cookStep">Cooking step:</label></p>
+        <textarea id="cookStep" name="cookStep" rows="5" cols="40" th:field="*{cookingSteps[__${cookStepStat.index}__].stepDescription}"></textarea><br><br>
+    </div>
     <input type="submit" value="Add Recipe"/>
     <input type="reset" value="Clear"/>
 </form>
-
-<table>
-    <tr>
-        <td>Dish name:</td>
-        <td>Ingredients:</td>
-        <td>Cooking steps:</td>
-    </tr>
-
-    <tr>
-        <form action="/addRecipe" th:object="${request}" method="post">
-            <td><input type="text" th:field="${request.dishName}"/></td>
-            <td><input type="text" th:field="${request.ingredients}"/></td>
-            <td><input type="text" th:field="${request.cookingSteps}"/></td>
-            <td>
-                <input type="submit" value="Add Recipe"/>
-                <input type="reset" value="Clear"/>
-            </td>
-        </form>
-    </tr>
-</table>
-
-<td th:if="${errors != null}">
-    <tr th:each="error : ${errors}">
+<br>
+<div th:if="${errors != null}">
+    <p th:each="error : ${errors}">
         <td th:text="${error.field}"/>
         <td th:text="${error.message}"/>
-    </tr>
-</td>
+    </p>
+</div>
 
 </body>
 

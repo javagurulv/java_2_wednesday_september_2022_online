@@ -1,9 +1,9 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
 import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
-import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.CoreError;
-import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.DeleteRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.CoreError;
+import lv.javaguru.java2.cookingApp.core.dto.responses.DeleteRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.validators.IdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

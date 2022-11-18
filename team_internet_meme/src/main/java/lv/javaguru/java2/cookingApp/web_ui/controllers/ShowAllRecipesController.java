@@ -1,7 +1,7 @@
 package lv.javaguru.java2.cookingApp.web_ui.controllers;
 
-import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
-import lv.javaguru.java2.cookingApp.core.responses.GetAllRecipesResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.GetAllRecipesRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.GetAllRecipesResponse;
 import lv.javaguru.java2.cookingApp.core.services.GetAllRecipesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
