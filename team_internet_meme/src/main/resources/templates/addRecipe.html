@@ -16,9 +16,9 @@
 
 <h2>Add your recipe to the book!</h2>
 
-<form action="/addRecipe" method="post" th:object="${ingredients}">
+<form action="/addRecipe" method="post" th:object="${dto}">
     <h3>Name of your recipe</h3>
-    <input type="text" th:field="${request.dishName}"  autofocus><br><br>
+    <input type="text" th:field="${dto.dishName}"  autofocus><br><br>
 
     <h3>Required ingredients</h3>
     <div th:each="ingr, ingrStat : *{ingredients}">

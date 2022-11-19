@@ -4,6 +4,7 @@ import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.dto.CookingStepsListDto;
 import lv.javaguru.java2.cookingApp.core.dto.IngredientsListDto;
+import lv.javaguru.java2.cookingApp.core.dto.AddRecipeDto;
 import lv.javaguru.java2.cookingApp.core.dto.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.dto.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class AddRecipeController {
 
@@ -22,28 +25,17 @@ public class AddRecipeController {
 
     @GetMapping(value = "/addRecipe")
     public String showAddRecipePage(ModelMap modelMap) {
-        IngredientsListDto ingredientsForm = new IngredientsListDto();
-        ingredientsForm.addIngredient(new Ingredient());
-        CookingStepsListDto cookingStepsForm = new CookingStepsListDto();
-        cookingStepsForm.addCookingStep(new CookingStep());
 
-        modelMap.addAttribute("request", new AddRecipeRequest());
-        modelMap.addAttribute("ingredients", ingredientsForm);
-        modelMap.addAttribute("cookingSteps", cookingStepsForm);
+        AddRecipeDto dto = new AddRecipeDto(null, List.of(new Ingredient()), List.of(new CookingStep()));
+
+        modelMap.addAttribute("dto", dto);
         return "addRecipe";
     }
 
     @PostMapping("/addRecipe")
-    public String processAddRecipeRequest(@ModelAttribute(value = "request") AddRecipeRequest request,
-                                          @ModelAttribute(value = "ingredients") IngredientsListDto ingredientsListDto,
-                                          @ModelAttribute(value = "cookingSteps") CookingStepsListDto cookingStepsListDto,
+    public String processAddRecipeRequest(@ModelAttribute(value = "dto") AddRecipeDto dto,
                                           ModelMap modelMap) {
-        if (!ingredientsListDto.getIngredients().isEmpty()) {
-            request.setIngredients(ingredientsListDto.getIngredients());
-        }
-        if (!cookingStepsListDto.getCookingSteps().isEmpty()) {
-            request.setCookingSteps(cookingStepsListDto.getCookingSteps());
-        }
+        AddRecipeRequest request = new AddRecipeRequest(dto.getDishName(), dto.getIngredients(), dto.getCookingSteps());
         AddRecipeResponse response = addRecipeService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
