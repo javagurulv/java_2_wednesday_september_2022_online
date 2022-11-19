@@ -24,13 +24,13 @@
 
 <h2>Add your recipe to the book!</h2>
 
-<form action="/addRecipe" method="post" th:object="${dto}">
+<form action="/addRecipe" method="post" th:object="${dto}" onload="addIngredient()">
     <h3>Name of your recipe</h3>
     <input type="text" th:field="${dto.dishName}" autofocus>
 
     <h3>Required ingredients</h3>
     <div id="ingredientForm" th:each="ingr, ingrStat : *{ingredients}">
-
+        <div>
         <label for="ingr">Ingredients:</label>
         <input type="text" id="ingr" name="ingr" th:field="*{ingredients[__${ingrStat.index}__].name}">
 
@@ -47,8 +47,9 @@
             <option value="tbsp">tbsp</option>
             <option value=""></option>
         </select>
-
+        </div>
     </div>
+
     <button type="button" onclick="addIngredient()">Add ingredient</button>
     <br>
     <div th:each="cookStep, cookStepStat : *{cookingSteps}">

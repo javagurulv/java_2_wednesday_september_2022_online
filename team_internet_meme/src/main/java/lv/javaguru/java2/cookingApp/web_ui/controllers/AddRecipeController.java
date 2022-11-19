@@ -26,7 +26,7 @@ public class AddRecipeController {
     @GetMapping(value = "/addRecipe")
     public String showAddRecipePage(ModelMap modelMap) {
 
-        AddRecipeDto dto = new AddRecipeDto(null, List.of(new Ingredient()), List.of(new CookingStep()));
+        AddRecipeDto dto = new AddRecipeDto(null, List.of(new Ingredient(), new Ingredient()), List.of(new CookingStep()));
 
         modelMap.addAttribute("dto", dto);
         return "addRecipe";
