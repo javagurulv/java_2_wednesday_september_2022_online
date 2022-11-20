@@ -22,6 +22,7 @@ public class TaskAmendValidator {
     public List<CoreError> validate(AmendTaskRequest request) {
         List<CoreError> errors = new ArrayList<>();
 
+        validateTaskExpired(request).ifPresent(errors::add);
         validateDuplicate(request).ifPresent(errors::add);
         validateDescription(request).ifPresent(errors::add);
         validateRegularity(request).ifPresent(errors::add);
@@ -30,9 +31,17 @@ public class TaskAmendValidator {
         return errors;
     }
 
+    private Optional<CoreError> validateTaskExpired(AmendTaskRequest request) {
+        Task currentTask = tasksRepository.getTaskById(request.getTask().getId());
+        if (currentTask != null && currentTask.getEndDate().isBefore(LocalDateTime.now())) {
+            return Optional.of(new CoreError("Task", "Already expired, please create new"));
+        }
+        return Optional.empty();
+    }
+
     private Optional<CoreError> validateDuplicate(AmendTaskRequest request) {
-        Task task = request.getTask();
-        if (tasksRepository.exists(task)) {
+        Task amendedTask = request.getTask();
+        if (tasksRepository.exists(amendedTask)) {
             return Optional.of(new CoreError("Task", "Already exists"));
         }
         return Optional.empty();
@@ -57,8 +66,8 @@ public class TaskAmendValidator {
         LocalDateTime dueDate = request.getTask().getDueDate();
         LocalDateTime endDate = request.getTask().getEndDate();
         LocalDateTime now = LocalDateTime.now();
-        if (dueDate.isBefore(now) || dueDate.isBefore(endDate)) {
-            return Optional.of(new CoreError("Due date", "Start date can't be in the past"));
+        if (dueDate.isBefore(now) || dueDate.isAfter(endDate)) {
+            return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date"));
         }
         return Optional.empty();
     }
@@ -73,8 +82,8 @@ public class TaskAmendValidator {
                 dueDate.getMonth(),
                 dueDate.getDayOfMonth());
         Period period = Period.between(dueDateOnly, endDateOnly);
-        if (period.getYears() > 100) {
-            return Optional.of(new CoreError("End date", "Humans don't live that long!"));
+        if (period.getYears() > 100 || endDate.isBefore(LocalDateTime.now())) {
+            return Optional.of(new CoreError("End date", "Must not be in the past or > 100 years in the future"));
         }
         return Optional.empty();
     }

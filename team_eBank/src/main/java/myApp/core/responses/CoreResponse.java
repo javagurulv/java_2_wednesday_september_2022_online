@@ -19,6 +19,6 @@ public abstract class CoreResponse {
     }
 
     public boolean hasErrors() {
-        return errors != null;
+        return this.errors != null;
     }
 }

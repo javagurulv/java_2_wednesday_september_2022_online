@@ -15,12 +15,13 @@ public class ProgramMenuForAdmin {
     @Autowired
     public ProgramMenuForAdmin(List<UIAction> uiActions) {
         menuNumberToUIActionMap = new HashMap<>();
-        menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllAccountsUIAction.class));
-        menuNumberToUIActionMap.put(2, findUIAction(uiActions, AddBankAccountUIAction.class));
-        menuNumberToUIActionMap.put(3, findUIAction(uiActions, RemoveBankAccountUIAction.class));
-        menuNumberToUIActionMap.put(4, findUIAction(uiActions, SearchBankAccountUIAction.class));
-        menuNumberToUIActionMap.put(5, findUIAction(uiActions, SwitchUserUIAction.class));
-        menuNumberToUIActionMap.put(6, findUIAction(uiActions, ExitUIAction.class));
+        menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllBankAccountsUIAction.class));
+        menuNumberToUIActionMap.put(2, findUIAction(uiActions, GetAllUsersUIAction.class));
+        menuNumberToUIActionMap.put(3, findUIAction(uiActions, AddBankAccountUIAction.class));
+        menuNumberToUIActionMap.put(4, findUIAction(uiActions, RemoveBankAccountUIAction.class));
+        menuNumberToUIActionMap.put(5, findUIAction(uiActions, SearchBankAccountUIAction.class));
+        menuNumberToUIActionMap.put(6, findUIAction(uiActions, SwitchUserUIAction.class));
+        menuNumberToUIActionMap.put(7, findUIAction(uiActions, ExitUIAction.class));
     }
 
     public int userChoice() {
@@ -33,11 +34,12 @@ public class ProgramMenuForAdmin {
         System.out.println();
         System.out.println("Admin menu: ");
         System.out.println("1 - Get all bank accounts");
-        System.out.println("2 - Add bank account");
-        System.out.println("3 - Remove bank account");
-        System.out.println("4 - Search bank account");
-        System.out.println("5 - Switch user");
-        System.out.println("6 - Exit");
+        System.out.println("2 - Get all users");
+        System.out.println("3 - Add bank account");
+        System.out.println("4 - Remove bank account");
+        System.out.println("5 - Search bank account");
+        System.out.println("6 - Switch user");
+        System.out.println("7 - Exit");
     }
 
     private UIAction findUIAction(List<UIAction> uiActions, Class uiActionClass) {

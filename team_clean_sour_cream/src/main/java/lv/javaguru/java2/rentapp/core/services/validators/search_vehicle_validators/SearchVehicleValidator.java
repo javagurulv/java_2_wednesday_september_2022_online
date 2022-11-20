@@ -2,6 +2,7 @@ package lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_valida
 
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.validators.PagingValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
@@ -18,7 +19,7 @@ public class SearchVehicleValidator {
     @Autowired
     private SearchVehicleRequestOrderingValidator searchVehicleRequestOrderingValidator;
     @Autowired
-    private SearchVehicleRequestPagingValidator searchVehicleRequestPagingValidator;
+    private PagingValidator pagingValidator;
 
     public List<CoreError> validate(SearchVehicleRequest request) {
 
@@ -35,7 +36,7 @@ public class SearchVehicleValidator {
             errors.addAll(searchVehicleRequestOrderingValidator.validate(request.getOrdering()));
         }
         if (request.getPaging() != null) {
-            errors.addAll(searchVehicleRequestPagingValidator.validate(request.getPaging()));
+            errors.addAll(pagingValidator.validate(request.getPaging()));
         }
         return errors;
     }

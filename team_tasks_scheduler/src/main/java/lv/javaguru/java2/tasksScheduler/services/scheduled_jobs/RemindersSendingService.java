@@ -4,7 +4,10 @@ import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailService;
+import lv.javaguru.java2.tasksScheduler.requests.JobRunRequest;
+import lv.javaguru.java2.tasksScheduler.responses.JobRunResponse;
+import lv.javaguru.java2.tasksScheduler.services.system.CreateLogsService;
+import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailTemplateCreationService;
 import lv.javaguru.java2.tasksScheduler.utils.Email;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,61 +16,82 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
 public class RemindersSendingService {
+    @Value("${logs.job.tasks.reminderssending.create}")
+    private boolean createLog;
 
-    @Value("${reminder.email.body.header}")
-    private String bodyHeader;
+    @Value("${reminder.email.send}")
+    private boolean sendReminders;
 
-    @Value("${reminder.email.body.footer}")
-    private String bodyFooter;
+    @Autowired private TasksRepository tasksRepository;
+    @Autowired private UsersRepository usersRepository;
+    @Autowired private ReminderEmailTemplateCreationService reminderEmailTemplateCreationService;
+    @Autowired private CreateLogsService createLogsService;
 
-    private TasksRepository tasksRepository;
-    private UsersRepository usersRepository;
-    private ReminderEmailService reminderEmailService;
+    private Email reminder;;
 
-	private Email reminder;
+    public JobRunResponse execute(JobRunRequest request) {
+        if (!sendReminders) {
+            return null;
+        }
+        JobRunResult result = new JobRunResult("RemindersSending");
+        if (!request.isManual()) {
+            result.setRunType("Auto");
+        }
+        try {
+            result.setActionsCount(proceed());
+            result.setTimestampEnd(LocalDateTime.now());
+            result.setStatus("Succeed");
+        } catch (Exception e) {
+            return new JobRunResponse(result);
+        }
+        if (createLog) {
+            createLogsService.execute(result.getRecordInLogFormat());
+        }
+        return new JobRunResponse(result);
+    }
 
-    public RemindersSendingService(TasksRepository tasksRepository,
-								   UsersRepository usersRepository,
-								   ReminderEmailService reminderEmailService) {
-		this.tasksRepository = tasksRepository;
-		this.usersRepository = usersRepository;
-		this.reminderEmailService = reminderEmailService;
-		reminder = reminderEmailService.getReminderEmailDraft();
-	}
-
-    public void execute() {
+    private int proceed() {
+        reminder = reminderEmailTemplateCreationService.getReminderEmailDraft();
         if (reminder == null) {
-            return;
+            return 0;
         }
         List<User> users = usersRepository.getUsersAcceptedReminders();
         if (users == null) {
-            return;
+            return 0;
         }
+        int sentEmails = 0;
         LocalDateTime todayStart = LocalDateTime.now().with(LocalTime.MIN);
         for (User user : users) {
             List<Task> tasks = tasksRepository.getAllOutstandingTasksByUserIdTillDate(user.getId(),
                     todayStart.plusDays(2));
-            batchEmails(tasks);
+            sentEmails+=batchEmails(tasks);
         }
+        return sentEmails;
     }
 
-    private void batchEmails(List<Task> tasks) {
+    private int batchEmails(List<Task> tasks) {
+        int sentEmails = 0;
         for (Task task : tasks) {
-            sendEmail(task);
+            if (sendEmail(task)) {
+                sentEmails++;
+            }
         }
+        return sentEmails;
     }
 
-    private void sendEmail(Task task) {
+    private boolean sendEmail(Task task) {
         LocalDateTime taskDueDate = getTaskDueDateForEmail(task);
         if (taskDueDate != null) {
             reminder.setTo(usersRepository.getUserById(task.getUserId()).getEmail());
             reminder.setBody(getReminderEmailBody(task, taskDueDate));
-            reminder.send();
+            return reminder.send();
         }
+        return false;
     }
 
     private LocalDateTime getTaskDueDateForEmail(Task task) {
@@ -86,21 +110,27 @@ public class RemindersSendingService {
     }
 
     private String getReminderEmailBody(Task task, LocalDateTime dueDate) {
-        String result = reminder.getBody();
-        if (bodyHeader != null && !bodyHeader.isBlank()) {
-            result = bodyHeader + "\n";
-        }
-        if (reminder.isBodyHTML()) {
-            result += "<b style='color:blue;'>Due date</b>: " + dueDate + "\n" +
-                    "<b style='color:blue;'>Task</b>: " + task.getDescription();
+        DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String result = "";
+        if (reminder.isBodyIsHTML()) {
+            if (!reminder.getBodyHeader().isBlank()) {
+                result += "<b>" + reminder.getBodyHeader() + "</b><br><br>";
+            }
+            result += "<b style='color:blue;'>Due date and time</b>: " + dueDate.format(printFormat) + "<br>" +
+                    "<b style='color:blue'>Task</b>: " + task.getDescription();
+            if (!reminder.getBodyFooter().isBlank()) {
+                result += "<br><br><b style='color:red'><em>" + reminder.getBodyFooter() + "</em></b>";
+            }
         } else {
-            result += "Due date: " + dueDate + "\n" +
+            if (!reminder.getBodyHeader().isBlank()) {
+                result += reminder.getBodyHeader() + "\r\n" + "\r\n";
+            }
+            result += "Due date and time: " + dueDate.format(printFormat) + "\r\n" +
                     "Task: " + task.getDescription();
-        }
-        if (bodyFooter != null && !bodyFooter.isBlank()) {
-            result += "\n" + bodyFooter;
+            if (!reminder.getBodyFooter().isBlank()) {
+                result += "\r\n" + "\r\n" + reminder.getBodyFooter();
+            }
         }
         return result;
     }
 }
-

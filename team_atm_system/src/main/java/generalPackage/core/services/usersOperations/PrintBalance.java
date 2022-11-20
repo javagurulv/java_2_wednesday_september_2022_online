@@ -5,18 +5,19 @@ import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
 import generalPackage.core.responses.usersResponses.PrintBalanceResponse;
 import generalPackage.core.services.usersOperations.usersValidators.PrintBalanceValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class PrintBalance {
 
+    @Autowired
     private Database database;
+    @Autowired
     private PrintBalanceValidator validator;
 
-    public PrintBalance(Database database, PrintBalanceValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
 
     public PrintBalanceResponse execute(PrintBalanceRequest request) {
         List<CoreErrorUsers> errorUsers = validator.validate(request);

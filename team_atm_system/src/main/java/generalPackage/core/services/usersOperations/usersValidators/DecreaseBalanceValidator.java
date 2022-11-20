@@ -2,11 +2,13 @@ package generalPackage.core.services.usersOperations.usersValidators;
 
 import generalPackage.core.requests.usersRequests.DecreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class DecreaseBalanceValidator {
 
     public List<CoreErrorUsers> validate(DecreaseBalanceRequest request) {

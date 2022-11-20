@@ -12,7 +12,7 @@ public interface TasksRepository {
 
     void deleteById(Long id);
 
-    void deleteByUserIdTillDate(Long userId, LocalDateTime endDate);
+    int deleteByUserIdTillDate(Long userId, LocalDateTime endDate);
 
     boolean update(Task task);
 
@@ -22,10 +22,10 @@ public interface TasksRepository {
 
     List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate);
 
-    List<Task> getAllTasksReadyForDueDateUpdate();
+    List<Task> getAllTasksReadyForDueDateUpdate(Long userId);
 
-    List<Task> searchTaskByDescription(String description);
-    List<Task> searchTaskByDate(LocalDateTime date);
+    List<Task> searchTaskByDescription(String description, Long userId);
+    List<Task> searchTaskByDate(LocalDateTime date, Long userId);
     List<Task> searchTaskByDateRange(LocalDateTime start, LocalDateTime end, SearchDateType type);
 
     List<Task> searchTasks(String searchPhrase, Long userID);

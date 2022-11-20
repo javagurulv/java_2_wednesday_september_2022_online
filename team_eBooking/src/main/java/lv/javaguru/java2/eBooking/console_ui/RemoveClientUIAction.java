@@ -1,25 +1,27 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
-import lv.javaguru.java2.eBooking.core.requests.client_request.RemoveClientRequest;
-import lv.javaguru.java2.eBooking.core.responses.client.RemoveClientResponse;
-import lv.javaguru.java2.eBooking.core.services.client.RemoveClientService;
+import lv.javaguru.java2.eBooking.core.requests.client_request.ClientRemoveRequest;
+import lv.javaguru.java2.eBooking.core.responses.client.ClientRemoveResponse;
+import lv.javaguru.java2.eBooking.core.services.client.ClientRemoveService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class RemoveClientUIAction implements UIAction {
-    private RemoveClientService removeClientService;
+    private ClientRemoveService clientRemoveService;
 
 
-    public RemoveClientUIAction(RemoveClientService removeClientService) {
-        this.removeClientService = removeClientService;
+    public RemoveClientUIAction(ClientRemoveService clientRemoveService) {
+        this.clientRemoveService = clientRemoveService;
     }
 
     public void execute() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter client ID to remove");
         Long clientId = Long.parseLong(scanner.nextLine());
-        RemoveClientRequest request = new RemoveClientRequest(clientId);
-        RemoveClientResponse response = removeClientService.execute(request);
+        ClientRemoveRequest request = new ClientRemoveRequest(clientId);
+        ClientRemoveResponse response = clientRemoveService.execute(request);
 
         if (response.hasError()) {
             response.getErrors().forEach(coreError -> System.out.println(

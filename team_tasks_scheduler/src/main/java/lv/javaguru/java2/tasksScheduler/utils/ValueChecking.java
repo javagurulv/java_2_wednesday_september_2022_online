@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 public class ValueChecking {
 
+    public static boolean stringIsEmpty(String input) {
+        return input == null || input.isBlank();
+    }
+
     public static boolean stringIsInteger(String input) {
         if(input == null || input.isBlank())
             return false;

@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-@Component
+//@Component
 public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     private Long nextId = 1L;
@@ -81,4 +82,28 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     public List<User> getAllUsers() {
         return new ArrayList<>(users);
     }
+
+    @Override
+    public List<User> getUsersByUsername(String username) {
+        return users.stream()
+                .filter(user -> user.getUsername().contains(username))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getUsersByEmail(String email) {
+        return users.stream()
+                .filter(user -> user.getEmail().contains(email))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> getUsersByUsernameAndEmail(String username, String email) {
+        return users.stream()
+                .filter(user -> user.getUsername().contains(username))
+                .filter(user -> user.getEmail().contains(email))
+                .collect(Collectors.toList());
+    }
+
+
 }

@@ -6,18 +6,19 @@ import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.FindByIDAccountResponse;
 import generalPackage.core.services.adminOperations.adminValidators.FindUserByIDServiceValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class FindUserByIDService {
 
+    @Autowired
     private Database database;
+    @Autowired
     private FindUserByIDServiceValidator validator;
 
-    public FindUserByIDService(Database database, FindUserByIDServiceValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
 
     public FindByIDAccountResponse execute(FindUserByIDRequest request) {
         List <CoreError> errors =validator.validate(request);

@@ -7,19 +7,20 @@ import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.AddAccountResponse;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.services.adminOperations.adminValidators.AddAccountServiceValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
+@Component
 public class AddAccountService {
 
+    @Autowired
     private Database database;
+    @Autowired
     private AddAccountServiceValidator validator;
 
-    public AddAccountService(Database database, AddAccountServiceValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
 
     public AddAccountResponse execute(AddAccountRequest request) {
         List<CoreError> errors = validator.validate(request);

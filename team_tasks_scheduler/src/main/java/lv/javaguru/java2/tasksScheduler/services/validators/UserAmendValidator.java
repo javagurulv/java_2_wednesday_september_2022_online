@@ -6,6 +6,7 @@ import lv.javaguru.java2.tasksScheduler.domain.User;
 import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +43,7 @@ public class UserAmendValidator {
         return Optional.empty();
     }
     private Optional<CoreError> validateUserName(AmendCurrentUserRequest request) {
-        if (request.getUsername() == null || request.getUsername().isEmpty() ||
+        if (ValueChecking.stringIsEmpty(request.getUsername()) ||
                 request.getUsername().length() < 3) {
             return Optional.of(new CoreError("User name", "Has to be longer than 3 chars"));
         }
@@ -50,7 +51,7 @@ public class UserAmendValidator {
     }
 
     private Optional<CoreError> validateUserEmail(AmendCurrentUserRequest request) {
-        if (request.getEmail() == null || request.getEmail().isEmpty() ||
+        if (ValueChecking.stringIsEmpty(request.getEmail()) ||
                 !request.getEmail().contains("@")) {
             return Optional.of(new CoreError("e-mail", "Has to contain char '@'"));
         }
@@ -58,7 +59,7 @@ public class UserAmendValidator {
     }
 
     private Optional<CoreError> validateUserPassword(AmendCurrentUserRequest request) {
-        if (request.getPassword() == null || request.getPassword().isEmpty() ||
+        if (ValueChecking.stringIsEmpty(request.getPassword()) ||
                 request.getPassword().length() < 3
         ) {
             return Optional.of(new CoreError("Password", "Should be >3 characters"));

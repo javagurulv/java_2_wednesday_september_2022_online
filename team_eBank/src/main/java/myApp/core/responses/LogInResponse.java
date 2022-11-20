@@ -1,7 +1,10 @@
 package myApp.core.responses;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class LogInResponse extends CoreResponse {
 
     private String personalCode;
@@ -14,7 +17,5 @@ public class LogInResponse extends CoreResponse {
         super(errors);
     }
 
-    public String getPersonalCode() {
-        return personalCode;
-    }
+
 }

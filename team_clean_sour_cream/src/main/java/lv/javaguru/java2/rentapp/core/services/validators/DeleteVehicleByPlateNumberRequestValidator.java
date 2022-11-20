@@ -30,13 +30,13 @@ public class DeleteVehicleByPlateNumberRequestValidator {
     }
 
     private Optional<CoreError> validateVehicleByPlateNumber(DeleteVehicleByPlateNumberRequest request) {
-        return (request.getPlateNumber() == null || request.getPlateNumber().isBlank())
+        return (!isPlateNumberPresent(request))
                 ? Optional.of(new CoreError("Plate number", "can`t be empty or blank"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateVehicleToDeleteExists(DeleteVehicleByPlateNumberRequest request) {
-        if (request.getPlateNumber() != null && !request.getPlateNumber().isBlank()) {
+        if (isPlateNumberPresent(request)) {
             Optional<Vehicle> vehicleToDeleteOpt = vehicleDatabase.getAllVehicles().stream()
                     .filter(vehicle -> vehicle.getPlateNumber().equals(request.getPlateNumber()))
                     .findFirst();
@@ -45,6 +45,10 @@ public class DeleteVehicleByPlateNumberRequestValidator {
             }
         }
         return Optional.empty();
+    }
+
+    private boolean isPlateNumberPresent(DeleteVehicleByPlateNumberRequest request) {
+        return request.getPlateNumber() != null && !request.getPlateNumber().isBlank();
     }
 }
 

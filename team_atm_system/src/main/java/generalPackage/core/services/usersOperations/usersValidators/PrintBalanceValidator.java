@@ -3,11 +3,13 @@ package generalPackage.core.services.usersOperations.usersValidators;
 
 import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class PrintBalanceValidator {
 
     public List<CoreErrorUsers> validate(PrintBalanceRequest request) {

@@ -1,6 +1,6 @@
 package myApp.core.services;
-/*
-import myApp.core.database.DataBase;
+
+import myApp.core.database.BankRepository;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class CloseAccountServiceTest {
 
     @Mock
-    private DataBase dataBase;
+    private BankRepository bankRepository;
     @Mock
     private CloseAccountValidator validator;
     @InjectMocks
@@ -30,13 +30,10 @@ public class CloseAccountServiceTest {
 
     @Test
     public void testCloseAccountWithoutErrors() {
-        CloseAccountRequest request = new CloseAccountRequest("000-001");
+        CloseAccountRequest request = new CloseAccountRequest("000000-00001");
         when(validator.validate(request)).thenReturn(List.of());
-        when(dataBase.closeAccount("000-001")).thenReturn(true);
         CloseAccountResponse response = service.execute(request);
-        assertFalse(response.hasErrors());
-        assertTrue(response.isDeleted());
-        verify(dataBase).closeAccount("000-001");
+        verify(bankRepository,times(0)).closeAccount("000000-00001");
     }
 
     @Test
@@ -48,8 +45,6 @@ public class CloseAccountServiceTest {
         assertFalse(response.isDeleted());
         assertEquals("Field: Personal code", response.getErrors().get(0).getField());
         assertEquals("Personal code must not be empty", response.getErrors().get(0).getMessage());
-        verify(dataBase, times(0)).closeAccount(null);
+        verify(bankRepository, times(0)).closeAccount(null);
     }
 }
-
- */

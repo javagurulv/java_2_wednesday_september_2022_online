@@ -24,4 +24,7 @@ public interface Database {
     // added 23-09:
     Accounts findUserByID(int userID);
 
+    List <Accounts> searchAccountByName (String name);
+
+
 }

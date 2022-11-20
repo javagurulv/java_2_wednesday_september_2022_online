@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
 import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -34,14 +35,10 @@ public class SearchTasksValidator {
 
     private List<CoreError> validateSearchFields(SearchTasksRequest request) {
         List<CoreError> errors = new ArrayList<>();
-        if (isEmpty(request.getSearchPhrase())) {
+        if (ValueChecking.stringIsEmpty(request.getSearchPhrase())) {
             errors.add(new CoreError("Search phrase", "Must not be empty!"));
         }
         return errors;
-    }
-
-    private boolean isEmpty(String str) {
-        return str == null || str.isEmpty();
     }
 
     private Optional<CoreError> validateOrderBy(Ordering ordering) {

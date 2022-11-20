@@ -1,10 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
-import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
+import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
+import lv.javaguru.java2.rentapp.core.services.validators.VehicleAvailabilityServiceValidator;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,22 @@ public class VehicleAvailabilityService {
 
     @Autowired
     private DealDatabase dealDatabase;
-    @Autowired
-    private VehicleDatabase vehicleDatabase;
 
-    public VehicleAvailabilityResponse execute(GeneralRentVehicleRequest request) {
+    @Autowired
+    private VehicleAvailabilityServiceValidator vehicleAvailabilityServiceValidator;
+
+    public VehicleAvailabilityResponse execute(GeneralRentVehicleRequest request, List<Vehicle> vehicles) {
+        List<CoreError> errors = vehicleAvailabilityServiceValidator.validate(request);
+        if (!errors.isEmpty()) {
+            return new VehicleAvailabilityResponse(errors, null);
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
 
-        List<Vehicle> availableVehicles = findAvailableVehiclesInRange(startDate, endDate);
+        List<Vehicle> availableVehicles = findAvailableVehiclesInRange(startDate, endDate, vehicles);
         availableVehicles = paging(availableVehicles, request.getPaging());
 
         return new VehicleAvailabilityResponse(null, availableVehicles);
@@ -47,16 +54,15 @@ public class VehicleAvailabilityService {
         }
     }
 
-    private List<Vehicle> findAvailableVehiclesInRange(LocalDate startDate, LocalDate endDate) {
+    private List<Vehicle> findAvailableVehiclesInRange(LocalDate startDate, LocalDate endDate, List<Vehicle> vehicles) {
         List<RentDeal> rentDeals = dealDatabase.getAllDeals();
 
         List<Vehicle> unavailableVehicles = rentDeals.stream()
                 .filter(rentDeal -> isNotAvailableInGivenRange(startDate, endDate, rentDeal))
                 .map(RentDeal::getVehicle).toList();
 
-        List<Vehicle> availableVehicles = vehicleDatabase.getAllVehicles();
-        availableVehicles.removeAll(unavailableVehicles);
-        return availableVehicles;
+        vehicles.removeAll(unavailableVehicles);
+        return vehicles;
     }
 
     private boolean isNotAvailableInGivenRange(LocalDate startDate, LocalDate endDate, RentDeal rentDeal) {

@@ -3,12 +3,14 @@ package generalPackage.core.services.adminOperations.adminValidators;
 
 import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 
+@Component
 public class FindUserByIDServiceValidator {
 
     public List<CoreError> validate(FindUserByIDRequest request) {
