@@ -42,6 +42,7 @@ public class AddRecipeController {
                 .filter(ingredient -> !ingredient.getName().isBlank()).collect(Collectors.toList());
         List<CookingStep> cookingSteps = dto.getCookingSteps().stream()
                 .filter(cookingStep -> !cookingStep.getStepDescription().isBlank()).collect(Collectors.toList());
+
         AddRecipeRequest request = new AddRecipeRequest(dto.getDishName(), ingredients, cookingSteps);
         AddRecipeResponse response = addRecipeService.execute(request);
         if (response.hasErrors()) {

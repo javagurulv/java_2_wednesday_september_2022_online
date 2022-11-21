@@ -21,7 +21,7 @@
 
 <form action="/addRecipe" method="post" th:object="${dto}">
     <h3>Name of your recipe</h3>
-    <input type="text" th:field="${dto.dishName}" autofocus>
+    <input type="text" th:field="${dto.dishName}" autofocus required>
 
     <h3>Required ingredients</h3>
 
