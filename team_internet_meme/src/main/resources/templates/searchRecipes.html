@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Cooking Book</title>
+    <style>
+        div {margin: 10px}
+        .button {margin-right: 10px}
+    </style>
+</head>
+<body>
+    <h3>Search recipes by ingredients</h3>
+
+    <div>
+        <form action="/searchRecipes" method="post" th:object="${ingredients}">
+            <div th:each="ingr, ingrStat : *{ingredients}">
+                <label for="ingr" th:text="'Ingredient ' + ${ingrStat.index+1} + ':'"></label>
+                <input type="text" name="ingr" id="ingr" th:field=$*{request[__${ingrStat.index}__].}">
+            </div>
+
+            <div><input type="submit" value="Search recipe" class="button"><input type="reset" value="clear" class="button"></div>
+        </form>
+    </div>
+    <div>
+        <button id="addIngr">Add ingredient for search</button>
+    </div>
+    <div>
+        <form action="/" method="get"><input type="submit" value="Go to main page"></form>
+    </div>
+</body>
+</html>
