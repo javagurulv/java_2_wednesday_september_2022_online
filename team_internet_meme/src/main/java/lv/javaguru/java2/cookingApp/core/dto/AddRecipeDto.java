@@ -23,4 +23,12 @@ public class AddRecipeDto {
         this.ingredients = ingredients;
         this.cookingSteps = cookingSteps;
     }
+
+    public void addIngredient(Ingredient ingredient) {
+        ingredients.add(ingredient);
+    }
+
+    public void addCookingStep(CookingStep cookingStep) {
+        cookingSteps.add(cookingStep);
+    }
 }

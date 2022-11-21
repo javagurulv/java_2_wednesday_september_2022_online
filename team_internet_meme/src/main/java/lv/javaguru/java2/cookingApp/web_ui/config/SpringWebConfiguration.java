@@ -10,7 +10,6 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = {"lv.javaguru.java2.cookingApp"})
 public class SpringWebConfiguration implements WebMvcConfigurer {
 

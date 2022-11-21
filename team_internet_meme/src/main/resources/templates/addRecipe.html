@@ -6,13 +6,8 @@
     <meta name="description" content="Cooking book demo project">
     <meta name="author" content="JavaGuru">
     <title>Cooking book</title>
-    <script>
-    function addIngredient() {
-        const node = document.getElementById("ingredientForm");
-        const clone = node.cloneNode(true);
-        node.insertAdjacentElement("afterend", clone);
-    }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/addRecipeScript.js}"></script>
     <style>
         div {
         margin: 10px;
@@ -24,39 +19,50 @@
 
 <h2>Add your recipe to the book!</h2>
 
-<form action="/addRecipe" method="post" th:object="${dto}" onload="addIngredient()">
+<form action="/addRecipe" method="post" th:object="${dto}">
     <h3>Name of your recipe</h3>
     <input type="text" th:field="${dto.dishName}" autofocus>
 
     <h3>Required ingredients</h3>
-    <div id="ingredientForm" th:each="ingr, ingrStat : *{ingredients}">
+
+    <div class="ingredient" th:id="${#ids.seq('ingredient')}" th:each="ingr, ingrStat : *{ingredients}">
         <div>
-        <label for="ingr">Ingredients:</label>
-        <input type="text" id="ingr" name="ingr" th:field="*{ingredients[__${ingrStat.index}__].name}">
+            <label for="ingr" th:text="'Ingredient ' + ${ingrStat.index+1} + ':'"></label>
+            <input type="text" id="ingr" name="ingr" class="ingrName"
+                   th:field="*{ingredients[__${ingrStat.index}__].name}">
 
-        <label for="amount">amount:</label>
-        <input type="number" id="amount" name="amount" th:field="*{ingredients[__${ingrStat.index}__].amount}" min="0"
-               max="10000">
+            <label for="amount">amount:</label>
+            <input type="number" id="amount" name="amount" class="ingrAmount"
+                   th:field="*{ingredients[__${ingrStat.index}__].amount}" min="0" max="10000">
 
-        <select id="measurement" name="measurement" th:field="*{ingredients[__${ingrStat.index}__].measurement}">
-            <option value="ml">ml</option>
-            <option value="L">L</option>
-            <option value="mg">mg</option>
-            <option value="g">g</option>
-            <option value="kg">kg</option>
-            <option value="tbsp">tbsp</option>
-            <option value=""></option>
-        </select>
+            <select id="measurement" name="measurement" th:field="*{ingredients[__${ingrStat.index}__].measurement}">
+                <option value=""></option>
+                <option value="ml">ml</option>
+                <option value="L">L</option>
+                <option value="mg">mg</option>
+                <option value="g">g</option>
+                <option value="kg">kg</option>
+                <option value="tbsp">tbsp</option>
+            </select>
         </div>
     </div>
 
-    <button type="button" onclick="addIngredient()">Add ingredient</button>
-    <br>
+    <button type="button" id="addIngr">Add another ingredient</button>
+
+    <h3>Cooking steps</h3>
+
     <div th:each="cookStep, cookStepStat : *{cookingSteps}">
-        <p><label for="cookStep">Cooking step:</label></p>
-        <textarea id="cookStep" name="cookStep" rows="5" cols="40"
-                  th:field="*{cookingSteps[__${cookStepStat.index}__].stepDescription}"></textarea><br><br>
+        <div class="cookingStep" th:id="${#ids.seq('step')}">
+            <p><label for="cookStep" th:text="'Step ' + ${cookStepStat.index + 1} + ':'"></label></p>
+            <textarea id="cookStep" name="cookStep" rows="5" cols="40"
+                      th:field="*{cookingSteps[__${cookStepStat.index}__].stepDescription}"></textarea><br>
+        </div>
     </div>
+
+    <div>
+        <button type="button" id="addStep">Add another step</button>
+    </div>
+
     <input type="submit" value="Add Recipe"/>
     <input type="reset" value="Clear"/>
 </form>

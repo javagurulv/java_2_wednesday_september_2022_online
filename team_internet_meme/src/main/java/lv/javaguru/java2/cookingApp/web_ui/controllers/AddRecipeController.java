@@ -2,8 +2,6 @@ package lv.javaguru.java2.cookingApp.web_ui.controllers;
 
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
-import lv.javaguru.java2.cookingApp.core.dto.CookingStepsListDto;
-import lv.javaguru.java2.cookingApp.core.dto.IngredientsListDto;
 import lv.javaguru.java2.cookingApp.core.dto.AddRecipeDto;
 import lv.javaguru.java2.cookingApp.core.dto.requests.AddRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.dto.responses.AddRecipeResponse;
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AddRecipeController {
@@ -26,8 +26,11 @@ public class AddRecipeController {
     @GetMapping(value = "/addRecipe")
     public String showAddRecipePage(ModelMap modelMap) {
 
-        AddRecipeDto dto = new AddRecipeDto(null, List.of(new Ingredient(), new Ingredient()), List.of(new CookingStep()));
-
+        AddRecipeDto dto = new AddRecipeDto(null, new ArrayList<>(), new ArrayList<>());
+        for (int i = 0; i < 10; i++) {
+            dto.addIngredient(new Ingredient());
+            dto.addCookingStep(new CookingStep());
+        }
         modelMap.addAttribute("dto", dto);
         return "addRecipe";
     }
@@ -35,7 +38,11 @@ public class AddRecipeController {
     @PostMapping("/addRecipe")
     public String processAddRecipeRequest(@ModelAttribute(value = "dto") AddRecipeDto dto,
                                           ModelMap modelMap) {
-        AddRecipeRequest request = new AddRecipeRequest(dto.getDishName(), dto.getIngredients(), dto.getCookingSteps());
+        List<Ingredient> ingredients = dto.getIngredients().stream()
+                .filter(ingredient -> !ingredient.getName().isBlank()).collect(Collectors.toList());
+        List<CookingStep> cookingSteps = dto.getCookingSteps().stream()
+                .filter(cookingStep -> !cookingStep.getStepDescription().isBlank()).collect(Collectors.toList());
+        AddRecipeRequest request = new AddRecipeRequest(dto.getDishName(), ingredients, cookingSteps);
         AddRecipeResponse response = addRecipeService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
