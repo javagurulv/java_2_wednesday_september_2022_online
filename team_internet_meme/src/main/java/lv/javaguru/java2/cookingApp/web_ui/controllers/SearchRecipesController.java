@@ -1,7 +1,8 @@
 package lv.javaguru.java2.cookingApp.web_ui.controllers;
 
 
-import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
+import lv.javaguru.java2.cookingApp.core.dto.FormView;
+import lv.javaguru.java2.cookingApp.core.dto.SearchRecipesDto;
 import lv.javaguru.java2.cookingApp.core.dto.requests.SearchRecipeRequest;
 import lv.javaguru.java2.cookingApp.core.dto.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
@@ -24,17 +25,21 @@ public class SearchRecipesController {
 
     @GetMapping("/searchRecipes")
     public String showSearchPage(ModelMap modelMap) {
-        List<String> ingredients = new ArrayList<>();
+        SearchRecipesDto dto = new SearchRecipesDto(new ArrayList<>());
         for (int i = 0; i < 10; i++) {
-            ingredients.add("");
+            dto.add(new FormView());
         }
-        modelMap.addAttribute("request", new SearchRecipeRequest(ingredients));
+        modelMap.addAttribute("dto", dto);
         return "searchRecipes";
     }
 
     @PostMapping("/searchRecipes")
-    public String processSearchRequest(@ModelAttribute(value = "request") SearchRecipeRequest request, ModelMap modelMap) {
-        List<String> ingredients = request.getIngredientNameList().stream().filter(s -> !s.isBlank()).collect(Collectors.toList());
+    public String processSearchRequest(@ModelAttribute(value = "dto") SearchRecipesDto dto, ModelMap modelMap) {
+        List<FormView> names = dto.getList().stream().filter(s -> !s.getName().isBlank()).collect(Collectors.toList());
+        List<String> ingredients = new ArrayList<>();
+        for (FormView s : names) {
+            ingredients.add(s.getName());
+        }
         SearchRecipeResponse response = service.execute(new SearchRecipeRequest(ingredients));
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
