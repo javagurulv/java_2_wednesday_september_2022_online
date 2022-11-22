@@ -1,7 +1,6 @@
 package lv.javaguru.java2.cookingApp.integrationtests;
 
 import lv.javaguru.java2.cookingApp.config.SpringCoreConfiguration;
-import lv.javaguru.java2.cookingApp.web_ui.config.SpringWebConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
