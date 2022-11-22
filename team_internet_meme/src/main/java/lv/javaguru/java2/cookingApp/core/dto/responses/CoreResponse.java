@@ -1,4 +1,4 @@
-package lv.javaguru.java2.cookingApp.core.responses;
+package lv.javaguru.java2.cookingApp.core.dto.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

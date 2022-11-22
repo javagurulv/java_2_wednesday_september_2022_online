@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cooking Book</title>
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<h3>Delete recipe from the book</h3>
+
+<div>
+    <form action="/deleteRecipe" th:object="${request}" method="post">
+        <div><label for="recipeId">Id of the recipe to delete:</label>
+            <input type="number" id="recipeId" th:field="${request.id}" required>
+        </div>
+        <br>
+        <input type="submit" value="Delete recipe">
+    </form>
+</div>
+
+<div><form action="/" method="get"><input type="submit" value="Go to main page"></form></div>
+
+
+<div th:if="${errors != null}">
+    <p th:each="error : ${errors}">
+    <td th:text="${error.field}"></td>
+    <td th:text="${error.message}"></td>
+    </p>
+</div>
+
+
+</body>
+
+</html>
+</html>
