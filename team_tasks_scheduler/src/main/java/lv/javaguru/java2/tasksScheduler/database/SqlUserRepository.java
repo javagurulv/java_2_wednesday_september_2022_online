@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+//@Component
 public class SqlUserRepository implements UsersRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;
@@ -24,13 +24,12 @@ public class SqlUserRepository implements UsersRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         String sql = "DELETE FROM users WHERE id = ?";
         Object[] args = new Object[] {id};
 
         jdbcTemplate.update(sql, args);
-        //TODO check return value??
-        //return jdbcTemplate.update(sql, args) == 1;
+        return jdbcTemplate.update(sql, args) == 1;
     }
 
     @Override

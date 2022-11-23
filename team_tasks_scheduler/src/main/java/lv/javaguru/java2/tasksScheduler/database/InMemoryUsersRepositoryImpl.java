@@ -29,11 +29,12 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         users.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst()
                 .ifPresent(user -> users.remove(user));
+        return true;
     }
 
     @Override

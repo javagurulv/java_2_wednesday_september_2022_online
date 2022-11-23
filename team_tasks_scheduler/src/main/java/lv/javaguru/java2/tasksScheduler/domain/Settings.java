@@ -1,15 +1,30 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Objects;
 
+
+//@Entity
+//@Table(name = "settings")
 public class Settings {
 
+    @Column(name="admin_password", nullable = false)
     private String adminPassword;
+    @Column(name="email_from", nullable = false)
     private String emailFrom;
+    @Column(name="email_password", nullable = false)
     private String emailPassword;
+    @Column(name="email_host", nullable = false)
     private String emailHost;
+    @Column(name="email_port", nullable = false)
     private String emailPort;
+    @Column(name="email_protocol", nullable = false)
     private String emailProtocol;
+
+    public Settings() {
+    }
 
     public Settings(String adminPassword, String emailFrom, String emailPassword, String emailHost, String emailPort, String emailProtocol) {
         this.adminPassword = adminPassword;
