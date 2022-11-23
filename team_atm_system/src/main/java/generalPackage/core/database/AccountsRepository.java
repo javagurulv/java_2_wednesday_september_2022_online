@@ -1,10 +1,10 @@
 package generalPackage.core.database;
 
-import generalPackage.Accounts;
+import generalPackage.core.domain.Accounts;
 
 import java.util.List;
 
-public interface Database {
+public interface AccountsRepository {
 
     void addAccount(Accounts accounts);
 
@@ -12,7 +12,6 @@ public interface Database {
 
     List<Accounts> getAllAccounts();
 
-    //    added:
     boolean increaseBalance(int userID, int amount);
 
     boolean decreaseBalance(int userID, int amount);
@@ -21,7 +20,6 @@ public interface Database {
 
     boolean isExist(String name);
 
-    // added 23-09:
     Accounts findUserByID(int userID);
 
     List <Accounts> searchAccountByName (String name);

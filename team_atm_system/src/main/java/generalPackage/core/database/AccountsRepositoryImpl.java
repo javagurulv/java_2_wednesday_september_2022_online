@@ -1,7 +1,6 @@
 package generalPackage.core.database;
 
-import generalPackage.Accounts;
-import org.springframework.stereotype.Component;
+import generalPackage.core.domain.Accounts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +8,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 //@Component
- public class AccountDatabaseImpl implements Database {
+public class AccountsRepositoryImpl implements AccountsRepository {
 
     private List<Accounts> accounts = new ArrayList<>();
 
     private int userID;
 
-    public AccountDatabaseImpl() {
+    public AccountsRepositoryImpl() {
         accounts.add(new Accounts("Ivan", 1234, 300));
         accounts.add(new Accounts("Boris", 2345, 300));
         accounts.add(new Accounts("Phedor", 4567, 0));

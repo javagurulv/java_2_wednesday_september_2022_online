@@ -13,7 +13,8 @@ import java.util.Scanner;
 
 public class ATM_app {
 
-private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AtmAppConfiguration.class);
+
+    private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AtmAppConfiguration.class);
 
     public static void main(String[] args) {
 

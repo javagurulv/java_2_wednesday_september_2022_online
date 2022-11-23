@@ -1,6 +1,6 @@
 package generalPackage.core.services.usersOperations;
 
-import generalPackage.core.database.Database;
+import generalPackage.core.database.AccountsRepository;
 import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
 import generalPackage.core.responses.usersResponses.PrintBalanceResponse;
@@ -14,7 +14,7 @@ import java.util.List;
 public class PrintBalance {
 
     @Autowired
-    private Database database;
+    private AccountsRepository accountsRepository;
     @Autowired
     private PrintBalanceValidator validator;
 
@@ -24,7 +24,7 @@ public class PrintBalance {
         if (!errorUsers.isEmpty()) {
             return new PrintBalanceResponse(errorUsers);
         } else {
-            return new PrintBalanceResponse(database.printBalance(request.getUserIDtoGetBalance()));
+            return new PrintBalanceResponse(accountsRepository.printBalance(request.getUserIDtoGetBalance()));
         }
     }
 }

@@ -1,13 +1,22 @@
-package generalPackage;
+package generalPackage.core.domain;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "accounts")
 public class Accounts {
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userID;
 
+    @Column (name = "balance", nullable = false)
     private int balance;
+
     public Accounts() {
     }
 
