@@ -5,14 +5,13 @@ import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
+//@Component
 public class JdbcIngredientRepositoryImpl implements IngredientRepository {
 
     @Autowired
@@ -31,11 +30,11 @@ public class JdbcIngredientRepositoryImpl implements IngredientRepository {
                 ingredientArgs.put("recipe_id", recipeID);
                 Long ingredientID = insertIntoIngredients.executeAndReturnKey(ingredientArgs).longValue();
 
-                String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO recipes_to_ingredients (recipe_id, ingredient_id, amount, measurement) VALUES (?, ?, ?, ?)";
                 Object[] args = new Object[]{recipeID, ingredientID, ingredient.getAmount(), ingredient.getMeasurement()};
                 jdbcTemplate.update(sql, args);
             } else {
-                String sql = "INSERT INTO recipes_to_ingredients VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO recipes_to_ingredients (recipe_id, ingredient_id, amount, measurement) VALUES (?, ?, ?, ?)";
                 Object[] args = new Object[]{recipeID, duplicateIngredientOpt.get(), ingredient.getAmount(), ingredient.getMeasurement()};
                 jdbcTemplate.update(sql, args);
             }
@@ -46,8 +45,13 @@ public class JdbcIngredientRepositoryImpl implements IngredientRepository {
     @Override
     public List<Ingredient> getIngredientsByRecipeId(Long recipeId) {
         String sql1 = "SELECT ingredients.ingredient, recipes_to_ingredients.amount, measurement " +
-                "FROM ingredients INNER JOIN recipes_to_ingredients ON id = ingredient_id " +
+                "FROM ingredients INNER JOIN recipes_to_ingredients ON ingredients.id = ingredient_id " +
                 "WHERE recipe_id = " + recipeId;
         return jdbcTemplate.query(sql1, new IngredientsRowMapper());
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return jdbcTemplate.update("DELETE FROM ingredients WHERE id = " + id) == 1;
     }
 }

@@ -4,11 +4,10 @@ import lv.javaguru.java2.cookingApp.core.database.rowmappers.CookingStepsRowMapp
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+//@Component
 public class JdbcCookingStepRepositoryImpl implements CookingStepRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;

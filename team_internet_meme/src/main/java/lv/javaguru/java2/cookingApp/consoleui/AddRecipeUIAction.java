@@ -2,8 +2,8 @@ package lv.javaguru.java2.cookingApp.consoleui;
 
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
-import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.AddRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.AddRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,13 +1,13 @@
 package lv.javaguru.java2.cookingApp.acceptancetests;
 
 import lv.javaguru.java2.cookingApp.DatabaseCleaner;
-import lv.javaguru.java2.cookingApp.config.CookingAppConfiguration;
+import lv.javaguru.java2.cookingApp.config.SpringCoreConfiguration;
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
-import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
-import lv.javaguru.java2.cookingApp.core.responses.GetAllRecipesResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.AddRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.requests.DeleteRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.requests.GetAllRecipesRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.GetAllRecipesResponse;
 import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
 import lv.javaguru.java2.cookingApp.core.services.DeleteRecipeService;
 import lv.javaguru.java2.cookingApp.core.services.GetAllRecipesService;
@@ -29,7 +29,7 @@ public class AcceptanceTest1 {
 
     @BeforeEach
     public void setUp() {
-        appContext = new AnnotationConfigApplicationContext(CookingAppConfiguration.class);
+        appContext = new AnnotationConfigApplicationContext(SpringCoreConfiguration.class);
         getDatabaseCleaner().clean();
     }
 

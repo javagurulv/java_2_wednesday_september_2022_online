@@ -49,7 +49,7 @@ public class GetUsersValidator {
     }
 
     private Optional<CoreError> validateOrderDirection(Ordering ordering) {
-        return (ordering.getOrderDirection() != null
+        return (!ValueChecking.stringIsEmpty(ordering.getOrderDirection())
                 && !(ordering.getOrderDirection().equals("ASCENDING") || ordering.getOrderDirection().equals("DESCENDING")))
                 ? Optional.of(new CoreError("Order Direction", "Must contain 'ASCENDING' or 'DESCENDING' only!"))
                 : Optional.empty();
@@ -70,7 +70,8 @@ public class GetUsersValidator {
     }
 
     private Optional<CoreError> validatePageNumber(Paging paging) {
-        if (!ValueChecking.stringIsInteger(paging.getPageNumber().toString())) {
+        String pageNumber = (paging.getPageNumber() == null) ? null : paging.getPageNumber().toString();
+        if (!ValueChecking.stringIsInteger(pageNumber)) {
             return Optional.empty();
         }
         return (paging.getPageNumber() <= 0)
@@ -79,7 +80,8 @@ public class GetUsersValidator {
     }
 
     private Optional<CoreError> validatePageSize(Paging paging) {
-        if (!ValueChecking.stringIsInteger(paging.getPageSize().toString())) {
+        String pageSize = (paging.getPageSize() == null) ? null : paging.getPageSize().toString();
+        if (!ValueChecking.stringIsInteger(pageSize)) {
             return Optional.empty();
         }
         return (paging.getPageSize() <= 0)
@@ -88,15 +90,17 @@ public class GetUsersValidator {
     }
 
     private Optional<CoreError> validateMandatoryPageNumber(Paging paging) {
-        return (ValueChecking.stringIsEmpty(paging.getPageNumber().toString()) &&
-                !ValueChecking.stringIsEmpty(paging.getPageSize().toString()))
+        String pageNumber = (paging.getPageNumber() == null) ? null : paging.getPageNumber().toString();
+        String pageSize = (paging.getPageSize() == null) ? null : paging.getPageSize().toString();
+        return (ValueChecking.stringIsEmpty(pageNumber) && !ValueChecking.stringIsEmpty(pageSize))
                 ? Optional.of(new CoreError("Page Number", "Must not be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateMandatoryPageSize(Paging paging) {
-        return (ValueChecking.stringIsEmpty(paging.getPageSize().toString()) &&
-                !ValueChecking.stringIsEmpty(paging.getPageNumber().toString()))
+        String pageNumber = (paging.getPageNumber() == null) ? null : paging.getPageNumber().toString();
+        String pageSize = (paging.getPageSize() == null) ? null : paging.getPageSize().toString();
+        return (ValueChecking.stringIsEmpty(pageSize) && !ValueChecking.stringIsEmpty(pageNumber))
                 ? Optional.of(new CoreError("Page Size", "Must not be empty!"))
                 : Optional.empty();
     }
