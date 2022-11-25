@@ -24,9 +24,6 @@ public class TasksSchedulerApplication {
         UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
         ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);
 
-        //backgroundJobs.start();
-        Thread.currentThread().setUncaughtExceptionHandler(backgroundJobs);//kill all background jobs
-
 
         TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
         testData.createTestSettings();

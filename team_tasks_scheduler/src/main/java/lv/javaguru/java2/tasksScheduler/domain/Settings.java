@@ -1,15 +1,16 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 
-//@Entity
-//@Table(name = "settings")
+@Entity
+@Table(name = "settings")
 public class Settings {
-
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name="admin_password", nullable = false)
     private String adminPassword;
     @Column(name="email_from", nullable = false)
@@ -44,6 +45,12 @@ public class Settings {
         this.emailProtocol = settings.getEmailProtocol();
     }
 
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getAdminPassword() {
         return adminPassword;
     }

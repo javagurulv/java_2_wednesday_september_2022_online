@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -29,8 +28,8 @@ public class OrmUserRepository implements UsersRepository {
 
     @Override
     public boolean deleteById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery(
-                "delete user where id = :id");
+        Query query = sessionFactory.getCurrentSession().createQuery (
+                "delete User where id = :id");
         query.setParameter("id", id);
         int result = query.executeUpdate();
         return result == 1;
