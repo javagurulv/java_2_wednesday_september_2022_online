@@ -33,8 +33,9 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         tasks.removeIf(task -> task.getId().equals(id));
+        return true;
     }
 
     @Override
@@ -119,7 +120,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
                 Objects.equals(task1.getDescription(), task2.getDescription()) &&
                 Objects.equals(task1.getDueDate(), task2.getDueDate()) &&
                 Objects.equals(task1.getEndDate(), task2.getEndDate()) &&
-                Objects.equals(task1.getUserId(), task2.getUserId())) {
+                Objects.equals(task1.getUserId(), task2.getUserId())) {  //TODO do we need to check user id??
             return true;
         }
         return false;

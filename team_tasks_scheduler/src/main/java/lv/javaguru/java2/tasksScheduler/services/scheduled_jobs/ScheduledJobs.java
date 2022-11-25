@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ScheduledFuture;
 
 @Component
-public class ScheduledJobs implements Thread.UncaughtExceptionHandler{
+public class ScheduledJobs {
     private ThreadPoolTaskScheduler taskScheduler;
     private CronTrigger cronTrigger;
     private ScheduledFuture taskCleanupFuture;
@@ -22,12 +22,6 @@ public class ScheduledJobs implements Thread.UncaughtExceptionHandler{
         this.cronTrigger = cronTrigger();
     }
 
-    @Override
-    public void uncaughtException(Thread t, Throwable e) {
-        stop();
-        stopAllJobs();
-        e.printStackTrace(System.out);
-    }
     public void stopAllJobs() {
         this.taskScheduler.shutdown();
     }

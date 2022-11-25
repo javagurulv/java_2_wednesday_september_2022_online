@@ -11,8 +11,10 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static lv.javaguru.java2.tasksScheduler.utils.ValueChecking.checkAdjustMySqlDateRange;
 
-@Component
+
+//@Component
 public class SqlTaskRepository implements TasksRepository{
 
     @Autowired private JdbcTemplate jdbcTemplate;
@@ -38,13 +40,12 @@ public class SqlTaskRepository implements TasksRepository{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         String sql = "DELETE FROM tasks WHERE id = ?";
         Object[] args = new Object[] {id};
-
         jdbcTemplate.update(sql, args);
-        //TODO check return value??
-        //return jdbcTemplate.update(sql, args) == 1;
+
+        return jdbcTemplate.update(sql, args) == 1;
     }
 
     @Override
@@ -179,21 +180,4 @@ public class SqlTaskRepository implements TasksRepository{
         return jdbcTemplate.query(sql, new TaskRowMapper(), args);
     }
 
-    private LocalDateTime checkAdjustMySqlDateRange(LocalDateTime dateTime) {
-        // The supported range is '1000-01-01 00:00:00' to '9999-12-31 23:59:59'.
-        LocalDateTime pEndDate;
-        if (dateTime.isAfter(LocalDateTime.of(9999,12,
-                                        31,23,59,59))) {
-            pEndDate = LocalDateTime.of(9999,12,
-                                             31,23,59,59);
-            return pEndDate;
-        }
-        else if (dateTime.isBefore(LocalDateTime.of(1000,1,
-                                        1,0,0,0))) {
-            pEndDate = LocalDateTime.of(1000,1,
-                                            1,0,0,0);
-            return pEndDate;
-        }
-        return dateTime;
-    }
 }
