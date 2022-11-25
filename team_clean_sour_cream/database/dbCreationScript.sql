@@ -11,13 +11,13 @@ CREATE SCHEMA IF NOT EXISTS `rentApp` DEFAULT CHARACTER SET utf8mb4;
 USE
     `rentApp`;
 
-CREATE TABLE IF NOT EXISTS vehicle
+CREATE TABLE IF NOT EXISTS vehicles
 (
     `id`                BIGINT        NOT NULL AUTO_INCREMENT,
     `vehicle_type`      VARCHAR(100)  NOT NULL,
     `brand`             VARCHAR(100)  NOT NULL,
     `model`             VARCHAR(100)  NOT NULL,
-    `is_available`      BIT(1)        NOT NULL,
+    `is_available`      BIT(1)        NOT NULL DEFAULT 1,
     `year`              YEAR          NOT NULL,
     `colour`            VARCHAR(100)  NOT NULL,
     `price`             DECIMAL(5, 2) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS vehicle
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
-CREATE TABLE IF NOT EXISTS passenger_car
+CREATE TABLE IF NOT EXISTS passenger_cars
 (
     `id`               BIGINT       NOT NULL AUTO_INCREMENT,
     `vehicle_id`       BIGINT       NOT NULL,
@@ -50,13 +50,13 @@ CREATE TABLE IF NOT EXISTS passenger_car
     INDEX (`doorsAmount`),
     INDEX (`air_conditioning`),
     UNIQUE INDEX (`vehicle_id`),
-    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicle (`id`, `vehicle_type`) ON DELETE CASCADE,
+    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicles (`id`, `vehicle_type`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
-CREATE TABLE IF NOT EXISTS mini_bus
+CREATE TABLE IF NOT EXISTS mini_buses
 (
     `id`               BIGINT       NOT NULL AUTO_INCREMENT,
     `vehicle_id`       BIGINT       NOT NULL,
@@ -72,13 +72,13 @@ CREATE TABLE IF NOT EXISTS mini_bus
     INDEX (`doorsAmount`),
     INDEX (`air_conditioning`),
     UNIQUE INDEX (`vehicle_id`),
-    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicle (`id`, `vehicle_type`) ON DELETE CASCADE,
+    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicles (`id`, `vehicle_type`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
-CREATE TABLE IF NOT EXISTS motorcycle
+CREATE TABLE IF NOT EXISTS motorcycles
 (
     `id`               BIGINT       NOT NULL AUTO_INCREMENT,
     `vehicle_id`       BIGINT       NOT NULL,
@@ -88,13 +88,13 @@ CREATE TABLE IF NOT EXISTS motorcycle
     CHECK (`vehicle_type` = 'MOTORCYCLE'),
     INDEX (`passenger_amount`),
     UNIQUE INDEX (`vehicle_id`),
-    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicle (`id`, `vehicle_type`) ON DELETE CASCADE,
+    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicles (`id`, `vehicle_type`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
-CREATE TABLE IF NOT EXISTS car_trailer
+CREATE TABLE IF NOT EXISTS car_trailers
 (
     `id`              BIGINT       NOT NULL AUTO_INCREMENT,
     `vehicle_id`      BIGINT       NOT NULL,
@@ -112,13 +112,13 @@ CREATE TABLE IF NOT EXISTS car_trailer
     INDEX (`empty_weight_kg`),
     INDEX (`max_weight_kg`),
     UNIQUE INDEX (`vehicle_id`),
-    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicle (`id`, `vehicle_type`) ON DELETE CASCADE,
+    FOREIGN KEY (`vehicle_id`, `vehicle_type`) REFERENCES vehicles (`id`, `vehicle_type`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
-CREATE TABLE IF NOT EXISTS client
+CREATE TABLE IF NOT EXISTS clients
 (
     `id`          BIGINT       NOT NULL AUTO_INCREMENT,
     `personal_id` VARCHAR(12)  NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS client
     ENGINE = InnoDB
     AUTO_INCREMENT = 0001;
 
-CREATE TABLE IF NOT EXISTS rent_deal
+CREATE TABLE IF NOT EXISTS rent_deals
 (
     `id`         BIGINT        NOT NULL AUTO_INCREMENT,
     `client_id`  BIGINT        NOT NULL,
@@ -146,8 +146,10 @@ CREATE TABLE IF NOT EXISTS rent_deal
 
     UNIQUE INDEX (`client_id`, `vehicle_id`, `start_date`),
     UNIQUE INDEX (`client_id`, `vehicle_id`, `end_date`),
-    FOREIGN KEY (`client_id`) REFERENCES client (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`vehicle_id`) REFERENCES vehicle (`id`) ON DELETE CASCADE,
+    UNIQUE INDEX (`vehicle_id`, `start_date`),
+    UNIQUE INDEX (`vehicle_id`, `end_date`),
+    FOREIGN KEY (`client_id`) REFERENCES clients (`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`vehicle_id`) REFERENCES vehicles (`id`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB
