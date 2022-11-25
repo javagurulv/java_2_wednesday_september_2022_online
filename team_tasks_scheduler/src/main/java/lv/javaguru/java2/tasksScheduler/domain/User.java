@@ -1,17 +1,33 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
-
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "id", referencedColumnName = "user_id")  //TODO foreign key re-check
     private Long id;
+    @Column(name="username", nullable = false)
     private String username;
+    @Column(name="user_password", nullable = false)
     private String password;
+    @Column(name="email", nullable = false)
     private String email;
+    @Column(name="send_reminder", nullable = false)
     private boolean sendReminders;
 
     public User() {
-
     }
     public User(String username, String password, String email, boolean sendReminders) {
         this.username = username;

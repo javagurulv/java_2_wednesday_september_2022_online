@@ -1,6 +1,6 @@
 package generalPackage.core.services.adminOperations;
 
-import generalPackage.core.database.Database;
+import generalPackage.core.database.AccountsRepository;
 import generalPackage.core.requests.adminRequests.DeleteAccountRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.DeleteAccountResponse;
@@ -16,7 +16,7 @@ import java.util.List;
 public class DeleteAccountService {
 
     @Autowired
-    private Database database;
+    private AccountsRepository accountsRepository;
     @Autowired
     private DeleteAccountServiceValidator validator;
 
@@ -26,7 +26,7 @@ public class DeleteAccountService {
         if (!errors.isEmpty()){
             return new DeleteAccountResponse(errors);
         }
-        boolean accountDeleted = database.deleteAccount(request.getUserIDtoDelete());
+        boolean accountDeleted = accountsRepository.deleteAccount(request.getUserIDtoDelete());
         return new DeleteAccountResponse(accountDeleted);
     }
 }

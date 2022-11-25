@@ -1,6 +1,6 @@
 package generalPackage.core.database;
 
-import generalPackage.Accounts;
+import generalPackage.core.domain.Accounts;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

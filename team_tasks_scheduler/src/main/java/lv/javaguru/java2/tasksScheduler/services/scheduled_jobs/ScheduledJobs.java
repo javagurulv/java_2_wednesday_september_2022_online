@@ -5,10 +5,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ScheduledFuture;
+
 @Component
 public class ScheduledJobs {
     private ThreadPoolTaskScheduler taskScheduler;
     private CronTrigger cronTrigger;
+    private ScheduledFuture taskCleanupFuture;
 
     @Autowired
     TasksCleanupJob tasksCleanupService;
@@ -19,8 +22,16 @@ public class ScheduledJobs {
         this.cronTrigger = cronTrigger();
     }
 
+    public void stopAllJobs() {
+        this.taskScheduler.shutdown();
+    }
+
     public void start() {
-        this.taskScheduler.schedule(tasksCleanupService, cronTrigger);
+        taskCleanupFuture = this.taskScheduler.schedule(tasksCleanupService, cronTrigger);
+    }
+
+    public void stop(){
+        this.taskCleanupFuture.cancel(true);
     }
     private ThreadPoolTaskScheduler threadPoolTaskScheduler(){
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
@@ -31,7 +42,7 @@ public class ScheduledJobs {
     }
 
     private CronTrigger cronTrigger() {
-        return new CronTrigger("*/30 * * * * ?");
+        return new CronTrigger("*/40 * * * * ?");
     }
 
     //ThreadPoolTaskScheduler taskScheduler =

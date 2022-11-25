@@ -22,12 +22,13 @@ public class OrmRecipeRepositoryImpl implements RecipeRepository {
 
     @Override
     public boolean deleteById(Long id) {
-        return sessionFactory.getCurrentSession().createQuery("delete Recipe where id = :id").executeUpdate() == 1;
+        return sessionFactory.getCurrentSession().createQuery("delete Recipe where id = :id")
+                .setParameter("id", id).executeUpdate() == 1;
     }
 
     @Override
     public Optional<Recipe> getById(Long id) {
-        return Optional.of(sessionFactory.getCurrentSession().get(Recipe.class, id));
+        return Optional.ofNullable(sessionFactory.getCurrentSession().get(Recipe.class, id));
     }
 
     @Override

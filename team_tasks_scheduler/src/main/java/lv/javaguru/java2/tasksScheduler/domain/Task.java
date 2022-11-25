@@ -1,16 +1,31 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tasks")
 public class Task {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name="task_description", nullable = false)
     private String description;
+    @Column(name="regularity", nullable = false)
     private int regularity;
+    @Column(name="due_date", nullable = false)
     private LocalDateTime  dueDate;
+    @Column(name="end_date", nullable = false)
     private LocalDateTime  endDate;
+    @Column(name="user_id", nullable = false)
+   // @OneToOne(mappedBy = "tasks")   //TODO foreign key re-check
     private Long userId;
+
+    public Task() {
+    }
 
     public Task(String description, int regularity, LocalDateTime  dueDate, LocalDateTime  endDate, Long userId) {
         this.description = description;

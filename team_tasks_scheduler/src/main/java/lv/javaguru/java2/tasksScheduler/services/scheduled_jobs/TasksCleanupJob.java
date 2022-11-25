@@ -13,6 +13,7 @@ public class TasksCleanupJob implements Runnable {
     TasksCleanupService tasksCleanupService;
     @Override
     public void run() {
+        System.out.println("sending request for cleanup");
         JobRunRequest request = new JobRunRequest(false);
         JobRunResponse response = tasksCleanupService.execute(request);
     }

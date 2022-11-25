@@ -5,8 +5,10 @@ import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.ScheduledJobs;
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
@@ -21,9 +23,6 @@ public class TasksSchedulerApplication {
 
         UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
         ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);
-
-        backgroundJobs.start();
-
 
 
         TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
@@ -40,8 +39,6 @@ public class TasksSchedulerApplication {
                 break;
         } while (true);
 
-        //start 2nd thread
-//        cleanupService.start();
 
         while (true) {
             printMenu(menuType);
