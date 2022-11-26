@@ -1,14 +1,13 @@
 package myApp.consoleUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-@Component
+//@Component
 public class ProgramMenuForAdmin {
     private Map<Integer, UIAction> menuNumberToUIActionMap;
 
@@ -17,7 +16,7 @@ public class ProgramMenuForAdmin {
         menuNumberToUIActionMap = new HashMap<>();
         menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllBankAccountsUIAction.class));
         menuNumberToUIActionMap.put(2, findUIAction(uiActions, GetAllUsersUIAction.class));
-        menuNumberToUIActionMap.put(3, findUIAction(uiActions, AddBankAccountUIAction.class));
+       // menuNumberToUIActionMap.put(3, findUIAction(uiActions, AddBankAccountUIAction.class));
         menuNumberToUIActionMap.put(4, findUIAction(uiActions, RemoveBankAccountUIAction.class));
         menuNumberToUIActionMap.put(5, findUIAction(uiActions, SearchBankAccountUIAction.class));
         menuNumberToUIActionMap.put(6, findUIAction(uiActions, SwitchUserUIAction.class));

@@ -2,14 +2,12 @@ package myApp.core.services.validators;
 
 import myApp.core.requests.LogInRequest;
 import myApp.core.responses.CoreError;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
-//need to fix
-@Ignore
+
 public class LogInValidatorTest {
 
     private LogInValidator validator = new LogInValidator();
@@ -21,20 +19,13 @@ public class LogInValidatorTest {
         assertTrue(errors.isEmpty());
     }
 
-    @Test
-    public void testShouldReturnErrorAboutWrongPersonalCode() {
-        LogInRequest request = new LogInRequest("000000-01","password");
-        List<CoreError> errors = validator.validate(request);
-        assertEquals("Personal code",errors.get(0).getField());
-        assertEquals("Personal code may contains only numbers and cannot be empty",errors.get(0).getMessage());
-    }
 
     @Test
-    public void testShouldReturnErrorAboutEmptyPersonalCode() {
+    public void testShouldReturnErrorAboutLogin() {
         LogInRequest request = new LogInRequest("","password");
         List<CoreError> errors = validator.validate(request);
-        assertEquals("Personal code",errors.get(0).getField());
-        assertEquals("Personal code may contains only numbers and cannot be empty",errors.get(0).getMessage());
+        assertFalse(errors.isEmpty());
+        assertEquals("Login",errors.get(0).getField());
     }
 
     @Test

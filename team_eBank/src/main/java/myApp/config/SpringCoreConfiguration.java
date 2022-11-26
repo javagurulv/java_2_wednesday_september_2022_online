@@ -21,7 +21,7 @@ import java.util.Properties;
 @ComponentScan(basePackages = "myApp")
 @PropertySource(value = "classpath:application.properties")
 @EnableTransactionManagement
-public class BankAccountConfiguration {
+public class SpringCoreConfiguration {
 
     @Value("${jdbc.url}")
     private String jdbcUrl;

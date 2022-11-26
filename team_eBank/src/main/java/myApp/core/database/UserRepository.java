@@ -30,4 +30,10 @@ public class UserRepository {
                 .createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
     }
+
+    public User findByUsername(String login) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("SELECT u FROM User u", User.class)
+                .getSingleResult();
+    }
 }

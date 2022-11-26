@@ -16,11 +16,6 @@ public class BankAccountRowMapper implements RowMapper<BankAccount> {
         bankAccount.setName(rs.getString("name"));
         bankAccount.setSurname(rs.getString("surname"));
         bankAccount.setPersonalCode(rs.getString("personal_code"));
-        if (rs.getString("role").equals("Roles.Admin")) {
-            bankAccount.setRole("Roles.Admin");
-        } else if (rs.getString("role").equals("Roles.Regular_User")) {
-            bankAccount.setRole("Roles.Regular_user");
-        }
         bankAccount.setBalance(rs.getInt("balance"));
         if (rs.wasNull()) {
             bankAccount.setBalance(null);
