@@ -19,11 +19,10 @@ public class OrmBankRepositoryImpl implements BankRepository {
     private SessionFactory sessionFactory;
 
     @Override
-    public void addBankAccount(BankAccount bankAccount, User user) {
-        sessionFactory.getCurrentSession().save(user);
-        BankAccount bankAccount1 = new BankAccount(user, bankAccount.getName(), bankAccount.getSurname(),
-                bankAccount.getRole(), bankAccount.getPersonalCode());
-        sessionFactory.getCurrentSession().save(bankAccount1);
+    public void addBankAccount(BankAccount bankAccount) {
+     //   sessionFactory.getCurrentSession().save(user);
+        //BankAccount bankAccount1 = new BankAccount(user, bankAccount.getName(), bankAccount.getSurname(), bankAccount.getPersonalCode());
+        sessionFactory.getCurrentSession().save(bankAccount);
     }
 
     @Override

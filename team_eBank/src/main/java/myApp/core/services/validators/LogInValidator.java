@@ -14,20 +14,16 @@ public class LogInValidator {
 
     public List<CoreError> validate(LogInRequest request) {
         List<CoreError> errors = new ArrayList<>();
-       // validatePersonalCode(request).ifPresent(errors::add);
+        validateLogin(request).ifPresent(errors::add);
         validatePassword(request).ifPresent(errors::add);
         return errors;
     }
-/*
-    private Optional<CoreError> validatePersonalCode(LogInRequest request) {
-        return !request.getPersonalCode().isEmpty() && request.getPersonalCode() != null
-                && request.getPersonalCode().matches("^\\d\\d\\d\\d\\d\\d\\-\\d\\d\\d\\d\\d$")
-                ? Optional.empty()
-                : Optional.of(new CoreError("Personal code", "Personal code may contains only numbers and" +
-                " cannot be empty"));
-    }
 
- */
+    private Optional<CoreError> validateLogin(LogInRequest request) {
+        return !request.getLogin().isEmpty() && request.getLogin() != null
+                ? Optional.empty()
+                : Optional.of(new CoreError("Login", "Login cannot be empty"));
+    }
 
     private Optional<CoreError> validatePassword(LogInRequest request) {
         return !request.getPassword().isEmpty() && request.getPassword() != null
