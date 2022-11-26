@@ -3,9 +3,11 @@ package lv.javaguru.java2.eBooking.console_ui;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentRemoveResponse;
 import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentRemoveService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class RemoveAppointmentUIAction implements UIAction {
     private AppointmentRemoveService appointmentRemoveService;
 

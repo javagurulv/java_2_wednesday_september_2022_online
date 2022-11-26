@@ -2,10 +2,11 @@ package lv.javaguru.java2.eBooking.core.services.validators;
 
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class ClientSearchValidator {
 
     public List<CoreError> validate(ClientSearchRequest request) {

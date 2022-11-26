@@ -1,22 +1,22 @@
 package generalPackage.core.services.adminOperations;
 
-import generalPackage.Accounts;
-import generalPackage.core.database.Database;
+import generalPackage.core.database.AccountsRepository;
+import generalPackage.core.domain.Accounts;
 import generalPackage.core.requests.adminRequests.FindUserByIDRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.FindByIDAccountResponse;
 import generalPackage.core.services.adminOperations.adminValidators.FindUserByIDServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class FindUserByIDService {
 
-    @DIDependency
-    private Database database;
-    @DIDependency
+    @Autowired
+    private AccountsRepository accountsRepository;
+    @Autowired
     private FindUserByIDServiceValidator validator;
 
 
@@ -25,7 +25,7 @@ public class FindUserByIDService {
         if (!errors.isEmpty()){
             return new FindByIDAccountResponse(errors);
         }
-        Accounts accountToFind = database.findUserByID(request.getUserIDtoFind());
+        Accounts accountToFind = accountsRepository.findUserByID(request.getUserIDtoFind());
         return new FindByIDAccountResponse(accountToFind);
 
     }

@@ -8,16 +8,16 @@ package generalPackage.core.services.adminOperations.adminValidators;
 import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
 import generalPackage.core.requests.adminRequests.Ordering;
 import generalPackage.core.responses.adminResponses.CoreError;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@DIComponent
+@Component
 public class GetAllAccountsServiceValidator {
 
-    @DIDependency
+    @Autowired
     private OrderingValidator orderingValidator;
 
 

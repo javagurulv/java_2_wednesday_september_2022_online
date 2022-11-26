@@ -5,15 +5,16 @@ import generalPackage.UIActions.usersOperationsUI.DecreaseBalanceServiceUIAction
 import generalPackage.UIActions.usersOperationsUI.ExitServiceUIAction;
 import generalPackage.UIActions.usersOperationsUI.IncreaseBalanceServiceUIAction;
 import generalPackage.UIActions.usersOperationsUI.PrintBalanceServiceUIAction;
-import generalPackage.dependencyInjection.ApplicationContext;
-import generalPackage.dependencyInjection.DIApplicationContextBuilder;
+import generalPackage.config.AtmAppConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
 
 public class ATM_app {
 
-    private static ApplicationContext applicationContext =
-            new DIApplicationContextBuilder().build("generalPackage");
+
+    private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AtmAppConfiguration.class);
 
     public static void main(String[] args) {
 

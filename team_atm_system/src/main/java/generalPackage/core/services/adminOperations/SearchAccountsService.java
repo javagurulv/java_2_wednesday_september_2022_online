@@ -1,22 +1,22 @@
 package generalPackage.core.services.adminOperations;
 
-import generalPackage.Accounts;
-import generalPackage.core.database.Database;
+import generalPackage.core.database.AccountsRepository;
+import generalPackage.core.domain.Accounts;
 import generalPackage.core.requests.adminRequests.SearchAccountsServiceRequest;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.SearchAccountsServiceResponse;
 import generalPackage.core.services.adminOperations.adminValidators.SearchAccountsServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class SearchAccountsService {
 
-    @DIDependency
-    private Database database;
-    @DIDependency
+    @Autowired
+    private AccountsRepository accountsRepository;
+    @Autowired
     private SearchAccountsServiceValidator validator;
 
 
@@ -26,7 +26,7 @@ public class SearchAccountsService {
             return new SearchAccountsServiceResponse(null, errors);
         }
         List<Accounts> accounts;
-        accounts = database.searchAccountByName(request.getUserNameToFind());
+        accounts = accountsRepository.searchAccountByName(request.getUserNameToFind());
         return new SearchAccountsServiceResponse(accounts, null);
     }
 }

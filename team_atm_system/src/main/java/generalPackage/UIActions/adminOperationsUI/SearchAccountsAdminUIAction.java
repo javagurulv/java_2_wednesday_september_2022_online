@@ -3,15 +3,15 @@ package generalPackage.UIActions.adminOperationsUI;
 import generalPackage.core.requests.adminRequests.SearchAccountsServiceRequest;
 import generalPackage.core.responses.adminResponses.SearchAccountsServiceResponse;
 import generalPackage.core.services.adminOperations.SearchAccountsService;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class SearchAccountsAdminUIAction implements AdminUIactions {
 
-    @DIDependency
+    @Autowired
     private SearchAccountsService searchAccountsService;
 
 

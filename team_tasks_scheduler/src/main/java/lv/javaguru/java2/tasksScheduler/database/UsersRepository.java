@@ -8,7 +8,7 @@ public interface UsersRepository {
 
     boolean save(User user);
 
-    void deleteById(Long id);
+    boolean deleteById(Long id);
 
     boolean update(User user);
 

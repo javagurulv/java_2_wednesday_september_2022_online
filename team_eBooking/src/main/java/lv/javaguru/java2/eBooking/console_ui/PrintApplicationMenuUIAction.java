@@ -1,5 +1,9 @@
 package lv.javaguru.java2.eBooking.console_ui;
 
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
+
+@Component
 public class PrintApplicationMenuUIAction implements UIAction {
     public void execute() {
         System.out.println("Appointment Application");

@@ -1,17 +1,31 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
-import org.springframework.stereotype.Component;
-
+import javax.persistence.*;
 import java.util.Objects;
 
-public class Settings {
 
+@Entity
+@Table(name = "settings")
+public class Settings {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name="admin_password", nullable = false)
     private String adminPassword;
+    @Column(name="email_from", nullable = false)
     private String emailFrom;
+    @Column(name="email_password", nullable = false)
     private String emailPassword;
+    @Column(name="email_host", nullable = false)
     private String emailHost;
+    @Column(name="email_port", nullable = false)
     private String emailPort;
+    @Column(name="email_protocol", nullable = false)
     private String emailProtocol;
+
+    public Settings() {
+    }
 
     public Settings(String adminPassword, String emailFrom, String emailPassword, String emailHost, String emailPort, String emailProtocol) {
         this.adminPassword = adminPassword;
@@ -31,6 +45,12 @@ public class Settings {
         this.emailProtocol = settings.getEmailProtocol();
     }
 
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getAdminPassword() {
         return adminPassword;
     }

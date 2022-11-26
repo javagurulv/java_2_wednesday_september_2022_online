@@ -1,6 +1,6 @@
 package generalPackage.core.responses.adminResponses;
 
-import generalPackage.Accounts;
+import generalPackage.core.domain.Accounts;
 
 import java.util.List;
 

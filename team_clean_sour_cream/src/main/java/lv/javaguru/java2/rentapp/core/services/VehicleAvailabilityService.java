@@ -3,7 +3,9 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
+import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
+import lv.javaguru.java2.rentapp.core.services.validators.VehicleAvailabilityServiceValidator;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,15 @@ public class VehicleAvailabilityService {
     @Autowired
     private DealDatabase dealDatabase;
 
+    @Autowired
+    private VehicleAvailabilityServiceValidator vehicleAvailabilityServiceValidator;
+
     public VehicleAvailabilityResponse execute(GeneralRentVehicleRequest request, List<Vehicle> vehicles) {
+        List<CoreError> errors = vehicleAvailabilityServiceValidator.validate(request);
+        if (!errors.isEmpty()) {
+            return new VehicleAvailabilityResponse(errors, null);
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         LocalDate startDate = LocalDate.parse(request.getRentStartDate(), formatter);

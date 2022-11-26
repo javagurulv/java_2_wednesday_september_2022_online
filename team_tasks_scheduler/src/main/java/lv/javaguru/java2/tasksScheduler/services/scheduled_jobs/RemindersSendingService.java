@@ -4,9 +4,14 @@ import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
 import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
 import lv.javaguru.java2.tasksScheduler.domain.Task;
 import lv.javaguru.java2.tasksScheduler.domain.User;
+import lv.javaguru.java2.tasksScheduler.requests.JobRunRequest;
+import lv.javaguru.java2.tasksScheduler.responses.JobRunResponse;
+import lv.javaguru.java2.tasksScheduler.services.system.CreateLogsService;
 import lv.javaguru.java2.tasksScheduler.services.system.ReminderEmailTemplateCreationService;
 import lv.javaguru.java2.tasksScheduler.utils.Email;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -16,23 +21,42 @@ import java.util.List;
 
 @Component
 public class RemindersSendingService {
+    @Value("${logs.job.tasks.reminderssending.create}")
+    private boolean createLog;
 
-    private TasksRepository tasksRepository;
-    private UsersRepository usersRepository;
-    private ReminderEmailTemplateCreationService reminderEmailTemplateCreationService;
+    @Value("${reminder.email.send}")
+    private boolean sendReminders;
 
-	private Email reminder;
+    @Autowired private TasksRepository tasksRepository;
+    @Autowired private UsersRepository usersRepository;
+    @Autowired private ReminderEmailTemplateCreationService reminderEmailTemplateCreationService;
+    @Autowired private CreateLogsService createLogsService;
 
-    public RemindersSendingService(TasksRepository tasksRepository,
-								   UsersRepository usersRepository,
-								   ReminderEmailTemplateCreationService reminderEmailTemplateCreationService) {
-		this.tasksRepository = tasksRepository;
-		this.usersRepository = usersRepository;
-		this.reminderEmailTemplateCreationService = reminderEmailTemplateCreationService;
-		reminder = reminderEmailTemplateCreationService.getReminderEmailDraft();
-	}
+    private Email reminder;;
 
-    public int execute() {
+    public JobRunResponse execute(JobRunRequest request) {
+        if (!sendReminders) {
+            return null;
+        }
+        JobRunResult result = new JobRunResult("RemindersSending");
+        if (!request.isManual()) {
+            result.setRunType("Auto");
+        }
+        try {
+            result.setActionsCount(proceed());
+            result.setTimestampEnd(LocalDateTime.now());
+            result.setStatus("Succeed");
+        } catch (Exception e) {
+            return new JobRunResponse(result);
+        }
+        if (createLog) {
+            createLogsService.execute(result.getRecordInLogFormat());
+        }
+        return new JobRunResponse(result);
+    }
+
+    private int proceed() {
+        reminder = reminderEmailTemplateCreationService.getReminderEmailDraft();
         if (reminder == null) {
             return 0;
         }
@@ -110,4 +134,3 @@ public class RemindersSendingService {
         return result;
     }
 }
-

@@ -7,6 +7,7 @@ import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentGetAllRe
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -20,12 +21,9 @@ import static org.junit.Assert.*;
 public class AppointmentGetAllServiceTest {
 
     @Mock private Database database;
+    @InjectMocks
     private AppointmentGetAllService service;
 
-    @Before
-    public void setUp() {
-        service = new AppointmentGetAllService(database);
-    }
     @Test
     public void shouldGetAListOfAppointmentsFromDatabase(){
         List<Appointment> appointmentList = new ArrayList<>();

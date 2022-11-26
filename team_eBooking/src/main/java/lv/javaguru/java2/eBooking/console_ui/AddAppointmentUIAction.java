@@ -3,9 +3,11 @@ package lv.javaguru.java2.eBooking.console_ui;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentAddResponse;
 import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentAddService;
+import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class AddAppointmentUIAction implements UIAction {
     private AppointmentAddService appointmentAddService;
 

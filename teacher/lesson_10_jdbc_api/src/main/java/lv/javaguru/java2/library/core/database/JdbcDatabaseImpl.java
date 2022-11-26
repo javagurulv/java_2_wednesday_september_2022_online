@@ -39,20 +39,20 @@ class JdbcDatabaseImpl implements Database {
 	public List<Book> findByTitle(String title) {
 		String sql = "SELECT * FROM books WHERE title = ?";
 		Object[] args = new Object[] {title};
-		return jdbcTemplate.query(sql, args, new BookRowMapper());
+		return jdbcTemplate.query(sql, new BookRowMapper(), args);
 	}
 
 	@Override
 	public List<Book> findByAuthor(String author) {
 		String sql = "SELECT * FROM books WHERE author = ?";
 		Object[] args = new Object[] {author};
-		return jdbcTemplate.query(sql, args, new BookRowMapper());
+		return jdbcTemplate.query(sql, new BookRowMapper(), args);
 	}
 
 	@Override
 	public List<Book> findByTitleAndAuthor(String title, String author) {
 		String sql = "SELECT * FROM books WHERE title = ? AND author = ? ";
 		Object[] args = new Object[] {title, author};
-		return jdbcTemplate.query(sql, args, new BookRowMapper());
+		return jdbcTemplate.query(sql, new BookRowMapper(), args);
 	}
 }

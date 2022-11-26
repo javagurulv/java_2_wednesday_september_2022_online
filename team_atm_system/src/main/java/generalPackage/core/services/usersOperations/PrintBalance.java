@@ -1,21 +1,21 @@
 package generalPackage.core.services.usersOperations;
 
-import generalPackage.core.database.Database;
+import generalPackage.core.database.AccountsRepository;
 import generalPackage.core.requests.usersRequests.PrintBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
 import generalPackage.core.responses.usersResponses.PrintBalanceResponse;
 import generalPackage.core.services.usersOperations.usersValidators.PrintBalanceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@DIComponent
+@Component
 public class PrintBalance {
 
-    @DIDependency
-    private Database database;
-    @DIDependency
+    @Autowired
+    private AccountsRepository accountsRepository;
+    @Autowired
     private PrintBalanceValidator validator;
 
 
@@ -24,7 +24,7 @@ public class PrintBalance {
         if (!errorUsers.isEmpty()) {
             return new PrintBalanceResponse(errorUsers);
         } else {
-            return new PrintBalanceResponse(database.printBalance(request.getUserIDtoGetBalance()));
+            return new PrintBalanceResponse(accountsRepository.printBalance(request.getUserIDtoGetBalance()));
         }
     }
 }

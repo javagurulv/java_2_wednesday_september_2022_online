@@ -1,10 +1,11 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.database.Database;
-import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.CoreError;
-import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.services.validators.DeleteRecipeRequestValidator;
+import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
+import lv.javaguru.java2.cookingApp.core.dto.requests.DeleteRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.CoreError;
+import lv.javaguru.java2.cookingApp.core.dto.responses.DeleteRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.services.validators.DeleteRecipeValidator;
+import lv.javaguru.java2.cookingApp.core.services.validators.IdValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class DeleteRecipeServiceTest {
 
-    @Mock private Database database;
-    @Mock private DeleteRecipeRequestValidator validator;
+    @Mock private RecipeRepository recipeRepository;
+    @Mock private DeleteRecipeValidator validator;
 
     @InjectMocks
     private DeleteRecipeService service;
@@ -38,12 +39,12 @@ class DeleteRecipeServiceTest {
     @Test
     void testShouldReturnResponseTrueWhenRecipeDeleted() {
         DeleteRecipeRequest request = Mockito.mock(DeleteRecipeRequest.class);
-        Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
-        Mockito.when(database.deleteById(request.getId())).thenReturn(true);
+        Mockito.when(validator.validate(request)).thenReturn(List.of());
+        Mockito.when(recipeRepository.deleteById(request.getId())).thenReturn(true);
         DeleteRecipeResponse response = service.execute(request);
         assertFalse(response.hasErrors());
         assertTrue(response.isRecipeDeleted());
         assertNotNull(request.getId());
-        Mockito.verify(database).deleteById(request.getId());
+        Mockito.verify(recipeRepository).deleteById(request.getId());
     }
 }

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-@Component
+//@Component
 public class InMemoryUsersRepositoryImpl implements UsersRepository {
 
     private Long nextId = 1L;
@@ -29,11 +29,12 @@ public class InMemoryUsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         users.stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst()
                 .ifPresent(user -> users.remove(user));
+        return true;
     }
 
     @Override

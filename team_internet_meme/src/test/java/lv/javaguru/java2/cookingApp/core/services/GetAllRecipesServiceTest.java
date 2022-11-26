@@ -1,9 +1,9 @@
 package lv.javaguru.java2.cookingApp.core.services;
 
-import lv.javaguru.java2.cookingApp.core.database.Database;
+import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
-import lv.javaguru.java2.cookingApp.core.responses.GetAllRecipesResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.GetAllRecipesRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.GetAllRecipesResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class GetAllRecipesServiceTest {
 
-    @Mock private Database database;
+    @Mock private RecipeRepository recipeRepository;
 
     @InjectMocks
     private GetAllRecipesService service;
@@ -29,13 +29,13 @@ class GetAllRecipesServiceTest {
         Recipe recipe2 = Mockito.mock(Recipe.class);
         GetAllRecipesRequest request = Mockito.mock(GetAllRecipesRequest.class);
 
-        Mockito.when(database.getAllRecipes()).thenReturn(List.of(recipe1, recipe2));
+        Mockito.when(recipeRepository.getAllRecipes()).thenReturn(List.of(recipe1, recipe2));
         GetAllRecipesResponse response = service.execute(request);
 
         assertEquals(2, response.getRecipes().size());
         assertEquals(recipe1, response.getRecipes().get(0));
         assertEquals(recipe2, response.getRecipes().get(1));
-        Mockito.verify(database).getAllRecipes();
+        Mockito.verify(recipeRepository).getAllRecipes();
     }
 
 }

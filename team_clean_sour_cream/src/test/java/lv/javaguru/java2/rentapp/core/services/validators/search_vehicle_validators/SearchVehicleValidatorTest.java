@@ -4,6 +4,7 @@ import lv.javaguru.java2.rentapp.core.requests.Ordering;
 import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.services.validators.PagingValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.search_vehicle_validators.search_vehicle_fields_validators.SearchVehicleFieldsValidatorMap;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
@@ -31,7 +32,7 @@ class SearchVehicleValidatorTest {
     @Mock
     private SearchVehicleRequestOrderingValidator orderingValidator;
     @Mock
-    private SearchVehicleRequestPagingValidator pagingValidator;
+    private PagingValidator pagingValidator;
     @InjectMocks
     private SearchVehicleValidator searchVehicleValidator;
 

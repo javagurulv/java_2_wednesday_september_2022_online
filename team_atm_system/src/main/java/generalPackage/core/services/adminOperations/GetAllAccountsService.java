@@ -1,26 +1,26 @@
 package generalPackage.core.services.adminOperations;
 
 
-import generalPackage.Accounts;
-import generalPackage.core.database.Database;
+import generalPackage.core.database.AccountsRepository;
+import generalPackage.core.domain.Accounts;
 import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
 import generalPackage.core.requests.adminRequests.Ordering;
 import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.GetAllAccountsResponse;
 import generalPackage.core.services.adminOperations.adminValidators.GetAllAccountsServiceValidator;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class GetAllAccountsService {
 
-    @DIDependency
-    private Database database;
-    @DIDependency
+    @Autowired
+    private AccountsRepository accountsRepository;
+    @Autowired
     private GetAllAccountsServiceValidator validator;
 
 
@@ -30,7 +30,7 @@ public class GetAllAccountsService {
             return new GetAllAccountsResponse(null, errors);
         }
 
-        List<Accounts> accounts = database.getAllAccounts();
+        List<Accounts> accounts = accountsRepository.getAllAccounts();
         accounts = order(accounts, request.getOrdering());
 
         return new GetAllAccountsResponse(accounts, null);

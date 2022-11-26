@@ -3,17 +3,18 @@ package lv.javaguru.java2.tasksScheduler;
 import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
 import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupService;
+import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.ScheduledJobs;
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.Scanner;
+
 
 public class TasksSchedulerApplication {
     private static  MenuType menuType = MenuType.START;
-
 
     public static void main(String[] args) {
 
@@ -21,12 +22,14 @@ public class TasksSchedulerApplication {
                 new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
 
         UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
-        TasksCleanupService cleanupService = applicationContext.getBean(TasksCleanupService.class);
+        ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);
+
 
         TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
         testData.createTestSettings();
         testData.createTestUsers();
         testData.createTestTasks();
+
 
         int menuNumber = 0;
 
@@ -36,8 +39,6 @@ public class TasksSchedulerApplication {
                 break;
         } while (true);
 
-        //start 2nd thread
-//        cleanupService.start();
 
         while (true) {
             printMenu(menuType);

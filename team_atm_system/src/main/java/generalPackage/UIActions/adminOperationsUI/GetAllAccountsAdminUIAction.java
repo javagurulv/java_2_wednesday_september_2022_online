@@ -4,16 +4,16 @@ import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
 import generalPackage.core.requests.adminRequests.Ordering;
 import generalPackage.core.responses.adminResponses.GetAllAccountsResponse;
 import generalPackage.core.services.adminOperations.GetAllAccountsService;
-import generalPackage.dependencyInjection.DIComponent;
-import generalPackage.dependencyInjection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 
-@DIComponent
+@Component
 public class GetAllAccountsAdminUIAction implements AdminUIactions {
 
-@DIDependency
+@Autowired
 private GetAllAccountsService getAllAccountsService;
 
 

@@ -10,6 +10,7 @@ import lv.javaguru.java2.eBooking.core.services.validators.AppointmentValidation
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -25,12 +26,8 @@ public class AppointmentAddServiceTest {
     private Database database;
     @Mock
     private AppointmentAddValidator validator;
+    @InjectMocks
     private AppointmentAddService service;
-
-    @Before
-    public void setUp() {
-        service = new AppointmentAddService(database, validator);
-    }
 
     @Test
     public void shouldReturnErrorWhenValidationFails() {

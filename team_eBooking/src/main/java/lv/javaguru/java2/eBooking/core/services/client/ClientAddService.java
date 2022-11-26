@@ -6,17 +6,17 @@ import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientAddResponse;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.services.validators.ClientAddValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ClientAddService {
-    private Database database;
-    private ClientAddValidator validator;
 
-    public ClientAddService(Database database, ClientAddValidator validator) {
-        this.database = database;
-        this.validator = validator;
-    }
+    @Autowired
+    Database database;
+    @Autowired
+    private ClientAddValidator validator;
 
     public ClientAddResponse execute(ClientAddRequest request) {
         List<CoreError> errors = validator.validate(request);
