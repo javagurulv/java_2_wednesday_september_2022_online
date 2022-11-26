@@ -5,6 +5,7 @@ import lombok.Setter;
 import lv.javaguru.java2.rentapp.enums.Colour;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public abstract class Vehicle {
 
     public static final int MAX_ALLOWED_CURRENT_YEAR_BACKWARD_REDUCER = 100;
     private Long id;
+    private VehicleType vehicleType;
     private String brand;
     private String model;
     private boolean isAvailableForRent;
@@ -54,16 +56,12 @@ public abstract class Vehicle {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vehicle vehicle = (Vehicle) o;
-        return Objects.equals(brand, vehicle.brand) && Objects.equals(model, vehicle.model)
-                && Objects.equals(yearOfProduction, vehicle.yearOfProduction) && colour == vehicle.colour
-                && Objects.equals(rentPricePerDay, vehicle.rentPricePerDay) && engineType == vehicle.engineType
-                && Objects.equals(plateNumber, vehicle.plateNumber) && transmissionType == vehicle.transmissionType;
+        if (!(o instanceof Vehicle vehicle)) return false;
+        return isAvailableForRent() == vehicle.isAvailableForRent() && getId().equals(vehicle.getId()) && getVehicleType() == vehicle.getVehicleType() && getBrand().equals(vehicle.getBrand()) && getModel().equals(vehicle.getModel()) && getYearOfProduction().equals(vehicle.getYearOfProduction()) && getColour() == vehicle.getColour() && getRentPricePerDay().equals(vehicle.getRentPricePerDay()) && getEngineType() == vehicle.getEngineType() && getPlateNumber().equals(vehicle.getPlateNumber()) && getTransmissionType() == vehicle.getTransmissionType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brand, model, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);
+        return Objects.hash(getId(), getVehicleType(), getBrand(), getModel(), isAvailableForRent(), getYearOfProduction(), getColour(), getRentPricePerDay(), getEngineType(), getPlateNumber(), getTransmissionType());
     }
 }

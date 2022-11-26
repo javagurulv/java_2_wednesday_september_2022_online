@@ -3,17 +3,21 @@ plugins {
 }
 
 dependencies {
-    implementation'org.reflections:reflections:0.10.2'
+    implementation 'mysql:mysql-connector-java:8.0.22'
+    implementation 'org.apache.commons:commons-dbcp2:2.8.0'
+    implementation 'org.springframework:spring-jdbc:5.2.6.RELEASE'
+
+    implementation 'org.springframework:spring-context:5.3.23'
+    implementation 'org.reflections:reflections:0.10.2'
     implementation 'commons-validator:commons-validator:1.7'
-    implementation'org.springframework:spring-context:5.3.23'
     implementation 'org.slf4j:slf4j-simple:2.0.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testImplementation 'org.mockito:mockito-core:4.8.0'
     testImplementation 'org.mockito:mockito-inline:4.8.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
-    testImplementation'org.springframework:spring-test:5.3.23'
-
+    testImplementation 'org.springframework:spring-test:5.3.23'
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
