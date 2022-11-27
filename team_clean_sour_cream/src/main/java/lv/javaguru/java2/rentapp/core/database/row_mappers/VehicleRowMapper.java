@@ -15,7 +15,7 @@ public abstract class VehicleRowMapper implements RowMapper<Vehicle> {
     @Override
     public abstract Vehicle mapRow(ResultSet rs, int rowNum) throws SQLException;
 
-    protected <T extends Vehicle> T getVehicle(ResultSet rs, T vehicle) throws SQLException {
+    protected void getVehicle(ResultSet rs, Vehicle vehicle) throws SQLException {
         vehicle.setId(rs.getLong("id"));
         vehicle.setVehicleType(VehicleType.valueOf(rs.getString("vehicle_type")));
         vehicle.setBrand(rs.getString("brand"));
@@ -27,6 +27,5 @@ public abstract class VehicleRowMapper implements RowMapper<Vehicle> {
         vehicle.setEngineType(EngineType.valueOf(rs.getString("engine_type")));
         vehicle.setPlateNumber(rs.getString("plate_number"));
         vehicle.setTransmissionType(TransmissionType.valueOf(rs.getString("transmission_type")));
-        return vehicle;
     }
 }

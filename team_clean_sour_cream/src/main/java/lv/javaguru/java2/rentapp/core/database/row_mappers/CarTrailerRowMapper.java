@@ -1,11 +1,6 @@
 package lv.javaguru.java2.rentapp.core.database.row_mappers;
 
 import lv.javaguru.java2.rentapp.domain.CarTrailer;
-import lv.javaguru.java2.rentapp.domain.Vehicle;
-import lv.javaguru.java2.rentapp.enums.Colour;
-import lv.javaguru.java2.rentapp.enums.EngineType;
-import lv.javaguru.java2.rentapp.enums.TransmissionType;
-import lv.javaguru.java2.rentapp.enums.VehicleType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,10 +9,13 @@ public class CarTrailerRowMapper extends VehicleRowMapper {
 
     @Override
     public CarTrailer mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Vehicle carTrailer = new CarTrailer();
+        CarTrailer carTrailer = new CarTrailer();
         getVehicle(rs, carTrailer);
-        carTrailer.get
+        carTrailer.setDeckWidthInCm(rs.getInt("deck_width_cm"));
+        carTrailer.setDeckLengthInCm(rs.getInt("deck_length_cm"));
+        carTrailer.setDeckHeightInCm(rs.getInt("deck_height_cm"));
+        carTrailer.setEmptyWeightInKg(rs.getInt("empty_weight_kg"));
+        carTrailer.setMaxLoadWeightInKg(rs.getInt("max_weight_kg"));
         return carTrailer;
     }
-
 }
