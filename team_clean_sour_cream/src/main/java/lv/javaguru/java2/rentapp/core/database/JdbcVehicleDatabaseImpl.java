@@ -42,7 +42,6 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
 
     }
 
-    // WHERE vehicle_type = 'PASSENGER_CAR'  WHERE vehicle_type = 'MINIBUS'  WHERE vehicle_type = 'MOTORCYCLE'  WHERE vehicle_type = 'CAR_TRAILER'
     @Override
     public List<Vehicle> getAllVehicles() {
         String sqlPassengerCars = "SELECT * FROM vehicles JOIN passenger_cars pc on vehicles.id = pc.vehicle_id";
