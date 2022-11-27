@@ -46,7 +46,7 @@ public class SearchTasksValidator {
                 && !(ordering.getOrderBy().equals("description") ||
                             ordering.getOrderBy().equals("end date") ||
                                 ordering.getOrderBy().equals("due date")))
-                ? Optional.of(new CoreError("orderBy", "Must contain 'description'," +
+                ? Optional.of(new CoreError("Order By", "Must contain 'description'," +
                                                                     "'end date', 'due date' only!"))
                 : Optional.empty();
     }
@@ -55,45 +55,45 @@ public class SearchTasksValidator {
         return (ordering.getOrderDirection() != null
                 && !(ordering.getOrderDirection().equals("ascending") ||
                         ordering.getOrderDirection().equals("descending")))
-                ? Optional.of(new CoreError("orderDirection", "Must contain 'ascending' or 'descending' only!"))
+                ? Optional.of(new CoreError("Order Direction", "Must contain 'ascending' or 'descending' only!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateMandatoryOrderBy(Ordering ordering) {
         return (ordering.getOrderDirection() != null && ordering.getOrderBy() == null)
-                ? Optional.of(new CoreError("orderBy", "Must not be empty!"))
+                ? Optional.of(new CoreError("Order By", "Must not be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateMandatoryOrderDirection(Ordering ordering) {
         return (ordering.getOrderBy() != null && ordering.getOrderDirection() == null)
-                ? Optional.of(new CoreError("orderDirection", "Must not be empty!"))
+                ? Optional.of(new CoreError("Order Direction", "Must not be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validatePageNumber(Paging paging) {
         return (paging.getPageNumber() != null
                 && paging.getPageNumber() <= 0)
-                ? Optional.of(new CoreError("pageNumber", "Must be greater then 0!"))
+                ? Optional.of(new CoreError("Page Number", "Must be greater then 0!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validatePageSize(Paging paging) {
         return (paging.getPageSize() != null
                 && paging.getPageSize() <= 0)
-                ? Optional.of(new CoreError("pageSize", "Must be greater then 0!"))
+                ? Optional.of(new CoreError("Page Size", "Must be greater then 0!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateMandatoryPageNumber(Paging paging) {
         return (paging.getPageNumber() == null && paging.getPageSize() != null)
-                ? Optional.of(new CoreError("pageNumber", "Must not be empty!"))
+                ? Optional.of(new CoreError("Page Number", "Must not be empty!"))
                 : Optional.empty();
     }
 
     private Optional<CoreError> validateMandatoryPageSize(Paging paging) {
         return (paging.getPageSize() == null && paging.getPageNumber() != null)
-                ? Optional.of(new CoreError("pageSize", "Must not be empty!"))
+                ? Optional.of(new CoreError("Page Size", "Must not be empty!"))
                 : Optional.empty();
     }
 
