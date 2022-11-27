@@ -28,6 +28,9 @@ public class CarTrailer extends Vehicle {
     private Integer emptyWeightInKg;
     private Integer maxLoadWeightInKg;
 
+    public CarTrailer() {
+    }
+
     public CarTrailer(String brand, String model, boolean isAvailable, Integer yearOfProduction, Colour colour,
                       Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
                       Integer deckWidthInCm, Integer deckLengthInCm, Integer deckHeightInCm, Integer emptyWeightInKg, Integer maxLoadWeightInKg) {

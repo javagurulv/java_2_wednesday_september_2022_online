@@ -26,6 +26,9 @@ public abstract class Vehicle {
     private String plateNumber;
     private TransmissionType transmissionType;
 
+    public Vehicle() {
+    }
+
     public Vehicle(String brand, String model, boolean isAvailableForRent, Integer yearOfProduction, Colour colour,
                    Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType) {
         this.brand = brand;
