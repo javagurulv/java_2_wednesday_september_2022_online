@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-
+/*
 import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.GetAllBankAccountsRequest;
@@ -38,5 +38,7 @@ public class GetAllBankAccountsServiceTest {
         verify(bankRepository).getAllBankAccounts();
     }
 }
+
+ */
 
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Bank demo project">
+  <meta name="author" content="JavaGuru">
+  <title>Bank</title>
+</head>
+
+<body>
+
+<h3>Show all Users</h3>
+
+<table>
+  <tr>
+    <td>Personal code:</td>
+    <td>Password:</td>
+    <td>Role:</td>
+  </tr>
+
+  <td th:if="${users != users}">
+    <tr th:each="users : ${users}">
+      <td th:text="${users.personalCode}" />
+      <td th:text="${users.password}" />
+      <td th:text="${users.role}" />
+    </tr>
+  </td>
+
+</table>
+
+<form action="/admin" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
+
+</body>
+
+</html>

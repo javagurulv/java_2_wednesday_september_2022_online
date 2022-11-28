@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Bank demo project">
+    <meta name="author" content="JavaGuru">
+    <title>Bank</title>
+</head>
+
+<body>
+
+<h3>Search bank account</h3>
+
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>Surname:</td>
+        <td>Personal code:</td>
+    </tr>
+
+    <tr>
+        <form action="/searchBankAccount" th:object="${request}" method="post">
+            <td><input type="text" th:field="${request.name}"/></td>
+            <td><input type="text" th:field="${request.surname}"/></td>
+            <td><input type="text" th:field="${request.personalCode}"/></td>
+            <td>
+                <input type="submit" value="Search"/>
+                <input type="reset" value="Clear"/>
+            </td>
+        </form>
+    </tr>
+</table>
+
+<td th:if="${bank_accounts != null}">
+    <tr th:each="bank_accounts : ${bank_accounts}">
+        <td th:text="${bank_accounts.name}" />
+        <td th:text="${bank_accounts.surname}" />
+        <td th:text="${bank_accounts.personalCode}" />
+        <td th:text="${bank_accounts.balance}" />
+    </tr>
+</td>
+
+<td th:if="${errors != null}">
+    <tr th:each="error : ${errors}">
+        <td th:text="${error.field}" />
+        <td th:text="${error.message}" />
+    </tr>
+</td>
+
+</body>
+
+</html>

@@ -2,7 +2,6 @@ package myApp.core.services;
 
 import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.User;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.requests.AddUserRequest;
 import myApp.core.responses.AddBankAccountResponse;
@@ -24,15 +23,26 @@ public class AddBankAccountService {
     @Autowired
     private AddBankAccountValidator validator;
 
-    public AddBankAccountResponse execute(AddBankAccountRequest request, AddUserRequest userRequest) {
+    public AddBankAccountResponse execute(AddBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-            BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(),
-                    "Roles.Regular_user", request.getPersonalCode());
-            User user = new User(userRequest.getLogin(), userRequest.getPassword());
-            bankRepository.addBankAccount(bankAccount, user);
-            return new AddBankAccountResponse(bankAccount);
-        }
+           // if (duplicateCheck(request, userRequest)) {
+
+                BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(),
+                        request.getPersonalCode());
+             //   User user = new User(userRequest.getLogin(), userRequest.getPassword(),"Role_User");
+                bankRepository.addBankAccount(bankAccount);
+                return new AddBankAccountResponse(bankAccount);
+            }
+      //  }
         return new AddBankAccountResponse(errors);
+    }
+
+    private boolean duplicateCheck(AddBankAccountRequest accountRequest, AddUserRequest userRequest) {
+        boolean bankAccountResult = bankRepository.getAllBankAccounts().stream()
+                .anyMatch(bankAccount -> bankAccount.getPersonalCode().equals(accountRequest.getPersonalCode()));
+        boolean userResult = bankRepository.getAllUsers().stream()
+                .anyMatch(user -> user.getPersonalCode().equals(userRequest.getLogin()));
+        return !bankAccountResult && !userResult;
     }
 }

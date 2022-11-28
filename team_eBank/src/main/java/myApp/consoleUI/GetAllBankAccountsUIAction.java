@@ -4,9 +4,8 @@ import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
 import myApp.core.services.GetAllBankAccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class GetAllBankAccountsUIAction implements UIAction {
     @Autowired
     private GetAllBankAccountsService service;

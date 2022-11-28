@@ -1,6 +1,6 @@
 package myApp.integrationtests;
 
-import myApp.config.BankAccountConfiguration;
+import myApp.config.SpringCoreConfiguration;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertNotNull;
 
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {BankAccountConfiguration.class})
+@ContextConfiguration(classes = {SpringCoreConfiguration.class})
 public class SpringContextTest {
 
     @Autowired

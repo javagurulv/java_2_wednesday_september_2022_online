@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface BankRepository {
 
-    void addBankAccount(BankAccount bankAccount,User user);
+    void addBankAccount(BankAccount bankAccount);
 
     boolean deleteBankAccount(String personalCode);
 
