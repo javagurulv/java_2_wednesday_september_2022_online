@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface VehicleDatabase {
 
-    void addNewVehicle(Vehicle vehicle);
+    Long addNewVehicle(Vehicle vehicle);
 
     void deleteVehicleByPlateNumber(String plateNumber);
 

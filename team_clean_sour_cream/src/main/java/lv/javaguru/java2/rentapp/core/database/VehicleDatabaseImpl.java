@@ -22,10 +22,12 @@ public class VehicleDatabaseImpl implements VehicleDatabase {
     private List<Vehicle> vehiclesDB = new ArrayList<>(TestData.getTestList());
 
     @Override
-    public void addNewVehicle(Vehicle vehicle) {
+    public Long addNewVehicle(Vehicle vehicle) {
+        Long id = nextId;
         vehicle.setId(nextId);
         vehiclesDB.add(vehicle);
         nextId++;
+        return id;
     }
 
     @Override

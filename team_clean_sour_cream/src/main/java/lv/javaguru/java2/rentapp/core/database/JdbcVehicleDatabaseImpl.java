@@ -6,7 +6,6 @@ import lv.javaguru.java2.rentapp.core.database.row_mappers.MotorcycleRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.PassengerCarRowMapper;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
-import lv.javaguru.java2.rentapp.enums.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -24,17 +23,16 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void addNewVehicle(Vehicle vehicle) {
-        Integer isAvailable = (vehicle.isAvailableForRent()) ? 1 : 0;
-        VehicleType vehicleType = vehicle.getVehicleType();
+    public Long addNewVehicle(Vehicle vehicle) {
 
-        jdbcTemplate.update("INSERT INTO vehicles (vehicle_type, brand, model, is_available, year, colour, price, " +
-                        "engine_type, plate_number, transmission_type)"
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", vehicleType.getNameVehicleType(), vehicle.getBrand(),
-                vehicle.getModel(), isAvailable, vehicle.getYearOfProduction(), vehicle.getColour().getNameColour(),
+        int update = jdbcTemplate.update("INSERT INTO vehicles (vehicle_type, brand, model, is_available, year, colour, price, engine_type, plate_number, transmission_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+                        + "INSERT INTO passenger_cars (`vehicle_id`, `passenger_amount`, `baggageAmount`, `doorsAmount`, `air_conditioning`) VALUES (?, ?, ?, ?, ?)", vehicle.getVehicleType().name(), vehicle.getBrand(),
+                vehicle.getModel(), vehicle.isAvailableForRent(), vehicle.getYearOfProduction(), vehicle.getColour().getNameColour(),
                 vehicle.getRentPricePerDay(), vehicle.getEngineType().getNameEngineType(), vehicle.getPlateNumber(),
-                vehicle.getTransmissionType().getNameTransmissionType()
+                vehicle.getTransmissionType().getNameTransmissionType() + "INSERT INTO passenger_cars (`vehicle_id`, `passenger_amount`, `baggageAmount`, `doorsAmount`, `air_conditioning`)"
+                        + "VALUES (?, ?, ?, ?, ?);"
         );
+        return (long) update;
     }
 
     @Override
