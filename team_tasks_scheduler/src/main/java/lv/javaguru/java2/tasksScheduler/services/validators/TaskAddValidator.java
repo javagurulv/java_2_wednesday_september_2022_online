@@ -38,7 +38,7 @@ public class TaskAddValidator {
         Task task = new Task(request.getDescription(), request.getRegularity(),
                 request.getDueDate(), request.getEndDate(), sessionService.getCurrentUserId());
         if (tasksRepository.exists(task)) {
-            return Optional.of(new CoreError("Task", "Already exists in database"));
+            return Optional.of(new CoreError("Task", "Already exists in database!"));
         }
         return Optional.empty();
     }
@@ -46,7 +46,7 @@ public class TaskAddValidator {
         String description = request.getDescription();
         if (ValueChecking.stringIsEmpty(description) ||
                 description.length() < 10) {
-            return Optional.of(new CoreError("Description", "Has to be longer than 10 chars"));
+            return Optional.of(new CoreError("Description", "Has to be longer than 9 chars!"));
         }
         return Optional.empty();
     }
@@ -54,7 +54,7 @@ public class TaskAddValidator {
     private Optional<CoreError> validateRegularity(AddTaskRequest request) {
         int regularity = request.getRegularity();
         if (regularity < 0) {
-            return Optional.of(new CoreError("Regularity", "Can't be negative"));
+            return Optional.of(new CoreError("Regularity", "Can't be negative!"));
         }
         return Optional.empty();
     }
@@ -64,7 +64,7 @@ public class TaskAddValidator {
         LocalDateTime endDate = request.getEndDate();
         LocalDateTime now = LocalDateTime.now();
         if (dueDate.isBefore(now) || dueDate.isAfter(endDate)) {
-            return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date"));
+            return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date!"));
         }
         return Optional.empty();
     }
@@ -80,7 +80,7 @@ public class TaskAddValidator {
                                                      dueDate.getDayOfMonth());
         Period period = Period.between(dueDateOnly, endDateOnly);
         if (period.getYears() > 100 || endDate.isBefore(LocalDateTime.now())) {
-            return Optional.of(new CoreError("End date", "Must not be in the past or > 100 years in the future"));
+            return Optional.of(new CoreError("End date", "Must not be in the past or > 100 years in the future!"));
         }
         return Optional.empty();
     }
