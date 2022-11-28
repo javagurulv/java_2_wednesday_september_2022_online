@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Optional;
 
 //@Component
+@Deprecated
 public class JdbcIngredientRepositoryImpl implements IngredientRepository {
 
     @Autowired

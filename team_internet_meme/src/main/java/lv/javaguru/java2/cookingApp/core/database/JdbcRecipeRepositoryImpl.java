@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import java.util.*;
 
 //@Component
+@Deprecated()
 public class JdbcRecipeRepositoryImpl implements RecipeRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;
