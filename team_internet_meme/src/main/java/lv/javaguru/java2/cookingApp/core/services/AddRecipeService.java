@@ -32,7 +32,7 @@ public class AddRecipeService {
         }
         Recipe recipe = new Recipe(request.getDishName());
         Long recipeId = recipeRepository.save(recipe);
-        ingredientRepository.saveIngredients(request.getIngredients(), recipeId);
+        ingredientRepository.saveRecipeIngredients(request.getIngredients(), recipeId);
         cookingStepRepository.saveCookingSteps(request.getCookingSteps(), recipeId);
         return new AddRecipeResponse(recipe);
     }

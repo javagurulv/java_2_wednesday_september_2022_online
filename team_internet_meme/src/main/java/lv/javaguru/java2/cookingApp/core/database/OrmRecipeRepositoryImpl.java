@@ -32,6 +32,16 @@ public class OrmRecipeRepositoryImpl implements RecipeRepository {
     }
 
     @Override
+    public boolean update(String name, Long id) {
+        Optional<Recipe> recipe = getById(id);
+        if (recipe.isEmpty()) {
+            return false;
+        }
+        recipe.ifPresent(recipe1 -> recipe1.setDishName(name));
+        return true;
+    }
+
+    @Override
     public List<Recipe> getAllRecipes() {
         return sessionFactory.getCurrentSession().createQuery("SELECT r FROM Recipe r", Recipe.class).getResultList();
     }

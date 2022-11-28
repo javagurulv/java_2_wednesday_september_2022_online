@@ -58,7 +58,7 @@ class AddRecipeServiceTest {
         assertFalse(response.hasErrors());
         assertEquals(recipe, response.getNewRecipe());
         Mockito.verify(recipeRepository).save(recipe);
-        Mockito.verify(ingredientRepository).saveIngredients(ingredients, 1L);
+        Mockito.verify(ingredientRepository).saveRecipeIngredients(ingredients, 1L);
         Mockito.verify(cookingStepRepository).saveCookingSteps(cookingSteps, 1L);
     }
 

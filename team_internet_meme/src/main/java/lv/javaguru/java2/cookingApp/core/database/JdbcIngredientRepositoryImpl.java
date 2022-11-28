@@ -18,7 +18,7 @@ public class JdbcIngredientRepositoryImpl implements IngredientRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void saveIngredients(List<Ingredient> ingredients, Long recipeID) {
+    public void saveRecipeIngredients(List<Ingredient> ingredients, Long recipeID) {
         SimpleJdbcInsert insertIntoIngredients = new SimpleJdbcInsert(jdbcTemplate).withTableName("ingredients").usingGeneratedKeyColumns("id");
         for (Ingredient ingredient : ingredients) {
             String sql1 = "SELECT * FROM ingredients WHERE ingredient LIKE ?";
@@ -41,6 +41,11 @@ public class JdbcIngredientRepositoryImpl implements IngredientRepository {
         }
     }
 
+    @Override
+    public void save(Ingredient ingredient) {
+
+    }
+
 
     @Override
     public List<Ingredient> getIngredientsByRecipeId(Long recipeId) {
@@ -51,7 +56,17 @@ public class JdbcIngredientRepositoryImpl implements IngredientRepository {
     }
 
     @Override
+    public List<Ingredient> getAllIngredients() {
+        return null;
+    }
+
+    @Override
     public boolean deleteById(Long id) {
         return jdbcTemplate.update("DELETE FROM ingredients WHERE id = " + id) == 1;
+    }
+
+    @Override
+    public Optional<Ingredient> getById(Long id) {
+        return Optional.empty();
     }
 }

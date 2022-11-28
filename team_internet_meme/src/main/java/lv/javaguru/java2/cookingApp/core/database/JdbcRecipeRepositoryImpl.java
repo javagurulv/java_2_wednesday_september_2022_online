@@ -39,6 +39,11 @@ public class JdbcRecipeRepositoryImpl implements RecipeRepository {
     }
 
     @Override
+    public boolean update(String name, Long id) {
+        return false;
+    }
+
+    @Override
     public List<Recipe> getAllRecipes() {
         String sql = "SELECT * FROM recipes";
         return jdbcTemplate.query(sql, new RecipeRowMapper());
