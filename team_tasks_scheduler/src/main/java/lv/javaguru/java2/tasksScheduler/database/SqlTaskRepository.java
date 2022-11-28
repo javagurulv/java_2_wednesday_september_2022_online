@@ -53,10 +53,11 @@ public class SqlTaskRepository implements TasksRepository{
         int result;
         String sql;
         Object[] args;
-        Date endDateSql = java.sql.Timestamp.valueOf(endDate);
+        LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate);
+        Date endDateSql = java.sql.Timestamp.valueOf(pEndDate);
 
         if (userId == null) {
-            sql = "DELETE FROM tasks WHERE ? > end_date";
+            sql = "DELETE FROM tasks WHERE end_date < ?";
             args = new Object[] {endDateSql};
         }
         else {
@@ -155,7 +156,7 @@ public class SqlTaskRepository implements TasksRepository{
 
     @Override
     public List<Task> searchTaskByDescription(String description, Long userId) {
-        String sql = "SELECT * FROM tasks WHERE user_id = ? AND description LIKE ?";
+        String sql = "SELECT * FROM tasks WHERE user_id = ? AND task_description LIKE ?";
         Object[] args = new Object[] {userId, "%"+description+"%"}; //adding wildcard to SQL query. for LIKE
         return jdbcTemplate.query(sql, new TaskRowMapper(), args);
     }
