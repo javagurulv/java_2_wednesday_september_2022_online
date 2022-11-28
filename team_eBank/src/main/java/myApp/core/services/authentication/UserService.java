@@ -6,14 +6,13 @@ import myApp.core.database.BankRepository;
 import myApp.core.database.UserRepository;
 import myApp.core.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
 @Setter
 @Getter
-@Component
-@Transactional
+//@Componentomponent
+//@Transactionalnsactional
 public class UserService {
 
     @Autowired

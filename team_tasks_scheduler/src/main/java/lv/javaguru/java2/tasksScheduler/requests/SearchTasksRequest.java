@@ -11,8 +11,8 @@ public class SearchTasksRequest {
     private String description;
     private LocalDateTime start;
     private LocalDateTime end;
-
     private String searchPhrase;
+
     public SearchTasksRequest(String description, LocalDateTime start, LocalDateTime end) {
         this.description = description;
         this.start = start;
@@ -22,6 +22,11 @@ public class SearchTasksRequest {
     public SearchTasksRequest(String searchPhrase, Ordering ordering) {
         this.searchPhrase = searchPhrase;
         this.ordering = ordering;
+    }
+
+    public SearchTasksRequest(String searchPhrase, Paging paging) {
+        this.searchPhrase = searchPhrase;
+        this.paging = paging;
     }
 
     public SearchTasksRequest(String searchPhrase, Ordering ordering, Paging paging) {

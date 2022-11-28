@@ -1,12 +1,11 @@
 package myApp.consoleUI;
 
-import myApp.core.requests.GetAllBankAccountsRequest;
+import myApp.core.requests.GetAllUsersRequest;
 import myApp.core.responses.GetAllUsersResponse;
 import myApp.core.services.GetAllUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class GetAllUsersUIAction implements UIAction {
 
     @Autowired
@@ -14,8 +13,8 @@ public class GetAllUsersUIAction implements UIAction {
 
     @Override
     public void execute() {
-        System.out.println("Bank account: ");
-        GetAllBankAccountsRequest request = new GetAllBankAccountsRequest();
+        System.out.println("Users: ");
+        GetAllUsersRequest request = new GetAllUsersRequest();
         GetAllUsersResponse result = service.execute(request);
         result.getUsers().forEach(System.out::println);
     }

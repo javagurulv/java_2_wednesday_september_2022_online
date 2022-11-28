@@ -1,15 +1,14 @@
 package myApp.core.services.authentication;
-
+/*
 import myApp.core.database.BankRepository;
 import myApp.core.domain.BankAccount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-@Component
-@Transactional
+//@Componentomponent
+//@Transactionalnsactional
 public class UserAreAdminService {
 
     @Autowired
@@ -23,3 +22,5 @@ public class UserAreAdminService {
             return bankAccount.get().getRole().equals("Roles.Admin");
     }
 }
+
+ */

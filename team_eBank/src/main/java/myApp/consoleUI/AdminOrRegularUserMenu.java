@@ -1,5 +1,5 @@
 package myApp.consoleUI;
-
+/*
 import myApp.core.services.authentication.UserAreAdminService;
 import myApp.core.services.authentication.UserService;
 import org.springframework.context.ApplicationContext;
@@ -35,3 +35,5 @@ public class AdminOrRegularUserMenu {
         return userAreAdminService.isUserAreAdmin(userService.getPersonalCode());
     }
 }
+
+ */

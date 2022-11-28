@@ -4,11 +4,10 @@ import myApp.core.requests.LogInRequest;
 import myApp.core.responses.LogInResponse;
 import myApp.core.services.authentication.LogInService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@Component
+//@Component
 public class LogInUIAction implements UIAction {
     @Autowired
     private LogInService logInService;

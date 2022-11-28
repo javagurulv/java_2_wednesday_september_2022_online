@@ -5,11 +5,10 @@ import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.MoneyTransferService;
 import myApp.core.services.authentication.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@Component
+//@Component
 public class MoneyTransferUIAction implements UIAction {
     @Autowired
     private MoneyTransferService service;

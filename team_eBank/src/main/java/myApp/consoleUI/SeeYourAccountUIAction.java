@@ -5,9 +5,8 @@ import myApp.core.responses.SeeYourAccountResponse;
 import myApp.core.services.SeeYourAccountService;
 import myApp.core.services.authentication.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class SeeYourAccountUIAction implements UIAction {
     @Autowired
     private SeeYourAccountService service;

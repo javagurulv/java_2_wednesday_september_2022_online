@@ -21,11 +21,15 @@ public class Ingredient {
     private String name;
     @Column(name = "measurement", table = "recipes_to_ingredients")
     private String measurement;
-    @Column(name = "amount", nullable = false, table = "recipes_to_ingredients")
+    @Column(name = "amount", table = "recipes_to_ingredients")
     private Double amount;
 
 
     public Ingredient() {
+    }
+
+    public Ingredient(String name) {
+        this.name = name;
     }
 
     public Ingredient(String name, String measurement, Double amount) {

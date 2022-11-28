@@ -1,6 +1,6 @@
 package myApp.acceptanceTests;
-
-import myApp.config.BankAccountConfiguration;
+/*
+import myApp.config.SpringCoreConfiguration;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.requests.AddUserRequest;
 import myApp.core.requests.GetAllBankAccountsRequest;
@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.junit.Assert.assertEquals;
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {BankAccountConfiguration.class})
+@ContextConfiguration(classes = {SpringCoreConfiguration.class})
 @Sql({"/schema.sql"})
 public class AcceptanceTest1 {
 
@@ -35,6 +35,7 @@ public class AcceptanceTest1 {
     public void setup() {
         databaseCleaner.clean();
     }
+
     @Test
     public void testShouldReturnCorrectBankAccountList() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleTwo",
@@ -42,10 +43,12 @@ public class AcceptanceTest1 {
         addService.execute(bankAccountOne, new AddUserRequest("000000-00001", "password"));
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "",
                 "0");
-        addService.execute(bankAccountTwo,new AddUserRequest("0", "password"));
+        addService.execute(bankAccountTwo, new AddUserRequest("0", "password"));
         GetAllBankAccountsResponse response = getAllBooksService.execute(new GetAllBankAccountsRequest());
-        assertEquals(1,response.getBankAccounts().size());
+        assertEquals(1, response.getBankAccounts().size());
     }
 }
 
+
+ */
 

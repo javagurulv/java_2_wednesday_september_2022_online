@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class OrmIngredientRepositoryImpl implements IngredientRepository {
@@ -17,7 +18,7 @@ public class OrmIngredientRepositoryImpl implements IngredientRepository {
     SessionFactory sessionFactory;
 
     @Override
-    public void saveIngredients(List<Ingredient> ingredients, Long recipeId) {
+    public void saveRecipeIngredients(List<Ingredient> ingredients, Long recipeId) {
         Session session = sessionFactory.getCurrentSession();
         for (Ingredient ingredient : ingredients) {
             String hql = "SELECT i FROM Ingredient i WHERE ingredient LIKE :ingredient";
@@ -47,6 +48,11 @@ public class OrmIngredientRepositoryImpl implements IngredientRepository {
         }
     }
 
+    @Override
+    public void save(Ingredient ingredient) {
+        sessionFactory.getCurrentSession().save(ingredient);
+    }
+
 
     @Override
     public List<Ingredient> getIngredientsByRecipeId(Long id) {
@@ -54,7 +60,18 @@ public class OrmIngredientRepositoryImpl implements IngredientRepository {
     }
 
     @Override
+    public List<Ingredient> getAllIngredients() {
+        return sessionFactory.getCurrentSession().createQuery("SELECT i FROM Ingredient i", Ingredient.class).getResultList();
+    }
+
+    @Override
     public boolean deleteById(Long id) {
         return sessionFactory.getCurrentSession().createQuery("DELETE Ingredient WHERE id = " + id).executeUpdate() == 1;
     }
+
+    @Override
+    public Optional<Ingredient> getById(Long id) {
+        return Optional.ofNullable(sessionFactory.getCurrentSession().get(Ingredient.class, id));
+    }
+
 }

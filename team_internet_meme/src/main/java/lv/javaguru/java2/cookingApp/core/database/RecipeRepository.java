@@ -9,6 +9,7 @@ public interface RecipeRepository {
     Long save(Recipe recipe);
     boolean deleteById(Long id);
     Optional<Recipe> getById(Long id);
+    boolean update(String name, Long id);
     List<Recipe> getAllRecipes();
     List<Recipe> searchByIngredients(List<String> ingredients);
 }

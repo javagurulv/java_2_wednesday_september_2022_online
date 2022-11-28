@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import java.util.*;
 
 //@Component
+@Deprecated()
 public class JdbcRecipeRepositoryImpl implements RecipeRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;
@@ -36,6 +37,11 @@ public class JdbcRecipeRepositoryImpl implements RecipeRepository {
         String sql = "SELECT * FROM recipes WHERE id = ?";
         List<Recipe> recipe = jdbcTemplate.query(sql, new RecipeRowMapper(), id);
         return recipe.stream().findFirst();
+    }
+
+    @Override
+    public boolean update(String name, Long id) {
+        return false;
     }
 
     @Override
