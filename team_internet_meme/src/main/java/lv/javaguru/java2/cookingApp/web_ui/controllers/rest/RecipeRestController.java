@@ -1,14 +1,8 @@
 package lv.javaguru.java2.cookingApp.web_ui.controllers.rest;
 
-import lv.javaguru.java2.cookingApp.core.dto.requests.AddRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.dto.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.dto.requests.GetRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.dto.responses.AddRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.dto.responses.DeleteRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.dto.responses.GetRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.services.AddRecipeService;
-import lv.javaguru.java2.cookingApp.core.services.DeleteRecipeService;
-import lv.javaguru.java2.cookingApp.core.services.GetRecipeService;
+import lv.javaguru.java2.cookingApp.core.dto.requests.*;
+import lv.javaguru.java2.cookingApp.core.dto.responses.*;
+import lv.javaguru.java2.cookingApp.core.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +14,22 @@ public class RecipeRestController {
     private GetRecipeService getRecipeService;
     @Autowired
     private AddRecipeService addRecipeService;
-    @Autowired private DeleteRecipeService deleteRecipeService;
+    @Autowired
+    private DeleteRecipeService deleteRecipeService;
+    @Autowired
+    private UpdateRecipeNameService updateRecipeNameService;
+    @Autowired
+    private GetAllRecipesService getAllRecipesService;
 
     @GetMapping(path = "/{id}", produces = "application/json")
     public GetRecipeResponse getRecipe(@PathVariable Long id) {
         GetRecipeRequest request = new GetRecipeRequest(id);
         return getRecipeService.execute(request);
+    }
+
+    @GetMapping(path = "/", produces = "application/json")
+    public GetAllRecipesResponse getAllRecipes() {
+        return getAllRecipesService.execute(new GetAllRecipesRequest());
     }
 
     @PostMapping(path = "/",
@@ -39,5 +43,11 @@ public class RecipeRestController {
     public DeleteRecipeResponse deleteRecipe(@PathVariable Long id) {
         DeleteRecipeRequest request = new DeleteRecipeRequest(id);
         return deleteRecipeService.execute(request);
+    }
+
+    @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
+    public UpdateRecipeNameResponse updateRecipeName(@RequestBody UpdateRecipeNameRequest request, @PathVariable Long id) {
+        request.setId(id);
+        return updateRecipeNameService.execute(request);
     }
 }
