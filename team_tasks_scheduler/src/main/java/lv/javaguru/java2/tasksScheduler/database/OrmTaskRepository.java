@@ -40,7 +40,8 @@ public class OrmTaskRepository implements TasksRepository {
     @Override
     public int deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
         Query<Task> query;
-        java.sql.Timestamp sqlEndDate = java.sql.Timestamp.valueOf(endDate);
+        LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate); //java range > mysql range
+        java.sql.Timestamp sqlEndDate = java.sql.Timestamp.valueOf(pEndDate);
 
         if (userId == null) {
             query = sessionFactory.getCurrentSession().createQuery(
@@ -106,13 +107,31 @@ public class OrmTaskRepository implements TasksRepository {
 
     @Override
     public List<Task> getAllTasksReadyForDueDateUpdate(Long userId) {
-        return null;
+        Query<Task> query;
+        if (userId != null) {
+            query = sessionFactory.getCurrentSession().createQuery(
+                    "select t FROM Task t where userId = :userId AND " +
+                            "(regularity > 0 AND " +
+                            "end_date > TIMESTAMP(CURDATE()) AND " +
+                            "due_date < TIMESTAMP(CURDATE())) " +
+                            "ORDER BY regularity", Task.class);
+            query.setParameter("userId", userId);
+        }
+        else {
+            query = sessionFactory.getCurrentSession().createQuery(
+                    "select t FROM Task t where " +
+                            "(regularity > 0 AND " +
+                            "end_date > TIMESTAMP(CURDATE()) AND " +
+                            "due_date < TIMESTAMP(CURDATE())) " +
+                            "ORDER BY regularity", Task.class);
+        }
+        return query.getResultList();
     }
 
     @Override
     public List<Task> searchTaskByDescription(String description, Long userId) {
         Query<Task> query = sessionFactory.getCurrentSession().createQuery(
-                "select t FROM Task t WHERE description like description AND " +
+                "select t FROM Task t WHERE task_description like :description AND " +
                         "user_id = : userId", Task.class);
 
         query.setParameter("description", "%"+description+"%");
@@ -131,7 +150,14 @@ public class OrmTaskRepository implements TasksRepository {
     }
 
     @Override
-    public List<Task> searchTasks(String searchPhrase, Long userID) {
-        return null;
+    public List<Task> searchTasks(String searchPhrase, Long userId) {
+        Query<Task> query = sessionFactory.getCurrentSession().createQuery(
+                "select t FROM Task t WHERE user_id = :userId AND " +
+                "(task_description LIKE :searchPhrase OR " +
+                        "CONVERT(due_date, CHAR) LIKE :searchPhrase OR " +
+                        "CONVERT(end_date, CHAR) LIKE :searchPhrase)", Task.class);
+        query.setParameter("searchPhrase", "%"+searchPhrase+"%"); //adding wildcard
+        query.setParameter("userId", userId);
+        return query.getResultList();
     }
 }
