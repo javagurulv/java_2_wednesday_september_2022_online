@@ -9,6 +9,7 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,16 +24,11 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     private JdbcTemplate jdbcTemplate;
 
     @Override
+    @Transactional
     public Long addNewVehicle(Vehicle vehicle) {
 
-        int update = jdbcTemplate.update("INSERT INTO vehicles (vehicle_type, brand, model, is_available, year, colour, price, engine_type, plate_number, transmission_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-                        + "INSERT INTO passenger_cars (`vehicle_id`, `passenger_amount`, `baggageAmount`, `doorsAmount`, `air_conditioning`) VALUES (?, ?, ?, ?, ?)", vehicle.getVehicleType().name(), vehicle.getBrand(),
-                vehicle.getModel(), vehicle.isAvailableForRent(), vehicle.getYearOfProduction(), vehicle.getColour().getNameColour(),
-                vehicle.getRentPricePerDay(), vehicle.getEngineType().getNameEngineType(), vehicle.getPlateNumber(),
-                vehicle.getTransmissionType().getNameTransmissionType() + "INSERT INTO passenger_cars (`vehicle_id`, `passenger_amount`, `baggageAmount`, `doorsAmount`, `air_conditioning`)"
-                        + "VALUES (?, ?, ?, ?, ?);"
-        );
-        return (long) update;
+
+        return id;
     }
 
     @Override
@@ -41,6 +37,7 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     }
 
     @Override
+    @Transactional
     public List<Vehicle> getAllVehicles() {
         String sqlPassengerCars = "SELECT * FROM vehicles JOIN passenger_cars pc on vehicles.id = pc.vehicle_id";
         List<Vehicle> passengerCars = jdbcTemplate.query(sqlPassengerCars, new PassengerCarRowMapper());

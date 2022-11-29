@@ -7,12 +7,17 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "lv.javaguru.java2.rentapp")
 @PropertySource(value = "classpath:application.properties")
+@EnableTransactionManagement
 public class VehicleRentConfiguration {
 
     @Value("${jdbc.url}")
@@ -40,6 +45,16 @@ public class VehicleRentConfiguration {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public SimpleJdbcInsert simpleJdbcInsert(JdbcTemplate jdbcTemplate) {
+        return new SimpleJdbcInsert(jdbcTemplate);
+    }
+
+    @Bean
+    public PlatformTransactionManager txManager() {
+        return new DataSourceTransactionManager(dataSource());
     }
 
 }
