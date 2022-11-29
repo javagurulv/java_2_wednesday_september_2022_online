@@ -34,7 +34,7 @@ public class TaskAmendValidator {
     private Optional<CoreError> validateTaskExpired(AmendTaskRequest request) {
         Task currentTask = tasksRepository.getTaskById(request.getTask().getId());
         if (currentTask != null && currentTask.getEndDate().isBefore(LocalDateTime.now())) {
-            return Optional.of(new CoreError("Task", "Already expired, please create new"));
+            return Optional.of(new CoreError("Task", "Already expired, please create new!"));
         }
         return Optional.empty();
     }
@@ -42,14 +42,14 @@ public class TaskAmendValidator {
     private Optional<CoreError> validateDuplicate(AmendTaskRequest request) {
         Task amendedTask = request.getTask();
         if (tasksRepository.exists(amendedTask)) {
-            return Optional.of(new CoreError("Task", "Already exists"));
+            return Optional.of(new CoreError("Task", "Already exists!"));
         }
         return Optional.empty();
     }
     private Optional<CoreError> validateDescription(AmendTaskRequest request) {
         String description = request.getTask().getDescription();
         if (description == null || description.length() < 10) {
-            return Optional.of(new CoreError("Description", "Has to be longer than 10 chars"));
+            return Optional.of(new CoreError("Description", "Has to be longer than 9 chars!"));
         }
         return Optional.empty();
     }
@@ -57,7 +57,7 @@ public class TaskAmendValidator {
     private Optional<CoreError> validateRegularity(AmendTaskRequest request) {
         int regularity = request.getTask().getRegularity();
         if (regularity < 0) {
-            return Optional.of(new CoreError("Regularity", "Can't be negative"));
+            return Optional.of(new CoreError("Regularity", "Can't be negative!"));
         }
         return Optional.empty();
     }
@@ -67,7 +67,7 @@ public class TaskAmendValidator {
         LocalDateTime endDate = request.getTask().getEndDate();
         LocalDateTime now = LocalDateTime.now();
         if (dueDate.isBefore(now) || dueDate.isAfter(endDate)) {
-            return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date"));
+            return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date!"));
         }
         return Optional.empty();
     }
@@ -83,7 +83,7 @@ public class TaskAmendValidator {
                 dueDate.getDayOfMonth());
         Period period = Period.between(dueDateOnly, endDateOnly);
         if (period.getYears() > 100 || endDate.isBefore(LocalDateTime.now())) {
-            return Optional.of(new CoreError("End date", "Must not be in the past or > 100 years in the future"));
+            return Optional.of(new CoreError("End date", "Must not be in the past or > 100 years in the future!"));
         }
         return Optional.empty();
     }
