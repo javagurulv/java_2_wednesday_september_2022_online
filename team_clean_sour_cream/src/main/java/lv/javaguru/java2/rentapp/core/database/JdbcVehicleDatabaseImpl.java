@@ -4,6 +4,7 @@ import lv.javaguru.java2.rentapp.core.database.row_mappers.CarTrailerRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.MiniBusRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.MotorcycleRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.PassengerCarRowMapper;
+import lv.javaguru.java2.rentapp.core.database.vehicles_saver.PassengerCarSaver;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,13 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private PassengerCarSaver passengerCarSaver;
+
     @Override
     @Transactional
     public Long addNewVehicle(Vehicle vehicle) {
-
-
-        return id;
+        return passengerCarSaver.save(vehicle);
     }
 
     @Override
