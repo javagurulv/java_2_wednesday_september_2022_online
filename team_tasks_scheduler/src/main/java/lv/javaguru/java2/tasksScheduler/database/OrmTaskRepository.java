@@ -41,7 +41,7 @@ public class OrmTaskRepository implements TasksRepository {
     public int deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
         Query<Task> query;
         LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate); //java range > mysql range
-        java.sql.Timestamp sqlEndDate = java.sql.Timestamp.valueOf(pEndDate);
+        //java.sql.Timestamp sqlEndDate = java.sql.Timestamp.valueOf(pEndDate);
 
         if (userId == null) {
             query = sessionFactory.getCurrentSession().createQuery(
@@ -53,7 +53,7 @@ public class OrmTaskRepository implements TasksRepository {
                                     "end_date < :endDate", Task.class);
             query.setParameter("userId", userId);
         }
-        query.setParameter("endDate", sqlEndDate);
+        query.setParameter("endDate", pEndDate);
         return query.getResultList().size();
     }
 
@@ -94,14 +94,14 @@ public class OrmTaskRepository implements TasksRepository {
     public List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate) {
         //MySQL date range from '1000-01-01 00:00:00' to '9999-12-31 23:59:59'.
         LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate);
-        java.sql.Timestamp sqlEndDate = java.sql.Timestamp.valueOf(pEndDate);
+        //java.sql.Timestamp sqlEndDate = java.sql.Timestamp.valueOf(pEndDate);
 
         Query<Task> query = sessionFactory.getCurrentSession().createQuery(
                 "select t FROM Task t where userId = :userId AND " +
                         "end_date > NOW() AND " +
                         "due_date < :endDate", Task.class);
         query.setParameter("userId", userId);
-        query.setParameter("endDate", sqlEndDate);
+        query.setParameter("endDate", pEndDate);
         return query.getResultList();
     }
 

@@ -1,11 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import java.util.Objects;
 
@@ -15,8 +10,6 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "id", referencedColumnName = "user_id")  //TODO foreign key re-check
     private Long id;
     @Column(name="username", nullable = false)
     private String username;
