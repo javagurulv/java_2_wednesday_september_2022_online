@@ -16,12 +16,14 @@ public class Task {
     private String description;
     @Column(name="regularity", nullable = false)
     private int regularity;
+
     @Column(name="due_date", nullable = false)
     private LocalDateTime  dueDate;
+
     @Column(name="end_date", nullable = false)
     private LocalDateTime  endDate;
+
     @Column(name="user_id", nullable = false)
-   // @OneToOne(mappedBy = "tasks")   //TODO foreign key re-check
     private Long userId;
 
     public Task() {
