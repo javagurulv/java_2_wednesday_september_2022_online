@@ -8,6 +8,9 @@ public class Debtor {
     private String name;
     private HashSet<String> list = new HashSet<>();
 
+    public Debtor() {
+    }
+
     public Debtor(String name) {
         this.name = name;
     }

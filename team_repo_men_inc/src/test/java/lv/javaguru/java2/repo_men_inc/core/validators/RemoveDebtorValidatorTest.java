@@ -1,20 +1,32 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
-import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.core.database.Database;
-import lv.javaguru.java2.repo_men_inc.core.database.DatabaseImpl;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {RepoMenIncConfiguration.class})
 public class RemoveDebtorValidatorTest {
 
-    Database database = new DatabaseImpl();
-    RemoveDebtorValidator removeDebtorValidator = new RemoveDebtorValidator(database);
+    protected ApplicationContext appContext =
+            new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
+
+    Database database = appContext.getBean(JdbcDatabaseImpl.class);
+    RemoveDebtorValidator removeDebtorValidator = appContext.getBean(RemoveDebtorValidator.class);
 
     @Test
     public void shouldReturnErrorsIfIdIsEmpty() {
@@ -38,9 +50,10 @@ public class RemoveDebtorValidatorTest {
 
     @Test
     public void shouldNotReturnErrors() {
-        database.save(new Debtor("name"));
+        database.saveDebtorAndReturnId(1L, "name");
         RemoveDebtorRequest removeDebtorRequest = new RemoveDebtorRequest(1L);
         List<CoreError> errors = removeDebtorValidator.validate(removeDebtorRequest);
+        System.out.println(errors);
         assertEquals(0, errors.size());
     }
 }

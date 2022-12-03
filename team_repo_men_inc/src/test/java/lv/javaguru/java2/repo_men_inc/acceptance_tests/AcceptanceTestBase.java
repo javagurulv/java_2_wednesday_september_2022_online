@@ -1,5 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.acceptance_tests;
 
+import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
 import lv.javaguru.java2.repo_men_inc.core.requests.Ordering;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingDirection;
@@ -9,8 +10,11 @@ import lv.javaguru.java2.repo_men_inc.core.database.Database;
 import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.services.SearchDebtorService;
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
 public class AcceptanceTestBase {
@@ -18,6 +22,8 @@ public class AcceptanceTestBase {
 
     @Before
     public void setup() {
+        getDatabaseCleaner().clean();
+
         appContext = new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
         appContext.getBean(Database.class).save(new Debtor("mr x"));
         appContext.getBean(Database.class).save(new Debtor("mr y"));
@@ -29,6 +35,11 @@ public class AcceptanceTestBase {
 
         ReflectionTestUtils.setField(appContext.getBean(SearchDebtorService.class), "orderingEnabled", true);
         ReflectionTestUtils.setField(appContext.getBean(SearchDebtorService.class), "pagingEnabled", true);
+
+    }
+
+    private DatabaseCleaner getDatabaseCleaner() {
+        return appContext.getBean(DatabaseCleaner.class);
     }
 
     long idOfTheFirstDebtorInTheDatabase = 1L;

@@ -1,25 +1,32 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
 import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.core.database.Database;
-import lv.javaguru.java2.repo_men_inc.core.database.DatabaseImpl;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {RepoMenIncConfiguration.class})
 public class AddDebtorValidatorTest {
 
     protected ApplicationContext appContext =
             new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
 
-    Database database = appContext.getBean(DatabaseImpl.class);
+    Database database = appContext.getBean(JdbcDatabaseImpl.class);
     AddDebtorValidator addDebtorValidator = appContext.getBean(AddDebtorValidator.class);
 
     @Test
@@ -49,7 +56,7 @@ public class AddDebtorValidatorTest {
 
     @Test
     public void shouldReturnErrorsIfNameAlreadyInTheDatabase() {
-        database.save(new Debtor("existing name"));
+//        database.save(new Debtor("existing name"));
         AddDebtorRequest addDebtorRequest = new AddDebtorRequest("existing name");
         List<CoreError> errors = addDebtorValidator.validate(addDebtorRequest);
         assertEquals(1, errors.size());

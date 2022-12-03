@@ -6,6 +6,7 @@ import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.validators.AddHarvestedItemValidator;
 import lv.javaguru.java2.repo_men_inc.core.database.Database;
 import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class AddHarvestedItemServiceTest {
 
