@@ -2,6 +2,7 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
+import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.VehicleAvailabilityServiceValidator;
@@ -29,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class VehicleAvailabilityServiceTest {
 
     @Mock
-    protected DealDatabase dealDatabase;
+    private DealDatabase dealDatabase;
 
     @Mock
     private VehicleAvailabilityServiceValidator vehicleAvailabilityServiceValidator;
@@ -52,8 +53,8 @@ class VehicleAvailabilityServiceTest {
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Mockito.when(request.getRentStartDate()).thenReturn(LocalDate.now().plusDays(1).format(formatter));
-        Mockito.when(request.getRentEndDate()).thenReturn(LocalDate.now().plusDays(3).format(formatter));
+        Mockito.when(request.getRentStartDate()).thenReturn(LocalDate.now().plusDays(3).format(formatter));
+        Mockito.when(request.getRentEndDate()).thenReturn(LocalDate.now().plusDays(5).format(formatter));
         Mockito.when(request.getPaging()).thenReturn(null);
 
         PassengerCar passengerCar1 = new PassengerCar("a", "a1", true, 1990, Colour.RED, 10.00, EngineType.GAS, "aa1", TransmissionType.MANUAL, 2, 2, 2, true);
@@ -69,12 +70,13 @@ class VehicleAvailabilityServiceTest {
 
         RentDeal rentDeal = Mockito.mock(RentDeal.class);
         Mockito.when(rentDeal.getVehicle()).thenReturn(passengerCar2);
-        Mockito.when(rentDeal.getStartDate()).thenReturn(LocalDate.now().plusDays(1));
-        Mockito.when(rentDeal.getEndDate()).thenReturn(LocalDate.now().plusDays(3));
+        Mockito.when(rentDeal.getStartDate()).thenReturn(LocalDate.now().plusDays(3));
+        Mockito.when(rentDeal.getEndDate()).thenReturn(LocalDate.now().plusDays(5));
         Mockito.when(dealDatabase.getAllDeals()).thenReturn(List.of(rentDeal));
 
         VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, vehicles);
         assertFalse(response.hasErrors());
+        Mockito.verify(dealDatabase).getAllDeals();
         assertEquals(List.of(passengerCar1, passengerCar3), response.getVehicles());
     }
 
