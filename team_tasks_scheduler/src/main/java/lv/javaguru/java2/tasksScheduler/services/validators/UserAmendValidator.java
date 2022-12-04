@@ -32,20 +32,20 @@ public class UserAmendValidator {
     private Optional<CoreError> validateDuplicate(AmendCurrentUserRequest request) {
         User currentUser = usersRepository.getUserById(sessionService.getCurrentUserId());
         if (currentUser == null) {
-            return Optional.of(new CoreError("User", "Problem occurs deriving current user details"));
+            return Optional.of(new CoreError("User", "Problem occurs deriving current user details!"));
         }
         if (currentUser.getUsername().equals(request.getUsername())) {
             return Optional.empty();
         }
         if (usersRepository.existsByName(request.getUsername())) {
-            return Optional.of(new CoreError("User", "Exists in database"));
+            return Optional.of(new CoreError("User", "Already exists in the database!"));
         }
         return Optional.empty();
     }
     private Optional<CoreError> validateUserName(AmendCurrentUserRequest request) {
         if (ValueChecking.stringIsEmpty(request.getUsername()) ||
-                request.getUsername().length() < 3) {
-            return Optional.of(new CoreError("User name", "Has to be longer than 3 chars"));
+                request.getUsername().length() < 4) {
+            return Optional.of(new CoreError("User name", "Has to be longer than 3 chars!"));
         }
         return Optional.empty();
     }
@@ -53,16 +53,16 @@ public class UserAmendValidator {
     private Optional<CoreError> validateUserEmail(AmendCurrentUserRequest request) {
         if (ValueChecking.stringIsEmpty(request.getEmail()) ||
                 !request.getEmail().contains("@")) {
-            return Optional.of(new CoreError("e-mail", "Has to contain char '@'"));
+            return Optional.of(new CoreError("E-mail", "Has to contain char '@'!"));
         }
         return Optional.empty();
     }
 
     private Optional<CoreError> validateUserPassword(AmendCurrentUserRequest request) {
         if (ValueChecking.stringIsEmpty(request.getPassword()) ||
-                request.getPassword().length() < 3
+                request.getPassword().length() < 4
         ) {
-            return Optional.of(new CoreError("Password", "Should be >3 characters"));
+            return Optional.of(new CoreError("Password", "Should be > 3 characters!"));
         }
         return Optional.empty();
     }

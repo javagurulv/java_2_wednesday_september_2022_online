@@ -54,15 +54,14 @@ public class SqlTaskRepository implements TasksRepository{
         String sql;
         Object[] args;
         LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate);
-        Date endDateSql = java.sql.Timestamp.valueOf(pEndDate);
 
         if (userId == null) {
             sql = "DELETE FROM tasks WHERE end_date < ?";
-            args = new Object[] {endDateSql};
+            args = new Object[] {pEndDate};
         }
         else {
             sql = "DELETE FROM tasks WHERE user_id = ? AND end_date < ?";
-            args = new Object[] {userId, endDateSql};
+            args = new Object[] {userId, pEndDate};
         }
         result = jdbcTemplate.update(sql, args);
 
@@ -116,16 +115,12 @@ public class SqlTaskRepository implements TasksRepository{
 
     @Override
     public List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate) {
-        LocalDateTime pEndDate;
-        Date endDateSql;
-
         //MySQL date range from '1000-01-01 00:00:00' to '9999-12-31 23:59:59'.
-        pEndDate = checkAdjustMySqlDateRange(endDate);
-        endDateSql = java.sql.Timestamp.valueOf(pEndDate);
+        LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate);
 
         String sql = "SELECT * FROM tasks WHERE user_id = ? AND due_date < ? AND " +
                         " end_date > LOCALTIME()";
-        Object[] args = new Object[] {userId, endDateSql};
+        Object[] args = new Object[] {userId, pEndDate};
         List<Task> tasks = jdbcTemplate.query(sql, new TaskRowMapper(), args);
 
         return tasks;

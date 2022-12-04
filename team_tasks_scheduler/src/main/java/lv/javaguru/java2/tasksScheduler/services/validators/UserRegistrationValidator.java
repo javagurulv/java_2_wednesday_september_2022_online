@@ -27,8 +27,8 @@ public class UserRegistrationValidator {
 
     private Optional<CoreError> validateUserName(UserRegistrationRequest request) {
         if (ValueChecking.stringIsEmpty(request.getUsername()) ||
-                request.getUsername().length() < 3) {
-            return Optional.of(new CoreError("User name", "Has to be longer than 3 chars"));
+                request.getUsername().length() < 4) {
+            return Optional.of(new CoreError("User name", "Has to be longer than 3 chars!"));
         }
         return Optional.empty();
     }
@@ -36,16 +36,16 @@ public class UserRegistrationValidator {
     private Optional<CoreError> validateUserEmail(UserRegistrationRequest request) {
         if (ValueChecking.stringIsEmpty(request.getEmail()) ||
                 !request.getEmail().contains("@")) {
-            return Optional.of(new CoreError("e-mail", "Has to contain char '@'"));
+            return Optional.of(new CoreError("E-mail", "Has to contain char '@'!"));
         }
         return Optional.empty();
     }
 
     private Optional<CoreError> validateUserPassword(UserRegistrationRequest request) {
         if (ValueChecking.stringIsEmpty(request.getPassword()) ||
-                request.getPassword().length() < 3
+                request.getPassword().length() < 4
             ) {
-            return Optional.of(new CoreError("Password", "Should be >3 characters"));
+            return Optional.of(new CoreError("Password", "Should be >3 characters!"));
         }
         return Optional.empty();
     }
@@ -55,7 +55,7 @@ public class UserRegistrationValidator {
             return Optional.empty();
         }
         if (usersRepository.existsByName(request.getUsername())) {
-            return Optional.of(new CoreError("Username", "This username is already used."));
+            return Optional.of(new CoreError("Username", "This username is already used!"));
         }
         return Optional.empty();
     }
