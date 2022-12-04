@@ -12,17 +12,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class PassengerCarSaver extends VehicleSaver{
+public class PassengerCarSaver extends VehicleSaver {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     @Override
     @Transactional
     public Long save(Vehicle vehicle) {
         Long vehicleId = saveCommonFields(vehicle);
         PassengerCar passengerCar = (PassengerCar) vehicle;
-        new SimpleJdbcInsert(jdbcTemplate).withTableName("passenger_cars").usingGeneratedKeyColumns("id");
+        SimpleJdbcInsert insertIntoPassengerCar = new SimpleJdbcInsert(jdbcTemplate).withTableName("passenger_cars").usingGeneratedKeyColumns("id");
         Map<String, Object> passengerCarArgs = new HashMap<>();
         passengerCarArgs.put("vehicle_id", vehicleId);
         passengerCarArgs.put("vehicle_type", passengerCar.getVehicleType().name());
@@ -30,9 +30,7 @@ public class PassengerCarSaver extends VehicleSaver{
         passengerCarArgs.put("baggageAmount", passengerCar.getBaggageAmount());
         passengerCarArgs.put("doorsAmount", passengerCar.getDoorsAmount());
         passengerCarArgs.put("air_conditioning", passengerCar.isAirConditioningAvailable());
+        insertIntoPassengerCar.execute(passengerCarArgs);
         return vehicleId;
     }
 }
-//+ "INSERT INTO passenger_cars (`vehicle_id`, `passenger_amount`, `baggageAmount`, `doorsAmount`, `air_conditioning`) VALUES (?, ?, ?, ?, ?)",
-//+ "INSERT INTO passenger_cars (`vehicle_id`, `passenger_amount`, `baggageAmount`, `doorsAmount`, `air_conditioning`)"
-//                        + "VALUES (?, ?, ?, ?, ?);"

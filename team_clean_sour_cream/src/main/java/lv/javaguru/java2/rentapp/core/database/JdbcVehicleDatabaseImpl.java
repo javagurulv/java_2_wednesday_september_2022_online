@@ -4,6 +4,9 @@ import lv.javaguru.java2.rentapp.core.database.row_mappers.CarTrailerRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.MiniBusRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.MotorcycleRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.PassengerCarRowMapper;
+import lv.javaguru.java2.rentapp.core.database.vehicles_saver.CarTrailerSaver;
+import lv.javaguru.java2.rentapp.core.database.vehicles_saver.MiniBusSaver;
+import lv.javaguru.java2.rentapp.core.database.vehicles_saver.MotorcycleSaver;
 import lv.javaguru.java2.rentapp.core.database.vehicles_saver.PassengerCarSaver;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
@@ -26,16 +29,29 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
 
     @Autowired
     private PassengerCarSaver passengerCarSaver;
+    @Autowired
+    private MiniBusSaver miniBusSaver;
+    @Autowired
+    private MotorcycleSaver motorcycleSaver;
+    @Autowired
+    private CarTrailerSaver carTrailerSaver;
 
     @Override
     @Transactional
     public Long addNewVehicle(Vehicle vehicle) {
-        return passengerCarSaver.save(vehicle);
+        return switch (vehicle.getVehicleType()) {
+            case PASSENGER_CAR -> passengerCarSaver.save(vehicle);
+            case MINIBUS -> miniBusSaver.save(vehicle);
+            case MOTORCYCLE -> motorcycleSaver.save(vehicle);
+            case CAR_TRAILER -> carTrailerSaver.save(vehicle);
+        };
     }
 
     @Override
     public void deleteVehicleByPlateNumber(String plateNumber) {
-
+        String sql = "DELETE FROM vehicles WHERE plate_number = ?";
+        Object[] args = new Object[]{plateNumber};
+        jdbcTemplate.update(sql, args);
     }
 
     @Override
