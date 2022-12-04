@@ -78,6 +78,10 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
 
     @Override
     public Optional<Vehicle> getById(Long id) {
+        String sql = "SELECT vehicle_type FROM vehicles WHERE id = ?";
+        String vehicleType = jdbcTemplate.queryForObject(sql, String.class, id);
+        String vh = vehicleType;
+        System.out.println(vh);
         return Optional.empty();
     }
 }
