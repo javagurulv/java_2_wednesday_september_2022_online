@@ -1,8 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.requests.AddSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.requests.AmendSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.requests.AmendSettingsRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.services.validators.AmendSettingsValidator;
 import org.junit.Test;
 
 import java.util.List;
