@@ -1,11 +1,13 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
+import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
 import lv.javaguru.java2.repo_men_inc.core.database.Database;
 import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
 import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +29,13 @@ public class AddDebtorValidatorTest {
             new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
 
     Database database = appContext.getBean(JdbcDatabaseImpl.class);
+    DatabaseCleaner databaseCleaner = appContext.getBean(DatabaseCleaner.class);
     AddDebtorValidator addDebtorValidator = appContext.getBean(AddDebtorValidator.class);
+
+    @Before
+    public void setup() {
+        databaseCleaner.clean();
+    }
 
     @Test
     public void shouldReturnErrorsIfNameIsEmpty() {
@@ -56,7 +64,7 @@ public class AddDebtorValidatorTest {
 
     @Test
     public void shouldReturnErrorsIfNameAlreadyInTheDatabase() {
-//        database.save(new Debtor("existing name"));
+        database.save(new Debtor("existing name"));
         AddDebtorRequest addDebtorRequest = new AddDebtorRequest("existing name");
         List<CoreError> errors = addDebtorValidator.validate(addDebtorRequest);
         assertEquals(1, errors.size());

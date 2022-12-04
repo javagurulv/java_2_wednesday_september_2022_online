@@ -2,36 +2,44 @@ package lv.javaguru.java2.repo_men_inc.acceptance_tests;
 
 import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
 import lv.javaguru.java2.repo_men_inc.core.requests.Ordering;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingDirection;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingType;
 import lv.javaguru.java2.repo_men_inc.core.requests.Paging;
-import lv.javaguru.java2.repo_men_inc.core.database.Database;
-import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.services.SearchDebtorService;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.math.BigInteger;
+
 public class AcceptanceTestBase {
-    protected ApplicationContext appContext;
+    public ApplicationContext appContext = new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
 
     @Before
     public void setup() {
         getDatabaseCleaner().clean();
 
-        appContext = new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
-        appContext.getBean(Database.class).save(new Debtor("mr x"));
-        appContext.getBean(Database.class).save(new Debtor("mr y"));
-        appContext.getBean(Database.class).save(new Debtor("mr z"));
-        appContext.getBean(Database.class).getById(1L).getList().add("leg");
-        appContext.getBean(Database.class).getById(2L).getList().add("arm");
-        appContext.getBean(Database.class).getById(3L).getList().add("arm");
-        appContext.getBean(Database.class).getById(3L).getList().add("liver");
+        Database database = appContext.getBean(JdbcDatabaseImpl.class);
+
+        // create some debtors
+        database.saveDebtorAndReturnId(1L,"mr x");
+        database.saveDebtorAndReturnId(2L, "mr y");
+        database.saveDebtorAndReturnId(3L, "mr z");
+
+        // create some items
+        BigInteger itemLegId = database.saveItem("leg");
+        BigInteger itemArmId = database.saveItem("arm");
+        BigInteger itemLiverId = database.saveItem("liver");
+
+        // add items to debtors lists
+        database.updateList(itemLegId, 1L);
+        database.updateList(itemLegId, 2L);
+        database.updateList(itemArmId, 2L);
+        database.updateList(itemLiverId, 3L);
 
         ReflectionTestUtils.setField(appContext.getBean(SearchDebtorService.class), "orderingEnabled", true);
         ReflectionTestUtils.setField(appContext.getBean(SearchDebtorService.class), "pagingEnabled", true);
@@ -47,7 +55,7 @@ public class AcceptanceTestBase {
 
     String debtorPresentInDatabase = "mr x";
     String debtorNotPresentInDatabase = "mr T";
-    String itemPresentInSeveralDebtorsLists = "arm";
+    String itemPresentInSeveralDebtorsLists = "leg";
     String itemNotPresentInAnyDebtorsLists = "eye";
 
     String itemNotYetPresentInTheItemsListOfTheFirstDebtorInTheDatabase = "heart";
