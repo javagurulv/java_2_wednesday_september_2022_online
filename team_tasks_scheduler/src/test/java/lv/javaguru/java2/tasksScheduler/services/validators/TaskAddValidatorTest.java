@@ -1,10 +1,11 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
-import lv.javaguru.java2.tasksScheduler.services.system.SessionService;
+import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
+import lv.javaguru.java2.tasksScheduler.core.domain.Task;
+import lv.javaguru.java2.tasksScheduler.core.requests.AddTaskRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.services.system.SessionService;
+import lv.javaguru.java2.tasksScheduler.core.services.validators.TaskAddValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

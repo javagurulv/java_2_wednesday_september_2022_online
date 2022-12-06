@@ -1,10 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.requests.JobRunRequest;
-import lv.javaguru.java2.tasksScheduler.responses.JobRunResponse;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.DueDatesUpdateService;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.RemindersSendingService;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupService;
+import lv.javaguru.java2.tasksScheduler.core.requests.JobRunRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.JobRunResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.DueDatesUpdateService;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.RemindersSendingService;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.TasksCleanupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
