@@ -10,6 +10,7 @@ import lv.javaguru.java2.rentapp.core.database.vehicles_saver.MotorcycleSaver;
 import lv.javaguru.java2.rentapp.core.database.vehicles_saver.PassengerCarSaver;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
+import lv.javaguru.java2.rentapp.enums.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -57,16 +58,7 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     @Override
     @Transactional
     public List<Vehicle> getAllVehicles() {
-        String sqlPassengerCars = "SELECT * FROM vehicles JOIN passenger_cars pc on vehicles.id = pc.vehicle_id";
-        List<Vehicle> passengerCars = jdbcTemplate.query(sqlPassengerCars, new PassengerCarRowMapper());
-        String sqlMiniBuses = "SELECT * FROM vehicles JOIN mini_buses mb on vehicles.id = mb.vehicle_id";
-        List<Vehicle> miniBuses = jdbcTemplate.query(sqlMiniBuses, new MiniBusRowMapper());
-        String sqlMotorcycle = "SELECT * FROM vehicles JOIN motorcycles m on vehicles.id = m.vehicle_id";
-        List<Vehicle> motorcycles = jdbcTemplate.query(sqlMotorcycle, new MotorcycleRowMapper());
-        String sqlCarTrailer = "SELECT * FROM vehicles JOIN car_trailers ct on vehicles.id = ct.vehicle_id";
-        List<Vehicle> carTrailers = jdbcTemplate.query(sqlCarTrailer, new CarTrailerRowMapper());
-
-        return Stream.of(passengerCars, miniBuses, motorcycles, carTrailers)
+        return Stream.of(getPassengerCars(), getMiniBuses(), getMotorcycles(), getCarTrailers())
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
     }
@@ -80,8 +72,51 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     public Optional<Vehicle> getById(Long id) {
         String sql = "SELECT vehicle_type FROM vehicles WHERE id = ?";
         String vehicleType = jdbcTemplate.queryForObject(sql, String.class, id);
-        String vh = vehicleType;
-        System.out.println(vh);
-        return Optional.empty();
+        return switch (VehicleType.valueOf(vehicleType)) {
+            case PASSENGER_CAR -> Optional.of(getPassengerCarById(id));
+            case MINIBUS -> Optional.of(getMiniBusById(id));
+            case MOTORCYCLE -> Optional.of(getMotorcycleById(id));
+            case CAR_TRAILER -> Optional.of(getCarTrailerById(id));
+        };
+    }
+
+    private List<Vehicle> getPassengerCars() {
+        String sqlPassengerCars = "SELECT * FROM vehicles JOIN passenger_cars pc on vehicles.id = pc.vehicle_id";
+        return jdbcTemplate.query(sqlPassengerCars, new PassengerCarRowMapper());
+    }
+
+    private Vehicle getPassengerCarById(Long passengerCarId) {
+        String sqlPassengerCar = "SELECT * FROM vehicles JOIN passenger_cars pc on vehicles.id = pc.vehicle_id WHERE vehicles.id = ?";
+        return jdbcTemplate.queryForObject(sqlPassengerCar, new Object[]{passengerCarId}, new PassengerCarRowMapper());
+    }
+
+    private List<Vehicle> getMiniBuses() {
+        String sqlMiniBuses = "SELECT * FROM vehicles JOIN mini_buses mb on vehicles.id = mb.vehicle_id";
+        return jdbcTemplate.query(sqlMiniBuses, new MiniBusRowMapper());
+    }
+
+    private Vehicle getMiniBusById(Long miniBusId) {
+        String sqlMiniBus = "SELECT * FROM vehicles JOIN mini_buses mb on vehicles.id = mb.vehicle_id WHERE vehicles.id = ?";
+        return jdbcTemplate.queryForObject(sqlMiniBus, new Object[]{miniBusId}, new MiniBusRowMapper());
+    }
+
+    private List<Vehicle> getMotorcycles() {
+        String sqlMotorcycle = "SELECT * FROM vehicles JOIN motorcycles m on vehicles.id = m.vehicle_id";
+        return jdbcTemplate.query(sqlMotorcycle, new MotorcycleRowMapper());
+    }
+
+    private Vehicle getMotorcycleById(Long motorcycleId) {
+        String sqlMotorcycle = "SELECT * FROM vehicles JOIN motorcycles m on vehicles.id = m.vehicle_id WHERE vehicles.id = ?";
+        return jdbcTemplate.queryForObject(sqlMotorcycle, new Object[]{motorcycleId}, new MotorcycleRowMapper());
+    }
+
+    private List<Vehicle> getCarTrailers() {
+        String sqlCarTrailer = "SELECT * FROM vehicles JOIN car_trailers ct on vehicles.id = ct.vehicle_id";
+        return jdbcTemplate.query(sqlCarTrailer, new CarTrailerRowMapper());
+    }
+
+    private Vehicle getCarTrailerById(Long carTrailerId) {
+        String sqlCarTrailer = "SELECT * FROM vehicles JOIN car_trailers ct on vehicles.id = ct.vehicle_id WHERE vehicles.id = ?";
+        return jdbcTemplate.queryForObject(sqlCarTrailer, new Object[]{carTrailerId}, new CarTrailerRowMapper());
     }
 }
