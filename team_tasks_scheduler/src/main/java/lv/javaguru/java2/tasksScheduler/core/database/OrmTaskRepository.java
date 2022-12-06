@@ -112,8 +112,8 @@ public class OrmTaskRepository implements TasksRepository {
             query = sessionFactory.getCurrentSession().createQuery(
                     "select t FROM Task t where userId = :userId AND " +
                             "(regularity > 0 AND " +
-                            "end_date > TIMESTAMP(CURDATE()) AND " +
-                            "due_date < TIMESTAMP(CURDATE())) " +
+                            "end_date > CURRENT_DATE() AND " +
+                            "due_date < CURRENT_DATE()) " +
                             "ORDER BY regularity", Task.class);
             query.setParameter("userId", userId);
         }
@@ -121,10 +121,14 @@ public class OrmTaskRepository implements TasksRepository {
             query = sessionFactory.getCurrentSession().createQuery(
                     "select t FROM Task t where " +
                             "(regularity > 0 AND " +
-                            "end_date > TIMESTAMP(CURDATE()) AND " +
-                            "due_date < TIMESTAMP(CURDATE())) " +
+                            "end_date > CURRENT_DATE() AND " +
+                            "due_date < CURRENT_DATE()) " +
                             "ORDER BY regularity", Task.class);
         }
+        //TODO recheck query
+        //"end_date > CURRENT_TIMESTAMP(CURDATE()) AND " +
+        //"due_date < CURRENT_TIMESTAMP(CURDATE())) " +
+        //
         return query.getResultList();
     }
 
