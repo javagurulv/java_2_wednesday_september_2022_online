@@ -7,8 +7,10 @@ import lv.javaguru.java2.tasksScheduler.core.requests.DeleteTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.DeleteTaskResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@Transactional
 public class DeleteTaskService {
     @Autowired
     private TasksRepository tasksRepository;

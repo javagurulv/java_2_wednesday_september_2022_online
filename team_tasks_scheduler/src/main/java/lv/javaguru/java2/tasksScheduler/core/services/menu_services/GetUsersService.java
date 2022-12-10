@@ -14,12 +14,14 @@ import lv.javaguru.java2.tasksScheduler.core.responses.GetUsersResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.validators.GetUsersValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@Transactional
 public class GetUsersService {
 
     @Autowired private UsersRepository usersRepository;

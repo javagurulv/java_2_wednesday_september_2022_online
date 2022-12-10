@@ -12,11 +12,13 @@ import lv.javaguru.java2.tasksScheduler.core.services.validators.AmendSettingsVa
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Transactional
 public class AmendSettingsService {
 
     @Autowired
