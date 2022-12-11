@@ -10,12 +10,14 @@ import lv.javaguru.java2.tasksScheduler.core.responses.DeleteCurrentUserResponse
 import lv.javaguru.java2.tasksScheduler.core.services.system.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Transactional
 public class DeleteCurrentUserService {
 
     @Autowired private UsersRepository usersRepository;

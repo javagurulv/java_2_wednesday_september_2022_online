@@ -14,12 +14,14 @@ import lv.javaguru.java2.tasksScheduler.core.services.validators.LoginValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Component
+@Transactional
 public class LoginService {
 
     @Autowired private UsersRepository usersRepository;

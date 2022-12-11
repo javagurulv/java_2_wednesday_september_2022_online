@@ -9,10 +9,12 @@ import lv.javaguru.java2.tasksScheduler.core.responses.GetOutstandingTasksRespon
 import lv.javaguru.java2.tasksScheduler.core.services.system.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
+@Transactional
 public class GetOutstandingTasksService {
 
     @Autowired
