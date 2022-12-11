@@ -3,6 +3,7 @@ package lv.javaguru.java2.rentapp.core.database;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 //@Component
+@Deprecated()
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -40,9 +42,14 @@ public class VehicleDatabaseImpl implements VehicleDatabase {
         return new ArrayList<>(vehiclesDB);
     }
 
+//    @Override
+//    public List<Vehicle> search(SearchCriteria searchCriteria) {
+//        return vehiclesDB.stream().filter(searchCriteria).collect(Collectors.toList());
+//    }
+
     @Override
-    public List<Vehicle> search(SearchCriteria searchCriteria) {
-        return vehiclesDB.stream().filter(searchCriteria).collect(Collectors.toList());
+    public List<Vehicle> search(SearchVehicleRequest request) {
+        return null;
     }
 
     @Override

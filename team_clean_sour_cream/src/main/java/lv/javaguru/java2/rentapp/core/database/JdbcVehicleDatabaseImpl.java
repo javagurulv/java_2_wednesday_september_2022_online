@@ -4,11 +4,12 @@ import lv.javaguru.java2.rentapp.core.database.row_mappers.CarTrailerRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.MiniBusRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.MotorcycleRowMapper;
 import lv.javaguru.java2.rentapp.core.database.row_mappers.PassengerCarRowMapper;
+import lv.javaguru.java2.rentapp.core.database.search_creator.SearchSQLCreator;
 import lv.javaguru.java2.rentapp.core.database.vehicles_saver.CarTrailerSaver;
 import lv.javaguru.java2.rentapp.core.database.vehicles_saver.MiniBusSaver;
 import lv.javaguru.java2.rentapp.core.database.vehicles_saver.MotorcycleSaver;
 import lv.javaguru.java2.rentapp.core.database.vehicles_saver.PassengerCarSaver;
-import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
+import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.VehicleType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     @Autowired
     private CarTrailerSaver carTrailerSaver;
 
+    @Autowired
+    private SearchSQLCreator searchSQLCreator;
+
     @Override
     @Transactional
     public Long addNewVehicle(Vehicle vehicle) {
@@ -64,8 +68,14 @@ public class JdbcVehicleDatabaseImpl implements VehicleDatabase {
     }
 
     @Override
-    public List<Vehicle> search(SearchCriteria searchCriteria) {
-        return null;
+    public List<Vehicle> search(SearchVehicleRequest request) {
+        String sqlSearchCriteria = searchSQLCreator.getSQLSearchCriteria(request);
+        return switch (request.getVehicleType()) {
+            case PASSENGER_CAR -> jdbcTemplate.query(sqlSearchCriteria, new PassengerCarRowMapper());
+            case MINIBUS -> jdbcTemplate.query(sqlSearchCriteria, new MiniBusRowMapper());
+            case MOTORCYCLE -> jdbcTemplate.query(sqlSearchCriteria, new MotorcycleRowMapper());
+            case CAR_TRAILER -> jdbcTemplate.query(sqlSearchCriteria, new CarTrailerRowMapper());
+        };
     }
 
     @Override

@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.database;
 
+import lv.javaguru.java2.rentapp.core.requests.SearchVehicleRequest;
 import lv.javaguru.java2.rentapp.core.services.search_criterias.SearchCriteria;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 
@@ -14,7 +15,8 @@ public interface VehicleDatabase {
 
     List<Vehicle> getAllVehicles();
 
-    List<Vehicle> search(SearchCriteria searchCriteria);
+    //  List<Vehicle> search(SearchCriteria searchCriteria);
+    List<Vehicle> search(SearchVehicleRequest request);
 
     Optional<Vehicle> getById(Long id);
 
