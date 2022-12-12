@@ -1,6 +1,7 @@
 package lv.javaguru.java2.repo_men_inc.core.database;
 
 import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.domain.Item;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
@@ -22,7 +23,7 @@ public class DebtorMapper implements ResultSetExtractor<List<Debtor>> {
                 debtors.add(debtor);
             }
             if (rs.getString("item_name") != null) {
-                debtor.getList().add(rs.getString("item_name"));
+                debtor.getList().add(new Item(rs.getString("item_name")));
             }
         }
         return debtors;

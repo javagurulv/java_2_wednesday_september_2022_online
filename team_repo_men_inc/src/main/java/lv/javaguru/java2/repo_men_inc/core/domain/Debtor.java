@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Debtor {
     private Long id;
     private String name;
-    private HashSet<String> list = new HashSet<>();
+    private HashSet<Item> list = new HashSet<>();
 
     public Debtor() {
     }
@@ -31,15 +31,15 @@ public class Debtor {
         this.name = name;
     }
 
-    public HashSet<String> getList() {
+    public HashSet<Item> getList() {
         return list;
     }
 
-    public void setList(HashSet<String> list) {
+    public void setList(HashSet<Item> list) {
         this.list = list;
     }
 
-    public boolean addIem (String item) {
+    public boolean addIem (Item item) {
         return this.list.add(item);
     }
 

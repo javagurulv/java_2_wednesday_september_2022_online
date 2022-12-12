@@ -1,5 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.core.services;
 
+import lv.javaguru.java2.repo_men_inc.core.domain.Item;
 import lv.javaguru.java2.repo_men_inc.core.requests.*;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import lv.javaguru.java2.repo_men_inc.core.responses.SearchDebtorResponse;
@@ -105,10 +106,12 @@ public class SearchDebtorServiceTest {
 
         List<Debtor> debtors = new ArrayList<>();
         Debtor debtorOne = new Debtor("name1");
-        debtorOne.getList().add("item 0");
         Debtor debtorTwo = new Debtor("name2");
-        debtorTwo.getList().add("item 0");
-        debtorTwo.getList().add("item 1");
+        Item itemZero = new Item("item 0");
+        Item itemOne = new Item("item 1");
+        debtorOne.getList().add(itemZero);
+        debtorTwo.getList().add(itemZero);
+        debtorTwo.getList().add(itemOne);
         debtors.add(debtorOne);
         debtors.add(debtorTwo);
         when(database.getByListItem("item")).thenReturn(debtors);
@@ -128,10 +131,12 @@ public class SearchDebtorServiceTest {
 
         List<Debtor> debtors = new ArrayList<>();
         Debtor debtorOne = new Debtor("name1");
-        debtorOne.getList().add("item 0");
         Debtor debtorTwo = new Debtor("name2");
-        debtorTwo.getList().add("item 0");
-        debtorTwo.getList().add("item 1");
+        Item itemZero = new Item("item 0");
+        Item itemOne = new Item("item 1");
+        debtorOne.getList().add(itemZero);
+        debtorTwo.getList().add(itemZero);
+        debtorTwo.getList().add(itemOne);
         debtors.add(debtorOne);
         debtors.add(debtorTwo);
         when(database.getByListItem("item")).thenReturn(debtors);
