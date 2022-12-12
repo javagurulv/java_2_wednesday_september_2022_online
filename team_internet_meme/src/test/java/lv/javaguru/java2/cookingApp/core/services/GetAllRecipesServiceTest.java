@@ -2,8 +2,8 @@ package lv.javaguru.java2.cookingApp.core.services;
 
 import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import lv.javaguru.java2.cookingApp.core.requests.GetAllRecipesRequest;
-import lv.javaguru.java2.cookingApp.core.responses.GetAllRecipesResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.GetAllRecipesRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.GetAllRecipesResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

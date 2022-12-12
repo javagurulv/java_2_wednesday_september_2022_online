@@ -4,12 +4,11 @@ import myApp.core.requests.SwitchUserRequest;
 import myApp.core.responses.SwitchUserResponse;
 import myApp.core.services.authentication.SwitchUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 
-@Component
+//@Component
 public class SwitchUserUIAction implements UIAction {
 
     @Autowired

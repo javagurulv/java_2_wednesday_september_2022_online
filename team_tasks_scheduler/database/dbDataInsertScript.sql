@@ -95,6 +95,5 @@ VALUES ("cinema in the evening", 2, '2023-12-30 08:10:00', '2024-12-01 20:40:00'
 
 
 
-/*--email server password???*/
 INSERT INTO settings (admin_password, email_from, email_password, email_host, email_port, email_protocol)
-VALUES ("admin", "olegsktest@gmail.com", "glzblubwocovtifc", "smtp.gmail.com", "465", "ssl");
+VALUES ("21232f297a57a5a743894a0e4a801fc3", "olegsktest@gmail.com", "glzblubwocovtifc", "smtp.gmail.com", "465", "ssl");

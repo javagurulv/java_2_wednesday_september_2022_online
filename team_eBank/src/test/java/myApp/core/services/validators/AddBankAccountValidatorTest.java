@@ -2,6 +2,7 @@ package myApp.core.services.validators;
 
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.CoreError;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 
+@Ignore
 public class AddBankAccountValidatorTest {
 
 

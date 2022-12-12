@@ -1,30 +1,37 @@
 package myApp.core.services;
-
-import myApp.core.database.BankRepository;
+/*
+import myApp.core.database.UserRepository;
+import myApp.core.domain.User;
 import myApp.core.services.authentication.UserService;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static junit.framework.TestCase.assertFalse;
+import java.util.Optional;
 
-//need to fix
-@Ignore
+import static junit.framework.TestCase.assertTrue;
+import static org.mockito.Mockito.when;
+
+
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
     @Mock
-    private BankRepository bankRepository;
+    private UserRepository userRepository;
     @InjectMocks
     private UserService service;
 
     @Test
     public void testGetBankAccountCode() {
-       boolean result = service.logIn("000-001", "password");
-       assertFalse(result);
+        when(userRepository.logIn("example", "password")).thenReturn(Optional.of(
+                new User("example","password")));
+       boolean result = service.logIn("example", "password");
+       assertTrue(result);
     }
 }
 
+
+ */

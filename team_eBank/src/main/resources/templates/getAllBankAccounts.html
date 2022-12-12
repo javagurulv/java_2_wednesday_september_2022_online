@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Book Library demo project">
+  <meta name="author" content="JavaGuru">
+  <title>Book Library</title>
+</head>
+
+<body>
+
+<h3>Show all bank accounts</h3>
+
+<table>
+  <tr>
+    <td>Name:</td>
+    <td>Surname:</td>
+    <td>Personal code:</td>
+    <td>Balance:</td>
+  </tr>
+
+  <td th:if="${bank_accounts != null}">
+    <tr th:each="bank_accounts : ${bank_accounts}">
+      <td th:text="${bank_accounts.name}" />
+      <td th:text="${bank_accounts.surname}" />
+      <td th:text="${bank_accounts.personalCode}" />
+      <td th:text="${bank_accounts.balance}" />
+    </tr>
+  </td>
+
+</table>
+
+<form action="/admin" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
+
+</body>
+
+</html>

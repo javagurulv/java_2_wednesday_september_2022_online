@@ -1,10 +1,11 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
+import lv.javaguru.java2.tasksScheduler.core.services.validators.GetUsersValidator;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
-import lv.javaguru.java2.tasksScheduler.requests.GetUsersRequest;
-import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
-import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.requests.GetUsersRequest;
+import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
+import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Paging;
+import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
 import org.junit.Test;
 
 import java.util.List;

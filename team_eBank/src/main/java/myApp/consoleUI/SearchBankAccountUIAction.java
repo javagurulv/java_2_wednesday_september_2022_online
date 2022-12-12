@@ -6,10 +6,9 @@ import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.SearchBankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-@Component
+//@Component
 public class SearchBankAccountUIAction implements UIAction {
 
     @Autowired

@@ -1,8 +1,8 @@
 package lv.javaguru.java2.cookingApp.consoleui;
 
 
-import lv.javaguru.java2.cookingApp.core.requests.SearchRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.SearchRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.SearchRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.SearchRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.SearchRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

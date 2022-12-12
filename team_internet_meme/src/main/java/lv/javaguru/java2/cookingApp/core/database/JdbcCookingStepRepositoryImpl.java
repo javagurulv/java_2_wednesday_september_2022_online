@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
 //@Component
+@Deprecated
 public class JdbcCookingStepRepositoryImpl implements CookingStepRepository {
 
     @Autowired private JdbcTemplate jdbcTemplate;

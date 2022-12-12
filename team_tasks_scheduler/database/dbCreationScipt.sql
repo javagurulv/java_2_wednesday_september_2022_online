@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
     `user_id` BIGINT NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES users(`id`)
+	ON DELETE CASCADE
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 1002;

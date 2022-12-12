@@ -6,9 +6,9 @@ import lv.javaguru.java2.cookingApp.core.database.RecipeRepository;
 import lv.javaguru.java2.cookingApp.core.domain.CookingStep;
 import lv.javaguru.java2.cookingApp.core.domain.Ingredient;
 import lv.javaguru.java2.cookingApp.core.domain.Recipe;
-import lv.javaguru.java2.cookingApp.core.requests.AddRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.AddRecipeResponse;
-import lv.javaguru.java2.cookingApp.core.responses.CoreError;
+import lv.javaguru.java2.cookingApp.core.dto.requests.AddRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.AddRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.dto.responses.CoreError;
 import lv.javaguru.java2.cookingApp.core.services.validators.AddRecipeRequestValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +58,7 @@ class AddRecipeServiceTest {
         assertFalse(response.hasErrors());
         assertEquals(recipe, response.getNewRecipe());
         Mockito.verify(recipeRepository).save(recipe);
-        Mockito.verify(ingredientRepository).saveIngredients(ingredients, 1L);
+        Mockito.verify(ingredientRepository).saveRecipeIngredients(ingredients, 1L);
         Mockito.verify(cookingStepRepository).saveCookingSteps(cookingSteps, 1L);
     }
 

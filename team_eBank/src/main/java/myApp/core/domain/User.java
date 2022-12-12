@@ -22,13 +22,16 @@ public class User {
     @Column(name="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @Column(name="login", nullable = false)
+    @Column(name="personal_code", nullable = false)
     private String personalCode;
     @Column(name="password", nullable = false)
     private String password;
+    @Column(name="role", nullable = false)
+    private String role;
 
-    public User(String personalCode, String password) {
+    public User(String personalCode, String password, String role) {
         this.personalCode = personalCode;
         this.password = password;
+        this.role = role;
     }
 }
