@@ -9,11 +9,12 @@ public class SearchSQLCreator {
     public String getSQLSearchCriteria(SearchVehicleRequest request) {
 
         String secondTableName = getSecondTableName(request);
+        String vehicleType = request.getVehicleType().name();
         StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM vehicles JOIN " + secondTableName + " on vehicles.id" +
-                " = " + secondTableName + ".vehicle_id WHERE ");
+                " = " + secondTableName + ".vehicle_id WHERE vehicles.vehicle_type = '" + vehicleType + "'");
 
         if (request.getBaggageAmount() != null) {
-            sqlBuilder.append(secondTableName).append(".baggageAmount = ").append(request.getBaggageAmount().toString());
+            sqlBuilder.append(" AND ").append(secondTableName).append(".baggageAmount = ").append(request.getBaggageAmount().toString());
         }
         if (request.getDoorsAmount() != null) {
             sqlBuilder.append(" AND ").append(secondTableName).append(".doorsAmount = ").append(request.getDoorsAmount().toString());
@@ -22,7 +23,7 @@ public class SearchSQLCreator {
             sqlBuilder.append(" AND ").append(secondTableName).append(".passenger_amount = ").append(request.getPassengerAmount().toString());
         }
         if (request.getTransmissionType() != null) {
-            sqlBuilder.append(" AND ").append("vehicles").append(".transmission_type = ").append(request.getTransmissionType());
+            sqlBuilder.append(" AND ").append("vehicles").append(".transmission_type = '").append(request.getTransmissionType()).append("'");
         }
         if (request.getHasConditioner() != null) {
             sqlBuilder.append(" AND ").append(secondTableName).append(".air_conditioning = ").append(request.getHasConditioner());

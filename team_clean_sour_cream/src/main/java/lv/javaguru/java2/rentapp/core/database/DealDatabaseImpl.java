@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Deprecated()
+//@Component
 public class DealDatabaseImpl implements DealDatabase {
 
     private Long nextId = 1L;
