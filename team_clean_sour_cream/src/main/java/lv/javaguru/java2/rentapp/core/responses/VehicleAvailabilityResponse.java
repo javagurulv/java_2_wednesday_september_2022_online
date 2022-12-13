@@ -9,9 +9,14 @@ import java.util.List;
 public class VehicleAvailabilityResponse extends CoreResponse{
 
     private List<Vehicle> vehicles;
+    private List<Vehicle> vehiclesPaged;
 
     public VehicleAvailabilityResponse(List<CoreError> errors, List<Vehicle> vehicles) {
         super(errors);
         this.vehicles = vehicles;
+    }
+
+    public void setVehiclesPaged(List<Vehicle> vehiclesPaged) {
+        this.vehiclesPaged = vehiclesPaged;
     }
 }

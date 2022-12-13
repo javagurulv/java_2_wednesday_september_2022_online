@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
+import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
@@ -26,6 +27,7 @@ class RentVehicleServiceTest {
     @Mock private DealDatabase dealDatabase;
     @Mock private VehicleDatabase vehicleDatabase;
     @Mock private RentVehicleValidator validator;
+    @Mock private ClientDatabase clientDatabase;
 
     @InjectMocks
     private RentVehicleService service;
@@ -63,7 +65,7 @@ class RentVehicleServiceTest {
 
         RentVehicleResponse response = service.execute(request);
 
-        Mockito.verify(dealDatabase).save(rentDealCaptor.capture(), );
+        Mockito.verify(dealDatabase).save(rentDealCaptor.capture());
 
         assertFalse(response.hasErrors());
         assertNull(response.getMessage());
