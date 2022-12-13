@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Tasks scheduler demo project">
+    <meta name="author" content="JB, OK">
+    <title>Tasks Scheduler</title>
+</head>
+
+<body>
+
+    <h3>User login</h3>
+
+    <form action="/userLogin" th:object="${request}" method="post">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" th:field="${request.userName}"/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" th:field="${request.password}"/></td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Login"/>
+        <input type="reset" value="Clear"/>
+    </form>
+
+    <br><br>
+
+    <form action="/" method="get">
+        <input type="submit" value="Go to main page" name="Submit" />
+    </form>
+
+    <br><br>
+
+    <td th:if="${errors != null}">
+        <tr th:each="error : ${errors}">
+            <td th:text="${error.field}" />
+            <td> - </td>
+            <td th:text="${error.message}" />
+        </tr>
+    </td>
+
+</body>
+
+</html>

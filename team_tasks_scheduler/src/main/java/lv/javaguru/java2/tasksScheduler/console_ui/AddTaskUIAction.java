@@ -2,9 +2,9 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.requests.AddTaskRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AddTaskResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.AddTaskService;
+import lv.javaguru.java2.tasksScheduler.core.requests.AddTaskRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.AddTaskResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.AddTaskService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

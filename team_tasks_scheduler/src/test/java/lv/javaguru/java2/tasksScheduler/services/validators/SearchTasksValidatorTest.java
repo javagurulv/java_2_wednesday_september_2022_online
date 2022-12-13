@@ -1,9 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
-import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
-import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.requests.SearchTasksRequest;
+import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
+import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Paging;
+import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.services.validators.SearchTasksValidator;
 import org.junit.Test;
 
 import java.util.List;

@@ -2,18 +2,18 @@ package lv.javaguru.java2.repo_men_inc.core.validators;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@DIComponent
+@Component
 public class RemoveDebtorValidator {
 
-    @DIDependency
+    @Autowired
     private Database database;
 
     public RemoveDebtorValidator() {

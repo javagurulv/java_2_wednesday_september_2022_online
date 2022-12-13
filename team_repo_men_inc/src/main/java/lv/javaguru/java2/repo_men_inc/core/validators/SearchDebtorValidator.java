@@ -2,20 +2,20 @@ package lv.javaguru.java2.repo_men_inc.core.validators;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.SearchDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@DIComponent
+@Component
 public class SearchDebtorValidator {
 
-    @DIDependency
+    @Autowired
     private PagingValidator pagingValidator;
-    @DIDependency
+    @Autowired
     private OrderingValidator orderingValidator;
-    @DIDependency
+    @Autowired
     private SearchDebtorFieldValidator searchDebtorFieldValidator;
 
     public SearchDebtorValidator() {

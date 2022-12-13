@@ -2,13 +2,13 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.domain.Settings;
-import lv.javaguru.java2.tasksScheduler.requests.AmendSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.requests.GetSettingsRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AmendSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.responses.GetSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendSettingsService;
-import lv.javaguru.java2.tasksScheduler.services.system.GetSettingsService;
+import lv.javaguru.java2.tasksScheduler.core.domain.Settings;
+import lv.javaguru.java2.tasksScheduler.core.requests.AmendSettingsRequest;
+import lv.javaguru.java2.tasksScheduler.core.requests.GetSettingsRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.AmendSettingsResponse;
+import lv.javaguru.java2.tasksScheduler.core.responses.GetSettingsResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.AmendSettingsService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.GetSettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

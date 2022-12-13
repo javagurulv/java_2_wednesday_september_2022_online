@@ -1,25 +1,41 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
-import lv.javaguru.java2.repo_men_inc.dependency_injection.ApplicationContext;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIApplicationContextBuilder;
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
+import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.database.DatabaseImpl;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {RepoMenIncConfiguration.class})
 public class AddDebtorValidatorTest {
 
     protected ApplicationContext appContext =
-            new DIApplicationContextBuilder().build("lv.javaguru.java2.repo_men_inc");
+            new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
 
-    Database database = appContext.getBean(DatabaseImpl.class);
+    Database database = appContext.getBean(JdbcDatabaseImpl.class);
+    DatabaseCleaner databaseCleaner = appContext.getBean(DatabaseCleaner.class);
     AddDebtorValidator addDebtorValidator = appContext.getBean(AddDebtorValidator.class);
+
+    @Before
+    public void setup() {
+        databaseCleaner.clean();
+    }
 
     @Test
     public void shouldReturnErrorsIfNameIsEmpty() {

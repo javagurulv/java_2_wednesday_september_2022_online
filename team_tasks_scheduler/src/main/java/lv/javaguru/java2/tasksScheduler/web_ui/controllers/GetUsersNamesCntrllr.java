@@ -1,9 +1,9 @@
 package lv.javaguru.java2.tasksScheduler.web_ui.controllers;
 
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
-import lv.javaguru.java2.tasksScheduler.requests.GetUsersRequest;
-import lv.javaguru.java2.tasksScheduler.responses.GetUsersResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.GetUsersService;
+import lv.javaguru.java2.tasksScheduler.core.requests.GetUsersRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.GetUsersResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.GetUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
