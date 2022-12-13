@@ -13,7 +13,7 @@ public class MiniBusCreator implements VehicleCreator {
 
     @Override
     public Vehicle createVehicle(AddVehicleRequest request) {
-        return new MiniBus(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+        MiniBus miniBus = new MiniBus(request.getBrand(), request.getModel(), request.isAvailableForRent(),
                 request.getYearOfProduction(),
                 Colour.valueOf(request.getColour().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getRentPricePerDay(),
@@ -22,5 +22,7 @@ public class MiniBusCreator implements VehicleCreator {
                 TransmissionType.valueOf(request.getTransmissionType().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getPassengerAmount(), request.getBaggageAmount(),
                 request.getDoorsAmount(), Boolean.parseBoolean(request.getIsAirConditioningAvailable()));
+        miniBus.setVehicleType(request.getVehicleType());
+        return miniBus;
     }
 }

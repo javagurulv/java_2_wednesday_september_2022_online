@@ -13,7 +13,7 @@ public class PassengerCarCreator implements VehicleCreator {
 
     @Override
     public Vehicle createVehicle(AddVehicleRequest request) {
-        return new PassengerCar(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+        PassengerCar passengerCar = new PassengerCar(request.getBrand(), request.getModel(), request.isAvailableForRent(),
                 request.getYearOfProduction(),
                 Colour.valueOf(request.getColour().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getRentPricePerDay(),
@@ -22,5 +22,7 @@ public class PassengerCarCreator implements VehicleCreator {
                 TransmissionType.valueOf(request.getTransmissionType().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getPassengerAmount(), request.getBaggageAmount(),
                 request.getDoorsAmount(), Boolean.parseBoolean(request.getIsAirConditioningAvailable()));
+        passengerCar.setVehicleType(request.getVehicleType());
+        return passengerCar;
     }
 }

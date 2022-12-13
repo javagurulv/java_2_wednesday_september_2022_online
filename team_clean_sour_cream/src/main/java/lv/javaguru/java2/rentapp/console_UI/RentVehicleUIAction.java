@@ -49,7 +49,7 @@ public class RentVehicleUIAction implements UIAction {
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
         } else if (vehicleAvailabilityResponse.getVehicles().isEmpty()) {
             System.out.println("No available vehicle found in that range");
-        } else if (rentVehicleAvailabilityRequest.getSearchVehicleRequest().getPaging() != null) {
+        } else if (rentVehicleAvailabilityRequest.getPaging() != null) {
             selectPageMenu(rentVehicleAvailabilityRequest, foundVehicles);
 
             GeneralRentVehicleRequest rentVehicleRequest = requestCreator.createRentVehicleRequest(rentVehicleAvailabilityRequest, vehicleAvailabilityResponse.getVehicles());
@@ -62,15 +62,16 @@ public class RentVehicleUIAction implements UIAction {
             rentVehicleResponse = rentVehicleService.execute(rentVehicleRequest);
         }
 
-        assert rentVehicleResponse != null;
-        if (rentVehicleResponse.hasErrors()) {
-            rentVehicleResponse.getErrors().forEach(coreError ->
-                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
-        } else if (rentVehicleResponse.getNewRentDeal() != null) {
-            System.out.println();
-            System.out.println("Your rent deal is saved with Nr. " + rentVehicleResponse.getNewRentDeal().getId());
-        } else{
-            System.out.println(rentVehicleResponse.getMessage());
+        if (rentVehicleResponse != null) {
+            if (rentVehicleResponse.hasErrors()) {
+                rentVehicleResponse.getErrors().forEach(coreError ->
+                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
+            } else if (rentVehicleResponse.getNewRentDeal() != null) {
+                System.out.println();
+                System.out.println("Your rent deal is saved with Nr. " + rentVehicleResponse.getNewRentDeal().getId());
+            } else {
+                System.out.println(rentVehicleResponse.getMessage());
+            }
         }
     }
 
