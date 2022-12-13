@@ -49,7 +49,6 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    @Disabled
     void testValidateVehicleIsNotDuplicateShouldReturnNoErrors() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(LocalDate.now().getYear()).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")
@@ -66,7 +65,6 @@ class AddPassengerCarValidatorTest {
     }
 
     @Test
-    @Disabled
     void testValidateVehicleIsDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("gas").plateNumber("number1")

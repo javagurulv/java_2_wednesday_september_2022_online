@@ -60,11 +60,11 @@ public abstract class Vehicle {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Vehicle vehicle)) return false;
-        return isAvailableForRent() == vehicle.isAvailableForRent() && getId().equals(vehicle.getId()) && getVehicleType() == vehicle.getVehicleType() && getBrand().equals(vehicle.getBrand()) && getModel().equals(vehicle.getModel()) && getYearOfProduction().equals(vehicle.getYearOfProduction()) && getColour() == vehicle.getColour() && getRentPricePerDay().equals(vehicle.getRentPricePerDay()) && getEngineType() == vehicle.getEngineType() && getPlateNumber().equals(vehicle.getPlateNumber()) && getTransmissionType() == vehicle.getTransmissionType();
+        return isAvailableForRent() == vehicle.isAvailableForRent() && getVehicleType() == vehicle.getVehicleType() && getBrand().equals(vehicle.getBrand()) && getModel().equals(vehicle.getModel()) && getYearOfProduction().equals(vehicle.getYearOfProduction()) && getColour() == vehicle.getColour() && getRentPricePerDay().equals(vehicle.getRentPricePerDay()) && getEngineType() == vehicle.getEngineType() && getPlateNumber().equals(vehicle.getPlateNumber()) && getTransmissionType() == vehicle.getTransmissionType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getVehicleType(), getBrand(), getModel(), isAvailableForRent(), getYearOfProduction(), getColour(), getRentPricePerDay(), getEngineType(), getPlateNumber(), getTransmissionType());
+        return Objects.hash(getVehicleType(), getBrand(), getModel(), isAvailableForRent(), getYearOfProduction(), getColour(), getRentPricePerDay(), getEngineType(), getPlateNumber(), getTransmissionType());
     }
 }
