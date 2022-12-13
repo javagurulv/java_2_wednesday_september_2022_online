@@ -77,8 +77,9 @@ public class RentVehicleUIAction implements UIAction {
 
     private void selectPageMenu(GeneralRentVehicleRequest request, List<Vehicle> foundVehicles) {
         Scanner scanner = new Scanner(System.in);
+        List<Vehicle> firstPage = vehicleAvailabilityService.execute(request, foundVehicles).getVehicles();
         System.out.println("Available vehicles (Page " + request.getPaging().getPageNumber() + "): ");
-        foundVehicles.forEach(System.out::println);
+        firstPage.forEach(System.out::println);
         int resultPageNumber = request.getPaging().getPageNumber();
         boolean continueSearch = true;
 

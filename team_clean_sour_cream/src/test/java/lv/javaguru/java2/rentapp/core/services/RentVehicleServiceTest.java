@@ -63,7 +63,7 @@ class RentVehicleServiceTest {
 
         RentVehicleResponse response = service.execute(request);
 
-        Mockito.verify(dealDatabase).save(rentDealCaptor.capture());
+        Mockito.verify(dealDatabase).save(rentDealCaptor.capture(), );
 
         assertFalse(response.hasErrors());
         assertNull(response.getMessage());
