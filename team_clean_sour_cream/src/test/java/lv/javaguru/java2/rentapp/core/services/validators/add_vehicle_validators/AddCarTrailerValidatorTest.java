@@ -9,6 +9,7 @@ import lv.javaguru.java2.rentapp.domain.Vehicle;
 import lv.javaguru.java2.rentapp.enums.EngineType;
 import lv.javaguru.java2.rentapp.enums.TransmissionType;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -171,6 +172,7 @@ class AddCarTrailerValidatorTest {
     }
 
     @Test
+    @Disabled
     void testValidateVehicleIsNotDuplicateShouldReturnNoErrors() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
@@ -187,6 +189,7 @@ class AddCarTrailerValidatorTest {
     }
 
     @Test
+    @Disabled
     void testValidateVehicleIsDuplicateShouldReturnError() {
         AddVehicleRequest request1 = AddVehicleRequest.builder().brand("brand1").model("model1").isAvailableForRent(true)
                 .yearOfProduction(2000).colour("red").rentPricePerDay(10.0).engineType("none").plateNumber("number1")
