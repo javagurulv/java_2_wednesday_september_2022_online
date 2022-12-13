@@ -13,7 +13,7 @@ public class MotorcycleCreator implements VehicleCreator {
 
     @Override
     public Vehicle createVehicle(AddVehicleRequest request) {
-        return new Motorcycle(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+        Motorcycle motorcycle = new Motorcycle(request.getBrand(), request.getModel(), request.isAvailableForRent(),
                 request.getYearOfProduction(),
                 Colour.valueOf(request.getColour().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getRentPricePerDay(),
@@ -21,5 +21,7 @@ public class MotorcycleCreator implements VehicleCreator {
                 request.getPlateNumber(),
                 TransmissionType.valueOf(request.getTransmissionType().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getPassengerAmount());
+        motorcycle.setVehicleType(request.getVehicleType());
+        return motorcycle;
     }
 }

@@ -14,7 +14,7 @@ public class CarTrailerCreator implements VehicleCreator {
 
     @Override
     public Vehicle createVehicle(AddVehicleRequest request) {
-        return new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
+        CarTrailer carTrailer = new CarTrailer(request.getBrand(), request.getModel(), request.isAvailableForRent(),
                 request.getYearOfProduction(),
                 Colour.valueOf(request.getColour().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getRentPricePerDay(),
@@ -23,5 +23,7 @@ public class CarTrailerCreator implements VehicleCreator {
                 TransmissionType.valueOf(request.getTransmissionType().toUpperCase().replaceAll("[^a-zA-Z]", "")),
                 request.getDeckWidthInCm(),
                 request.getDeckLengthInCm(), request.getDeckHeightInCm(), request.getEmptyWeightInKg(), request.getMaxLoadWeightInKg());
+        carTrailer.setVehicleType(request.getVehicleType());
+        return carTrailer;
     }
 }

@@ -47,23 +47,23 @@ class SearchVehicleServiceTest {
         assertTrue(response.hasErrors());
     }
 
-    @Test
-    void testCreatedSearchCriteriaIsCorrect() {
-        SearchVehicleRequest request = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR)
-                .passengerAmount(3)
-                .doorsAmount(3)
-                .build();
-        Mockito.when(validator.validate(request)).thenReturn(List.of());
-        SearchVehicleResponse response = service.execute(request);
-        assertFalse(response.hasErrors());
-
-        Mockito.verify(vehicleDatabase).search(searchCriteriaCaptor.capture());
-        AndSearchCriteria andSearchCriteria1 = new AndSearchCriteria(new VehicleTypeCriteria("Passenger Car"), null);
-        AndSearchCriteria andSearchCriteria2 = new AndSearchCriteria(andSearchCriteria1, new DoorsAmountCriteria(3));
-        SearchCriteria expected = new AndSearchCriteria(andSearchCriteria2, new PassengerAmountCriteria(3));
-        SearchCriteria actual = searchCriteriaCaptor.getValue();
-        assertEquals(expected, actual);
-    }
+//    @Test
+//    void testCreatedSearchCriteriaIsCorrect() {
+//        SearchVehicleRequest request = SearchVehicleRequest.builder().vehicleType(VehicleType.PASSENGER_CAR)
+//                .passengerAmount(3)
+//                .doorsAmount(3)
+//                .build();
+//        Mockito.when(validator.validate(request)).thenReturn(List.of());
+//        SearchVehicleResponse response = service.execute(request);
+//        assertFalse(response.hasErrors());
+//
+//        Mockito.verify(vehicleDatabase).search(searchCriteriaCaptor.capture());
+//        AndSearchCriteria andSearchCriteria1 = new AndSearchCriteria(new VehicleTypeCriteria("Passenger Car"), null);
+//        AndSearchCriteria andSearchCriteria2 = new AndSearchCriteria(andSearchCriteria1, new DoorsAmountCriteria(3));
+//        SearchCriteria expected = new AndSearchCriteria(andSearchCriteria2, new PassengerAmountCriteria(3));
+//        SearchCriteria actual = searchCriteriaCaptor.getValue();
+//        assertEquals(expected, actual);
+//    }
 
     @Test
     void testShouldReturnUnorderedListOfVehicleWhenOrderingIsNull() {

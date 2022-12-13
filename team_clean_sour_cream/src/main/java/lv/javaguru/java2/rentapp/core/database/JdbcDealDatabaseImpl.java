@@ -3,27 +3,19 @@ package lv.javaguru.java2.rentapp.core.database;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Deprecated()
-//@Component
-public class DealDatabaseImpl implements DealDatabase {
-
-    private Long nextId = 1L;
-    private List<RentDeal> rentDealsDatabase = new ArrayList<>();
+@Component
+public class JdbcDealDatabaseImpl implements DealDatabase{
 
     @Override
     public Long save(RentDeal rentDeal) {
-        rentDeal.setId(nextId);
-        nextId++;
-        rentDealsDatabase.add(rentDeal);
-        return rentDeal.getId();
+        return null;
     }
 
     @Override
     public List<RentDeal> getAllDeals() {
-        return new ArrayList<>(rentDealsDatabase);
+        return null;
     }
 
     @Override
