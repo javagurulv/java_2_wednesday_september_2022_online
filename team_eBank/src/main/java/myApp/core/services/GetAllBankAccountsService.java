@@ -1,6 +1,7 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
@@ -13,11 +14,14 @@ import java.util.List;
 @Component
 @Transactional
 public class GetAllBankAccountsService {
+
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
 
     public GetAllBankAccountsResponse execute(GetAllBankAccountsRequest request) {
-        List<BankAccount> bankAccounts = bankRepository.getAllBankAccounts();
+        List<BankAccount> bankAccounts = bankRepository.findAll();
         return new GetAllBankAccountsResponse(null, bankAccounts);
     }
 }
+
+

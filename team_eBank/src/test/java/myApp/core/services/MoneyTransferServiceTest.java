@@ -29,10 +29,10 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testSuccessMoneyTransfer() {
-        MoneyTransferRequest request = new MoneyTransferRequest("000000-00001",
+        MoneyTransferRequest request = new MoneyTransferRequest(
                 "000000-00002", 100);
         when(validator.validate(request)).thenReturn(List.of());
-        MoneyTransferResponse response = service.execute(request);
+        MoneyTransferResponse response = service.execute(request,"000000-00001");
         assertFalse(response.hasErrors());
         verify(bankRepository).bankTransfer("000000-00001",
                 "000000-00002", 100);
@@ -40,11 +40,11 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testShouldReturnPersonalCodeError() {
-        MoneyTransferRequest request = new MoneyTransferRequest("",
+        MoneyTransferRequest request = new MoneyTransferRequest(
                 "000000-00002", 100);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
                 "Your personal code must not be empty")));
-        MoneyTransferResponse response = service.execute(request);
+        MoneyTransferResponse response = service.execute(request,null);
         assertTrue(response.hasErrors());
         assertEquals(1, response.getErrors().size());
         assertEquals("Field: Personal code", response.getErrors().get(0).getField());
@@ -54,11 +54,11 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testShouldReturnAnotherPersonalCodeError() {
-        MoneyTransferRequest request = new MoneyTransferRequest("000000-00001",
+        MoneyTransferRequest request = new MoneyTransferRequest(
                 "", 100);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Another personal code",
                 "Another personal code must not be empty")));
-        MoneyTransferResponse response = service.execute(request);
+        MoneyTransferResponse response = service.execute(request,"000000-00001");
         assertTrue(response.hasErrors());
         assertEquals(1, response.getErrors().size());
         assertEquals("Field: Another personal code",
@@ -73,7 +73,7 @@ public class MoneyTransferServiceTest {
                 "000000-00002", 0);
         when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Value",
                 "Value must not be empty")));
-        MoneyTransferResponse response = service.execute(request);
+        MoneyTransferResponse response = service.execute(request,"000000-00001");
         assertTrue(response.hasErrors());
         assertEquals(1, response.getErrors().size());
         assertEquals("Field: Value",
@@ -90,7 +90,7 @@ public class MoneyTransferServiceTest {
                 "Your personal code must not be empty"),new CoreError("Field: Another personal code",
                 "Another personal code must not be empty"),new CoreError("Field: Value",
                 "Value must not be empty")));
-        MoneyTransferResponse response = service.execute(request);
+        MoneyTransferResponse response = service.execute(request,null);
         assertTrue(response.hasErrors());
         assertEquals(3, response.getErrors().size());
         assertEquals("Field: Personal code", response.getErrors().get(0).getField());

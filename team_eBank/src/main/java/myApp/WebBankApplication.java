@@ -1,16 +1,16 @@
 package myApp;
 
 //import myApp.consoleUI.AdminOrRegularUserMenu;
+
 import myApp.consoleUI.LogInUIAction;
 import myApp.core.services.authentication.UserService;
 import myApp.web_ui.config.SpringWebConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+@SpringBootApplication
 class WebBankApplication {
 
     public static void main(String[] args) {

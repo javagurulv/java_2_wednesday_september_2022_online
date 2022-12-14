@@ -1,4 +1,4 @@
-package myApp.web_ui.controllers;
+package myApp.web_ui.controllers.adminControllers;
 
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.AddBankAccountResponse;
@@ -9,6 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+
 @Controller
 public class AddBankAccountController {
 
@@ -32,5 +34,4 @@ public class AddBankAccountController {
             return "redirect:/admin";
         }
     }
-
 }

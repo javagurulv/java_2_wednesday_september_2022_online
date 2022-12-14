@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class RemoveBankAccountRequest {
 
-    private String personalCode;
+    private Long id;
 }

@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.Ordering;
 import myApp.core.requests.Paging;
@@ -27,8 +27,10 @@ public class SearchBankAccountService {
     @Value("${search.paging.enabled}")
     private boolean pagingEnabled;
 
+
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
+
     @Autowired
     private SearchBankAccountValidator validator;
 

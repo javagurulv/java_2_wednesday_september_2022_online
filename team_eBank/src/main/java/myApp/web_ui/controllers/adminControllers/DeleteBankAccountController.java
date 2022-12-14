@@ -1,4 +1,4 @@
-package myApp.web_ui.controllers;
+package myApp.web_ui.controllers.adminControllers;
 
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.RemoveBankAccountResponse;

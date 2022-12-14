@@ -1,7 +1,10 @@
 package myApp.acceptanceTests;
-/*
+
 import myApp.config.SpringCoreConfiguration;
-import myApp.core.requests.*;
+import myApp.core.requests.AddBankAccountRequest;
+import myApp.core.requests.Ordering;
+import myApp.core.requests.Paging;
+import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
 import myApp.core.services.SearchBankAccountService;
@@ -39,11 +42,11 @@ public class AcceptanceTest2 {
     public void testSuccessFindTwoBankAccounts() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleOne",
                 "000000-00002");
-        addService.execute(bankAccountOne,new AddUserRequest("000000-00002","password" ));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "ExampleTwo",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null );
         SearchBankAccountResponse response = searchBankAccountServiceService.execute(searchRequest);
@@ -58,11 +61,11 @@ public class AcceptanceTest2 {
     public void testSearchBooksWhenOrderingIsDescending() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
                 "000000-00002");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         Ordering ordering = new Ordering("surname", "DESCENDING");
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
@@ -79,11 +82,11 @@ public class AcceptanceTest2 {
     public void testSearchBooksWhenOrderingIsAscending() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
                 "000000-00002");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         Ordering ordering = new Ordering("surname", "ASCENDING");
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
@@ -101,11 +104,11 @@ public class AcceptanceTest2 {
     public void testSearchBooksWithOrderingPaging() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
                 "000000-00002");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         Ordering ordering = new Ordering("surname", "ASCENDING");
         Paging paging = new Paging(1, 1);
@@ -118,5 +121,3 @@ public class AcceptanceTest2 {
         assertEquals(response.getBankAccounts().get(0).getSurname(), "A");
     }
 }
-
- */

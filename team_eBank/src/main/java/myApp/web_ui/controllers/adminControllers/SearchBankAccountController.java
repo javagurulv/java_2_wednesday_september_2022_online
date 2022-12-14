@@ -1,4 +1,4 @@
-package myApp.web_ui.controllers;
+package myApp.web_ui.controllers.adminControllers;
 
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.requests.SearchBankAccountRequest;
@@ -30,7 +30,7 @@ public class SearchBankAccountController {
             modelMap.addAttribute("errors", response.getErrors());
             return "searchBankAccount";
         } else {
-            return "searchBankAccount";
+            return "redirect:/admin";
         }
     }
 }

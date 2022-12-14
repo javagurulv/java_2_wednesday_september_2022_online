@@ -1,4 +1,4 @@
-package myApp.web_ui.controllers;
+package myApp.web_ui.controllers.adminControllers;
 
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
@@ -13,7 +13,6 @@ public class GetAllBankAccountsController {
 
     @Autowired
     private GetAllBankAccountsService service;
-
 
     @GetMapping(value = "/getAllBankAccounts")
     public String showAllBooks(ModelMap modelMap) {

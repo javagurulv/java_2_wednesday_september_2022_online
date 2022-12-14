@@ -1,8 +1,7 @@
 package myApp.acceptanceTests;
-/*
+
 import myApp.config.SpringCoreConfiguration;
 import myApp.core.requests.AddBankAccountRequest;
-import myApp.core.requests.AddUserRequest;
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
 import myApp.core.services.AddBankAccountService;
@@ -40,15 +39,12 @@ public class AcceptanceTest1 {
     public void testShouldReturnCorrectBankAccountList() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleTwo",
                 "000000-00001");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00001", "password"));
+        addService.execute(bankAccountOne);
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "",
                 "0");
-        addService.execute(bankAccountTwo, new AddUserRequest("0", "password"));
+        addService.execute(bankAccountTwo);
         GetAllBankAccountsResponse response = getAllBooksService.execute(new GetAllBankAccountsRequest());
         assertEquals(1, response.getBankAccounts().size());
     }
 }
-
-
- */
 

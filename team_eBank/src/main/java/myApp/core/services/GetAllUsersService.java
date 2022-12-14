@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.UserRepository;
+import myApp.core.database.jpa.JpaUserRepository;
 import myApp.core.domain.User;
 import myApp.core.requests.GetAllUsersRequest;
 import myApp.core.responses.GetAllUsersResponse;
@@ -14,10 +14,10 @@ import java.util.List;
 @Transactional
 public class GetAllUsersService {
     @Autowired
-    private UserRepository userRepository;
+    private JpaUserRepository userRepository;
 
     public GetAllUsersResponse execute(GetAllUsersRequest request) {
-        List<User> users = (userRepository.getAllUsers());
+        List<User> users = (userRepository.findAll());
         return new GetAllUsersResponse(null, users);
     }
 }
