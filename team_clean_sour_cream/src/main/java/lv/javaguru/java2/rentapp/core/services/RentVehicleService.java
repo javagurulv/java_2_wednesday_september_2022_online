@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
+import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
@@ -23,6 +24,8 @@ public class RentVehicleService {
     @Autowired
     private DealDatabase dealDatabase;
     @Autowired
+    private ClientDatabase clientDatabase;
+    @Autowired
     private VehicleDatabase vehicleDatabase;
     @Autowired
     private RentVehicleValidator validator;
@@ -41,8 +44,11 @@ public class RentVehicleService {
         Optional<Vehicle> vehicleOpt = vehicleDatabase.getById(request.getVehicleId());
         if (vehicleOpt.isPresent()) {
             Vehicle vehicle = vehicleOpt.get();
+            Long clientId = clientDatabase.save(client);
+            client.setId(clientId);
             RentDeal rentDeal = new RentDealFactory().createRentDeal(client, vehicle, startDate, endDate);
-            dealDatabase.save(rentDeal);
+            Long dealId = dealDatabase.save(rentDeal);
+            rentDeal.setId(dealId);
             return new RentVehicleResponse(rentDeal);
         }
 

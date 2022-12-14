@@ -37,9 +37,10 @@ public class VehicleAvailabilityService {
         LocalDate endDate = LocalDate.parse(request.getRentEndDate(), formatter);
 
         List<Vehicle> availableVehicles = findAvailableVehiclesInRange(startDate, endDate, vehicles);
-        availableVehicles = paging(availableVehicles, request.getPaging());
+        VehicleAvailabilityResponse response = new VehicleAvailabilityResponse(null, availableVehicles);
+        response.setVehiclesPaged(paging(availableVehicles, request.getPaging()));
 
-        return new VehicleAvailabilityResponse(null, availableVehicles);
+        return response;
     }
 
     private List<Vehicle> paging(List<Vehicle> vehicles, Paging paging) {

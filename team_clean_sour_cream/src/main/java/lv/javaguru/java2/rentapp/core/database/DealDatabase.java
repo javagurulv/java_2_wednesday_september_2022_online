@@ -3,6 +3,7 @@ package lv.javaguru.java2.rentapp.core.database;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DealDatabase {
 
@@ -10,6 +11,6 @@ public interface DealDatabase {
 
     List<RentDeal> getAllDeals();
 
-    RentDeal getDealById(Long id);
+    Optional<RentDeal> getDealById(Long id);
 
 }

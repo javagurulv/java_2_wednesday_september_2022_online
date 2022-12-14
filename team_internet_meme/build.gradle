@@ -7,7 +7,10 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.22'
     implementation 'org.apache.commons:commons-dbcp2:2.8.0'
     implementation 'org.slf4j:slf4j-simple:2.0.3'
+    implementation 'junit:junit:4.13.1'
     testImplementation 'org.springframework:spring-test:5.3.23'
+    testImplementation 'com.h2database:h2:2.1.214'
+
 
     implementation('org.springframework.boot:spring-boot-starter-data-jpa:2.7.5') {
         exclude (group: 'ch.qos.logback', module: 'logback-classic')
