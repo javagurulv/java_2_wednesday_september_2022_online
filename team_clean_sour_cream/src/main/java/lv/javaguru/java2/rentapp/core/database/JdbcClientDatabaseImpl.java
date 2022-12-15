@@ -71,4 +71,11 @@ public class JdbcClientDatabaseImpl implements ClientDatabase {
         return clients.stream().findFirst();
     }
 
+
+    public Optional<Client> findBy(String lastName) {
+        String sql = "SELECT * FROM clients WHERE name = ?";
+        List<Client> clients = jdbcTemplate.query(sql, new ClientRowMapper(), lastName);
+        return clients.stream().findFirst();
+    }
+
 }

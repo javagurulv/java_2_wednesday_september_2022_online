@@ -28,12 +28,14 @@ public class AddClientService {
         if (!errors.isEmpty()) {
             return new AddClientResponse(errors);
         }
-        Optional<Long> clientId = addClientDuplicateValidator.validate(request);
+
+        Client client = getClient(request);
+
+        Optional<Long> clientId = addClientDuplicateValidator.validate(client);
         if (clientId.isPresent()) {
             return new AddClientResponse(clientId.get());
         }
 
-        Client client = getClient(request);
         Long newClientId = clientDatabase.save(client);
         client.setId(newClientId);
         return new AddClientResponse(newClientId);

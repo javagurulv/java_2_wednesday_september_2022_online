@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @ToString
@@ -24,6 +26,19 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client client)) return false;
+        return getPersonalId().equals(client.getPersonalId()) && getFirstName().equals(client.getFirstName()) &&
+                getLastName().equals(client.getLastName()) && getEmail().equals(client.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPersonalId(), getFirstName(), getLastName(), getEmail());
     }
 }
 
