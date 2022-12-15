@@ -19,13 +19,6 @@ public class JdbcClientDatabaseImpl implements ClientDatabase {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public Optional<Client> getById(Long id) {
-        String sql = "SELECT * FROM clients WHERE id = ?";
-        List<Client> client = jdbcTemplate.query(sql, new ClientRowMapper(), id);
-        return client.stream().findFirst();
-    }
-
-    @Override
     public Long save(Client client) {
         if (findByPersonalId(client.getPersonalId()).isPresent()) {
             return findByPersonalId(client.getPersonalId()).get().getId();
@@ -43,15 +36,38 @@ public class JdbcClientDatabaseImpl implements ClientDatabase {
         return simpleJdbcInsert.executeAndReturnKey(clientArgs).longValue();
     }
 
-    private Optional<Client> findByPersonalId(String personalId) {
+    @Override
+    public Optional<Client> getById(Long id) {
+        String sql = "SELECT * FROM clients WHERE id = ?";
+        List<Client> client = jdbcTemplate.query(sql, new ClientRowMapper(), id);
+        return client.stream().findFirst();
+    }
+
+    @Override
+    public Optional<Client> findByPersonalId(String personalId) {
         String sql = "SELECT * FROM clients WHERE personal_id = ?";
         List<Client> clients = jdbcTemplate.query(sql, new ClientRowMapper(), personalId);
         return clients.stream().findFirst();
     }
 
-    private Optional<Client> findByEmail(String email) {
+    @Override
+    public Optional<Client> findByEmail(String email) {
         String sql = "SELECT * FROM clients WHERE email = ?";
         List<Client> clients = jdbcTemplate.query(sql, new ClientRowMapper(), email);
+        return clients.stream().findFirst();
+    }
+
+    @Override
+    public Optional<Client> findByFirstName(String firstName) {
+        String sql = "SELECT * FROM clients WHERE name = ?";
+        List<Client> clients = jdbcTemplate.query(sql, new ClientRowMapper(), firstName);
+        return clients.stream().findFirst();
+    }
+
+    @Override
+    public Optional<Client> findByLastName(String lastName) {
+        String sql = "SELECT * FROM clients WHERE name = ?";
+        List<Client> clients = jdbcTemplate.query(sql, new ClientRowMapper(), lastName);
         return clients.stream().findFirst();
     }
 
