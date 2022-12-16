@@ -32,23 +32,35 @@
                 </tr>
             </td>
         </section>
+        <section id="msg-succeed">
+            <tr><td th:text="${succeed} ? 'Successful update' : ''" /></tr>
+        </section>
 
         <section id="form">
-            <h3>User Login</h3>
+            <h3>User Registration</h3>
 
-            <form action="/userLogin" th:object="${request}" method="post">
+            <form action="/userRegistration" th:object="${request}" method="post">
                 <table>
                     <tr>
                         <td>Username:</td>
-                        <td><input type="text" th:field="${request.userName}"/></td>
+                        <td><input type="text" th:field="${request.username}"/></td>
                     </tr>
                     <tr>
                         <td>Password:</td>
                         <td><input type="password" th:field="${request.password}"/></td>
                     </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td><input type="text" th:field="${request.email}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Send reminders:</td>
+                        <td><input type="text" th:field="${request.sendReminders}"/></td>
+                        <td>(true/false)</td>
+                    </tr>
                 </table>
                 <br>
-                <input class="btn" type="submit" value="Login"/>
+                <input class="btn" type="submit" value="Submit"/>
                 <input class="btn" type="reset" value="Clear"/>
             </form>
         </section>

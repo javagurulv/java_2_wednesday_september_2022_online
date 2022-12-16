@@ -10,7 +10,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 @ComponentScan(basePackages = {"lv.javaguru.java2.tasksScheduler"})
 public class SpringWebConfiguration implements WebMvcConfigurer {
 
