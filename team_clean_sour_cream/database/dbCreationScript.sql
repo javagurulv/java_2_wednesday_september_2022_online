@@ -127,6 +127,8 @@ CREATE TABLE IF NOT EXISTS clients
     `email`       VARCHAR(255) NOT NULL,
     `phone`       VARCHAR(20)  NOT NULL,
 
+    UNIQUE INDEX (`name`, `surname`, `personal_id`, `email`),
+    UNIQUE INDEX (`name`, `surname`, `personal_id`),
     UNIQUE INDEX (`personal_id`),
     UNIQUE INDEX (`email`),
     PRIMARY KEY (`id`)
