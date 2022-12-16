@@ -1,8 +1,11 @@
 package lv.javaguru.java2.rentapp.core.services.validators.add_client_validators;
 
+import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddClientRequest;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.domain.Client;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,6 +16,9 @@ import java.util.regex.Pattern;
 
 @Component
 public class AddClientValidator {
+
+    @Autowired
+    private ClientDatabase clientDatabase;
 
     public List<CoreError> validate(AddClientRequest request) {
         List<CoreError> errors = new ArrayList<>();
@@ -106,4 +112,21 @@ public class AddClientValidator {
                 ? Optional.of(new CoreError(field, "cannot be empty"))
                 : Optional.empty();
     }
+
+    private Optional<CoreError> validateDuplicateClientFirstName(AddClientRequest request) {
+        Client existedClient = getExistedClientByPersonalIdIfPresent(request);
+        if (existedClient != null) {
+            if (!existedClient.getFirstName().equals(request.getFirstName())) {
+                return Optional.of(new CoreError("First Name", "different from client with same personal ID"));
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Client getExistedClientByPersonalIdIfPresent(AddClientRequest request) {
+        return clientDatabase.findByPersonalId(request.getPersonalId()).isPresent() || clientDatabase.findByPersonalId(request.getPersonalId()).isPresent()
+                ? clientDatabase.findByPersonalId(request.getPersonalId()).get()
+                : null;
+    }
 }
+
