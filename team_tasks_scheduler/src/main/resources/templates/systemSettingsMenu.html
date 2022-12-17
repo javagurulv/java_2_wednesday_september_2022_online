@@ -14,10 +14,11 @@
     <section id="header">
         <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
         <h1>Tasks Scheduler</h1>
+        <h4><em>Welcome, System Administrator!</em></h4>
     </section>
     <section id="sub-header">
-        <form action="/adminLogin" method="get">
-            <input class="btn" type="submit" value="System settings" name="Submit" />
+        <form action="/" method="get">
+            <input class="btn" type="submit" value="Logout" name="Submit" />
         </form>
     </section>
 </header>
@@ -26,21 +27,21 @@
     <section id="menu">
         <table class="tbl-buttons">
             <th>
-                <h3>Program Menu</h3>
+                <h3>System Settings Menu</h3>
             </th>
             <tr>
-                <td><a href="/showUsernamesRegistered">
-                    <button class="btn">Show registered usernames</button>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Show all users information</button>
                 </a></td>
             </tr>
             <tr>
-                <td><a href="/userLogin">
-                    <button class="btn">User login</button>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Amend settings</button>
                 </a></td>
             </tr>
             <tr>
-                <td><a href="/userRegistration">
-                    <button class="btn">User registration</button>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Run jobs manually</button>
                 </a></td>
             </tr>
         </table>
