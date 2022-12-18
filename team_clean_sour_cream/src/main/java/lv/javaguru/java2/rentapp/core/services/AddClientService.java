@@ -4,7 +4,7 @@ import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddClientRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddClientResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
-import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.AddClientDuplicateValidator;
+import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.ExitedClientValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.AddClientValidator;
 import lv.javaguru.java2.rentapp.domain.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class AddClientService {
     private AddClientValidator addClientValidator;
 
     @Autowired
-    private AddClientDuplicateValidator addClientDuplicateValidator;
+    private ExitedClientValidator exitedClientValidator;
     @Autowired
     private ClientDatabase clientDatabase;
 
@@ -31,7 +31,7 @@ public class AddClientService {
 
         Client client = getClient(request);
 
-        Optional<Long> clientId = addClientDuplicateValidator.validate(client);
+        Optional<Long> clientId = exitedClientValidator.validate(client);
         if (clientId.isPresent()) {
             return new AddClientResponse(clientId.get());
         }

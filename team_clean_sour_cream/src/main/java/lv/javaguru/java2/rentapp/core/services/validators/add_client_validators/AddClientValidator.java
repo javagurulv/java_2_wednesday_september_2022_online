@@ -124,8 +124,14 @@ public class AddClientValidator {
     }
 
     private Client getExistedClientByPersonalIdIfPresent(AddClientRequest request) {
-        return clientDatabase.findByPersonalId(request.getPersonalId()).isPresent() || clientDatabase.findByPersonalId(request.getPersonalId()).isPresent()
+        return clientDatabase.findByPersonalId(request.getPersonalId()).isPresent()
                 ? clientDatabase.findByPersonalId(request.getPersonalId()).get()
+                : null;
+    }
+
+    private Client getExistedClientByEmailIfPresent(AddClientRequest request) {
+        return clientDatabase.findByEmail(request.getEmail()).isPresent()
+                ? clientDatabase.findByEmail(request.getEmail()).get()
                 : null;
     }
 }

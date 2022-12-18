@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class AddClientDuplicateValidator {
+public class ExitedClientValidator {
 
     @Autowired
     private ClientDatabase clientDatabase;
