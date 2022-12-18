@@ -6,26 +6,75 @@
     <meta name="description" content="Tasks scheduler demo project">
     <meta name="author" content="JB, OK">
     <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
 <body>
+<header>
+    <section id="header">
+        <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+        <h1>Tasks Scheduler</h1>
+    </section>
+    <section id="sub-header">
+        <form action="/" method="get">
+            <input class="btn" type="submit" value="Go to main page" name="Submit" />
+        </form>
+    </section>
+</header>
 
-<h3>Registered usernames</h3>
+<main>
+    <section id="msg-error">
+        <td th:if="${errors != null}">
+            <tr th:each="error : ${errors}">
+                <td th:text="${error.field}" />
+                <td> - </td>
+                <td th:text="${error.message}" />
+            </tr>
+        </td>
+    </section>
 
-<table>
+    <section id="form">
+        <h3>Registered usernames</h3>
 
-    <td th:if="${users != null}">
-        <tr th:each="user : ${users}">
-            <td th:text="${user}" />
-        </tr>
-    </td>
+        <form action="/showUsernamesRegistered" th:object="${request}" method="post">
+            <table>
+                <tr>
+                    <td>Username to filter by:</td>
+                    <td><input type="text" th:field="${request.username}"/></td>
+                </tr>
+                <tr>
+                    <td>Order direction:</td>
+                    <td><input type="text" th:field="${request.ordering.orderDirection}"/></td>
+                    <td>(ASCENDING/DESCENDING)</td>
+                </tr>
+                <tr>
+                    <td>Show page number:</td>
+                    <td><input type="number" th:field="${request.paging.pageNumber}"/></td>
+                </tr>
+                <tr>
+                    <td>Records on page:</td>
+                    <td><input type="number" th:field="${request.paging.pageSize}"/></td>
+                </tr>
+            </table>
+            <br>
+            <input class="btn" type="submit" value="Show"/>
+            <input class="btn" type="reset" value="Clear"/>
 
-</table>
-
-<form action="/" method="get">
-    <input type="submit" value="Go to main page" name="Submit" />
-</form>
-
+            <table class="tbl-list">
+                <th>Result:</th>
+                <tr><td class="tbl-data-pages" th:text="${list_pages}" /></tr>
+                <td th:if="${users != null}">
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user}" />
+                    </tr>
+                </td>
+            </table>
+            <table class="tbl-list-status">
+                <tr><td th:text="${list_status}" /></tr>
+            </table>
+        </form>
+    </section>
+</main>
 </body>
 
 </html>
