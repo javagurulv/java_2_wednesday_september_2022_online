@@ -62,4 +62,20 @@ public class GetUsersRequest {
     public boolean isEmailProvided() {
         return !ValueChecking.stringIsEmpty(this.email);
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setOrdering(Ordering ordering) {
+        this.ordering = ordering;
+    }
+
+    public void setPaging(Paging paging) {
+        this.paging = paging;
+    }
 }

@@ -16,9 +16,24 @@ main {
 }
 
 .btn {
-  padding: 5px 10px;
-  font-size: 16px;
-  cursor: pointer;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tbl-list, .tbl-list-status {
+    margin: 15px 0px 0px 0px;
+}
+
+.tbl-list th {
+    text-align: left;
+    color: blue;
+}
+
+.tbl-list-status, .tbl-data-pages {
+    padding: 10px 0px 10px 0px;
+    font-size: 13px;
+    color: blue;
 }
 
 #header {
@@ -73,7 +88,7 @@ main {
     border-collapse: collapse;
   }
 
-  .tbl-buttons button { 
+ .tbl-buttons button {
     width: 100%;
   }
 
