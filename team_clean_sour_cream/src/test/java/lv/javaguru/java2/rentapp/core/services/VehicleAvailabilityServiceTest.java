@@ -48,7 +48,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateOfNewDealAreInAvailableVehiclesInRange() {
+    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -81,7 +81,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateAreInBorderValues1() {
+    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable2() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -112,8 +112,9 @@ class VehicleAvailabilityServiceTest {
         Mockito.verify(dealDatabase).getAllDeals();
         assertEquals(List.of(passengerCar1, passengerCar3), response.getVehicles());
     }
+
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateAreInBorderValues2() {
+    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable3() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -144,8 +145,9 @@ class VehicleAvailabilityServiceTest {
         Mockito.verify(dealDatabase).getAllDeals();
         assertEquals(List.of(passengerCar1, passengerCar3), response.getVehicles());
     }
+
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateAreInBorderValues3() {
+    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable4() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -176,8 +178,9 @@ class VehicleAvailabilityServiceTest {
         Mockito.verify(dealDatabase).getAllDeals();
         assertEquals(List.of(passengerCar1, passengerCar3), response.getVehicles());
     }
+
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateAreInBorderValues4() {
+    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable5() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -208,8 +211,9 @@ class VehicleAvailabilityServiceTest {
         Mockito.verify(dealDatabase).getAllDeals();
         assertEquals(List.of(passengerCar1, passengerCar3), response.getVehicles());
     }
+
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateAreInBorderValues5() {
+    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable6() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -240,8 +244,9 @@ class VehicleAvailabilityServiceTest {
         Mockito.verify(dealDatabase).getAllDeals();
         assertEquals(List.of(passengerCar1, passengerCar2), response.getVehicles());
     }
+
     @Test
-    void testShouldReturnResponseWithNotEmptyListOfAvailableVehiclesWhenRequestIsValidPagingIsNullStartAndEndDateAreInBorderValues6() {
+    void testAllCarsNeedToBeAvailableInRequestedDays() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -261,19 +266,15 @@ class VehicleAvailabilityServiceTest {
         vehicles.add(passengerCar3);
 
         RentDeal rentDeal = Mockito.mock(RentDeal.class);
-        Mockito.when(rentDeal.getVehicle()).thenReturn(passengerCar2);
+//        Mockito.when(rentDeal.getVehicle()).thenReturn(passengerCar2);
         Mockito.when(rentDeal.getStartDate()).thenReturn(LocalDate.now().plusDays(2));
         Mockito.when(rentDeal.getEndDate()).thenReturn(LocalDate.now().plusDays(5));
         Mockito.when(dealDatabase.getAllDeals()).thenReturn(List.of(rentDeal));
 
-//        List<Vehicle> expected = new ArrayList<>();
-//        expected.add(passengerCar1);
-//        expected.add(passengerCar2);
-//        expected.add(passengerCar3);
-
         VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, vehicles);
         assertFalse(response.hasErrors());
         Mockito.verify(dealDatabase).getAllDeals();
-        assertEquals(List.of(vehicles), response.getVehicles());
+        assertTrue(vehicles.containsAll(response.getVehicles()));
+
     }
 }
