@@ -2,7 +2,6 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
-import lv.javaguru.java2.rentapp.core.requests.Paging;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.VehicleAvailabilityResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.VehicleAvailabilityServiceValidator;
@@ -48,7 +47,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable() {
+    void testPassengersCar2IsBusyInRequestedDayCar1And2Available() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -81,7 +80,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable2() {
+    void testPassengersCar2IsBusyInRequestedDayCar1And2Available2() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -114,7 +113,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable3() {
+    void testPassengersCar2IsBusyInRequestedDayCar1And2Available3() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -147,7 +146,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable4() {
+    void testPassengersCar2IsBusyInRequestedDayCar1And2Available4() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -180,7 +179,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable5() {
+    void testPassengersCar2IsBusyInRequestedDayCar1And2Available5() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -213,7 +212,7 @@ class VehicleAvailabilityServiceTest {
     }
 
     @Test
-    void testPassengersCar2IsBusyInrequestedDayCar1And2Avaylable6() {
+    void testPassengersCar2IsBusyInRequestedDayCar1And2Available6() {
         GeneralRentVehicleRequest request = Mockito.mock(GeneralRentVehicleRequest.class);
         Mockito.when(vehicleAvailabilityServiceValidator.validate(request)).thenReturn(List.of());
 
@@ -275,6 +274,5 @@ class VehicleAvailabilityServiceTest {
         assertFalse(response.hasErrors());
         Mockito.verify(dealDatabase).getAllDeals();
         assertTrue(vehicles.containsAll(response.getVehicles()));
-
     }
 }
