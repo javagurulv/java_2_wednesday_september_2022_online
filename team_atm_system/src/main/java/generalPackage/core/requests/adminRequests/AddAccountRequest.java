@@ -5,6 +5,9 @@ public class AddAccountRequest {
     private String userName;
     private int userId;
 
+    public AddAccountRequest() {
+    }
+
     public AddAccountRequest(String userName, int userId) {
         this.userName = userName;
         this.userId = userId;

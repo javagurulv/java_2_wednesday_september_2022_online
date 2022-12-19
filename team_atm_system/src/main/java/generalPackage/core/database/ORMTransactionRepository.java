@@ -9,16 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-public class ORMTransactionDatabase {
+public class ORMTransactionRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void decreaseBalanceRecord(Transactions transactions) {
+//    public void decreaseBalanceRecord(int userID, int amount) {
 //        Query query = sessionFactory.getCurrentSession().createQuery(
-//                "UPDATE transactions "
-//        );
+//                "INSERT INTO transactions (user_id, amount) ");
+//        query.setParameter("user_id", userID);
+//        query.setParameter("amount", amount );
+//        query.executeUpdate();
+//    }
+
+    public void decreaseBalanceRecord(Transactions transactions) {
         sessionFactory.getCurrentSession().save(transactions);
     }
+
+    public void inreaseBalanceRecord(Transactions transactions) {
+        sessionFactory.getCurrentSession().save(transactions);
+    }
+
 
 }

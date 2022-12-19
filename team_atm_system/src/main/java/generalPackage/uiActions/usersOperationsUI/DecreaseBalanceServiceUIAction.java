@@ -1,4 +1,4 @@
-package generalPackage.UIActions.usersOperationsUI;
+package generalPackage.uiActions.usersOperationsUI;
 
 import generalPackage.core.requests.usersRequests.DecreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.DecreaseBalanceResponse;
