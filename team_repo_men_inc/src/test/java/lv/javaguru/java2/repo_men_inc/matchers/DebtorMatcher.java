@@ -1,6 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.matchers;
 
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import org.mockito.ArgumentMatcher;
 
 public class DebtorMatcher implements ArgumentMatcher<Debtor> {

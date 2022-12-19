@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+
+body, html {
+    height: 100%;
+}
+
+main {
+    background-image: url(../images/background.jpg);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tbl-list, .tbl-list-status {
+    margin: 15px 0px 0px 0px;
+}
+
+.tbl-list th {
+    text-align: left;
+    color: blue;
+}
+
+.tbl-list-status, .tbl-data-pages {
+    padding: 10px 0px 10px 0px;
+    font-size: 13px;
+    color: blue;
+}
+
+#header {
+    background-color: RoyalBlue;
+}
+
+#sub-header {
+    background-color: blue;
+    padding: 0px 0px 0px 10px;
+}
+
+#sub-header input {
+    padding: 5px 0px 5px 0px;
+    background-color: blue;
+    color: cyan;
+    border: none
+}
+
+#sub-header input:hover {
+    background-color: cyan;
+    color: blue;
+}
+
+#header img {
+    padding: 10px;
+}
+
+#header h1 {
+    padding: 10px;
+    color: snow;
+}
+
+#header h4 {
+    padding: 10px;
+    color:aqua;
+}
+
+#form, #menu {
+    padding: 15px;
+}
+
+#form h3, #menu h3 {
+    margin: 15px 0px 15px 0px;
+}
+
+#menu h3 {
+    text-align: center;
+}
+
+.tbl-buttons { 
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+ .tbl-buttons button {
+    width: 100%;
+  }
+
+#msg-error {
+    background-color: pink;
+    color: red;
+    padding: 0px 0px 0px 10px;
+}
+
+#msg-succeed {
+    background-color:lightgreen;
+    color: green;
+    padding: 0px 0px 0px 10px;
+}
+
+

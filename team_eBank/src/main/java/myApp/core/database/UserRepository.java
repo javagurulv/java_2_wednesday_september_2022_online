@@ -3,18 +3,15 @@ package myApp.core.database;
 import myApp.core.domain.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class UserRepository {
 
-    @Autowired
+
     private SessionFactory sessionFactory;
 
     public Optional<User> logIn(String  login,String password) {
@@ -29,5 +26,21 @@ public class UserRepository {
         return sessionFactory.getCurrentSession()
                 .createQuery("SELECT u FROM User u", User.class)
                 .getResultList();
+    }
+
+    public User findByUsername(String login) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("SELECT u FROM User u", User.class)
+                .getSingleResult();
+    }
+
+    public void save(User user) {
+        sessionFactory.getCurrentSession().save(user);
+    }
+
+    public boolean deleteByUsername(String username) {
+        Query query = sessionFactory.getCurrentSession().createQuery("Select u From u Where username =: username");
+        query.setParameter("username", username);
+        return query.executeUpdate() == 1;
     }
 }

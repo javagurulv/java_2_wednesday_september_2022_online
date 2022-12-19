@@ -1,19 +1,21 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
+import lv.javaguru.java2.repo_men_inc.core.domain.Item;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddHarvestedItemRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-@DIComponent
+@Component
 public class AddHarvestedItemValidator {
 
-    @DIDependency
+    @Autowired
     private Database database;
 
     public AddHarvestedItemValidator() {
@@ -41,7 +43,7 @@ public class AddHarvestedItemValidator {
     }
 
     private Optional<CoreError> validateItemIsInTheList(AddHarvestedItemRequest addHarvestedItemRequest) {
-        return database.getById(addHarvestedItemRequest.getDebtorsId()).getList().contains(addHarvestedItemRequest.getHarvestedItem())
+        return database.getById(addHarvestedItemRequest.getDebtorsId()).getList().stream().map(Item::getName).collect(Collectors.toList()).contains(addHarvestedItemRequest.getHarvestedItem())
                 ? Optional.of(new CoreError("Item", "Already in the List!"))
                 : Optional.empty();
     }

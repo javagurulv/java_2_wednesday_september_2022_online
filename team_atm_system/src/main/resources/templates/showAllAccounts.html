@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="ATM-app project">
+    <meta name="author" content="DmMak">
+    <title>ATM service simulation</title>
+</head>
+
+<body>
+<h3> Show All Accounts </h3>
+<table>
+    <tr>
+        <td> Name:</td>
+        <td> ID:</td>
+    </tr>
+
+    <td th:if="$accounts != null">
+        <tr th:each="$accounts  : ${accounts}">
+            <td th:text="${accounts.name}"/>
+            <td th:text="${accounts.userID}"/>
+        </tr>
+    </td>
+
+</table>
+
+<form action="/" method="get">
+<input type="submit" value="Go to the main page" name="Submit"/>
+</form>
+
+</body>
+
+</html>

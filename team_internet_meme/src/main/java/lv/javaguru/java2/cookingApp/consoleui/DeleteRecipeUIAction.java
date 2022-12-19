@@ -1,7 +1,7 @@
 package lv.javaguru.java2.cookingApp.consoleui;
 
-import lv.javaguru.java2.cookingApp.core.requests.DeleteRecipeRequest;
-import lv.javaguru.java2.cookingApp.core.responses.DeleteRecipeResponse;
+import lv.javaguru.java2.cookingApp.core.dto.requests.DeleteRecipeRequest;
+import lv.javaguru.java2.cookingApp.core.dto.responses.DeleteRecipeResponse;
 import lv.javaguru.java2.cookingApp.core.services.DeleteRecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

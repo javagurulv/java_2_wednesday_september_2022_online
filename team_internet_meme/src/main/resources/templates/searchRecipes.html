@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Cooking Book</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/searchRecipeScript.js}"></script>
+    <style>
+        div {margin: 10px}
+        .button {margin-right: 10px}
+    </style>
+</head>
+<body>
+    <div><h3>Search recipes by ingredients</h3></div>
+
+    <div><p>You can search for recipes with specific ingredients</p></div>
+
+    <div>
+        <form action="/searchRecipes" method="post" th:object="${dto}">
+
+            <div >
+
+                <div class="ingredient" th:id="${#ids.seq('ingredient')}" th:each="name, nameStat : *{list}">
+                    <label for="ingr" th:text="'Ingredient ' + ${nameStat.index+1} + ':'"></label>
+                    <input type="text" name="ingr" id="ingr" th:field="*{list[__${nameStat.index}__].name}">
+                </div>
+
+            </div>
+
+            <div>
+                <button id="addIngr">Add ingredient for search</button>
+            </div>
+            <br>
+            <div th:if="${errors != null}">
+                <p th:each="error : ${errors}">
+                <td th:text="${error.field}"/>
+                <td th:text="${error.message}"/>
+                </p>
+            </div>
+            <div th:if="${recipes != null}">
+                <div th:unless="${#lists.isEmpty(recipes)}">
+                    <p>Recipes found:</p>
+                    <p th:each="recipe : ${recipes}">
+                        <td th:text="${recipe.id}"/>
+                        <td th:text="${recipe.dishName}"/>
+                    </p>
+                </div>
+                <div th:if="${#lists.isEmpty(recipes)}">
+                    <p>No recipes found</p>
+                </div>
+            </div>
+            <div>
+                <input type="submit" value="Search recipe" class="button">
+                <input type="reset" value="clear" class="button">
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <div>
+        <form action="/" method="get"><input type="submit" value="Go to main page"></form>
+    </div>
+</body>
+</html>

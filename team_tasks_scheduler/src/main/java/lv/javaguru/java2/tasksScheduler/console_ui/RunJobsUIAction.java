@@ -1,10 +1,10 @@
 package lv.javaguru.java2.tasksScheduler.console_ui;
 
-import lv.javaguru.java2.tasksScheduler.requests.JobRunRequest;
-import lv.javaguru.java2.tasksScheduler.responses.JobRunResponse;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.DueDatesUpdateRunService;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.RemindersSendingRunService;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.TasksCleanupRunService;
+import lv.javaguru.java2.tasksScheduler.core.requests.JobRunRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.JobRunResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.DueDatesUpdateService;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.RemindersSendingService;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.TasksCleanupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +13,9 @@ import java.util.Scanner;
 
 @Component
 public class RunJobsUIAction implements UIAction {
-    @Autowired private TasksCleanupRunService tasksCleanupRunService;
-    @Autowired private DueDatesUpdateRunService  dueDatesUpdateRunService;
-    @Autowired private RemindersSendingRunService remindersSendingRunService;
+    @Autowired private TasksCleanupService tasksCleanupService;
+    @Autowired private DueDatesUpdateService dueDatesUpdateService;
+    @Autowired private RemindersSendingService remindersSendingService;
 
     @Override
     public boolean execute() {
@@ -35,13 +35,13 @@ public class RunJobsUIAction implements UIAction {
                 JobRunResponse response = null;
                 switch (input) {
                     case "1":
-                        response = dueDatesUpdateRunService.execute(request);
+                        response = dueDatesUpdateService.execute(request);
                         break;
                     case "2":
-                        response = remindersSendingRunService.execute(request);
+                        response = remindersSendingService.execute(request);
                         break;
                     case "3":
-                        response = tasksCleanupRunService.execute(request);
+                        response = tasksCleanupService.execute(request);
                         break;
                     default:
                 }

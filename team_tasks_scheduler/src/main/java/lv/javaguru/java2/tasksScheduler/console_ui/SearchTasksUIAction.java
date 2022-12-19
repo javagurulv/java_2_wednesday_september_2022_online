@@ -2,12 +2,12 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.requests.SearchTasksRequest;
-import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Ordering;
-import lv.javaguru.java2.tasksScheduler.requests.ordering_paging.Paging;
-import lv.javaguru.java2.tasksScheduler.responses.SearchTasksResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.SearchTasksService;
+import lv.javaguru.java2.tasksScheduler.core.domain.Task;
+import lv.javaguru.java2.tasksScheduler.core.requests.SearchTasksRequest;
+import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
+import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Paging;
+import lv.javaguru.java2.tasksScheduler.core.responses.SearchTasksResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.SearchTasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +30,12 @@ public class SearchTasksUIAction implements UIAction {
         String orderDirection = scanner.nextLine();
         Ordering ordering = new Ordering(orderBy, orderDirection);
         System.out.println("Enter page size: ");
-        Integer pageSize = Integer.parseInt(scanner.nextLine());
-
+        Integer pageSize;
+        try {
+            pageSize = Integer.parseInt(scanner.nextLine());
+        } catch (RuntimeException e) {
+            pageSize = 10; //default size
+        }
         //at first request we get found task count and check for request errors
         SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering);
         SearchTasksResponse response = searchTasksService.execute(request);

@@ -32,4 +32,22 @@ public class ValueChecking {
         }
         return false;
     }
+
+    public static LocalDateTime checkAdjustMySqlDateRange(LocalDateTime dateTime) {
+        // The supported range is '1000-01-01 00:00:00' to '9999-12-31 23:59:59'.
+        LocalDateTime pEndDate;
+        if (dateTime.isAfter(LocalDateTime.of(9999,12,
+                31,23,59,59))) {
+            pEndDate = LocalDateTime.of(9999,12,
+                    31,23,59,59);
+            return pEndDate;
+        }
+        else if (dateTime.isBefore(LocalDateTime.of(1000,1,
+                1,0,0,0))) {
+            pEndDate = LocalDateTime.of(1000,1,
+                    1,0,0,0);
+            return pEndDate;
+        }
+        return dateTime;
+    }
 }

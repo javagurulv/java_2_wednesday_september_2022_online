@@ -2,13 +2,13 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.requests.AmendCurrentUserRequest;
-import lv.javaguru.java2.tasksScheduler.requests.GetCurrentUserRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AmendCurrentUserResponse;
-import lv.javaguru.java2.tasksScheduler.responses.GetCurrentUserResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendCurrentUserService;
-import lv.javaguru.java2.tasksScheduler.services.system.GetCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.core.domain.User;
+import lv.javaguru.java2.tasksScheduler.core.requests.AmendCurrentUserRequest;
+import lv.javaguru.java2.tasksScheduler.core.requests.GetCurrentUserRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.AmendCurrentUserResponse;
+import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.AmendCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

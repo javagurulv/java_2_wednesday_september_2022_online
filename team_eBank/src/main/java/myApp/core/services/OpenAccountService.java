@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.OpenAccountResponse;
@@ -15,7 +15,7 @@ import java.util.List;
 @Transactional
 public class OpenAccountService {
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
     @Autowired
     private OpenAccountValidator validator;
 
@@ -23,17 +23,18 @@ public class OpenAccountService {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
             if (accountNullCheck(request.getPersonalCode())) {
-                boolean result = bankRepository.openAccount(request.getPersonalCode());
-                return new OpenAccountResponse(result);
+                bankRepository.openAccount(request.getPersonalCode());
+                if (!accountNullCheck(request.getPersonalCode())) {
+                    return new OpenAccountResponse(true);
+                }
             }
         }
         return new OpenAccountResponse(errors);
     }
 
     private boolean accountNullCheck(String personalCode) {
-        return bankRepository.getAllBankAccounts().stream()
+        return bankRepository.findAll().stream()
                 .filter(b -> b.getPersonalCode().equals(personalCode))
                 .anyMatch(b -> b.getBalance() == null);
     }
 }
-

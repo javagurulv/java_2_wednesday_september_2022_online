@@ -1,6 +1,7 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
+import myApp.core.domain.BankAccount;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.MoneyTransferResponse;
@@ -10,22 +11,36 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 @Component
 @Transactional
 public class MoneyTransferService {
+
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
     @Autowired
     private MoneyTransferValidator validator;
 
-    public MoneyTransferResponse execute(MoneyTransferRequest request) {
+    public MoneyTransferResponse execute(MoneyTransferRequest request, String personalCode) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-            boolean result = bankRepository.bankTransfer(request.getPersonalCode(),request.getAnotherPersonalCode(),
+            Optional<BankAccount> bankAccountResult = bankRepository.findAll().stream()
+                    .filter(bankAccount -> bankAccount.getPersonalCode().equals(request.getPersonalCode()))
+                    .findFirst();
+            bankRepository.bankTransfer(personalCode, request.getAnotherPersonalCode(),
                     request.getValue());
-            return new MoneyTransferResponse(result);
-        } else {
-            return new MoneyTransferResponse(errors);
+            if (isTransactionDone(bankAccountResult.get())) {
+                return new MoneyTransferResponse(true);
+            }
         }
+        return new MoneyTransferResponse(errors);
+    }
+
+    private boolean isTransactionDone(BankAccount bankAccountResult) {
+        return bankRepository.findAll().stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(bankAccountResult.getPersonalCode()))
+                .anyMatch(bankAccount -> !Objects.equals(bankAccount.getBalance(), bankAccountResult.getBalance()));
     }
 }

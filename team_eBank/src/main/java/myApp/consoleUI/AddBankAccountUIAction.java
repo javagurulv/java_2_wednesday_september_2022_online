@@ -1,16 +1,15 @@
 package myApp.consoleUI;
-
+/*
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.requests.AddUserRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import java.util.Scanner;
 
-@Component
+//@Component
 public class AddBankAccountUIAction implements UIAction {
     @Autowired
     private AddBankAccountService service;
@@ -44,3 +43,5 @@ public class AddBankAccountUIAction implements UIAction {
         }
     }
 }
+
+ */

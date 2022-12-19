@@ -5,25 +5,22 @@ import myApp.core.domain.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class OrmBankRepositoryImpl implements BankRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    public void addBankAccount(BankAccount bankAccount, User user) {
-        sessionFactory.getCurrentSession().save(user);
-        BankAccount bankAccount1 = new BankAccount(user, bankAccount.getName(), bankAccount.getSurname(),
-                bankAccount.getRole(), bankAccount.getPersonalCode());
-        sessionFactory.getCurrentSession().save(bankAccount1);
+    public void addBankAccount(BankAccount bankAccount) {
+     //   sessionFactory.getCurrentSession().save(user);
+        //BankAccount bankAccount1 = new BankAccount(user, bankAccount.getName(), bankAccount.getSurname(), bankAccount.getPersonalCode());
+        sessionFactory.getCurrentSession().save(bankAccount);
     }
 
     @Override

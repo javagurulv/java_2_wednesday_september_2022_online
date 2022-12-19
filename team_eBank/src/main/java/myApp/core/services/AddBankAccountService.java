@@ -1,10 +1,8 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.domain.BankAccount;
-import myApp.core.domain.User;
 import myApp.core.requests.AddBankAccountRequest;
-import myApp.core.requests.AddUserRequest;
 import myApp.core.responses.AddBankAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.AddBankAccountValidator;
@@ -20,19 +18,22 @@ import java.util.List;
 public class AddBankAccountService {
 
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankAccountRepository;
     @Autowired
     private AddBankAccountValidator validator;
 
-    public AddBankAccountResponse execute(AddBankAccountRequest request, AddUserRequest userRequest) {
+    public AddBankAccountResponse execute(AddBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-            BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(),
-                    "Roles.Regular_user", request.getPersonalCode());
-            User user = new User(userRequest.getLogin(), userRequest.getPassword());
-            bankRepository.addBankAccount(bankAccount, user);
-            return new AddBankAccountResponse(bankAccount);
-        }
+           // if (duplicateCheck(request, userRequest)) {
+
+                BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(),
+                        request.getPersonalCode());
+             //   User user = new User(userRequest.getLogin(), userRequest.getPassword(),"Role_User");
+            bankAccountRepository.save(bankAccount);
+                return new AddBankAccountResponse(bankAccount);
+            }
+      //  }
         return new AddBankAccountResponse(errors);
     }
 }

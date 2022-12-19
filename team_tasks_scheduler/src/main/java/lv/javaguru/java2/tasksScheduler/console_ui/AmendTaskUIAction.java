@@ -2,13 +2,13 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.domain.Task;
-import lv.javaguru.java2.tasksScheduler.requests.AmendTaskRequest;
-import lv.javaguru.java2.tasksScheduler.requests.GetOutstandingTasksRequest;
-import lv.javaguru.java2.tasksScheduler.responses.AmendTaskResponse;
-import lv.javaguru.java2.tasksScheduler.responses.GetOutstandingTasksResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.AmendTaskService;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.GetOutstandingTasksService;
+import lv.javaguru.java2.tasksScheduler.core.domain.Task;
+import lv.javaguru.java2.tasksScheduler.core.requests.AmendTaskRequest;
+import lv.javaguru.java2.tasksScheduler.core.requests.GetOutstandingTasksRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.AmendTaskResponse;
+import lv.javaguru.java2.tasksScheduler.core.responses.GetOutstandingTasksResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.AmendTaskService;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.GetOutstandingTasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

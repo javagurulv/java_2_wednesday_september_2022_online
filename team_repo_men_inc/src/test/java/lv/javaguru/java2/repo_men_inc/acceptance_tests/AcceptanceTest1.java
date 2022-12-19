@@ -1,15 +1,21 @@
 package lv.javaguru.java2.repo_men_inc.acceptance_tests;
 
+import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
 import lv.javaguru.java2.repo_men_inc.core.requests.*;
 import lv.javaguru.java2.repo_men_inc.core.responses.*;
-import lv.javaguru.java2.repo_men_inc.services.*;
+import lv.javaguru.java2.repo_men_inc.core.services.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {RepoMenIncConfiguration.class})
 public class AcceptanceTest1 extends AcceptanceTestBase{
 
     @Test
@@ -59,6 +65,7 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
 
     @Test
     public void searchForAnExistingDebtorsInDatabase() {
+        System.out.println(appContext.getBean(Database.class).getAllDebtors());
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(debtorPresentInDatabase, null, null, null);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(1, searchDebtorResponse.getDebtors().size());
@@ -77,8 +84,8 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, null, null);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(2, searchDebtorResponse.getDebtors().size());
-        assertEquals("mr y", searchDebtorResponse.getDebtors().get(0).getName());
-        assertEquals("mr z", searchDebtorResponse.getDebtors().get(1).getName());
+        assertEquals("mr x", searchDebtorResponse.getDebtors().get(0).getName());
+        assertEquals("mr y", searchDebtorResponse.getDebtors().get(1).getName());
     }
 
     @Test
@@ -93,8 +100,8 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, orderByListSizeAscending, null);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(2, searchDebtorResponse.getDebtors().size());
-        assertEquals("mr y", searchDebtorResponse.getDebtors().get(0).getName());
-        assertEquals("mr z", searchDebtorResponse.getDebtors().get(1).getName());
+        assertEquals("mr x", searchDebtorResponse.getDebtors().get(0).getName());
+        assertEquals("mr y", searchDebtorResponse.getDebtors().get(1).getName());
     }
 
     @Test
@@ -102,8 +109,8 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, orderByNameDescending, null);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(2, searchDebtorResponse.getDebtors().size());
-        assertEquals("mr z", searchDebtorResponse.getDebtors().get(0).getName());
-        assertEquals("mr y", searchDebtorResponse.getDebtors().get(1).getName());
+        assertEquals("mr y", searchDebtorResponse.getDebtors().get(0).getName());
+        assertEquals("mr x", searchDebtorResponse.getDebtors().get(1).getName());
     }
 
     @Test
@@ -111,7 +118,7 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, null, firstPage);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(1, searchDebtorResponse.getDebtors().size());
-        assertEquals("mr y", searchDebtorResponse.getDebtors().get(0).getName());
+        assertEquals("mr x", searchDebtorResponse.getDebtors().get(0).getName());
     }
 
     @Test
@@ -119,7 +126,7 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
         SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, null, secondPage);
         SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
         assertEquals(1, searchDebtorResponse.getDebtors().size());
-        assertEquals("mr z", searchDebtorResponse.getDebtors().get(0).getName());
+        assertEquals("mr y", searchDebtorResponse.getDebtors().get(0).getName());
     }
 
     private AddDebtorService getAddDebtorService() {

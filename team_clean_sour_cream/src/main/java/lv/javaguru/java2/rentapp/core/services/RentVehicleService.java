@@ -1,5 +1,6 @@
 package lv.javaguru.java2.rentapp.core.services;
 
+import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.database.DealDatabase;
 import lv.javaguru.java2.rentapp.core.database.VehicleDatabase;
 import lv.javaguru.java2.rentapp.core.requests.GeneralRentVehicleRequest;
@@ -8,6 +9,7 @@ import lv.javaguru.java2.rentapp.core.responses.RentVehicleResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.RentVehicleValidator;
 import lv.javaguru.java2.rentapp.domain.Client;
 import lv.javaguru.java2.rentapp.domain.RentDeal;
+import lv.javaguru.java2.rentapp.domain.RentDealFactory;
 import lv.javaguru.java2.rentapp.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ import java.util.Optional;
 public class RentVehicleService {
     @Autowired
     private DealDatabase dealDatabase;
+    @Autowired
+    private ClientDatabase clientDatabase;
     @Autowired
     private VehicleDatabase vehicleDatabase;
     @Autowired
@@ -40,8 +44,11 @@ public class RentVehicleService {
         Optional<Vehicle> vehicleOpt = vehicleDatabase.getById(request.getVehicleId());
         if (vehicleOpt.isPresent()) {
             Vehicle vehicle = vehicleOpt.get();
-            RentDeal rentDeal = new RentDeal(client, vehicle, startDate, endDate);
-            dealDatabase.save(rentDeal);
+            Long clientId = clientDatabase.save(client);
+            client.setId(clientId);
+            RentDeal rentDeal = new RentDealFactory().createRentDeal(client, vehicle, startDate, endDate);
+            Long dealId = dealDatabase.save(rentDeal);
+            rentDeal.setId(dealId);
             return new RentVehicleResponse(rentDeal);
         }
 

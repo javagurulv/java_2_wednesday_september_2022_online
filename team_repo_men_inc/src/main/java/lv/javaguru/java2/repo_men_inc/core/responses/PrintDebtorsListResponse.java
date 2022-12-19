@@ -1,6 +1,6 @@
 package lv.javaguru.java2.repo_men_inc.core.responses;
 
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 
 import java.util.List;
 
