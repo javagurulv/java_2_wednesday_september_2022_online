@@ -2,16 +2,16 @@ package lv.javaguru.java2.repo_men_inc.console_ui;
 
 import lv.javaguru.java2.repo_men_inc.core.requests.*;
 import lv.javaguru.java2.repo_men_inc.core.responses.SearchDebtorResponse;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIComponent;
-import lv.javaguru.java2.repo_men_inc.dependency_injection.DIDependency;
-import lv.javaguru.java2.repo_men_inc.services.SearchDebtorService;
+import lv.javaguru.java2.repo_men_inc.core.services.SearchDebtorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-@DIComponent
+@Component
 public class SearchDebtorUIAction implements UIAction {
 
-    @DIDependency
+    @Autowired
     private SearchDebtorService searchDebtorService;
 
     @Override

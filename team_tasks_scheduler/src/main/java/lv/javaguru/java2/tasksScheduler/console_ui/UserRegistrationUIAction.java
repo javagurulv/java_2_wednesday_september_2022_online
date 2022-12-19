@@ -2,9 +2,9 @@ package lv.javaguru.java2.tasksScheduler.console_ui;
 
 
 
-import lv.javaguru.java2.tasksScheduler.requests.UserRegistrationRequest;
-import lv.javaguru.java2.tasksScheduler.responses.UserRegistrationResponse;
-import lv.javaguru.java2.tasksScheduler.services.menu_services.UserRegistrationService;
+import lv.javaguru.java2.tasksScheduler.core.requests.UserRegistrationRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.UserRegistrationResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,3 +1,20 @@
+apply plugin: 'war'
+
+war.baseName = "java2-2022-autumn"
+jar.archiveName = "java2-2022-autumn.jar"
+
+jar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+	manifest {
+		attributes "Main-Class": "lv.javaguru.java2.library.WebBookListApplication"
+	}
+
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
 dependencies {
 	implementation('org.reflections:reflections:0.9.12')
 	implementation('mysql:mysql-connector-java:8.0.22')
@@ -13,6 +30,10 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-thymeleaf:2.7.5') {
         exclude (group: 'ch.qos.logback', module: 'logback-classic')
     }
+
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat:2.7.5') {
+		exclude (group: 'ch.qos.logback', module: 'logback-classic')
+	}
 
 	testImplementation('junit:junit:4.13.1')
 	testImplementation('org.mockito:mockito-core:3.6.0')

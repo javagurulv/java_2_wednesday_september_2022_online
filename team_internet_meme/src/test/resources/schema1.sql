@@ -1,0 +1,48 @@
+DROP TABLE IF EXISTS recipes_to_ingredients CASCADE;
+DROP TABLE IF EXISTS cooking_steps CASCADE;
+DROP TABLE IF EXISTS ingredients CASCADE;
+DROP TABLE IF EXISTS recipes CASCADE;
+
+
+CREATE TABLE IF NOT EXISTS recipes (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  dishName VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 001;
+
+CREATE TABLE IF NOT EXISTS ingredients (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  ingredient VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 001;
+
+CREATE TABLE IF NOT EXISTS recipes_to_ingredients (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  recipe_id BIGINT NOT NULL,
+  ingredient_id BIGINT NOT NULL,
+  amount DOUBLE(10, 1) NOT NULL,
+  measurement VARCHAR(10) DEFAULT '',
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
+  FOREIGN KEY (ingredient_id) REFERENCES ingredients(id),
+  PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 001;
+
+CREATE TABLE IF NOT EXISTS cooking_steps (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  recipe_id BIGINT NOT NULL,
+  step_order INTEGER NOT NULL,
+  instruction VARCHAR(1000) NOT NULL,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
+  PRIMARY KEY (id)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 001;
+
+CREATE UNIQUE INDEX `idx_ingredient`
+ON ingredients (ingredient);

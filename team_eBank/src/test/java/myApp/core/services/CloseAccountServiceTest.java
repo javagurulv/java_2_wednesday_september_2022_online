@@ -5,6 +5,7 @@ import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.CloseAccountValidator;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,6 +18,7 @@ import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.*;
 
 
+@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class CloseAccountServiceTest {
 

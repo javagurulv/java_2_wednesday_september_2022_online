@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
@@ -15,7 +15,7 @@ import java.util.List;
 public class CloseAccountService {
 
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
     @Autowired
     private CloseAccountValidator validator;
 
@@ -23,16 +23,23 @@ public class CloseAccountService {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
             if (accountNullCheck(request.getPersonalCode())) {
-                boolean result = bankRepository.closeAccount(request.getPersonalCode());
-                return new CloseAccountResponse(result);
+                bankRepository.closeAccount(request.getPersonalCode());
+                if (isAccountClosed(request)) {
+                    return new CloseAccountResponse(true);
+                }
             }
         }
             return new CloseAccountResponse(errors);
     }
 
     private boolean accountNullCheck(String personalCode) {
-        return bankRepository.getAllBankAccounts().stream()
+        return bankRepository.findAll().stream()
                 .filter(b -> b.getPersonalCode().equals(personalCode))
                 .anyMatch(b -> b.getBalance() != null);
+    }
+    private boolean isAccountClosed(CloseAccountRequest request) {
+        return bankRepository.findAll().stream()
+                .filter(bankAccount -> bankAccount.getPersonalCode().equals(request.getPersonalCode()))
+                .anyMatch(bankAccount -> bankAccount.getBalance() == null);
     }
 }

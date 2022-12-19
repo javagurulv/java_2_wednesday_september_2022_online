@@ -1,11 +1,6 @@
 package myApp.consoleUI;
 
-import myApp.core.requests.CloseAccountRequest;
-import myApp.core.responses.CloseAccountResponse;
-import myApp.core.services.CloseAccountService;
-import myApp.core.services.authentication.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-
+/*
 //@Component
 public class CloseAccountUIAction implements UIAction {
     @Autowired
@@ -26,3 +21,5 @@ public class CloseAccountUIAction implements UIAction {
 
     }
 }
+
+ */

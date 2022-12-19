@@ -16,6 +16,9 @@ public class Motorcycle extends Vehicle {
     public static final int MOTO_MIN_PASSENGER_AMOUNT = 1;
     private Integer passengerAmount;
 
+    public Motorcycle() {
+    }
+
     public Motorcycle(String brand, String model, boolean isAvailableForRent, Integer yearOfProduction, Colour colour,
                       Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType, Integer passengerAmount) {
         super(brand, model, isAvailableForRent, yearOfProduction, colour, rentPricePerDay, engineType, plateNumber, transmissionType);

@@ -1,5 +1,5 @@
 package myApp.consoleUI;
-
+/*
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.RemoveBankAccountResponse;
 import myApp.core.services.RemoveBankAccountService;
@@ -30,3 +30,6 @@ public class RemoveBankAccountUIAction implements UIAction {
         }
     }
 }
+
+
+ */

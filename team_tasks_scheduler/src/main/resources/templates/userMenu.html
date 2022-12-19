@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Tasks scheduler demo project">
+    <meta name="author" content="JB, OK">
+    <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+<header>
+    <section id="header">
+        <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+        <h1>Tasks Scheduler</h1>
+        <h4><em>Welcome, <tr><td th:text="${current_user}" /></tr>!</em></h4>
+    </section>
+    <section id="sub-header">
+        <form action="/userLogout" method="get">
+            <input class="btn" type="submit" value="Logout" name="Submit" />
+        </form>
+    </section>
+</header>
+
+<main>
+    <section id="menu">
+        <table class="tbl-buttons">
+            <th>
+                <h3>User Menu</h3>
+            </th>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Show outstanding tasks</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Show tasks for today</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Add task</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Amend task</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Search task</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Delete tasks</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Amend current user information</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="https://www.google.com/">
+                    <button class="btn">Delete current user</button>
+                </a></td>
+            </tr>
+        </table>
+    </section>
+</main>
+</body>
+
+</html>

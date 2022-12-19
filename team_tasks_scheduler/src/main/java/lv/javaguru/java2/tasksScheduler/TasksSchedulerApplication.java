@@ -1,25 +1,27 @@
 package lv.javaguru.java2.tasksScheduler;
 
-import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerConfig;
 import lv.javaguru.java2.tasksScheduler.console_ui.*;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
-import lv.javaguru.java2.tasksScheduler.services.scheduled_jobs.ScheduledJobs;
+import lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs.ScheduledJobs;
 import lv.javaguru.java2.tasksScheduler.utils.TestData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
+import lv.javaguru.java2.tasksScheduler.web_ui.config.SpringWebConfiguration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Scanner;
 
 
+@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
 public class TasksSchedulerApplication {
     private static  MenuType menuType = MenuType.START;
 
     public static void main(String[] args) {
 
-        ApplicationContext applicationContext =
-                new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
+        //ApplicationContext applicationContext = new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringWebConfiguration.class);
+
 
         UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
         ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);

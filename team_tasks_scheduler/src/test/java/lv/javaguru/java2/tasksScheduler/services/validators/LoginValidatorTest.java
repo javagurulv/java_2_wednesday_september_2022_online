@@ -1,11 +1,11 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.database.UsersRepository;
-import lv.javaguru.java2.tasksScheduler.domain.User;
-import lv.javaguru.java2.tasksScheduler.requests.LoginRequest;
-import lv.javaguru.java2.tasksScheduler.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
+import lv.javaguru.java2.tasksScheduler.core.domain.User;
+import lv.javaguru.java2.tasksScheduler.core.requests.LoginRequest;
+import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.services.validators.LoginValidator;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

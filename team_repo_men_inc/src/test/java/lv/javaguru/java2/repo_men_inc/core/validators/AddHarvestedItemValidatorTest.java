@@ -1,24 +1,49 @@
 package lv.javaguru.java2.repo_men_inc.core.validators;
 
-import lv.javaguru.java2.repo_men_inc.domain.Debtor;
+import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
+import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
+import lv.javaguru.java2.repo_men_inc.core.database.Database;
+import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
+import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import lv.javaguru.java2.repo_men_inc.core.requests.AddHarvestedItemRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
-import lv.javaguru.java2.repo_men_inc.database.Database;
-import lv.javaguru.java2.repo_men_inc.database.DatabaseImpl;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigInteger;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+@Ignore
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {RepoMenIncConfiguration.class})
 public class AddHarvestedItemValidatorTest {
 
-    Database database = new DatabaseImpl();
+    protected ApplicationContext appContext =
+            new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
+
+    Database database = appContext.getBean(JdbcDatabaseImpl.class);
+    DatabaseCleaner databaseCleaner = appContext.getBean(DatabaseCleaner.class);
     AddHarvestedItemValidator addHarvestedItemValidator = new AddHarvestedItemValidator(database);
+
+    @Before
+    public void setup() {
+        databaseCleaner.clean();
+        database.saveDebtorAndReturnId(1L,"name");
+        BigInteger itemInTheListId = database.saveItem("item in the list");
+        database.updateList(itemInTheListId, 1L);
+    }
 
     @Test
     public void shouldReturnErrorsIfDebtorIsNotInTheDatabase() {
-        AddHarvestedItemRequest addHarvestedItemRequest = new AddHarvestedItemRequest(1L, "item");
+        AddHarvestedItemRequest addHarvestedItemRequest = new AddHarvestedItemRequest(9999L, "item");
         List<CoreError> errors = addHarvestedItemValidator.validate(addHarvestedItemRequest);
         assertEquals(1, errors.size());
         assertEquals("Debtor ID", errors.get(0).getField());
@@ -27,7 +52,6 @@ public class AddHarvestedItemValidatorTest {
 
     @Test
     public void shouldReturnErrorsIfItemIsEmpty() {
-        database.save(new Debtor("name"));
         AddHarvestedItemRequest addHarvestedItemRequest = new AddHarvestedItemRequest(1L, "");
         List<CoreError> errors = addHarvestedItemValidator.validate(addHarvestedItemRequest);
         assertEquals(1, errors.size());
@@ -37,7 +61,6 @@ public class AddHarvestedItemValidatorTest {
 
     @Test
     public void shouldReturnErrorsIfItemIsNull() {
-        database.save(new Debtor("name"));
         AddHarvestedItemRequest addHarvestedItemRequest = new AddHarvestedItemRequest(1L, null);
         List<CoreError> errors = addHarvestedItemValidator.validate(addHarvestedItemRequest);
         assertEquals(1, errors.size());
@@ -47,9 +70,6 @@ public class AddHarvestedItemValidatorTest {
 
     @Test
     public void shouldReturnErrorsIfItemIsAlreadyInTheList() {
-        Debtor debtor = new Debtor("name");
-        debtor.getList().add("item in the list");
-        database.save(debtor);
         AddHarvestedItemRequest addHarvestedItemRequest = new AddHarvestedItemRequest(1L, "item in the list");
         List<CoreError> errors = addHarvestedItemValidator.validate(addHarvestedItemRequest);
         assertEquals(1, errors.size());
@@ -59,7 +79,6 @@ public class AddHarvestedItemValidatorTest {
 
     @Test
     public void shouldNotReturnErrorsIfDebtorIsInTheDatabase() {
-        database.save(new Debtor("name"));
         AddHarvestedItemRequest addHarvestedItemRequest = new AddHarvestedItemRequest(1L, "item");
         List<CoreError> errors = addHarvestedItemValidator.validate(addHarvestedItemRequest);
         assertEquals(0, errors.size());

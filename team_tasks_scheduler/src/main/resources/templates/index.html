@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Tasks scheduler demo project">
+    <meta name="author" content="JB, OK">
+    <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+<header>
+    <section id="header">
+        <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+        <h1>Tasks Scheduler</h1>
+    </section>
+    <section id="sub-header">
+        <form action="/adminLogin" method="get">
+            <input class="btn" type="submit" value="System settings" name="Submit" />
+        </form>
+    </section>
+</header>
+
+<main>
+    <section id="menu">
+        <table class="tbl-buttons">
+            <th>
+                <h3>Program Menu</h3>
+            </th>
+            <tr>
+                <td><a href="/showUsernamesRegistered">
+                    <button class="btn">Show registered usernames</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="/userLogin">
+                    <button class="btn">User login</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="/userRegistration">
+                    <button class="btn">User registration</button>
+                </a></td>
+            </tr>
+        </table>
+    </section>
+</main>
+</body>
+
+</html>
