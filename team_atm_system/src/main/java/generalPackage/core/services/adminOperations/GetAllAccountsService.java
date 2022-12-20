@@ -9,14 +9,20 @@ import generalPackage.core.responses.adminResponses.CoreError;
 import generalPackage.core.responses.adminResponses.GetAllAccountsResponse;
 import generalPackage.core.services.adminOperations.adminValidators.GetAllAccountsServiceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@Transactional
 public class GetAllAccountsService {
+
+@Value("${search.ordering.enabled}")
+private boolean orderingEnabled;
 
     @Autowired
     private AccountsRepository accountsRepository;

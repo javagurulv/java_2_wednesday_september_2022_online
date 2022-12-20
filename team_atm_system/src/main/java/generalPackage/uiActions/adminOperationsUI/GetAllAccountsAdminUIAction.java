@@ -1,4 +1,4 @@
-package generalPackage.UIActions.adminOperationsUI;
+package generalPackage.uiActions.adminOperationsUI;
 
 import generalPackage.core.requests.adminRequests.GetAllAccountsRequest;
 import generalPackage.core.requests.adminRequests.Ordering;

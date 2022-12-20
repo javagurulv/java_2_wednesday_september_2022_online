@@ -1,4 +1,4 @@
-package generalPackage.UIActions.adminOperationsUI;
+package generalPackage.uiActions.adminOperationsUI;
 
 import generalPackage.core.requests.adminRequests.AddAccountRequest;
 import generalPackage.core.responses.adminResponses.AddAccountResponse;

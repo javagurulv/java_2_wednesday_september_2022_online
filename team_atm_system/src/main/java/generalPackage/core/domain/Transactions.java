@@ -3,27 +3,28 @@ package generalPackage.core.domain;
 import javax.persistence.*;
 import java.util.Objects;
 
+//@Component
 @Entity
 @Table(name = "transactions")
 public class Transactions {
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private int userID;
 
     @Id
-    @Column (name = "transactionnumber")
+    @Column(name = "transactionnumber")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transaction;
 
-    @Column (name = "amount")
+    @Column(name = "amount", nullable = false)
     private int amount;
 
     public Transactions() {
     }
 
-        public Transactions(int userID, int amount) {
+    public Transactions(int userID, int amount) {
         this.userID = userID;
-       this.amount = amount;
+        this.amount = amount;
     }
 
     public int getUserID() {

@@ -12,6 +12,7 @@ public interface AccountsRepository {
 
     List<Accounts> getAllAccounts();
 
+    //    added:
     boolean increaseBalance(int userID, int amount);
 
     boolean decreaseBalance(int userID, int amount);
@@ -20,6 +21,7 @@ public interface AccountsRepository {
 
     boolean isExist(String name);
 
+    // added 23-09:
     Accounts findUserByID(int userID);
 
     List <Accounts> searchAccountByName (String name);
