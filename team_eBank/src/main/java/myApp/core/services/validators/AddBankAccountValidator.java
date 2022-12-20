@@ -22,6 +22,7 @@ public class AddBankAccountValidator {
 
     private Optional<CoreError> validateName(AddBankAccountRequest request) {
         return  request.getName() != null
+                && !request.getName().isBlank()
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Name",
                 "Name can only contain letters and must not be empty"));
@@ -29,6 +30,7 @@ public class AddBankAccountValidator {
 
     private Optional<CoreError> validateSurname(AddBankAccountRequest request) {
         return request.getSurname() != null
+                && !request.getSurname().isBlank()
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Surname",
                 "Surname can only contain letters and must not be empty"));
@@ -36,7 +38,8 @@ public class AddBankAccountValidator {
 
     private Optional<CoreError> validatePersonalCode(AddBankAccountRequest request) {
         return //request.getPersonalCode().matches("^\\d\\d\\d\\d\\d\\d\\-\\d\\d\\d\\d\\d$") &&
-                request.getSurname() != null
+                request.getPersonalCode() != null
+                        && !request.getPersonalCode().isBlank()
                 ? Optional.empty()
                 : Optional.of(new CoreError("Field: Personal Code",
                 "Personal code can only contain numbers and must not be empty"));

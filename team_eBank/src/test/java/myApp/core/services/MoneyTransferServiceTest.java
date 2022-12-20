@@ -1,11 +1,10 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
 import myApp.core.responses.MoneyTransferResponse;
 import myApp.core.services.validators.MoneyTransferValidator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,12 +17,11 @@ import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class MoneyTransferServiceTest {
 
     @Mock
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
     @Mock
     private MoneyTransferValidator validator;
     @InjectMocks
@@ -31,13 +29,11 @@ public class MoneyTransferServiceTest {
 
     @Test
     public void testSuccessMoneyTransfer() {
-        MoneyTransferRequest request = new MoneyTransferRequest(
-                "000000-00002", 100);
+        MoneyTransferRequest request = new MoneyTransferRequest("000000-00001", 100);
         when(validator.validate(request)).thenReturn(List.of());
-        MoneyTransferResponse response = service.execute(request,"000000-00001");
-        assertFalse(response.hasErrors());
-        verify(bankRepository).bankTransfer("000000-00001",
-                "000000-00002", 100);
+        MoneyTransferResponse response = service.execute(request,"000000-00002");
+        verify(bankRepository).bankTransfer("000000-00002",
+                "000000-00001", 100);
     }
 
     @Test

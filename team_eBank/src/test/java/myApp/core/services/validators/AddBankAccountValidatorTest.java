@@ -2,7 +2,6 @@ package myApp.core.services.validators;
 
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.CoreError;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,7 +9,8 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 
-@Ignore
+
+
 public class AddBankAccountValidatorTest {
 
 
@@ -18,7 +18,7 @@ public class AddBankAccountValidatorTest {
 
     @Test
     public void testShouldReturnErrorAboutName() {
-        AddBankAccountRequest request = new AddBankAccountRequest("","ExampleTwo",
+        AddBankAccountRequest request = new AddBankAccountRequest("","Example",
                 "000000-00001");
         List<CoreError> errors = validator.validate(request);
         assertEquals("Field: Name", errors.get(0).getField());
