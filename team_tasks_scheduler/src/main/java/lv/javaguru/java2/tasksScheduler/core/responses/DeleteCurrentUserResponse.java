@@ -4,7 +4,8 @@ import java.util.List;
 
 public class DeleteCurrentUserResponse extends CoreResponse{
 
-    String deletedUserName;
+    private String deletedUserName;
+
     public DeleteCurrentUserResponse(String user) {
         this.deletedUserName = user;
     }
