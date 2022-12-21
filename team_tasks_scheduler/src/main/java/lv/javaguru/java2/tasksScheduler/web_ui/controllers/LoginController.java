@@ -30,7 +30,7 @@ public class LoginController {
             modelMap.addAttribute("errors", response.getErrors());
             return "userLogin";
         } else {
-            return "redirect:userMenu";
+            return "/userMenu";
         }
     }
 

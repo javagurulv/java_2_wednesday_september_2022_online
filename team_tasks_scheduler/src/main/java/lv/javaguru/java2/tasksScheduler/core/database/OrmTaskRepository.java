@@ -14,8 +14,8 @@ import java.util.List;
 
 import static lv.javaguru.java2.tasksScheduler.utils.ValueChecking.checkAdjustMySqlDateRange;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class OrmTaskRepository implements TasksRepository {
 
     @Autowired

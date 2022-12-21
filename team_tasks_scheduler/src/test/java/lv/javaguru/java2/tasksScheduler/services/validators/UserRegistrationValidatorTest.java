@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserRegistrationValidatorTest {
 
-    @Mock private UsersRepository usersRepository;
+    @Mock private JpaUsersRepository usersRepository;
     @InjectMocks private UserRegistrationValidator validator;
 
     @Test

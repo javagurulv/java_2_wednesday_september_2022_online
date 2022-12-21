@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.DeleteTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.DeleteTaskResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DeleteTaskService {
     @Autowired
-    private TasksRepository tasksRepository;
+    private JpaTasksRepository tasksRepository;
 
     public DeleteTaskResponse execute(DeleteTaskRequest request) {
         tasksRepository.deleteById(request.getTaskId());

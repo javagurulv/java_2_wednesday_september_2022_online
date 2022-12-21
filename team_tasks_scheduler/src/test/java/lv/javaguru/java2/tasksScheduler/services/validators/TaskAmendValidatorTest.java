@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TaskAmendValidatorTest {
 
-    @Mock private TasksRepository tasksRepository;
+    @Mock private JpaTasksRepository tasksRepository;
     @InjectMocks private TaskAmendValidator validator;
 
     @Test
@@ -28,7 +29,7 @@ public class TaskAmendValidatorTest {
         Task taskInRepo = new Task("task description", 0, LocalDateTime.now().minusDays(2),
                 LocalDateTime.now().minusDays(1), 1L);
         taskInRepo.setId(1L);
-        when(tasksRepository.getTaskById(taskInRepo.getId())).thenReturn(taskInRepo);
+        when(tasksRepository.findTaskById(taskInRepo.getId())).thenReturn(taskInRepo);
         Task task = new Task("task description", 0, LocalDateTime.now().plusMinutes(1),
                 LocalDateTime.now().plusMinutes(2), 1L);
         task.setId(1L);
@@ -45,7 +46,7 @@ public class TaskAmendValidatorTest {
                 LocalDateTime.now().plusMinutes(2), 1L);
         task.setId(1L);
         AmendTaskRequest request = new AmendTaskRequest(task);
-        when(tasksRepository.getTaskById(request.getTask().getId())).thenReturn(task);
+        when(tasksRepository.findTaskById(request.getTask().getId())).thenReturn(task);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
     }

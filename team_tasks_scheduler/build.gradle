@@ -22,8 +22,7 @@ dependencies {
 		exclude (group: 'ch.qos.logback', module: 'logback-classic')
 	}
 
-	//implementation("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
-	//implementation('org.mongodb:mongodb-driver-sync:4.8.0')
+	implementation('org.mongodb:mongodb-driver-sync:4.8.0')
 	//implementation('org.springframework.boot:spring-boot-starter-data-mongodb:2.7.5')
 
 	testImplementation('junit:junit:4.13.1')

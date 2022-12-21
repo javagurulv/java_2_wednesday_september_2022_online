@@ -1,9 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.LoginRequest;
@@ -24,10 +23,10 @@ import java.util.List;
 @Transactional
 public class LoginService {
 
-    @Autowired private UsersRepository usersRepository;
+    @Autowired private JpaUsersRepository usersRepository;
     @Autowired
     private LoginValidator validator;
-    @Autowired private TasksRepository tasksRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
     @Autowired private SessionService sessionService;
 
     public LoginResponse execute(LoginRequest request) {
@@ -37,7 +36,7 @@ public class LoginService {
             return new LoginResponse(errors);
         }
 
-        User user = usersRepository.getUserByNameAndPassword(request.getUserName(),
+        User user = usersRepository.findUserByUsernameAndPassword(request.getUserName(),
                                              Encryption.stringHashing(request.getPassword()));
 
         sessionService.login(user.getId(), request.getPassword());
