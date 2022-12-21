@@ -2,11 +2,10 @@ package lv.javaguru.java2.eBooking.core.database;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
 
 import java.util.List;
 
-public interface Database {
+public interface ClientRepository {
 
    void saveClient(Client client);
 

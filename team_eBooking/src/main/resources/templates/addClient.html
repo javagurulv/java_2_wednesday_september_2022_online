@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Booking project">
+    <meta name="author" content="JavaGuru">
+    <title>Appointment eBooking</title>
+</head>
+
+<body>
+
+<h3>Add Client to list</h3>
+
+<table>
+    <tr>
+        <td>E-mail:</td>
+        <td>Telephone number:</td>
+    </tr>
+
+    <tr>
+        <form action="/addClient" th:object="${request}" method="post">
+            <td><input type="text" th:field="${request.clientEmail}"/></td>
+            <td><input type="text" th:field="${request.clientPhoneNumber}"/></td>
+            <td>
+                <input type="submit" value="Add Client"/>
+                <input type="reset" value="Clear"/>
+            </td>
+        </form>
+    </tr>
+</table>
+
+</body>
+
+</html>

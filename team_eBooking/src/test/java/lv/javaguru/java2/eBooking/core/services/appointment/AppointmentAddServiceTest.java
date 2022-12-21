@@ -1,13 +1,12 @@
 package lv.javaguru.java2.eBooking.core.services.appointment;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentAddResponse;
 import lv.javaguru.java2.eBooking.core.services.validators.AppointmentAddValidator;
 import lv.javaguru.java2.eBooking.core.services.validators.AppointmentValidationResult;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,7 +22,7 @@ import static org.junit.Assert.*;
 public class AppointmentAddServiceTest {
 
     @Mock
-    private Database database;
+    private ClientRepository clientRepository;
     @Mock
     private AppointmentAddValidator validator;
     @InjectMocks
@@ -54,7 +53,7 @@ public class AppointmentAddServiceTest {
                                 AppointmentValidationResult.SERVICETYPE_MUST_NOT_BE_EMPTY)));
         AppointmentAddResponse response = service.execute(request);
         assertEquals(response.getErrors().size(), 2);
-        Mockito.verifyNoInteractions(database);
+        Mockito.verifyNoInteractions(clientRepository);
     }
 
     @Test

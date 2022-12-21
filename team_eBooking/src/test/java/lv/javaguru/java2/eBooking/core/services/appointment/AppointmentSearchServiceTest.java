@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.appointment;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentSearchRequest;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 @RunWith(MockitoJUnitRunner.class)
 public class AppointmentSearchServiceTest {
 
-    @Mock private Database database;
+    @Mock private ClientRepository clientRepository;
     @Mock private AppointmentSearchValidator validator;
     @InjectMocks private AppointmentSearchService service;
 
@@ -45,7 +45,7 @@ public class AppointmentSearchServiceTest {
 
         Mockito.verify(validator).validate(request);
         Mockito.verify(validator).validate(any());
-        Mockito.verifyNoInteractions(database);
+        Mockito.verifyNoInteractions(clientRepository);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class AppointmentSearchServiceTest {
         appointments.add(new Appointment("Master name2", null));
 
         Mockito
-                .when(database.findAppointmentByMasterName("Master name"))
+                .when(clientRepository.findAppointmentByMasterName("Master name"))
                 .thenReturn(appointments);
 
         AppointmentSearchResponse response = service.execute(request);
@@ -94,7 +94,7 @@ public class AppointmentSearchServiceTest {
         appointments.add(new Appointment("Master name2", null));
 
         Mockito
-                .when(database.findAppointmentByMasterName("Master name1"))
+                .when(clientRepository.findAppointmentByMasterName("Master name1"))
                 .thenReturn(appointments);
 
         AppointmentSearchResponse response = service.execute(request);
@@ -120,7 +120,7 @@ public class AppointmentSearchServiceTest {
         List<Appointment> appointments = new ArrayList<>();
         appointments.add(new Appointment(null, "Type of service"));
         Mockito
-                .when(database.findAppointmentByTypeOfService("Type of service"))
+                .when(clientRepository.findAppointmentByTypeOfService("Type of service"))
                 .thenReturn(appointments);
 
         AppointmentSearchResponse response = service.execute(request);
@@ -147,7 +147,7 @@ public class AppointmentSearchServiceTest {
         appointments.add(new Appointment(null, "Type of service2"));
 
         Mockito
-                .when(database.findAppointmentByTypeOfService("Type of service1"))
+                .when(clientRepository.findAppointmentByTypeOfService("Type of service1"))
                 .thenReturn(appointments);
 
         AppointmentSearchResponse response = service.execute(request);

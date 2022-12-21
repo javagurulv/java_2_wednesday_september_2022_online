@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.appointment;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Ordering;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.Paging;
@@ -14,13 +14,12 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 @Component
 public class AppointmentSearchService {
     @Autowired
-    private Database database;
+    private ClientRepository clientRepository;
     @Autowired
     private AppointmentSearchValidator validator;
 
@@ -41,13 +40,13 @@ public class AppointmentSearchService {
     private List<Appointment> search(AppointmentSearchRequest request) {
         List<Appointment> appointments = new ArrayList<>();
         if (request.isMasterNameProvided() && !request.isTypeOfServiceProvided()) {
-            appointments = database.findAppointmentByMasterName(request.getMasterName());
+            appointments = clientRepository.findAppointmentByMasterName(request.getMasterName());
         }
         if (request.isTypeOfServiceProvided() && !request.isMasterNameProvided()) {
-            appointments = database.findAppointmentByTypeOfService(request.getTypeOfService());
+            appointments = clientRepository.findAppointmentByTypeOfService(request.getTypeOfService());
         }
         if (request.isMasterNameProvided() && request.isTypeOfServiceProvided()) {
-            appointments = database.findAppointmentByMasterNameAndTypeOfService(request.getMasterName(),
+            appointments = clientRepository.findAppointmentByMasterNameAndTypeOfService(request.getMasterName(),
                     request.getTypeOfService());
         }
         return appointments;

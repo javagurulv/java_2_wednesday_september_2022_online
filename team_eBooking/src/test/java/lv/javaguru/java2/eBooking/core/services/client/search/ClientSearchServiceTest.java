@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.client.search;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 public class ClientSearchServiceTest {
 
     @Mock
-    private Database database;
+    private ClientRepository clientRepository;
 
     @Mock
     private ClientSearchValidator validator;
@@ -50,7 +50,7 @@ public class ClientSearchServiceTest {
         assertEquals(response.getErrors().get(1).getClientValidationMessage(),
                 ClientValidationResult.PHONE_NUMBER_MUST_NOT_BE_EMPTY);
 
-        Mockito.verifyNoInteractions(database);
+        Mockito.verifyNoInteractions(clientRepository);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ClientSearchServiceTest {
         Mockito.when(validator.validate(request)).thenReturn(new ArrayList<>());
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Email", "Phone number"));
-        Mockito.when(database.findClientByEMail("Email")).thenReturn(clients);
+        Mockito.when(clientRepository.findClientByEMail("Email")).thenReturn(clients);
         ClientSearchResponse response = service.execute(request);
 
         assertFalse(response.hasError());
@@ -75,7 +75,7 @@ public class ClientSearchServiceTest {
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Email", "Phone number"));
         Mockito
-                .when(database.findClientByPhoneNumber("Phone number"))
+                .when(clientRepository.findClientByPhoneNumber("Phone number"))
                 .thenReturn(clients);
         ClientSearchResponse response = service.execute(request);
 
@@ -92,7 +92,7 @@ public class ClientSearchServiceTest {
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Email", "Phone number"));
         Mockito
-                .when(database.findClientByEmailAndPhoneNumber("Email", "Phone number"))
+                .when(clientRepository.findClientByEmailAndPhoneNumber("Email", "Phone number"))
                 .thenReturn(clients);
         ClientSearchResponse response = service.execute(request);
 

@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientSearchRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ClientSearchService {
 
     @Autowired
-    Database database;
+    ClientRepository clientRepository;
     @Autowired
     private ClientSearchValidator validator;
 
@@ -31,13 +31,13 @@ public class ClientSearchService {
     private List<Client> search(ClientSearchRequest request) {
         List<Client> clients = new ArrayList<>();
         if (request.isEmailProvided() && !request.isPhoneNumberProvided()) {
-            clients = database.findClientByEMail(request.getClientEmail());
+            clients = clientRepository.findClientByEMail(request.getClientEmail());
         }
         if (request.isPhoneNumberProvided() && !request.isEmailProvided()) {
-            clients = database.findClientByPhoneNumber(request.getClientPhoneNumber());
+            clients = clientRepository.findClientByPhoneNumber(request.getClientPhoneNumber());
         }
         if (request.isEmailProvided() && request.isPhoneNumberProvided()) {
-            clients = database.findClientByEmailAndPhoneNumber(request.getClientEmail(), request.getClientPhoneNumber());
+            clients = clientRepository.findClientByEmailAndPhoneNumber(request.getClientEmail(), request.getClientPhoneNumber());
         }
         return clients;
     }

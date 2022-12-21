@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientRemoveResponse;
@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 public class ClientRemoveServiceTest {
 
     @Mock
-    private Database database;
+    private ClientRepository clientRepository;
 
     @Mock
     private ClientRemoveValidator validator;
@@ -50,7 +50,7 @@ public class ClientRemoveServiceTest {
     @Test
     public void shouldDeleteClientFromDatabase(){
         Mockito.when(validator.validate(any())).thenReturn(new ArrayList<>());
-        Mockito.when(database.deleteClientById(1L)).thenReturn(true);
+        Mockito.when(clientRepository.deleteClientById(1L)).thenReturn(true);
         ClientRemoveRequest request = new ClientRemoveRequest(1L);
         ClientRemoveResponse response = service.execute(request);
         assertFalse(response.hasError());

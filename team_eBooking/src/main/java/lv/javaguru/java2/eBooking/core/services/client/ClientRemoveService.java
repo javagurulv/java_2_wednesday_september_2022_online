@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientRemoveResponse;
@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class ClientRemoveService {
     @Autowired
-    Database database;
+    ClientRepository clientRepository;
     @Autowired
     ClientRemoveValidator validator;
 
@@ -26,7 +26,7 @@ public class ClientRemoveService {
             errors.add(error);
             return new ClientRemoveResponse(errors);
         }
-        boolean isClientRemoved = database.deleteClientById(request.getRemoveClientId());
+        boolean isClientRemoved = clientRepository.deleteClientById(request.getRemoveClientId());
         return new ClientRemoveResponse(isClientRemoved);
     }
 }

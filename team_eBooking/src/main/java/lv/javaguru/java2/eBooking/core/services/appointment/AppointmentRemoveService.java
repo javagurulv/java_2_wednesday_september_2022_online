@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.appointment;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.requests.appointment_request.AppointmentRemoveRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
 import lv.javaguru.java2.eBooking.core.responses.appointment.AppointmentRemoveResponse;
@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class AppointmentRemoveService {
     @Autowired
-    private Database database;
+    private ClientRepository clientRepository;
     @Autowired
     private AppointmentRemoveValidator validator;
 
@@ -26,7 +26,7 @@ public class AppointmentRemoveService {
             return new AppointmentRemoveResponse(errors);
         }
 
-       boolean isAppointmentRemoved =  database.deleteAppointmentById(request.getAppointmentId());
+       boolean isAppointmentRemoved =  clientRepository.deleteAppointmentById(request.getAppointmentId());
        return new AppointmentRemoveResponse(isAppointmentRemoved);
     }
 }

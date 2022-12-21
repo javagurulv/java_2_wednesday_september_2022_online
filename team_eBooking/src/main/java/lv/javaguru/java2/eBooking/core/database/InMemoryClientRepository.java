@@ -2,8 +2,6 @@ package lv.javaguru.java2.eBooking.core.database;
 
 import lv.javaguru.java2.eBooking.core.domain.Appointment;
 import lv.javaguru.java2.eBooking.core.domain.Client;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientValidationResult;
-import lv.javaguru.java2.eBooking.dependency_injection.DIComponent;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Component
-public class InMemoryDatabase implements Database {
+public class InMemoryClientRepository implements ClientRepository {
     private Long nextId = 1L;
     private List<Client> clients = new ArrayList<>();
     private List<Appointment> appointments = new ArrayList<>();
