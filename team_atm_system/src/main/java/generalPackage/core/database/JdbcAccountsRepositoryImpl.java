@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
+// 19.11 temporary add:
+
 
 // @Component
 public class JdbcAccountsRepositoryImpl implements AccountsRepository {
@@ -44,7 +46,10 @@ public class JdbcAccountsRepositoryImpl implements AccountsRepository {
         String sql = "UPDATE accounts SET balance = balance + ? where id = ?";
         Object[] args = new Object[]{amount, userID};
 
+        //     19.11 temporary add:
+//        if ((jdbcTemplate.update(sql, args) == 1)) {
         transactionDatabase.increaseBalanceRecord(userID, amount);
+//        }
         return jdbcTemplate.update(sql, args) == 1;
     }
 
@@ -56,6 +61,7 @@ public class JdbcAccountsRepositoryImpl implements AccountsRepository {
         String sqlCheck = "SELECT balance from accounts WHERE id = ?";
         Object[] argsCheck = new Object[]{userID};
         int startingBalance = jdbcTemplate.queryForObject(sqlCheck, argsCheck, Integer.class);
+//        19.11 temporary add:
         if (startingBalance >= amount) {
             jdbcTemplate.update(sql, args);
             transactionDatabase.decreaseBalanceRecord(userID, amount);

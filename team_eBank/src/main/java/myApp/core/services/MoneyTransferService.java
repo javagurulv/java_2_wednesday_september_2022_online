@@ -31,8 +31,11 @@ public class MoneyTransferService {
                     .findFirst();
             bankRepository.bankTransfer(personalCode, request.getAnotherPersonalCode(),
                     request.getValue());
-            if (isTransactionDone(bankAccountResult.get())) {
-                return new MoneyTransferResponse(true);
+
+            if (bankAccountResult.isPresent()) {
+                if (isTransactionDone(bankAccountResult.get())) {
+                    return new MoneyTransferResponse(true);
+                }
             }
         }
         return new MoneyTransferResponse(errors);

@@ -1,9 +1,10 @@
-package generalPackage.UIActions.usersOperationsUI;
+package generalPackage.uiActions.adminOperationsUI;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExitServiceUIAction implements UI_Menu {
+public class ExitAdminUIAction implements AdminUIactions {
+
 
     @Override
     public void execute() {

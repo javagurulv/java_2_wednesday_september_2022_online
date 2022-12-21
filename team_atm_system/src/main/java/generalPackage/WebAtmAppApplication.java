@@ -1,22 +1,28 @@
 package generalPackage;
 
-import generalPackage.UIActions.adminOperationsUI.*;
-import generalPackage.UIActions.usersOperationsUI.DecreaseBalanceServiceUIAction;
-import generalPackage.UIActions.usersOperationsUI.ExitServiceUIAction;
-import generalPackage.UIActions.usersOperationsUI.IncreaseBalanceServiceUIAction;
-import generalPackage.UIActions.usersOperationsUI.PrintBalanceServiceUIAction;
-import generalPackage.config.AtmAppConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import generalPackage.uiActions.adminOperationsUI.*;
+import generalPackage.uiActions.usersOperationsUI.DecreaseBalanceServiceUIAction;
+import generalPackage.uiActions.usersOperationsUI.ExitServiceUIAction;
+import generalPackage.uiActions.usersOperationsUI.IncreaseBalanceServiceUIAction;
+import generalPackage.uiActions.usersOperationsUI.PrintBalanceServiceUIAction;
+import generalPackage.web_ui.config.SpringWebConfiguration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Scanner;
 
-public class ATM_app {
+@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+//public class ATM_app {
+public class WebAtmAppApplication {
 
 
-    private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AtmAppConfiguration.class);
+//    private static ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringCoreConfiguration.class);
+private  static ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringWebConfiguration.class);
 
     public static void main(String[] args) {
+//        ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringWebConfiguration.class);
 
         while (true) {
             printOperationChoice();

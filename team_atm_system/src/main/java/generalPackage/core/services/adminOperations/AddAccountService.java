@@ -15,6 +15,7 @@ import java.util.List;
 
 
 @Component
+@Transactional
 public class AddAccountService {
 
     @Autowired

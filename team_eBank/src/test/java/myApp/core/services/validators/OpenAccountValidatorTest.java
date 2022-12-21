@@ -1,5 +1,5 @@
 package myApp.core.services.validators;
-/*
+
 import myApp.core.requests.OpenAccountRequest;
 import myApp.core.responses.CoreError;
 import org.junit.Test;
@@ -35,5 +35,3 @@ public class OpenAccountValidatorTest {
         assertEquals("Personal code must not be empty", errors.get(0).getMessage());
     }
 }
-
- */

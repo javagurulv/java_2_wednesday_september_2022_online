@@ -83,14 +83,18 @@ main {
     text-align: center;
 }
 
-.tbl-buttons { 
+.tbl-buttons {
     table-layout: fixed;
     border-collapse: collapse;
-  }
+ }
 
  .tbl-buttons button {
     width: 100%;
-  }
+ }
+
+.form-confirm-button {
+     float:left;
+}
 
 #msg-error {
     background-color: pink;

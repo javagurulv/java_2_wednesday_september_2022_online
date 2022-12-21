@@ -8,15 +8,18 @@ import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
 import myApp.core.services.SearchBankAccountService;
-import myApp.matcher.DatabaseCleaner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,12 +35,21 @@ public class AcceptanceTest2 {
     @Autowired
     private SearchBankAccountService searchBankAccountServiceService;
     @Autowired
-    private DatabaseCleaner databaseCleaner;
+    private JdbcTemplate jdbcTemplate;
+
 
     @Before
     public void setup() {
-        databaseCleaner.clean();
+        List<String> tableNames = new ArrayList<>();
+        tableNames.add("bank_accounts");
+        tableNames.add("users");
+
+        for (String tableName : tableNames) {
+            String sql = "delete from " + tableName;
+            jdbcTemplate.execute(sql);
+        }
     }
+
     @Test
     public void testSuccessFindTwoBankAccounts() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleOne",

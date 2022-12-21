@@ -1,11 +1,10 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.requests.CloseAccountRequest;
 import myApp.core.responses.CloseAccountResponse;
 import myApp.core.responses.CoreError;
 import myApp.core.services.validators.CloseAccountValidator;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,16 +13,17 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static org.mockito.Mockito.*;
 
 
-@Ignore
+
 @RunWith(MockitoJUnitRunner.class)
 public class CloseAccountServiceTest {
 
     @Mock
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
     @Mock
     private CloseAccountValidator validator;
     @InjectMocks

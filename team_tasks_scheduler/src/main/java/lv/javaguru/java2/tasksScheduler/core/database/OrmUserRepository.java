@@ -37,7 +37,11 @@ public class OrmUserRepository implements UsersRepository {
 
     @Override
     public boolean update(User user) {
-        sessionFactory.getCurrentSession().update(user);
+        try {
+            sessionFactory.getCurrentSession().merge(user);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
