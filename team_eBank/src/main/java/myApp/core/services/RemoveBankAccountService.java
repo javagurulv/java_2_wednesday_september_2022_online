@@ -23,28 +23,11 @@ public class RemoveBankAccountService {
     public RemoveBankAccountResponse execute(RemoveBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-           bankRepository.deleteById(request.getId());
-            if (!bankRepository.existsById(request.getId())) {
-                return new RemoveBankAccountResponse(true);
-            }
+            bankRepository.deleteByPersonalCode(request.getPersonalCode());
+            return new RemoveBankAccountResponse(true);
         }
         return new RemoveBankAccountResponse(errors);
     }
-
-
-/*
-    public RemoveBankAccountResponse execute(RemoveBankAccountRequest request) {
-        List<CoreError> errors = validator.validate(request);
-        if (errors.isEmpty()) {
-            bankRepository.deleteById(request.getId());
-            if (!bankRepository.existsById(request.getId())) {
-                return new RemoveBankAccountResponse(true);
-            }
-     //   }
-        return new RemoveBankAccountResponse(null);
-    }
-
- */
 }
 
 

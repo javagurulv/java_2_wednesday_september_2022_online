@@ -19,8 +19,8 @@ public class CloseAccountController {
     public String showOpenAccountPage(ModelMap modelMap) {
         CloseAccountRequest request = new CloseAccountRequest(getUserName());
         CloseAccountResponse response = service.execute(request);
-        if (response.hasErrors()) {
-            return "redirect:/user";
+        if (!response.isDeleted()) {
+            return "redirect: /user";
         } else {
             return "closeAccount";
         }
