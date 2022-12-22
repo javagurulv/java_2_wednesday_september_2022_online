@@ -48,7 +48,7 @@ public class GetUsersService {
         if (request.isUsernameProvided() && request.isEmailProvided()) {
             return usersRepository.getUsersByUsernameAndEmail(request.getUsername(), request.getEmail());
         }
-        return usersRepository.findAllUsers();
+        return usersRepository.findAll();
     }
 
     private List<User> order(List<User> users, Ordering ordering) {

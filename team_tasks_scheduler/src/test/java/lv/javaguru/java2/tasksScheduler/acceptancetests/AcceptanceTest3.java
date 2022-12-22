@@ -1,16 +1,17 @@
 package lv.javaguru.java2.tasksScheduler.acceptancetests;
 
 import lv.javaguru.java2.tasksScheduler.config.TaskSchedulerCoreConfig;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
+import lv.javaguru.java2.tasksScheduler.core.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.core.requests.*;
 import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Paging;
-import lv.javaguru.java2.tasksScheduler.core.responses.CheckSettingsResponse;
-import lv.javaguru.java2.tasksScheduler.core.responses.GetOutstandingTasksResponse;
-import lv.javaguru.java2.tasksScheduler.core.responses.GetUsersResponse;
-import lv.javaguru.java2.tasksScheduler.core.responses.SearchTasksResponse;
+import lv.javaguru.java2.tasksScheduler.core.responses.*;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.*;
 import lv.javaguru.java2.tasksScheduler.core.services.system.CheckSettingsExistenceService;
-import lv.javaguru.java2.tasksScheduler.enums.MenuType;
+import lv.javaguru.java2.tasksScheduler.core.services.system.GetSettingsService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.SessionService;
+import lv.javaguru.java2.tasksScheduler.utils.Encryption;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,13 @@ public class AcceptanceTest3 {
     @Autowired private CheckSettingsExistenceService checkSettingsExistenceService;
     @Autowired private GetOutstandingTasksService getOutstandingTasksService;
     @Autowired private SearchTasksService searchTasksService;
+    @Autowired private SessionService sessionService;
+    @Autowired private GetSettingsService getSettingsService;
+    @Autowired private JpaSettingsRepository settingsRepository;
 
 
     @Test
-    public void shouldDeleteCorrectTaskCountTillDate() {
+    public void shouldFindCorrectTaskCountWithPaging() {
         AddTaskRequest request;
         UserRegistrationRequest registrationRequest;
         SearchTasksRequest getTasksRequest;
@@ -88,7 +92,7 @@ public class AcceptanceTest3 {
 
         loginService.execute(new LoginRequest("1111","1111"));
         order = new Ordering("end date", "ascending");
-        pages = new Paging(1, 3);
+        pages = new Paging(1, 3); //3 tasks on the page
         getTasksRequest = new SearchTasksRequest("joga", order, pages);
         getTasksResponse = searchTasksService.execute(getTasksRequest);
         logoutService.execute(new LogoutRequest());
@@ -103,14 +107,64 @@ public class AcceptanceTest3 {
 
     }
 
-
     @Test
-    public void shouldReturnCorrectSettingList() {
+    public void shouldReturnCorrectSettings() {
 
-        assertEquals(3, 3);
+        Settings settings = new Settings("admin", "adminadmin@mail.com", "qwerty123",
+                "smtp.mail.com", "666", "ssl");
 
+        AddSettingsRequest request = new AddSettingsRequest(settings.getAdminPassword(),
+                                                                settings.getEmailFrom(),
+                                                            settings.getEmailPassword(),
+                                                                settings.getEmailHost(),
+                                                                settings.getEmailPort(),
+                                                            settings.getEmailProtocol());
+        AddSettingsResponse response = addSettingsService.execute(request);
+
+        sessionService.login(0L, "admin");
+        GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
+        Settings settingsReceived = getSettingsResponse.getSettings();
+
+        assertEquals(settings, settingsReceived);
 
     }
 
+    @Test
+    public void shouldBeCorrectPassword() {
+        Settings settings = new Settings("admin", "adminadmin@mail.com",
+                                "qwerty123","smtp.mail.com",
+                                                "666", "ssl");
+
+        AddSettingsRequest request = new AddSettingsRequest(settings.getAdminPassword(),
+                                                                settings.getEmailFrom(),
+                                                                settings.getEmailPassword(),
+                                                                settings.getEmailHost(),
+                                                                settings.getEmailPort(),
+                                                                settings.getEmailProtocol());
+        AddSettingsResponse response = addSettingsService.execute(request);
+
+        boolean result = settingsRepository.passwordIsValid(Encryption.stringHashing("admin"));
+
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void shouldBeIncorrectPassword (){
+        Settings settings = new Settings("admin", "adminadmin@mail.com",
+                "qwerty123","smtp.mail.com",
+                "666", "ssl");
+
+        AddSettingsRequest request = new AddSettingsRequest(settings.getAdminPassword(),
+                                                                  settings.getEmailFrom(),
+                                                                settings.getEmailPassword(),
+                                                                    settings.getEmailHost(),
+                                                                    settings.getEmailPort(),
+                                                                settings.getEmailProtocol());
+        AddSettingsResponse response = addSettingsService.execute(request);
+
+        boolean result = settingsRepository.passwordIsValid(Encryption.stringHashing("notAdmin"));
+
+        assertEquals(false, result);
+    }
 
 }

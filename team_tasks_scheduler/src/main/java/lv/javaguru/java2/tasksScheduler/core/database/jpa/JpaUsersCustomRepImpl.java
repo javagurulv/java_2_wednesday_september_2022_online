@@ -2,9 +2,12 @@ package lv.javaguru.java2.tasksScheduler.core.database.jpa;
 
 
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -14,8 +17,21 @@ public class JpaUsersCustomRepImpl implements JpaUsersCustomRep {
     private EntityManager entityManager;
 
     @Override
+    @Modifying(clearAutomatically = true)
     public boolean update(User user) {
-        return false;
+        String hql = "UPDATE User u set u.username =:username, u.password =:password, " +
+                                        " u.email =:email, u.sendReminders =:sendReminders " +
+                                            " where u.id = :id";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("username", user.getUsername());
+        query.setParameter("password", user.getPassword());
+        query.setParameter("email", user.getEmail());
+        query.setParameter("sendReminders", user.getSendReminders());
+        query.setParameter("id", user.getId());
+
+        int result = query.executeUpdate(); //should update only one row
+
+        return result == 1;
     }
 
     @Override
@@ -47,11 +63,4 @@ public class JpaUsersCustomRepImpl implements JpaUsersCustomRep {
         return query.getResultList();
     }
 
-    public boolean existsByName(String username) {
-        return false;
-    }
-
-   public List<User> getUsersAcceptedReminders() {
-        return null;
-    }
 }

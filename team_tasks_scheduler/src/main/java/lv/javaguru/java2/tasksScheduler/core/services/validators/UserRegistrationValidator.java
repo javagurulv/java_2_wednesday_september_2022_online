@@ -54,7 +54,7 @@ public class UserRegistrationValidator {
         if (request == null) {
             return Optional.empty();
         }
-        if (usersRepository.existsByName(request.getUsername())) {
+        if (usersRepository.existsByUsername(request.getUsername())) {
             return Optional.of(new CoreError("Username", "This username is already used!"));
         }
         return Optional.empty();

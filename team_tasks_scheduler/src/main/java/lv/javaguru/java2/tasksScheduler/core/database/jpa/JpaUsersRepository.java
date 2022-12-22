@@ -2,6 +2,7 @@ package lv.javaguru.java2.tasksScheduler.core.database.jpa;
 
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,10 @@ public interface JpaUsersRepository extends JpaRepository<User, Long>, JpaUsersC
 
     User findUserById(Long userId);
 
-    @Query(value = "SELECT * FROM users", nativeQuery = true)
-    List<User> findAllUsers();
+    boolean existsByUsername(String username);
 
+    List<User> findAll();
+
+    @Query(value = "SELECT * FROM users WHERE send_reminder = true", nativeQuery = true)
+    List<User> getUsersAcceptedReminders();
 }

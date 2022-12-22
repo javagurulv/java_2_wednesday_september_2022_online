@@ -28,7 +28,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User(null, "password",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User name");
@@ -40,7 +40,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User(" ", "password",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User name");
@@ -52,7 +52,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("abc", "password",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User name");
@@ -64,7 +64,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", "password",
                 null, false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "E-mail");
@@ -76,7 +76,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", "password",
                 " ", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "E-mail");
@@ -89,7 +89,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", "password",
                 "test.test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "E-mail");
@@ -101,7 +101,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", null,
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Password");
@@ -113,7 +113,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", " ",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Password");
@@ -125,7 +125,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", "pas",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Password");
@@ -137,7 +137,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", "password",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(true);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(true);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Username");
@@ -149,7 +149,7 @@ public class UserRegistrationValidatorTest {
         User addedUser = new User("username", "password",
                 "test@test.com", false);
         UserRegistrationRequest request = new UserRegistrationRequest(addedUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
     }

@@ -19,7 +19,6 @@ public class TasksSchedulerApplication {
 
     public static void main(String[] args) {
 
-        //ApplicationContext applicationContext = new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringWebConfiguration.class);
 
 

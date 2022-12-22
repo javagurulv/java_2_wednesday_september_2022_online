@@ -37,7 +37,7 @@ public class UserAmendValidator {
         if (currentUser.getUsername().equals(request.getUsername())) {
             return Optional.empty();
         }
-        if (usersRepository.existsByName(request.getUsername())) {
+        if (usersRepository.existsByUsername(request.getUsername())) {
             return Optional.of(new CoreError("User", "Already exists in the database!"));
         }
         return Optional.empty();

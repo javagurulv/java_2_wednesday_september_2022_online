@@ -14,7 +14,4 @@ public interface JpaUsersCustomRep {
 
     List<User> getUsersByUsernameAndEmail(String username, String email);
 
-    boolean existsByName(String username);
-
-    List<User> getUsersAcceptedReminders();
 }

@@ -104,18 +104,19 @@ public class Settings {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Settings settings = (Settings) o;
-        return Objects.equals(adminPassword, settings.adminPassword) && Objects.equals(emailFrom, settings.emailFrom) && Objects.equals(emailPassword, settings.emailPassword) && Objects.equals(emailHost, settings.emailHost) && Objects.equals(emailPort, settings.emailPort) && Objects.equals(emailProtocol, settings.emailProtocol);
+        return Objects.equals(id, settings.id) && Objects.equals(adminPassword, settings.adminPassword) && Objects.equals(emailFrom, settings.emailFrom) && Objects.equals(emailPassword, settings.emailPassword) && Objects.equals(emailHost, settings.emailHost) && Objects.equals(emailPort, settings.emailPort) && Objects.equals(emailProtocol, settings.emailProtocol);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(adminPassword, emailFrom, emailPassword, emailHost, emailPort, emailProtocol);
+        return Objects.hash(id, adminPassword, emailFrom, emailPassword, emailHost, emailPort, emailProtocol);
     }
 
     @Override
     public String toString() {
         return "Settings{" +
-                "adminPassword='" + adminPassword + '\'' +
+                "id=" + id +
+                ", adminPassword='" + adminPassword + '\'' +
                 ", emailFrom='" + emailFrom + '\'' +
                 ", emailPassword='" + emailPassword + '\'' +
                 ", emailHost='" + emailHost + '\'' +

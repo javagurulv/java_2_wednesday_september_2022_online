@@ -45,7 +45,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(true);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(true);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User");
@@ -74,7 +74,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User name");
@@ -90,7 +90,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User name");
@@ -106,7 +106,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "User name");
@@ -122,7 +122,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "E-mail");
@@ -138,7 +138,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "E-mail");
@@ -154,7 +154,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "E-mail");
@@ -170,7 +170,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Password");
@@ -186,7 +186,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Password");
@@ -202,7 +202,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 1);
         assertEquals(errors.get(0).getField(), "Password");
@@ -218,7 +218,7 @@ public class UserAmendValidatorTest {
         AmendCurrentUserRequest request = new AmendCurrentUserRequest(amendedUser);
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
-        when(usersRepository.existsByName(request.getUsername())).thenReturn(false);
+        when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
         assertEquals(errors.size(), 0);
     }

@@ -20,20 +20,23 @@ public class JpaSettingsCustomRepImpl implements JpaSettingsCustomRep {
         String hql = "SELECT s FROM Settings s";
         TypedQuery<Settings> query = entityManager.createQuery(hql, Settings.class);
         List<Settings> result =  query.getResultList();
+
         return !result.isEmpty();
     }
 
     public boolean passwordIsValid(String password) {
-        String hql = "SELECT * FROM Settings WHERE adminPassword = :adminPassword";
+        String hql = "SELECT s FROM Settings s WHERE adminPassword = :adminPassword";
         TypedQuery<Settings> query = entityManager.createQuery(hql, Settings.class);
         query.setParameter("adminPassword", password);
         List<Settings> result =  query.getResultList();
+
         return !result.isEmpty();
     }
 
     public Settings getRecord() {
         String hql = "SELECT s FROM Settings s";
         TypedQuery<Settings> query = entityManager.createQuery(hql, Settings.class);
+        query.setFirstResult(0).setMaxResults(1); //get only one row
         List<Settings> result =  query.getResultList();
 
         return result.stream().findAny().orElse(null);
