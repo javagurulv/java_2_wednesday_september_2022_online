@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SearchBankAccountController {
+
     @Autowired
     private SearchBankAccountService service;
 
     @GetMapping(value = "/searchBankAccount")
     public String showSearchBankAccountPage(ModelMap modelMap) {
-        modelMap.addAttribute("request", new AddBankAccountRequest());
+        modelMap.addAttribute("request", new SearchBankAccountRequest());
         return "searchBankAccount";
     }
 
@@ -30,7 +31,8 @@ public class SearchBankAccountController {
             modelMap.addAttribute("errors", response.getErrors());
             return "searchBankAccount";
         } else {
-            return "redirect:/admin";
+            modelMap.addAttribute("bank_accounts", response.getBankAccounts());
+            return "searchBankAccountSuccess";
         }
     }
 }

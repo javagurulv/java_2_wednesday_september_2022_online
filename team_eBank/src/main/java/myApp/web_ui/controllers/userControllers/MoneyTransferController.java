@@ -26,18 +26,12 @@ public class MoneyTransferController {
     @PostMapping("/moneyTransfer")
     public String processAddBankAccountRequest(@ModelAttribute(value = "request")  MoneyTransferRequest request,
                                                ModelMap modelMap) {
-        MoneyTransferResponse response = service.execute(request,getUsername());
+        MoneyTransferResponse response = service.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
             return "moneyTransfer";
         } else {
-            return "redirect:/user";
+            return "moneyTransferSuccess";
         }
-    }
-
-    private String getUsername() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return username;
     }
 }

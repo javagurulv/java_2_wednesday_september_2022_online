@@ -5,6 +5,9 @@ public class IncreaseBalanceRequest {
     private int userID;
     private int amountToIncrease;
 
+    public IncreaseBalanceRequest() {
+    }
+
     public IncreaseBalanceRequest(int userID, int amountToIncrease) {
         this.userID = userID;
         this.amountToIncrease = amountToIncrease;

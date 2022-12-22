@@ -18,9 +18,10 @@ public class RemoveBankAccountValidator {
     }
 
     private Optional<CoreError> validateId(RemoveBankAccountRequest request) {
-        return request.getId() != null
+        return request.getPersonalCode() != null
+                && !request.getPersonalCode().isBlank()
                 ? Optional.empty()
-                : Optional.of(new CoreError("Field: Id", "Id must not be empty"));
+                : Optional.of(new CoreError("Field: Personal code", "Personal code must not be empty"));
 
     }
 }

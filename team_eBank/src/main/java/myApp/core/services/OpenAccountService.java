@@ -14,6 +14,7 @@ import java.util.List;
 @Component
 @Transactional
 public class OpenAccountService {
+
     @Autowired
     private JpaBankAccountRepository bankRepository;
     @Autowired
@@ -24,9 +25,7 @@ public class OpenAccountService {
         if (errors.isEmpty()) {
             if (accountNullCheck(request.getPersonalCode())) {
                 bankRepository.openAccount(request.getPersonalCode());
-                if (!accountNullCheck(request.getPersonalCode())) {
                     return new OpenAccountResponse(true);
-                }
             }
         }
         return new OpenAccountResponse(errors);
