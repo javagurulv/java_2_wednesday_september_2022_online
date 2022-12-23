@@ -25,15 +25,11 @@ public class AddBankAccountService {
     public AddBankAccountResponse execute(AddBankAccountRequest request) {
         List<CoreError> errors = validator.validate(request);
         if (errors.isEmpty()) {
-           // if (duplicateCheck(request, userRequest)) {
-
                 BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(),
                         request.getPersonalCode());
-             //   User user = new User(userRequest.getLogin(), userRequest.getPassword(),"Role_User");
             bankAccountRepository.save(bankAccount);
                 return new AddBankAccountResponse(bankAccount);
             }
-      //  }
         return new AddBankAccountResponse(errors);
     }
 }

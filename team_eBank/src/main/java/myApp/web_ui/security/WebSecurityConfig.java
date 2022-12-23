@@ -22,6 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JpaUserRepository userRepository;
+    @Autowired
+    private EncoderAndDecoderPassword decoderPassword;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,9 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public InMemoryUserDetailsManager configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         List<User> users = userRepository.findAll();
         List<UserDetails> userDetailsList = users.stream()
-                .map(user1 -> org.springframework.security.core.userdetails.User.withUsername(user1.getPersonalCode())
-                        .password(user1.getPassword())
-                        .authorities(user1.getRole())
+                .map(user1 -> org.springframework.security.core.userdetails.User.withUsername(decoderPassword.executeDecode(user1.getPersonalCode()))
+                        .password(decoderPassword.executeDecode(user1.getPassword()))
+                        .authorities(decoderPassword.executeDecode(user1.getRole()))
                         .build()).collect(Collectors.toList());
         return new InMemoryUserDetailsManager(userDetailsList);
     }

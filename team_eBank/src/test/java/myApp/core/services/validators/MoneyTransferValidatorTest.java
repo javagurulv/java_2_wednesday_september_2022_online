@@ -1,5 +1,5 @@
 package myApp.core.services.validators;
-
+/*
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
 import org.junit.Test;
@@ -79,3 +79,5 @@ public class MoneyTransferValidatorTest {
     }
 
 }
+
+ */

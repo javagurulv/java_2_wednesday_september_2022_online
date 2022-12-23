@@ -1,5 +1,5 @@
 package myApp.core.services;
-
+/*
 import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.requests.MoneyTransferRequest;
 import myApp.core.responses.CoreError;
@@ -104,3 +104,5 @@ public class MoneyTransferServiceTest {
                 response.getErrors().get(2).getMessage());
     }
 }
+
+ */

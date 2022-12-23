@@ -1,5 +1,5 @@
 package myApp.core.services.validators;
-
+/*
 
 import myApp.core.requests.RemoveBankAccountRequest;
 import myApp.core.responses.CoreError;
@@ -29,3 +29,5 @@ public class RemoveBankAccountValidatorTest {
         assertEquals("Id must not be empty", errors.get(0).getMessage());
     }
 }
+
+ */
