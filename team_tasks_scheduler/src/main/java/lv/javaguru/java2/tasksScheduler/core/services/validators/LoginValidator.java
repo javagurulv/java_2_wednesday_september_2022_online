@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class LoginValidator {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private JpaUsersRepository usersRepository;
 
     public List<CoreError> validate(LoginRequest request) {
         List<CoreError> errors = new ArrayList<>();
@@ -44,7 +44,7 @@ public class LoginValidator {
                 request.getUserName().isBlank() || request.getPassword().isBlank()) {
             return Optional.empty();
         }
-        return (usersRepository.getUserByNameAndPassword(request.getUserName(),
+        return (usersRepository.findUserByUsernameAndPassword(request.getUserName(),
                 Encryption.stringHashing(request.getPassword())) == null)
                 ? Optional.of(new CoreError("Username/Password", "Invalid credentials provided."))
                 : Optional.empty();

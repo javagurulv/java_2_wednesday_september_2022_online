@@ -1,8 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.SettingsRepository;
-
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.core.requests.AmendSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.AmendSettingsResponse;
@@ -22,7 +20,7 @@ import java.util.List;
 public class AmendSettingsService {
 
     @Autowired
-    private SettingsRepository settingsRepository;
+    private JpaSettingsRepository settingsRepository;
     @Autowired private AmendSettingsValidator validator;
     @Autowired private SessionService sessionService;
 
@@ -48,7 +46,8 @@ public class AmendSettingsService {
             return null;
         }
 
-        if (!settingsRepository.save(amendedSettings)) {
+        var result = settingsRepository.save(amendedSettings); //TODO had to rework after moving to JPA
+        if (!result.equals(amendedSettings)) {
             errors = new ArrayList<>();
             errors.add(new CoreError("Settings repository", "Update failed."));
             return new AmendSettingsResponse(errors);

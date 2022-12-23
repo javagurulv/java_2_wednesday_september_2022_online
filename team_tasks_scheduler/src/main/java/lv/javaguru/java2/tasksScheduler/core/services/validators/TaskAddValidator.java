@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
 
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @Component
 public class TaskAddValidator {
-    @Autowired private TasksRepository tasksRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
     @Autowired private SessionService sessionService;
 
     public List<CoreError> validate(AddTaskRequest request) {

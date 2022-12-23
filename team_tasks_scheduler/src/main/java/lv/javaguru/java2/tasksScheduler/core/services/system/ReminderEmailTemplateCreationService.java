@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.core.services.system;
 
-import lv.javaguru.java2.tasksScheduler.core.database.SettingsRepository;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
 import lv.javaguru.java2.tasksScheduler.utils.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReminderEmailTemplateCreationService {
     @Autowired
-    private SettingsRepository settingsRepository;
+    private JpaSettingsRepository settingsRepository;
 
     @Value("${reminder.email.subject}")
     private String reminderSubject;

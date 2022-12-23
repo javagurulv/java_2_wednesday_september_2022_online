@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.GetOutstandingTasksRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetOutstandingTasksResponse;
@@ -18,7 +17,7 @@ import java.util.List;
 public class GetOutstandingTasksService {
 
     @Autowired
-    private TasksRepository tasksRepository;
+    private JpaTasksRepository tasksRepository;
     @Autowired private SessionService sessionService;
 
     public GetOutstandingTasksResponse execute(GetOutstandingTasksRequest request) {

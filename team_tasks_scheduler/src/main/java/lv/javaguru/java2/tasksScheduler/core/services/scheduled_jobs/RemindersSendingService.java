@@ -1,7 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.JobRunRequest;
@@ -27,8 +28,8 @@ public class RemindersSendingService {
     @Value("${reminder.email.send}")
     private boolean sendReminders;
 
-    @Autowired private TasksRepository tasksRepository;
-    @Autowired private UsersRepository usersRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
+    @Autowired private JpaUsersRepository usersRepository;
     @Autowired private ReminderEmailTemplateCreationService reminderEmailTemplateCreationService;
     @Autowired private CreateLogsService createLogsService;
 
@@ -87,7 +88,7 @@ public class RemindersSendingService {
     private boolean sendEmail(Task task) {
         LocalDateTime taskDueDate = getTaskDueDateForEmail(task);
         if (taskDueDate != null) {
-            reminder.setTo(usersRepository.getUserById(task.getUserId()).getEmail());
+            reminder.setTo(usersRepository.findUserById(task.getUserId()).getEmail());
             reminder.setBody(getReminderEmailBody(task, taskDueDate));
             return reminder.send();
         }

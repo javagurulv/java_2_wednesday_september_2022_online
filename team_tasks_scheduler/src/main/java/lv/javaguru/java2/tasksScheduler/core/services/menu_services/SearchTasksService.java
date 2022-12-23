@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.SearchTasksRequest;
 import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class SearchTasksService {
 
-    @Autowired private TasksRepository tasksRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
     @Autowired private SearchTasksValidator validator;
     @Autowired private SessionService sessionService;
 

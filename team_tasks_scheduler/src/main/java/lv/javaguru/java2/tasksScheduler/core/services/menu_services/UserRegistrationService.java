@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -19,7 +18,7 @@ import java.util.List;
 @Transactional
 public class UserRegistrationService {
 
-    @Autowired private UsersRepository usersRepository;
+    @Autowired private JpaUsersRepository usersRepository;
     @Autowired private UserRegistrationValidator validator;
 
     public UserRegistrationResponse execute(UserRegistrationRequest request) {
@@ -33,7 +32,8 @@ public class UserRegistrationService {
                         request.getEmail(),
                         request.isSendReminders());
 
-        if (!usersRepository.save(user)) {
+        var result = usersRepository.save(user); //TODO small rework for JPA
+        if (result.getId() == null) {
             errors.add(new CoreError("System","Error adding to repository."));
             return new UserRegistrationResponse(errors);
         }

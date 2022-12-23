@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.AddTaskResponse;
@@ -21,7 +20,7 @@ import java.util.List;
 public class AddTaskService {
 
     @Autowired
-    private TasksRepository tasksRepository;
+    private JpaTasksRepository tasksRepository;
     @Autowired private SessionService sessionService;
     @Autowired private TaskAddValidator validator;
 
@@ -33,9 +32,9 @@ public class AddTaskService {
 
         Task task = new Task(request.getDescription(), request.getRegularity(), request.getDueDate(),
                                 request.getEndDate(), sessionService.getCurrentUserId());
-        tasksRepository.exists(task);
 
-        if(!tasksRepository.save(task)) {
+        var result = tasksRepository.save(task); //TODO small rework for JPA
+        if (result.getId() == null) {
             errors.add(new CoreError("General","Error"));
             return new AddTaskResponse(errors);
         }

@@ -13,13 +13,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.util.Scanner;
 
 
-@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
+@SpringBootApplication
 public class TasksSchedulerApplication {
     private static  MenuType menuType = MenuType.START;
 
     public static void main(String[] args) {
 
-        //ApplicationContext applicationContext = new AnnotationConfigApplicationContext(TaskSchedulerConfig.class);
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SpringWebConfiguration.class);
 
 
@@ -28,6 +27,7 @@ public class TasksSchedulerApplication {
 
 
         TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
+
         testData.createTestSettings();
         testData.createTestUsers();
         testData.createTestTasks();

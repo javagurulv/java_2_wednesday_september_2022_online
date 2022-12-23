@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class OrmUserRepository implements UsersRepository {
 
     @Autowired
@@ -114,6 +114,7 @@ public class OrmUserRepository implements UsersRepository {
                         "username LIKE :username");
         query.setParameter("email", "%"+email+"%");
         query.setParameter("username", "%"+username+"%");
+
         return query.getResultList();
     }
 }
