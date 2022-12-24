@@ -32,7 +32,7 @@ public class AddUserController {
             modelMap.addAttribute("errors", response.getErrors());
             return "addUser";
         } else {
-            return "redirect:/admin";
+            return "addUserSuccess";
         }
     }
 }

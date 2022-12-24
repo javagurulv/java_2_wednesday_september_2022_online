@@ -33,7 +33,7 @@ public class DeleteUserController {
             modelMap.addAttribute("errors", responses.getErrors());
             return "deleteUser";
         } else {
-            return "redirect:/admin";
+            return "deleteUserSuccess";
         }
     }
 }

@@ -31,7 +31,7 @@ public class AddBankAccountController {
             modelMap.addAttribute("errors", response.getErrors());
             return "addBankAccount";
         } else {
-            return "redirect:/admin";
+            return "addBankAccountSuccess";
         }
     }
 }

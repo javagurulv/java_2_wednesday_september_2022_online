@@ -30,7 +30,7 @@ public class TakeALoanController {
         if (responses.hasErrors()) {
             return "takeALoan";
         } else {
-            return "redirect:/user";
+            return "takeALoanSuccess";
         }
     }
 }

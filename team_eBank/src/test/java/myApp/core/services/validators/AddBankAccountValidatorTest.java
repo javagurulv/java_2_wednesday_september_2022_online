@@ -1,8 +1,13 @@
 package myApp.core.services.validators;
-/*
+
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.CoreError;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -10,10 +15,12 @@ import static junit.framework.TestCase.assertEquals;
 
 
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class AddBankAccountValidatorTest {
 
-
+    @Mock
+    private JpaBankAccountRepository bankRepository;
+    @InjectMocks
     AddBankAccountValidator validator = new AddBankAccountValidator();
 
     @Test
@@ -68,5 +75,3 @@ public class AddBankAccountValidatorTest {
         assertEquals("Field: Personal Code", errors.get(2).getField());
     }
 }
-
- */
