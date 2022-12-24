@@ -10,20 +10,18 @@
 
 <body>
 
-<h3>Money Transfer</h3>
+<h3>Take a loan</h3>
 
 <table>
   <tr>
-    <td>Personal code:</td>
-    <td>Amount:</td>
+    <td>Value:</td>
   </tr>
 
   <tr>
-    <form action="/moneyTransfer" th:object="${request}" method="post">
-      <td><input type="text" th:field="${request.anotherPersonalCode}"/></td>
+    <form action="/takeALoan" th:object="${request}" method="post">
       <td><input type="text" th:field="${request.value}"/></td>
       <td>
-        <input type="submit" value="Make Transaction"/>
+        <input type="submit" value="Take a loan"/>
         <input type="reset" value="Clear"/>
       </td>
     </form>

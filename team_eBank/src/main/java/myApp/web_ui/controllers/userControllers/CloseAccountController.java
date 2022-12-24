@@ -20,7 +20,7 @@ public class CloseAccountController {
         CloseAccountRequest request = new CloseAccountRequest(getUserName());
         CloseAccountResponse response = service.execute(request);
         if (!response.isDeleted()) {
-            return "redirect: /user";
+            return "redirect:/user";
         } else {
             return "closeAccount";
         }

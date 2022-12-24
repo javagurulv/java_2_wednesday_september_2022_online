@@ -4,7 +4,7 @@ import java.util.List;
 
 public class MoneyTransferResponse extends CoreResponse {
 
-    boolean isTransactionSucceed;
+     private boolean isTransactionSucceed;
 
     public MoneyTransferResponse(boolean isTransactionSucceed) {
         this.isTransactionSucceed = isTransactionSucceed;

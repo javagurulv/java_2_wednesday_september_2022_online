@@ -27,7 +27,7 @@ public class AddBankAccountService {
         if (errors.isEmpty()) {
                 BankAccount bankAccount = new BankAccount(request.getName(), request.getSurname(),
                         request.getPersonalCode());
-            bankAccountRepository.save(bankAccount);
+                bankAccountRepository.save(bankAccount);
                 return new AddBankAccountResponse(bankAccount);
             }
         return new AddBankAccountResponse(errors);

@@ -10,27 +10,25 @@
 
 <body>
 
-<h3>Money Transfer</h3>
+<h3>Delete User</h3>
 
 <table>
   <tr>
     <td>Personal code:</td>
-    <td>Amount:</td>
   </tr>
 
   <tr>
-    <form action="/moneyTransfer" th:object="${request}" method="post">
-      <td><input type="text" th:field="${request.anotherPersonalCode}"/></td>
-      <td><input type="text" th:field="${request.value}"/></td>
+    <form action="/deleteUser" th:object="${request}" method="post">
+      <td><input type="text" th:field="${request.personalCode}"/></td>
       <td>
-        <input type="submit" value="Make Transaction"/>
+        <input type="submit" value="Delete"/>
         <input type="reset" value="Clear"/>
       </td>
     </form>
   </tr>
 </table>
 
-<form action="/user" method="get">
+<form action="/admin" method="get">
   <input type="submit" value="Go to main page" name="Submit" />
 </form>
 

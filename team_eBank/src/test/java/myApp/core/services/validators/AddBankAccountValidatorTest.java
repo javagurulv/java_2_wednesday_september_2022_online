@@ -1,5 +1,5 @@
 package myApp.core.services.validators;
-
+/*
 import myApp.core.requests.AddBankAccountRequest;
 import myApp.core.responses.CoreError;
 import org.junit.Test;
@@ -68,3 +68,5 @@ public class AddBankAccountValidatorTest {
         assertEquals("Field: Personal Code", errors.get(2).getField());
     }
 }
+
+ */

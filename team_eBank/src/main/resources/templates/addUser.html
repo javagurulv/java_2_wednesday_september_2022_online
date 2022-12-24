@@ -30,6 +30,10 @@
   </tr>
 </table>
 
+<form action="/admin" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
+
 <td th:if="${errors != null}">
   <tr th:each="error : ${errors}">
     <td th:text="${error.field}" />

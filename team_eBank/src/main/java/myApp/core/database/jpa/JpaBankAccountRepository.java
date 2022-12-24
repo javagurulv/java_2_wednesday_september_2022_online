@@ -37,6 +37,10 @@ public interface JpaBankAccountRepository extends JpaRepository<BankAccount, Lon
     @Query("Update BankAccount b set b.balance = 0 where b.personalCode = ?1")
     void openAccount(String personalCode);
 
+    @Modifying
+    @Query(value = "Update bank_accounts set balance = balance + ?2 where personal_code = ?1", nativeQuery = true)
+    void takeALoan(String personalCode, int value);
+
     List<BankAccount> findByName(String name);
 
     List<BankAccount> findBySurname(String surname);
