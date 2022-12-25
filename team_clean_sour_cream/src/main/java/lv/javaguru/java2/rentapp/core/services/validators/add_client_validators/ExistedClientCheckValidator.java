@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Component
 public class ExistedClientCheckValidator {
@@ -32,7 +33,23 @@ public class ExistedClientCheckValidator {
     }
 
     public Optional<Long> isConflictBetweenExistenceCheckResults(AddClientRequest request) {
-        if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByEmail(request).isEmpty()) {
+        Optional<Long> personalCode = checkClientExistenceByPersonalId(request);
+		Optional<Long> email = checkClientExistenceByEmail(request);
+
+		if (personalCode.isPresent() && email.isPresent()) {
+			Long persCodeId = personalCode.get();
+			Long emailId = email.get();
+			return persCodeId.equals(emailId) ? personalCode : Optional.empty();
+		}
+
+		return Stream.of(personalCode, email)
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.findFirst();
+
+
+/*
+		if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByEmail(request).isEmpty()) {
             return checkClientExistenceByPersonalId(request);
         } else if (checkClientExistenceByPersonalId(request).isEmpty() && checkClientExistenceByEmail(request).isPresent()) {
             return checkClientExistenceByPersonalId(request);
@@ -41,6 +58,7 @@ public class ExistedClientCheckValidator {
             return checkClientExistenceByPersonalId(request);
         }
         return Optional.empty();
+*/
     }
 
     public Optional<Long> isClientFoundedByPersonalId(AddClientRequest request) {
