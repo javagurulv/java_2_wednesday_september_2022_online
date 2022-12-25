@@ -1,9 +1,8 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.DeleteCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.core.responses.DeleteCurrentUserResponse;
@@ -20,13 +19,13 @@ import java.util.List;
 @Transactional
 public class DeleteCurrentUserService {
 
-    @Autowired private UsersRepository usersRepository;
-    @Autowired private TasksRepository tasksRepository;
+    @Autowired private JpaUsersRepository usersRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
     @Autowired private SessionService sessionService;
 
     public DeleteCurrentUserResponse execute(DeleteCurrentUserRequest request) {
         try {
-            String deletedUserName = usersRepository.getUserById(sessionService.getCurrentUserId()).getUsername();
+            String deletedUserName = usersRepository.findUserById(sessionService.getCurrentUserId()).getUsername();
             tasksRepository.deleteByUserIdTillDate(sessionService.getCurrentUserId(), LocalDateTime.MAX);
             usersRepository.deleteById(sessionService.getCurrentUserId());
             sessionService.logOut();

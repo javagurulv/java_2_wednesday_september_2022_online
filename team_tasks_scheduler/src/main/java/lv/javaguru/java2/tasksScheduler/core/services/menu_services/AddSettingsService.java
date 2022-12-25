@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.SettingsRepository;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.core.requests.AddSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.AddSettingsResponse;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AddSettingsService {
 
     @Autowired
-    private SettingsRepository settingsRepository;
+    private JpaSettingsRepository settingsRepository;
     @Autowired private AddSettingsValidator validator;
 
     public AddSettingsResponse execute(AddSettingsRequest request) {
@@ -32,7 +32,8 @@ public class AddSettingsService {
                 request.getEmailFrom(), request.getEmailPassword(), request.getEmailHost(),
                 request.getEmailPort(), request.getEmailProtocol());
 
-        if (!settingsRepository.save(settings)) {
+        var result = settingsRepository.save(settings); //TODO had to rework after moving to JPA
+        if (!result.equals(settings)) {
             errors.add(new CoreError("System", "Error adding to repository."));
             return new AddSettingsResponse(errors);
         }

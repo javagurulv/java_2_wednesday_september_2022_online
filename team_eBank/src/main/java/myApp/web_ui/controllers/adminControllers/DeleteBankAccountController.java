@@ -29,7 +29,7 @@ public class DeleteBankAccountController {
             modelMap.addAttribute("errors", response.getErrors());
             return "deleteBankAccount";
         } else {
-            return "redirect:/admin";
+            return "deleteBankAccountSuccess";
         }
     }
 

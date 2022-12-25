@@ -24,9 +24,7 @@ public class CloseAccountService {
         if (errors.isEmpty()) {
             if (accountNullCheck(request.getPersonalCode())) {
                 bankRepository.closeAccount(request.getPersonalCode());
-                if (isAccountClosed(request)) {
                     return new CloseAccountResponse(true);
-                }
             }
         }
             return new CloseAccountResponse(errors);
@@ -35,11 +33,6 @@ public class CloseAccountService {
     private boolean accountNullCheck(String personalCode) {
         return bankRepository.findAll().stream()
                 .filter(b -> b.getPersonalCode().equals(personalCode))
-                .anyMatch(b -> b.getBalance() != null);
-    }
-    private boolean isAccountClosed(CloseAccountRequest request) {
-        return bankRepository.findAll().stream()
-                .filter(bankAccount -> bankAccount.getPersonalCode().equals(request.getPersonalCode()))
-                .anyMatch(bankAccount -> bankAccount.getBalance() == null);
+                .anyMatch(b -> b.getBalance() == 0);
     }
 }

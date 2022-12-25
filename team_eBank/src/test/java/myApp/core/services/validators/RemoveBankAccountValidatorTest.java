@@ -16,7 +16,7 @@ public class RemoveBankAccountValidatorTest {
 
     @Test
     public void testSuccessValidate() {
-        RemoveBankAccountRequest request = new RemoveBankAccountRequest(1L);
+        RemoveBankAccountRequest request = new RemoveBankAccountRequest("000000-00000");
         List<CoreError> errors = validator.validate(request);
         assertTrue(errors.isEmpty());
     }
@@ -25,7 +25,7 @@ public class RemoveBankAccountValidatorTest {
     public void testShouldReturnErrorAboutWrongId() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest(null);
         List<CoreError> errors = validator.validate(request);
-        assertEquals("Field: Id", errors.get(0).getField());
-        assertEquals("Id must not be empty", errors.get(0).getMessage());
+        assertEquals("Field: Personal code", errors.get(0).getField());
+        assertEquals("Personal code must not be empty", errors.get(0).getMessage());
     }
 }

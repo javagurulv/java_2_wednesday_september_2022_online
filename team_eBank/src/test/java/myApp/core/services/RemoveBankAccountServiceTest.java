@@ -29,20 +29,20 @@ public class RemoveBankAccountServiceTest {
 
     @Test
     public void testSuccessRemoveBankAccount() {
-        RemoveBankAccountRequest request = new RemoveBankAccountRequest(1l);
+        RemoveBankAccountRequest request = new RemoveBankAccountRequest("000000-00000");
         when(validator.validate(request)).thenReturn(List.of());
         RemoveBankAccountResponse response = service.execute(request);
         assertFalse(response.hasErrors());
         assertTrue(response.isDeleted());
-        verify(bankRepository).deleteById(1L);
+        verify(bankRepository).deleteByPersonalCode("000000-00000");
     }
 
     @Test
     public void testShouldReturnPersonalCodeError() {
         RemoveBankAccountRequest request = new RemoveBankAccountRequest(null);
-        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Id",
-                "Id must not be empty")));
+        when(validator.validate(request)).thenReturn(List.of(new CoreError("Field: Personal code",
+                "Personal code must not be empty")));
         RemoveBankAccountResponse response = service.execute(request);
-        verify(bankRepository,times(0)).deleteById(null);
+        verify(bankRepository,times(0)).deleteByPersonalCode(null);
     }
 }

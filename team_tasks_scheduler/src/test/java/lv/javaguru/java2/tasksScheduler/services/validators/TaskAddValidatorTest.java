@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.AddTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class TaskAddValidatorTest {
 
-    @Mock private TasksRepository tasksRepository;
+    @Mock private JpaTasksRepository tasksRepository;
     @Mock private SessionService sessionService;
     @InjectMocks private TaskAddValidator validator;
 

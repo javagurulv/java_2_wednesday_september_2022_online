@@ -13,18 +13,18 @@ import java.util.Optional;
 @Repository
 public interface JpaBankAccountRepository extends JpaRepository<BankAccount, Long> {
 
-   @Modifying
-    @Query( value = "update bank_accounts\n" +
+    @Modifying
+    @Query(value = "update bank_accounts\n" +
             "set balance = CASE \n" +
-            "  WHEN id = personalCode\n" +
-            "    THEN balance - value\n" +
-            "  WHEN id = anotherPersonalCode\n" +
-            "    THEN balance + value\n" +
+            "  WHEN personal_code = ?1\n" +
+            "    THEN balance - ?3\n" +
+            "  WHEN personal_code = ?2\n" +
+            "    THEN balance + ?3\n" +
             "    End;", nativeQuery = true)
-    void bankTransfer(@Param("personalCode")String personalCode, @Param("anotherPersonalCode") String anotherPersonalCode
-            , @Param("value") int value);
+    void bankTransfer(String personalCode, String anotherPersonalCode
+            , int value);
 
-   void deleteByPersonalCode(String personalCode);
+    void deleteByPersonalCode(String personalCode);
 
     @Query("SELECT b FROM BankAccount b WHERE b.personalCode=?1")
     Optional<BankAccount> seeYourAccount(String personalCode);
@@ -36,6 +36,10 @@ public interface JpaBankAccountRepository extends JpaRepository<BankAccount, Lon
     @Modifying
     @Query("Update BankAccount b set b.balance = 0 where b.personalCode = ?1")
     void openAccount(String personalCode);
+
+    @Modifying
+    @Query(value = "Update bank_accounts set balance = balance + ?2 where personal_code = ?1", nativeQuery = true)
+    void takeALoan(String personalCode, int value);
 
     List<BankAccount> findByName(String name);
 

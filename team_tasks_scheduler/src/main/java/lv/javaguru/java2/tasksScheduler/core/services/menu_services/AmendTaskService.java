@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.AmendTaskRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.AmendTaskResponse;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -18,7 +17,7 @@ import java.util.List;
 public class AmendTaskService {
 
     @Autowired
-    private TasksRepository tasksRepository;
+    private JpaTasksRepository tasksRepository;
     @Autowired private TaskAmendValidator validator;
 
     public AmendTaskResponse execute(AmendTaskRequest request) {

@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.UserRegistrationRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Component
 public class UserRegistrationValidator {
-    @Autowired private UsersRepository usersRepository;
+    @Autowired private JpaUsersRepository usersRepository;
 
     public List<CoreError> validate(UserRegistrationRequest request) {
         List<CoreError> errors = new ArrayList<>();
@@ -54,7 +54,7 @@ public class UserRegistrationValidator {
         if (request == null) {
             return Optional.empty();
         }
-        if (usersRepository.existsByName(request.getUsername())) {
+        if (usersRepository.existsByUsername(request.getUsername())) {
             return Optional.of(new CoreError("Username", "This username is already used!"));
         }
         return Optional.empty();

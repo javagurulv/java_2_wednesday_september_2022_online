@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.JobRunRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.JobRunResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.system.CreateLogsService;
@@ -17,7 +18,7 @@ public class TasksCleanupService {
     @Value("${logs.job.tasks.cleanup.create}")
     private boolean createLog;
 
-    @Autowired private TasksRepository tasksRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
     @Autowired private CreateLogsService createLogsService;
 
     public JobRunResponse execute(JobRunRequest request) {

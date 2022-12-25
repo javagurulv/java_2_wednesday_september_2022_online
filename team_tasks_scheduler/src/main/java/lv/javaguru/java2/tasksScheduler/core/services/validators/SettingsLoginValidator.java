@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.SettingsRepository;
 
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.SettingsLoginRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.utils.Encryption;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class SettingsLoginValidator {
 
     @Autowired
-    private SettingsRepository settingsRepository;
+    private JpaSettingsRepository settingsRepository;
 
     public List<CoreError> validate(SettingsLoginRequest request) {
         List<CoreError> errors = new ArrayList<>();

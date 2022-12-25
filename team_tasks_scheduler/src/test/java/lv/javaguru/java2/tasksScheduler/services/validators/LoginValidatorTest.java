@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class LoginValidatorTest {
 
-    @Mock private UsersRepository usersRepository;
+    @Mock private JpaUsersRepository usersRepository;
     @InjectMocks private LoginValidator validator;
 
     @Test
@@ -89,7 +90,7 @@ public class LoginValidatorTest {
     @Test
     public void shouldSuccessWhenCredentialsAreValid() {
         LoginRequest request = new LoginRequest("1111", "1111");
-        when(usersRepository.getUserByNameAndPassword(request.getUserName(),
+        when(usersRepository.findUserByUsernameAndPassword(request.getUserName(),
                 Encryption.stringHashing(request.getPassword())))
                 .thenReturn(new User(request.getUserName(), Encryption.stringHashing(request.getPassword()),
                         "test@test.com", true));

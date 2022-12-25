@@ -1,6 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.SettingsRepository;
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
 import lv.javaguru.java2.tasksScheduler.core.requests.SettingsLoginRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
 import lv.javaguru.java2.tasksScheduler.core.services.validators.SettingsLoginValidator;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class SettingsLoginValidatorTest {
 
-    @Mock private SettingsRepository settingsRepository;
+    @Mock private JpaSettingsRepository settingsRepository;
     @InjectMocks private SettingsLoginValidator validator;
 
     @Test

@@ -1,6 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.scheduled_jobs;
 
-import lv.javaguru.java2.tasksScheduler.core.database.TasksRepository;
+
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaTasksRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
 import lv.javaguru.java2.tasksScheduler.core.requests.JobRunRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.JobRunResponse;
@@ -18,7 +19,7 @@ public class DueDatesUpdateService {
     @Value("${logs.job.tasks.duedatesupdate.create}")
     private boolean createLog;
 
-    @Autowired private TasksRepository tasksRepository;
+    @Autowired private JpaTasksRepository tasksRepository;
     @Autowired private CreateLogsService createLogsService;
 
     public JobRunResponse execute(JobRunRequest request) {

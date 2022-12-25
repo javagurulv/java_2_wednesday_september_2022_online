@@ -10,7 +10,7 @@
 
 <body>
 
-<h3>Add Bank account</h3>
+<h3>Delete Bank Account</h3>
 
 <table>
   <tr>
@@ -27,6 +27,10 @@
     </form>
   </tr>
 </table>
+
+<form action="/admin" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
 
 <td th:if="${errors != null}">
   <tr th:each="error : ${errors}">
