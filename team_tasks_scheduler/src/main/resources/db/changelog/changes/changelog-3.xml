@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="team_tasksScheduler" id="3">
+        <createTable tableName="settings">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="admin_password" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_from" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_password" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_host" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_port" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email_protocol" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="settings"
+                       cascadeConstraints="true"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
