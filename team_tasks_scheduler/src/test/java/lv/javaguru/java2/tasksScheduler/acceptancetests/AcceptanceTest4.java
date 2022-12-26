@@ -7,7 +7,6 @@ import lv.javaguru.java2.tasksScheduler.core.requests.*;
 import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.core.responses.*;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.*;
-import lv.javaguru.java2.tasksScheduler.core.services.system.CheckSettingsExistenceService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 import org.junit.Test;
@@ -23,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TaskSchedulerCoreConfig.class})
-@Sql({"/schema.sql"})
+@Sql({"/__schema.sql"})
 public class AcceptanceTest4 {
 
     @Autowired private AddSettingsService addSettingsService;
