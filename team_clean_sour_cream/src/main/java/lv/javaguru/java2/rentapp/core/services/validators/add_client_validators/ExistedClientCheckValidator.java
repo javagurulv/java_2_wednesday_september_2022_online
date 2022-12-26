@@ -26,10 +26,12 @@ public class ExistedClientCheckValidator {
                 checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isPresent() &&
                         isConflictBetweenExistenceCheckResults(request).isPresent()) {
             validateDuplicateClientFirstName(request).ifPresent(errors::add);
+            validateDuplicateClientLastName(request).ifPresent(errors::add);
         }
         if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isPresent() &&
                 isConflictBetweenExistenceCheckResults(request).isEmpty()) {
-            errors.add(new CoreError("Personal ID and Email", "already exist in two different client`s records, what can rise conflict"));
+            errors.add(new CoreError("Personal ID and Email", "already exist in two different client`s records," +
+                    " what can rise conflict"));
         }
         return errors;
     }
@@ -55,17 +57,24 @@ public class ExistedClientCheckValidator {
     }
 
     private Optional<CoreError> validateDuplicateClientFirstName(AddClientRequest request) {
-
         if (getExistedClientById(request).isPresent()) {
             Client existedClient = getExistedClientById(request).get();
             if (!existedClient.getFirstName().equals(request.getFirstName())) {
-                return Optional.of(new CoreError("First Name", "different from client with same personal ID"));
+                return Optional.of(new CoreError("First Name", "different from client with same personal ID and/or Email"));
             }
         }
         return Optional.empty();
     }
 
-//    и здесь другие подобные (validateDuplicateClientFirstName) методы для каждого поля клиента
+    private Optional<CoreError> validateDuplicateClientLastName(AddClientRequest request) {
+        if (getExistedClientById(request).isPresent()) {
+            Client existedClient = getExistedClientById(request).get();
+            if (!existedClient.getLastName().equals(request.getLastName())) {
+                return Optional.of(new CoreError("Last Name", "different from client with same personal ID and/or Email"));
+            }
+        }
+        return Optional.empty();
+    }
 
     private Optional<Client> getExistedClientById(AddClientRequest request) {
         Optional<Long> existedClientIdOpt = Stream.of(checkClientExistenceByPersonalId(request), checkClientExistenceByEmail(request))
