@@ -19,6 +19,21 @@ public class ExistedClientCheckValidator {
     @Autowired
     private ClientDatabase clientDatabase;
 
+    public List<CoreError> validate(AddClientRequest request) {
+        List<CoreError> errors = new ArrayList<>();
+        if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isEmpty() ||
+                checkClientExistenceByPersonalId(request).isEmpty() && checkClientExistenceByPersonalId(request).isPresent() ||
+                checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isPresent() &&
+                        isConflictBetweenExistenceCheckResults(request).isPresent()) {
+            validateDuplicateClientFirstName(request).ifPresent(errors::add);
+        }
+        if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isPresent() &&
+                isConflictBetweenExistenceCheckResults(request).isEmpty()) {
+            errors.add(new CoreError("Personal ID and Email", "already exist in two different client`s records, what can rise conflict"));
+        }
+        return errors;
+    }
+
     private Optional<Long> checkClientExistenceByPersonalId(AddClientRequest request) {
         if (clientDatabase.findByPersonalId(request.getPersonalId()).isPresent()) {
             return clientDatabase.findByPersonalId(request.getPersonalId()).map(Client::getId);
@@ -31,6 +46,35 @@ public class ExistedClientCheckValidator {
             return clientDatabase.findByEmail(request.getEmail()).map(Client::getId);
         }
         return Optional.empty();
+    }
+
+    private Optional<Long> isConflictBetweenExistenceCheckResults(AddClientRequest request) {
+        return Objects.equals(checkClientExistenceByPersonalId(request).get(), checkClientExistenceByEmail(request).get())
+                ? checkClientExistenceByPersonalId(request)
+                : Optional.empty();
+    }
+
+    private Optional<CoreError> validateDuplicateClientFirstName(AddClientRequest request) {
+
+        if (getExistedClientById(request).isPresent()) {
+            Client existedClient = getExistedClientById(request).get();
+            if (!existedClient.getFirstName().equals(request.getFirstName())) {
+                return Optional.of(new CoreError("First Name", "different from client with same personal ID"));
+            }
+        }
+        return Optional.empty();
+    }
+
+//    и здесь другие подобные (validateDuplicateClientFirstName) методы для каждого поля клиента
+
+    private Optional<Client> getExistedClientById(AddClientRequest request) {
+        Optional<Long> existedClientIdOpt = Stream.of(checkClientExistenceByPersonalId(request), checkClientExistenceByEmail(request))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findFirst();
+        return existedClientIdOpt.isPresent()
+                ? clientDatabase.getById(existedClientIdOpt.get())
+                : Optional.empty();
     }
 
 //    public Optional<Long> isConflictBetweenExistenceCheckResults(AddClientRequest request) {
@@ -48,51 +92,4 @@ public class ExistedClientCheckValidator {
 //                .map(Optional::get)
 //                .findFirst();
 //    }
-
-    public Optional<Long> isConflictBetweenExistenceCheckResults(AddClientRequest request) {
-        return Objects.equals(checkClientExistenceByPersonalId(request).get(), checkClientExistenceByEmail(request).get())
-                ? checkClientExistenceByPersonalId(request)
-                : Optional.empty();
-    }
-
-    public List<CoreError> validate(AddClientRequest request) {
-        List<CoreError> errors = new ArrayList<>();
-        if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isEmpty() ||
-                checkClientExistenceByPersonalId(request).isEmpty() && checkClientExistenceByPersonalId(request).isPresent() ||
-                checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isPresent() &&
-                        isConflictBetweenExistenceCheckResults(request).isPresent()) {
-            validateDuplicateClientFirstName(request).ifPresent(errors::add);
-        }
-
-        if (checkClientExistenceByPersonalId(request).isPresent() && checkClientExistenceByPersonalId(request).isPresent() &&
-                        isConflictBetweenExistenceCheckResults(request).isEmpty()) {
-           errors.add(new CoreError("Personal ID and Email", "already exist in two different client`s records, what can rise conflict"));
-        }
-        return errors;
-    }
-
-    private Optional<CoreError> validateDuplicateClientFirstName(AddClientRequest request) {
-       Long existedClientId = Stream.of(checkClientExistenceByPersonalId(request), checkClientExistenceByEmail(request))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-               .;
-        if (existedClientId != null) {
-            if (!existedClientId.getFirstName().equals(request.getFirstName())) {
-                return Optional.of(new CoreError("First Name", "different from client with same personal ID"));
-            }
-        }
-        return Optional.empty();
-    }
-
-    private Client getExistedClientById(AddClientRequest request) {
-        return clientDatabase.findByPersonalId(request.getPersonalId()).isPresent()
-                ? clientDatabase.findByPersonalId(request.getPersonalId()).get()
-                : null;
-    }
-
-    private Client getExistedClientByEmailIfPresent(AddClientRequest request) {
-        return clientDatabase.findByEmail(request.getEmail()).isPresent()
-                ? clientDatabase.findByEmail(request.getEmail()).get()
-                : null;
-    }
 }
