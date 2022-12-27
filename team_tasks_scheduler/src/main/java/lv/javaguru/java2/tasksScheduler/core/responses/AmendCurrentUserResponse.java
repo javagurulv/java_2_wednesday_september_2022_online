@@ -6,12 +6,11 @@ import java.util.List;
 
 public class AmendCurrentUserResponse extends CoreResponse {
 
-    User user;
+    private User user;
 
     public AmendCurrentUserResponse(List<CoreError> errors) {
         super(errors);
     }
-
     public AmendCurrentUserResponse(User user) {
         this.user = user;
     }

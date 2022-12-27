@@ -1,5 +1,5 @@
 package myApp.consoleUI;
-
+/*
 import myApp.core.requests.GetAllBankAccountsRequest;
 import myApp.core.responses.GetAllBankAccountsResponse;
 import myApp.core.services.GetAllBankAccountsService;
@@ -18,3 +18,5 @@ public class GetAllBankAccountsUIAction implements UIAction {
         result.getBankAccounts().forEach(System.out::println);
     }
 }
+
+ */

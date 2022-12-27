@@ -27,6 +27,9 @@ public class PassengerCar extends Vehicle {
     private Integer doorsAmount;
     private boolean isAirConditioningAvailable;
 
+    public PassengerCar() {
+    }
+
     public PassengerCar(String brand, String model, boolean isAvailableForRent, Integer yearOfProduction, Colour colour,
                         Double rentPricePerDay, EngineType engineType, String plateNumber, TransmissionType transmissionType,
                         Integer passengerAmount, Integer baggageAmount, Integer doorsAmount, boolean isAirConditioningAvailable) {

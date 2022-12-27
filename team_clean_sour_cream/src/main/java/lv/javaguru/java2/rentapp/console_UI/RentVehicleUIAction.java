@@ -49,7 +49,7 @@ public class RentVehicleUIAction implements UIAction {
                     System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
         } else if (vehicleAvailabilityResponse.getVehicles().isEmpty()) {
             System.out.println("No available vehicle found in that range");
-        } else if (rentVehicleAvailabilityRequest.getSearchVehicleRequest().getPaging() != null) {
+        } else if (rentVehicleAvailabilityRequest.getPaging() != null) {
             selectPageMenu(rentVehicleAvailabilityRequest, foundVehicles);
 
             GeneralRentVehicleRequest rentVehicleRequest = requestCreator.createRentVehicleRequest(rentVehicleAvailabilityRequest, vehicleAvailabilityResponse.getVehicles());
@@ -62,22 +62,24 @@ public class RentVehicleUIAction implements UIAction {
             rentVehicleResponse = rentVehicleService.execute(rentVehicleRequest);
         }
 
-        assert rentVehicleResponse != null;
-        if (rentVehicleResponse.hasErrors()) {
-            rentVehicleResponse.getErrors().forEach(coreError ->
-                    System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
-        } else if (rentVehicleResponse.getNewRentDeal() != null) {
-            System.out.println();
-            System.out.println("Your rent deal is saved with Nr. " + rentVehicleResponse.getNewRentDeal().getId());
-        } else{
-            System.out.println(rentVehicleResponse.getMessage());
+        if (rentVehicleResponse != null) {
+            if (rentVehicleResponse.hasErrors()) {
+                rentVehicleResponse.getErrors().forEach(coreError ->
+                        System.out.println("Error: " + coreError.getField() + " " + coreError.getMessage()));
+            } else if (rentVehicleResponse.getNewRentDeal() != null) {
+                System.out.println();
+                System.out.println("Your rent deal is saved with Nr. " + rentVehicleResponse.getNewRentDeal().getId());
+            } else {
+                System.out.println(rentVehicleResponse.getMessage());
+            }
         }
     }
 
     private void selectPageMenu(GeneralRentVehicleRequest request, List<Vehicle> foundVehicles) {
         Scanner scanner = new Scanner(System.in);
+        List<Vehicle> firstPage = vehicleAvailabilityService.execute(request, foundVehicles).getVehiclesPaged();
         System.out.println("Available vehicles (Page " + request.getPaging().getPageNumber() + "): ");
-        foundVehicles.forEach(System.out::println);
+        firstPage.forEach(System.out::println);
         int resultPageNumber = request.getPaging().getPageNumber();
         boolean continueSearch = true;
 
@@ -95,21 +97,21 @@ public class RentVehicleUIAction implements UIAction {
                 case 1 -> {
                     request.getPaging().setPageNumber(++resultPageNumber);
                     VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, foundVehicles);
-                    if (response.getVehicles().isEmpty()) {
+                    if (response.getVehiclesPaged().isEmpty()) {
                         System.out.println("Page " + resultPageNumber + " is empty");
                         System.out.println();
                         request.getPaging().setPageNumber(--resultPageNumber);
                         response = vehicleAvailabilityService.execute(request, foundVehicles);
                     }
                     System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
-                    response.getVehicles().forEach(System.out::println);
+                    response.getVehiclesPaged().forEach(System.out::println);
                 }
                 case 2 -> {
                     if (resultPageNumber != 1) {
                         request.getPaging().setPageNumber(--resultPageNumber);
                         VehicleAvailabilityResponse response = vehicleAvailabilityService.execute(request, foundVehicles);
                         System.out.println("Vehicles found(Page " + request.getPaging().getPageNumber() + "): ");
-                        response.getVehicles().forEach(System.out::println);
+                        response.getVehiclesPaged().forEach(System.out::println);
                     } else {
                         System.out.println("You are already viewing the 1st page!");
                     }

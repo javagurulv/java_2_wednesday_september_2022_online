@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Bank demo project">
+  <meta name="author" content="JavaGuru">
+  <title>Bank</title>
+</head>
+
+<body>
+
+<h3>Delete User</h3>
+
+<table>
+  <tr>
+    <td>Personal code:</td>
+  </tr>
+
+  <tr>
+    <form action="/deleteUser" th:object="${request}" method="post">
+      <td><input type="text" th:field="${request.personalCode}"/></td>
+      <td>
+        <input type="submit" value="Delete"/>
+        <input type="reset" value="Clear"/>
+      </td>
+    </form>
+  </tr>
+</table>
+
+<form action="/admin" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
+
+<td th:if="${errors != null}">
+  <tr th:each="error : ${errors}">
+    <td th:text="${error.field}" />
+    <td th:text="${error.message}" />
+  </tr>
+</td>
+
+</body>
+
+</html>

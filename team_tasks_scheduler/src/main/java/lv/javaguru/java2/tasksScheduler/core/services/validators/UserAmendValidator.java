@@ -1,7 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.validators;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Component
 public class UserAmendValidator {
-    @Autowired private UsersRepository usersRepository;
+    @Autowired private JpaUsersRepository usersRepository;
     @Autowired private SessionService sessionService;
 
     public List<CoreError> validate(AmendCurrentUserRequest request) {
@@ -30,14 +30,14 @@ public class UserAmendValidator {
         return errors;
     }
     private Optional<CoreError> validateDuplicate(AmendCurrentUserRequest request) {
-        User currentUser = usersRepository.getUserById(sessionService.getCurrentUserId());
+        User currentUser = usersRepository.findUserById(sessionService.getCurrentUserId());
         if (currentUser == null) {
             return Optional.of(new CoreError("User", "Problem occurs deriving current user details!"));
         }
         if (currentUser.getUsername().equals(request.getUsername())) {
             return Optional.empty();
         }
-        if (usersRepository.existsByName(request.getUsername())) {
+        if (usersRepository.existsByUsername(request.getUsername())) {
             return Optional.of(new CoreError("User", "Already exists in the database!"));
         }
         return Optional.empty();

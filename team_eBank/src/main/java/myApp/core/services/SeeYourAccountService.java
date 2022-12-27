@@ -1,6 +1,6 @@
 package myApp.core.services;
 
-import myApp.core.database.BankRepository;
+import myApp.core.database.jpa.JpaBankAccountRepository;
 import myApp.core.domain.BankAccount;
 import myApp.core.requests.SeeYourAccountRequest;
 import myApp.core.responses.SeeYourAccountResponse;
@@ -13,7 +13,7 @@ import java.util.Optional;
 @Transactional
 public class SeeYourAccountService {
     @Autowired
-    private BankRepository bankRepository;
+    private JpaBankAccountRepository bankRepository;
 
     public SeeYourAccountResponse execute(SeeYourAccountRequest request) {
         Optional<BankAccount> bankAccount = bankRepository.seeYourAccount(request.getPersonalCode());

@@ -37,20 +37,6 @@ public class BookRestController {
 	@Autowired private DeleteBookService deleteBookService;
 	@Autowired private SearchBooksService searchBookService;
 
-	@PostMapping(path = "/search",
-				 consumes = "application/json",
-			     produces = "application/json")
-	public SearchBooksResponse searchBooksPost(@RequestBody SearchBooksRequest request) {
-		return searchBookService.execute(request);
-	}
-
-	@GetMapping(path = "/search", produces = "application/json")
-	public SearchBooksResponse searchBooksGet(@RequestParam String title,
-											  @RequestParam String author) {
-		SearchBooksRequest request = new SearchBooksRequest(title, author);
-		return searchBookService.execute(request);
-	}
-
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public GetBookResponse getBook(@PathVariable Long id) {
 		GetBookRequest request = new GetBookRequest(id);
@@ -75,6 +61,20 @@ public class BookRestController {
 	public DeleteBookResponse deleteBook(@PathVariable Long id) {
 		DeleteBookRequest request = new DeleteBookRequest(id);
 		return deleteBookService.execute(request);
+	}
+
+	@PostMapping(path = "/search",
+			consumes = "application/json",
+			produces = "application/json")
+	public SearchBooksResponse searchBooksPost(@RequestBody SearchBooksRequest request) {
+		return searchBookService.execute(request);
+	}
+
+	@GetMapping(path = "/search", produces = "application/json")
+	public SearchBooksResponse searchBooksGet(@RequestParam String title,
+											  @RequestParam String author) {
+		SearchBooksRequest request = new SearchBooksRequest(title, author);
+		return searchBookService.execute(request);
 	}
 
 }

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class OrmSettingsRepository implements SettingsRepository {
 
     @Autowired

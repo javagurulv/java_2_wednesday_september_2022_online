@@ -14,10 +14,10 @@ public class ProgramMenuForAdmin {
     @Autowired
     public ProgramMenuForAdmin(List<UIAction> uiActions) {
         menuNumberToUIActionMap = new HashMap<>();
-        menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllBankAccountsUIAction.class));
+       // menuNumberToUIActionMap.put(1, findUIAction(uiActions, GetAllBankAccountsUIAction.class));
         menuNumberToUIActionMap.put(2, findUIAction(uiActions, GetAllUsersUIAction.class));
        // menuNumberToUIActionMap.put(3, findUIAction(uiActions, AddBankAccountUIAction.class));
-        menuNumberToUIActionMap.put(4, findUIAction(uiActions, RemoveBankAccountUIAction.class));
+        //menuNumberToUIActionMap.put(4, findUIAction(uiActions, RemoveBankAccountUIAction.class));
         menuNumberToUIActionMap.put(5, findUIAction(uiActions, SearchBankAccountUIAction.class));
         menuNumberToUIActionMap.put(6, findUIAction(uiActions, SwitchUserUIAction.class));
         menuNumberToUIActionMap.put(7, findUIAction(uiActions, ExitUIAction.class));

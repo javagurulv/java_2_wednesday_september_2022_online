@@ -1,8 +1,11 @@
 package generalPackage.core.domain;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@Component
 @Entity
 @Table(name = "accounts")
 public class Accounts {

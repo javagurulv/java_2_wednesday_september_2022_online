@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.List;
 
 
-@Component
-@Transactional
+//@Component
+//@Transactional
 public class OrmUserRepository implements UsersRepository {
 
     @Autowired
@@ -37,7 +37,11 @@ public class OrmUserRepository implements UsersRepository {
 
     @Override
     public boolean update(User user) {
-        sessionFactory.getCurrentSession().update(user);
+        try {
+            sessionFactory.getCurrentSession().merge(user);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
@@ -110,6 +114,7 @@ public class OrmUserRepository implements UsersRepository {
                         "username LIKE :username");
         query.setParameter("email", "%"+email+"%");
         query.setParameter("username", "%"+username+"%");
+
         return query.getResultList();
     }
 }

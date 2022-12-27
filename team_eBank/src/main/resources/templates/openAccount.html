@@ -12,16 +12,9 @@
 
 <h3>Open account</h3>
 
-<table>
-  <td th:if="${errors != null}">
-    <tr th:each="error : ${errors}">
-      <td th:text="${error.field}" />
-      <td th:text="${error.message}" />
-    </tr>
-  </td>
-</table>
+<h3>You opened an account in our bank</h3>
 
-<form action="/admin" method="get">
+<form action="/user" method="get">
   <input type="submit" value="Go to main page" name="Submit" />
 </form>
 

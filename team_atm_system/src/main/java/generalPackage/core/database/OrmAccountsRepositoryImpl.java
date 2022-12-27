@@ -1,6 +1,7 @@
 package generalPackage.core.database;
 
 import generalPackage.core.domain.Accounts;
+import generalPackage.core.domain.Transactions;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class OrmAccountsRepositoryImpl implements AccountsRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    //    @Autowired
+//    Transactions transactions;
+    @Autowired
+    ORMTransactionRepository transactionRepository;
 
     @Override
     public void addAccount(Accounts accounts) {
@@ -39,6 +45,7 @@ public class OrmAccountsRepositoryImpl implements AccountsRepository {
 
     @Override
     public boolean increaseBalance(int userID, int amount) {
+        transactionRepository.inreaseBalanceRecord(new Transactions(userID,amount));
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "UPDATE Accounts SET balance = :b1 where id =:id");
         query.setParameter("b1", findUserByID(userID).getBalance() + amount);
@@ -48,6 +55,7 @@ public class OrmAccountsRepositoryImpl implements AccountsRepository {
 
     @Override
     public boolean decreaseBalance(int userID, int amount) {
+        transactionRepository.decreaseBalanceRecord(new Transactions(userID,amount*(-1)));
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "UPDATE Accounts SET balance = :b1 where id =:id");
         query.setParameter("b1", findUserByID(userID).getBalance() - amount);
@@ -59,6 +67,7 @@ public class OrmAccountsRepositoryImpl implements AccountsRepository {
     public int printBalance(int userID) {
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "SELECT balance from Accounts where id =:id");
+//        query.setParameter("balance", findUserByID(userID).getBalance());
         query.setParameter("id", userID);
         return (int) query.getSingleResult();
     }

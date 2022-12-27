@@ -1,8 +1,6 @@
 package lv.javaguru.java2.tasksScheduler.core.services.system;
 
-import lv.javaguru.java2.tasksScheduler.core.database.SettingsRepository;
-
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaSettingsRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.Settings;
 import lv.javaguru.java2.tasksScheduler.core.requests.GetSettingsRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetSettingsResponse;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class GetSettingsService {
 
     @Autowired
-    private SettingsRepository settingsRepository;
+    private JpaSettingsRepository settingsRepository;
     @Autowired private SessionService sessionService;
 
     public GetSettingsResponse execute(GetSettingsRequest request) {

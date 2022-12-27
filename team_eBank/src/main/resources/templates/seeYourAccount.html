@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Bank demo project">
+  <meta name="author" content="JavaGuru">
+  <title>Bank</title>
+</head>
+
+<body>
+
+<h3>Information</h3>
+
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Surname</td>
+    <td>Personal code</td>
+    <td>Balance:</td>
+  </tr>
+
+
+    <tr>
+      <td th:text="${bankAccount.name}" />
+      <td th:text="${bankAccount.surname}" />
+      <td th:text="${bankAccount.personalCode}" />
+      <td th:text="${bankAccount.balance}" />
+    </tr>
+  </td>
+
+</table>
+
+<form action="/user" method="get">
+  <input type="submit" value="Go to main page" name="Submit" />
+</form>
+
+</body>
+
+</html>

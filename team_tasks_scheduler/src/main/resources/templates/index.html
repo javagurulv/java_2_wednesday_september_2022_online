@@ -6,18 +6,46 @@
     <meta name="description" content="Tasks scheduler demo project">
     <meta name="author" content="JB, OK">
     <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
 <body>
+<header>
+    <section id="header">
+        <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+        <h1>Tasks Scheduler</h1>
+    </section>
+    <section id="sub-header">
+        <form action="/adminLogin" method="get">
+            <input class="btn" type="submit" value="System settings" name="Submit" />
+        </form>
+    </section>
+</header>
 
-<h3>Program menu</h3>
-
-<a href="/showUsernamesRegistered">Show usernames registered in the system</a> <br>
-<a href="/userLogin">User Login</a> <br>
-<a href="/userRegistration">User registration</a> <br>
-<a href="/systemSettings">System settings</a> <br>
-<a href="/exit">Exit</a> <br>
-
+<main>
+    <section id="menu">
+        <table class="tbl-buttons">
+            <th>
+                <h3>Program Menu</h3>
+            </th>
+            <tr>
+                <td><a href="/showUsernamesRegistered">
+                    <button class="btn">Show registered usernames</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="/userLogin">
+                    <button class="btn">User login</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="/userRegistration">
+                    <button class="btn">User registration</button>
+                </a></td>
+            </tr>
+        </table>
+    </section>
+</main>
 </body>
 
 </html>

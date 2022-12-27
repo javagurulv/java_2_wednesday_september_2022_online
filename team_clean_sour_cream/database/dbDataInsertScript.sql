@@ -81,10 +81,12 @@ VALUES (2, 4, '2023-01-21', 3, '2023-01-23', 135.00);
 INSERT INTO rent_deals (`client_id`, `vehicle_id`, `start_date`, `duration`, `end_date`, `cost`)
 VALUES (2, 4, '2023-01-15', 6, '2023-01-20', 270.00);
 
-SELECT * FROM vehicles;
-SELECT * FROM passenger_cars;
-SELECT * FROM mini_buses;
-SELECT * FROM motorcycles;
-SELECT * FROM car_trailers;
-SELECT * FROM clients;
-SELECT * FROM rent_deals;
+SELECT * FROM rentapp.vehicles;
+SELECT * FROM rentapp.passenger_cars;
+SELECT * FROM rentapp.mini_buses;
+SELECT * FROM rentapp.motorcycles;
+SELECT * FROM rentapp.car_trailers;
+SELECT * FROM rentapp.clients;
+SELECT * FROM rentapp.rent_deals;
+
+SET GLOBAL time_zone = '+2:00';

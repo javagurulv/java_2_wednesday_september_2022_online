@@ -1,7 +1,9 @@
 package generalPackage.core.services.usersOperations.usersValidators;
 
+import generalPackage.core.domain.Accounts;
 import generalPackage.core.requests.usersRequests.DecreaseBalanceRequest;
 import generalPackage.core.responses.usersResponses.CoreErrorUsers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,9 +13,13 @@ import java.util.Optional;
 @Component
 public class DecreaseBalanceValidator {
 
+    @Autowired
+    Accounts accountToCheck;
+
     public List<CoreErrorUsers> validate(DecreaseBalanceRequest request) {
         List<CoreErrorUsers> errors = new ArrayList<>();
         validateIDLength(request).ifPresent(errors::add);
+//        validateAvailableAmount(request).ifPresent(errors::add);
         return errors;
     }
 
@@ -29,4 +35,12 @@ public class DecreaseBalanceValidator {
                 : Optional.empty();
     }
 
+//    private Optional<CoreErrorUsers> validateAvailableAmount(DecreaseBalanceRequest request) {
+//        int amountAvailable = accountToCheck.getBalance();
+//        int amountToDecreace = request.getAmountToDecrease();
+//
+//        return (amountAvailable < amountToDecreace)
+//                ? Optional.of(new CoreErrorUsers("Amount", "is insufficient"))
+//                : Optional.empty();
+//    }
 }

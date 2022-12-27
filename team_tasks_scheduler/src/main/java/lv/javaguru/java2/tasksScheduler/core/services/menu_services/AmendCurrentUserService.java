@@ -1,8 +1,7 @@
 package lv.javaguru.java2.tasksScheduler.core.services.menu_services;
 
-import lv.javaguru.java2.tasksScheduler.core.database.UsersRepository;
 
-
+import lv.javaguru.java2.tasksScheduler.core.database.jpa.JpaUsersRepository;
 import lv.javaguru.java2.tasksScheduler.core.domain.User;
 import lv.javaguru.java2.tasksScheduler.core.requests.AmendCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.AmendCurrentUserResponse;
@@ -21,13 +20,13 @@ import java.util.List;
 @Transactional
 public class AmendCurrentUserService {
 
-    @Autowired private UsersRepository usersRepository;
+    @Autowired private JpaUsersRepository usersRepository;
     @Autowired private SessionService sessionService;
     @Autowired private UserAmendValidator validator;
 
     public AmendCurrentUserResponse execute(AmendCurrentUserRequest request) {
         List<CoreError> errors;
-        User currentUser = usersRepository.getUserById(sessionService.getCurrentUserId());
+        User currentUser = usersRepository.findUserById(sessionService.getCurrentUserId());
         if (currentUser == null) {
             errors = new ArrayList<>();
             errors.add(new CoreError("User ID", "User does not exist"));

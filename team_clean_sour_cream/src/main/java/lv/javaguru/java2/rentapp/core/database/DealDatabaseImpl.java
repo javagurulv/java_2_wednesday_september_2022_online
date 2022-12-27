@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Component
+@Deprecated()
+//@Component
 public class DealDatabaseImpl implements DealDatabase {
 
     private Long nextId = 1L;
@@ -26,7 +28,7 @@ public class DealDatabaseImpl implements DealDatabase {
     }
 
     @Override
-    public RentDeal getDealById(Long id) {
+    public Optional<RentDeal> getDealById(Long id) {
         return null;
     }
 }

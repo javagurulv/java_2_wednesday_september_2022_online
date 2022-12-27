@@ -4,6 +4,9 @@ public class Paging {
     private Integer pageNumber;
     private Integer pageSize;
 
+    public Paging() {
+    }
+
     public Paging(Integer pageNumber, Integer pageSize) {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
@@ -19,5 +22,9 @@ public class Paging {
 
     public void setPageNumber(Integer pageNumber) {
         this.pageNumber = pageNumber;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

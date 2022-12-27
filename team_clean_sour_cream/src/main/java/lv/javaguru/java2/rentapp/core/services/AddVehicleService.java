@@ -34,7 +34,8 @@ public class AddVehicleService {
 
         VehicleCreator vehicleTypeCreator = vehicleCreatorMap.getVehicleTypeCreatorByCarType(vehicleType);
         Vehicle vehicle = vehicleTypeCreator.createVehicle(request);
-        vehicleDatabase.addNewVehicle(vehicle);
+        Long vehicleId = vehicleDatabase.addNewVehicle(vehicle);
+        vehicle.setId(vehicleId);
         return new AddVehicleResponse(vehicle);
     }
 }

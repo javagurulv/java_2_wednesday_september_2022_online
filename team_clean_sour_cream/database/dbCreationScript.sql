@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS vehicles
     `brand`             VARCHAR(100)  NOT NULL,
     `model`             VARCHAR(100)  NOT NULL,
     `is_available`      BIT(1)        NOT NULL DEFAULT 1,
-    `year`              YEAR          NOT NULL,
+    `year`              SMALLINT      NOT NULL,
     `colour`            VARCHAR(100)  NOT NULL,
     `price`             DECIMAL(5, 2) NOT NULL,
     `engine_type`       VARCHAR(100)  NOT NULL,

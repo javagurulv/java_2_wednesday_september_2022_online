@@ -1,19 +1,25 @@
 package myApp.acceptanceTests;
-/*
+
 import myApp.config.SpringCoreConfiguration;
-import myApp.core.requests.*;
+import myApp.core.requests.AddBankAccountRequest;
+import myApp.core.requests.Ordering;
+import myApp.core.requests.Paging;
+import myApp.core.requests.SearchBankAccountRequest;
 import myApp.core.responses.SearchBankAccountResponse;
 import myApp.core.services.AddBankAccountService;
 import myApp.core.services.SearchBankAccountService;
-import myApp.matcher.DatabaseCleaner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -29,21 +35,30 @@ public class AcceptanceTest2 {
     @Autowired
     private SearchBankAccountService searchBankAccountServiceService;
     @Autowired
-    private DatabaseCleaner databaseCleaner;
+    private JdbcTemplate jdbcTemplate;
+
 
     @Before
     public void setup() {
-        databaseCleaner.clean();
+        List<String> tableNames = new ArrayList<>();
+        tableNames.add("bank_accounts");
+        tableNames.add("users");
+
+        for (String tableName : tableNames) {
+            String sql = "delete from " + tableName;
+            jdbcTemplate.execute(sql);
+        }
     }
+
     @Test
     public void testSuccessFindTwoBankAccounts() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "ExampleOne",
                 "000000-00002");
-        addService.execute(bankAccountOne,new AddUserRequest("000000-00002","password" ));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "ExampleTwo",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null );
         SearchBankAccountResponse response = searchBankAccountServiceService.execute(searchRequest);
@@ -58,11 +73,11 @@ public class AcceptanceTest2 {
     public void testSearchBooksWhenOrderingIsDescending() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
                 "000000-00002");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         Ordering ordering = new Ordering("surname", "DESCENDING");
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
@@ -79,11 +94,11 @@ public class AcceptanceTest2 {
     public void testSearchBooksWhenOrderingIsAscending() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
                 "000000-00002");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         Ordering ordering = new Ordering("surname", "ASCENDING");
         SearchBankAccountRequest searchRequest = new SearchBankAccountRequest("Example", null,null,
@@ -101,11 +116,11 @@ public class AcceptanceTest2 {
     public void testSearchBooksWithOrderingPaging() {
         AddBankAccountRequest bankAccountOne = new AddBankAccountRequest("Example", "A",
                 "000000-00002");
-        addService.execute(bankAccountOne, new AddUserRequest("000000-00002","password"));
+        addService.execute(bankAccountOne);
 
         AddBankAccountRequest bankAccountTwo = new AddBankAccountRequest("Example", "B",
                 "000000-00003");
-        addService.execute(bankAccountTwo, new AddUserRequest("000000-00003","password"));
+        addService.execute(bankAccountTwo);
 
         Ordering ordering = new Ordering("surname", "ASCENDING");
         Paging paging = new Paging(1, 1);
@@ -118,5 +133,3 @@ public class AcceptanceTest2 {
         assertEquals(response.getBankAccounts().get(0).getSurname(), "A");
     }
 }
-
- */
