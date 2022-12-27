@@ -3,7 +3,7 @@ package lv.javaguru.java2.repo_men_inc.core.validators;
 import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
 import lv.javaguru.java2.repo_men_inc.core.database.Database;
-import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
+import lv.javaguru.java2.repo_men_inc.core.database.OrmDatabaseImpl;
 import lv.javaguru.java2.repo_men_inc.core.requests.RemoveDebtorRequest;
 import lv.javaguru.java2.repo_men_inc.core.responses.CoreError;
 import org.junit.Before;
@@ -27,7 +27,7 @@ public class RemoveDebtorValidatorTest {
     protected ApplicationContext appContext =
             new AnnotationConfigApplicationContext(RepoMenIncConfiguration.class);
 
-    Database database = appContext.getBean(JdbcDatabaseImpl.class);
+    Database database = appContext.getBean(OrmDatabaseImpl.class);
     DatabaseCleaner databaseCleaner = appContext.getBean(DatabaseCleaner.class);
     RemoveDebtorValidator removeDebtorValidator = appContext.getBean(RemoveDebtorValidator.class);
 

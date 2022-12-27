@@ -32,19 +32,12 @@ public class AddHarvestedItemValidator {
             return errors;
         }
         validateItemIsEmpty(addHarvestedItemRequest).ifPresent(errors::add);
-        validateItemIsInTheList(addHarvestedItemRequest).ifPresent(errors::add);
         return errors;
     }
 
     private Optional<CoreError> validateItemIsEmpty(AddHarvestedItemRequest addHarvestedItemRequest) {
         return (addHarvestedItemRequest.getHarvestedItem() == null || addHarvestedItemRequest.getHarvestedItem().isEmpty())
                 ? Optional.of(new CoreError("Item", "Cannot be empty!"))
-                : Optional.empty();
-    }
-
-    private Optional<CoreError> validateItemIsInTheList(AddHarvestedItemRequest addHarvestedItemRequest) {
-        return database.getById(addHarvestedItemRequest.getDebtorsId()).getList().stream().map(Item::getName).collect(Collectors.toList()).contains(addHarvestedItemRequest.getHarvestedItem())
-                ? Optional.of(new CoreError("Item", "Already in the List!"))
                 : Optional.empty();
     }
 }

@@ -1,12 +1,19 @@
 package lv.javaguru.java2.repo_men_inc.core.domain;
 
-import java.util.HashSet;
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "debtors")
 public class Debtor {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name", nullable = false)
     private String name;
-    private HashSet<Item> list = new HashSet<>();
 
     public Debtor() {
     }
@@ -31,29 +38,17 @@ public class Debtor {
         this.name = name;
     }
 
-    public HashSet<Item> getList() {
-        return list;
-    }
-
-    public void setList(HashSet<Item> list) {
-        this.list = list;
-    }
-
-    public boolean addIem (Item item) {
-        return this.list.add(item);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Debtor debtor = (Debtor) o;
-        return id.equals(debtor.id) && name.equals(debtor.name) && list.equals(debtor.list);
+        return id.equals(debtor.id) && name.equals(debtor.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, list);
+        return Objects.hash(id, name);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class Debtor {
         return "Debtor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", list=" + list +
                 '}';
     }
 }
+

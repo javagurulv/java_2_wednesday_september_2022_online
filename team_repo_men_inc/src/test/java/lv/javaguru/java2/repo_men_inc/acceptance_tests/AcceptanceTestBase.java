@@ -3,7 +3,6 @@ package lv.javaguru.java2.repo_men_inc.acceptance_tests;
 import lv.javaguru.java2.repo_men_inc.DatabaseCleaner;
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
 import lv.javaguru.java2.repo_men_inc.core.database.Database;
-import lv.javaguru.java2.repo_men_inc.core.database.JdbcDatabaseImpl;
 import lv.javaguru.java2.repo_men_inc.core.requests.Ordering;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingDirection;
 import lv.javaguru.java2.repo_men_inc.core.requests.OrderingType;
@@ -23,7 +22,7 @@ public class AcceptanceTestBase {
     public void setup() {
         getDatabaseCleaner().clean();
 
-        Database database = appContext.getBean(JdbcDatabaseImpl.class);
+        Database database = appContext.getBean(Database.class);
 
         // create some debtors
         database.saveDebtorAndReturnId(1L,"mr x");
@@ -62,7 +61,6 @@ public class AcceptanceTestBase {
     String itemAlreadyPresentInTheItemsListOfTheFirstDebtorInTheDatabase = "leg";
 
     Ordering orderByNameDescending = new Ordering(OrderingType.NAME, OrderingDirection.DESC);
-    Ordering orderByListSizeAscending = new Ordering(OrderingType.LIST_ITEM_SIZE, OrderingDirection.ASC);
 
     Paging firstPage = new Paging(1, 1);
     Paging secondPage = new Paging(2, 1);

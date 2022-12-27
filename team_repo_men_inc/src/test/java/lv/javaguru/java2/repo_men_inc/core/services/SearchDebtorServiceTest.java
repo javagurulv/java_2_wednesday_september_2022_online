@@ -98,55 +98,55 @@ public class SearchDebtorServiceTest {
         assertEquals("name", searchDebtorResponse.getDebtors().get(0).getName());
     }
 
-    @Test
-    public void shouldSearchByListItemWithOrderingAscending() {
-        Ordering ordering = new Ordering(OrderingType.LIST_ITEM_SIZE, OrderingDirection.ASC);
-        SearchDebtorRequest validSearchDebtorRequest = new SearchDebtorRequest(null, "item", ordering, null);
-        when(searchDebtorValidator.validate(validSearchDebtorRequest)).thenReturn(List.of());
+//    @Test
+//    public void shouldSearchByListItemWithOrderingAscending() {
+//        Ordering ordering = new Ordering(OrderingType.LIST_ITEM_SIZE, OrderingDirection.ASC);
+//        SearchDebtorRequest validSearchDebtorRequest = new SearchDebtorRequest(null, "item", ordering, null);
+//        when(searchDebtorValidator.validate(validSearchDebtorRequest)).thenReturn(List.of());
+//
+//        List<Debtor> debtors = new ArrayList<>();
+//        Debtor debtorOne = new Debtor("name1");
+//        Debtor debtorTwo = new Debtor("name2");
+//        Item itemZero = new Item("item 0");
+//        Item itemOne = new Item("item 1");
+//        debtorOne.getList().add(itemZero);
+//        debtorTwo.getList().add(itemZero);
+//        debtorTwo.getList().add(itemOne);
+//        debtors.add(debtorOne);
+//        debtors.add(debtorTwo);
+//        when(database.getByListItem("item")).thenReturn(debtors);
+//
+//        SearchDebtorResponse searchDebtorResponse = searchDebtorService.execute(validSearchDebtorRequest);
+//        assertFalse(searchDebtorResponse.hasErrors());
+//        assertEquals(searchDebtorResponse.getDebtors().size(), 2);
+//        assertEquals(1, searchDebtorResponse.getDebtors().get(0).getList().size());
+//        assertEquals(2, searchDebtorResponse.getDebtors().get(1).getList().size());
+//    }
 
-        List<Debtor> debtors = new ArrayList<>();
-        Debtor debtorOne = new Debtor("name1");
-        Debtor debtorTwo = new Debtor("name2");
-        Item itemZero = new Item("item 0");
-        Item itemOne = new Item("item 1");
-        debtorOne.getList().add(itemZero);
-        debtorTwo.getList().add(itemZero);
-        debtorTwo.getList().add(itemOne);
-        debtors.add(debtorOne);
-        debtors.add(debtorTwo);
-        when(database.getByListItem("item")).thenReturn(debtors);
-
-        SearchDebtorResponse searchDebtorResponse = searchDebtorService.execute(validSearchDebtorRequest);
-        assertFalse(searchDebtorResponse.hasErrors());
-        assertEquals(searchDebtorResponse.getDebtors().size(), 2);
-        assertEquals(1, searchDebtorResponse.getDebtors().get(0).getList().size());
-        assertEquals(2, searchDebtorResponse.getDebtors().get(1).getList().size());
-    }
-
-    @Test
-    public void shouldSearchByListItemWithOrderingDescending() {
-        Ordering ordering = new Ordering(OrderingType.LIST_ITEM_SIZE, OrderingDirection.DESC);
-        SearchDebtorRequest validSearchDebtorRequest = new SearchDebtorRequest(null, "item", ordering, null);
-        when(searchDebtorValidator.validate(validSearchDebtorRequest)).thenReturn(List.of());
-
-        List<Debtor> debtors = new ArrayList<>();
-        Debtor debtorOne = new Debtor("name1");
-        Debtor debtorTwo = new Debtor("name2");
-        Item itemZero = new Item("item 0");
-        Item itemOne = new Item("item 1");
-        debtorOne.getList().add(itemZero);
-        debtorTwo.getList().add(itemZero);
-        debtorTwo.getList().add(itemOne);
-        debtors.add(debtorOne);
-        debtors.add(debtorTwo);
-        when(database.getByListItem("item")).thenReturn(debtors);
-
-        SearchDebtorResponse searchDebtorResponse = searchDebtorService.execute(validSearchDebtorRequest);
-        assertFalse(searchDebtorResponse.hasErrors());
-        assertEquals(searchDebtorResponse.getDebtors().size(), 2);
-        assertEquals(2, searchDebtorResponse.getDebtors().get(0).getList().size());
-        assertEquals(1, searchDebtorResponse.getDebtors().get(1).getList().size());
-    }
+//    @Test
+//    public void shouldSearchByListItemWithOrderingDescending() {
+//        Ordering ordering = new Ordering(OrderingType.LIST_ITEM_SIZE, OrderingDirection.DESC);
+//        SearchDebtorRequest validSearchDebtorRequest = new SearchDebtorRequest(null, "item", ordering, null);
+//        when(searchDebtorValidator.validate(validSearchDebtorRequest)).thenReturn(List.of());
+//
+//        List<Debtor> debtors = new ArrayList<>();
+//        Debtor debtorOne = new Debtor("name1");
+//        Debtor debtorTwo = new Debtor("name2");
+//        Item itemZero = new Item("item 0");
+//        Item itemOne = new Item("item 1");
+//        debtorOne.getList().add(itemZero);
+//        debtorTwo.getList().add(itemZero);
+//        debtorTwo.getList().add(itemOne);
+//        debtors.add(debtorOne);
+//        debtors.add(debtorTwo);
+//        when(database.getByListItem("item")).thenReturn(debtors);
+//
+//        SearchDebtorResponse searchDebtorResponse = searchDebtorService.execute(validSearchDebtorRequest);
+//        assertFalse(searchDebtorResponse.hasErrors());
+//        assertEquals(searchDebtorResponse.getDebtors().size(), 2);
+//        assertEquals(2, searchDebtorResponse.getDebtors().get(0).getList().size());
+//        assertEquals(1, searchDebtorResponse.getDebtors().get(1).getList().size());
+//    }
 
     @Test
     public void shouldSearchByListItemWithPagingFirstPage() {
