@@ -2,30 +2,32 @@ package lv.javaguru.java2.rentapp.core.services;
 
 import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddClientRequest;
-import lv.javaguru.java2.rentapp.core.responses.AddClientResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.responses.ExistedClientCheckResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.ExistedClientCheckValidator;
 import lv.javaguru.java2.rentapp.domain.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@Component
 public class ExistedClientCheckService {
     @Autowired
     private ExistedClientCheckValidator existedClientCheckValidator;
     @Autowired
     private ClientDatabase clientDatabase;
 
-    public AddClientResponse execute(AddClientRequest request) {
+    public ExistedClientCheckResponse execute(AddClientRequest request) {
         List<CoreError> errors = existedClientCheckValidator.validate(request);
         if (!errors.isEmpty()) {
-            return new AddClientResponse(errors);
+            return new ExistedClientCheckResponse(errors);
         }
 
         Optional<Long> existedClientIdOpt = getExistingClientId(request);
-        return existedClientIdOpt.map(AddClientResponse::new).orElseGet(() -> new AddClientResponse(0L));
+        return existedClientIdOpt.map(ExistedClientCheckResponse::new).orElseGet(() -> new ExistedClientCheckResponse(0L));
     }
 
     private Optional<Long> getExistingClientId(AddClientRequest request) {

@@ -3,7 +3,9 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddClientRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddClientResponse;
+import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
+import lv.javaguru.java2.rentapp.core.responses.ExistedClientCheckResponse;
 import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.ExistedClientCheckValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.AddClientValidator;
 import lv.javaguru.java2.rentapp.domain.Client;
@@ -19,21 +21,22 @@ public class AddClientService {
     private AddClientValidator addClientValidator;
 
     @Autowired
-    private ExistedClientCheckValidator existedClientCheckValidator;
+    private ExistedClientCheckService existedClientCheckService;
     @Autowired
     private ClientDatabase clientDatabase;
 
     public AddClientResponse execute(AddClientRequest request) {
-        List<CoreError> errors = addClientValidator.validate(request);
-        if (!errors.isEmpty()) {
-            return new AddClientResponse(errors);
+        List<CoreError> addClientErrors = addClientValidator.validate(request);
+        if (!addClientErrors.isEmpty()) {
+            return new AddClientResponse(addClientErrors);
         }
 
         Client client = getClient(request);
 
-        Optional<Long> clientId = existedClientCheckValidator.isClientExistByPersonalId(client);
-        if (clientId.isPresent()) {
-            return new AddClientResponse(clientId.get());
+        ExistedClientCheckResponse existedClientCheckResponse = existedClientCheckService.execute(request);
+
+        if (!existedClientCheckResponse.hasErrors()) {
+            return new AddClientResponse(existedClientCheckResponse.getErrors());
         }
 
         Long newClientId = clientDatabase.save(client);
