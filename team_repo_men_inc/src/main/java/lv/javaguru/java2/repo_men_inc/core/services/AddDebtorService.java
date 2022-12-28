@@ -8,10 +8,12 @@ import lv.javaguru.java2.repo_men_inc.core.database.Database;
 import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
+@Transactional
 public class AddDebtorService {
     @Autowired
     private Database database;

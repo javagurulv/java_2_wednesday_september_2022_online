@@ -12,6 +12,7 @@ import lv.javaguru.java2.repo_men_inc.core.domain.Debtor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@Transactional
 public class SearchDebtorService {
 
     @Autowired
@@ -68,7 +70,6 @@ public class SearchDebtorService {
             Comparator<Debtor> debtorComparator = null;
             switch (ordering.getOrderBy()) {
                 case NAME -> debtorComparator = Comparator.comparing(Debtor::getName);
-                case LIST_ITEM_SIZE -> debtorComparator = Comparator.comparing(debtor -> debtor.getList().size());
             }
             if (debtorComparator != null) {
                 if (ordering.getOrderDirection().getDirection().equals(OrderingDirection.DESC.getDirection())) {

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TaskSchedulerCoreConfig.class})
-@Sql({"/schema.sql"})
+@Sql({"/__schema.sql"})
 public class AcceptanceTest3 {
 
     @Autowired private AddSettingsService addSettingsService;

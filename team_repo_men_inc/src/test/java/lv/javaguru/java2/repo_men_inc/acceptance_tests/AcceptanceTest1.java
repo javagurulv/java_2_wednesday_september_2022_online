@@ -95,14 +95,14 @@ public class AcceptanceTest1 extends AcceptanceTestBase{
         assertTrue(searchDebtorResponse.getDebtors().isEmpty());
     }
 
-    @Test
-    public void searchWithOrderingAscending() {
-        SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, orderByListSizeAscending, null);
-        SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
-        assertEquals(2, searchDebtorResponse.getDebtors().size());
-        assertEquals("mr x", searchDebtorResponse.getDebtors().get(0).getName());
-        assertEquals("mr y", searchDebtorResponse.getDebtors().get(1).getName());
-    }
+//    @Test
+//    public void searchWithOrderingAscending() {
+//        SearchDebtorRequest searchDebtorRequest = new SearchDebtorRequest(null, itemPresentInSeveralDebtorsLists, orderByListSizeAscending, null);
+//        SearchDebtorResponse searchDebtorResponse = getSearchDebtorService().execute(searchDebtorRequest);
+//        assertEquals(2, searchDebtorResponse.getDebtors().size());
+//        assertEquals("mr x", searchDebtorResponse.getDebtors().get(0).getName());
+//        assertEquals("mr y", searchDebtorResponse.getDebtors().get(1).getName());
+//    }
 
     @Test
     public void searchWithOrderingDescending() {

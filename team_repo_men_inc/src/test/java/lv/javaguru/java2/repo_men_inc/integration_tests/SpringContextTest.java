@@ -2,6 +2,7 @@ package lv.javaguru.java2.repo_men_inc.integration_tests;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import lv.javaguru.java2.repo_men_inc.config.RepoMenIncConfiguration;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RepoMenIncConfiguration.class})
 public class SpringContextTest {
