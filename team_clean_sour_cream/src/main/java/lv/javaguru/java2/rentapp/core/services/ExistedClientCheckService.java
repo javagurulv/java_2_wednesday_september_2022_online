@@ -15,8 +15,10 @@ import java.util.stream.Stream;
 
 @Component
 public class ExistedClientCheckService {
+
     @Autowired
     private ExistedClientCheckValidator existedClientCheckValidator;
+
     @Autowired
     private ClientDatabase clientDatabase;
 
@@ -26,15 +28,19 @@ public class ExistedClientCheckService {
             return new ExistedClientCheckResponse(errors);
         }
 
-        Optional<Long> existedClientIdOpt = getExistingClientId(request);
-        return existedClientIdOpt.map(ExistedClientCheckResponse::new).orElseGet(() -> new ExistedClientCheckResponse(0L));
+        Optional<Client> existedClientOpt = getExistingClient(request);
+        return existedClientOpt.map(ExistedClientCheckResponse::new).orElseGet(() -> new ExistedClientCheckResponse("There is no such a client"));
     }
 
-    private Optional<Long> getExistingClientId(AddClientRequest request) {
-        return Stream.of(checkClientExistenceByPersonalId(request), checkClientExistenceByEmail(request))
+    private Optional<Client> getExistingClient(AddClientRequest request) {
+        Optional<Long> exClientIdOpt = Stream.of(checkClientExistenceByPersonalId(request), checkClientExistenceByEmail(request))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .findFirst();
+
+        return exClientIdOpt.isPresent()
+                ? clientDatabase.getById(exClientIdOpt.get())
+                : Optional.empty();
     }
 
     public Optional<Long> checkClientExistenceByPersonalId(AddClientRequest request) {

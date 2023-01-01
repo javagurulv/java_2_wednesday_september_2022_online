@@ -3,17 +3,14 @@ package lv.javaguru.java2.rentapp.core.services;
 import lv.javaguru.java2.rentapp.core.database.ClientDatabase;
 import lv.javaguru.java2.rentapp.core.requests.AddClientRequest;
 import lv.javaguru.java2.rentapp.core.responses.AddClientResponse;
-import lv.javaguru.java2.rentapp.core.responses.AddVehicleResponse;
 import lv.javaguru.java2.rentapp.core.responses.CoreError;
 import lv.javaguru.java2.rentapp.core.responses.ExistedClientCheckResponse;
-import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.ExistedClientCheckValidator;
 import lv.javaguru.java2.rentapp.core.services.validators.add_client_validators.AddClientValidator;
 import lv.javaguru.java2.rentapp.domain.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class AddClientService {
@@ -22,6 +19,7 @@ public class AddClientService {
 
     @Autowired
     private ExistedClientCheckService existedClientCheckService;
+
     @Autowired
     private ClientDatabase clientDatabase;
 
@@ -37,6 +35,10 @@ public class AddClientService {
 
         if (!existedClientCheckResponse.hasErrors()) {
             return new AddClientResponse(existedClientCheckResponse.getErrors());
+        }
+
+        if (!existedClientCheckResponse.hasMessage()) {
+            return new AddClientResponse(existedClientCheckResponse.getMessage());
         }
 
         Long newClientId = clientDatabase.save(client);
