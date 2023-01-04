@@ -27,4 +27,8 @@ public class ExistedClientCheckResponse extends CoreResponse {
     public boolean hasMessage() {
         return message != null && !message.isBlank();
     }
+
+    public boolean hasExClient() {
+        return exClient != null;
+    }
 }

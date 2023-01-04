@@ -33,12 +33,14 @@ public class AddClientService {
 
         ExistedClientCheckResponse existedClientCheckResponse = existedClientCheckService.execute(request);
 
-        if (!existedClientCheckResponse.hasErrors()) {
+        if (existedClientCheckResponse.hasErrors()) {
             return new AddClientResponse(existedClientCheckResponse.getErrors());
         }
 
-        if (!existedClientCheckResponse.hasMessage()) {
+        if (existedClientCheckResponse.hasMessage()) {
             return new AddClientResponse(existedClientCheckResponse.getMessage());
+        } else if (existedClientCheckResponse.hasExClient()) {
+            return new AddClientResponse(existedClientCheckResponse.getExClient());
         }
 
         Long newClientId = clientDatabase.save(client);

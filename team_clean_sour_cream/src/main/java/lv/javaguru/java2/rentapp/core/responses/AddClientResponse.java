@@ -25,4 +25,8 @@ public class AddClientResponse extends CoreResponse {
     public AddClientResponse(Long clientId) {
         this.clientId = clientId;
     }
+
+    public AddClientResponse(Client newClient) {
+        this.newClient = newClient;
+    }
 }
