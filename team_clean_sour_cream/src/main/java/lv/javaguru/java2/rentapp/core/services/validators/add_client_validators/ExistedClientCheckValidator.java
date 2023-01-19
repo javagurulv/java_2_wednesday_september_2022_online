@@ -35,8 +35,7 @@ public class ExistedClientCheckValidator {
         if (exClientChkService.checkClientExistenceByPersonalId(request).isPresent()
                 && exClientChkService.checkClientExistenceByEmail(request).isPresent()
                 && isConflictBetweenExistenceCheckResults(request).isEmpty()) {
-            errors.add(new CoreError("Personal ID and Email", "already exist in two different client`s records," +
-                    " what can rise conflict"));
+            errors.add(new CoreError("Personal ID and/or  Email", "already exist in different client`s record,"));
         }
         return errors;
     }
