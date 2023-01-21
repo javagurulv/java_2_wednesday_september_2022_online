@@ -55,8 +55,7 @@
                     </tr>
                     <tr>
                         <td>Send reminders:</td>
-                        <td><input type="text" th:field="${request.sendReminders}"/></td>
-                        <td>(true/false)</td>
+                        <td><input type="checkbox" name="sendReminders" th:checked="*{sendReminders}" /></td>
                     </tr>
                 </table>
                 <br>

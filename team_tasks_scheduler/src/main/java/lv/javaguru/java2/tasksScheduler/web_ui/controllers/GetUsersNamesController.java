@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class GetUsersNamesController {
     @Autowired
@@ -22,8 +24,9 @@ public class GetUsersNamesController {
     @GetMapping(value = "/showUsernamesRegistered")
     public String showUsernamesRegisteredOnSystem(ModelMap modelMap) {
         GetUsersRequest request = new GetUsersRequest();
-        modelMap.addAttribute("request", request);
         GetUsersResponse response = getUsersService.execute(request, MenuType.START);
+        setDefaultRadioButtons(request);
+        modelMap.addAttribute("request", request);
         modelMap.addAttribute("users", response.getUsersNames());
         modelMap.addAttribute("list_status", getListStatus(request, response));
         modelMap.addAttribute("list_pages", "(page: 1 of 1)");
@@ -34,6 +37,7 @@ public class GetUsersNamesController {
     public String processGetUsersRequest(@ModelAttribute(value = "request") GetUsersRequest request, ModelMap modelMap) {
         normalizeRequest(request);
         GetUsersResponse response = getUsersService.execute(request, MenuType.START);
+        setDefaultRadioButtons(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
         } else {
@@ -49,11 +53,19 @@ public class GetUsersNamesController {
         return "showUsernamesRegistered";
     }
 
+    private void setDefaultRadioButtons(GetUsersRequest request) {
+        if (request.getOrdering() == null) {
+            request.setOrdering(new Ordering("", ""));
+        }
+    }
+
     private void normalizeRequest(GetUsersRequest request) {
-        if (ValueChecking.stringIsEmpty(request.getOrdering().getOrderDirection())) {
-            request.setOrdering(null);
-        } else {
-            request.getOrdering().setOrderBy("username");
+        if (request.getOrdering() != null) {
+            if (ValueChecking.stringIsEmpty(request.getOrdering().getOrderDirection())) {
+                request.setOrdering(null);
+            } else {
+                request.getOrdering().setOrderBy("username");
+            }
         }
         if (request.getPaging().getPageNumber() == null &&
                 request.getPaging().getPageNumber() == null) {

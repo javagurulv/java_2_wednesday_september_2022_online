@@ -25,7 +25,7 @@ public class UserDeletionController {
     public String showUserDeletionPage(ModelMap modelMap) {
         modelMap.addAttribute("request", new DeleteCurrentUserRequest());
         modelMap.addAttribute("message",
-                "Please confirm that you wish to delete your profile from the system.");
+                "Please confirm that you wish to delete your account from the system.");
         modelMap.addAttribute("stage", "confirmation");
         return "userDeletion";
     }

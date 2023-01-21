@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -44,8 +44,18 @@
                 </tr>
                 <tr>
                     <td>Order direction:</td>
-                    <td><input type="text" th:field="${request.ordering.orderDirection}"/></td>
-                    <td>(ASCENDING/DESCENDING)</td>
+<!--                    <td><input type="text" th:field="${request.ordering.orderDirection}"/></td>-->
+<!--                    <td>(ASCENDING/DESCENDING)</td>-->
+                    <td>
+                        <input type="radio" id="none" name="none" value="" th:field="*{ordering.orderDirection}">
+                        <label for="none">None</label>
+
+                        <input type="radio" id="asc" name="asc" value="ASCENDING" th:field="*{ordering.orderDirection}">
+                        <label for="asc">Ascending</label>
+
+                        <input type="radio" id="dsc" name="dsc" value="DESCENDING" th:field="*{ordering.orderDirection}">
+                        <label for="dsc">Descending</label>
+                    </td>
                 </tr>
                 <tr>
                     <td>Show page number:</td>

@@ -69,6 +69,7 @@ main {
 #header h4 {
     padding: 10px;
     color:aqua;
+    font-style: italic;
 }
 
 #form, #menu {
