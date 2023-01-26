@@ -24,6 +24,10 @@ public class BankAccount {
     @Column(name="balance")
     private Integer balance;
 
+    @Column(name="money_debt")
+    private Integer debt;
+
+
     public BankAccount(String name, String surname, String personalCode, Integer balance) {
         this.name = name;
         this.surname = surname;
