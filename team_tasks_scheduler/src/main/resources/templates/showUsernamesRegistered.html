@@ -7,6 +7,7 @@
     <meta name="author" content="JB, OK">
     <title>Tasks Scheduler</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
 </head>
 
 <body>
@@ -24,63 +25,46 @@
 
 <main>
     <section id="msg-error">
-        <td th:if="${errors != null}">
-            <tr th:each="error : ${errors}">
-                <td th:text="${error.field}" />
-                <td> - </td>
-                <td th:text="${error.message}" />
-            </tr>
-        </td>
+        <!-- JS will  place here errors -->
     </section>
 
     <section id="form">
         <h3>Registered usernames</h3>
-
-        <form action="/showUsernamesRegistered" th:object="${request}" method="post">
+        <form id="userQueryForm">
             <table>
                 <tr>
-                    <td>Username to filter by:</td>
-                    <td><input type="text" th:field="${request.username}"/></td>
+                    <td><label for="username">Username to filter by:</label></td>
+                    <td><input type="text" name="username" id="username" value="1"/></td>
                 </tr>
                 <tr>
-                    <td>Order direction:</td>
+                    <td><label for="orderDirection">Order direction:</label></td>
                     <td>
-                        <input type="radio" id="none" name="none" value="" th:field="*{ordering.orderDirection}">
-                        <label for="none">None</label>
-
-                        <input type="radio" id="asc" name="asc" value="ASCENDING" th:field="*{ordering.orderDirection}">
-                        <label for="asc">Ascending</label>
-
-                        <input type="radio" id="dsc" name="dsc" value="DESCENDING" th:field="*{ordering.orderDirection}">
-                        <label for="dsc">Descending</label>
+                        <select name="orderDirection" id="orderDirection">
+                            <option value="ASCENDING"> ASCENDING </option>
+                            <option value="DESCENDING"> DESCENDING </option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
-                    <td>Show page number:</td>
-                    <td><input type="number" th:field="${request.paging.pageNumber}"/></td>
+                    <td><label for="pageNumber">Show page number:</label></td>
+                    <td><input type="number" name="pageNumber" id="pageNumber" min="0" value="0"/></td>
                 </tr>
                 <tr>
-                    <td>Records on page:</td>
-                    <td><input type="number" th:field="${request.paging.pageSize}"/></td>
+                    <td><label for="recordOnPage">Records on page:</label></td>
+                    <td><input type="number" name="recordOnPage" id="recordOnPage" min="0" value="5"/></td>
                 </tr>
             </table>
-            <br>
-            <input class="btn" type="submit" value="Show"/>
+            <br/>
+            <input class="btn" type="submit" value="Show" onclick="getUsersNames(event)"/>
             <input class="btn" type="reset" value="Clear"/>
-
-            <table class="tbl-list">
-                <th>Result:</th>
-                <tr><td class="tbl-data-pages" th:text="${list_pages}" /></tr>
-                <td th:if="${users != null}">
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user}" />
-                    </tr>
-                </td>
-            </table>
-            <table class="tbl-list-status">
-                <tr><td th:text="${list_status}" /></tr>
-            </table>
         </form>
+    </section>
+
+    <section id="showUserNames" class="tbl-list">
+        <h3>Result:</h3>
+        <ol id="userNamesList">
+            <!-- JS will insert here usernames -->
+        </ol>
     </section>
 </main>
 </body>
