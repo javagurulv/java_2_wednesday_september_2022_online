@@ -23,13 +23,7 @@ public class GetUsersNamesController {
 
     @GetMapping(value = "/showUsernamesRegistered")
     public String showUsernamesRegisteredOnSystem(ModelMap modelMap) {
-        GetUsersRequest request = new GetUsersRequest();
-        GetUsersResponse response = getUsersService.execute(request, MenuType.START);
-        setDefaultRadioButtons(request);
-        modelMap.addAttribute("request", request);
-        modelMap.addAttribute("users", response.getUsersNames());
-        modelMap.addAttribute("list_status", getListStatus(request, response));
-        modelMap.addAttribute("list_pages", "(page: 1 of 1)");
+
         return "showUsernamesRegistered";
     }
 

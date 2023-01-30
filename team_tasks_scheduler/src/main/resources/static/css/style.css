@@ -30,6 +30,12 @@ main {
     color: blue;
 }
 
+.tbl-list h3 {
+    text-align: left;
+    color: blue;
+	margin: 15px 0px 15px 0px;
+}
+
 .tbl-list-status, .tbl-data-pages {
     padding: 10px 0px 10px 0px;
     font-size: 13px;
@@ -109,4 +115,13 @@ main {
     padding: 0px 0px 0px 10px;
 }
 
-
+ol {
+  display: block;
+  list-style-type: decimal;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+  list-style-type: numeric;
+}
