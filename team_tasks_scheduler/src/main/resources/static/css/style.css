@@ -55,6 +55,12 @@ main {
     color: blue;
 }
 
+.tbl-list h3 {
+    text-align: left;
+    color: blue;
+	margin: 15px 0px 15px 0px;
+}
+
 #header {
     background-color: RoyalBlue;
 }
@@ -136,6 +142,19 @@ main {
     padding: 0px 0px 0px 10px;
 }
 
+
 #pagination a:visited {
     color: blue;
+}
+
+
+ol {
+  display: block;
+  list-style-type: decimal;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 40px;
+  list-style-type: numeric;
 }
