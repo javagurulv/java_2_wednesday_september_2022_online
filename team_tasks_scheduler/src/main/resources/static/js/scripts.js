@@ -1,3 +1,55 @@
+function addTask(event) {
+     event.preventDefault();
+     document.getElementById("msg-error").style.display = "none";
+     document.getElementById("msg-succeed").style.display = "none";
+
+     const newTaskForm = document.getElementById("newTaskInfo");
+     const FD = new FormData(newTaskForm);
+     const baseUrl = "http://localhost:8080/api/addTask";
+     const taskInfo = {taskDescription:FD.get("taskDescription"), regularity:FD.get("regularity"),
+                             dueDate:FD.get("dueDate"), endDate:FD.get("endDate")};
+
+     sendTaskData(baseUrl, taskInfo).then((dataObj) => {
+             _data = dataObj.data;
+             _hasErrors = dataObj.hasErrors;
+             let text = "";
+             if (_hasErrors == false) {
+                 console.log(_data.message);
+                 _data.forEach(msg => {
+                     text += msg.message;
+                 })
+                 document.getElementById("msg-succeed").style.display = "initial";
+                 document.getElementById("msg-succeed").innerHTML =  text;
+             }
+             else {
+                 _data.forEach(error => {
+                     console.log(error.error + ": " + error.msg);
+                     text += error.error + ": " + error.msg + "<br>";
+                 })
+                 document.getElementById("msg-error").style.display = "initial";
+                 document.getElementById("msg-error").innerHTML =  text;
+             }
+         })
+}
+
+async function sendTaskData(baseUrl, dataToSend) {
+    const response = await fetch(baseUrl, {method:"POST",
+        							            headers:{"Content-Type":"application/json",
+        							                            "Accept":"application/json"},
+        							            body:JSON.stringify(dataToSend)});
+    let data, hasErrors;
+    if (response.status == 200) {
+        data = await response.json();
+      	hasErrors = false
+    }
+    else if (response.status == 400) {
+        data = await response.json()
+        	hasErrors = true;
+    }
+
+    return {data, hasErrors};
+}
+
 function registerUser(event) {
     event.preventDefault();
     document.getElementById("msg-error").style.display = "none";
