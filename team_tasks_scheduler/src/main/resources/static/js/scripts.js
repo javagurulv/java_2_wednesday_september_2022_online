@@ -7,7 +7,8 @@ function addTask(event) {
      const FD = new FormData(newTaskForm);
      const baseUrl = "http://localhost:8080/api/addTask";
      const taskInfo = {taskDescription:FD.get("taskDescription"), regularity:FD.get("regularity"),
-                             dueDate:FD.get("dueDate"), endDate:FD.get("endDate")};
+                             dueDate:FD.get("dueDate"), endDate:FD.get("endDate"),
+                             dueTime:FD.get("dueTime"), endTime:FD.get("endTime")};
 
      sendTaskData(baseUrl, taskInfo).then((dataObj) => {
              _data = dataObj.data;
