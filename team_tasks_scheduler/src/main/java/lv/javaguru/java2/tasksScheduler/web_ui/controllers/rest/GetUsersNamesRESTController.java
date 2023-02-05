@@ -42,7 +42,7 @@ public class GetUsersNamesRESTController {
     }
 
     @PostMapping(value="/{name}", consumes = "application/json", produces = "application/json")
-    ResponseEntity<List<Map<String,String>>> getAllUserNames(@RequestBody Map<String,String> viewParam,
+    ResponseEntity<List<Map<String,String>>> getUserNames(@RequestBody Map<String,String> viewParam,
                                                              @PathVariable String name) {
         Ordering ordering = new Ordering("username", viewParam.get("ordering"));
         Paging paging = new Paging(Integer.valueOf(viewParam.get("pageNumber")),

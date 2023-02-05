@@ -40,28 +40,55 @@
     <section id="form">
         <h3>Amend task information</h3>
 
-        <form action="/userAmendment" th:object="${request}" method="post">
+        <form action="/taskAmendment" th:object="${request}" method="post">
             <table>
                 <tr>
-                    <td>Username:</td>
-                    <td><input type="text" th:field="${request.username}"/></td>
+                    <td><label for="taskDescription">Task description:</label></td>
+                    <td>
+                        <input type="text" name="taskDescription" id="taskDescription"th:field="${request.username}"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Password:</td>
-                    <td><input type="text" th:field="${request.password}"/></td>
+                    <td><label for="regularity">Repeat:</label></td>
+                    <td>
+                        <input type="text" name="regularity" id="regularity"th:field="${request.password}"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>E-mail:</td>
-                    <td><input type="text" th:field="${request.email}"/></td>
+                    <td><label for="dueDate">Due date</label></td>
+                    <td>
+                        <input type="date" name="dueDate" id="dueDate" th:field="${request.email}"/>
+                    </td>
+                    <td>
+                        <input type="time" name="dueTime" id="dueTime" th:field="${request.email}"/>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Send reminders:</td>
-                    <td><input type="checkbox" name="sendReminders" th:checked="*{sendReminders}" /></td>
+                    <td><label for="endDate">End date</label></td>
+                    <td>
+                        <input type="date" name="endDate" id="endDate" th:field="${request.email}"/>
+                    </td>
+                    <td>
+                        <input type="time" name="endTime" id="endTime" th:field="${request.email}"/>
+                    </td>
                 </tr>
             </table>
             <br>
             <input class="btn" type="submit" value="Save"/>
             <input class="btn" type="reset" value="Clear"/>
+        </form>
+    </section>
+    <section>
+        <h4>Search task</h4>
+        <form>
+            <table>
+                <tr>
+                    <td><label for="searchPhrase">Search:</label></td>
+                    <td>
+                        <input type="text" name="searchPhrase" id="searchPhrase" th:field="${request.username}"/>
+                    </td>
+                </tr>
+            </table>
         </form>
     </section>
 </main>

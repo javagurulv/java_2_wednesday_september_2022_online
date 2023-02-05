@@ -1,3 +1,51 @@
+function getTasks(event) {
+    event.preventDefault();
+
+    document.getElementById("msg-error").style.display = "none";
+
+    const searchTaskForm = document.getElementById("taskQueryForm");
+         const FD = new FormData(searchTaskForm);
+         const baseUrl = "http://localhost:8080/api/searchTasks";
+
+         const customUrl = baseUrl + "/" + FD.get("searchPhrase");
+         const viewParameters = {orderBy:FD.get("orderBy"), ordering:FD.get("orderDirection"),
+                                 pageNumber:FD.get("pageNumber"), pageSize:FD.get("recordOnPage")};
+
+    sendTaskData(customUrl, viewParameters).then((dataObj) => {
+        _data = dataObj.data;
+        _hasErrors = dataObj.hasErrors;
+        let text = "";
+        if (_hasErrors == false) {
+            console.log(_data.message);
+            _data.forEach(task => {
+                text += "<tr>";
+                text += "<td>"
+                text += task.description;
+                text += "</td>";
+                text += "<td>"
+                text += task.regularity;
+                text += "</td>";
+                text += "<td>"
+                text += task.dueDate;
+                text += "</td>";
+                text += "<td>"
+                text += task.endDate;
+                text += "</td>";
+                text += "</tr>";
+            })
+            document.getElementById("tasksListTBody").innerHTML =  text;
+        }
+        else {
+            _data.forEach(error => {
+                console.log(error.error + ": " + error.msg);
+                text += error.error + ": " + error.msg + "<br>";
+                })
+            document.getElementById("msg-error").style.display = "initial";
+            document.getElementById("msg-error").innerHTML =  text;
+        }
+    })
+}
+
 function addTask(event) {
      event.preventDefault();
      document.getElementById("msg-error").style.display = "none";
@@ -33,8 +81,8 @@ function addTask(event) {
          })
 }
 
-async function sendTaskData(baseUrl, dataToSend) {
-    const response = await fetch(baseUrl, {method:"POST",
+async function sendTaskData(url, dataToSend) {
+    const response = await fetch(url, {method:"POST",
         							            headers:{"Content-Type":"application/json",
         							                            "Accept":"application/json"},
         							            body:JSON.stringify(dataToSend)});
@@ -137,7 +185,8 @@ async function get() {
 
     const baseUrl = `http://localhost:8080/api/getUsersNames`;
 	let namedUrl = baseUrl+"/"+FD.get("username");
-	const viewParameters = {ordering:FD.get("orderDirection"), pageNumber:FD.get("pageNumber"), pageSize:FD.get("recordOnPage")};
+	const viewParameters = {ordering:FD.get("orderDirection"), pageNumber:FD.get("pageNumber"),
+	                                    pageSize:FD.get("recordOnPage")};
 
 	const response = await fetch(namedUrl, {method:"POST",
 							headers:{"Content-Type":"application/json", "Accept":"application/json"},
@@ -154,45 +203,3 @@ async function get() {
 
 	return {data, hasErrors};
 }
-
-
-    async function getUsersNames2(event) {
-		event.preventDefault();
-
-		const userNameQueryForm = document.getElementById("userQueryForm");
-		const FD = new FormData(userNameQueryForm);
-
-        const baseUrl = `http://localhost:8080/api/getUsersNames`;
-		let namedUrl = baseUrl+"/"+FD.get("username");
-		const object = {ordering:FD.get("orderDirection"), pageNumber:FD.get("pageNumber"), pageSize:FD.get("recordOnPage")};
-
-        fetch(namedUrl, {method:"POST",
-							headers:{"Content-Type":"application/json", "Accept":"application/json"},
-							body:JSON.stringify(object)})
-			.then(response => {
-				if (!response.ok) {
-					//throw new Error('Network response was not OK');
-				}
-
-				let data = response.json();
-				return data;
-			})
-			.then(data => {
-			console.log(data);
-			console.log(JSON.stringify(data));
-
-			let text = "";
-
-			data.forEach(user => {
-				console.log(user.username);
-				text += "<li>" + user.error + user.msg + "</li>";
-			}
-			)
-
-			document.getElementById("userNamesList").innerHTML =  text;
-			})
-			.catch((error) => {
-			  console.error('There has been a problem with your fetch operation:', error);
-            });
-
-    }
