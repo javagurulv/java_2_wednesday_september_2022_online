@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:form="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Tasks scheduler demo project">
+    <meta name="author" content="JB, OK">
+    <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
+</head>
+
+<body>
+<header>
+    <section id="header">
+        <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+        <h1>Tasks Scheduler</h1>
+    </section>
+    <section id="sub-header">
+        <form action="/userMenu" method="get">
+            <input class="btn" type="submit" value="Go to user menu" name="Submit" />
+        </form>
+    </section>
+</header>
+
+<main>
+    <section id="msg-error">
+        <!-- JS will  place here errors -->
+    </section>
+
+    <section id="form">
+        <h3>Search tasks:</h3>
+        <form id="taskQueryForm">
+            <table>
+                <tr>
+                    <td><label for="searchPhrase">Search criteria:</label></td>
+                    <td><input type="text" name="searchPhrase" id="searchPhrase" /></td>
+                </tr>
+                <tr>
+                    <td><label for="orderBy">Order criterion:</label></td>
+                    <td>
+                        <select name="orderBy" id="orderBy">
+                            <option value="Description">Description</option>
+                            <option value="due-date">Due date</option>
+                            <option value="end-date">End date</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="orderDirection">Order direction:</label></td>
+                    <td>
+                        <select name="orderDirection" id="orderDirection">
+                            <option value="ASCENDING"> ASCENDING </option>
+                            <option value="DESCENDING"> DESCENDING </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="pageNumber">Show page number:</label></td>
+                    <td><input type="number" name="pageNumber" id="pageNumber" min="1" value="1"/></td>
+                </tr>
+                <tr>
+                    <td><label for="recordOnPage">Records on page:</label></td>
+                    <td><input type="number" name="recordOnPage" id="recordOnPage" min="1" value="20"/></td>
+                </tr>
+            </table>
+            <br/>
+            <input class="btn" type="submit" value="Show" onclick="getTasks(event)"/>
+            <input class="btn" type="reset" value="Clear"/>
+        </form>
+    </section>
+
+    <section id="showTasks" class="tbl-list">
+        <h3>Result:</h3>
+        <table id="tasksList">
+            <tr>
+                <th>Description</th>
+                <th>Repeat</th>
+                <th>Due date</th>
+                <th>End date</th>
+            </tr>
+            <tbody id="tasksListTBody">
+            <!-- JS will insert here task info -->
+            </tbody>
+
+        </table>
+    </section>
+</main>
+</body>
+
+</html>
