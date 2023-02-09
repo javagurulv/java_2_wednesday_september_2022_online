@@ -26,6 +26,10 @@
             <column name="balance" type="int">
                 <constraints nullable="true"/>
             </column>
+
+            <column name="money_debt" type="int">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
         <rollback>
             <dropTable tableName="bank_accounts"

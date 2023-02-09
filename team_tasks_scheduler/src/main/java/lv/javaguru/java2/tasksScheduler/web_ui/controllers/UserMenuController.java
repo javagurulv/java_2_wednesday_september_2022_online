@@ -4,6 +4,8 @@ import lv.javaguru.java2.tasksScheduler.core.requests.GetCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.core.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
+import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +21,7 @@ public class UserMenuController {
     public String userMenu(ModelMap modelMap) {
         GetCurrentUserRequest request = new GetCurrentUserRequest();
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        modelMap.addAttribute("current_user", response.getUser().getUsername());
+        modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
         return "userMenu";
     }
 }

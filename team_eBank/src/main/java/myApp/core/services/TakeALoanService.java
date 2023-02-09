@@ -27,6 +27,7 @@ public class TakeALoanService {
         List<CoreError> errors = validator.execute(request);
         if (errors.isEmpty()) {
             bankAccountRepository.takeALoan(getUsername(), request.getValue());
+            bankAccountRepository.increaseValueOfDebt(getUsername(), request.getValue());
             return new TakeALoanResponses(true);
         } else {
             return new TakeALoanResponses(errors);
@@ -35,8 +36,7 @@ public class TakeALoanService {
 
     private String getUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        return username;
+        return authentication.getName();
     }
 }
 

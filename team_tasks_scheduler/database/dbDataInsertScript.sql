@@ -1,4 +1,4 @@
-USE `java2_task_scheduler` ;
+USE `java2_task_scheduler2` ;
 
 INSERT INTO users (username, user_password, email, send_reminder)
 VALUES ('1111', 'b59c67bf196a4758191e42f76670ceba', 'a@b.c', false);

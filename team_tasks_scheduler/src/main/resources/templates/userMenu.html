@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
+<!--<html xmlns:th="http://www.thymeleaf.org/">-->
 
 <head>
     <meta charset="utf-8">
@@ -14,7 +15,7 @@
     <section id="header">
         <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
         <h1>Tasks Scheduler</h1>
-        <h4><em>Welcome, <tr><td th:text="${current_user}" /></tr>!</em></h4>
+        <h4 th:text="${greeting}" /></h4>
     </section>
     <section id="sub-header">
         <form action="/userLogout" method="get">

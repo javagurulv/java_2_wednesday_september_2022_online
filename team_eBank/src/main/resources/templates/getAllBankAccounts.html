@@ -18,6 +18,7 @@
     <td>Surname:</td>
     <td>Personal code:</td>
     <td>Balance:</td>
+    <td>Debt:</td>
   </tr>
 
   <td th:if="${bank_accounts != null}">
@@ -26,6 +27,7 @@
       <td th:text="${bank_accounts.surname}" />
       <td th:text="${bank_accounts.personalCode}" />
       <td th:text="${bank_accounts.balance}" />
+      <td th:text="${bank_accounts.debt}" />
     </tr>
   </td>
 

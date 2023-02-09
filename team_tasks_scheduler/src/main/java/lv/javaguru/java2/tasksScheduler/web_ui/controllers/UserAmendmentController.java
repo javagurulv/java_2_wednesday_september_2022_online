@@ -10,6 +10,7 @@ import lv.javaguru.java2.tasksScheduler.core.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.AmendCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.UserRegistrationService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,7 +32,7 @@ public class UserAmendmentController {
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
         } else {
-            modelMap.addAttribute("current_user", response.getUser().getUsername());
+            modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
             modelMap.addAttribute("request", response.getUser());
         }
         return "userAmendment";
@@ -43,7 +44,7 @@ public class UserAmendmentController {
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
         } else {
-            modelMap.addAttribute("current_user", response.getUser().getUsername());
+            modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
             modelMap.addAttribute("succeed", response.getUser());
         }
         return "userAmendment";
