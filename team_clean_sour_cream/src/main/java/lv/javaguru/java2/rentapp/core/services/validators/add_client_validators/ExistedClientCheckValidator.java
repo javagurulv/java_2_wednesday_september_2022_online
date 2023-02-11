@@ -61,7 +61,8 @@ public class ExistedClientCheckValidator {
         if (getExistedClientById(request).isPresent()) {
             Client existedClient = getExistedClientById(request).get();
             if (!existedClient.getFirstName().equals(request.getFirstName())) {
-                return Optional.of(new CoreError("First Name", "different from client with same personal ID and/or Email"));
+                return Optional.of(new CoreError("First Name", "differs from the first name of existing client" +
+                        " record(s) with same personal ID and/or Email"));
             }
         }
         return Optional.empty();
@@ -71,7 +72,8 @@ public class ExistedClientCheckValidator {
         if (getExistedClientById(request).isPresent()) {
             Client existedClient = getExistedClientById(request).get();
             if (!existedClient.getLastName().equals(request.getLastName())) {
-                return Optional.of(new CoreError("Last Name", "different from client with same personal ID and/or Email"));
+                return Optional.of(new CoreError("Last Name", "differs from the last name of existing client" +
+                        " record(s) with same personal ID and/or Email"));
             }
         }
         return Optional.empty();

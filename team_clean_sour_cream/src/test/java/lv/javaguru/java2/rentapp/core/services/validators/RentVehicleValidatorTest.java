@@ -20,7 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(MockitoExtension.class)
 class RentVehicleValidatorTest {
 
-    @Mock private VehicleAvailabilityService vehicleAvailabilityService;
+    @Mock
+    private VehicleAvailabilityService vehicleAvailabilityService;
 
     @InjectMocks
     private RentVehicleValidator validator;
@@ -336,12 +337,4 @@ class RentVehicleValidatorTest {
         assertEquals("Phone number", errors.get(0).getField());
         assertEquals("cannot contain letters or special characters", errors.get(0).getMessage());
     }
-
-
-
-
-
-
-
-
 }
