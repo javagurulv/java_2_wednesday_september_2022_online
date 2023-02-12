@@ -11,6 +11,9 @@ public class AmendSettingsRequest {
     private String emailPort;
     private String emailProtocol;
 
+    public AmendSettingsRequest() {
+    }
+
     public AmendSettingsRequest(String adminPassword, String emailFrom, String emailPassword, String emailHost, String emailPort, String emailProtocol) {
         this.adminPassword = adminPassword;
         this.emailFrom = emailFrom;
@@ -51,5 +54,29 @@ public class AmendSettingsRequest {
 
     public String getEmailProtocol() {
         return emailProtocol;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }
+
+    public void setEmailFrom(String emailFrom) {
+        this.emailFrom = emailFrom;
+    }
+
+    public void setEmailPassword(String emailPassword) {
+        this.emailPassword = emailPassword;
+    }
+
+    public void setEmailHost(String emailHost) {
+        this.emailHost = emailHost;
+    }
+
+    public void setEmailPort(String emailPort) {
+        this.emailPort = emailPort;
+    }
+
+    public void setEmailProtocol(String emailProtocol) {
+        this.emailProtocol = emailProtocol;
     }
 }

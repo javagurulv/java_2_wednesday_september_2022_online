@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Tasks scheduler demo project">
+    <meta name="author" content="JB, OK">
+    <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+    <header>
+        <section id="header">
+            <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+            <h1>Tasks Scheduler</h1>
+            <h4><em>Welcome, System Administrator!</em></h4>
+        </section>
+        <section id="sub-header">
+            <form action="/systemSettingsMenu" method="get">
+                <input class="btn" type="submit" value="Go to settings menu" name="Submit" />
+            </form>
+        </section>
+    </header>
+
+    <main>
+        <section id="msg-error">
+            <td th:if="${errors != null}">
+                <tr th:each="error : ${errors}">
+                    <td th:text="${error.field}" />
+                    <td> - </td>
+                    <td th:text="${error.message}" />
+                </tr>
+            </td>
+        </section>
+        <section id="msg-succeed">
+            <tr><td th:text="${succeed} ? 'Successful update' : ''" /></tr>
+        </section>
+
+        <section id="form">
+            <h3>Amend System Settings</h3>
+
+            <form action="/settingsAmendment" th:object="${request}" method="post">
+                <table>
+                    <tr>
+                        <td>Administrator password:</td>
+                        <td><input type="text" th:field="${request.adminPassword}"/></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail from:</td>
+                        <td><input type="text" th:field="${request.emailFrom}"/></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail password:</td>
+                        <td><input type="text" th:field="${request.emailPassword}"/></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail host:</td>
+                        <td><input type="text" th:field="${request.emailHost}"/></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail port:</td>
+                        <td><input type="number" th:field="${request.emailPort}"/></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail protocol:</td>
+                        <td><input type="text" th:field="${request.emailProtocol}"/></td>
+                    </tr>
+                </table>
+                <br>
+                <input class="btn" type="submit" value="Save"/>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
