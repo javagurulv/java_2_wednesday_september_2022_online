@@ -52,7 +52,7 @@ public class ExistedClientCheckValidator {
                 && exClientChkService.checkClientExistenceByEmail(request).isPresent();
     }
 
-    private Boolean isConflictBetweenClientExistenceCheckResults(AddClientRequest request) {
+    private boolean isConflictBetweenClientExistenceCheckResults(AddClientRequest request) {
         return !Objects.equals(exClientChkService.checkClientExistenceByPersonalId(request).get(),
                 exClientChkService.checkClientExistenceByEmail(request).get());
     }
