@@ -1,3 +1,96 @@
+function addEventsOnLoad() {
+var el = document.getElementById("tasksListTBodyAmend");
+el.addEventListener("click", function(e){
+    console.log(e.target.parentElement);
+    var row = e.target.parentElement;
+    document.getElementById("taskId").value = row.cells[0].innerHTML;
+    document.getElementById("taskDescription").value = row.cells[1].innerHTML;
+    document.getElementById("regularity").value = row.cells[2].innerHTML;
+    let date = new Date(row.cells[3].innerHTML);
+    let timeStr = date.toLocaleString("sv-SE", {
+        hour: "2-digit",    minute: "2-digit",  second: "2-digit"
+    	});
+    let dateStr = date.toLocaleString("sv-SE", {
+        year: "numeric",    month: "2-digit",    day: "2-digit"
+    	});
+    document.getElementById("dueDate").value = dateStr;
+    document.getElementById("dueTime").value = timeStr;
+    date = new Date(row.cells[4].innerHTML);
+    timeStr = date.toLocaleString("sv-SE", {
+            hour: "2-digit",    minute: "2-digit",  second: "2-digit"
+        	});
+    dateStr = date.toLocaleString("sv-SE", {
+            year: "numeric",    month: "2-digit",    day: "2-digit"
+        	});
+    document.getElementById("endDate").value = dateStr;
+    document.getElementById("endTime").value = timeStr;
+    //new Intl.DateTimeFormat('ISO').format(date);//
+    //new Intl.DateTimeFormat('en-US').format(date)
+})
+}
+
+function getTasksForAmendPage(event) {
+    event.preventDefault();
+
+    document.getElementById("msg-error").style.display = "none";
+    document.getElementById("msg-succeed").style.display = "none";
+
+    const baseUrl = "http://localhost:8080/api/getOutstandingTasks";
+
+    getOutstandingTasks(baseUrl).then((dataObj) => {
+        _data = dataObj.data;
+        _hasErrors = dataObj.hasErrors;
+        let text = "";
+        if (_hasErrors == false) {
+            console.log(_data.message);
+            _data.forEach(task => {
+                text += "<tr>";
+                text += "<td>";
+                text += task.id;
+                text += "</td>";
+                text += "<td>";
+                text += task.description;
+                text += "</td>";
+                text += "<td>";
+                text += task.regularity;
+                text += "</td>";
+                text += "<td>";
+                text += task.dueDate;
+                text += "</td>";
+                text += "<td>";
+                text += task.endDate;
+                text += "</td>";
+                text += "</tr>";
+            })
+            document.getElementById("tasksListTBodyAmend").innerHTML =  text;
+        }
+        else {
+            _data.forEach(error => {
+                console.log(error.error + ": " + error.msg);
+                text += error.error + ": " + error.msg + "<br>";
+                })
+            document.getElementById("msg-error").style.display = "initial";
+            document.getElementById("msg-error").innerHTML =  text;
+        }
+    })
+}
+
+async function getOutstandingTasks(url) {
+	const response = await fetch(url, {method:"GET",
+							headers:{"Content-Type":"application/json", "Accept":"application/json"}})
+	let data, hasErrors;
+	if (response.status == 200) {
+		data = await response.json();
+		hasErrors = false
+	}
+	else if (response.status == 400) {
+		data = await response.json()
+		hasErrors = true;
+	}
+
+	return {data, hasErrors};
+}
+
 function getTasks(event) {
     event.preventDefault();
 
