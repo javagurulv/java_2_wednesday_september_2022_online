@@ -7,9 +7,10 @@
     <meta name="author" content="JB, OK">
     <title>Tasks Scheduler</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
 </head>
 
-<body>
+<body onload="addEventsOnLoad()">
 <header>
     <section id="header">
         <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
@@ -43,33 +44,39 @@
         <form action="/taskAmendment" th:object="${request}" method="post">
             <table>
                 <tr>
+                    <!--<td><label for="taskId">Task ID:</label></td>
+                    <td>-->
+                        <input type="hidden" name="taskId" id="taskId"/>
+
+                </tr>
+                <tr>
                     <td><label for="taskDescription">Task description:</label></td>
                     <td>
-                        <input type="text" name="taskDescription" id="taskDescription"th:field="${request.username}"/>
+                        <input type="text" name="taskDescription" id="taskDescription"/>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="regularity">Repeat:</label></td>
                     <td>
-                        <input type="text" name="regularity" id="regularity"th:field="${request.password}"/>
+                        <input type="text" name="regularity" id="regularity"/>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="dueDate">Due date</label></td>
                     <td>
-                        <input type="date" name="dueDate" id="dueDate" th:field="${request.email}"/>
+                        <input type="date" name="dueDate" id="dueDate"/>
                     </td>
                     <td>
-                        <input type="time" name="dueTime" id="dueTime" th:field="${request.email}"/>
+                        <input type="time" name="dueTime" id="dueTime"/>
                     </td>
                 </tr>
                 <tr>
                     <td><label for="endDate">End date</label></td>
                     <td>
-                        <input type="date" name="endDate" id="endDate" th:field="${request.email}"/>
+                        <input type="date" name="endDate" id="endDate"/>
                     </td>
                     <td>
-                        <input type="time" name="endTime" id="endTime" th:field="${request.email}"/>
+                        <input type="time" name="endTime" id="endTime"/>
                     </td>
                 </tr>
             </table>
@@ -79,17 +86,27 @@
         </form>
     </section>
     <section>
-        <h4>Search task</h4>
-        <form>
+        <h4>Show outstanding task</h4>
+        <form id="taskQueryForm">
             <table>
                 <tr>
-                    <td><label for="searchPhrase">Search:</label></td>
-                    <td>
-                        <input type="text" name="searchPhrase" id="searchPhrase" th:field="${request.username}"/>
-                    </td>
+                    <td><input class="btn" type="submit" value="Show" onclick="getTasksForAmendPage(event)"/></td>
                 </tr>
             </table>
         </form>
+        <h3>Result:</h3>
+        <table id="tasksList">
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Repeat</th>
+                <th>Due date</th>
+                <th>End date</th>
+            </tr>
+            <tbody id="tasksListTBodyAmend">
+            <!-- JS will insert here task info -->
+            </tbody>
+        </table>
     </section>
 </main>
 </body>

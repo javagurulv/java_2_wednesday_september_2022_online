@@ -66,6 +66,9 @@ public class TaskAmendValidator {
         LocalDateTime dueDate = request.getTask().getDueDate();
         LocalDateTime endDate = request.getTask().getEndDate();
         LocalDateTime now = LocalDateTime.now();
+        if (dueDate == null) {
+            return Optional.of(new CoreError("Due date", "Due date is empty"));
+        }
         if (dueDate.isBefore(now) || dueDate.isAfter(endDate)) {
             return Optional.of(new CoreError("Due date", "Start date can't be in the past or > End date!"));
         }
@@ -75,6 +78,12 @@ public class TaskAmendValidator {
     private Optional<CoreError> validateEndDate(AmendTaskRequest request) {
         LocalDateTime endDate = request.getTask().getEndDate();
         LocalDateTime dueDate = request.getTask().getDueDate();
+        if (endDate == null) {
+            return Optional.of(new CoreError("End date", "Empty date"));
+        }
+        if (dueDate == null) {
+            return Optional.of(new CoreError("Due date", "Empty date"));
+        }
         LocalDate endDateOnly = LocalDate.of(endDate.getYear(),
                 endDate.getMonth(),
                 endDate.getDayOfMonth());
