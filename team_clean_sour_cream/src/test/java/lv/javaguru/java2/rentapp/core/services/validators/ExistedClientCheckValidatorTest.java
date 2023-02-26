@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class ExistedClientCheckValidatorTest {
@@ -36,8 +37,17 @@ class ExistedClientCheckValidatorTest {
     @InjectMocks
     private ExistedClientCheckValidator existedClientCheckValidator;
 
+
     @Test
-    void first() {
+    void testShouldReturnNoErrorWhenExistedClientsRecordsNotFoundedByEmailOrByPersonalId() {
+        Mockito.when(exClientChkService.checkClientExistenceByPersonalId(addClientRequest)).thenReturn(Optional.empty());
+        Mockito.when(exClientChkService.checkClientExistenceByEmail(addClientRequest)).thenReturn(Optional.empty());
+        List<CoreError> errors = existedClientCheckValidator.validate(addClientRequest);
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    void testShouldReturnErrorWhenExistedClientsRecordsFoundedByEmailAndByPersonalIdAreNotEqual() {
         Mockito.when(exClientChkService.checkClientExistenceByPersonalId(addClientRequest)).thenReturn(Optional.of(1L));
         Mockito.when(exClientChkService.checkClientExistenceByEmail(addClientRequest)).thenReturn(Optional.of(2L));
         List<CoreError> errors = existedClientCheckValidator.validate(addClientRequest);
@@ -47,7 +57,7 @@ class ExistedClientCheckValidatorTest {
     }
 
     @Test
-    void second() {
+    void testShouldReturnErrorWhenExistedClientsRecordsFoundedByEmailAndByPersonalIdAreEqualAndFirstNameDiffers() {
         Mockito.when(exClientChkService.checkClientExistenceByPersonalId(addClientRequest)).thenReturn(Optional.of(2L));
         Mockito.when(exClientChkService.checkClientExistenceByEmail(addClientRequest)).thenReturn(Optional.of(2L));
         Mockito.when(clientDatabase.getById(Mockito.any())).thenReturn(Optional.of(client));
@@ -60,6 +70,41 @@ class ExistedClientCheckValidatorTest {
         assertEquals("First Name", errors.get(0).getField());
         assertEquals("differs from the first name of existing client record(s) with same personal ID and/or Email",
                 errors.get(0).getMessage());
+    }
+
+    @Test
+    void testShouldReturnErrorWhenExistedClientsRecordFoundedByEmailAndNotByPersonalIdAndSecondNameDiffers() {
+        Mockito.when(exClientChkService.checkClientExistenceByPersonalId(addClientRequest)).thenReturn(Optional.empty());
+        Mockito.when(exClientChkService.checkClientExistenceByEmail(addClientRequest)).thenReturn(Optional.of(2L));
+        Mockito.when(clientDatabase.getById(Mockito.any())).thenReturn(Optional.of(client));
+        Mockito.when(client.getFirstName()).thenReturn("a");
+        Mockito.when(client.getLastName()).thenReturn("b");
+        Mockito.when(addClientRequest.getFirstName()).thenReturn("a");
+        Mockito.when(addClientRequest.getLastName()).thenReturn("b1");
+        List<CoreError> errors = existedClientCheckValidator.validate(addClientRequest);
+        assertEquals(1, errors.size());
+        assertEquals("Last Name", errors.get(0).getField());
+        assertEquals("differs from the last name of existing client record(s) with same personal ID and/or Email",
+                errors.get(0).getMessage());
+    }
+
+    @Test
+    void testShouldReturnErrorsWhenExistedClientsRecordFoundedByPersonalIdAndNotByEmailAndFirstAndSecondNameDiffers() {
+        Mockito.when(exClientChkService.checkClientExistenceByPersonalId(addClientRequest)).thenReturn(Optional.of(2L));
+        Mockito.when(exClientChkService.checkClientExistenceByEmail(addClientRequest)).thenReturn(Optional.empty());
+        Mockito.when(clientDatabase.getById(Mockito.any())).thenReturn(Optional.of(client));
+        Mockito.when(client.getFirstName()).thenReturn("a");
+        Mockito.when(client.getLastName()).thenReturn("b");
+        Mockito.when(addClientRequest.getFirstName()).thenReturn("a1");
+        Mockito.when(addClientRequest.getLastName()).thenReturn("b1");
+        List<CoreError> errors = existedClientCheckValidator.validate(addClientRequest);
+        assertEquals(2, errors.size());
+        assertEquals("First Name", errors.get(0).getField());
+        assertEquals("differs from the first name of existing client record(s) with same personal ID and/or Email",
+                errors.get(0).getMessage());
+        assertEquals("Last Name", errors.get(1).getField());
+        assertEquals("differs from the last name of existing client record(s) with same personal ID and/or Email",
+                errors.get(1).getMessage());
     }
 
 //    @Test
