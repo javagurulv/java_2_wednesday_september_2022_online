@@ -42,16 +42,18 @@ public class AmendSettingsService {
                 request.getEmailFrom(), request.getEmailPassword(), request.getEmailHost(),
                 request.getEmailPort(), request.getEmailProtocol());
 
+        amendedSettings.setId(currentSettings.getId());
+
         if (currentSettings.equals(amendedSettings)) {
             return null;
         }
 
-        var result = settingsRepository.save(amendedSettings); //TODO had to rework after moving to JPA
-        if (!result.equals(amendedSettings)) {
+        if (!settingsRepository.update(amendedSettings)) {
             errors = new ArrayList<>();
             errors.add(new CoreError("Settings repository", "Update failed."));
             return new AmendSettingsResponse(errors);
         }
+
         sessionService.setDecryptedPassword(request.getAdminPassword());
         return new AmendSettingsResponse(amendedSettings);
     }

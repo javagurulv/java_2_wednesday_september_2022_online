@@ -22,7 +22,7 @@ public class GetUsersNamesController {
     private GetUsersService getUsersService;
 
     @GetMapping(value = "/showUsernamesRegistered")
-    public String showUsernamesRegisteredOnSystem(ModelMap modelMap) {
+    public String showUsernamesRegisteredInSystem(ModelMap modelMap) {
         GetUsersRequest request = new GetUsersRequest();
         GetUsersResponse response = getUsersService.execute(request, MenuType.START);
         setDefaultRadioButtons(request);

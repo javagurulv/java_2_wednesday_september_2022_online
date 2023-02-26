@@ -8,4 +8,6 @@ public interface JpaSettingsCustomRep {
     boolean passwordIsValid(String password);
 
     Settings getRecord();
+
+    boolean update(Settings settings);
 }
