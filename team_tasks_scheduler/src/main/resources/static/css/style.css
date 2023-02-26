@@ -21,7 +21,26 @@ main {
     cursor: pointer;
 }
 
-.tbl-list, .tbl-list-status {
+.tbl-grid {
+  border: 1px solid black;
+  margin: 15px 0px 0px 0px;
+}
+
+.tbl-grid th {
+    border: 0.5px solid black;
+    text-align: left;
+    padding: 7px;
+    color: blue;
+    background-color: skyblue;
+}
+
+.tbl-grid td {
+    border: 0.5px solid black;
+    padding: 5px;
+    text-align: left;
+}
+
+.tbl-list, .tbl-list-status, .tbl-grid-msg {
     margin: 15px 0px 0px 0px;
 }
 
@@ -30,7 +49,7 @@ main {
     color: blue;
 }
 
-.tbl-list-status, .tbl-data-pages {
+.tbl-list-status, .tbl-data-pages, .tbl-grid-msg {
     padding: 10px 0px 10px 0px;
     font-size: 13px;
     color: blue;
@@ -93,8 +112,16 @@ main {
     width: 100%;
  }
 
+.tbl-header-ordering a:visited {
+    color: blue;
+}
+
 .form-confirm-button {
      float:left;
+}
+
+.link-disabled {
+     color: gray;
 }
 
 #msg-error {
@@ -109,4 +136,6 @@ main {
     padding: 0px 0px 0px 10px;
 }
 
-
+#pagination a:visited {
+    color: blue;
+}
