@@ -72,6 +72,16 @@
 <!--                        '&username=' + ${document.getElementById('username').value} + '&email=' + ${email}}">-->
 <!--                <button class="btn">Filter</button>-->
 <!--            </a>-->
+<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
+<!--                        '?orderBy=username&orderDir=' + ${orderDir} +-->
+<!--                        (username=${username}, email=${email})}">-->
+<!--            <button class="btn">Filter</button>-->
+<!--        </a>-->
+        <a th:href = "@{'/showUsers/page/' + ${currentPage} +
+                        '?orderBy=username&orderDir=' + ${orderDir} +
+                        '&username=' + ${username} + '&email=' + ${email}}">
+            <button class="btn">Filter</button>
+        </a>
 <!--            <input class="btn" type="reset" value="Clear"/>-->
 
             <table class="tbl-grid">
