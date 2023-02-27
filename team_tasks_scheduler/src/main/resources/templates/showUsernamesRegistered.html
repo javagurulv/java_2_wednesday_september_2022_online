@@ -45,14 +45,11 @@
                 <tr>
                     <td>Order direction:</td>
                     <td>
-                        <input type="radio" id="none" name="none" value="" th:field="*{ordering.orderDirection}">
-                        <label for="none">None</label>
-
-                        <input type="radio" id="asc" name="asc" value="ASCENDING" th:field="*{ordering.orderDirection}">
-                        <label for="asc">Ascending</label>
-
-                        <input type="radio" id="dsc" name="dsc" value="DESCENDING" th:field="*{ordering.orderDirection}">
-                        <label for="dsc">Descending</label>
+                        <select th:field="*{ordering.orderDirection}">
+                            <option value=""></option>
+                            <option value="ASCENDING">Ascending</option>
+                            <option value="DESCENDING">Descending</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
