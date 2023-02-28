@@ -29,6 +29,49 @@ el.addEventListener("click", function(e){
 })
 }
 
+
+function showOutstandingTasks() {
+    event.preventDefault();
+    document.getElementById("msg-error").style.display = "none";
+    document.getElementById("msg-succeed").style.display = "none";
+
+    const baseUrl = "http://localhost:8080/api/getOutstandingTasks";
+
+    getOutstandingTasks(baseUrl).then((dataObj) => {
+        _data = dataObj.data;
+        _hasErrors = dataObj.hasErrors;
+        let text = "";
+        if (_hasErrors == false) {
+            console.log(_data.message);
+            _data.forEach(task => {
+            text += "<tr>";
+            text += "<td>";
+            text += task.description;
+            text += "</td>";
+            text += "<td>";
+            text += task.regularity;
+            text += "</td>";
+            text += "<td>";
+            text += task.dueDate;
+            text += "</td>";
+            text += "<td>";
+            text += task.endDate;
+            text += "</td>";
+            text += "</tr>";
+            })
+                document.getElementById("tasksListTBodyShowOutstanding").innerHTML =  text;
+            }
+            else {
+                _data.forEach(error => {
+                    console.log(error.error + ": " + error.msg);
+                    text += error.error + ": " + error.msg + "<br>";
+                    })
+                document.getElementById("msg-error").style.display = "initial";
+                document.getElementById("msg-error").innerHTML =  text;
+            }
+        })
+}
+
 function getTasksForAmendPage(event) {
     event.preventDefault();
 
