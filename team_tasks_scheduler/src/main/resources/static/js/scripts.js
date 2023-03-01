@@ -1,32 +1,48 @@
 function addEventsOnLoad() {
-var el = document.getElementById("tasksListTBodyAmend");
-el.addEventListener("click", function(e){
-    console.log(e.target.parentElement);
-    var row = e.target.parentElement;
-    document.getElementById("taskId").value = row.cells[0].innerHTML;
-    document.getElementById("taskDescription").value = row.cells[1].innerHTML;
-    document.getElementById("regularity").value = row.cells[2].innerHTML;
-    let date = new Date(row.cells[3].innerHTML);
-    let timeStr = date.toLocaleString("sv-SE", {
-        hour: "2-digit",    minute: "2-digit",  second: "2-digit"
-    	});
-    let dateStr = date.toLocaleString("sv-SE", {
-        year: "numeric",    month: "2-digit",    day: "2-digit"
-    	});
-    document.getElementById("dueDate").value = dateStr;
-    document.getElementById("dueTime").value = timeStr;
-    date = new Date(row.cells[4].innerHTML);
-    timeStr = date.toLocaleString("sv-SE", {
-            hour: "2-digit",    minute: "2-digit",  second: "2-digit"
-        	});
-    dateStr = date.toLocaleString("sv-SE", {
-            year: "numeric",    month: "2-digit",    day: "2-digit"
-        	});
-    document.getElementById("endDate").value = dateStr;
-    document.getElementById("endTime").value = timeStr;
-    //new Intl.DateTimeFormat('ISO').format(date);//
-    //new Intl.DateTimeFormat('en-US').format(date)
-})
+
+function createDateStr(date) {
+    return date.toLocaleString("sv-SE", {
+                year: "numeric",    month: "2-digit",    day: "2-digit"
+    	        });
+}
+function createTimeStr(date) {
+    return date.toLocaleString("sv-SE", {
+               hour: "2-digit",    minute: "2-digit",  second: "2-digit"
+               });
+}
+
+var el1 = document.getElementById("tasksListTBodyAmend");
+if (el1 != null) {
+    el1.addEventListener("click", function(e){
+        var row = e.target.parentElement;
+        document.getElementById("taskId").value = row.cells[0].innerHTML;
+        document.getElementById("taskDescription").value = row.cells[1].innerHTML;
+        document.getElementById("regularity").value = row.cells[2].innerHTML;
+        let date = new Date(row.cells[3].innerHTML);
+        document.getElementById("dueDate").value = createDateStr(date);
+        document.getElementById("dueTime").value = createTimeStr(date);
+        date = new Date(row.cells[4].innerHTML);
+        document.getElementById("endDate").value = createDateStr(date);
+        document.getElementById("endTime").value = createTimeStr(date);
+    })
+}
+
+var el2 = document.getElementById("tasksListTBodyTasksToDelete");
+if (el2 != null) {
+    el2.addEventListener("click", function(e){
+         var row = e.target.parentElement;
+         document.getElementById("taskId").value = row.cells[0].innerHTML;
+         document.getElementById("taskDescription").value = row.cells[1].innerHTML;
+         document.getElementById("regularity").value = row.cells[2].innerHTML;
+         let date = new Date(row.cells[3].innerHTML);
+         document.getElementById("dueDate").value = createDateStr(date);
+         document.getElementById("dueTime").value = createTimeStr(date);
+         date = new Date(row.cells[4].innerHTML);
+         document.getElementById("endDate").value = createDateStr(date);
+         document.getElementById("endTime").value = createTimeStr(date);
+     })
+}
+
 }
 
 

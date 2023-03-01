@@ -10,7 +10,7 @@
   <script th:src="@{/js/scripts.js}"></script>
 </head>
 
-<body>
+<body onload="addEventsOnLoad()">
 <header>
   <section id="header">
     <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
@@ -35,12 +35,43 @@
     </td>
   </section>
   <section id="msg-succeed">
-    <tr><td th:text="${succeed} ? 'Successful update' : ''" /></tr>
+    <tr><td th:text="${succeed} ? 'Task deleted' : ''" /></tr>
+  </section>
+
+  <section id="form">
+    <h3>Task to delete</h3>
+
+    <form id="taskToDelete" action="/deleteTask" method="post">
+      <table>
+        <input type="hidden" name="taskId" id="taskId"/>
+        <tr>
+          <td><label for="taskDescription">Task description:</label></td>
+          <td><input type="text" name="taskDescription" id="taskDescription" readonly/></td>
+        </tr>
+        <tr>
+          <td><label for="regularity">Repeat:</label></td>
+          <td><input type="number" name="regularity" id="regularity" readonly/></td>
+        </tr>
+        <tr>
+          <td><label for="dueDate">Due date</label></td>
+          <td><input type="date" name="dueDate" id="dueDate" readonly/></td>
+          <td><input type="time" name="dueTime" id="dueTime" readonly/></td>
+        </tr>
+        <tr>
+          <td><label for="endDate">End date</label></td>
+          <td><input type="date" name="endDate" id="endDate" readonly/></td>
+          <td><input type="time" name="endTime" id="endTime" readonly/></td>
+        </tr>
+      </table>
+      <br>
+      <input class="btn" type="submit" value="Delete"/>
+      <input class="btn" type="reset" value="Clear"/>
+    </form>
   </section>
 
   <section>
     <h2>Show outstanding tasks</h2>
-    <form id="taskQueryForm" action="/showTasksForToday" method="get" >
+    <form id="taskQueryForm" action="/deleteTask" method="get" >
       <table>
         <tr>
           <td><input class="btn" type="submit" value="Show" name="buttonShowTasks"/></td>
@@ -50,6 +81,7 @@
     <h3>Result:</h3>
     <table id="tasksList">
       <tr>
+        <th>ID</th>
         <th>Description</th>
         <th>Repeat</th>
         <th>Due date</th>
@@ -57,6 +89,7 @@
       </tr>
       <tbody id="tasksListTBodyTasksToDelete" th:if="${tasks != null}">
       <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}" />
         <td th:text="${task.description}" />
         <td th:text="${task.regularity}" />
         <td th:text="${task.dueDate}" />
