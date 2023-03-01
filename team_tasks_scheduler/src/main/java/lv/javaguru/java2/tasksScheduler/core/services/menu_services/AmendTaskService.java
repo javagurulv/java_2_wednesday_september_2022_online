@@ -18,7 +18,8 @@ public class AmendTaskService {
 
     @Autowired
     private JpaTasksRepository tasksRepository;
-    @Autowired private TaskAmendValidator validator;
+    @Autowired
+    private TaskAmendValidator validator;
 
     public AmendTaskResponse execute(AmendTaskRequest request) {
         List<CoreError> errors = validator.validate(request);
