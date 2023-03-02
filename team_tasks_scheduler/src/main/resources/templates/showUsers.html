@@ -37,6 +37,7 @@
         <h3>Users data</h3>
 
 <!--        <form action="/showUsers" method="get">-->
+        <form th:action="@{'/showUsers/page/' + ${currentPage}}" method="get">
             <table>
                 <tr>
                     <td>Username to filter by:</td>
@@ -48,6 +49,12 @@
                 </tr>
             </table>
             <br>
+            <input type="text" id="orderBy" name="orderBy" th:value="${orderBy}"/>
+            <input type="text" id="orderDir" name="orderDir" th:value="${orderDir}"/>
+
+<!--            <input type="text" id="tmp" name="tmp" th:value="${orderDir}"/>-->
+<!--            <button class="btn" onclick="changeValue()">Test</button>-->
+
 <!--            <input class="btn" type="submit" value="Filter"/>-->
 <!--            <a th:href="@{'/showUsers/page/' + ${currentPage} +-->
 <!--                        '?orderBy=username&orderDir=' + ${reverseOrderDir} +-->
@@ -77,11 +84,19 @@
 <!--                        (username=${username}, email=${email})}">-->
 <!--            <button class="btn">Filter</button>-->
 <!--        </a>-->
-        <a th:href = "@{'/showUsers/page/' + ${currentPage} +
-                        '?orderBy=username&orderDir=' + ${orderDir} +
-                        '&username=' + ${username} + '&email=' + ${email}}">
-            <button class="btn">Filter</button>
-        </a>
+<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
+<!--                        (username=${username}, email=${email}) +-->
+<!--                        '&orderBy=username&orderDir=' + ${orderDir}}">-->
+<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
+<!--                        '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">-->
+            <button class="btn" type="submit">Filter</button>
+<!--        </a>-->
+
+<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
+<!--                        '?orderBy=username&orderDir=' + ${orderDir} +-->
+<!--                        '&username=' + ${username} + '&email=' + ${email}}">-->
+<!--            <button class="btn">Filter</button>-->
+<!--        </a>-->
 <!--            <input class="btn" type="reset" value="Clear"/>-->
 
             <table class="tbl-grid">
@@ -92,8 +107,11 @@
                     </a>
                 </th>
                 <th class="tbl-header-ordering">
-                    <a th:href="@{'/showUsers/page/' + ${currentPage} +
-                    '?orderBy=email&orderDir=' + ${reverseOrderDir}}">
+<!--                    <a th:href="@{'/showUsers/page/' + ${currentPage} +-->
+<!--                    '?orderBy=email&orderDir=' + ${reverseOrderDir}}">-->
+<!--                        E-mail-->
+<!--                    </a>                    -->
+                    <a href="#" onclick="setOrdering('email', 'DESCENDING');return false;">
                         E-mail
                     </a>
                 </th>
@@ -111,7 +129,18 @@
                     <tr><td th:text="${grid_msg}" /></tr>
                 </td>
             </table>
-<!--        </form>-->
+        </form>
+
+        <input type="text" id="tmp" name="tmp" th:value="${orderDir}"/>
+        <button class="btn" onclick="changeValue()">Test</button>
+
+                <a th:href = "@{'/showUsers/page/' + ${currentPage} +
+                                '?orderBy=username&orderDir=' + ${orderDir} +
+                                '&username=' + setUsername() + '&email=' + setEmail()}">
+                    <button class="btn">Test 1</button>
+
+                </a>
+
         <div id="pagination" th:if = "${totalPages > 1}">
             Total Items: [[${totalItems}]] &nbsp; &nbsp; | &nbsp; &nbsp;
             <span>
@@ -177,6 +206,28 @@
         </div>
     </section>
 </main>
+<script>
+    function changeValue() {
+      textField = document.getElementById("tmp");
+      textField.value = "Test";
+    }
+    function setOrdering(by, dir) {
+      textField = document.getElementById("orderBy");
+      textField.value = by;
+      textField = document.getElementById("orderDir");
+      textField.value = dir;
+      textField = document.getElementById("tmp");
+      textField.value = by + dir;
+    }
+    function setUsername() {
+      textField = document.getElementById("username");
+      return textField.value;
+    }
+      function setEmail() {
+      textField = document.getElementById("email");
+      return textField.value;
+    }
+</script>
 </body>
 
 </html>
