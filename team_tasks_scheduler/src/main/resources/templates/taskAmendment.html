@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Tasks scheduler demo project">
+    <meta name="author" content="JB, OK">
+    <title>Tasks Scheduler</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <script th:src="@{/js/scripts.js}"></script>
+</head>
+
+<body onload="addEventsOnLoad()">
+<header>
+    <section id="header">
+        <img th:src="@{/images/scheduler_1.png}" alt="schedulerImg" width="100px" height="100px" />
+        <h1>Tasks Scheduler</h1>
+        <h4 th:text="${greeting}" /></h4>
+    </section>
+    <section id="sub-header">
+        <form action="/userMenu" method="get">
+            <input class="btn" type="submit" value="Go to user menu" name="Submit" />
+        </form>
+    </section>
+</header>
+
+<main>
+    <section id="msg-error">
+        <td th:if="${errors != null}">
+            <tr th:each="error : ${errors}">
+                <td th:text="${error.field}" />
+                <td> - </td>
+                <td th:text="${error.message}" />
+            </tr>
+        </td>
+    </section>
+    <section id="msg-succeed">
+        <tr><td th:text="${succeed} ? 'Successful update' : ''" /></tr>
+    </section>
+
+    <section id="form">
+        <h3>Amend task information</h3>
+
+        <form action="/taskAmendment" th:object="${request}" method="post">
+            <table>
+                <tr>
+                    <!--<td><label for="taskId">Task ID:</label></td>
+                    <td>-->
+                        <input type="hidden" name="taskId" id="taskId"/>
+
+                </tr>
+                <tr>
+                    <td><label for="taskDescription">Task description:</label></td>
+                    <td>
+                        <input type="text" name="taskDescription" id="taskDescription"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="regularity">Repeat:</label></td>
+                    <td>
+                        <input type="text" name="regularity" id="regularity"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="dueDate">Due date</label></td>
+                    <td>
+                        <input type="date" name="dueDate" id="dueDate"/>
+                    </td>
+                    <td>
+                        <input type="time" name="dueTime" id="dueTime"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="endDate">End date</label></td>
+                    <td>
+                        <input type="date" name="endDate" id="endDate"/>
+                    </td>
+                    <td>
+                        <input type="time" name="endTime" id="endTime"/>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <input class="btn" type="submit" value="Save"/>
+            <input class="btn" type="reset" value="Clear"/>
+        </form>
+    </section>
+    <section>
+        <h4>Show outstanding task</h4>
+        <form id="taskQueryForm">
+            <table>
+                <tr>
+                    <td><input class="btn" type="submit" value="Show" onclick="getTasksForAmendPage(event)"/></td>
+                </tr>
+            </table>
+        </form>
+        <h3>Result:</h3>
+        <table id="tasksList">
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Repeat</th>
+                <th>Due date</th>
+                <th>End date</th>
+            </tr>
+            <tbody id="tasksListTBodyAmend">
+            <!-- JS will insert here task info -->
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+
+</html>
