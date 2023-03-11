@@ -30,9 +30,16 @@ public class AddTaskService {
             return new AddTaskResponse(errors);
         }
 
-        Task task = new Task(request.getDescription(), request.getRegularity(), request.getDueDate(),
-                                request.getEndDate(), sessionService.getCurrentUserId());
-
+        Task task;
+        //request came from console ui
+        if (request.getSessionId() == null) {
+            task = new Task(request.getDescription(), request.getRegularity(), request.getDueDate(),
+                    request.getEndDate(), sessionService.getCurrentUserId());
+        }
+        else {
+            task = new Task(request.getDescription(), request.getRegularity(), request.getDueDate(),
+                    request.getEndDate(), sessionService.webGetCurrentUserId(request.getSessionId()));
+        }
         var result = tasksRepository.save(task); //TODO small rework for JPA
         if (result.getId() == null) {
             errors.add(new CoreError("General","Error"));

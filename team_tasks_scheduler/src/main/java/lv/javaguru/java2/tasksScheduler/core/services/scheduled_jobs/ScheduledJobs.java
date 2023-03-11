@@ -12,9 +12,15 @@ public class ScheduledJobs {
     private ThreadPoolTaskScheduler taskScheduler;
     private CronTrigger cronTrigger;
     private ScheduledFuture taskCleanupFuture;
+    private ScheduledFuture dueDateUpdateFuture;
+    private ScheduledFuture reminderSendingFuture;
 
     @Autowired
-    TasksCleanupJob tasksCleanupService;
+    TasksCleanupJob tasksCleanupServiceJob;
+    @Autowired
+    DueDatesUpdateJob dueDatesUpdateServiceJob;
+    @Autowired
+    RemindersSendingJob reminderSendingServiceJob;
 
     @Autowired
     public ScheduledJobs() {
@@ -27,7 +33,9 @@ public class ScheduledJobs {
     }
 
     public void start() {
-        taskCleanupFuture = this.taskScheduler.schedule(tasksCleanupService, cronTrigger);
+        taskCleanupFuture = this.taskScheduler.schedule(tasksCleanupServiceJob, cronTrigger);
+        dueDateUpdateFuture = taskScheduler.schedule(dueDatesUpdateServiceJob, cronTrigger);
+        reminderSendingFuture = taskScheduler.schedule(reminderSendingServiceJob, cronTrigger);
     }
 
     public void stop(){

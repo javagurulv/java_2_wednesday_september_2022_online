@@ -24,6 +24,7 @@ public class TasksSchedulerApplication {
 
         UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
         ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);
+        //backgroundJobs.start();
 
 
         TestData testData = applicationContext.getBean(TestData.class); //TODO remove me

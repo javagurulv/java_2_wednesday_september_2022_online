@@ -46,7 +46,6 @@
                     <td>Order direction:</td>
                     <td>
                         <select th:field="*{ordering.orderDirection}">
-                            <option value=""></option>
                             <option value="ASCENDING">Ascending</option>
                             <option value="DESCENDING">Descending</option>
                         </select>
@@ -54,11 +53,11 @@
                 </tr>
                 <tr>
                     <td>Show page number:</td>
-                    <td><input type="number" th:field="${request.paging.pageNumber}"/></td>
+                    <td><input type="number" th:field="${request.paging.pageNumber}" min="1"/></td>
                 </tr>
                 <tr>
                     <td>Records on page:</td>
-                    <td><input type="number" th:field="${request.paging.pageSize}"/></td>
+                    <td><input type="number" th:field="${request.paging.pageSize}" min="1" /></td>
                 </tr>
             </table>
             <br>

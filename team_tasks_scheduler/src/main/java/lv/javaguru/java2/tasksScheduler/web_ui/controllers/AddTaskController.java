@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class AddTaskController {
 
@@ -19,8 +21,8 @@ public class AddTaskController {
 
 
     @GetMapping(value = "/addTask")
-    public String addTask(ModelMap modelMap) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(true);
+    public String addTask(ModelMap modelMap, HttpSession session) {
+        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId(),true);
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());

@@ -19,8 +19,15 @@ public class LogoutService {
     private SessionService sessionService;
 
     public LogoutResponse execute(LogoutRequest request) {
-        List<CoreError> errors = new ArrayList<>();
-        sessionService.logOut();
-        return new LogoutResponse(errors);
+
+        //request came from console ui
+        if (request.getSessionId() == null) {
+            sessionService.logOut();
+        }
+        else {
+            sessionService.webLogout(request.getSessionId());
+        }
+
+        return new LogoutResponse();
     }
 }
