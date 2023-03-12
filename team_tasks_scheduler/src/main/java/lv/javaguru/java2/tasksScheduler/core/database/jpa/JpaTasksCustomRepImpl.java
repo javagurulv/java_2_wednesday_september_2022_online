@@ -81,16 +81,14 @@ public class JpaTasksCustomRepImpl implements JpaTasksCustomRep {
 
     @Override
     public List<Task> getAllOutstandingTasksByUserIdTillDate(Long userId, LocalDateTime endDate) {
-        LocalDateTime pStartDate = LocalDateTime.now().with(LocalTime.MIN).minusSeconds(1);
         LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate);
 
         String hql = "select t FROM Task t where userId = :userId AND " +
                         "end_date > NOW() AND " +
-                        "due_date > :startDate AND " +
+                        "due_date > NOW() AND " +
                         "due_date < :endDate";
         TypedQuery<Task> query = entityManager.createQuery(hql, Task.class);
         query.setParameter("userId", userId);
-        query.setParameter("startDate", pStartDate);
         query.setParameter("endDate", pEndDate);
 
         return query.getResultList();

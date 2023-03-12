@@ -89,7 +89,7 @@ public class InMemoryTasksRepositoryImpl implements TasksRepository {
         return tasks.stream()
                 .filter(task -> task.getUserId().equals(userId) &&
                         task.getEndDate().isAfter(LocalDateTime.now()) &&
-                        task.getDueDate().isAfter(LocalDateTime.now().with(LocalTime.MIN).minusSeconds(1)) &&
+                        task.getDueDate().isAfter(LocalDateTime.now()) &&
                         task.getDueDate().isBefore(endDate))
                 .sorted(Comparator.comparing(Task::getId))
                 .collect(toList());
