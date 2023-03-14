@@ -62,7 +62,7 @@ public class UserAmendValidatorTest {
         when(sessionService.getCurrentUserId()).thenReturn(1L);
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
         List<CoreError> errors = validator.validate(request);
-        assertEquals(errors.size(), 0);
+        assertEquals(0, errors.size());
     }
 
     @Test
@@ -204,9 +204,9 @@ public class UserAmendValidatorTest {
         when(usersRepository.findUserById(1L)).thenReturn(currentUser);
         when(usersRepository.existsByUsername(request.getUsername())).thenReturn(false);
         List<CoreError> errors = validator.validate(request);
-        assertEquals(errors.size(), 1);
-        assertEquals(errors.get(0).getField(), "Password");
-        assertEquals(errors.get(0).getMessage(), "Should be > 3 characters!");
+        assertEquals(1, errors.size());
+        assertEquals("Password", errors.get(0).getField());
+        assertEquals("Should be > 3 characters!", errors.get(0).getMessage());
     }
 
     @Test

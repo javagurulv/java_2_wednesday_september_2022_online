@@ -12,13 +12,22 @@ public class GetSettingsService {
 
     @Autowired
     private JpaSettingsRepository settingsRepository;
-    @Autowired private SessionService sessionService;
+    @Autowired
+    private SessionService sessionService;
 
     public GetSettingsResponse execute(GetSettingsRequest request) {
         Settings settings = new Settings(settingsRepository.getRecord());
-        if (request.isDecryptedPassword()) {
-            settings.setAdminPassword(sessionService.getDecryptedPassword());
+
+        if (request.getSessionId() == null) {
+            if (request.isDecryptedPassword()) {
+                settings.setAdminPassword(sessionService.getDecryptedPassword());
+            }
+        } else {
+            if (request.isDecryptedPassword()) {
+                settings.setAdminPassword(sessionService.webGetDecryptedPassword(request.getSessionId()));
+            }
         }
+
         return new GetSettingsResponse(settings);
     }
 }

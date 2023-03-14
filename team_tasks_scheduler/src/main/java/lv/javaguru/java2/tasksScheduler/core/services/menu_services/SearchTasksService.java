@@ -32,8 +32,14 @@ public class SearchTasksService {
             return new SearchTasksResponse(null, errors);
         }
 
-        List<Task> taskList = tasksRepository.searchTasks(request.getSearchPhrase(),
-                sessionService.getCurrentUserId());
+        List<Task> taskList;
+        if (request.getSessionId() == null) {
+            taskList = tasksRepository.searchTasks(request.getSearchPhrase(),
+                                                             sessionService.getCurrentUserId());
+        } else {
+            Long userId = sessionService.webGetCurrentUserId(request.getSessionId());
+            taskList = tasksRepository.searchTasks(request.getSearchPhrase(), userId);
+        }
 
         taskList = order(taskList, request.getOrdering());
         taskList = paging(taskList,request.getPaging());

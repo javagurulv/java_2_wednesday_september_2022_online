@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class AdminLoginController {
 
@@ -27,7 +29,10 @@ public class AdminLoginController {
     }
 
     @PostMapping("/adminLogin")
-    public String processAdminLoginRequest(@ModelAttribute(value = "request") SettingsLoginRequest request, ModelMap modelMap) {
+    public String processAdminLoginRequest(@ModelAttribute(value = "request") SettingsLoginRequest request,
+                                                                                    ModelMap modelMap,
+                                                                                    HttpSession session) {
+        request.setSessionId(session.getId());
         SettingsLoginResponse response = settingsLoginService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());

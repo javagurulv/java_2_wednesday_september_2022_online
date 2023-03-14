@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,8 +26,9 @@ public class GetOutstandingTasksRESTController {
     private GetOutstandingTasksService getOutstandingTasksService;
 
     @GetMapping(consumes = "application/json", produces = "application/json")
-    ResponseEntity<List<Map<String,String>>> getOutstandingTasks() {
-        GetOutstandingTasksRequest request = new GetOutstandingTasksRequest(LocalDateTime.MAX);
+    ResponseEntity<List<Map<String,String>>> getOutstandingTasks(HttpSession session) {
+        GetOutstandingTasksRequest request = new GetOutstandingTasksRequest(LocalDateTime.MAX,
+                                                                                session.getId());
         GetOutstandingTasksResponse response = getOutstandingTasksService.execute(request);
         if (response.hasErrors()) {
             List<Map<String,String>> errorMapList = createErrorMapList(response);

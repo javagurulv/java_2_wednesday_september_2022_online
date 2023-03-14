@@ -26,7 +26,9 @@ public class AmendCurrentUserService {
 
     public AmendCurrentUserResponse execute(AmendCurrentUserRequest request) {
         List<CoreError> errors;
-        User currentUser = usersRepository.findUserById(sessionService.getCurrentUserId());
+
+        Long userId = sessionService.getCurrentUserId(request.getSessionId());
+        User currentUser = usersRepository.findUserById(userId);
         if (currentUser == null) {
             errors = new ArrayList<>();
             errors.add(new CoreError("User ID", "User does not exist"));
@@ -42,15 +44,18 @@ public class AmendCurrentUserService {
                 request.getEmail(), request.isSendReminders());
         amendedUser.setId(currentUser.getId());
 
-        if (currentUser.equals(amendedUser))
-            return null;
+        if (currentUser.equals(amendedUser)) {
+            return new AmendCurrentUserResponse(amendedUser);
+        }
 
-         if (!usersRepository.update(amendedUser)) {
+        if (!usersRepository.update(amendedUser)) {
              errors = new ArrayList<>();
              errors.add(new CoreError("Users repository", "Update failed."));
              return new AmendCurrentUserResponse(errors);
-         }
-        sessionService.setDecryptedPassword(request.getPassword());
+        }
+
+        sessionService.setDecryptedPassword(request.getPassword(), request.getSessionId());
+
         return new AmendCurrentUserResponse(amendedUser);
     }
 }

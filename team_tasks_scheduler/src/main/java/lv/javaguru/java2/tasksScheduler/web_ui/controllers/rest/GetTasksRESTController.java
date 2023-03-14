@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +28,15 @@ public class GetTasksRESTController {
 
     @PostMapping(value="/{searchPhrase}", consumes = "application/json", produces = "application/json")
     ResponseEntity<List<Map<String,String>>> getTasks(@RequestBody Map<String,String> viewParam,
-                                                             @PathVariable String searchPhrase) {
+                                                             @PathVariable String searchPhrase,
+                                                                            HttpSession session) {
         Ordering ordering = new Ordering(viewParam.get("orderBy").toLowerCase().replace("-", " "),
                                         viewParam.get("ordering").toLowerCase().replace("-", " "));
         Paging paging = new Paging(Integer.valueOf(viewParam.get("pageNumber")),
                                                  Integer.valueOf(viewParam.get("pageSize")));
 
-        SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering, paging);
+        SearchTasksRequest request = new SearchTasksRequest(searchPhrase, ordering,
+                                                                    paging, session.getId());
         SearchTasksResponse response = searchTasksService.execute(request);
         if (response.hasErrors()) {
             List<Map<String,String>> errorMapList = createErrorMapList(response);

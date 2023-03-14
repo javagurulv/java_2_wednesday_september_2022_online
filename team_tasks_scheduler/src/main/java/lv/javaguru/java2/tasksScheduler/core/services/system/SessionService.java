@@ -12,8 +12,10 @@ public class SessionService {
     private Long loggedUserId;
     private String decryptedPassword;
 
-    private Map<String,Long> webLoggedUsers = new HashMap<>();;
-    private Map<String,String> webDecryptedPasswords = new HashMap<>();;
+    private Map<String, Long> webLoggedUsers = new HashMap<>();
+    ;
+    private Map<String, String> webDecryptedPasswords = new HashMap<>();
+    ;
 
     public void login(Long userId, String password) {
         this.loggedUserId = userId;
@@ -21,17 +23,34 @@ public class SessionService {
     }
 
     public void logOut() {
-        this.loggedUserId = 0L;
+        this.loggedUserId = null;
         this.decryptedPassword = "";
     }
 
     public Long getCurrentUserId() {
         return this.loggedUserId;
     }
+
+    public Long getCurrentUserId(String sessionId) {
+        if (sessionId == null) {
+            return this.loggedUserId;
+        } else {
+            return this.webLoggedUsers.get(sessionId);
+        }
+    }
+
     public String getDecryptedPassword() { return this.decryptedPassword; }
 
     public void setDecryptedPassword(String decryptedPassword) {
         this.decryptedPassword = decryptedPassword;
+    }
+
+    public void setDecryptedPassword(String decryptedPassword, String sessionId) {
+        if (sessionId == null) {
+            this.decryptedPassword = decryptedPassword;
+        } else {
+            this.webDecryptedPasswords.put(sessionId, decryptedPassword);
+        }
     }
 
     public void webLogin(String  sessionId, Long userId, String pwd) {

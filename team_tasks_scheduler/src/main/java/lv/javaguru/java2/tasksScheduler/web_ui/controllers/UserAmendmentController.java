@@ -18,28 +18,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserAmendmentController {
 
     @Autowired
     private AmendCurrentUserService amendCurrentUserService;
-    @Autowired private GetCurrentUserService getCurrentUserService;
+    @Autowired
+    private GetCurrentUserService getCurrentUserService;
 
     @GetMapping(value = "/userAmendment")
-    public String showUserAmendmentPage(ModelMap modelMap) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(true);
+    public String showUserAmendmentPage(ModelMap modelMap, HttpSession session) {
+        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId(),true);
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        if (response.hasErrors()) {
-            modelMap.addAttribute("errors", response.getErrors());
-        } else {
-            modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
-            modelMap.addAttribute("request", response.getUser());
-        }
+        WebUI.addToPageUserGreeting(modelMap, response);
+
         return "userAmendment";
     }
 
     @PostMapping("/userAmendment")
-    public String processAmendmentRequest(@ModelAttribute(value = "request") AmendCurrentUserRequest request, ModelMap modelMap) {
+    public String processAmendmentRequest(@ModelAttribute(value = "request") AmendCurrentUserRequest request,
+                                                                     ModelMap modelMap,
+                                                                     HttpSession session) {
+        request.setSessionId(session.getId());
         AmendCurrentUserResponse response = amendCurrentUserService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
@@ -47,6 +49,7 @@ public class UserAmendmentController {
             modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
             modelMap.addAttribute("succeed", response.getUser());
         }
+
         return "userAmendment";
     }
 

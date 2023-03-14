@@ -23,7 +23,8 @@ public class UserMenuController {
     public String userMenu(ModelMap modelMap, HttpSession session) {
         GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId());
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
+        WebUI.addToPageUserGreeting(modelMap, response);
+
         return "userMenu";
     }
 }

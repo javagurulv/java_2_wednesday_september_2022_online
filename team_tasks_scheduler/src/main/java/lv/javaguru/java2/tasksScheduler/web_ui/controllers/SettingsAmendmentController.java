@@ -45,7 +45,8 @@ public class SettingsAmendmentController {
     }
 
     @PostMapping("/settingsAmendment")
-    public String processAmendmentRequest(@ModelAttribute(value = "request") AmendSettingsRequest request, ModelMap modelMap) {
+    public String processAmendmentRequest(@ModelAttribute(value = "request") AmendSettingsRequest request,
+                                                                                        ModelMap modelMap) {
         AmendSettingsResponse response = amendSettingsService.execute(request);
         if (response == null) {
             errors = new ArrayList<>();

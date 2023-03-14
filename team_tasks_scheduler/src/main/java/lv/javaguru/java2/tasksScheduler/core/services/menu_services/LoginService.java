@@ -46,12 +46,12 @@ public class LoginService {
             sessionService.webLogin(request.getWebSessionId(),user.getId(), request.getPassword());
         }
         tasksRepository.deleteByUserIdTillDate(user.getId(), LocalDateTime.now());
-        updateDueDates();
+        updateDueDates(user.getId());
         return new LoginResponse(user);
     }
 
-    private int updateDueDates() {
-        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate(sessionService.getCurrentUserId());
+    private int updateDueDates(Long userId) {
+        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate(userId);
         if (tasks == null) {
             return 0;
         }

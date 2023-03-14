@@ -29,8 +29,19 @@ public class SettingsLoginService {
             return new SettingsLoginResponse(errors);
         }
 
-        sessionService.login(0L, request.getAdminPassword());
-        GetSettingsResponse getSettingsResponse = getSettingsService.execute(new GetSettingsRequest(true));
+        if (request.getSessionId() == null) {
+            sessionService.login(0L, request.getAdminPassword());
+        } else {
+            sessionService.webLogin(request.getSessionId(), 0L, request.getAdminPassword());
+        }
+
+        GetSettingsRequest getSettingsRequest;
+        if (request.getSessionId() == null) {
+            getSettingsRequest = new GetSettingsRequest(true);
+        } else {
+            getSettingsRequest = new GetSettingsRequest(true, request.getSessionId());
+        }
+        GetSettingsResponse getSettingsResponse = getSettingsService.execute(getSettingsRequest);
         Settings settings = getSettingsResponse.getSettings();
 
         return new SettingsLoginResponse(settings);

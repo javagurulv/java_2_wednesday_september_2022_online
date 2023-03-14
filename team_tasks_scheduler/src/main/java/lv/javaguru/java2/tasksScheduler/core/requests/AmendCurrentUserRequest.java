@@ -8,6 +8,7 @@ public class AmendCurrentUserRequest {
     private String password;
     private String email;
     private boolean sendReminders;
+    private String sessionId = null;
 
     public AmendCurrentUserRequest() {
     }
@@ -24,6 +25,18 @@ public class AmendCurrentUserRequest {
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.sendReminders = user.isSendReminders();
+    }
+
+    public AmendCurrentUserRequest(User user, String sessionId) {
+        this(user);
+        this.sessionId = sessionId;
+    }
+
+    public AmendCurrentUserRequest(String username, String password,
+                                   String email, boolean sendReminders,
+                                   String sessionId) {
+        this(username, password, email, sendReminders);
+        this.sessionId = sessionId;
     }
 
     public String getUsername() {
@@ -56,5 +69,13 @@ public class AmendCurrentUserRequest {
 
     public void setSendReminders(boolean sendReminders) {
         this.sendReminders = sendReminders;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

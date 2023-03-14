@@ -21,8 +21,16 @@ public class GetOutstandingTasksService {
     @Autowired private SessionService sessionService;
 
     public GetOutstandingTasksResponse execute(GetOutstandingTasksRequest request) {
-        List<Task> tasks =  tasksRepository.getAllOutstandingTasksByUserIdTillDate(sessionService.getCurrentUserId(),
-                request.getEndDate());
+
+        List<Task> tasks;
+        if (request.getSessionId() == null) {
+            tasks = tasksRepository.getAllOutstandingTasksByUserIdTillDate(sessionService.getCurrentUserId(),
+                                                                            request.getEndDate());
+        }
+        else {
+            Long userId = sessionService.webGetCurrentUserId(request.getSessionId());
+            tasks = tasksRepository.getAllOutstandingTasksByUserIdTillDate(userId, request.getEndDate());
+        }
 
         return new GetOutstandingTasksResponse(tasks, null);
     }

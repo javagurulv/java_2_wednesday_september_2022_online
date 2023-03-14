@@ -13,6 +13,8 @@ public class SearchTasksRequest {
     private LocalDateTime end;
     private String searchPhrase;
 
+    private String sessionId;
+
     public SearchTasksRequest(String description, LocalDateTime start, LocalDateTime end) {
         this.description = description;
         this.start = start;
@@ -34,6 +36,12 @@ public class SearchTasksRequest {
         this.ordering = ordering;
         this.paging = paging;
     }
+
+    public SearchTasksRequest(String searchPhrase, Ordering ordering,
+                              Paging paging, String sessionId) {
+        this(searchPhrase, ordering, paging);
+        this.sessionId = sessionId;
+    }
     public String getDescription() { return description; }
     public LocalDateTime getEndDate() {
         return end;
@@ -50,5 +58,13 @@ public class SearchTasksRequest {
     }
     public Paging getPaging() {
         return paging;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }
