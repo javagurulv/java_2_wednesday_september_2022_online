@@ -39,14 +39,19 @@ public class LoginService {
         User user = usersRepository.findUserByUsernameAndPassword(request.getUserName(),
                                              Encryption.stringHashing(request.getPassword()));
 
-        sessionService.login(user.getId(), request.getPassword());
-        tasksRepository.deleteByUserIdTillDate(sessionService.getCurrentUserId(), LocalDateTime.now());
-        updateDueDates();
+        if (request.getWebSessionId() == null) {
+            sessionService.login(user.getId(), request.getPassword());
+        }
+        else {
+            sessionService.webLogin(request.getWebSessionId(),user.getId(), request.getPassword());
+        }
+        tasksRepository.deleteByUserIdTillDate(user.getId(), LocalDateTime.now());
+        updateDueDates(user.getId());
         return new LoginResponse(user);
     }
 
-    private int updateDueDates() {
-        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate(sessionService.getCurrentUserId());
+    private int updateDueDates(Long userId) {
+        List<Task> tasks = tasksRepository.getAllTasksReadyForDueDateUpdate(userId);
         if (tasks == null) {
             return 0;
         }

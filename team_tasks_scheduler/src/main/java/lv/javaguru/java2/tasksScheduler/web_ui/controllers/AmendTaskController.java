@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,28 +34,21 @@ public class AmendTaskController {
     private AmendTaskService amendTaskService;
 
     @GetMapping(value = "/taskAmendment")
-    public String showUserAmendmentPage(ModelMap modelMap) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(true);
+    public String showUserAmendmentPage(ModelMap modelMap, HttpSession session) {
+        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId(), true);
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        if (response.hasErrors()) {
-            modelMap.addAttribute("errors", response.getErrors());
-        } else {
-            modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
-            modelMap.addAttribute("request", response.getUser());
-        }
+        WebUI.addToPageUserGreeting(modelMap, response);
+
         return "taskAmendment";
     }
 
     @PostMapping(value = "/taskAmendment")
-    public String amendTasks(@RequestParam Map<String,String> allParams, ModelMap modelMap) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(true);
+    public String amendTasks(@RequestParam Map<String,String> allParams,
+                                                        ModelMap modelMap,
+                                                        HttpSession session) {
+        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId(), true);
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        if (response.hasErrors()) {
-            modelMap.addAttribute("errors", response.getErrors());
-        } else {
-            modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
-            modelMap.addAttribute("request", response.getUser());
-        }
+        WebUI.addToPageUserGreeting(modelMap, response);
 
         Task task = createTaskFromRequestParams(allParams, response.getUser().getId());
 

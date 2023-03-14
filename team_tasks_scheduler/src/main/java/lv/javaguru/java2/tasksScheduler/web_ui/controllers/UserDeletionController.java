@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class UserDeletionController {
     @Autowired
     private DeleteCurrentUserService deleteCurrentUserService;
 
     @GetMapping(value = "/userDeletion")
-    public String showUserDeletionPage(ModelMap modelMap) {
-        modelMap.addAttribute("request", new DeleteCurrentUserRequest());
+    public String showUserDeletionPage(ModelMap modelMap, HttpSession session) {
+        DeleteCurrentUserRequest request = new DeleteCurrentUserRequest(session.getId());
+        modelMap.addAttribute("request", request);
         modelMap.addAttribute("message",
                 "Please confirm that you wish to delete your account from the system.");
         modelMap.addAttribute("stage", "confirmation");
@@ -31,7 +34,10 @@ public class UserDeletionController {
     }
 
     @PostMapping("/userDeletion")
-    public String processDeletionRequest(@ModelAttribute(value = "request") DeleteCurrentUserRequest request, ModelMap modelMap) {
+    public String processDeletionRequest(@ModelAttribute(value = "request") DeleteCurrentUserRequest request,
+                                                                                ModelMap modelMap,
+                                                                                HttpSession session) {
+        request.setSessionId(session.getId());
         DeleteCurrentUserResponse response = deleteCurrentUserService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
@@ -41,6 +47,7 @@ public class UserDeletionController {
             modelMap.addAttribute("message", msg);
             modelMap.addAttribute("stage", "result");
         }
+
         return "userDeletion";
     }
 }

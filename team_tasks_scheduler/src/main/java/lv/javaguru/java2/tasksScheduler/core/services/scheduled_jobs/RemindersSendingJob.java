@@ -10,6 +10,7 @@ public class RemindersSendingJob implements Runnable {
     @Autowired RemindersSendingService remindersSendingService;
     @Override
     public void run() {
+        System.out.println("sending request for remainder sending");
         JobRunRequest request = new JobRunRequest(false);
         JobRunResponse response = remindersSendingService.execute(request);
     }

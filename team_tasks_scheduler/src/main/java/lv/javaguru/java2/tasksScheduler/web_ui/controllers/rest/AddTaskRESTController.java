@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -33,14 +34,14 @@ public class AddTaskRESTController {
 
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    ResponseEntity<List<Map<String,String>>> processAddTaskRequest(@RequestBody Map<String,String> newTaskInfo) {
-
+    ResponseEntity<List<Map<String,String>>> processAddTaskRequest(@RequestBody Map<String,String> newTaskInfo,
+                                                                        HttpSession session) {
         LocalDateTime dueDate = getDateFromInputData(newTaskInfo, "dueDate");
         LocalDateTime endDate = getDateFromInputData(newTaskInfo, "endDate");
         int regularity = parseInt(newTaskInfo.get("regularity"));
 
         AddTaskRequest request = new AddTaskRequest(newTaskInfo.get("taskDescription"), regularity,
-                                                                                dueDate, endDate);
+                                                    dueDate, endDate, session.getId());
         AddTaskResponse response = addTaskService.execute(request);
 
         if (response.hasErrors()) {

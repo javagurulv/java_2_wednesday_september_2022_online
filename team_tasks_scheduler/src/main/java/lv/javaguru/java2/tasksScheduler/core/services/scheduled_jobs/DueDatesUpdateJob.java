@@ -12,6 +12,7 @@ public class DueDatesUpdateJob implements Runnable {
 
     @Override
     public void run() {
+        System.out.println("sending request for date update");
         JobRunRequest request = new JobRunRequest(false);
         JobRunResponse response = dueDatesUpdateService.execute(request);
     }

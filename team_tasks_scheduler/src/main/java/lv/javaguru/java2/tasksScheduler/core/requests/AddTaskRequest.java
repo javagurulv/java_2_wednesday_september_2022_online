@@ -9,12 +9,20 @@ public class AddTaskRequest {
     private LocalDateTime dueDate;
     private LocalDateTime  endDate;
 
+    private String sessionId;
+
     public AddTaskRequest(String description, int regularity, LocalDateTime dueDate,
                                     LocalDateTime endDate) {
         this.description = description;
         this.regularity = regularity;
         this.dueDate = dueDate;
         this.endDate = endDate;
+    }
+
+    public AddTaskRequest(String description, int regularity, LocalDateTime dueDate,
+                          LocalDateTime endDate, String sessionId) {
+        this(description, regularity, dueDate, endDate);
+        this.sessionId = sessionId;
     }
 
     public String getDescription() {
@@ -33,4 +41,11 @@ public class AddTaskRequest {
         return endDate;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 }

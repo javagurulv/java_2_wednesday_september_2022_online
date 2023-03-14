@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class LoginController {
 
@@ -24,7 +26,10 @@ public class LoginController {
     }
 
     @PostMapping("/userLogin")
-    public String processLoginRequest(@ModelAttribute(value = "request") LoginRequest request, ModelMap modelMap) {
+    public String processLoginRequest(@ModelAttribute(value = "request") LoginRequest request,
+                                                        ModelMap modelMap,
+                                                        HttpSession session) {
+        request.setWebSessionId(session.getId());
         LoginResponse response = loginService.execute(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());

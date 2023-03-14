@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class UserMenuController {
@@ -18,10 +20,11 @@ public class UserMenuController {
     @Autowired private GetCurrentUserService getCurrentUserService;
 
     @GetMapping(value = "/userMenu")
-    public String userMenu(ModelMap modelMap) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest();
+    public String userMenu(ModelMap modelMap, HttpSession session) {
+        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId());
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        modelMap.addAttribute("greeting", WebUI.getGreeting(response.getUser().getUsername()));
+        WebUI.addToPageUserGreeting(modelMap, response);
+
         return "userMenu";
     }
 }

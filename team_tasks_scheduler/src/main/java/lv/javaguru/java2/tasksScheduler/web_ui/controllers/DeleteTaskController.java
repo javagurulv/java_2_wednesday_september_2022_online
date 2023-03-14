@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -37,8 +38,9 @@ public class DeleteTaskController {
 
     @GetMapping(value = "/deleteTask")
     public String showTaskListToDelete(@RequestParam Map<String,String> allParams,
-                                        ModelMap modelMap) {
-        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(true);
+                                                                ModelMap modelMap,
+                                                                HttpSession session) {
+        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(session.getId(),true);
         GetCurrentUserResponse getNameResponse = getCurrentUserService.execute(getNameRequest);
         if (getNameResponse.hasErrors()) {
             modelMap.addAttribute("errors", getNameResponse.getErrors());
@@ -51,7 +53,7 @@ public class DeleteTaskController {
         String btnValue = allParams.get("buttonShowTasks");
         if (btnValue != null) {
             if (btnValue.equals("Show")) {
-                GetOutstandingTasksRequest request = new GetOutstandingTasksRequest(LocalDateTime.MAX);
+                GetOutstandingTasksRequest request = new GetOutstandingTasksRequest(LocalDateTime.MAX, session.getId());
                 GetOutstandingTasksResponse response = getOutstandingTasksService.execute(request);
                 if (response.hasErrors()) {
                     modelMap.addAttribute("errors", response.getErrors());
@@ -66,16 +68,11 @@ public class DeleteTaskController {
 
     @PostMapping(value = "/deleteTask")
     public String deleteTask(@RequestParam Map<String,String> allParams,
-                                       ModelMap modelMap) {
-        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(true);
+                                                            ModelMap modelMap,
+                                                            HttpSession session) {
+        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(session.getId(),true);
         GetCurrentUserResponse getNameResponse = getCurrentUserService.execute(getNameRequest);
-        if (getNameResponse.hasErrors()) {
-            modelMap.addAttribute("errors", getNameResponse.getErrors());
-        } else {
-            modelMap.addAttribute("greeting",
-                    WebUI.getGreeting(getNameResponse.getUser().getUsername()));
-            modelMap.addAttribute("request", getNameResponse.getUser());
-        }
+        WebUI.addToPageUserGreeting(modelMap, getNameResponse);
 
         Task task = createTaskFromRequestParams(allParams, getNameResponse.getUser().getId());
         Long taskId = task.getId();

@@ -11,10 +11,13 @@ public class AmendSettingsRequest {
     private String emailPort;
     private String emailProtocol;
 
+    private String sessionId;
+
     public AmendSettingsRequest() {
     }
 
-    public AmendSettingsRequest(String adminPassword, String emailFrom, String emailPassword, String emailHost, String emailPort, String emailProtocol) {
+    public AmendSettingsRequest(String adminPassword, String emailFrom, String emailPassword,
+                                String emailHost, String emailPort, String emailProtocol) {
         this.adminPassword = adminPassword;
         this.emailFrom = emailFrom;
         this.emailPassword = emailPassword;
@@ -30,6 +33,18 @@ public class AmendSettingsRequest {
         this.emailHost = settings.getEmailHost();
         this.emailPort = settings.getEmailPort();
         this.emailProtocol = settings.getEmailProtocol();
+    }
+
+    public AmendSettingsRequest(Settings settings, String sessionId) {
+        this(settings);
+        this.sessionId = sessionId;
+    }
+
+    public AmendSettingsRequest(String adminPassword, String emailFrom,
+                                String emailPassword, String emailHost,
+                                String emailPort, String emailProtocol, String sessionId) {
+        this(adminPassword, emailFrom, emailPassword, emailHost, emailPort, emailProtocol);
+        this.sessionId = sessionId;
     }
 
     public String getAdminPassword() {
@@ -78,5 +93,13 @@ public class AmendSettingsRequest {
 
     public void setEmailProtocol(String emailProtocol) {
         this.emailProtocol = emailProtocol;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

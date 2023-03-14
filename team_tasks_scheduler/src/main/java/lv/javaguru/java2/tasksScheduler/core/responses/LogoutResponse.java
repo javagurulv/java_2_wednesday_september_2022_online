@@ -7,4 +7,7 @@ public class LogoutResponse extends CoreResponse {
     public LogoutResponse(List<CoreError> errors) {
         super(errors);
     }
+
+    public LogoutResponse() {
+    }
 }

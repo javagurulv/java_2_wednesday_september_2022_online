@@ -30,7 +30,15 @@ public class UserAmendValidator {
         return errors;
     }
     private Optional<CoreError> validateDuplicate(AmendCurrentUserRequest request) {
-        User currentUser = usersRepository.findUserById(sessionService.getCurrentUserId());
+        Long userId;
+        //check request source
+        if (request.getSessionId() == null) {
+            userId = sessionService.getCurrentUserId();
+        } else {
+            userId = sessionService.webGetCurrentUserId(request.getSessionId());
+        }
+
+        User currentUser = usersRepository.findUserById(userId);
         if (currentUser == null) {
             return Optional.of(new CoreError("User", "Problem occurs deriving current user details!"));
         }
@@ -44,7 +52,7 @@ public class UserAmendValidator {
     }
     private Optional<CoreError> validateUserName(AmendCurrentUserRequest request) {
         if (ValueChecking.stringIsEmpty(request.getUsername()) ||
-                request.getUsername().length() < 4) {
+                                  request.getUsername().length() < 4) {
             return Optional.of(new CoreError("User name", "Has to be longer than 3 chars!"));
         }
         return Optional.empty();
@@ -52,7 +60,7 @@ public class UserAmendValidator {
 
     private Optional<CoreError> validateUserEmail(AmendCurrentUserRequest request) {
         if (ValueChecking.stringIsEmpty(request.getEmail()) ||
-                !request.getEmail().contains("@")) {
+                                 !request.getEmail().contains("@")) {
             return Optional.of(new CoreError("E-mail", "Has to contain char '@'!"));
         }
         return Optional.empty();
@@ -60,8 +68,7 @@ public class UserAmendValidator {
 
     private Optional<CoreError> validateUserPassword(AmendCurrentUserRequest request) {
         if (ValueChecking.stringIsEmpty(request.getPassword()) ||
-                request.getPassword().length() < 4
-        ) {
+                                         request.getPassword().length() < 4) {
             return Optional.of(new CoreError("Password", "Should be > 3 characters!"));
         }
         return Optional.empty();
