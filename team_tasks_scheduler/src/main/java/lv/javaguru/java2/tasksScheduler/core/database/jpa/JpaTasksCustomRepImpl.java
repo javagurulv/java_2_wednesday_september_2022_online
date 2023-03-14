@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static lv.javaguru.java2.tasksScheduler.utils.ValueChecking.checkAdjustMySqlDateRange;
@@ -84,6 +85,7 @@ public class JpaTasksCustomRepImpl implements JpaTasksCustomRep {
 
         String hql = "select t FROM Task t where userId = :userId AND " +
                         "end_date > NOW() AND " +
+                        "due_date > NOW() AND " +
                         "due_date < :endDate";
         TypedQuery<Task> query = entityManager.createQuery(hql, Task.class);
         query.setParameter("userId", userId);

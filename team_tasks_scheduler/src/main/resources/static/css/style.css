@@ -49,16 +49,16 @@ main {
     color: blue;
 }
 
-.tbl-list-status, .tbl-data-pages, .tbl-grid-msg {
-    padding: 10px 0px 10px 0px;
-    font-size: 13px;
-    color: blue;
-}
-
 .tbl-list h3 {
     text-align: left;
     color: blue;
 	margin: 15px 0px 15px 0px;
+}
+
+.tbl-list-status, .tbl-data-pages, .tbl-grid-msg {
+    padding: 10px 0px 10px 0px;
+    font-size: 13px;
+    color: blue;
 }
 
 #header {
@@ -146,8 +146,6 @@ main {
 #pagination a:visited {
     color: blue;
 }
-
-
 ol {
   display: block;
   list-style-type: decimal;
