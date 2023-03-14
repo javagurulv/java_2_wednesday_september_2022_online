@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,14 @@ public class SettingsAmendmentController {
 
     @Autowired
     private AmendSettingsService amendSettingsService;
-    @Autowired private GetSettingsService getSettingsService;
+    @Autowired
+    private GetSettingsService getSettingsService;
 
     private List<CoreError> errors;
 
     @GetMapping(value = "/settingsAmendment")
-    public String showSettingsAmendmentPage(ModelMap modelMap) {
-        GetSettingsRequest request = new GetSettingsRequest(true);
+    public String showSettingsAmendmentPage(ModelMap modelMap, HttpSession session) {
+        GetSettingsRequest request = new GetSettingsRequest(true, session.getId());
         GetSettingsResponse response = getSettingsService.execute(request);
         if (response == null || response.getSettings() == null) {
             errors = new ArrayList<>();
@@ -46,7 +48,9 @@ public class SettingsAmendmentController {
 
     @PostMapping("/settingsAmendment")
     public String processAmendmentRequest(@ModelAttribute(value = "request") AmendSettingsRequest request,
-                                                                                        ModelMap modelMap) {
+                                                                                        ModelMap modelMap,
+                                                                                        HttpSession session) {
+        request.setSessionId(session.getId());
         AmendSettingsResponse response = amendSettingsService.execute(request);
         if (response == null) {
             errors = new ArrayList<>();

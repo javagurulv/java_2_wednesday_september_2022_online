@@ -54,7 +54,13 @@ public class AmendSettingsService {
             return new AmendSettingsResponse(errors);
         }
 
-        sessionService.setDecryptedPassword(request.getAdminPassword());
+        //check source of request - web/console
+        if (request.getSessionId() == null) {
+            sessionService.setDecryptedPassword(request.getAdminPassword());
+        } else {
+            sessionService.webSetDecryptedPassword(request.getSessionId(), request.getAdminPassword());
+        }
+
         return new AmendSettingsResponse(amendedSettings);
     }
 }
