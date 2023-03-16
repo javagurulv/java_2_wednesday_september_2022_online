@@ -74,4 +74,8 @@ public class SessionService {
     public String webGetDecryptedPassword(String sessionId) {
         return this.webDecryptedPasswords.get(sessionId);
     }
+
+    public boolean isUserLoggedIn(String sessionId) {
+        return this.webLoggedUsers.containsKey(sessionId);
+    }
 }
