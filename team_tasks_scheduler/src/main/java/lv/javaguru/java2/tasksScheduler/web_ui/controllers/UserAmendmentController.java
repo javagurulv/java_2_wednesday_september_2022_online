@@ -9,6 +9,7 @@ import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.core.responses.UserRegistrationResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.AmendCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.UserRegistrationService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,15 @@ public class UserAmendmentController {
     private AmendCurrentUserService amendCurrentUserService;
     @Autowired
     private GetCurrentUserService getCurrentUserService;
+    @Autowired
+    private CheckLoggedUserService checkLoggedUserService;
 
     @GetMapping(value = "/userAmendment")
     public String showUserAmendmentPage(ModelMap modelMap, HttpSession session) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId(),true);
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
+        }
+        GetCurrentUserRequest request = new GetCurrentUserRequest(true, session.getId());
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
         WebUI.addToPageUserGreeting(modelMap, response);
 

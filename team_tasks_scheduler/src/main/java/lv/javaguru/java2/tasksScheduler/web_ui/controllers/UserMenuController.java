@@ -3,6 +3,7 @@ package lv.javaguru.java2.tasksScheduler.web_ui.controllers;
 import lv.javaguru.java2.tasksScheduler.core.requests.GetCurrentUserRequest;
 import lv.javaguru.java2.tasksScheduler.core.requests.LoginRequest;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
 import lv.javaguru.java2.tasksScheduler.utils.WebUI;
@@ -17,13 +18,21 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class UserMenuController {
 
-    @Autowired private GetCurrentUserService getCurrentUserService;
+    @Autowired
+    private GetCurrentUserService getCurrentUserService;
+    @Autowired
+    private CheckLoggedUserService checkLoggedUserService;
 
     @GetMapping(value = "/userMenu")
     public String userMenu(ModelMap modelMap, HttpSession session) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId());
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
+        }
+
+        /*GetCurrentUserRequest request = new GetCurrentUserRequest(session.getId());
         GetCurrentUserResponse response = getCurrentUserService.execute(request);
-        WebUI.addToPageUserGreeting(modelMap, response);
+        WebUI.addToPageUserGreeting(modelMap, response);*/
+        WebUI.addToPageUserGreeting(getCurrentUserService, modelMap, session.getId());
 
         return "userMenu";
     }

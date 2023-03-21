@@ -4,18 +4,11 @@ public class GetCurrentUserRequest {
     private boolean decryptedPassword;
     private String webSessionId;
 
-    public GetCurrentUserRequest() {
-        webSessionId = null;
-    }
-    public GetCurrentUserRequest(String webSessionId) {
-        this.webSessionId = webSessionId;
-    }
-
     public GetCurrentUserRequest(boolean decryptedPassword) {
         this.decryptedPassword = decryptedPassword;
     }
 
-    public GetCurrentUserRequest(String webSessionId, boolean decryptedPassword) {
+    public GetCurrentUserRequest(boolean decryptedPassword, String webSessionId) {
         this(decryptedPassword);
         this.webSessionId = webSessionId;
     }

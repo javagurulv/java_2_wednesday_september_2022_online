@@ -7,8 +7,10 @@ import lv.javaguru.java2.tasksScheduler.core.responses.DeleteCurrentUserResponse
 import lv.javaguru.java2.tasksScheduler.core.responses.GetUsersResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.DeleteCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.GetUsersService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
 import lv.javaguru.java2.tasksScheduler.utils.ValueChecking;
+import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,9 +24,14 @@ import javax.servlet.http.HttpSession;
 public class UserDeletionController {
     @Autowired
     private DeleteCurrentUserService deleteCurrentUserService;
+    @Autowired
+    private CheckLoggedUserService checkLoggedUserService;
 
     @GetMapping(value = "/userDeletion")
     public String showUserDeletionPage(ModelMap modelMap, HttpSession session) {
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
+        }
         DeleteCurrentUserRequest request = new DeleteCurrentUserRequest(session.getId());
         modelMap.addAttribute("request", request);
         modelMap.addAttribute("message",
@@ -37,6 +44,9 @@ public class UserDeletionController {
     public String processDeletionRequest(@ModelAttribute(value = "request") DeleteCurrentUserRequest request,
                                                                                 ModelMap modelMap,
                                                                                 HttpSession session) {
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
+        }
         request.setSessionId(session.getId());
         DeleteCurrentUserResponse response = deleteCurrentUserService.execute(request);
         if (response.hasErrors()) {

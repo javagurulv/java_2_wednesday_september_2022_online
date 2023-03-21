@@ -9,6 +9,7 @@ import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.DeleteTaskService;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.GetOutstandingTasksService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +36,17 @@ public class DeleteTaskController {
     private GetOutstandingTasksService getOutstandingTasksService;
     @Autowired
     private DeleteTaskService deleteTaskService;
+    @Autowired
+    private CheckLoggedUserService checkLoggedUserService;
 
     @GetMapping(value = "/deleteTask")
     public String showTaskListToDelete(@RequestParam Map<String,String> allParams,
                                                                 ModelMap modelMap,
                                                                 HttpSession session) {
-        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(session.getId(),true);
-        GetCurrentUserResponse getNameResponse = getCurrentUserService.execute(getNameRequest);
-        if (getNameResponse.hasErrors()) {
-            modelMap.addAttribute("errors", getNameResponse.getErrors());
-        } else {
-            modelMap.addAttribute("greeting",
-                    WebUI.getGreeting(getNameResponse.getUser().getUsername()));
-            modelMap.addAttribute("request", getNameResponse.getUser());
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
         }
+        WebUI.addToPageUserGreeting(getCurrentUserService, modelMap, session.getId());
 
         String btnValue = allParams.get("buttonShowTasks");
         if (btnValue != null) {
@@ -70,7 +68,10 @@ public class DeleteTaskController {
     public String deleteTask(@RequestParam Map<String,String> allParams,
                                                             ModelMap modelMap,
                                                             HttpSession session) {
-        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(session.getId(),true);
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
+        }
+        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(true, session.getId());
         GetCurrentUserResponse getNameResponse = getCurrentUserService.execute(getNameRequest);
         WebUI.addToPageUserGreeting(modelMap, getNameResponse);
 
