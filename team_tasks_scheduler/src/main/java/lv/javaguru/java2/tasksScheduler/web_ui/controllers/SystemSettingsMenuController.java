@@ -7,6 +7,7 @@ import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.SessionService;
+import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,13 +24,9 @@ public class SystemSettingsMenuController {
 
     @GetMapping(value = "/systemSettingsMenu")
     public String systemSettingsMenu(HttpSession session) {
-
-        CheckLoggedUserRequest request = new CheckLoggedUserRequest(session.getId());
-        CheckLoggedUserResponse response = checkLoggedUserService.execute(request);
-        if (!response.isUserLoggedIn()) {
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
             return "errorNotLoggedIn";
         }
-
 
         return "systemSettingsMenu";
     }

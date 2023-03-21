@@ -37,7 +37,7 @@ public class WebUI {
     }
 
     public static void addToPageUserGreeting(GetCurrentUserService service, ModelMap modelMap, String sessionId) {
-        GetCurrentUserRequest request = new GetCurrentUserRequest(sessionId);
+        GetCurrentUserRequest request = new GetCurrentUserRequest(true, sessionId);
         GetCurrentUserResponse response = service.execute(request);
         addToPageUserGreeting(modelMap, response);
     }

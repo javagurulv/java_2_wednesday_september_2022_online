@@ -5,6 +5,7 @@ import lv.javaguru.java2.tasksScheduler.core.requests.GetOutstandingTasksRequest
 import lv.javaguru.java2.tasksScheduler.core.responses.GetCurrentUserResponse;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetOutstandingTasksResponse;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.GetOutstandingTasksService;
+import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.GetCurrentUserService;
 import lv.javaguru.java2.tasksScheduler.utils.WebUI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,17 @@ public class ShowTasksForTodayController {
     private GetCurrentUserService getCurrentUserService;
     @Autowired
     private GetOutstandingTasksService getOutstandingTasksService;
+    @Autowired
+    private CheckLoggedUserService checkLoggedUserService;
 
     @GetMapping(value = "/showTasksForToday")
     public String showUserAmendmentPage(@RequestParam Map<String,String> allParams,
                                                                 ModelMap modelMap,
                                                                 HttpSession session) {
-        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(session.getId(),true);
+        if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
+            return "errorNotLoggedIn";
+        }
+        GetCurrentUserRequest getNameRequest = new GetCurrentUserRequest(true, session.getId());
         GetCurrentUserResponse getNameResponse = getCurrentUserService.execute(getNameRequest);
         WebUI.addToPageUserGreeting(modelMap, getNameResponse);
 
