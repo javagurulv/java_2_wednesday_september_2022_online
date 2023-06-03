@@ -16,8 +16,8 @@
         <h1>Tasks Scheduler</h1>
     </section>
     <section id="sub-header">
-        <form action="/systemSettingsMenu" method="get">
-            <input class="btn" type="submit" value="Go to settings menu" name="Submit" />
+        <form action="/" method="get">
+            <input class="btn" type="submit" value="Go to main page" name="Submit" />
         </form>
     </section>
 </header>
@@ -34,200 +34,75 @@
     </section>
 
     <section id="form">
-        <h3>Users data</h3>
+        <h3>Registered users</h3>
 
-<!--        <form action="/showUsers" method="get">-->
-        <form th:action="@{'/showUsers/page/' + ${currentPage}}" method="get">
+        <form action="/showUsers" th:object="${request}" method="post">
             <table>
                 <tr>
                     <td>Username to filter by:</td>
-                    <td><input type="text" id="username" name="username" th:value="${username}"/></td>
+                    <td><input type="text" th:field="${request.username}"/></td>
                 </tr>
                 <tr>
-                    <td>E-mail to filter by:</td>
-                    <td><input type="text" id="email" name="email" th:value="${email}"/></td>
+                    <td>Email to filter by:</td>
+                    <td><input type="text" th:field="${request.email}"/></td>
+                </tr>
+                <tr>
+                    <td style="display:none;"><input type="text" th:field="*{ordering.orderBy}"/></td>
+                    <td style="display:none;"><input type="text" th:field="*{ordering.orderDirection}"/></td>
                 </tr>
             </table>
             <br>
-            <input type="text" id="orderBy" name="orderBy" th:value="${orderBy}"/>
-            <input type="text" id="orderDir" name="orderDir" th:value="${orderDir}"/>
 
-<!--            <input type="text" id="tmp" name="tmp" th:value="${orderDir}"/>-->
-<!--            <button class="btn" onclick="changeValue()">Test</button>-->
-
-<!--            <input class="btn" type="submit" value="Filter"/>-->
-<!--            <a th:href="@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        '?orderBy=username&orderDir=' + ${reverseOrderDir} +-->
-<!--                        '&username=' + document.getElementById('username').value +-->
-<!--                        '&email=' + document.getElementById('email').value"}>-->
-<!--                <button class="btn">Filter/button>-->
-<!--            </a>-->
-<!--            <a th:href="@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        '?orderBy=username&orderDir=' + ${reverseOrderDir} +-->
-<!--                        '&username=' + document.getElementById('username').value +-->
-<!--                        '&email=' + document.getElementById('email').value"}>-->
-<!--                <input class="btn" type="submit" value="Filter"/>-->
-<!--            </a>-->
-<!--            <a th:href = "/showUsers/page/" onclick = "window.location=this.href + @{${currentPage} +-->
-<!--                        '?orderBy=username&orderDir=' + ${reverseOrderDir} +-->
-<!--                        '&username=' + document.getElementById('username').value +-->
-<!--                        '&email=' + document.getElementById('email').value"}>-->
-<!--                <button class="btn">Filter No Form</button>-->
-<!--            </a>-->
-<!--            <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        '?orderBy=username&orderDir=' + ${orderDir} +-->
-<!--                        '&username=' + ${document.getElementById('username').value} + '&email=' + ${email}}">-->
-<!--                <button class="btn">Filter</button>-->
-<!--            </a>-->
-<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        '?orderBy=username&orderDir=' + ${orderDir} +-->
-<!--                        (username=${username}, email=${email})}">-->
-<!--            <button class="btn">Filter</button>-->
-<!--        </a>-->
-<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        (username=${username}, email=${email}) +-->
-<!--                        '&orderBy=username&orderDir=' + ${orderDir}}">-->
-<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">-->
-            <button class="btn" type="submit">Filter</button>
-<!--        </a>-->
-
-<!--        <a th:href = "@{'/showUsers/page/' + ${currentPage} +-->
-<!--                        '?orderBy=username&orderDir=' + ${orderDir} +-->
-<!--                        '&username=' + ${username} + '&email=' + ${email}}">-->
-<!--            <button class="btn">Filter</button>-->
-<!--        </a>-->
-<!--            <input class="btn" type="reset" value="Clear"/>-->
+            <button class="btn" type="submit" name="page" th:value="1">Show</button>
+            <input class="btn" type="reset" value="Clear"/>
 
             <table class="tbl-grid">
-                <th class="tbl-header-ordering">
-                    <a th:href="@{'/showUsers/page/' + ${currentPage} +
-                    '?orderBy=username&orderDir=' + ${reverseOrderDir}}">
-                        Username
-                    </a>
+                <th>
+                    <button class="btn-table-header" title="Click to change sorting direction" type="submit" name="orderBy" th:value="username">Username</button>
                 </th>
-                <th class="tbl-header-ordering">
-<!--                    <a th:href="@{'/showUsers/page/' + ${currentPage} +-->
-<!--                    '?orderBy=email&orderDir=' + ${reverseOrderDir}}">-->
-<!--                        E-mail-->
-<!--                    </a>                    -->
-                    <a href="#" onclick="setOrdering('email', 'DESCENDING');return false;">
-                        E-mail
-                    </a>
+                <th>
+                    <button class="btn-table-header" title="Click to change sorting direction" type="submit" name="orderBy" th:value="email">Email</button>
                 </th>
                 <th>Send reminders</th>
+                <th>Action</th>
                 <td style="display:none;" th:if="${users != null}">
                     <tr th:each="user : ${users}">
+                        <td style="display:none;" th:text="${user.id}" />
                         <td th:text="${user.username}" />
                         <td th:text="${user.email}" />
                         <td th:text="${user.sendReminders}" />
+                        <td>
+                            <button class="btn-table-delete" type="submit" name="deleteId" th:value="${user.id}">
+                                Delete
+                            </button>
+                        </td>
                     </tr>
                 </td>
             </table>
+
             <table class="tbl-grid-msg">
                 <td th:if="${grid_msg != null}">
                     <tr><td th:text="${grid_msg}" /></tr>
                 </td>
             </table>
+
+            <div th:if = "${totalPages > 1}">
+                Total Items: [[${totalItems}]] in [[${totalPages}]] pages &nbsp; | &nbsp; &nbsp;
+
+                <button class="btn-pagination" th:disabled="${currentPage == 1}" type="submit"
+                        name="page" th:value="1"><<</button>
+                <button class="btn-pagination" th:disabled="${currentPage == 1}" type="submit"
+                        name="page" th:value="previous"><</button>
+                <td><input id="page-no-field" type="number" th:field="${request.paging.pageNumber}" min="1"/></td>
+                <button class="btn-pagination" th:disabled="${currentPage == totalPages}" type="submit"
+                        name="page" th:value="next">></button>
+                <button class="btn-pagination" th:disabled="${currentPage == totalPages}" type="submit"
+                        name="page" th:value="${totalPages}">>></button>
+            </div>
+
         </form>
-
-        <input type="text" id="tmp" name="tmp" th:value="${orderDir}"/>
-        <button class="btn" onclick="changeValue()">Test</button>
-
-                <a th:href = "@{'/showUsers/page/' + ${currentPage} +
-                                '?orderBy=username&orderDir=' + ${orderDir} +
-                                '&username=' + setUsername() + '&email=' + setEmail()}">
-                    <button class="btn">Test 1</button>
-
-                </a>
-
-        <div id="pagination" th:if = "${totalPages > 1}">
-            Total Items: [[${totalItems}]] &nbsp; &nbsp; | &nbsp; &nbsp;
-            <span>
-                <a th:if="${currentPage != 1}" th:href="@{'/showUsers/page/1' +
-                 '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">First</a>
-                <span class="link-disabled" th:unless="${currentPage != 1}">First</span> &nbsp; &nbsp;
-            </span>
-            <span>
-                <a th:if="${currentPage > 1}" th:href="@{'/showUsers/page/' + ${currentPage - 1} +
-                '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">Previous</a>
-                <span class="link-disabled" th:unless="${currentPage > 1}">Previous</span> &nbsp; &nbsp;
-            </span>
-            <span>
-                <th:block th:if="${totalPages <= 6}">
-                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                        <a th:if="${currentPage != i}" th:href="@{'/showUsers/page/' + ${i} +
-                        '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">[[${i}]]</a>
-                        <span class="link-disabled" th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                    </span>
-                </th:block>
-                <th:block th:if="${totalPages > 6}">
-                    <th:block th:if="${currentPage <= 3 || currentPage >= totalPages - 2}">
-                        <span th:each="i: ${#numbers.sequence(1, 3)}">
-                            <a th:if="${currentPage != i}" th:href="@{'/showUsers/page/' + ${i} +
-                             '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">[[${i}]]</a>
-                            <span class="link-disabled" th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                        </span>
-
-                        <a th:href="@{'/showUsers/page/' + 4 +
-                        '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">...</a> &nbsp; &nbsp;
-
-                        <span th:each="i: ${#numbers.sequence(totalPages - 2, totalPages)}">
-                            <a th:if="${currentPage != i}" th:href="@{'/showUsers/page/' + ${i} +
-                            '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">[[${i}]]</a>
-                            <span class="link-disabled" th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                        </span>
-                    </th:block>
-                    <th:block th:if="${currentPage > 3 && currentPage < totalPages - 2}">
-                        <a th:href="@{'/showUsers/page/' + ${currentPage - 3} +
-                        '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">...</a> &nbsp; &nbsp;
-
-                        <span th:each="i: ${#numbers.sequence(currentPage - 2, currentPage + 2)}">
-                            <a th:if="${currentPage != i}" th:href="@{'/showUsers/page/' + ${i} +
-                            '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">[[${i}]]</a>
-                            <span class="link-disabled" th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                        </span>
-
-                        <a th:href="@{'/showUsers/page/' + ${currentPage + 3} +
-                        '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">...</a> &nbsp; &nbsp;
-                    </th:block>
-                </th:block>
-            </span>
-            <span>
-                <a th:if="${currentPage < totalPages}" th:href="@{'/showUsers/page/' + ${currentPage + 1} +
-                '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">Next</a>
-                <span class="link-disabled" th:unless="${currentPage < totalPages}">Next</span> &nbsp; &nbsp;
-            </span>
-            <span>
-                <a th:if="${currentPage < totalPages}" th:href="@{'/showUsers/page/' + ${totalPages} +
-                '?orderBy=' + ${orderBy} + '&orderDir=' + ${orderDir}}">Last</a>
-                <span class="link-disabled" th:unless="${currentPage < totalPages}">Last</span>
-            </span>
-        </div>
     </section>
 </main>
-<script>
-    function changeValue() {
-      textField = document.getElementById("tmp");
-      textField.value = "Test";
-    }
-    function setOrdering(by, dir) {
-      textField = document.getElementById("orderBy");
-      textField.value = by;
-      textField = document.getElementById("orderDir");
-      textField.value = dir;
-      textField = document.getElementById("tmp");
-      textField.value = by + dir;
-    }
-    function setUsername() {
-      textField = document.getElementById("username");
-      return textField.value;
-    }
-      function setEmail() {
-      textField = document.getElementById("email");
-      return textField.value;
-    }
-</script>
 </body>
 
 </html>

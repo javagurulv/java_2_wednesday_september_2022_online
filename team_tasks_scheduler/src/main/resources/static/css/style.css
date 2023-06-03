@@ -21,6 +21,35 @@ main {
     cursor: pointer;
 }
 
+.btn-pagination {
+    padding: 1px;
+    background: blue;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-pagination:disabled {
+    background: skyblue;
+    cursor: default;
+}
+
+.btn-table-header {
+    border: none;
+    background: none;
+    color: blue;
+    font-weight : bold;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-table-delete {
+    background: red;
+    color: white;
+    padding: 1px;
+    cursor: pointer;
+}
+
 .tbl-grid {
   border: 1px solid black;
   margin: 15px 0px 0px 0px;
@@ -32,6 +61,7 @@ main {
     padding: 7px;
     color: blue;
     background-color: skyblue;
+    font-size: 14px;
 }
 
 .tbl-grid td {
@@ -109,6 +139,10 @@ main {
     text-align: center;
 }
 
+#page-no-field {
+    width: 50px
+}
+
 .tbl-buttons {
     table-layout: fixed;
     border-collapse: collapse;
@@ -117,10 +151,6 @@ main {
  .tbl-buttons button {
     width: 100%;
  }
-
-.tbl-header-ordering a:visited {
-    color: blue;
-}
 
 .form-confirm-button {
      float:left;
@@ -142,10 +172,6 @@ main {
     padding: 0px 0px 0px 10px;
 }
 
-
-#pagination a:visited {
-    color: blue;
-}
 ol {
   display: block;
   list-style-type: decimal;

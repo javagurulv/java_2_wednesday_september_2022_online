@@ -25,7 +25,7 @@ public class GetUsersNamesController {
     public String showUsernamesRegisteredInSystem(ModelMap modelMap) {
         GetUsersRequest request = new GetUsersRequest();
         GetUsersResponse response = getUsersService.execute(request, MenuType.START);
-        setDefaultRadioButtons(request);
+        setDefaultOrdering(request);
         modelMap.addAttribute("request", request);
         modelMap.addAttribute("users", response.getUsersNames());
         modelMap.addAttribute("list_status", getListStatus(request, response));
@@ -37,7 +37,7 @@ public class GetUsersNamesController {
     public String processGetUsersRequest(@ModelAttribute(value = "request") GetUsersRequest request, ModelMap modelMap) {
         normalizeRequest(request);
         GetUsersResponse response = getUsersService.execute(request, MenuType.START);
-        setDefaultRadioButtons(request);
+        setDefaultOrdering(request);
         if (response.hasErrors()) {
             modelMap.addAttribute("errors", response.getErrors());
         } else {
@@ -53,7 +53,7 @@ public class GetUsersNamesController {
         return "showUsernamesRegistered";
     }
 
-    private void setDefaultRadioButtons(GetUsersRequest request) {
+    private void setDefaultOrdering(GetUsersRequest request) {
         if (request.getOrdering() == null) {
             request.setOrdering(new Ordering("", ""));
         }
@@ -67,8 +67,7 @@ public class GetUsersNamesController {
                 request.getOrdering().setOrderBy("username");
             }
         }
-        if (request.getPaging().getPageNumber() == null &&
-                request.getPaging().getPageNumber() == null) {
+        if (request.getPaging().getPageNumber() == null) {
             request.setPaging(null);
         }
     }
