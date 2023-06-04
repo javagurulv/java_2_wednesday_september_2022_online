@@ -20,6 +20,17 @@ public class ValueChecking {
         return true;
     }
 
+    public static Long stringToLong(String input) {
+        Long result;
+
+        try {
+            result = Long.parseLong(input);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+        return result;
+    }
+
     public static boolean dateIsInRange(LocalDateTime date, LocalDateTime rangeStart, LocalDateTime rangeEnd) {
         if (date == null || rangeStart == null || rangeEnd == null)
             return false;

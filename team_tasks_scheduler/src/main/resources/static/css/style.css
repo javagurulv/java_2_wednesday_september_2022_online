@@ -28,6 +28,10 @@ main {
     cursor: pointer;
 }
 
+.btn-pagination:hover {
+    background: darkblue;
+}
+
 .btn-pagination:disabled {
     background: skyblue;
     cursor: default;
@@ -43,11 +47,20 @@ main {
     font-size: 14px;
 }
 
+.btn-table-header:hover {
+    color: darkblue;
+}
+
 .btn-table-delete {
-    background: red;
+    background: darkred;
     color: white;
     padding: 1px;
     cursor: pointer;
+}
+
+.btn-table-delete:hover {
+    background: white;
+    color: darkred;
 }
 
 .tbl-grid {

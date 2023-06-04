@@ -1,9 +1,14 @@
 package lv.javaguru.java2.tasksScheduler.web_ui.controllers;
 
+import lv.javaguru.java2.tasksScheduler.core.requests.DeleteUserRequest;
 import lv.javaguru.java2.tasksScheduler.core.requests.GetUsersRequest;
 import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Ordering;
 import lv.javaguru.java2.tasksScheduler.core.requests.ordering_paging.Paging;
+import lv.javaguru.java2.tasksScheduler.core.responses.CoreError;
+import lv.javaguru.java2.tasksScheduler.core.responses.DeleteUserResponse;
 import lv.javaguru.java2.tasksScheduler.core.responses.GetUsersResponse;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.DeleteCurrentUserService;
+import lv.javaguru.java2.tasksScheduler.core.services.menu_services.DeleteUserService;
 import lv.javaguru.java2.tasksScheduler.core.services.menu_services.GetUsersService;
 import lv.javaguru.java2.tasksScheduler.core.services.system.CheckLoggedUserService;
 import lv.javaguru.java2.tasksScheduler.enums.MenuType;
@@ -19,7 +24,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class GetUsersController {
@@ -30,6 +37,8 @@ public class GetUsersController {
     private GetUsersService getUsersService;
     @Autowired
     private CheckLoggedUserService checkLoggedUserService;
+    @Autowired
+    private DeleteUserService deleteUserService;
 
     @GetMapping(value = "/showUsers")
     public String showUsersRegisteredInSystem(ModelMap modelMap, HttpSession session) {
@@ -66,6 +75,27 @@ public class GetUsersController {
         if (!WebUI.checkIfUserIsLoggedIn(checkLoggedUserService, session.getId())) {
             return "errorNotLoggedIn";
         }
+
+        if (!ValueChecking.stringIsEmpty(deleteId)) {
+            Long userId = ValueChecking.stringToLong(deleteId);
+            if (userId == null) {
+                List<CoreError> errors = new ArrayList<>();
+                errors.add(new CoreError("User", "Deletion failed!"));
+                modelMap.addAttribute("errors", errors);
+                return "showUsers";
+            }
+            DeleteUserRequest deleteUserRequest = new DeleteUserRequest(userId);
+            DeleteUserResponse deleteUserResponse = deleteUserService.execute(deleteUserRequest);
+            if (deleteUserResponse.hasErrors()) {
+                modelMap.addAttribute("errors", deleteUserResponse.getErrors());
+            } else {
+                page = "1";
+                modelMap.addAttribute("deleted", "User " + "'"
+                    + deleteUserResponse.getDeletedUserName() + "'"
+                    + " has been successfully deleted.");
+            }
+        }
+
         normalizeRequest(page, orderBy, request);
         GetUsersResponse response = getUsersService.execute(request, MenuType.ADMIN);
         if (response.hasErrors()) {

@@ -32,6 +32,13 @@
             </tr>
         </td>
     </section>
+    <section id="msg-succeed">
+        <td th:if="${deleted != null}">
+            <tr>
+                <td th:text="${deleted}" />
+            </tr>
+        </td>
+    </section>
 
     <section id="form">
         <h3>Registered users</h3>
