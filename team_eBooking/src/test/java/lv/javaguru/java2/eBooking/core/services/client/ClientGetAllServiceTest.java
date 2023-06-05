@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.core.services.client;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientGetAllRequest;
 import lv.javaguru.java2.eBooking.core.responses.client.ClientsGetAllResponse;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 public class ClientGetAllServiceTest {
 
     @Mock
-    private Database database;
+    private ClientRepository clientRepository;
 
     @InjectMocks
     private ClientGetAllService service;
@@ -29,7 +29,7 @@ public class ClientGetAllServiceTest {
     public void shouldGetAListOgClientsFromDatabase(){
         List<Client> clients = new ArrayList<>();
         clients.add(new Client("Client email", "Client phone number"));
-        Mockito.when(database.getAllClients()).thenReturn(clients);
+        Mockito.when(clientRepository.getAllClients()).thenReturn(clients);
         ClientGetAllRequest request = new ClientGetAllRequest();
         ClientsGetAllResponse response = service.execute(request);
 

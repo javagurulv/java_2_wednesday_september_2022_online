@@ -1,6 +1,6 @@
 package lv.javaguru.java2.eBooking.dependency_injection;
 
-import lv.javaguru.java2.eBooking.core.database.Database;
+import lv.javaguru.java2.eBooking.core.database.ClientRepository;
 import org.junit.Test;
 import java.util.Set;
 
@@ -18,6 +18,6 @@ public class ClassFinderTest {
         assertEquals(classList.size(),74);
         assertTrue(classList
                 .stream()
-                .anyMatch(aClass -> aClass.equals(Database.class)));
+                .anyMatch(aClass -> aClass.equals(ClientRepository.class)));
     }
 }

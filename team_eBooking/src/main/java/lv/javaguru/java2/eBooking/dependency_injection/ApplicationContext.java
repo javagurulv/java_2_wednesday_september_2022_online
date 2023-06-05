@@ -1,35 +1,5 @@
 package lv.javaguru.java2.eBooking.dependency_injection;
 
-import lv.javaguru.java2.eBooking.console_ui.AddClientUIAction;
-
-import lv.javaguru.java2.eBooking.console_ui.RemoveClientUIAction;
-
-import lv.javaguru.java2.eBooking.console_ui.PrintAppointmentUIAction;
-
-import lv.javaguru.java2.eBooking.console_ui.PrintClientUIAction;
-import lv.javaguru.java2.eBooking.console_ui.SearchAppointmentUIAction;
-import lv.javaguru.java2.eBooking.console_ui.SearchClientUIAction;
-import lv.javaguru.java2.eBooking.console_ui.AddAppointmentUIAction;
-import lv.javaguru.java2.eBooking.console_ui.RemoveAppointmentUIAction;
-import lv.javaguru.java2.eBooking.console_ui.PrintApplicationMenuUIAction;
-import lv.javaguru.java2.eBooking.console_ui.ExitApplicationUIAction;
-import lv.javaguru.java2.eBooking.core.database.Database;
-import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentAddService;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentGetAllService;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentRemoveService;
-import lv.javaguru.java2.eBooking.core.services.appointment.AppointmentSearchService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientAddService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientGetAllService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientRemoveService;
-import lv.javaguru.java2.eBooking.core.services.client.ClientSearchService;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientAddValidator;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientRemoveValidator;
-import lv.javaguru.java2.eBooking.core.services.validators.ClientSearchValidator;
-import lv.javaguru.java2.eBooking.core.services.validators.AppointmentAddValidator;
-import lv.javaguru.java2.eBooking.core.services.validators.AppointmentRemoveValidator;
-import lv.javaguru.java2.eBooking.core.services.validators.AppointmentSearchValidator;
-
 import java.util.HashMap;
 import java.util.Map;
 @SuppressWarnings("unchecked")

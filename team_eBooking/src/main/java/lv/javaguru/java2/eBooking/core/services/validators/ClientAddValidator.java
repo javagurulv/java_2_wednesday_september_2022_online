@@ -1,6 +1,5 @@
 package lv.javaguru.java2.eBooking.core.services.validators;
 
-import lv.javaguru.java2.eBooking.core.database.InMemoryDatabase;
 import lv.javaguru.java2.eBooking.core.domain.Client;
 import lv.javaguru.java2.eBooking.core.requests.client_request.ClientAddRequest;
 import lv.javaguru.java2.eBooking.core.responses.CoreError;
