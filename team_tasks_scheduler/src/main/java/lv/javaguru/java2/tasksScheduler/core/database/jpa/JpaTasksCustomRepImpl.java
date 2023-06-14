@@ -2,7 +2,9 @@ package lv.javaguru.java2.tasksScheduler.core.database.jpa;
 
 
 import lv.javaguru.java2.tasksScheduler.core.domain.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +14,9 @@ import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.toList;
 import static lv.javaguru.java2.tasksScheduler.utils.ValueChecking.checkAdjustMySqlDateRange;
 
 public class JpaTasksCustomRepImpl implements JpaTasksCustomRep {
@@ -39,23 +43,39 @@ public class JpaTasksCustomRepImpl implements JpaTasksCustomRep {
     }
 
     @Override
+//    @Modifying
     public int deleteByUserIdTillDate(Long userId, LocalDateTime endDate) {
         TypedQuery<Task> query;
+//        Query query;
         String hql;
         LocalDateTime pEndDate = checkAdjustMySqlDateRange(endDate); //java range > mysql range
 
         if (userId == null) {
             hql = "select t FROM Task t where end_date < :endDate";
+//            hql = "delete FROM Task t where t.endDate < :endDate";
             query = entityManager.createQuery(hql, Task.class);
+//            query = entityManager.createQuery(
+//                    "DELETE FROM Task t WHERE t.endDate<:endDate");
         }
         else {
             hql = "select t FROM Task t where userId = :userId AND end_date < :endDate";
+//            hql = "delete FROM Task t where t.userId = :userId AND t.endDate < :endDate";
             query = entityManager.createQuery(hql, Task.class);
+//            query = entityManager.createQuery(
+//                    "DELETE FROM Task t WHERE t.userId=:userId AND t.endDate<:endDate");
             query.setParameter("userId", userId);
         }
         query.setParameter("endDate", pEndDate);
 
-        return query.getResultList().size();
+//        entityManager.getTransaction().begin();
+//        int result = query.executeUpdate();
+//        entityManager.getTransaction().commit();
+
+//        return query.getResultList().size();
+        List<Task> tasks = query.getResultList();
+        List<Long> idsToDelete = getTasksIdsToDelete(tasks);
+        return deleteTasksById(idsToDelete);
+
     }
 
     @Override
@@ -127,5 +147,27 @@ public class JpaTasksCustomRepImpl implements JpaTasksCustomRep {
         query.setParameter("userId", userId);
 
         return query.getResultList();
+    }
+
+    private List<Long> getTasksIdsToDelete(List<Task> tasks) {
+        if (tasks == null || tasks.size() == 0) {
+            return null;
+        }
+        return tasks.stream()
+                .map(Task::getId)
+                .collect(toList());
+    }
+
+    private int deleteTasksById(List<Long> ids) {
+        if (ids == null || ids.size() == 0) {
+            return 0;
+        }
+        int result = 0;
+        for (Long id : ids) {
+            // SOMEHOW TO DELETE BY ID!!!!
+            System.out.println("Id = " + id.toString());
+            result++;
+        }
+        return result;
     }
 }

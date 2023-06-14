@@ -24,14 +24,14 @@ public class TasksSchedulerApplication {
 
         UIActionMap uiActionMap = applicationContext.getBean(UIActionMap.class);
         ScheduledJobs backgroundJobs = applicationContext.getBean(ScheduledJobs.class);
-        //backgroundJobs.start();
+//        backgroundJobs.start();
 
 
-        TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
-
-        testData.createTestSettings();
-        testData.createTestUsers();
-        testData.createTestTasks();
+//        TestData testData = applicationContext.getBean(TestData.class); //TODO remove me
+//
+//        testData.createTestSettings();
+//        testData.createTestUsers();
+//        testData.createTestTasks();
 
 
         int menuNumber = 0;
