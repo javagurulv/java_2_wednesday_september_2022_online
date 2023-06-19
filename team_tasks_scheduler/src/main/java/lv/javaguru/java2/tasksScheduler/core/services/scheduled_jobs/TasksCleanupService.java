@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Component
 public class TasksCleanupService {
@@ -27,8 +28,8 @@ public class TasksCleanupService {
             result.setRunType("Auto");
         }
         try {
-            result.setActionsCount(tasksRepository.deleteByUserIdTillDate(null,
-                                            LocalDateTime.now().minusDays(1).with(LocalTime.MIN)));
+            List<Long> ids = tasksRepository.getAllTasksIdsToCleanup(LocalDateTime.now().minusDays(1));
+            result.setActionsCount(deleteTasksByIds(ids));
             result.setTimestampEnd(LocalDateTime.now());
             result.setStatus("Succeed");
         } catch (Exception e) {
@@ -38,5 +39,17 @@ public class TasksCleanupService {
             createLogsService.execute(result.getRecordInLogFormat());
         }
         return new JobRunResponse(result);
+    }
+
+    private int deleteTasksByIds(List<Long> ids) {
+        if (ids == null || ids.size() == 0) {
+            return 0;
+        }
+        int result = 0;
+        for (Long id : ids) {
+            tasksRepository.deleteById(id);
+            result++;
+        }
+        return result;
     }
 }
