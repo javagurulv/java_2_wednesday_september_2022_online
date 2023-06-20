@@ -8,12 +8,14 @@ import lv.javaguru.java2.tasksScheduler.core.services.system.CreateLogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Component
+@Transactional
 public class TasksCleanupService {
 
     @Value("${logs.job.tasks.cleanup.create}")
@@ -28,8 +30,8 @@ public class TasksCleanupService {
             result.setRunType("Auto");
         }
         try {
-            List<Long> ids = tasksRepository.getAllTasksIdsToCleanup(LocalDateTime.now().minusDays(1));
-            result.setActionsCount(deleteTasksByIds(ids));
+            result.setActionsCount(tasksRepository.deleteByUserIdTillDate(null,
+                            LocalDateTime.now().minusDays(1).with(LocalTime.MIN)));
             result.setTimestampEnd(LocalDateTime.now());
             result.setStatus("Succeed");
         } catch (Exception e) {
@@ -39,17 +41,5 @@ public class TasksCleanupService {
             createLogsService.execute(result.getRecordInLogFormat());
         }
         return new JobRunResponse(result);
-    }
-
-    private int deleteTasksByIds(List<Long> ids) {
-        if (ids == null || ids.size() == 0) {
-            return 0;
-        }
-        int result = 0;
-        for (Long id : ids) {
-            tasksRepository.deleteById(id);
-            result++;
-        }
-        return result;
     }
 }

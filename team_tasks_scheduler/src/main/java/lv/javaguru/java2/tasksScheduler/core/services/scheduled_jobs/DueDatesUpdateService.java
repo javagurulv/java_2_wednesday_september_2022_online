@@ -9,12 +9,14 @@ import lv.javaguru.java2.tasksScheduler.core.services.system.CreateLogsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
 @Component
+@Transactional
 public class DueDatesUpdateService {
     @Value("${logs.job.tasks.duedatesupdate.create}")
     private boolean createLog;

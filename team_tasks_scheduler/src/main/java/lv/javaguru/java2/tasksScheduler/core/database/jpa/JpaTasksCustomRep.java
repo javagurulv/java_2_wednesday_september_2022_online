@@ -23,6 +23,4 @@ public interface JpaTasksCustomRep {
     List<Task> getAllTasksReadyForDueDateUpdate(Long userId);
 
     List<Task> searchTasks(String searchPhrase, Long userID);
-
-    List<Long> getAllTasksIdsToCleanup(LocalDateTime endDate);
 }
