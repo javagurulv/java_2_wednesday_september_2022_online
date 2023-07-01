@@ -71,17 +71,17 @@ public class ScheduledJobs {
 
     private CronTrigger getTaskCleanupCronTrigger() {
 //        return new CronTrigger(cleanupCron);
-        return new CronTrigger("*/25 * * * * ?");
+        return new CronTrigger("*/35 * * * * ?");
     }
 
     private CronTrigger getDueDateUpdateCronTrigger() {
 //        return new CronTrigger(dateUpdateCron);
-        return new CronTrigger("*/30 * * * * ?");
+        return new CronTrigger("*/20 * * * * ?");
     }
 
     private CronTrigger getReminderSendingCronTrigger() {
 //        return new CronTrigger(reminderCron);
-        return new CronTrigger("*/40 * * * * ?");
+        return new CronTrigger("*/50 * * * * ?");
     }
 
     //ThreadPoolTaskScheduler taskScheduler =
